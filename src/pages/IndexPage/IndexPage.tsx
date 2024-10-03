@@ -6,7 +6,7 @@ import './IndexPage.scss'
 export const IndexPage: FC = () => {
   return (
     <section className={'container'}>
-      <TonConnectButton className='ton-connect__button'/>
+      <TonConnectButton  className='ton-connect__button'/>
 
     {/*  <Section
         header='Application Launch Data'
