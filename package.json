@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "type": "module",
-  "homepage": "https://holstby.github.io/etf-exhange-ton-fund-front",
+  "homepage": "https://holstby.github.io/etf-exchange-ton-fund-front",
   "scripts": {
     "deploy": "gh-pages -d dist",
     "dev": "vite",
