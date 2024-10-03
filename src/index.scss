@@ -1,0 +1,46 @@
+:root {
+    --telegram-bg-color: #fff;
+    --telegram-hint-color: #F0F1F5;
+    --Text-Dark: #1B1B1B;
+    --Font-Size-H0: 54px;
+    --Font-Size-H1: 38px;
+    --Font-Size-H2: 24px;
+    --Font-Subhead-Size-M: 22px;
+    --Font-Subhead-Size-S: 20px;
+    --Font-body-xl: 18px;
+    --Font-body-l: 16px;
+    --Font-body-m: 14px;
+    --Font-body-s: 12px;
+    --Font-Size-m: 16px;
+    --Font-Size-s: 14px;
+    --Font-Size-xs: 12px;
+    --Font-Size-xxs: 10px;
+}
+
+h1, h2, h3, h4, h5, h6, p, span {
+    font-family: "DM Sans", sans-serif;
+    color: var(--Text-Dark, black);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--telegram-hint-color, white);
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+}
+
+main {
+    height: calc(100vh - 50px);
+    overflow-y: auto;
+}
+
