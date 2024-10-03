@@ -51,9 +51,9 @@ export const App: FC = () => {
           <TabBarItem text={'About'} to={'/about'}>
             <AboutIcon className={pathname === '/about' ? 'about-active' : ''}/>
           </TabBarItem>
-          <TabBarItem text={'wallet'} to={'/ton-connect'}>
+          {/*<TabBarItem text={'wallet'} to={'/ton-connect'}>
             <AboutIcon className={pathname === '/ton-connect' ? 'about-active' : ''}/>
-          </TabBarItem>
+          </TabBarItem>*/}
         </TabBar>
       </Router>
       {/*<Tabbar>

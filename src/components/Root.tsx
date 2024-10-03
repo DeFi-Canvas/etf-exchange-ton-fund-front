@@ -1,5 +1,5 @@
 import { SDKProvider, useLaunchParams } from '@telegram-apps/sdk-react';
-import { TonConnectUIProvider } from '@tonconnect/ui-react';
+import {THEME, TonConnectUIProvider} from '@tonconnect/ui-react';
 import { type FC, useEffect, useMemo } from 'react';
 
 import { App } from '@/components/App.tsx';
@@ -34,7 +34,7 @@ const Inner: FC = () => {
   }, [debug]);
 
   return (
-    <TonConnectUIProvider manifestUrl={manifestUrl}>
+    <TonConnectUIProvider uiPreferences={{theme: THEME.LIGHT}} manifestUrl={manifestUrl}>
       <SDKProvider acceptCustomStyles debug={debug}>
         <App/>
       </SDKProvider>

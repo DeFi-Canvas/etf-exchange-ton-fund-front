@@ -15,6 +15,8 @@
     --Font-Size-s: 14px;
     --Font-Size-xs: 12px;
     --Font-Size-xxs: 10px;
+    --Colors-System-Green: #61C66C;
+    --Colors-System-Red: #FF584E;
 }
 
 h1, h2, h3, h4, h5, h6, p, span {
@@ -46,3 +48,19 @@ main {
     overflow-y: auto;
 }
 
+.ton-connect__button{
+    & button {
+        background-color: #fff;
+        box-shadow: none;
+        & svg path{
+            fill: black;
+        }
+        & div{
+            color: var(--Text-Dark, black);
+            font-size: var(--Font-Size-sm, 14px);
+            font-style: normal;
+            font-weight: 400;
+            line-height: 150%;
+        }
+    }
+}

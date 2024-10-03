@@ -1,14 +1,43 @@
-import type { FC } from 'react';
-import {TonConnectButton} from "@tonconnect/ui-react";
+import type {FC} from 'react';
+import {TonConnectButton, useTonWallet} from "@tonconnect/ui-react";
 import './IndexPage.scss'
-
+import EtfCard from "@/components/ETFCard/ETFCard.tsx";
+import firstCardImage from './../../assets/images/first_card_image.png'
+import secondCardImage from './../../assets/images/second_card_image.png'
 
 export const IndexPage: FC = () => {
+  const wallet = useTonWallet()
+  console.log(wallet)
+  const balanceValues =  `${(0).toFixed(2)}`.split('.')
   return (
     <section className={'container'}>
-      <TonConnectButton  className='ton-connect__button'/>
+      <TonConnectButton className='ton-connect__button'/>
+      <section className={'index--balance'}>
+        <h2>Current balance</h2>
+        <p>$ {balanceValues[0]}<span>.{balanceValues[1]}</span></p>
+      </section>
+      <section className={'etf-cards'}>
+        <EtfCard
+          etfURL={'/etf-pro'}
+          title="ETF Pro"
+          description={'Stable fund for long term investment'}
+          imgUrl={firstCardImage}
+          tvl={1235}
+          personEtfBalance={0}
+          aprPercent={10}
+          etfPriceChange={12.76}
+          badgeText={'MOST POPULAR'}
+        />
+        <EtfCard
+          etfURL={'/memes'}
+          title="Memes"
+          description={'For those of you who like memes'}
+          imgUrl={secondCardImage}
+          badgeText={'COMING SOON'}
+        />
+      </section>
 
-    {/*  <Section
+      {/*  <Section
         header='Application Launch Data'
         footer='These pages help developer to learn more about current launch information'
       >

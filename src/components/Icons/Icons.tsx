@@ -30,3 +30,18 @@ export const AboutIcon = ({className = ''}: { className?: string }) => (
       fill="#24262E"/>
   </svg>
 )
+
+export const DownIcon = ({className = ''}: {className?: string}) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" width="10" height="11" viewBox="0 0 10 11" fill="none">
+    <path d="M2.5 3L7.5 8M7.5 8V4.66667M7.5 8H4.16667" stroke="white" stroke-width="0.84" stroke-linecap="round"
+          stroke-linejoin="round"/>
+  </svg>
+)
+
+
+export const UpIcon = ({className = ''}: { className?: string }) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" width="10" height="11" viewBox="0 0 10 11" fill="none">
+    <path d="M2.5 8L7.5 3M7.5 3H4.16667M7.5 3V6.33333" stroke="white" stroke-width="0.84" stroke-linecap="round"
+          stroke-linejoin="round"/>
+  </svg>
+)

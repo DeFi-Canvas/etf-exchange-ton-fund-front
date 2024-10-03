@@ -1,0 +1,18 @@
+.big-badge {
+  padding: 6px 16px;
+  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.40);
+  background: rgba(255, 255, 255, 0.30);
+  backdrop-filter: blur(42px);
+
+  & p {
+    position: relative;
+    top: 1px;
+    color: #fff;
+    font-size: var(--Font-Size-xs, 12px);
+    line-height: 130%;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0;
+  }
+}

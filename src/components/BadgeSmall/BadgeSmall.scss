@@ -1,0 +1,25 @@
+.badge--small {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border-radius: 40px;
+  margin-top: 8px;
+  padding: 2px 12px;
+  width: fit-content;
+
+  &-red {
+    background: var(--Colors-System-Red, #FF584E);
+  }
+
+  &-green {
+    background: var(--Colors-System-Green, #61C66C);
+  }
+
+  & span {
+    font-size: var(--Font-Size-xxs, 10px);
+    line-height: 150%;
+    color: #fff;
+
+  }
+}

@@ -1,4 +1,4 @@
-import { TonConnectButton, useTonWallet } from '@tonconnect/ui-react';
+import {TonConnectButton, useTonConnectUI, useTonWallet} from '@tonconnect/ui-react';
 import type { FC } from 'react';
 
 
@@ -6,6 +6,7 @@ import './TONConnectPage.css';
 
 export const TONConnectPage: FC = () => {
   const wallet = useTonWallet();
+  useTonConnectUI()
 
   if (!wallet) {
     return (
