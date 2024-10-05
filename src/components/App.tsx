@@ -64,10 +64,10 @@ export const App: FC = () => {
         </Routes>
         <TabBar>
           <TabBarItem text={'Home'} to={'/'}>
-            <HomeIcon className={pathname === '/' ? 'home-active' : ''}/>
+            <HomeIcon className={pathname === '/' ? 'home-active home-icon' : 'home-icon'}/>
           </TabBarItem>
           <TabBarItem text={'About'} to={'/about'}>
-            <AboutIcon className={pathname === '/about' ? 'about-active' : ''}/>
+            <AboutIcon className={pathname === '/about' ? 'about-active home-icon' : 'home-icon'}/>
           </TabBarItem>
           {/*<TabBarItem text={'wallet'} to={'/ton-connect'}>
             <AboutIcon className={pathname === '/ton-connect' ? 'about-active' : ''}/>
