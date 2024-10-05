@@ -1,6 +1,11 @@
 import {ETFType} from "@/types.ts";
 import firstCardImage from './../assets/images/first_card_image.png'
 import secondCardImage from './../assets/images/second_card_image.png'
+import lowRisk from './../assets/images/Low risk.png'
+import commision from './../assets/images/Fee.png'
+import Ton from './../assets/icons/Ton.svg?url'
+import usdt from './../assets/icons/USDT.svg?url'
+import btc from './../assets/icons/Bitcoin.svg?url'
 
 export const etfs_data: ETFType[] = [
   {
@@ -18,15 +23,49 @@ export const etfs_data: ETFType[] = [
         {
           title: 'Low risk',
           subTitle: 'Compared to meme coins',
-          image: 'https://img.icons8.com/color/48/000000/low-risk.png'
+          image: lowRisk
         },
         {
           title: 'Commission 0,5%',
           subTitle: 'Сoins exchange fee',
-          image: 'https://img.icons8.com/color/48/000000/low-risk.png'
+          image: commision
         }
       ]
-    }
+    },
+    inside: [
+      {
+        title:'TON',
+        subTitle: 'Toncoin',
+        image:Ton,
+        numbers: '54%'
+      },
+      {
+        title: "USDT",
+        subTitle: "Tether USDT",
+        image: usdt,
+        numbers: '24%'
+      },
+      {
+        title: "BTC",
+        subTitle: "Bitcoin",
+        image: btc,
+        numbers: '22%'
+      }
+    ],
+    faq: [
+      {
+        question: 'Is it safe to invest in the fund?',
+        answer: 'All investment data is securely safeguarded by a smart contract, ensuring complete safety and transparency for investors. This decentralized system operates autonomously, minimizing human error and protecting your assets from unauthorized access or manipulation.'
+      },
+      {
+        question: 'How much profit will I make?',
+        answer: 'The fund provides a high-returning investment opportunity. The fund is designed to provide stable returns, with a maximum annualized return of 10%.'
+      },
+      {
+        question: 'How can I withdraw money?',
+        answer: 'The fund allows investors to withdraw their funds directly from the fund. The fund operates without intermediaries, offering transparency, security, and global accessibility.'
+      }
+    ]
   },
   {
     jettonSymbol: 'ETFMEMES',
@@ -40,15 +79,35 @@ export const etfs_data: ETFType[] = [
         {
           title: 'Low risk',
           subTitle: 'Compared to meme coins',
-          image: 'https://img.icons8.com/color/48/000000/low-risk.png'
+          image: lowRisk
         },
         {
           title: 'Commission 0,5%',
           subTitle: 'Сoins exchange fee',
-          image: 'https://img.icons8.com/color/48/000000/low-risk.png'
+          image: commision
         }
       ]
-    }
+    },
+    inside: [
+      {
+        title:'TON',
+        subTitle: 'Toncoin',
+        image:Ton,
+        numbers: '54%'
+      },
+      {
+        title: "USDT",
+        subTitle: "Tether USDT",
+        image: usdt,
+        numbers: '24%'
+      },
+      {
+        title: "BTC",
+        subTitle: "Bitcoin",
+        image: btc,
+        numbers: '22%'
+      }
+    ],
   }
 ]
 

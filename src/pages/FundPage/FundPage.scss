@@ -1,6 +1,20 @@
-.funds-page{
+.funds-page {
 
-  &--h1{
+  &--cards-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &--cards-wrapper, .cards-top8 {
+    margin-top: 8px;
+  }
+
+  &--cards-wrapper, .cards-top8 {
+    margin-top: 4px;
+  }
+
+  &--h1 {
     color: var(--Text-Dark, #1B1B1B);
     text-align: center;
     font-size: var(--Font-Size-xxl, 22px);
@@ -9,11 +23,22 @@
     margin: 0;
   }
 
-  &--about-text{
+  &--about-text {
     color: var(--colors-text-dark-70, rgba(36, 38, 46, 0.70));
     font-size: var(--Font-Size-md, 16px);
     font-weight: 400;
     line-height: 150%;
     margin: 0;
+  }
+
+  &--terms{
+    color: var(--Colors-Text-Dark, #24262E);
+    text-align: center;
+    font-family: var(--Font-Family-All, "DM Sans");
+    font-size: var(--Font-Size-xs, 12px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 18px */
+    margin: -12px 0 12px;
   }
 }

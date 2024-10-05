@@ -1,5 +1,5 @@
-import './BigCard.scss'
 import {ReactNode} from "react";
+import './BigCard.scss'
 
 type PropsType = {
   title: string
@@ -10,7 +10,6 @@ const BigCard = ({children, title}: PropsType) => {
   return (
     <div className={'big-card'}>
       <h2>{title}</h2>
-
       {children}
     </div>
   );

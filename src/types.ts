@@ -10,13 +10,27 @@ export type ETFType = {
   about: {
     text: string
     features?: Array<ETFFeatureType>
-  }
+  },
+  inside: Array<ETFInsideType>,
+  faq?: Array<ETFFaqType>
 }
 
 export type ETFFeatureType = {
   title: string
   subTitle:string
   image: string
+}
+
+export type ETFInsideType = {
+  title: string
+  subTitle:string
+  image: string
+  numbers?: string
+}
+
+export type ETFFaqType = {
+  question: string
+  answer: string
 }
 
 export type InitialStateType = {

@@ -1,47 +1,27 @@
 import './Icons.scss';
+import Home from '../../assets/icons/home-2.svg?react'
+import About from '../../assets/icons/status-up.svg?react'
+import Down from '../../assets/icons/narrow-down-right.svg?react'
+import Up from '../../assets/icons/narrow-up-right.svg?react'
+import Chevron from '../../assets/icons/chevron-down.svg?react'
 
 export const HomeIcon = ({className = ''}: {className?: string}) => (
-  <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-    <path opacity="0.1"
-          d="M14.2777 2.78473C12.7093 1.68582 10.3017 1.74576 8.79321 2.9146L3.78821 6.82069C2.78921 7.59991 2 9.19831 2 10.4571V17.3502C2 19.8976 4.06793 21.9755 6.61538 21.9755H17.3846C19.9321 21.9755 22 19.9076 22 17.3602V10.5869C22 9.23827 21.1309 7.57993 20.032 6.8107L14.2777 2.78473Z"
-          fill="#24262E"/>
-    <path
-      d="M11.1667 17.9798V14.9828C11.1667 14.5732 11.5063 14.2336 11.9159 14.2336C12.3255 14.2336 12.6652 14.5732 12.6652 14.9828V17.9798C12.6652 18.3894 12.3255 18.7291 11.9159 18.7291C11.5063 18.7291 11.1667 18.3894 11.1667 17.9798Z"
-      fill="#24262E"/>
-  </svg>
+  <Home width={20} height={20} className={className}/>
 )
 
 export const AboutIcon = ({className = ''}: { className?: string }) => (
-  <svg className={className} xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
-    <path opacity="0.1"
-          d="M6.60354 0.5C2.77964 0.5 0.5 2.77964 0.5 6.60354V15.3964C0.5 19.2308 2.77964 21.5105 6.60354 21.5105H15.3964C19.2203 21.5105 21.5 19.2308 21.5 15.4069V6.60354C21.5105 2.77964 19.2308 0.5 15.4069 0.5H6.60354Z"
-          fill="#24262E"/>
-    <path
-      d="M4.8396 17.466V15.2914C4.8396 14.8607 5.19678 14.5036 5.62749 14.5036C6.05821 14.5036 6.41538 14.8607 6.41538 15.2914V17.466C6.41538 17.9073 6.05821 18.2539 5.62749 18.2539C5.19678 18.2539 4.8396 17.8967 4.8396 17.466Z"
-      fill="#24262E"/>
-    <path
-      d="M10.2173 17.466V13.1063C10.2173 12.6756 10.5745 12.3184 11.0052 12.3184C11.436 12.3184 11.7931 12.6756 11.7931 13.1063V17.466C11.7931 17.9072 11.436 18.2538 11.0052 18.2538C10.5745 18.2538 10.2173 17.8967 10.2173 17.466Z"
-      fill="#24262E"/>
-    <path
-      d="M15.5952 17.4661V10.9319C15.5952 10.5012 15.9523 10.144 16.383 10.144C16.8138 10.144 17.1709 10.5012 17.1709 10.9319V17.4661C17.1709 17.9074 16.8243 18.254 16.383 18.254C15.9523 18.254 15.5952 17.8969 15.5952 17.4661Z"
-      fill="#24262E"/>
-    <path
-      d="M17.1413 4.34501C17.1308 4.30299 17.1203 4.25047 17.1098 4.20845C17.0888 4.16643 17.0573 4.13491 17.0363 4.09289C17.0047 4.05087 16.9732 3.99834 16.9312 3.96683C16.9207 3.95632 16.9207 3.94582 16.9102 3.94582C16.8787 3.92481 16.8472 3.9143 16.8156 3.89329C16.7736 3.86177 16.7211 3.83026 16.6686 3.80925C16.616 3.78824 16.5635 3.78824 16.511 3.77773C16.469 3.76723 16.4375 3.75672 16.3954 3.75672H13.3174C12.8867 3.75672 12.5295 4.1139 12.5295 4.54461C12.5295 4.97533 12.8867 5.33251 13.3174 5.33251H14.6306C12.1303 7.95882 8.97874 9.80774 5.43848 10.7007C5.01827 10.8057 4.75564 11.2364 4.86069 11.6567C4.94473 12.0138 5.27039 12.2555 5.62757 12.2555C5.6906 12.2555 5.75363 12.245 5.81667 12.2344C9.56703 11.2995 12.9182 9.35601 15.597 6.60364V7.62265C15.597 8.05336 15.9542 8.41054 16.3849 8.41054C16.8156 8.41054 17.1728 8.05336 17.1728 7.62265V4.54461C17.1728 4.53411 17.1728 4.5236 17.1728 4.5131C17.1728 4.46057 17.1518 4.39754 17.1413 4.34501Z"
-      fill="#24262E"/>
-  </svg>
+  <About width={20} height={20} className={className}/>
 )
 
 export const DownIcon = ({className = ''}: {className?: string}) => (
-  <svg className={className} xmlns="http://www.w3.org/2000/svg" width="10" height="11" viewBox="0 0 10 11" fill="none">
-    <path d="M2.5 3L7.5 8M7.5 8V4.66667M7.5 8H4.16667" stroke="white" stroke-width="0.84" stroke-linecap="round"
-          stroke-linejoin="round"/>
-  </svg>
-)
+  <Down className={className}/>)
 
 
 export const UpIcon = ({className = ''}: { className?: string }) => (
-  <svg className={className} xmlns="http://www.w3.org/2000/svg" width="10" height="11" viewBox="0 0 10 11" fill="none">
-    <path d="M2.5 8L7.5 3M7.5 3H4.16667M7.5 3V6.33333" stroke="white" stroke-width="0.84" stroke-linecap="round"
-          stroke-linejoin="round"/>
-  </svg>
+  <Up className={className}/>
+)
+
+
+export const ChevronDown = ({className = ''}: { className?: string }) => (
+ <Chevron className={className}/>
 )

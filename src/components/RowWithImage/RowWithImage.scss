@@ -1,0 +1,34 @@
+.row-with-image {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &--content {
+    display: flex;
+    gap: 15px;
+
+    & h3{
+      color: var(--Text-Dark, #1B1B1B);
+      font-size: var(--Font-Size-md, 16px);
+      font-weight: 500;
+      line-height: 135%;
+      margin: 0;
+    }
+    & p {
+      margin: 0;
+      color: var(--colors-text-dark-50, rgba(36, 38, 46, 0.50));
+      font-size: var(--Font-Size-xs, 12px);
+      font-weight: 400;
+      line-height: 150%
+    }
+  }
+
+  &--numbers {
+    text-align: right;
+    color: var(--Text-Dark, #1B1B1B);
+    font-size: var(--Font-Size-lg, 18px);
+    font-weight: 500;
+    line-height: 150%;
+    margin: 0;
+  }
+}
