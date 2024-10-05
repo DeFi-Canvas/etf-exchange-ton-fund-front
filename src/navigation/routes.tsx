@@ -3,6 +3,7 @@ import type { ComponentType, JSX } from 'react';
 import { IndexPage } from '@/pages/IndexPage/IndexPage';
 import AboutPage from "@/pages/AboutPage/AboutPage.tsx";
 import {TONConnectPage} from "@/pages/TONConnectPage/TONConnectPage.tsx";
+import FundPage from "@/pages/FundPage/FundPage.tsx";
 
 interface Route {
   path: string;
@@ -14,6 +15,7 @@ interface Route {
 export const routes: Route[] = [
   { path: '/', Component: IndexPage },
   { path: '/about', Component: AboutPage },
+  { path: '/funds/:id', Component: FundPage },
   /*{ path: '/init-data', Component: InitDataPage, title: 'Init Data' },
   { path: '/theme-params', Component: ThemeParamsPage, title: 'Theme Params' },
   { path: '/launch-params', Component: LaunchParamsPage, title: 'Launch Params' },*/

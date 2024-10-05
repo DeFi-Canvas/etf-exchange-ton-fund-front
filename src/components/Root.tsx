@@ -1,11 +1,13 @@
-import { SDKProvider, useLaunchParams } from '@telegram-apps/sdk-react';
+import {SDKProvider, useLaunchParams} from '@telegram-apps/sdk-react';
 import {THEME, TonConnectUIProvider} from '@tonconnect/ui-react';
-import { type FC, useEffect, useMemo } from 'react';
+import {Provider as ReduxProvider} from 'react-redux';
+import {type FC, useEffect, useMemo} from 'react';
 
-import { App } from '@/components/App.tsx';
-import { ErrorBoundary } from '@/components/ErrorBoundary.tsx';
+import {App} from '@/components/App.tsx';
+import {ErrorBoundary} from '@/components/ErrorBoundary.tsx';
+import {store} from "@/store";
 
-const ErrorBoundaryError: FC<{ error: unknown }> = ({ error }) => (
+const ErrorBoundaryError: FC<{ error: unknown }> = ({error}) => (
   <div>
     <p>An unhandled error occurred:</p>
     <blockquote>
@@ -36,7 +38,9 @@ const Inner: FC = () => {
   return (
     <TonConnectUIProvider uiPreferences={{theme: THEME.LIGHT}} manifestUrl={manifestUrl}>
       <SDKProvider acceptCustomStyles debug={debug}>
-        <App/>
+        <ReduxProvider store={store}>
+          <App/>
+        </ReduxProvider>
       </SDKProvider>
     </TonConnectUIProvider>
   );

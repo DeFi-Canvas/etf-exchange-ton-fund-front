@@ -16,9 +16,17 @@ import { routes } from '@/navigation/routes.tsx';
 import TabBar from "@/components/TabBar/TabBar.tsx";
 import TabBarItem from "@/components/TabBar/TabBarItem.tsx";
 import {AboutIcon, HomeIcon} from "@/components/Icons/Icons.tsx";
+import {toUserFriendlyAddress, useTonWallet} from "@tonconnect/ui-react";
+import {useAppSelector} from "@/hooks/useAppSelector.ts";
+import {useAppDispatch} from "@/hooks/useAppDispatch.ts";
+import {fetchWalletInfoTC, setWalletAddress} from "@/store/reducers/appSlice.ts";
+
 
 export const App: FC = () => {
   const viewport = useViewport();
+  const wallet = useTonWallet()
+  const dispatch = useAppDispatch()
+  const {wallet_info} = useAppSelector(state => state.appSlice)
 
   useEffect(() => {
     return viewport && bindViewportCSSVars(viewport);
@@ -36,6 +44,16 @@ export const App: FC = () => {
     navigator.attach();
     return () => navigator.detach();
   }, [navigator]);
+
+  useEffect(() => {
+    if (wallet?.account.address && !wallet_info) {
+      const address  = toUserFriendlyAddress(wallet.account.address)
+      Promise.all([
+        dispatch(setWalletAddress(address)),
+        dispatch(fetchWalletInfoTC({address})),
+      ])
+    }
+  }, [wallet?.account.address]);
 
   return (
     <main>

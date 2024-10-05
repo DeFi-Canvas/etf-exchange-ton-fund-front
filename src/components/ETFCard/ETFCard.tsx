@@ -2,18 +2,11 @@ import './ETFCard.scss'
 import BadgeSmall from "@/components/BadgeSmall/BadgeSmall.tsx";
 import BigBadge from "@/components/BigBadge/BigBadge.tsx";
 import {Link} from "@/components/Link/Link.tsx";
+import {ETFType} from "@/types.ts";
 
-type PropsType = {
-  title: string
-  description: string
-  imgUrl: string
-  tvl?: number
+type PropsType = ETFType & {
   personEtfBalance?: number
-  aprPercent?: number
-  etfPriceChange?: number
   isDisabled?: boolean
-  badgeText?: string
-  etfURL: string
 }
 
 const EtfCard = ({
@@ -24,12 +17,12 @@ const EtfCard = ({
                    personEtfBalance,
                    aprPercent,
                    etfPriceChange,
-                   badgeText, etfURL
+                   badgeText, jettonSymbol
                  }: PropsType) => {
 
 
   return (
-    <Link to={etfURL} className={'etf-card'}>
+    <Link to={`/funds/${jettonSymbol}`} className={'etf-card'}>
       {badgeText && <BigBadge text={badgeText} className={'etf-card-badge'}/>}
       <div className={'etf-card-img'}><img src={imgUrl} alt={`${title}`}/></div>
       <div className={'etf-card--middle'}>

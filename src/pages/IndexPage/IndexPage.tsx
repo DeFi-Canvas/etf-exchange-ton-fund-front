@@ -1,14 +1,15 @@
 import type {FC} from 'react';
-import {TonConnectButton, useTonWallet} from "@tonconnect/ui-react";
-import './IndexPage.scss'
+import {TonConnectButton} from "@tonconnect/ui-react";
 import EtfCard from "@/components/ETFCard/ETFCard.tsx";
-import firstCardImage from './../../assets/images/first_card_image.png'
-import secondCardImage from './../../assets/images/second_card_image.png'
+import {useAppSelector} from "@/hooks/useAppSelector.ts";
+import {etfs_data} from "@/data/mock_data.ts";
+
+import './IndexPage.scss'
 
 export const IndexPage: FC = () => {
-  const wallet = useTonWallet()
-  console.log(wallet)
-  const balanceValues =  `${(0).toFixed(2)}`.split('.')
+  const {wallet_info} = useAppSelector(state => state.appSlice)
+  const balanceValues = `${wallet_info?.totalamount ? wallet_info?.totalamount.toFixed(2) : '0.00'}`.split('.')
+
   return (
     <section className={'container'}>
       <TonConnectButton className='ton-connect__button'/>
@@ -16,25 +17,12 @@ export const IndexPage: FC = () => {
         <h2>Current balance</h2>
         <p>$ {balanceValues[0]}<span>.{balanceValues[1]}</span></p>
       </section>
-      <section className={'etf-cards'}>
-        <EtfCard
-          etfURL={'/etf-pro'}
-          title="ETF Pro"
-          description={'Stable fund for long term investment'}
-          imgUrl={firstCardImage}
-          tvl={1235}
-          personEtfBalance={0}
-          aprPercent={10}
-          etfPriceChange={12.76}
-          badgeText={'MOST POPULAR'}
-        />
-        <EtfCard
-          etfURL={'/memes'}
-          title="Memes"
-          description={'For those of you who like memes'}
-          imgUrl={secondCardImage}
-          badgeText={'COMING SOON'}
-        />
+      <section className={'etf-cards'}>{
+        etfs_data.map((etf) => {
+          const userEtfBalance = wallet_info?.jettons.find((jetton) => jetton.symbol === etf.jettonSymbol)?.price || 0
+          return <EtfCard key={etf.jettonSymbol} personEtfBalance={userEtfBalance} {...etf} />
+        })
+      }
       </section>
 
       {/*  <Section
