@@ -2,14 +2,14 @@ import {ReactNode} from "react";
 import './BigCard.scss'
 
 type PropsType = {
-  title: string
+  title?: string
   children: ReactNode
 }
 
 const BigCard = ({children, title}: PropsType) => {
   return (
     <div className={'big-card'}>
-      <h2>{title}</h2>
+      {title && <h2>{title}</h2>}
       {children}
     </div>
   );

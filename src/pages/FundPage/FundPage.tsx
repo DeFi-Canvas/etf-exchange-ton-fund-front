@@ -4,8 +4,10 @@ import BigCard from "@/components/BigCard/BigCard.tsx";
 import RowWithImage from "@/components/RowWithImage/RowWithImage.tsx";
 import {AccordionStyled} from "@/components/AccordionStyled/AccordionStyled.tsx";
 import {Link} from "@/components/Link/Link.tsx";
+import FundChart from "@/components/FundChart/FundChart.tsx";
+import {UpIcon} from "@/components/Icons/Icons.tsx";
 
-import './FundPage.scss'
+import './FundPage.scss';
 
 const FundPage = () => {
   const {id} = useParams()
@@ -16,7 +18,16 @@ const FundPage = () => {
   return (
     <div className={'container funds-page'}>
       <h1 className={'funds-page--h1'}>{etfData.title}</h1>
-      <BigCard title={'TVL'}><p>Chart</p></BigCard>
+      {id === 'ETFP' && <BigCard>
+          <div className={'fund-page--chart-text'}>
+              <div>
+                  <h3>TVL: $1234</h3>
+                  <p><UpIcon/> 12,54%</p>
+              </div>
+              <h2 className={'fund-page--chart-text-apr'}>APR: 5%</h2>
+          </div>
+          <FundChart/>
+      </BigCard>}
       <BigCard title={'About'}>
         <p className={'funds-page--about-text'}>{etfData.about.text}</p>
         <div className={'funds-page--cards-wrapper cards-top8'}>
@@ -29,15 +40,15 @@ const FundPage = () => {
         </div>
       </BigCard>
       {etfData.faq && <BigCard title={'FAQ'}>
-        <div className={'funds-page--cards-wrapper-faq cards-top4'}>
-          {etfData.faq?.map((item, index) => <AccordionStyled isFirst={!!index} key={index} title={item.question}
-                                                              content={item.answer}/>
-          )}
-        </div>
+          <div className={'funds-page--cards-wrapper-faq cards-top4'}>
+            {etfData.faq?.map((item, index) => <AccordionStyled isFirst={!!index} key={index} title={item.question}
+                                                                content={item.answer}/>
+            )}
+          </div>
       </BigCard>}
       <Link to={'/terms'} className={'funds-page--terms'}>Terms & conditions</Link>
     </div>
-);
+  );
 };
 
 export default FundPage;

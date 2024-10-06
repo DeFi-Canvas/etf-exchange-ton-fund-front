@@ -1,10 +1,10 @@
-import { useIntegration } from '@telegram-apps/react-router-integration';
+import {useIntegration} from '@telegram-apps/react-router-integration';
 import {
   bindViewportCSSVars,
   initNavigator,
   useViewport,
 } from '@telegram-apps/sdk-react';
-import { type FC, useEffect, useMemo } from 'react';
+import {type FC, Fragment, useEffect, useMemo} from 'react';
 import {
   Navigate,
   Route,
@@ -12,14 +12,15 @@ import {
   Routes,
 } from 'react-router-dom';
 
-import { routes } from '@/navigation/routes.tsx';
+import {routes} from '@/navigation/routes.tsx';
 import TabBar from "@/components/TabBar/TabBar.tsx";
 import TabBarItem from "@/components/TabBar/TabBarItem.tsx";
 import {AboutIcon, HomeIcon} from "@/components/Icons/Icons.tsx";
 import {toUserFriendlyAddress, useTonWallet} from "@tonconnect/ui-react";
 import {useAppSelector} from "@/hooks/useAppSelector.ts";
 import {useAppDispatch} from "@/hooks/useAppDispatch.ts";
-import {fetchWalletInfoTC, setWalletAddress} from "@/store/reducers/appSlice.ts";
+import {fetchWalletInfoTC,  setWalletAddress} from "@/store/reducers/appSlice.ts";
+import ButtonPrimary from "@/components/Buttons/ButtonPrimary.tsx";
 
 
 export const App: FC = () => {
@@ -47,13 +48,32 @@ export const App: FC = () => {
 
   useEffect(() => {
     if (wallet?.account.address && !wallet_info) {
-      const address  = toUserFriendlyAddress(wallet.account.address)
+      const address = toUserFriendlyAddress(wallet.account.address)
       Promise.all([
         dispatch(setWalletAddress(address)),
         dispatch(fetchWalletInfoTC({address})),
       ])
     }
   }, [wallet?.account.address]);
+
+  const renderTabBar = () => {
+    const isInvest = /^\/funds\/\w+$/.test(pathname)
+    const fund = pathname.split('/')[2]
+    const isETFP = fund !== 'ETFP'
+
+    const onClick = async () => {
+      navigator.push('/invest/' + fund)
+    }
+
+    return isInvest ? <ButtonPrimary text={'Invest'} isDisabled={isETFP} onClick={onClick}/> : <Fragment>
+      <TabBarItem text={'Home'} to={'/'}>
+        <HomeIcon className={pathname === '/' ? 'home-active home-icon' : 'home-icon'}/>
+      </TabBarItem>
+      <TabBarItem text={'About'} to={'/about'}>
+        <AboutIcon className={pathname === '/about' ? 'about-active home-icon' : 'home-icon'}/>
+      </TabBarItem>
+    </Fragment>
+  }
 
   return (
     <main>
@@ -63,25 +83,9 @@ export const App: FC = () => {
           <Route path='*' element={<Navigate to='/'/>}/>
         </Routes>
         <TabBar>
-          <TabBarItem text={'Home'} to={'/'}>
-            <HomeIcon className={pathname === '/' ? 'home-active home-icon' : 'home-icon'}/>
-          </TabBarItem>
-          <TabBarItem text={'About'} to={'/about'}>
-            <AboutIcon className={pathname === '/about' ? 'about-active home-icon' : 'home-icon'}/>
-          </TabBarItem>
-          {/*<TabBarItem text={'wallet'} to={'/ton-connect'}>
-            <AboutIcon className={pathname === '/ton-connect' ? 'about-active' : ''}/>
-          </TabBarItem>*/}
+          {renderTabBar()}
         </TabBar>
       </Router>
-      {/*<Tabbar>
-        <Tabbar.Item text={'Home'} selected={location.pathname === '/'} onClick={() => navigator.push('/')}>
-          123
-        </Tabbar.Item>
-        <Tabbar.Item text={'theme-params'} selected={location.pathname === '/theme-params'} onClick={() => navigator.push('/theme-params')}>
-          321
-        </Tabbar.Item>
-      </Tabbar>*/}
     </main>
   );
 };

@@ -8,7 +8,9 @@ type PropsType ={
 const TabBar = ({ children }: PropsType ) => {
   return (
     <nav className={'tabBar'}>
-      {children}
+      <div className={'tabBar__wrapper'}>
+        {children}
+      </div>
     </nav>
   );
 };

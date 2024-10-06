@@ -1,0 +1,22 @@
+button.button-primary{
+  text-align: center;
+  font-family: var(--Font-Family-All, "DM Sans");
+  font-size: var(--Font-Size-md, 16px);
+  font-weight: 500;
+  line-height: 135%;
+  border-radius: 12px;
+  border: 0;
+  background: #5B39F4;
+  color: #fff;
+  padding: 14px var(--Font-Size-H2, 24px);
+  width: 100%;
+  max-width: 340px;
+  margin: 0 16px;
+  justify-content: center;
+  align-items: center;
+
+  &:disabled{
+    color: #24262E33;
+    background: #24262E1A;
+  }
+}
