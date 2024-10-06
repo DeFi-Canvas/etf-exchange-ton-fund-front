@@ -6,6 +6,7 @@ import {type FC, useEffect, useMemo} from 'react';
 import {App} from '@/components/App.tsx';
 import {ErrorBoundary} from '@/components/ErrorBoundary.tsx';
 import {store} from "@/store";
+import {TwaAnalyticsProvider} from "@tonsolutions/telemetree-react";
 
 const ErrorBoundaryError: FC<{ error: unknown }> = ({error}) => (
   <div>
@@ -27,6 +28,7 @@ const Inner: FC = () => {
   const manifestUrl = useMemo(() => {
     return new URL('tonconnect-manifest.json', window.location.href).toString();
   }, []);
+  const isDevMode = import.meta.env.DEV
 
   // Enable debug mode to see all the methods sent and events received.
   useEffect(() => {
@@ -39,7 +41,13 @@ const Inner: FC = () => {
     <TonConnectUIProvider uiPreferences={{theme: THEME.LIGHT}} manifestUrl={manifestUrl}>
       <SDKProvider acceptCustomStyles debug={debug}>
         <ReduxProvider store={store}>
-          <App/>
+          {isDevMode ? <App/> : <TwaAnalyticsProvider
+            projectId={"01d4b208-2a59-45bf-a14d-8e984cb169b5"}
+            apiKey={"bed8ecf5-5668-41a1-85e3-2ee220f895be"}
+            appName={"etf_test"}
+          >
+            <App/>
+          </TwaAnalyticsProvider>}
         </ReduxProvider>
       </SDKProvider>
     </TonConnectUIProvider>

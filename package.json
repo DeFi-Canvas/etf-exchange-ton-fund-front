@@ -21,6 +21,7 @@
     "@telegram-apps/sdk-react": "^1.0.0",
     "@telegram-apps/telegram-ui": "^2.1.8",
     "@tonconnect/ui-react": "^2.0.5",
+    "@tonsolutions/telemetree-react": "^1.1.10",
     "eruda": "^3.0.1",
     "formik": "^2.4.6",
     "ngrok": "^5.0.0-beta.2",

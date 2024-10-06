@@ -20,7 +20,7 @@ export const fetchWalletInfoTC = createAsyncThunk(
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
-    wallet_address: 'UQAQMxo4Cxx1yxU8bEwiS02IKvFGAkH6c6IrueO2h_3cPj-a',
+   /* wallet_address: 'UQAQMxo4Cxx1yxU8bEwiS02IKvFGAkH6c6IrueO2h_3cPj-a',
     wallet_info: {
       "balance": 1.908952552,
       "price": 5.37975,
@@ -34,7 +34,7 @@ export const appSlice = createSlice({
         "wallet": "0:e7eaf87e652521dd15f004d92993f92610640fd43108be974f9a059baa691410",
         "jetton": "0:f916a5c64f15f915da3afac4d33274a8dc1fe29c98cd76bcf21e252e309d097b"
       }]
-    }
+    }*/
   } as InitialStateType,
   reducers: {
     setWalletAddress: (state, action) => {

@@ -1,4 +1,4 @@
-const API_URL = 'http://62.77.156.214:8080'
+const API_URL = 'https://62.77.156.214'
 
 export const API = {
   getWalletInfo: async (address: string) => {
