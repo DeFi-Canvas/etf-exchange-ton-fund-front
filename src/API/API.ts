@@ -1,4 +1,4 @@
-const API_URL = 'https://62.77.156.214'
+const API_URL = 'https://etf-exchange-ton-fund-back-production.up.railway.app'
 
 export const API = {
   getWalletInfo: async (address: string) => {
