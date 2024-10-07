@@ -4,7 +4,7 @@ import {
   initNavigator,
   useViewport,
 } from '@telegram-apps/sdk-react';
-import {type FC, Fragment, useEffect, useMemo} from 'react';
+import {type FC,  useEffect, useMemo} from 'react';
 import {
   Navigate,
   Route,
@@ -14,13 +14,10 @@ import {
 
 import {routes} from '@/navigation/routes.tsx';
 import TabBar from "@/components/TabBar/TabBar.tsx";
-import TabBarItem from "@/components/TabBar/TabBarItem.tsx";
-import {AboutIcon, HomeIcon} from "@/components/Icons/Icons.tsx";
 import {toUserFriendlyAddress, useTonWallet} from "@tonconnect/ui-react";
 import {useAppSelector} from "@/hooks/useAppSelector.ts";
 import {useAppDispatch} from "@/hooks/useAppDispatch.ts";
-import {fetchWalletInfoTC,  setWalletAddress} from "@/store/reducers/appSlice.ts";
-import ButtonPrimary from "@/components/Buttons/ButtonPrimary.tsx";
+import {fetchWalletInfoTC, setWalletAddress} from "@/store/reducers/appSlice.ts";
 
 
 export const App: FC = () => {
@@ -36,7 +33,6 @@ export const App: FC = () => {
   // Create a new application navigator and attach it to the browser history, so it could modify
   // it and listen to its changes.
   const navigator = useMemo(() => initNavigator('app-navigation-state'), []);
-  const pathname = navigator.pathname
   const [location, reactNavigator] = useIntegration(navigator);
 
   // Don't forget to attach the navigator to allow it to control the BackButton state as well
@@ -56,24 +52,6 @@ export const App: FC = () => {
     }
   }, [wallet?.account.address]);
 
-  const renderTabBar = () => {
-    const isInvest = /^\/funds\/\w+$/.test(pathname)
-    const fund = pathname.split('/')[2]
-    const isETFP = fund !== 'ETFP'
-
-    const onClick = async () => {
-      navigator.push('/invest/' + fund)
-    }
-
-    return isInvest ? <ButtonPrimary text={'Invest'} isDisabled={isETFP} onClick={onClick}/> : <Fragment>
-      <TabBarItem text={'Home'} to={'/'}>
-        <HomeIcon className={pathname === '/' ? 'home-active home-icon' : 'home-icon'}/>
-      </TabBarItem>
-      <TabBarItem text={'About'} to={'/about'}>
-        <AboutIcon className={pathname === '/about' ? 'about-active home-icon' : 'home-icon'}/>
-      </TabBarItem>
-    </Fragment>
-  }
 
   return (
     <main>
@@ -82,9 +60,7 @@ export const App: FC = () => {
           {routes.map((route) => <Route key={route.path} {...route} />)}
           <Route path='*' element={<Navigate to='/'/>}/>
         </Routes>
-        <TabBar>
-          {renderTabBar()}
-        </TabBar>
+        <TabBar/>
       </Router>
     </main>
   );

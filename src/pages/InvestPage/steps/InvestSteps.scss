@@ -1,0 +1,37 @@
+.invest-steps {
+  gap: 48px;
+
+  &--content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    &-text {
+      & h2 {
+        color: var(--Text-Dark, #1B1B1B);
+        text-align: center;
+        font-size: var(--Font-Size-xxl, 22px);
+        font-weight: 500;
+        line-height: 130%;
+        margin: 0;
+      }
+
+      & p {
+        color: var(--Text-Dark, #1B1B1B);
+        text-align: center;
+        font-size: var(--Font-Size-md, 16px);
+        font-weight: 400;
+        line-height: 150%;
+        margin: 0;
+      }
+    }
+
+   &-coins{
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     flex-shrink: 0;
+     gap: 12px;
+   }
+  }
+}
