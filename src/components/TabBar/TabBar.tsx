@@ -1,16 +1,32 @@
 import './TabBar.scss'
 import ButtonPrimary from "@/components/Buttons/ButtonPrimary.tsx";
-import {Fragment} from "react";
+import {Fragment, useMemo} from "react";
 import TabBarItem from "@/components/TabBar/TabBarItem.tsx";
 import {AboutIcon, HomeIcon} from "@/components/Icons/Icons.tsx";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useAppSelector} from "@/hooks/useAppSelector.ts";
 import {useTonWallet} from "@tonconnect/ui-react";
 import ButtonsSecondary from "@/components/Buttons/ButtonsSecondary.tsx";
+import {calcIsError} from "@/utils/calcIsError.ts";
 
 
 const TabBar = () => {
-  const { selectedCoinToInvest, valueToInvest} = useAppSelector(state => state.appSlice)
+  const { selectedCoinToInvest, valueToInvest, wallet_info} = useAppSelector(state => state.appSlice)
+  const selectedCoin = useMemo(() => {
+    if (selectedCoinToInvest === 'TON') {
+      return {
+        balance: wallet_info?.balance ?? 0,
+        price: wallet_info?.price ?? 0,
+        name: 'TON',
+        symbol: 'TON',
+        image: '/assets/icons/Ton.svg',
+        jetton: 'TON',
+        wallet: ''
+      }
+    } else {
+      return wallet_info?.jettons.find(j => j.name === selectedCoinToInvest)
+    }
+  }, [wallet_info, selectedCoinToInvest])
   const {pathname} = useLocation()
   const navigator = useNavigate()
 
@@ -35,7 +51,7 @@ const TabBar = () => {
     if (isSteps) {
       if (step && step === '1') return <ButtonPrimary text={'Continue'} isDisabled={!selectedCoinToInvest}
                                                   onClick={() => onStepsClick(1)}/>
-      if (step && step === '2') return <ButtonsSecondary text={valueToInvest !== 0 ? 'Continue' : 'Enter the total amount'} isDisabled={!valueToInvest}
+      if (step && step === '2') return <ButtonsSecondary text={valueToInvest !== 0 ? 'Continue' : 'Enter the total amount'} isDisabled={!valueToInvest || calcIsError({minValue:1, currentValue: valueToInvest, maxValue: selectedCoin?.balance || 0})}
                                                       onClick={() => onStepsClick(2)}/>
       return <ButtonPrimary text={'Continue'} isDisabled={isETFP}/>
     }

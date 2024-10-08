@@ -10,7 +10,7 @@ const InvestStep3 = () => {
         <h2>All is almost done</h2>
         <p>Only one step left to convert your coins into an income-generating ETF. Swipe to sign the transaction.</p>
       </div>
-      <ReactPlayer playing width={240} height={190}  url={ton} />
+      <ReactPlayer playsinline playing width={240} height={190}  url={ton} />
     </div>
   );
 };

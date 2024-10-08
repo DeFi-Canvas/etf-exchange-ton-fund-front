@@ -6,16 +6,16 @@ type PropsType = {
   selectedCoin: JettonType
   value: number
   onChange: (value: number) => void
+  isError?: boolean
 }
 
 
-const CustomCoinInput = ({selectedCoin, onChange, value}:PropsType) => {
-
+const CustomCoinInput = ({selectedCoin, onChange, value, isError}:PropsType) => {
   return (
-    <div className={'custom-coin-input'} >
+    <div className={`custom-coin-input ${isError ? 'input-error' : ''}`} >
       <div className={'custom-coin-input__title'}>
         <div className={'custom-coin-input__input'}>
-          <AutowidthInput  value={value} min={1} type={"number"} onChange={(e) => {
+          <AutowidthInput  value={value} type={"number"} onChange={(e) => {
             onChange(+e.target.value)
           }}/>
         </div>

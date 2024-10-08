@@ -2,11 +2,12 @@ import {useAppSelector} from "@/hooks/useAppSelector.ts";
 import CustomCoinInput from "@/components/CustomCoinInput/CustomCoinInput.tsx";
 import ton from '@/assets/icons/Ton.svg?url'
 import {JettonType} from "@/types.ts";
-import { useLayoutEffect, useMemo} from "react";
+import {useLayoutEffect, useMemo} from "react";
 import {useAppDispatch} from "@/hooks/useAppDispatch.ts";
-import {setSelectedCoinToInvest, setValueToInvest} from "@/store/reducers/appSlice.ts";
+import {setValueToInvest} from "@/store/reducers/appSlice.ts";
 import {useLocation, useNavigate} from "react-router-dom";
 import './InvestSteps.scss'
+import {calcIsError} from "@/utils/calcIsError.ts";
 
 const InvestStep2 = () => {
   const pathname = useLocation().pathname
@@ -30,29 +31,33 @@ const InvestStep2 = () => {
   }
 
   const selectedCoin = useMemo(() => getCoinData(), [wallet_info, selectedCoinToInvest])
+  const isError = useMemo(() => calcIsError({
+    maxValue: selectedCoin?.balance,
+    currentValue: valueToInvest,
+    minValue: 1
+  }), [wallet_info, valueToInvest, selectedCoinToInvest])
 
-  const onChange = (value: number ) => {
+  console.log(isError)
+
+  const onChange = (value: number) => {
     dispatch(setValueToInvest(value))
   }
 
   useLayoutEffect(() => {
     !selectedCoin && navigator(`/funds/${fund}`)
-    return () => {
-      dispatch(setSelectedCoinToInvest(''))
-    }
   }, []);
 
   return (
     <div className={'invest-steps--content'}>
-      <CustomCoinInput selectedCoin={selectedCoin} value={valueToInvest} onChange={onChange}/>
+      <CustomCoinInput isError={isError} selectedCoin={selectedCoin} value={valueToInvest} onChange={onChange}/>
       <div className={'invest-steps--balance'}>
-          <div className={'row-with-image--content'}>
-            <img src={selectedCoin?.image} alt={selectedCoin?.name} width={40} height={40}/>
-            <div>
-              <p>Selected balance</p>
-              <h3>{selectedCoin?.balance.toFixed(2)}</h3>
-            </div>
+        <div className={'row-with-image--content'}>
+          <img src={selectedCoin?.image} alt={selectedCoin?.name} width={40} height={40}/>
+          <div>
+            <p>Selected balance</p>
+            <h3>{selectedCoin?.balance.toFixed(2)}</h3>
           </div>
+        </div>
       </div>
     </div>
   );

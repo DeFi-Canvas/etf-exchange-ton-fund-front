@@ -19,7 +19,7 @@
     align-items: flex-end;
 
     & p {
-      margin: 0 0 6px;
+      margin: 0 0 10px;
       color: var(--colors-text-dark-50, rgba(36, 38, 46, 0.50));
       font-size: var(--Font-Size-H2, 24px);
       font-weight: 600;
@@ -28,12 +28,20 @@
 
 
   }
+
+}
+
+.custom-coin-input.input-error {
+  & > p{
+    color: var(--Colors-System-Red, #FF584E);
+  }
+  & input, span, p {
+    color: var(--Colors-System-Red, #FF584E);
+  }
 }
 
 
 .custom-coin-input__input {
-
-
   & span {
     visibility: hidden;
   }
@@ -58,4 +66,6 @@
       outline: none;
     }
   }
+
+
 }
