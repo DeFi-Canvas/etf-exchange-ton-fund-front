@@ -5,33 +5,38 @@ import TabBarItem from "@/components/TabBar/TabBarItem.tsx";
 import {AboutIcon, HomeIcon} from "@/components/Icons/Icons.tsx";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useAppSelector} from "@/hooks/useAppSelector.ts";
-import {useAppDispatch} from "@/hooks/useAppDispatch.ts";
-import {setInvestStep} from "@/store/reducers/appSlice.ts";
+import {useTonWallet} from "@tonconnect/ui-react";
+import ButtonsSecondary from "@/components/Buttons/ButtonsSecondary.tsx";
 
 
 const TabBar = () => {
-  const dispatch = useAppDispatch()
-  const {investStep, selectedCoinToInvest} = useAppSelector(state => state.appSlice)
+  const { selectedCoinToInvest, valueToInvest} = useAppSelector(state => state.appSlice)
   const {pathname} = useLocation()
   const navigator = useNavigate()
 
   const renderTabBar = () => {
+    const wallet = useTonWallet()
     const isFund = /^\/funds\/\w+$/.test(pathname)
     const isSteps = /^\/invest/.test(pathname)
     const fund = pathname.split('/')[2]
-    const isETFP = fund !== 'ETFP'
+    const isETFP = fund === 'ETFP'
+    const step = pathname.split('/')[3]
 
     const onStartInvestClick = async () => {
-      navigator('/invest/' + fund)
+      navigator('/invest/' + fund + '/1')
     }
 
-    const onStepsClick = async () => {
-      dispatch(setInvestStep(investStep + 1))
+    const onStepsClick = async (currentStep: number) => {
+      navigator('/invest/' + fund + '/' + (currentStep + 1))
     }
 
-    if (isFund) return <ButtonPrimary text={'Invest'} isDisabled={isETFP} onClick={onStartInvestClick}/>
+    if (isFund) return <ButtonPrimary text={'Invest'} isDisabled={!isETFP || !wallet?.account.address}
+                                      onClick={onStartInvestClick}/>
     if (isSteps) {
-      if (investStep === 1) return <ButtonPrimary text={'Continue'} isDisabled={!selectedCoinToInvest} onClick={onStepsClick}/>
+      if (step && step === '1') return <ButtonPrimary text={'Continue'} isDisabled={!selectedCoinToInvest}
+                                                  onClick={() => onStepsClick(1)}/>
+      if (step && step === '2') return <ButtonsSecondary text={valueToInvest !== 0 ? 'Continue' : 'Enter the total amount'} isDisabled={!valueToInvest}
+                                                      onClick={() => onStepsClick(2)}/>
       return <ButtonPrimary text={'Continue'} isDisabled={isETFP}/>
     }
 

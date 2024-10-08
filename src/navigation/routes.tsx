@@ -6,6 +6,7 @@ import {TONConnectPage} from "@/pages/TONConnectPage/TONConnectPage.tsx";
 import FundPage from "@/pages/FundPage/FundPage.tsx";
 import InvestPage from "@/pages/InvestPage/InvestPage.tsx";
 
+
 interface Route {
   path: string;
   Component: ComponentType;
@@ -17,7 +18,8 @@ export const routes: Route[] = [
   {path: '/', Component: IndexPage},
   {path: '/about', Component: AboutPage},
   {path: '/funds/:id', Component: FundPage},
-  {path: '/invest/:id', Component: InvestPage},
+  {path: '/invest/:id/:step', Component: InvestPage},
+
   /*{ path: '/init-data', Component: InitDataPage, title: 'Init Data' },
   { path: '/theme-params', Component: ThemeParamsPage, title: 'Theme Params' },
   { path: '/launch-params', Component: LaunchParamsPage, title: 'Launch Params' },*/

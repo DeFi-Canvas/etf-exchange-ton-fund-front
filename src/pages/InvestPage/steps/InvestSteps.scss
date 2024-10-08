@@ -4,7 +4,9 @@
   &--content {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 40px;
+    width: 100%;
 
     &-text {
       & h2 {
@@ -27,11 +29,21 @@
     }
 
    &-coins{
+     width: 100%;
+     max-width: 380px;
      display: flex;
      flex-direction: column;
      align-items: center;
      flex-shrink: 0;
      gap: 12px;
    }
+  }
+
+  &--balance{
+    position: absolute;
+    bottom: 95px;
+    width: 100%;
+    max-width: 412px;
+    padding: 16px;
   }
 }

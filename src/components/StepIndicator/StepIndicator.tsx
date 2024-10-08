@@ -9,7 +9,7 @@ const StepIndicator = ({stepNumber}:PropsType) => {
 
   const renderStep = () => {
     switch (stepNumber) {
-      case 3:
+      case '3':
         return 'Final Step'
       default:
         return 'Step ' + stepNumber

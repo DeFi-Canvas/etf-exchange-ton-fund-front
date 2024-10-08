@@ -18,3 +18,11 @@ button.button-primary{
     background: #24262E1A;
   }
 }
+
+
+button.button-secondary{
+  &:disabled{
+    background: var(--colors-main-purple-10, rgba(91, 57, 244, 0.10));
+    color: #5B39F4;
+  }
+}

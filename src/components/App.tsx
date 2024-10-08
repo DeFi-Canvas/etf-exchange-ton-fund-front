@@ -17,7 +17,7 @@ import TabBar from "@/components/TabBar/TabBar.tsx";
 import {toUserFriendlyAddress, useTonWallet} from "@tonconnect/ui-react";
 import {useAppSelector} from "@/hooks/useAppSelector.ts";
 import {useAppDispatch} from "@/hooks/useAppDispatch.ts";
-import {fetchWalletInfoTC, setWalletAddress} from "@/store/reducers/appSlice.ts";
+import {fetchWalletInfoTC, refreshWalletInfo, setWalletAddress} from "@/store/reducers/appSlice.ts";
 
 
 export const App: FC = () => {
@@ -50,6 +50,7 @@ export const App: FC = () => {
         dispatch(fetchWalletInfoTC({address})),
       ])
     }
+    !wallet?.account && dispatch(setWalletAddress('')) && dispatch(refreshWalletInfo())
   }, [wallet?.account.address]);
 
 

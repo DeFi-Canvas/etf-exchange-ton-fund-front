@@ -19,7 +19,9 @@ const InvestStep1 = () => {
     dispatch(selectedCoinToInvest === symbol ? setSelectedCoinToInvest('') : setSelectedCoinToInvest(symbol))
   }
 
+
   return (
+
     <div className={'invest-steps--content'}>
       <div className={'invest-steps--content-text'}>
         <h2>Please, select one asset</h2>
@@ -28,10 +30,12 @@ const InvestStep1 = () => {
 
       <div className={'invest-steps--content-coins'}>
         <RowWithImage className={'row-with-image--white'} title={'TON'} image={ton} subTitle={'Toncoin'}
-                      disabled={!tonBalance} numbers={tonBalance} onClick={() => handleCoinClick('TON')} isSelected={selectedCoinToInvest === 'TON'}/>
+                      disabled={!tonBalance} numbers={tonBalance} onClick={() => handleCoinClick('TON')}
+                      isSelected={selectedCoinToInvest === 'TON'}/>
         <RowWithImage className={'row-with-image--white'} title={'USDT'} image={usdt} subTitle={'Tether USDT'}
                       disabled={true} numbers={usdtBalance}/>
-        <RowWithImage className={'row-with-image--white'} title={'DOGS'} image={dogs} subTitle={'Dogs'} disabled={true}
+        <RowWithImage className={'row-with-image--white'} title={'DOGS'} image={dogs} subTitle={'Dogs'}
+                      disabled={true}
                       numbers={dogsBalance}/>
       </div>
     </div>

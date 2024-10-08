@@ -20,18 +20,21 @@ export const fetchWalletInfoTC = createAsyncThunk(
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
-    investStep: 1,
+    valueToInvest: 0,
   } as InitialStateType,
   reducers: {
     setWalletAddress: (state, action) => {
       state.wallet_address = action.payload.message;
     },
-    setInvestStep: (state, action) => {
-      state.investStep = action.payload
-    },
     setSelectedCoinToInvest: (state, action) => {
       state.selectedCoinToInvest = action.payload
     },
+    refreshWalletInfo: (state) => {
+      state.wallet_info = undefined
+    },
+    setValueToInvest: (state, action) => {
+      state.valueToInvest = action.payload
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(fetchWalletInfoTC.fulfilled, (state, action) => {
@@ -40,7 +43,7 @@ export const appSlice = createSlice({
   }
 });
 
-export const {setWalletAddress, setInvestStep,setSelectedCoinToInvest} = appSlice.actions;
+export const {setWalletAddress,setSelectedCoinToInvest, refreshWalletInfo, setValueToInvest} = appSlice.actions;
 export default appSlice.reducer;
 
 

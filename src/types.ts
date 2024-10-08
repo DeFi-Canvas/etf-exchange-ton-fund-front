@@ -34,8 +34,8 @@ export type ETFFaqType = {
 }
 
 export type InitialStateType = {
-  investStep:number
   selectedCoinToInvest?: string
+  valueToInvest: number
   wallet_address?: string
   wallet_info?: {
     balance: number,
