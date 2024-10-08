@@ -8,18 +8,16 @@
         fill: white;
     }
 }
-.home-icon{
-    width: 20px;
-    height: 20px;
-}
 
 .about-active {
+
     & path:first-child{
-        transition: all 0.25s ease-in-out;
         fill: #24262E;
         opacity: 1;
     }
-    & path:not(:first-child){
+    & #status-up path{
+        transition: all 0.25s ease-in-out;
+
         fill: white;
     }
 }
