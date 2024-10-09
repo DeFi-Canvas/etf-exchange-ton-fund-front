@@ -4,6 +4,9 @@ import About from '../../assets/icons/status-up.svg?react'
 import Down from '../../assets/icons/narrow-down-right.svg?react'
 import Up from '../../assets/icons/narrow-up-right.svg?react'
 import Chevron from '../../assets/icons/chevron-down.svg?react'
+import Right from '../../assets/icons/arrow-narrow-right.svg?react'
+import Load from '../../assets/icons/loading.svg?react'
+
 
 export const HomeIcon = ({className = ''}: {className?: string}) => (
   <Home width={20} height={20} className={className}/>
@@ -24,4 +27,11 @@ export const UpIcon = ({className = ''}: { className?: string }) => (
 
 export const ChevronDown = ({className = ''}: { className?: string }) => (
  <Chevron className={className}/>
+)
+export const RightIcon = ({className = ''}: { className?: string }) => (
+ <Right className={className}/>
+)
+
+export const SpinIcon = ({className = ''}: { className?: string }) => (
+  <Load className={className}/>
 )

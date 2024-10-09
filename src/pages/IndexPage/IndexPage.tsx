@@ -19,7 +19,7 @@ export const IndexPage: FC = () => {
       </section>
       <section className={'etf-cards'}>{
         etfs_data.map((etf) => {
-          const userEtfBalance = wallet_info?.jettons.find((jetton) => jetton.symbol === etf.jettonSymbol)?.price || 0
+          const userEtfBalance = wallet_info?.jettons?.find((jetton) => jetton.symbol === etf.jettonSymbol)?.price || 0
           return <EtfCard key={etf.jettonSymbol} personEtfBalance={userEtfBalance} {...etf} />
         })
       }

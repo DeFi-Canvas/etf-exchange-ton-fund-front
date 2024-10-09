@@ -1,0 +1,59 @@
+.about-page{
+  &--chart-text{
+    color: var(--Colors-Text-Dark, #24262E);
+
+    & h3{
+      font-size: var(--Font-Size-md, 16px);
+      font-weight: 500;
+      line-height: 135%;
+      margin: 0;
+    }
+
+    & h2{
+      font-size: var(--Font-Size-H1, 38px);
+      font-weight: 600;
+      line-height: 130%;
+      margin: 0;
+    }
+
+
+    & svg {
+      position: relative;
+      top: 2px;
+      width: 15px;
+      height: 15px;
+
+      & path {
+        stroke: var(--Colors-System-Green, #61C66C);
+      }
+    }
+
+
+   & p{
+     color: var(--Colors-System-Green, #61C66C);
+     font-size: 16px;
+     font-weight: 400;
+     line-height: normal;
+     margin: 0;
+   }
+  }
+
+  &--article{
+    width: 100%;
+    max-width: 380px;
+    & > h2{
+      color: var(--Text-Dark, #1B1B1B);
+      font-size: var(--Font-Size-H2, 24px);
+      font-weight: 600;
+      line-height: 130%;
+      margin: 0 16px 16px;
+      text-align: start;
+    }
+
+    &--etfs{
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+}

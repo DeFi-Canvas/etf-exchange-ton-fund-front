@@ -14,7 +14,7 @@ import {
 
 import {routes} from '@/navigation/routes.tsx';
 import TabBar from "@/components/TabBar/TabBar.tsx";
-import {toUserFriendlyAddress, useTonWallet} from "@tonconnect/ui-react";
+import {TonConnectButton, toUserFriendlyAddress, useTonWallet} from "@tonconnect/ui-react";
 import {useAppSelector} from "@/hooks/useAppSelector.ts";
 import {useAppDispatch} from "@/hooks/useAppDispatch.ts";
 import {fetchWalletInfoTC, refreshWalletInfo, setWalletAddress} from "@/store/reducers/appSlice.ts";
@@ -53,6 +53,10 @@ export const App: FC = () => {
     !wallet?.account && dispatch(setWalletAddress('')) && dispatch(refreshWalletInfo())
   }, [wallet?.account.address]);
 
+  if(wallet?.account.address && wallet?.account.chain !== '-3') return <div className={'container'}>
+    <h2>Please connect to test network.</h2>
+    <TonConnectButton className='ton-connect__button'/>
+  </div>
 
   return (
     <main>

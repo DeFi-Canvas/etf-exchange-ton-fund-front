@@ -46,4 +46,23 @@
     max-width: 412px;
     padding: 16px;
   }
+
+  &-swap{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+
+    & div{
+      padding: 12px 42px;
+      background: #fff;
+      border-radius: 8px;
+      color: var(--Text-Dark, #1B1B1B);
+      font-size: var(--Font-Size-xl, 20px);
+      font-style: normal;
+      font-weight: 500;
+      line-height: 130%; /* 26px */
+    }
+  }
 }

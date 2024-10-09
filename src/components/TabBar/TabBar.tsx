@@ -8,11 +8,13 @@ import {useAppSelector} from "@/hooks/useAppSelector.ts";
 import {useTonWallet} from "@tonconnect/ui-react";
 import ButtonsSecondary from "@/components/Buttons/ButtonsSecondary.tsx";
 import {calcIsError} from "@/utils/calcIsError.ts";
+import SlideButton from "@/components/SlideButton/SlideButton.tsx";
 
 
 const TabBar = () => {
   const { selectedCoinToInvest, valueToInvest, wallet_info} = useAppSelector(state => state.appSlice)
   const selectedCoin = useMemo(() => {
+    if(!selectedCoinToInvest) return
     if (selectedCoinToInvest === 'TON') {
       return {
         balance: wallet_info?.balance ?? 0,
@@ -24,7 +26,7 @@ const TabBar = () => {
         wallet: ''
       }
     } else {
-      return wallet_info?.jettons.find(j => j.name === selectedCoinToInvest)
+      return wallet_info?.jettons?.find(j => j.name === selectedCoinToInvest)
     }
   }, [wallet_info, selectedCoinToInvest])
   const {pathname} = useLocation()
@@ -53,6 +55,10 @@ const TabBar = () => {
                                                   onClick={() => onStepsClick(1)}/>
       if (step && step === '2') return <ButtonsSecondary text={valueToInvest !== 0 ? 'Continue' : 'Enter the total amount'} isDisabled={!valueToInvest || calcIsError({minValue:1, currentValue: valueToInvest, maxValue: selectedCoin?.balance || 0})}
                                                       onClick={() => onStepsClick(2)}/>
+
+      if(step && step === '3') return  <SlideButton onSwipe={() => navigator('/invest/' + fund + '/' + 'final')} />
+      if(step && step === 'final') return
+
       return <ButtonPrimary text={'Continue'} isDisabled={isETFP}/>
     }
 
