@@ -51,7 +51,7 @@ const TabBar = () => {
     if (isFund) return <ButtonPrimary text={'Invest'} isDisabled={!isETFP || !wallet?.account.address}
                                       onClick={onStartInvestClick}/>
     if (isSteps) {
-      if (step && step === '1') return <ButtonPrimary text={'Continue'} isDisabled={!selectedCoinToInvest}
+      if (step && step === '1') return <ButtonPrimary text={'Continue'} isDisabled={!selectedCoinToInvest || !selectedCoin?.balance}
                                                   onClick={() => onStepsClick(1)}/>
       if (step && step === '2') return <ButtonsSecondary text={valueToInvest !== 0 ? 'Continue' : 'Enter the total amount'} isDisabled={!valueToInvest || calcIsError({minValue:1, currentValue: valueToInvest, maxValue: selectedCoin?.balance || 0})}
                                                       onClick={() => onStepsClick(2)}/>

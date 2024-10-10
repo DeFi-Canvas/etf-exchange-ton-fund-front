@@ -21,7 +21,7 @@ const EtfCard = ({
                    badgeText, jettonSymbol,
                     address
                  }: PropsType) => {
- const price = (useAppSelector(state => state?.appSlice?.wallet_info?.jettons.find((j) => j.jetton === address))?.balance || 0) * 0.0208
+ const price = (useAppSelector(state => state?.appSlice?.wallet_info?.jettons?.find((j) => j.jetton === address))?.balance || 0) * 0.0208
 
   return (
     <Link to={`/funds/${jettonSymbol}`} className={'etf-card'}>
