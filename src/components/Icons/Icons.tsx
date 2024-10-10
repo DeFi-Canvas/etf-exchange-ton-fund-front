@@ -6,6 +6,7 @@ import Up from '../../assets/icons/narrow-up-right.svg?react'
 import Chevron from '../../assets/icons/chevron-down.svg?react'
 import Right from '../../assets/icons/arrow-narrow-right.svg?react'
 import Load from '../../assets/icons/loading.svg?react'
+import Success from '../../assets/icons/success.svg?react'
 
 
 export const HomeIcon = ({className = ''}: {className?: string}) => (
@@ -34,4 +35,7 @@ export const RightIcon = ({className = ''}: { className?: string }) => (
 
 export const SpinIcon = ({className = ''}: { className?: string }) => (
   <Load className={className}/>
+)
+export const SuccessIcon = ({className = ''}: { className?: string }) => (
+  <Success className={className}/>
 )

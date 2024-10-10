@@ -94,3 +94,8 @@ main {
     margin: 0;
   }
 }
+
+[data-tc-dropdown-container="true"] {
+  left: 50% !important;
+  transform: translate(-50%, 0) !important;
+}

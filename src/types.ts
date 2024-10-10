@@ -3,6 +3,7 @@ export type ETFType = {
   title: string
   description: string
   imgUrl: string
+  address?:string
   tvl?: number
   aprPercent?: number
   etfPriceChange?: number

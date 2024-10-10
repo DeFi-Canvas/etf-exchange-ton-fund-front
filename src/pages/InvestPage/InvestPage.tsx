@@ -7,6 +7,7 @@ import {useEffect} from "react";
 import {dispatch} from "@/store";
 import {setSelectedCoinToInvest} from "@/store/reducers/appSlice.ts";
 import {useAppSelector} from "@/hooks/useAppSelector";
+import InvestStepFinal from "@/pages/InvestPage/steps/InvestStepFinal.tsx";
 
 const InvestPage = () => {
   const pathname = useLocation().pathname
@@ -25,6 +26,8 @@ const InvestPage = () => {
         return <InvestStep2/>
       case '3':
         return <InvestStep3/>
+      case 'final':
+        return <InvestStepFinal />
     }
   }
 
@@ -37,7 +40,7 @@ const InvestPage = () => {
 
   return (
     <main className={'container invest-steps'}>
-      <StepIndicator stepNumber={step ?? 1}/>
+      {step !== 'final' && <StepIndicator stepNumber={step ?? 1}/>}
       {
         renderSteps()
       }

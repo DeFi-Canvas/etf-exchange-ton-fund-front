@@ -3,6 +3,7 @@ import BadgeSmall from "@/components/BadgeSmall/BadgeSmall.tsx";
 import BigBadge from "@/components/BigBadge/BigBadge.tsx";
 import {Link} from "@/components/Link/Link.tsx";
 import {ETFType} from "@/types.ts";
+import {useAppSelector} from "@/hooks/useAppSelector.ts";
 
 type PropsType = ETFType & {
   personEtfBalance?: number
@@ -17,9 +18,10 @@ const EtfCard = ({
                    personEtfBalance,
                    aprPercent,
                    etfPriceChange,
-                   badgeText, jettonSymbol
+                   badgeText, jettonSymbol,
+                    address
                  }: PropsType) => {
-
+ const price = (useAppSelector(state => state?.appSlice?.wallet_info?.jettons.find((j) => j.jetton === address))?.balance || 0) * 0.0208
 
   return (
     <Link to={`/funds/${jettonSymbol}`} className={'etf-card'}>
@@ -35,7 +37,7 @@ const EtfCard = ({
       {personEtfBalance !== undefined && etfPriceChange !== undefined && <div className={'etf-card--bottom'}>
           <div className={'etf-card--bottom-balance'}>
               <h3>Your balance:</h3>
-              <p>$ {personEtfBalance.toFixed(2)}</p>
+              <p>$ {price.toFixed(2)}</p>
           </div>
           <div className={'etf-card--bottom-apr'}>
               <p>APR: {aprPercent}%</p>

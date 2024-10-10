@@ -16,6 +16,7 @@ export const etfs_data: ETFType[] = [
     tvl: 1235,
     aprPercent: 10,
     etfPriceChange: 12.76,
+    address: '0:f00141aafca33401ae5c951721f2091c516aa49d50b4687da2d04d40a0fe115e',
     badgeText: 'MOST POPULAR',
     about: {
       text: 'A DeFi fund is a decentralized financial investment vehicle built on blockchain technology. It enables users to pool capital and invest in a range of decentralized finance (DeFi) protocols, earning returns through yield farming, liquidity provision, staking, and other innovative mechanisms. The fund operates without intermediaries, offering transparency, security, and global accessibility.',

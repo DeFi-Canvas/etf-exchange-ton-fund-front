@@ -2,10 +2,8 @@ import type {ComponentType, JSX} from 'react';
 
 import {IndexPage} from '@/pages/IndexPage/IndexPage';
 import AboutPage from "@/pages/AboutPage/AboutPage.tsx";
-import {TONConnectPage} from "@/pages/TONConnectPage/TONConnectPage.tsx";
 import FundPage from "@/pages/FundPage/FundPage.tsx";
 import InvestPage from "@/pages/InvestPage/InvestPage.tsx";
-import ContractCall from "@/pages/ContractCall/ContractCall.tsx";
 
 
 interface Route {
@@ -20,12 +18,11 @@ export const routes: Route[] = [
   {path: '/about', Component: AboutPage},
   {path: '/funds/:id', Component: FundPage},
   {path: '/invest/:id/:step', Component: InvestPage},
-  {path: '/invest/:id/final', Component: ContractCall},
 
   /*{ path: '/init-data', Component: InitDataPage, title: 'Init Data' },
   { path: '/theme-params', Component: ThemeParamsPage, title: 'Theme Params' },
   { path: '/launch-params', Component: LaunchParamsPage, title: 'Launch Params' },*/
-  {
+  /*{
     path: '/ton-connect',
     Component: TONConnectPage,
     title: 'TON Connect',
@@ -47,5 +44,5 @@ export const routes: Route[] = [
         />
       </svg>
     ),
-  },
+  },*/
 ];

@@ -66,3 +66,18 @@
     }
   }
 }
+
+
+.invest-snackbar {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  max-width: 412px;
+  padding: 16px;
+  background: var(--telegram-bg-color);
+  border-radius: 8px 8px 0px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
