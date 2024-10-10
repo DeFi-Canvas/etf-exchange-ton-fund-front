@@ -116,7 +116,7 @@ export const callContract = createAsyncThunk('app/callContract', async ({tonui, 
       return true
     }
 
-    return getWalletInfoEveryThreeSeconds()
+    return await getWalletInfoEveryThreeSeconds()
   } catch (e) {
     console.log(e)
   }
