@@ -17,7 +17,7 @@ const InvestStepFinal = () => {
   const {selectedCoinToInvest} = useAppSelector(state => state.appSlice)
   const wallet = useTonWallet()
   const [tonui] = useTonConnectUI()
-  const [status, setStatus] = useState<'sign' | 'confirm' | 'waiting' | 'error'>('confirm')
+  const [status, setStatus] = useState<'sign' | 'confirm' | 'waiting' | 'error'>('sign')
 
 
   useEffect(() => {
