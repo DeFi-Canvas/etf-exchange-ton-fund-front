@@ -17,6 +17,7 @@ const InvestStep2 = () => {
   const fund = pathname.split('/')[2]
   const dispatch = useAppDispatch()
   const {wallet_info, selectedCoinToInvest, valueToInvest} = useAppSelector(state => state.appSlice)
+
   const getCoinData = (): JettonType => {
     if (selectedCoinToInvest === 'TON') {
       return {

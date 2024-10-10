@@ -125,7 +125,7 @@ export const callContract = createAsyncThunk('app/callContract', async ({tonui, 
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
-    valueToInvest: 0,
+    valueToInvest: 1,
   } as InitialStateType,
   reducers: {
     setWalletAddress: (state, action) => {
