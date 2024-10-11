@@ -90,7 +90,7 @@ export const callContract = createAsyncThunk('app/callContract', async ({tonui, 
       messages: [
         {
           address: jetton_wallet,
-          amount: (0.01 * 1000000000).toString(),
+          amount: (0.1 * 1000000000).toString(),
           payload: msg_body.toBoc().toString('base64'),
         }
       ]
