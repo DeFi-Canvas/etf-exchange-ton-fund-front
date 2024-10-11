@@ -1,14 +1,25 @@
-import type {FC} from 'react';
+import {FC, useEffect} from 'react';
 import {TonConnectButton} from "@tonconnect/ui-react";
 import EtfCard from "@/components/ETFCard/ETFCard.tsx";
 import {useAppSelector} from "@/hooks/useAppSelector.ts";
 import {etfs_data} from "@/data/mock_data.ts";
 
 import './IndexPage.scss'
+import {useBackButton} from "@telegram-apps/sdk-react";
 
 export const IndexPage: FC = () => {
+  const backButton =     useBackButton()
+
   const {wallet_info} = useAppSelector(state => state.appSlice)
   const balanceValues = `${wallet_info?.totalamount ? wallet_info?.totalamount.toFixed(2) : '0.00'}`.split('.')
+
+  useEffect(() => {
+    if(backButton){
+      backButton.hide()
+    }
+  }, []);
+
+
 
   return (
     <section className={'container'}>

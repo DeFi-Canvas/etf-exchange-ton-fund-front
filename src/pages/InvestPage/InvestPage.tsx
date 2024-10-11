@@ -32,7 +32,7 @@ const InvestPage = () => {
   }
 
   useEffect(() => {
-    !wallet_info  && navigator(`/funds/${fund}`)
+    !wallet_info && navigator(`/funds/${fund}`)
     return () => {
       dispatch(setSelectedCoinToInvest(''))
     }

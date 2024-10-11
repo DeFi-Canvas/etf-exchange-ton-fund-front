@@ -31,7 +31,7 @@ const Inner: FC = () => {
 
   return (
     <TonConnectUIProvider uiPreferences={{theme: THEME.LIGHT}} manifestUrl={manifestUrl}>
-      <SDKProvider acceptCustomStyles >
+      <SDKProvider acceptCustomStyles>
         <ReduxProvider store={store}>
           {isDevMode ? <App/> : <TwaAnalyticsProvider
             projectId={"01d4b208-2a59-45bf-a14d-8e984cb169b5"}

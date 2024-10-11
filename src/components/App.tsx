@@ -4,7 +4,7 @@ import {
   initNavigator,
   useViewport,
 } from '@telegram-apps/sdk-react';
-import {type FC,  useEffect, useMemo} from 'react';
+import {type FC, useEffect, useMemo} from 'react';
 import {
   Navigate,
   Route,
@@ -27,7 +27,7 @@ export const App: FC = () => {
   const {wallet_info} = useAppSelector(state => state.appSlice)
 
   useEffect(() => {
-    return viewport && bindViewportCSSVars(viewport);
+    return viewport && bindViewportCSSVars(viewport) && viewport.expand()
   }, [viewport]);
 
   // Create a new application navigator and attach it to the browser history, so it could modify
@@ -53,7 +53,7 @@ export const App: FC = () => {
     !wallet?.account && dispatch(setWalletAddress('')) && dispatch(refreshWalletInfo())
   }, [wallet?.account.address]);
 
-  if(wallet?.account.address && wallet?.account.chain !== '-3') return <div className={'container'}>
+  if (wallet?.account.address && wallet?.account.chain !== '-3') return <div className={'container'}>
     <h2>Please connect to test network.</h2>
     <TonConnectButton className='ton-connect__button'/>
   </div>
