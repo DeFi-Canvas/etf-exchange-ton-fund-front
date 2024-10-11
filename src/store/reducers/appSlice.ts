@@ -45,7 +45,7 @@ export const callContract = createAsyncThunk('app/callContract', async ({tonui, 
 
     const getJettonWallet = async () => {
       return await API.getWalletInfo(wallet!).then((res) => {
-        return res?.jettons.find((j: JettonType) => j.jetton === "0:f00141aafca33401ae5c951721f2091c516aa49d50b4687da2d04d40a0fe115e")?.wallet
+        return res?.jettons?.find((j: JettonType) => j.jetton === "0:f00141aafca33401ae5c951721f2091c516aa49d50b4687da2d04d40a0fe115e")?.wallet
       })
     }
 
