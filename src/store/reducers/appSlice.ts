@@ -104,7 +104,10 @@ export const callContract = createAsyncThunk('app/callContract', async ({tonui, 
         totalamount: number,
         jettons: Array<JettonType>
       })
-      while (!wallet_info || prevWalletJettons?.find((j) => j?.jetton === "0:f00141aafca33401ae5c951721f2091c516aa49d50b4687da2d04d40a0fe115e")?.balance === wallet_info?.jettons.find((j) => j?.jetton === "0:f00141aafca33401ae5c951721f2091c516aa49d50b4687da2d04d40a0fe115e")?.balance) {
+
+      const prevLPBalance = prevWalletJettons?.find((j) => j?.jetton === "0:f00141aafca33401ae5c951721f2091c516aa49d50b4687da2d04d40a0fe115e")?.balance
+
+      while (!wallet_info || !prevLPBalance || prevLPBalance === wallet_info?.jettons.find((j) => j?.jetton === "0:f00141aafca33401ae5c951721f2091c516aa49d50b4687da2d04d40a0fe115e")?.balance) {
         wallet_info =  await dispatch(fetchWalletInfoTC({address: wallet!})).then((res) => res.payload as {
           balance: number,
           price: number,
