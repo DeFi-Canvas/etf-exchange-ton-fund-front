@@ -15,8 +15,7 @@ const screens = [{
 },
   {
     img: second_step,
-    text: <p><span>Safely invest</span> in indices, deposits and modern instruments selected by professionals with a
-      single click</p>,
+    text: <p><span>Simple one-click</span> investing in indices, deposits and modern instruments</p>,
     button: (onClick: () => void) => <ButtonPrimary text={'Continue'} onClick={onClick}/>
   }, {
     img: third_step,
@@ -34,9 +33,6 @@ const OnbardScreen = () => {
   const dispatch = useAppDispatch()
   const [step, setStep] = useState(0)
   const {open, state} = useTonConnectModal();
-
-  console.log(state)
-
 
   const screenData = screens[step]
   const onClick = () => {
