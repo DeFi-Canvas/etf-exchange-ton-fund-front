@@ -4,7 +4,7 @@ import {
   initNavigator, useInitData,
   useViewport,
 } from '@telegram-apps/sdk-react';
-import {type FC, useEffect, useMemo} from 'react';
+import {type FC, Fragment, useEffect, useMemo} from 'react';
 import {
   Navigate,
   Route,
@@ -18,7 +18,6 @@ import {TonConnectButton, toUserFriendlyAddress, useTonWallet} from "@tonconnect
 import {useAppSelector} from "@/hooks/useAppSelector.ts";
 import {useAppDispatch} from "@/hooks/useAppDispatch.ts";
 import {fetchWalletInfoTC, refreshWalletInfo, sendUserDataTC, setWalletAddress} from "@/store/reducers/appSlice.ts";
-import Loader from "@/components/Loader/Loader.tsx";
 import OnbardScreen from "@/components/OnbardScreen/OnbardScreen.tsx";
 
 
@@ -71,7 +70,7 @@ export const App: FC = () => {
     <TonConnectButton className='ton-connect__button'/>
   </div>
 
-  if (appStatus === 'loading') return <div className={'container items-center'}>{userData?.created_at === userData?.updated_at ? <OnbardScreen/> : <Loader/>}</div>
+  if (appStatus === 'loading') return <div className={'container items-center'}>{userData && userData?.created_at === userData?.updated_at ? <OnbardScreen/> : <Fragment/>}</div>
 
   return (
     <main>

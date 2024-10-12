@@ -38,7 +38,7 @@ export const API = {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(userData)
-      }).then((res) => res.json() as Promise<{
+      }).then((res) => (res.json()) as Promise<{
         user_id: 1,
         address: Array<string>,
         created_at: number,
