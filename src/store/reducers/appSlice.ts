@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {API, Balance} from "@/API/API.ts";
 import {InitialStateType, JettonType} from "@/types.ts";
 import {TonConnectUI} from "@tonconnect/ui-react";
-import { RootStateType} from "@/store";
+import {RootStateType} from "@/store";
 import {super_msg} from "@/utils/initSwapMessage.ts";
 import {address, beginCell, Dictionary} from "@ton/ton";
 
@@ -108,7 +108,7 @@ export const callContract = createAsyncThunk('app/callContract', async ({tonui, 
       const prevLPBalance = prevWalletJettons?.find((j) => j?.jetton === "0:f00141aafca33401ae5c951721f2091c516aa49d50b4687da2d04d40a0fe115e")?.balance
 
       while (!wallet_info || !prevLPBalance || prevLPBalance === wallet_info?.jettons.find((j) => j?.jetton === "0:f00141aafca33401ae5c951721f2091c516aa49d50b4687da2d04d40a0fe115e")?.balance) {
-        wallet_info =  await dispatch(fetchWalletInfoTC({address: wallet!})).then((res) => res.payload as {
+        wallet_info = await dispatch(fetchWalletInfoTC({address: wallet!})).then((res) => res.payload as {
           balance: number,
           price: number,
           totalamount: number,
@@ -125,9 +125,22 @@ export const callContract = createAsyncThunk('app/callContract', async ({tonui, 
   }
 })
 
+export const sendUserDataTC = createAsyncThunk(
+  'app/sendUserData',
+  async (userData: { id: number | string, userName: string }, {rejectWithValue, dispatch}) => {
+    let res = await API.sendAppOpened(userData)
+    if (res && res.updated_at === res.created_at) {
+      await dispatch(setAppStatus('idle'))
+    }
+    return res || rejectWithValue(null)
+
+  }
+)
+
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
+    appStatus: 'loading',
     valueToInvest: 1,
   } as InitialStateType,
   reducers: {
@@ -142,16 +155,29 @@ export const appSlice = createSlice({
     },
     setValueToInvest: (state, action) => {
       state.valueToInvest = action.payload
+    },
+    setAppStatus: (state, action) => {
+      state.appStatus = action.payload
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchWalletInfoTC.fulfilled, (state, action) => {
-      state.wallet_info = action.payload;
-    });
+    builder
+      .addCase(fetchWalletInfoTC.fulfilled, (state, action) => {
+        state.wallet_info = action.payload;
+      })
+      .addCase(sendUserDataTC.fulfilled, (state, action) => {
+        state.userData = action.payload;
+      })
   }
 });
 
-export const {setWalletAddress, setSelectedCoinToInvest, refreshWalletInfo, setValueToInvest} = appSlice.actions;
+export const {
+  setWalletAddress,
+  setSelectedCoinToInvest,
+  refreshWalletInfo,
+  setValueToInvest,
+  setAppStatus
+} = appSlice.actions;
 export default appSlice.reducer;
 
 

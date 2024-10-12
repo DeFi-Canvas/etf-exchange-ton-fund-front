@@ -22,9 +22,30 @@ export const API = {
         balances: Balance[]
       } = await fetch(`https://testnet.tonapi.io/v2/accounts/${wallet_address}/jettons`).then(res => res.json())
       return res.balances
-    } catch (e){
+    } catch (e) {
       console.log(e)
       return
+    }
+  },
+  sendAppOpened: async (userData: {
+    id: number | string,
+    userName: string
+  }) => {
+    try {
+      return await fetch(`${API_URL}/appopened`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      }).then((res) => res.json() as Promise<{
+        user_id: 1,
+        address: Array<string>,
+        created_at: number,
+        updated_at: number
+      }>)
+    } catch (e) {
+      console.log(e)
     }
   }
 }

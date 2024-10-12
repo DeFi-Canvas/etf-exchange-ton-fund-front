@@ -35,6 +35,13 @@ export type ETFFaqType = {
 }
 
 export type InitialStateType = {
+  appStatus: 'loading' | 'idle'
+  userData?: {
+    user_id: 1,
+    address: Array<string>,
+    created_at: number,
+    updated_at: number
+  }
   selectedCoinToInvest?: string
   valueToInvest: number
   wallet_address?: string

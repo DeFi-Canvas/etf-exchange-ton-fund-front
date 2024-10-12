@@ -6,19 +6,19 @@ import {etfs_data} from "@/data/mock_data.ts";
 
 import './IndexPage.scss'
 import {useBackButton} from "@telegram-apps/sdk-react";
+import LearnSection from "@/components/LearnSection/LearnSection.tsx";
 
 export const IndexPage: FC = () => {
-  const backButton =     useBackButton()
+  const backButton = useBackButton()
 
   const {wallet_info} = useAppSelector(state => state.appSlice)
   const balanceValues = `${wallet_info?.totalamount ? wallet_info?.totalamount.toFixed(2) : '0.00'}`.split('.')
 
   useEffect(() => {
-    if(backButton){
+    if (backButton) {
       backButton.hide()
     }
   }, []);
-
 
 
   return (
@@ -35,6 +35,7 @@ export const IndexPage: FC = () => {
         })
       }
       </section>
+      <LearnSection/>
     </section>
   );
 };

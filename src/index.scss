@@ -95,6 +95,11 @@ main {
   }
 }
 
+.items-center{
+  height: 100% ;
+  align-items: center;
+}
+
 [data-tc-dropdown-container="true"] {
   left: 50% !important;
   transform: translate(-50%, 0) !important;

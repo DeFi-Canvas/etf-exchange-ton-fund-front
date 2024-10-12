@@ -1,0 +1,40 @@
+.learn-section {
+  width: 100%;
+  max-width: 360px;
+  margin-bottom: 24px;
+
+  &--cards {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; // for Firefox
+    &::-webkit-scrollbar {
+      display: none; // for Chrome, Safari, and Edge
+    }
+
+    &-card {
+      & img {
+        border: 2px solid var(--colors-main-purple-20, rgba(91, 57, 244, 0.20));
+        padding: 1px;
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      & p {
+        color: var(--colors-text-dark-50, rgba(36, 38, 46, 0.50));
+        font-size: var(--Font-Size-xs, 12px);
+        line-height: 150%;
+        margin: 0;
+      }
+
+      & h3 {
+        color: var(--Colors-Text-Dark, #24262E);
+        font-size: var(--Font-Size-md, 16px);
+        font-weight: 500;
+        line-height: 135%;
+      }
+
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import {useIntegration} from '@telegram-apps/react-router-integration';
 import {
   bindViewportCSSVars,
-  initNavigator,
+  initNavigator, useInitData,
   useViewport,
 } from '@telegram-apps/sdk-react';
 import {type FC, useEffect, useMemo} from 'react';
@@ -17,14 +17,17 @@ import TabBar from "@/components/TabBar/TabBar.tsx";
 import {TonConnectButton, toUserFriendlyAddress, useTonWallet} from "@tonconnect/ui-react";
 import {useAppSelector} from "@/hooks/useAppSelector.ts";
 import {useAppDispatch} from "@/hooks/useAppDispatch.ts";
-import {fetchWalletInfoTC, refreshWalletInfo, setWalletAddress} from "@/store/reducers/appSlice.ts";
+import {fetchWalletInfoTC, refreshWalletInfo, sendUserDataTC, setWalletAddress} from "@/store/reducers/appSlice.ts";
+import Loader from "@/components/Loader/Loader.tsx";
+import OnbardScreen from "@/components/OnbardScreen/OnbardScreen.tsx";
 
 
 export const App: FC = () => {
   const viewport = useViewport();
+  const initData = useInitData()
   const wallet = useTonWallet()
   const dispatch = useAppDispatch()
-  const {wallet_info} = useAppSelector(state => state.appSlice)
+  const {wallet_info, appStatus, userData} = useAppSelector(state => state.appSlice)
 
   useEffect(() => {
     return viewport && bindViewportCSSVars(viewport) && viewport.expand()
@@ -53,10 +56,22 @@ export const App: FC = () => {
     !wallet?.account && dispatch(setWalletAddress('')) && dispatch(refreshWalletInfo())
   }, [wallet?.account.address]);
 
+  useEffect(() => {
+    if (!userData && initData && initData.user) {
+      const userData = {
+        id: initData.user.id,
+        userName: initData.user.username || 'unknown',
+      }
+      dispatch(sendUserDataTC(userData))
+    }
+  }, []);
+
   if (wallet?.account.address && wallet?.account.chain !== '-3') return <div className={'container'}>
     <h2>Please connect to test network.</h2>
     <TonConnectButton className='ton-connect__button'/>
   </div>
+
+  if (appStatus === 'loading') return <div className={'container items-center'}>{userData?.created_at === userData?.updated_at ? <OnbardScreen/> : <Loader/>}</div>
 
   return (
     <main>
