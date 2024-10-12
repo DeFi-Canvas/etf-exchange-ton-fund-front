@@ -129,7 +129,7 @@ export const sendUserDataTC = createAsyncThunk(
   'app/sendUserData',
   async (userData: { id: number | string, userName: string }, {rejectWithValue, dispatch}) => {
     let res = await API.sendAppOpened(userData)
-    if (res && res.updated_at === res.created_at) {
+    if (res && !Array.isArray(res) && res.updated_at === res.created_at) {
       await dispatch(setAppStatus('idle'))
     }
     return res || rejectWithValue(null)
