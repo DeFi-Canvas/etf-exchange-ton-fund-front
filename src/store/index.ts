@@ -7,11 +7,15 @@ import reducers from './reducers';
 // ==============================|| REDUX TOOLKIT - MAIN STORE ||============================== //
 
 const store = configureStore({
-  reducer: reducers
+    reducer: reducers,
 });
 
 const { dispatch } = store;
 export type RootActionsType = AnyAction;
 export type RootStateType = ReturnType<typeof store.getState>;
-export type RootDispatchType = ThunkDispatch<RootStateType, unknown, RootActionsType>;
+export type RootDispatchType = ThunkDispatch<
+    RootStateType,
+    unknown,
+    RootActionsType
+>;
 export { store, dispatch };

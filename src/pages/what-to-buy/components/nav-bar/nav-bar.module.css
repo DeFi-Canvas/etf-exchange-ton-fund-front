@@ -1,0 +1,22 @@
+.wrap {
+    display: flex;
+    padding: var(--Font-Size-md, 16px);
+    justify-content: space-between;
+
+    .link {
+        width: 83px;
+        display: flex;
+        padding: 12px 15px;
+        flex-direction: column;
+        align-items: center;
+        border-radius: var(--Font-Size-md, 16px);
+        background: var(--Colors-Background-White, #fff);
+    }
+
+    .title {
+        color: var(--Colors-Text-Dark, #24262e);
+        font-size: var(--Font-Size-sm, 14px);
+        font-weight: 510;
+        line-height: 150%; /* 21px */
+    }
+}

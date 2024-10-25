@@ -3,12 +3,12 @@
 This template demonstrates how developers can implement a single-page application on the Telegram
 Mini Apps platform using the following technologies and libraries:
 
-- [React](https://react.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [TON Connect](https://docs.ton.org/develop/dapps/ton-connect/overview)
-- [@telegram-apps SDK](https://docs.telegram-mini-apps.com/packages/telegram-apps-sdk)
-- [Telegram UI](https://github.com/Telegram-Mini-Apps/TelegramUI)
-- [Vite](https://vitejs.dev/)
+-   [React](https://react.dev/)
+-   [TypeScript](https://www.typescriptlang.org/)
+-   [TON Connect](https://docs.ton.org/develop/dapps/ton-connect/overview)
+-   [@telegram-apps SDK](https://docs.telegram-mini-apps.com/packages/telegram-apps-sdk)
+-   [Telegram UI](https://github.com/Telegram-Mini-Apps/TelegramUI)
+-   [Vite](https://vitejs.dev/)
 
 > The template was created using [npm](https://www.npmjs.com/). Therefore, it is required to use
 > it for this project as well. Using other package managers, you will receive a corresponding error.
@@ -26,11 +26,11 @@ npm install
 
 This project contains the following scripts:
 
-- `dev`. Runs the application in development mode.
-- `build`. Builds the application for production.
-- `lint`. Runs [eslint](https://eslint.org/) to ensure the code quality meets the required
-  standards.
-- `deploy`. Deploys the application to GitHub Pages.
+-   `dev`. Runs the application in development mode.
+-   `build`. Builds the application for production.
+-   `lint`. Runs [eslint](https://eslint.org/) to ensure the code quality meets the required
+    standards.
+-   `deploy`. Deploys the application to GitHub Pages.
 
 To run a script, use the `npm run` command:
 
@@ -158,7 +158,7 @@ is `is-awesome`, the value in the `homepage` field should be the following:
 
 ```json
 {
-  "homepage": "https://telegram-mini-apps.github.io/is-awesome"
+    "homepage": "https://telegram-mini-apps.github.io/is-awesome"
 }
 ```
 
@@ -166,8 +166,8 @@ And `vite.config.ts` should have this content:
 
 ```ts
 export default defineConfig({
-  base: '/is-awesome/',
-  // ...
+    base: '/is-awesome/',
+    // ...
 });
 ```
 
@@ -228,6 +228,6 @@ project's information.
 
 ## Useful Links
 
-- [Platform documentation](https://docs.telegram-mini-apps.com/)
-- [@telegram-apps/sdk-react documentation](https://docs.telegram-mini-apps.com/packages/telegram-apps-sdk-react)
-- [Telegram developers community chat](https://t.me/devs)
+-   [Platform documentation](https://docs.telegram-mini-apps.com/)
+-   [@telegram-apps/sdk-react documentation](https://docs.telegram-mini-apps.com/packages/telegram-apps-sdk-react)
+-   [Telegram developers community chat](https://t.me/devs)

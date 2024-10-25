@@ -1,4 +1,4 @@
-.etf-cards{
+.etf-cards {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -6,26 +6,26 @@
 }
 
 .index--balance {
-  & h2 {
-    color: var(--Text-Dark, #1B1B1B);
-    text-align: center;
-    font-size: var(--Font-Size-md, 16px);
-    font-style: normal;
-    font-weight: 500;
-    line-height: 150%;
-    margin: 0;
-  }
-
-  & p {
-    color: var(--Text-Dark, #1B1B1B);
-    text-align: center;
-    font-size: var(--Font-Size-H1, 38px);
-    font-weight: 600;
-    line-height: 130%;
-    margin: 0;
-
-    & span {
-      color: var(--text-dark-50, rgba(27, 27, 27, 0.50));
+    & h2 {
+        color: var(--Text-Dark, #1b1b1b);
+        text-align: center;
+        font-size: var(--Font-Size-md, 16px);
+        font-style: normal;
+        font-weight: 500;
+        line-height: 150%;
+        margin: 0;
     }
-  }
+
+    & p {
+        color: var(--Text-Dark, #1b1b1b);
+        text-align: center;
+        font-size: var(--Font-Size-H1, 38px);
+        font-weight: 600;
+        line-height: 130%;
+        margin: 0;
+
+        & span {
+            color: var(--text-dark-50, rgba(27, 27, 27, 0.5));
+        }
+    }
 }

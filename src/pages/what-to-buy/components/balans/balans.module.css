@@ -1,0 +1,56 @@
+/* TODO: занятся переменными и шрифтами*/
+.wrap {
+    padding: 32px 16px 0;
+
+    .balans {
+        color: var(--Colors-Text-Dark, #24262e);
+        font-family: var(--Font-Family-V1, 'SF Pro');
+        font-size: var(--Font-Size-H1, 44px);
+        font-weight: 590;
+        line-height: 130%;
+        margin-bottom: 12px;
+
+        .shadow {
+            color: var(--colors-text-dark-50, rgba(36, 38, 46, 0.5));
+        }
+    }
+
+    .labelWrap {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .label {
+        color: var(--colors-text-dark-70, rgba(36, 38, 46, 0.7));
+        font-size: var(--Font-Size-md, 16px);
+        line-height: 24px;
+    }
+
+    .alert {
+        width: 32px;
+        height: 32px;
+        border-radius: var(--Font-Size-lg, 18px);
+        background: var(--Colors-Background-White, #fff);
+        padding: 6px;
+    }
+
+    .pnl {
+        width: fit-content;
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        padding: 2px 12px 2px;
+        border-radius: 40px;
+        background: var(--Colors-System-Green, #61c66c);
+        font-size: var(--Font-Size-xs, 12px);
+
+        .val {
+            color: var(--Text-White, #fff);
+        }
+        .icon {
+            width: 12px;
+            height: 12px;
+            display: block;
+        }
+    }
+}

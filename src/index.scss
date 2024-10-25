@@ -1,106 +1,113 @@
 :root {
-  --telegram-bg-color: #fff;
-  --telegram-hint-color: #F0F1F5;
-  --Text-Dark: #1B1B1B;
-  --Font-Size-H0: 54px;
-  --Font-Size-H1: 38px;
-  --Font-Size-H2: 24px;
-  --Font-Subhead-Size-M: 22px;
-  --Font-Subhead-Size-S: 20px;
-  --Font-body-xl: 18px;
-  --Font-body-l: 16px;
-  --Font-body-m: 14px;
-  --Font-body-s: 12px;
-  --Font-Size-m: 16px;
-  --Font-Size-s: 14px;
-  --Font-Size-xs: 12px;
-  --Font-Size-xxs: 10px;
-  --Colors-System-Green: #61C66C;
-  --Colors-System-Red: #FF584E;
+    --telegram-bg-color: #fff;
+    --telegram-hint-color: #f0f1f5;
+    --Text-Dark: #1b1b1b;
+    --Font-Size-H0: 54px;
+    --Font-Size-H1: 38px;
+    --Font-Size-H2: 24px;
+    --Font-Subhead-Size-M: 22px;
+    --Font-Subhead-Size-S: 20px;
+    --Font-body-xl: 18px;
+    --Font-body-l: 16px;
+    --Font-body-m: 14px;
+    --Font-body-s: 12px;
+    --Font-Size-m: 16px;
+    --Font-Size-s: 14px;
+    --Font-Size-xs: 12px;
+    --Font-Size-xxs: 10px;
+    --Colors-System-Green: #61c66c;
+    --Colors-System-Red: #ff584e;
 }
 
-h1, h2, h3, h4, h5, h6, p, span, a {
-  font-family: "DM Sans", sans-serif;
-  color: var(--Text-Dark, black);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+a {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--Text-Dark, black);
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-body, #root {
-  height: var(--tg-viewport-height, 100vh);
+body,
+#root {
+    height: var(--tg-viewport-height, 100vh);
 }
 
 body {
-  background: var(--telegram-hint-color, white);
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
+    background: var(--telegram-hint-color, white);
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
 }
 
 main {
-  max-height: calc(var(--tg-viewport-height, 100vh) - 56px);
-  overflow-y: auto;
-  width: 100%;
+    max-height: calc(var(--tg-viewport-height, 100vh) - 56px);
+    overflow-y: auto;
+    width: 100%;
 }
 
 .container {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 32px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
 }
-
 
 .ton-connect__button {
-  & button {
-    background-color: #fff;
-    box-shadow: none;
+    & button {
+        background-color: #fff;
+        box-shadow: none;
 
-    & svg path {
-      fill: black;
-    }
+        & svg path {
+            fill: black;
+        }
 
-    & div {
-      color: var(--Text-Dark, black);
-      font-size: var(--Font-Size-sm, 14px);
-      font-style: normal;
-      font-weight: 400;
-      line-height: 150%;
+        & div {
+            color: var(--Text-Dark, black);
+            font-size: var(--Font-Size-sm, 14px);
+            font-style: normal;
+            font-weight: 400;
+            line-height: 150%;
+        }
     }
-  }
 }
-
 
 .contract-call {
-  position: absolute;
-  width: 100%;
-  height: var(--tg-viewport-height, 100vh);
-  background: var(--telegram-hint-color, white);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
+    position: absolute;
+    width: 100%;
+    height: var(--tg-viewport-height, 100vh);
+    background: var(--telegram-hint-color, white);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
 
-  & > p {
-    color: var(--Text-Dark, #1B1B1B);
-    text-align: center;
-    font-size: var(--Font-Size-xl, 20px);
-    font-weight: 500;
-    line-height: 130%;
-    margin: 0;
-  }
+    & > p {
+        color: var(--Text-Dark, #1b1b1b);
+        text-align: center;
+        font-size: var(--Font-Size-xl, 20px);
+        font-weight: 500;
+        line-height: 130%;
+        margin: 0;
+    }
 }
 
-.items-center{
-  height: 100% ;
-  align-items: center;
+.items-center {
+    height: 100%;
+    align-items: center;
 }
 
-[data-tc-dropdown-container="true"] {
-  left: 50% !important;
-  transform: translate(-50%, 0) !important;
+[data-tc-dropdown-container='true'] {
+    left: 50% !important;
+    transform: translate(-50%, 0) !important;
 }

@@ -1,28 +1,27 @@
-button.button-primary{
-  text-align: center;
-  font-family: var(--Font-Family-All, "DM Sans");
-  font-size: var(--Font-Size-md, 16px);
-  font-weight: 500;
-  line-height: 135%;
-  border-radius: 12px;
-  border: 0;
-  background: #5B39F4;
-  color: #fff;
-  padding: 14px var(--Font-Size-H2, 24px);
-  width: 100%;
-  justify-content: center;
-  align-items: center;
+button.button-primary {
+    text-align: center;
+    font-family: var(--Font-Family-All, 'DM Sans');
+    font-size: var(--Font-Size-md, 16px);
+    font-weight: 500;
+    line-height: 135%;
+    border-radius: 12px;
+    border: 0;
+    background: #5b39f4;
+    color: #fff;
+    padding: 14px var(--Font-Size-H2, 24px);
+    width: 100%;
+    justify-content: center;
+    align-items: center;
 
-  &:disabled{
-    color: #24262E33;
-    background: #24262E1A;
-  }
+    &:disabled {
+        color: #24262e33;
+        background: #24262e1a;
+    }
 }
 
-
-button.button-secondary{
-  &:disabled{
-    background: var(--colors-main-purple-10, rgba(91, 57, 244, 0.10));
-    color: #5B39F4;
-  }
+button.button-secondary {
+    &:disabled {
+        background: var(--colors-main-purple-10, rgba(91, 57, 244, 0.1));
+        color: #5b39f4;
+    }
 }

@@ -1,9 +1,8 @@
 import { combineReducers } from 'redux';
 import appSlice from './appSlice';
 
-
 const reducers = combineReducers({
-  appSlice,
+    appSlice,
 });
 
 export default reducers;

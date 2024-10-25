@@ -1,91 +1,90 @@
 .funds-page {
+    &--cards-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
 
-  &--cards-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
+    &--cards-wrapper,
+    .cards-top8 {
+        margin-top: 8px;
+    }
 
-  &--cards-wrapper, .cards-top8 {
-    margin-top: 8px;
-  }
+    &--cards-wrapper,
+    .cards-top8 {
+        margin-top: 4px;
+    }
 
-  &--cards-wrapper, .cards-top8 {
-    margin-top: 4px;
-  }
+    &--h1 {
+        color: var(--Text-Dark, #1b1b1b);
+        text-align: center;
+        font-size: var(--Font-Size-xxl, 22px);
+        font-weight: 500;
+        line-height: 130%;
+        margin: 0;
+    }
 
-  &--h1 {
-    color: var(--Text-Dark, #1B1B1B);
-    text-align: center;
-    font-size: var(--Font-Size-xxl, 22px);
-    font-weight: 500;
-    line-height: 130%;
-    margin: 0;
-  }
+    &--about-text {
+        color: var(--colors-text-dark-70, rgba(36, 38, 46, 0.7));
+        font-size: var(--Font-Size-md, 16px);
+        font-weight: 400;
+        line-height: 150%;
+        margin: 0;
+    }
 
-  &--about-text {
-    color: var(--colors-text-dark-70, rgba(36, 38, 46, 0.70));
-    font-size: var(--Font-Size-md, 16px);
-    font-weight: 400;
-    line-height: 150%;
-    margin: 0;
-  }
-
-  &--terms {
-    color: var(--Colors-Text-Dark, #24262E);
-    text-align: center;
-    font-size: var(--Font-Size-xs, 12px);
-    font-style: normal;
-    font-weight: 400;
-    line-height: 150%; /* 18px */
-    margin: -12px 0 12px;
-  }
-
-
+    &--terms {
+        color: var(--Colors-Text-Dark, #24262e);
+        text-align: center;
+        font-size: var(--Font-Size-xs, 12px);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 150%; /* 18px */
+        margin: -12px 0 12px;
+    }
 }
 
 .fund-page--chart-text {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: var(--Colors-System-Green, #61C66C);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--Colors-System-Green, #61c66c);
 
-  &-apr{
-    align-self: flex-start;
-    color: var(--Colors-Text-Dark, #24262E);
-    text-align: right;
-    font-size: var(--Font-Size-lg, 18px);
-    font-style: normal;
-    font-weight: 500;
-    line-height: 150%;
-    margin: 0;
-  }
-
-  & svg {
-    position: relative;
-    top: 2px;
-    width: 15px;
-    height: 15px;
-
-    & path {
-      stroke: var(--Colors-System-Green, #61C66C);
+    &-apr {
+        align-self: flex-start;
+        color: var(--Colors-Text-Dark, #24262e);
+        text-align: right;
+        font-size: var(--Font-Size-lg, 18px);
+        font-style: normal;
+        font-weight: 500;
+        line-height: 150%;
+        margin: 0;
     }
-  }
 
-  & h3 {
-    color: var(--Colors-Text-Dark, #24262E);
-    font-size: var(--Font-Size-H2, 24px);
-    font-style: normal;
-    font-weight: 600;
-    line-height: 130%;
-    margin: 0;
-  }
+    & svg {
+        position: relative;
+        top: 2px;
+        width: 15px;
+        height: 15px;
 
-  & p {
-    color: var(--Colors-System-Green, #61C66C);
-    font-size: var(--Font-Size-md, 16px);
-    font-weight: 500;
-    line-height: 135%;
-    margin: 8px 0 0;
-  }
+        & path {
+            stroke: var(--Colors-System-Green, #61c66c);
+        }
+    }
+
+    & h3 {
+        color: var(--Colors-Text-Dark, #24262e);
+        font-size: var(--Font-Size-H2, 24px);
+        font-style: normal;
+        font-weight: 600;
+        line-height: 130%;
+        margin: 0;
+    }
+
+    & p {
+        color: var(--Colors-System-Green, #61c66c);
+        font-size: var(--Font-Size-md, 16px);
+        font-weight: 500;
+        line-height: 135%;
+        margin: 8px 0 0;
+    }
 }

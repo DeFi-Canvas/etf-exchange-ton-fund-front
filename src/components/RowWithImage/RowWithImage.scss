@@ -1,54 +1,52 @@
 .row-with-image {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  user-select: none;
-
-  &--white {
-    background: #FFFFFF;
-    border-radius: 12px;
-    padding: 16px;
-  }
-
-  &--content {
+    width: 100%;
     display: flex;
-    gap: 15px;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
 
-    & h3{
-      color: var(--Text-Dark, #1B1B1B);
-      font-size: var(--Font-Size-md, 16px);
-      font-weight: 500;
-      line-height: 135%;
-      margin: 0;
+    &--white {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 16px;
     }
-    & p {
-      margin: 0;
-      color: var(--colors-text-dark-50, rgba(36, 38, 46, 0.50));
-      font-size: var(--Font-Size-xs, 12px);
-      font-weight: 400;
-      line-height: 150%
-    }
-  }
 
-  &--numbers {
-    text-align: right;
-    color: var(--Text-Dark, #1B1B1B);
-    font-size: var(--Font-Size-lg, 18px);
-    font-weight: 500;
-    line-height: 150%;
-    margin: 0;
-  }
+    &--content {
+        display: flex;
+        gap: 15px;
+
+        & h3 {
+            color: var(--Text-Dark, #1b1b1b);
+            font-size: var(--Font-Size-md, 16px);
+            font-weight: 500;
+            line-height: 135%;
+            margin: 0;
+        }
+        & p {
+            margin: 0;
+            color: var(--colors-text-dark-50, rgba(36, 38, 46, 0.5));
+            font-size: var(--Font-Size-xs, 12px);
+            font-weight: 400;
+            line-height: 150%;
+        }
+    }
+
+    &--numbers {
+        text-align: right;
+        color: var(--Text-Dark, #1b1b1b);
+        font-size: var(--Font-Size-lg, 18px);
+        font-weight: 500;
+        line-height: 150%;
+        margin: 0;
+    }
 }
 
-
 .row-with-image.disabled {
-  background: var(--colors-pallete-dark-10, rgba(36, 38, 46, 0.10));
-  filter: grayscale(0.5);
-  opacity: .4;
+    background: var(--colors-pallete-dark-10, rgba(36, 38, 46, 0.1));
+    filter: grayscale(0.5);
+    opacity: 0.4;
 }
 
 .row-with-image.selected {
-
-  outline: 2px solid var(--Colors-Main-Purple, #5B39F4);
+    outline: 2px solid var(--Colors-Main-Purple, #5b39f4);
 }

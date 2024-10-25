@@ -1,28 +1,57 @@
-import type {ComponentType, JSX} from 'react';
+import type { ComponentType, JSX } from 'react';
 
-import {IndexPage} from '@/pages/IndexPage/IndexPage';
-import AboutPage from "@/pages/AboutPage/AboutPage.tsx";
-import FundPage from "@/pages/FundPage/FundPage.tsx";
-import InvestPage from "@/pages/InvestPage/InvestPage.tsx";
-
+import { IndexPage } from '@/pages/IndexPage/IndexPage';
+import AboutPage from '@/pages/AboutPage/AboutPage.tsx';
+import FundPage from '@/pages/FundPage/FundPage.tsx';
+import InvestPage from '@/pages/InvestPage/InvestPage.tsx';
+import { WhatToBuyPage } from '@/pages/what-to-buy/what-to-buy.page';
+import { Assets } from '@/pages/what-to-buy/sub-pages/assets/assets.page';
 
 interface Route {
-  path: string;
-  Component: ComponentType;
-  title?: string;
-  icon?: JSX.Element;
+    path: string;
+    page: ComponentType;
+    parent?: Array<{
+        path: string;
+        page: ComponentType;
+    }>;
+    title?: string;
+    icon?: JSX.Element;
 }
 
 export const routes: Route[] = [
-  {path: '/', Component: IndexPage},
-  {path: '/about', Component: AboutPage},
-  {path: '/funds/:id', Component: FundPage},
-  {path: '/invest/:id/:step', Component: InvestPage},
+    { path: '/', page: IndexPage },
+    { path: '/about', page: AboutPage },
+    { path: '/funds/:id', page: FundPage },
+    { path: '/invest/:id/:step', page: InvestPage },
+    {
+        path: '/what-to-buy',
+        page: WhatToBuyPage,
+        parent: [
+            { path: 'assets', page: Assets },
+            { path: 'funds', page: () => <>2</> },
+            { path: 'transactions', page: () => <>2</> },
+        ],
+    },
+];
 
-  /*{ path: '/init-data', Component: InitDataPage, title: 'Init Data' },
+// interface SimpleRoute {
+//     path: string;
+//     Component: ComponentType;
+//     title?: string;
+//     icon?: JSX.Element;
+// }
+
+// export const simpleRoutes: SimpleRoute[] = [
+//     { path: '/', Component: IndexPage },
+//     { path: '/about', Component: AboutPage },
+//     { path: '/funds/:id', Component: FundPage },
+//     { path: '/invest/:id/:step', Component: InvestPage },
+// { path: '/what-to-buy', Component: WhatToBuyPage },
+
+/*{ path: '/init-data', Component: InitDataPage, title: 'Init Data' },
   { path: '/theme-params', Component: ThemeParamsPage, title: 'Theme Params' },
   { path: '/launch-params', Component: LaunchParamsPage, title: 'Launch Params' },*/
-  /*{
+/*{
     path: '/ton-connect',
     Component: TONConnectPage,
     title: 'TON Connect',
@@ -45,4 +74,4 @@ export const routes: Route[] = [
       </svg>
     ),
   },*/
-];
+// ];

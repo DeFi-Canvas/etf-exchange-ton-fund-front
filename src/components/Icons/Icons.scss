@@ -1,21 +1,20 @@
-.home-active{
+.home-active {
     & path:first-child {
         transition: all 0.25s ease-in-out;
-        color: #24262E;
+        color: #24262e;
         opacity: 1;
     }
-    &  path:last-child {
+    & path:last-child {
         fill: white;
     }
 }
 
 .about-active {
-
-    & path:first-child{
-        fill: #24262E;
+    & path:first-child {
+        fill: #24262e;
         opacity: 1;
     }
-    & #status-up path{
+    & #status-up path {
         transition: all 0.25s ease-in-out;
 
         fill: white;

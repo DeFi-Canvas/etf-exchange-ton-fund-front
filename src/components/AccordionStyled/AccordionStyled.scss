@@ -1,75 +1,73 @@
-
 .accordion-root {
-  width: 100%;
+    width: 100%;
 }
 
-.accordion-header{
-  margin: 0;
+.accordion-header {
+    margin: 0;
 }
 
 .accordion-trigger {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: white;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  padding: 12px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    padding: 12px 0;
 
-  color: var(--Text-Dark, #1B1B1B);
-  font-family: var(--Font-Family-All, "DM Sans");
-  font-size: var(--Font-Size-lg, 18px);
-  font-weight: 500;
-  line-height: 150%;
+    color: var(--Text-Dark, #1b1b1b);
+    font-family: var(--Font-Family-All, 'DM Sans');
+    font-size: var(--Font-Size-lg, 18px);
+    font-weight: 500;
+    line-height: 150%;
 }
 
 .accordion-chevron {
-  transition: transform 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out;
 }
 
 .accordion-content {
-  color: var(--colors-text-dark-70, rgba(36, 38, 46, 0.70));
-  font-family: var(--Font-Family-All, "DM Sans");
-  font-size: var(--Font-Size-md, 16px);
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%;
-  margin-bottom: 14px;
-  overflow: hidden;
-  margin-right: 28px;
+    color: var(--colors-text-dark-70, rgba(36, 38, 46, 0.7));
+    font-family: var(--Font-Family-All, 'DM Sans');
+    font-size: var(--Font-Size-md, 16px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    margin-bottom: 14px;
+    overflow: hidden;
+    margin-right: 28px;
 }
 
-[aria-expanded="true"] .accordion-chevron {
-  transform: rotate(180deg);
+[aria-expanded='true'] .accordion-chevron {
+    transform: rotate(180deg);
 }
 
-
-.accordion-separator{
-  border-top: 1px solid rgba(91, 57, 244, 0.10);
+.accordion-separator {
+    border-top: 1px solid rgba(91, 57, 244, 0.1);
 }
 
-.accordion-content[data-state="open"] {
-  animation: slideDown 300ms ease-out;
+.accordion-content[data-state='open'] {
+    animation: slideDown 300ms ease-out;
 }
-.accordion-content[data-state="closed"] {
-  animation: slideUp 300ms ease-out;
+.accordion-content[data-state='closed'] {
+    animation: slideUp 300ms ease-out;
 }
 
 @keyframes slideDown {
-  from {
-    height: 0;
-  }
-  to {
-    height: var(--radix-accordion-content-height);
-  }
+    from {
+        height: 0;
+    }
+    to {
+        height: var(--radix-accordion-content-height);
+    }
 }
 
 @keyframes slideUp {
-  from {
-    height: var(--radix-accordion-content-height);
-  }
-  to {
-    height: 0;
-  }
+    from {
+        height: var(--radix-accordion-content-height);
+    }
+    to {
+        height: 0;
+    }
 }

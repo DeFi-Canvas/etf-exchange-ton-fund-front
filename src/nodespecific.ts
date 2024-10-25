@@ -1,3 +1,3 @@
-import { Buffer } from 'buffer/'
+import { Buffer } from 'buffer/';
 
-window.Buffer = Buffer as any
+window.Buffer = Buffer as any;
