@@ -5,17 +5,18 @@ import {
     DepositSwapIcon,
 } from '@/components/Icons/Icons';
 import css from './nav-bar.module.css';
+import { NavLink } from 'react-router-dom';
 
 // TODO  доделать на ссылки
 export const NavBar = () => {
     return (
         <div className={css.wrap}>
-            <div className={css.link}>
+            <NavLink to={'deposit'} className={css.link}>
                 <div>
                     <DepositDepositIcon />
                 </div>
                 <span className={css.title}>Deposit</span>
-            </div>
+            </NavLink>
             <div className={css.link}>
                 <div>
                     <DepositSwapIcon />

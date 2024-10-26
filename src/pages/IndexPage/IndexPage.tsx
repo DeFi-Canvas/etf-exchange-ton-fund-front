@@ -12,7 +12,6 @@ export const IndexPage: FC = () => {
     const backButton = useBackButton();
 
     const { wallet_info } = useAppSelector((state) => state.appSlice);
-    console.log(wallet_info);
 
     const balanceValues = `${
         wallet_info?.totalamount ? wallet_info?.totalamount.toFixed(2) : '0.00'

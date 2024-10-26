@@ -1,22 +1,23 @@
+import * as O from 'fp-ts/Option';
+import { pipe } from 'fp-ts/lib/function';
 import {
     CoinCard,
     CoinCardProps,
 } from '@/components/ui-kit/coin-card/coin-card.component';
-import css from './assets.module.css';
-
+import css from './deposit.module.css';
 import img from './temp-teser.png';
-import * as O from 'fp-ts/Option';
-import { pipe } from 'fp-ts/lib/function';
+import { SerchInput } from '@/components/ui-kit/serch-input/serch-input.component';
 
-const ASSETS_MOCK: Array<CoinCardProps> = [
+const DEPOSIT_MOCK: Array<CoinCardProps> = [
     {
         logo: O.some(img),
         name: O.some('Tether USDT'),
         isStableCoin: true,
         ticker: O.some('USDT'),
         coinAmmount: O.some(277.89),
-        cost: O.some(277.89),
+        cost: O.none,
         pnl: O.none,
+        type: 'secondory',
     },
     {
         logo: O.some(img),
@@ -31,6 +32,7 @@ const ASSETS_MOCK: Array<CoinCardProps> = [
             ammount: 45.12,
             persent: 12,
         }),
+        type: 'secondory',
     },
     {
         logo: O.some(img),
@@ -45,6 +47,7 @@ const ASSETS_MOCK: Array<CoinCardProps> = [
             ammount: 45.12,
             persent: 12,
         }),
+        type: 'secondory',
     },
 
     {
@@ -55,21 +58,27 @@ const ASSETS_MOCK: Array<CoinCardProps> = [
         coinAmmount: O.none,
         cost: O.none,
         pnl: O.none,
+        type: 'secondory',
     },
 ];
-
-export const Assets = () => {
+export const DepositPage = () => {
     return (
-        <div className={css.wrap}>
-            {ASSETS_MOCK.map((el) => (
-                <CoinCard
-                    key={pipe(
-                        el.ticker,
-                        O.getOrElse(() => '-')
-                    )}
-                    {...el}
-                />
-            ))}
-        </div>
+        <>
+            <div className={css.wrap}>
+                <h2>Deposit</h2>
+                <SerchInput placeholder="Search" />
+            </div>
+            <div className={css.coinCards}>
+                {DEPOSIT_MOCK.map((el) => (
+                    <CoinCard
+                        key={pipe(
+                            el.ticker,
+                            O.getOrElse(() => '-')
+                        )}
+                        {...el}
+                    />
+                ))}
+            </div>
+        </>
     );
 };

@@ -98,7 +98,6 @@ export const App: FC = () => {
             <Router location={location} navigator={reactNavigator}>
                 <Routes>
                     {routes.map((route) => {
-                        console.log(route);
                         if (!route.parent?.length) {
                             return (
                                 <Route

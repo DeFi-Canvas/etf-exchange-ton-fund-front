@@ -4,8 +4,11 @@ import { IndexPage } from '@/pages/IndexPage/IndexPage';
 import AboutPage from '@/pages/AboutPage/AboutPage.tsx';
 import FundPage from '@/pages/FundPage/FundPage.tsx';
 import InvestPage from '@/pages/InvestPage/InvestPage.tsx';
-import { WhatToBuyPage } from '@/pages/what-to-buy/what-to-buy.page';
+// import { WhatToBuyPage } from '@/pages/what-to-buy/what-to-buy.page';
 import { Assets } from '@/pages/what-to-buy/sub-pages/assets/assets.page';
+import { WhatToBuyPageContainer } from '@/pages/what-to-buy/what-to-buy.container';
+import { newWaletRestService } from '@/API/rest-service';
+import { DepositPage } from '@/pages/deposit/deposit.page';
 
 interface Route {
     path: string;
@@ -18,6 +21,10 @@ interface Route {
     icon?: JSX.Element;
 }
 
+const WhatToBuyPageContainerResolved = WhatToBuyPageContainer({
+    waletRestService: newWaletRestService(),
+});
+
 export const routes: Route[] = [
     { path: '/', page: IndexPage },
     { path: '/about', page: AboutPage },
@@ -25,12 +32,17 @@ export const routes: Route[] = [
     { path: '/invest/:id/:step', page: InvestPage },
     {
         path: '/what-to-buy',
-        page: WhatToBuyPage,
+        // page: WhatToBuyPage,
+        page: WhatToBuyPageContainerResolved,
         parent: [
             { path: 'assets', page: Assets },
             { path: 'funds', page: () => <>2</> },
             { path: 'transactions', page: () => <>2</> },
         ],
+    },
+    {
+        path: 'deposit',
+        page: DepositPage,
     },
 ];
 

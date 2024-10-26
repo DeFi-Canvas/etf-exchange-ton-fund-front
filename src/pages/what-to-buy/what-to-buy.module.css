@@ -3,4 +3,9 @@
     flex-direction: column;
     gap: 24px;
     margin-bottom: 35px;
+    height: 100vh;
+
+    .content {
+        flex: 1;
+    }
 }

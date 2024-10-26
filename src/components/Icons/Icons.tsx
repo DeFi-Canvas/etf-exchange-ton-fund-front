@@ -14,6 +14,7 @@ import DepositDeposit from '../../assets/icons/deposit-deposit.svg?react';
 import DepositSwap from '../../assets/icons/depoit-swap.svg?react';
 import DepositAnalitics from '../../assets/icons/deposit-analitics.svg?react';
 import DepositFeatured from '../../assets/icons/deposit-featured.svg?react';
+import Serch from '../../assets/icons/serch.svg?react';
 
 export const HomeIcon = ({ className = '' }: { className?: string }) => (
     <Home width={20} height={20} className={className} />
@@ -78,3 +79,7 @@ export const DepositFeaturedIcon = ({
 }: {
     className?: string;
 }) => <DepositFeatured className={className} />;
+
+export const SerchIcon = ({ className = '' }: { className?: string }) => (
+    <Serch className={className} />
+);

@@ -5,8 +5,10 @@ import css from './what-to-buy.module.css';
 export const WhatToBuyPage = () => {
     return (
         <div className={css.wrap}>
-            <Balans />
-            <NavBar />
+            <div className={css.content}>
+                <Balans />
+                <NavBar />
+            </div>
             <Coins />
         </div>
     );
