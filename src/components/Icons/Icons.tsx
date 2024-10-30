@@ -15,6 +15,14 @@ import DepositSwap from '../../assets/icons/depoit-swap.svg?react';
 import DepositAnalitics from '../../assets/icons/deposit-analitics.svg?react';
 import DepositFeatured from '../../assets/icons/deposit-featured.svg?react';
 import Serch from '../../assets/icons/serch.svg?react';
+import Buy from '../../assets/icons/transactions/buy.svg?react';
+import Deposit from '../../assets/icons/transactions/deposit.svg?react';
+import TransaactionError from '../../assets/icons/transactions/error.svg?react';
+import MultiSwap from '../../assets/icons/transactions/multi-svap.svg?react';
+import Processing from '../../assets/icons/transactions/processing.svg?react';
+import Swap from '../../assets/icons/transactions/swap.svg?react';
+import Withdraw from '../../assets/icons/transactions/withdraw.svg?react';
+import { TransactionStatus } from '@/pages/what-to-buy/components/transaction/transaction.component';
 
 export const HomeIcon = ({ className = '' }: { className?: string }) => (
     <Home width={20} height={20} className={className} />
@@ -83,3 +91,30 @@ export const DepositFeaturedIcon = ({
 export const SerchIcon = ({ className = '' }: { className?: string }) => (
     <Serch className={className} />
 );
+
+export const TransactionStatusIcon = ({
+    status,
+    className = '',
+}: {
+    className?: string;
+    status: TransactionStatus;
+}) => {
+    switch (status) {
+        case 'BUY':
+            return <Buy className={className} />;
+        case 'DEPOSIT':
+            return <Deposit className={className} />;
+        case 'WITHDRAW':
+            return <Withdraw className={className} />;
+        case 'SWAP':
+            return <Swap className={className} />;
+        case 'MULTI-SWAP':
+            return <MultiSwap className={className} />;
+        case 'SELL':
+            return <Buy className={className} />;
+        case 'ERROR':
+            return <TransaactionError className={className} />;
+        case 'PROCESSING':
+            return <Processing className={className} />;
+    }
+};

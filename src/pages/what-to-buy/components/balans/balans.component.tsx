@@ -1,7 +1,14 @@
 import { AlertIcon, PnlArrowUpIcon } from '@/components/Icons/Icons';
+import * as O from 'fp-ts/Option';
 import css from './balans.module.css';
+import { OptionSpan } from '@/components/ui-kit/fpts-components-utils/options.component';
+import { pipe } from 'fp-ts/lib/function';
 
-export const Balans = () => {
+export interface BalansProps {
+    balance: O.Option<number>;
+}
+
+export const Balans = ({ balance }: BalansProps) => {
     return (
         <div className={css.wrap}>
             <div className={css.labelWrap}>
@@ -12,9 +19,14 @@ export const Balans = () => {
                 </div>
             </div>
             <div className={css.balans}>
-                {/* TODO: получать с API */}
-                <span>$ 1,590</span>
-                <span className={css.shadow}>.90</span>
+                <OptionSpan
+                    modificator="$"
+                    data={pipe(
+                        balance,
+                        O.map((x) => `${x}`)
+                    )}
+                />
+                {/* <span className={css.shadow}>.90</span> */}
             </div>
 
             <div className={css.pnl}>

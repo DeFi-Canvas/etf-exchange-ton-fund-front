@@ -1,30 +1,51 @@
-import { injectable, token } from '@injectable-ts/core';
+import {
+    injectable,
+    //  token
+} from '@injectable-ts/core';
 
-import { pipe } from 'fp-ts/lib/function';
+import { flow, pipe } from 'fp-ts/lib/function';
 import { tap } from '@most/core';
+import { Property } from '@frp-ts/core';
 // import { createAdapter } from '@most/adapter';
 // import { Option } from 'fp-ts/lib/Option';
-// import { Property } from '@frp-ts/core';
 // import { newLensedAtom } from '@frp-ts/lens';
-// import * as O from 'fp-ts/Option';
-// import { either } from 'fp-ts';
+import * as O from 'fp-ts/Option';
+import { either } from 'fp-ts';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
-import { WaletRestService } from '@/API/rest-service';
+import { newWaletRestService } from '@/API/rest-service';
+import { newLensedAtom } from '@frp-ts/lens';
 
-export interface WhatToBuyViewModel {}
+export interface WhatToBuyViewModel {
+    balance: Property<O.Option<number>>;
+}
 
 export interface NewWhatToBuyViewModel {
     (): ValueWithEffect<WhatToBuyViewModel>;
 }
 
 export const newWhatToBuyViewModel = injectable(
-    token('waletRestService')<WaletRestService>(),
+    newWaletRestService,
     (waletRestService): NewWhatToBuyViewModel =>
         () => {
-            const testEffect = pipe(
-                waletRestService.getWalletInfo(''),
-                tap(console.log)
+            const balance = newLensedAtom<O.Option<number>>(O.none);
+
+            const getBalanceEffect = pipe(
+                waletRestService.getWalletInfo(),
+                tap(
+                    flow(
+                        either.map(({ balance }) => balance),
+                        O.fromEither,
+                        balance.set
+                    )
+                )
+                // tap(balance.set)
+                // tap((x) => console.log(x, 'testEffect'))
             );
-            return valueWithEffect.new({}, testEffect);
+            return valueWithEffect.new(
+                {
+                    balance,
+                },
+                getBalanceEffect
+            );
         }
 );

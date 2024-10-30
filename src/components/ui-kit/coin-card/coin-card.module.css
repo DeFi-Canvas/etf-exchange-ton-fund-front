@@ -14,6 +14,16 @@
     .column {
         display: flex;
         flex-direction: column;
+
+        .titleWrap {
+            display: flex;
+
+            .title {
+                display: block;
+                max-width: 155px;
+                width: 100%;
+            }
+        }
     }
 
     .coinName {

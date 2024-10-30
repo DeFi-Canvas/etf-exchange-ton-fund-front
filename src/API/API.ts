@@ -39,7 +39,12 @@ export const API = {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(userData),
+                body: JSON.stringify({
+                    telegram_id: 186942269,
+                    username: 'user-0',
+                    firs_name: 'Ivan',
+                    last_name: 'Ivanov',
+                }),
             }).then(
                 (res) =>
                     res.json() as Promise<{

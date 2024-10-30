@@ -87,7 +87,7 @@ export const CoinCard = ({
                             O.map((cost) => `${cost}`)
                         )}
                     />
-                    {!isStableCoin && isPnLExists && (
+                    {isPnLExists && (
                         <div className={cn(css.pnl)}>
                             <OptionSpan
                                 className={cn({
@@ -167,7 +167,7 @@ const CoinInfo = ({
 
     return (
         <div className={cn(css.column)}>
-            <div>
+            <div className={css.titleWrap}>
                 {!isStableCoin && (
                     <OptionSpan
                         data={pipe(
@@ -177,7 +177,10 @@ const CoinInfo = ({
                         )}
                     />
                 )}
-                <OptionSpan data={(() => (isStableCoin ? name : ticker))()} />
+                <OptionSpan
+                    className={css.title}
+                    data={(() => (isStableCoin ? name : ticker))()}
+                />
             </div>
             {!isStableCoin && (
                 <OptionSpan data={name} className={css.coinName} />
