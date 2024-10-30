@@ -32,8 +32,6 @@ export const AppRoutes = () => {
         []
     );
 
-    // userStore.setUser(initData?.user);
-
     const WhatToBuyPageContainerResolved = WhatToBuyPageContainer({
         userStore,
     });
