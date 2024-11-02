@@ -1,12 +1,12 @@
 import {
-    CoinCard,
+    // CoinCard,
     CoinCardProps,
 } from '@/components/ui-kit/coin-card/coin-card.component';
 import css from './funds.module.css';
 
 import img from './temp-teser.png';
 import * as O from 'fp-ts/Option';
-import { pipe } from 'fp-ts/lib/function';
+// import { pipe } from 'fp-ts/lib/function';
 import { EmptyScrean } from '../epty-screan/epty-screan.component';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
