@@ -48,18 +48,31 @@ export const AppRoutes = () => {
     });
 
     const routes: Route[] = [
-        { path: '/', page: IndexPage },
-        { path: '/about', page: AboutPage },
-        { path: '/funds/:id', page: FundPage },
-        { path: '/invest/:id/:step', page: InvestPage },
+        // { path: '/', page: IndexPage },
         {
-            path: '/what-to-buy',
+            path: '/',
             page: WhatToBuyPageContainerResolved,
             parent: [
                 { path: 'assets', page: AssetsResolved },
                 { path: 'funds', page: Funds },
                 { path: 'transactions', page: Transactions },
             ],
+        },
+        { path: '/about', page: AboutPage },
+        { path: '/funds/:id', page: FundPage },
+        { path: '/invest/:id/:step', page: InvestPage },
+        // {
+        //     path: '/what-to-buy',
+        //     page: WhatToBuyPageContainerResolved,
+        //     parent: [
+        //         { path: 'assets', page: AssetsResolved },
+        //         { path: 'funds', page: Funds },
+        //         { path: 'transactions', page: Transactions },
+        //     ],
+        // },
+        {
+            path: '/what-to-buy',
+            page: IndexPage,
         },
         {
             path: 'deposit',

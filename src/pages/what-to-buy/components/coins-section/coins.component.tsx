@@ -5,23 +5,24 @@ import css from './coins.module.css';
 export const Coins = () => {
     const location = window.location.href;
     const getActiveRoute = (path: string) => location.split('/').includes(path);
+    console.log(getActiveRoute('assets'), location, 'LOCATION');
 
     return (
         <div className={css.wrap}>
             <div className={css.navLinks}>
                 <NavLink
-                    to="what-to-buy/assets"
+                    to="assets"
                     className={cn(css.link, {
-                        [css.active]: getActiveRoute('assets'),
+                        [css.active]: getActiveRoute('#assets'),
                     })}
                 >
                     Assets
                 </NavLink>
                 <div className={css.separete} />
                 <NavLink
-                    to="what-to-buy/funds"
+                    to="funds"
                     className={cn(css.link, {
-                        [css.active]: getActiveRoute('funds'),
+                        [css.active]: getActiveRoute('#funds'),
                     })}
                 >
                     Funds

@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react';
-import { TonConnectButton } from '@tonconnect/ui-react';
+// import { TonConnectButton } from '@tonconnect/ui-react';
 import EtfCard from '@/components/ETFCard/ETFCard.tsx';
 import { useAppSelector } from '@/hooks/useAppSelector.ts';
 import { ETFS_DATA_MOCK } from '@/data/mock_data.ts';
@@ -13,9 +13,9 @@ export const IndexPage: FC = () => {
 
     const { wallet_info } = useAppSelector((state) => state.appSlice);
 
-    const balanceValues = `${
-        wallet_info?.totalamount ? wallet_info?.totalamount.toFixed(2) : '0.00'
-    }`.split('.');
+    // const balanceValues = `${
+    //     wallet_info?.totalamount ? wallet_info?.totalamount.toFixed(2) : '0.00'
+    // }`.split('.');
 
     useEffect(() => {
         if (backButton) {
@@ -25,14 +25,14 @@ export const IndexPage: FC = () => {
 
     return (
         <section className={'container'}>
-            <TonConnectButton className="ton-connect__button" />
-            <section className={'index--balance'}>
+            {/* <TonConnectButton className="ton-connect__button" /> */}
+            {/* <section className={'index--balance'}>
                 <h2>Current balance</h2>
                 <p>
                     $ {balanceValues[0]}
                     <span>.{balanceValues[1]}</span>
                 </p>
-            </section>
+            </section> */}
             <section className={'etf-cards'}>
                 {ETFS_DATA_MOCK.map((etf) => {
                     const userEtfBalance =
