@@ -22,7 +22,7 @@ export const Settings = () => {
                     target="_blank"
                     rel="noreferrer"
                 >
-                    GitPages
+                    Documentation
                 </a>
             </div>
         </>

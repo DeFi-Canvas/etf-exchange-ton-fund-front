@@ -112,14 +112,14 @@ const TabBar = () => {
         //TOD: доделать стили
         return (
             <>
-                <TabBarItem text={'Home'} to={'/'}>
+                <TabBarItem text={'Home'} to={'/what-to-buy/assets'}>
                     <HomeIcon
                         className={cn(css['home-icon'], {
                             [css['home-active']]: pathname === '/',
                         })}
                     />
                 </TabBarItem>
-                <TabBarItem text={'What to buy'} to={'/what-to-buy/assets'}>
+                <TabBarItem text={'What to buy'} to={'/'}>
                     <WhatToBuyIcon
                         className={cn(css['home-icon'], {
                             [css['about-active']]: pathname === '/',

@@ -25,7 +25,7 @@ const stepsInit: Array<EranStep> = [
     {
         id: 0,
         title: 'Subscribe to the channel',
-        reward: '+ 15 TON',
+        reward: '+ 0,15 TON',
         isActive: true,
         externalLink: 'https://t.me/DeFiCanvas',
     },

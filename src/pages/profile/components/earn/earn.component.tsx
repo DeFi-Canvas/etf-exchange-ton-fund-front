@@ -1,15 +1,15 @@
-import css from './eran.module.css';
-import { EranStep } from './eran.view-model';
+import css from './earn.module.css';
+import { EranStep } from './earn.view-model';
 
 export interface EranProps {
     readonly steps: Array<EranStep>;
 }
 
-export const Eran = ({ steps }: EranProps) => {
+export const Earn = ({ steps }: EranProps) => {
     return (
         <div className={css.wrap}>
             <div className={css.titleWrap}>
-                <span>Eran</span>
+                <span>Earn</span>
                 <span className={css.count}>{2}</span>
             </div>
             <div className={css.eranSteps}>
