@@ -13,6 +13,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { newNewUserStoreService } from '@/store/user.store';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useInitData } from '@telegram-apps/sdk-react';
+import { Profile } from '@/pages/profile/profile.page';
 
 interface Route {
     path: string;
@@ -27,12 +28,18 @@ interface Route {
 
 export const AppRoutes = () => {
     const initData = useInitData();
+    console.log(initData?.user);
+
     const userStore = useValueWithEffect(
         () => newNewUserStoreService(initData?.user),
         []
     );
 
     const WhatToBuyPageContainerResolved = WhatToBuyPageContainer({
+        userStore,
+    });
+
+    const ProfileResolved = Profile({
         userStore,
     });
 
@@ -53,6 +60,10 @@ export const AppRoutes = () => {
         {
             path: 'deposit',
             page: DepositPage,
+        },
+        {
+            path: 'profile',
+            page: ProfileResolved,
         },
     ];
 

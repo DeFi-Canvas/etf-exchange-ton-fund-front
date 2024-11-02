@@ -8,6 +8,7 @@ import img from './temp-teser.png';
 import * as O from 'fp-ts/Option';
 import { pipe } from 'fp-ts/lib/function';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ASSETS_MOCK: Array<CoinCardProps> = [
     {
         logo: O.some(img),
@@ -57,11 +58,12 @@ const ASSETS_MOCK: Array<CoinCardProps> = [
         pnl: O.none,
     },
 ];
+const ASSETS_MOCK_EMPTY: Array<CoinCardProps> = [];
 
 export const Assets = () => {
     return (
         <div className={css.wrap}>
-            {ASSETS_MOCK.map((el) => (
+            {ASSETS_MOCK_EMPTY.map((el) => (
                 <CoinCard
                     key={pipe(
                         el.ticker,

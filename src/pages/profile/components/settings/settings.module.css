@@ -1,0 +1,60 @@
+.wrap {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 16px;
+    border-radius: var(--Font-Size-xs, 12px);
+    background: var(--Colors-Background-Light, #f9f8ff);
+    margin-bottom: 16px;
+
+    .title {
+        color: var(--Colors-Text-Dark, #24262e);
+        font-size: var(--Font-Size-lg, 18px);
+        font-weight: 510;
+        margin-bottom: 12px;
+    }
+
+    .settingWrap {
+        background: rgb(240 241 245);
+        border-radius: var(--Font-Size-xs, 12px);
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .setting {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0px;
+        border-bottom: 1px solid
+            var(--colors-main-purple-10, rgba(91, 57, 244, 0.1));
+        padding-bottom: 16px;
+        &:last-child {
+            border-bottom: unset;
+            padding-bottom: unset;
+            padding-top: unset;
+        }
+
+        .title {
+            font-size: var(--Font-Size-md, 16px);
+        }
+
+        .label {
+            color: var(--colors-text-dark-70, rgba(36, 38, 46, 0.7));
+            font-size: var(--Font-Size-md, 16px);
+            font-weight: 400;
+            line-height: 150%; /* 24px */
+        }
+    }
+}
+
+.gitPages {
+    /* WTF???? */
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
+    a {
+        color: var(--Colors-Main-Purple, #5b39f4);
+    }
+}

@@ -1,4 +1,5 @@
 import * as O from 'fp-ts/Option';
+import css from './transactions.module.css';
 import {
     Transaction,
     TransactionGroup,
@@ -16,14 +17,7 @@ const MOCK_TRANSACTION: Transaction = {
     status: O.some('WITHDRAW'),
 };
 
-// const TRANSACTIONS_MOCK: TransactionGroup = {
-//     date: new Date(),
-//     transactions: [
-//         { ...MOCK_TRANSACTION },
-//         { ...MOCK_TRANSACTION, fullDate: O.some(new Date(2023)) },
-//     ],
-// };
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const TRANSACTIONS_PAGE_MOCK: Array<TransactionGroup> = [
     {
         date: new Date(),
@@ -99,14 +93,14 @@ const TRANSACTIONS_PAGE_MOCK: Array<TransactionGroup> = [
     },
 ];
 
+const TRANSACTIONS_PAGE_MOCK_EMPTY: Array<TransactionGroup> = [];
+
 export const Transactions = () => {
     return (
-        <div>
-            {TRANSACTIONS_PAGE_MOCK.map((t) => (
+        <div className={css.wrap}>
+            {TRANSACTIONS_PAGE_MOCK_EMPTY.map((t) => (
                 <TransactionGroup key={t.date.getMilliseconds()} {...t} />
             ))}
-            {/* <TransactionGroup {...TRANSACTIONS_MOCK} /> */}
-            {/* <Transaction {...MOCK_TRANSACTION} /> */}
         </div>
     );
 };

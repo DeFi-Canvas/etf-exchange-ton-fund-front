@@ -2,8 +2,8 @@ import ButtonPrimary from '@/components/Buttons/ButtonPrimary.tsx';
 import { useMemo } from 'react';
 import TabBarItem from '@/components/TabBar/TabBarItem.tsx';
 import {
-    // AboutIcon,
     HomeIcon,
+    ProfileIcon,
     WhatToBuyIcon,
 } from '@/components/Icons/Icons.tsx';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -126,13 +126,13 @@ const TabBar = () => {
                         })}
                     />
                 </TabBarItem>
-                {/* <TabBarItem text={'About'} to={'/about'}>
-                    <AboutIcon
-                        className={cn(css['home-icon'], {
-                            [css['about-active']]: pathname === '/',
+                <TabBarItem text={'Profile'} to={'/profile'}>
+                    <ProfileIcon
+                        className={cn(css['profile-icon'], {
+                            [css['profile-active']]: pathname === '/profile',
                         })}
                     />
-                </TabBarItem> */}
+                </TabBarItem>
             </>
         );
     };

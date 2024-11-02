@@ -1,4 +1,7 @@
-import { AlertIcon, PnlArrowUpIcon } from '@/components/Icons/Icons';
+import {
+    AlertIcon,
+    // PnlArrowUpIcon
+} from '@/components/Icons/Icons';
 import * as O from 'fp-ts/Option';
 import css from './balans.module.css';
 import { OptionSpan } from '@/components/ui-kit/fpts-components-utils/options.component';
@@ -29,11 +32,10 @@ export const Balans = ({ balance }: BalansProps) => {
                 {/* <span className={css.shadow}>.90</span> */}
             </div>
 
-            <div className={css.pnl}>
-                {/* TODO: получать с API */}
+            {/* <div className={css.pnl}>
                 <PnlArrowUpIcon className={css.icon} />
                 <span className={css.val}>12.76%</span>
-            </div>
+            </div> */}
         </div>
     );
 };

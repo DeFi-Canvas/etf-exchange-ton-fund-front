@@ -1,0 +1,86 @@
+.wrap {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 16px;
+    border-radius: var(--Font-Size-xs, 12px);
+    background: var(--Colors-Background-Light, #f9f8ff);
+    margin-bottom: 8px;
+
+    .titleWrap {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-bottom: 12px;
+        color: var(--Colors-Text-Dark, #24262e);
+        font-size: var(--Font-Size-lg, 18px);
+        font-weight: 510;
+
+        .count {
+            width: 20px;
+            height: 20px;
+            background-color: var(--Colors-Main-Purple, #5b39f4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 12px;
+        }
+    }
+
+    .eranSteps {
+        background: rgb(240 241 245);
+        border-radius: var(--Font-Size-xs, 12px);
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .step {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid
+            var(--colors-main-purple-10, rgba(91, 57, 244, 0.1));
+        padding-bottom: 16px;
+        &:last-child {
+            border-bottom: unset;
+            padding-bottom: unset;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+
+            .title {
+                color: var(--Colors-Text-Dark, #24262e);
+                font-size: var(--Font-Size-md, 16px);
+                font-weight: 510;
+            }
+
+            .reward {
+                color: var(--Colors-Main-Purple, #5b39f4);
+                font-size: var(--Font-Size-xs, 12px);
+                line-height: 150%;
+            }
+        }
+
+        .button {
+            display: flex;
+            width: 64px;
+            padding: 8px var(--Font-Size-md, 16px);
+            justify-content: center;
+            align-items: center;
+            border-radius: 24px;
+            background: var(--Colors-Main-Purple, #5b39f4);
+            border: unset;
+            a {
+                text-decoration: none;
+                color: var(--Telegram-button_text_color, #fff);
+                text-align: center;
+                font-size: var(--Font-Size-xs, 12px);
+                font-weight: 510;
+            }
+        }
+    }
+}

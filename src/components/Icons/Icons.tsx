@@ -22,6 +22,8 @@ import MultiSwap from '../../assets/icons/transactions/multi-svap.svg?react';
 import Processing from '../../assets/icons/transactions/processing.svg?react';
 import Swap from '../../assets/icons/transactions/swap.svg?react';
 import Withdraw from '../../assets/icons/transactions/withdraw.svg?react';
+import Profile from '../../assets/icons/profile.svg?react';
+
 import { TransactionStatus } from '@/pages/what-to-buy/components/transaction/transaction.component';
 
 export const HomeIcon = ({ className = '' }: { className?: string }) => (
@@ -56,6 +58,10 @@ export const SuccessIcon = ({ className = '' }: { className?: string }) => (
 
 export const WhatToBuyIcon = ({ className = '' }: { className?: string }) => (
     <WhatToBuy className={className} />
+);
+
+export const ProfileIcon = ({ className = '' }: { className?: string }) => (
+    <Profile className={className} />
 );
 
 export const AlertIcon = ({ className = '' }: { className?: string }) => (

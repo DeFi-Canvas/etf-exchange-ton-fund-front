@@ -34,3 +34,11 @@
     font-weight: 500;
     line-height: 140%;
 }
+
+.profile-icon {
+    color: #5b39f4;
+    opacity: 0.3;
+}
+.profile-active {
+    opacity: 1;
+}
