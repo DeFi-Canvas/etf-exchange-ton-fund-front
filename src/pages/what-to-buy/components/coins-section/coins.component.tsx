@@ -26,15 +26,15 @@ export const Coins = () => {
                 >
                     Funds
                 </NavLink>
-                <div className={css.separete} />
-                <NavLink
+                {/* <div className={css.separete} /> */}
+                {/* <NavLink
                     to="what-to-buy/transactions"
                     className={cn(css.link, {
                         [css.active]: getActiveRoute('transactions'),
                     })}
                 >
                     Transactions
-                </NavLink>
+                </NavLink> */}
             </div>
             <Outlet />
         </div>

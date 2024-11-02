@@ -4,7 +4,6 @@ import { IndexPage } from '@/pages/IndexPage/IndexPage';
 import AboutPage from '@/pages/AboutPage/AboutPage.tsx';
 import FundPage from '@/pages/FundPage/FundPage.tsx';
 import InvestPage from '@/pages/InvestPage/InvestPage.tsx';
-import { Assets } from '@/pages/what-to-buy/sub-pages/assets/assets.page';
 import { WhatToBuyPageContainer } from '@/pages/what-to-buy/what-to-buy.container';
 import { DepositPage } from '@/pages/deposit/deposit.page';
 import { Funds } from '@/pages/what-to-buy/sub-pages/founds/funds.page';
@@ -14,6 +13,7 @@ import { newNewUserStoreService } from '@/store/user.store';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useInitData } from '@telegram-apps/sdk-react';
 import { Profile } from '@/pages/profile/profile.page';
+import { AssetsContainer } from '@/pages/what-to-buy/sub-pages/assets/assets.container';
 
 interface Route {
     path: string;
@@ -43,6 +43,10 @@ export const AppRoutes = () => {
         userStore,
     });
 
+    const AssetsResolved = AssetsContainer({
+        userStore,
+    });
+
     const routes: Route[] = [
         { path: '/', page: IndexPage },
         { path: '/about', page: AboutPage },
@@ -52,7 +56,7 @@ export const AppRoutes = () => {
             path: '/what-to-buy',
             page: WhatToBuyPageContainerResolved,
             parent: [
-                { path: 'assets', page: Assets },
+                { path: 'assets', page: AssetsResolved },
                 { path: 'funds', page: Funds },
                 { path: 'transactions', page: Transactions },
             ],

@@ -1,0 +1,19 @@
+.wrapEmptyScrean {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 0;
+
+    img {
+        width: 132px;
+        height: 132px;
+    }
+    .text {
+        max-width: 326px;
+        color: var(--colors-text-dark-70, rgba(36, 38, 46, 0.7));
+        text-align: center;
+        font-size: var(--Font-Size-md, 16px);
+        line-height: 150%;
+    }
+}

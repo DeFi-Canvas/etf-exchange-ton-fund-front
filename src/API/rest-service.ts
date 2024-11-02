@@ -27,6 +27,7 @@ interface WaletResponce {
 
 export interface WaletRestService {
     getWalletInfo: () => Stream<Either<string, WaletResponce>>;
+    getAssets: () => Stream<Either<string, Array<JettonType>>>;
 }
 
 export const newWaletRestService = injectable(
@@ -57,6 +58,36 @@ export const newWaletRestService = injectable(
                             axios
                                 .get(`${API.getWalletInfo}/${address}`)
                                 .then(({ data }) => pipe(data, either.of))
+                                .catch((error) => {
+                                    return either.left(
+                                        `Something goes wrong status = ${error.response.status}`
+                                    );
+                                })
+                        );
+                    })
+                ),
+
+            getAssets: () =>
+                pipe(
+                    fromPromise(
+                        axios
+                            .post(`${API.appopened}`, {
+                                telegram_id,
+                                username,
+                                firs_name,
+                                last_name,
+                            })
+                            .then(({ data }) => data)
+                    ),
+                    chain(({ address }) => {
+                        return fromPromise(
+                            axios
+                                .get(`${API.getWalletInfo}/${address}`)
+                                .then(({ data }) => {
+                                    console.log(data.jettons, 'data.jettons,');
+
+                                    return pipe(data.jettons, either.of);
+                                })
                                 .catch((error) => {
                                     return either.left(
                                         `Something goes wrong status = ${error.response.status}`

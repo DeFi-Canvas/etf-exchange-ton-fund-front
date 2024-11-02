@@ -1,2 +1,5 @@
 export const formatNumberToUI = (val: number) =>
-    val.toLocaleString('en-US', { minimumFractionDigits: 2 });
+    val.toLocaleString('ru-RU', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    });
