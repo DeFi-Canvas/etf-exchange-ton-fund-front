@@ -10,7 +10,7 @@ export const Coins = () => {
         <div className={css.wrap}>
             <div className={css.navLinks}>
                 <NavLink
-                    to="assets"
+                    to="/"
                     className={cn(css.link, {
                         [css.active]: getActiveRoute('#'),
                     })}

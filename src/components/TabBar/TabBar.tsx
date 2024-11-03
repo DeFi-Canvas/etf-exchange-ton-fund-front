@@ -112,7 +112,7 @@ const TabBar = () => {
         //TOD: доделать стили
         return (
             <>
-                <TabBarItem text={'Home'} to={'/assets'}>
+                <TabBarItem text={'Home'} to={'/'}>
                     <HomeIcon
                         isActive={pathname === '/' || pathname === '/assets'}
                     />
