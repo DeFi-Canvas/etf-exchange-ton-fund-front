@@ -52,7 +52,7 @@ export const AppRoutes = () => {
             page: WhatToBuyPageContainerResolved,
             parent: [
                 //загадка жака фреско откуда взялся #
-                { path: '/assets', page: AssetsResolved, isIndex: true },
+                { path: '/', page: AssetsResolved, isIndex: true },
                 { path: 'funds', page: Funds },
                 { path: 'transactions', page: Transactions },
             ],

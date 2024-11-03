@@ -12,7 +12,7 @@ export const Coins = () => {
                 <NavLink
                     to="assets"
                     className={cn(css.link, {
-                        [css.active]: getActiveRoute('#assets'),
+                        [css.active]: getActiveRoute('#'),
                     })}
                 >
                     Assets
