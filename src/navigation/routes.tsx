@@ -21,6 +21,7 @@ interface Route {
     parent?: Array<{
         path: string;
         page: ComponentType;
+        isIndex?: boolean;
     }>;
     title?: string;
     icon?: JSX.Element;
@@ -51,7 +52,7 @@ export const AppRoutes = () => {
             page: WhatToBuyPageContainerResolved,
             parent: [
                 //загадка жака фреско откуда взялся #
-                { path: '/', page: AssetsResolved },
+                { path: '/assets', page: AssetsResolved, isIndex: true },
                 { path: 'funds', page: Funds },
                 { path: 'transactions', page: Transactions },
             ],
@@ -72,7 +73,6 @@ export const AppRoutes = () => {
             page: ProfileResolved,
         },
     ];
-
     return (
         <>
             <Routes>
@@ -98,13 +98,25 @@ export const AppRoutes = () => {
                                         key={subRoute.path}
                                         path={subRoute.path}
                                         Component={subRoute.page}
+                                        index={subRoute.isIndex}
                                     />
                                 ))}
+                                {route.parent
+                                    .filter((el) => el.isIndex)
+                                    .map((subRoute) => (
+                                        <Route
+                                            key={subRoute.path}
+                                            path="/"
+                                            element={
+                                                <Navigate to={subRoute.path} />
+                                            }
+                                        />
+                                    ))}
                             </Route>
                         );
                     }
                 })}
-                <Route path="*" element={<Navigate to="/" />} />
+                <Route path="/" element={<Navigate to="/" />} />
             </Routes>
         </>
     );

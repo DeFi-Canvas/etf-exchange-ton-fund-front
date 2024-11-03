@@ -5,7 +5,7 @@
     margin-bottom: 35px;
     height: 100vh;
 
-    /* .content {
-        flex: 1;
-    } */
+    .swiperWrap {
+        padding: 0 12px;
+    }
 }
