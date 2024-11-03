@@ -1,5 +1,6 @@
 import './Icons.scss';
 import Home from '../../assets/icons/home-2.svg?react';
+import HomeActive from '../../assets/icons/home-2-active.svg?react';
 import About from '../../assets/icons/status-up.svg?react';
 import Down from '../../assets/icons/narrow-down-right.svg?react';
 import Up from '../../assets/icons/narrow-up-right.svg?react';
@@ -8,6 +9,7 @@ import Right from '../../assets/icons/arrow-narrow-right.svg?react';
 import Load from '../../assets/icons/loading.svg?react';
 import Success from '../../assets/icons/success.svg?react';
 import WhatToBuy from '../../assets/icons/what-to-buy.svg?react';
+import WhatToBuyActive from '../../assets/icons/what-to-buy-active.svg?react';
 import Alert from '../../assets/icons/alert.svg?react';
 import PnlArrowUp from '../../assets/icons/pnl-arrow-up.svg?react';
 import DepositDeposit from '../../assets/icons/deposit-deposit.svg?react';
@@ -26,9 +28,18 @@ import Profile from '../../assets/icons/profile.svg?react';
 
 import { TransactionStatus } from '@/pages/what-to-buy/components/transaction/transaction.component';
 
-export const HomeIcon = ({ className = '' }: { className?: string }) => (
-    <Home width={20} height={20} className={className} />
-);
+export const HomeIcon = ({
+    className = '',
+    isActive = false,
+}: {
+    className?: string;
+    isActive: boolean;
+}) =>
+    isActive ? (
+        <HomeActive width={20} height={20} className={className} />
+    ) : (
+        <Home width={20} height={20} className={className} />
+    );
 
 export const AboutIcon = ({ className = '' }: { className?: string }) => (
     <About width={20} height={20} className={className} />
@@ -56,9 +67,13 @@ export const SuccessIcon = ({ className = '' }: { className?: string }) => (
     <Success className={className} />
 );
 
-export const WhatToBuyIcon = ({ className = '' }: { className?: string }) => (
-    <WhatToBuy className={className} />
-);
+export const WhatToBuyIcon = ({
+    className = '',
+    isActive = false,
+}: {
+    className?: string;
+    isActive: boolean;
+}) => (isActive ? <WhatToBuyActive /> : <WhatToBuy className={className} />);
 
 export const ProfileIcon = ({ className = '' }: { className?: string }) => (
     <Profile className={className} />

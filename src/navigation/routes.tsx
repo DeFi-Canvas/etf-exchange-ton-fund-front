@@ -28,8 +28,6 @@ interface Route {
 
 export const AppRoutes = () => {
     const initData = useInitData();
-    console.log(initData?.user);
-
     const userStore = useValueWithEffect(
         () => newNewUserStoreService(initData?.user),
         []
@@ -48,12 +46,12 @@ export const AppRoutes = () => {
     });
 
     const routes: Route[] = [
-        // { path: '/', page: IndexPage },
         {
             path: '/',
             page: WhatToBuyPageContainerResolved,
             parent: [
-                { path: 'assets', page: AssetsResolved },
+                //загадка жака фреско откуда взялся #
+                { path: '/', page: AssetsResolved },
                 { path: 'funds', page: Funds },
                 { path: 'transactions', page: Transactions },
             ],
@@ -61,15 +59,6 @@ export const AppRoutes = () => {
         { path: '/about', page: AboutPage },
         { path: '/funds/:id', page: FundPage },
         { path: '/invest/:id/:step', page: InvestPage },
-        // {
-        //     path: '/what-to-buy',
-        //     page: WhatToBuyPageContainerResolved,
-        //     parent: [
-        //         { path: 'assets', page: AssetsResolved },
-        //         { path: 'funds', page: Funds },
-        //         { path: 'transactions', page: Transactions },
-        //     ],
-        // },
         {
             path: '/what-to-buy',
             page: IndexPage,

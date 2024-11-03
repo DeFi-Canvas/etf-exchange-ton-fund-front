@@ -36,9 +36,6 @@ import TabBar from '@/components/TabBar/TabBar.tsx';
 
 export const App: FC = () => {
     const viewport = useViewport();
-    const initData = useInitData();
-    console.log(initData, 'initData');
-
     // const wallet = useTonWallet();
     // const dispatch = useAppDispatch();
     // const { wallet_info, appStatus, userData } = useAppSelector(

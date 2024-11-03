@@ -42,3 +42,8 @@
 .profile-active {
     opacity: 1;
 }
+
+.icon {
+    color: #5b39f4;
+    opacity: 0.3;
+}

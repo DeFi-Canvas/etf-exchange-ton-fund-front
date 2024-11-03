@@ -113,18 +113,10 @@ const TabBar = () => {
         return (
             <>
                 <TabBarItem text={'Home'} to={'/assets'}>
-                    <HomeIcon
-                        className={cn(css['home-icon'], {
-                            [css['home-active']]: pathname === '/',
-                        })}
-                    />
+                    <HomeIcon isActive={pathname === '/'} />
                 </TabBarItem>
                 <TabBarItem text={'What to buy'} to={'/what-to-buy'}>
-                    <WhatToBuyIcon
-                        className={cn(css['home-icon'], {
-                            [css['about-active']]: pathname === '/',
-                        })}
-                    />
+                    <WhatToBuyIcon isActive={pathname === '/what-to-buy'} />
                 </TabBarItem>
                 <TabBarItem text={'Profile'} to={'/profile'}>
                     <ProfileIcon

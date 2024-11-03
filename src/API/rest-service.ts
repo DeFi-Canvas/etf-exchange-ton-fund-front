@@ -84,8 +84,6 @@ export const newWaletRestService = injectable(
                             axios
                                 .get(`${API.getWalletInfo}/${address}`)
                                 .then(({ data }) => {
-                                    console.log(data.jettons, 'data.jettons,');
-
                                     return pipe(data.jettons, either.of);
                                 })
                                 .catch((error) => {
