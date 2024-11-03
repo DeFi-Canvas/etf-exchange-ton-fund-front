@@ -4,7 +4,7 @@ import '../index.scss';
 import {
     bindViewportCSSVars,
     initNavigator,
-    useInitData,
+    // useInitData,
     useViewport,
 } from '@telegram-apps/sdk-react';
 import { type FC, useEffect, useMemo } from 'react';

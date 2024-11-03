@@ -7,6 +7,7 @@ import { ETFS_DATA_MOCK } from '@/data/mock_data.ts';
 import './IndexPage.scss';
 import { useBackButton } from '@telegram-apps/sdk-react';
 import LearnSection from '@/components/LearnSection/LearnSection.tsx';
+import { IsDevStage } from '@/components/is-dev-stage/is-dev-stage.component';
 
 export const IndexPage: FC = () => {
     const backButton = useBackButton();
@@ -16,6 +17,8 @@ export const IndexPage: FC = () => {
     // const balanceValues = `${
     //     wallet_info?.totalamount ? wallet_info?.totalamount.toFixed(2) : '0.00'
     // }`.split('.');
+
+    return <IsDevStage />;
 
     useEffect(() => {
         if (backButton) {

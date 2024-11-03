@@ -1,0 +1,21 @@
+.wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    justify-content: center;
+    gap: 24px;
+
+    img {
+        width: 164px;
+        height: 164px;
+    }
+    span {
+        color: var(--Colors-Text-Dark, #24262e);
+        text-align: center;
+        font-size: var(--Font-Size-xxl, 22px);
+        font-style: normal;
+        font-weight: 510;
+        line-height: 130%;
+    }
+}
