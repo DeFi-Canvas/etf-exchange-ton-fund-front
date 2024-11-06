@@ -14,6 +14,7 @@ const DOMAIN_API_URL =
 const API = {
     getWalletInfo: `${DOMAIN_API_URL}/walletbalance`,
     appopened: `${DOMAIN_API_URL}/appopened`,
+    depositAsserts: `${DOMAIN_API_URL}/assets`,
 };
 
 export interface RestService {}
@@ -25,9 +26,18 @@ interface WaletResponce {
     jettons: Array<JettonType>;
 }
 
+interface DepositAsserts {
+    name: string;
+    ticker: string;
+    category: string;
+    description: string;
+    image_url: string;
+}
+
 export interface WaletRestService {
     getWalletInfo: () => Stream<Either<string, WaletResponce>>;
     getAssets: () => Stream<Either<string, Array<JettonType>>>;
+    getDepositAssets: () => Stream<Either<string, Array<DepositAsserts>>>;
 }
 
 export const newWaletRestService = injectable(
@@ -93,6 +103,20 @@ export const newWaletRestService = injectable(
                                 })
                         );
                     })
+                ),
+
+            getDepositAssets: () =>
+                pipe(
+                    fromPromise(
+                        axios
+                            .get(`${API.depositAsserts}`)
+                            .then(({ data }) => either.of(data))
+                            .catch((e) =>
+                                either.left(
+                                    `Something goes wrong status = ${e.response.status}`
+                                )
+                            )
+                    )
                 ),
         };
     }

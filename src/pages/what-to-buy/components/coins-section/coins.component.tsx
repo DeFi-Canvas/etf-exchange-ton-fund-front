@@ -16,6 +16,12 @@ const routesInit = [
         title: 'Funds',
         isActive: false,
     },
+    {
+        id: 2,
+        to: 'transactions',
+        title: 'Transactions',
+        isActive: false,
+    },
 ];
 
 export const Coins = () => {
@@ -46,33 +52,6 @@ export const Coins = () => {
                         {route.title}
                     </NavLink>
                 ))}
-                {/* <NavLink
-                    to="/"
-                    className={cn(css.link, {
-                        [css.active]: getActiveRoute('#'),
-                    })}
-                >
-                    Assets
-                </NavLink>
-                <div className={css.separete} />
-                <NavLink
-                    to="funds"
-                    className={cn(css.link, {
-                        [css.active]: getActiveRoute('#funds'),
-                    })}
-                >
-                    Funds
-                </NavLink> */}
-
-                {/* <div className={css.separete} /> */}
-                {/* <NavLink
-                    to="what-to-buy/transactions"
-                    className={cn(css.link, {
-                        [css.active]: getActiveRoute('transactions'),
-                    })}
-                >
-                    Transactions
-                </NavLink> */}
             </div>
             <Outlet />
         </div>

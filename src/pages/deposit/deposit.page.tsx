@@ -7,6 +7,10 @@ import {
 import css from './deposit.module.css';
 import img from './temp-teser.png';
 import { SerchInput } from '@/components/ui-kit/serch-input/serch-input.component';
+import { Link } from 'react-router-dom';
+import { AssetsCard } from './assets-card/assets-card.component';
+import { injectable } from '@injectable-ts/core';
+import { AssetsContainer } from './assets/assets.container';
 
 const DEPOSIT_MOCK: Array<CoinCardProps> = [
     {
@@ -61,24 +65,64 @@ const DEPOSIT_MOCK: Array<CoinCardProps> = [
         type: 'secondory',
     },
 ];
-export const DepositPage = () => {
-    return (
-        <>
-            <div className={css.wrap}>
-                <h2>Deposit</h2>
-                <SerchInput placeholder="Search" />
-            </div>
-            <div className={css.coinCards}>
-                {DEPOSIT_MOCK.map((el) => (
-                    <CoinCard
-                        key={pipe(
-                            el.ticker,
-                            O.getOrElse(() => '-')
-                        )}
-                        {...el}
-                    />
-                ))}
-            </div>
-        </>
-    );
-};
+// export const DepositPage = () => {
+//     return (
+//         <>
+//             <div className={css.wrap}>
+//                 <h2>Deposit</h2>
+//                 <SerchInput placeholder="Search" />
+//             </div>
+//             <div className={css.coinCards}>
+//                 {/* <AssetsCard
+//                     name={'123'}
+//                     ticker={'AssetsCard'}
+//                     category={'AssetsCard'}
+//                     description={'AssetsCard'}
+//                     img={img}
+//                 /> */}
+//                 {/* {DEPOSIT_MOCK.map((el) => (
+//                     <Link
+//                         key={pipe(
+//                             el.ticker,
+//                             O.getOrElse(() => '-')
+//                         )}
+//                         to={`/deposit/${'usd'}/deposit-end-point`}
+//                     >
+//                         <CoinCard {...el} type={'secondory'} />
+//                     </Link>
+//                 ))} */}
+//             </div>
+//         </>
+//     );
+// };
+
+// export const DepositPage = injectable(AssetsContainer, (AssetsContainer) => () => {
+//     return (
+//         <>
+//             <div className={css.wrap}>
+//                 <h2>Deposit</h2>
+//                 <SerchInput placeholder="Search" />
+//             </div>
+//             <div className={css.coinCards}>
+//             </div>
+//         </>
+//     );
+// });
+
+export const DepositPage = injectable(
+    AssetsContainer,
+    // eslint-disable-next-line react/display-name
+    (AssetsContainer) => () => {
+        return (
+            <>
+                <div className={css.wrap}>
+                    <h2>Deposit</h2>
+                    <SerchInput placeholder="Search" />
+                </div>
+                <div className={css.coinCards}>
+                    <AssetsContainer />
+                </div>
+            </>
+        );
+    }
+);

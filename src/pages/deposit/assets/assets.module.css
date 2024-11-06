@@ -1,7 +1,3 @@
-.wrap {
-    padding: 15px 16px;
-}
-
 .coinCards {
     display: flex;
     flex-direction: column;
@@ -11,5 +7,8 @@
     background: var(--Colors-Background-White, #fff);
     a {
         text-decoration: none;
+    }
+    .err {
+        text-align: center;
     }
 }

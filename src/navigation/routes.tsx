@@ -14,6 +14,7 @@ import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useInitData } from '@telegram-apps/sdk-react';
 import { Profile } from '@/pages/profile/profile.page';
 import { AssetsContainer } from '@/pages/what-to-buy/sub-pages/assets/assets.container';
+import { DepositEndPoint } from '@/pages/deposit-end-point/deposit-end-point.component';
 
 interface Route {
     path: string;
@@ -45,6 +46,9 @@ export const AppRoutes = () => {
     const AssetsResolved = AssetsContainer({
         userStore,
     });
+    const DepositPageResolved = DepositPage({
+        userStore,
+    });
 
     const routes: Route[] = [
         {
@@ -66,7 +70,11 @@ export const AppRoutes = () => {
         },
         {
             path: 'deposit',
-            page: DepositPage,
+            page: DepositPageResolved,
+        },
+        {
+            path: '/deposit/:ticker/deposit-end-point',
+            page: DepositEndPoint,
         },
         {
             path: 'profile',

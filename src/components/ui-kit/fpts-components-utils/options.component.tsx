@@ -16,7 +16,8 @@ export const OptionSpan = ({
 }: OptionSpanProps) => {
     return (
         <span className={className}>
-            {modificator}{' '}
+            {modificator}
+            {modificator && ' '}
             {pipe(
                 data,
                 O.getOrElse(() => empty)

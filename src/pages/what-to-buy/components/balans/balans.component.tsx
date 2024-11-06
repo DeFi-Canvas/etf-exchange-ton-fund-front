@@ -6,9 +6,10 @@ import * as O from 'fp-ts/Option';
 import css from './balans.module.css';
 import { OptionSpan } from '@/components/ui-kit/fpts-components-utils/options.component';
 import { pipe } from 'fp-ts/lib/function';
+import { Balance } from '../../what-to-buy.view-model';
 
 export interface BalansProps {
-    balance: O.Option<number>;
+    balance: O.Option<Balance>;
 }
 
 export const Balans = ({ balance }: BalansProps) => {
@@ -26,10 +27,16 @@ export const Balans = ({ balance }: BalansProps) => {
                     modificator="$"
                     data={pipe(
                         balance,
-                        O.map((x) => `${x}`)
+                        O.map((x) => x.int)
                     )}
                 />
-                {/* <span className={css.shadow}>.90</span> */}
+                <OptionSpan
+                    data={pipe(
+                        balance,
+                        O.map((x) => x.float)
+                    )}
+                    className={css.shadow}
+                />
             </div>
 
             {/* <div className={css.pnl}>

@@ -95,9 +95,6 @@ export const App: FC = () => {
     //             {userData && userData?.created_at === userData?.updated_at ? (
     //                 <OnbardScreen />
     //             ) : (
-    //                 <>
-    //                     <span>fuck</span>
-    //                 </>
     //                 // <Fragment />
     //             )}
     //         </div>
