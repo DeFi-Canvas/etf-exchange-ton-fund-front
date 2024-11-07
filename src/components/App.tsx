@@ -4,34 +4,13 @@ import '../index.scss';
 import {
     bindViewportCSSVars,
     initNavigator,
-    // useInitData,
     useViewport,
 } from '@telegram-apps/sdk-react';
 import { type FC, useEffect, useMemo } from 'react';
-import {
-    // Navigate, Route,
-    Router,
-    // Routes,
-} from 'react-router-dom';
-
-import {
-    AppRoutes,
-    //  routes
-} from '@/navigation/routes.tsx';
+import { Router } from 'react-router-dom';
+import { AppRoutes } from '@/navigation/routes.tsx';
 import TabBar from '@/components/TabBar/TabBar.tsx';
-// import {
-//     TonConnectButton,
-//     toUserFriendlyAddress,
-//     useTonWallet,
-// } from '@tonconnect/ui-react';
-// import { useAppSelector } from '@/hooks/useAppSelector.ts';
-// import { useAppDispatch } from '@/hooks/useAppDispatch.ts';
-// import {
-//     fetchWalletInfoTC,
-//     refreshWalletInfo,
-//     sendUserDataTC,
-//     setWalletAddress,
-// } from '@/store/reducers/appSlice.ts';
+
 // import OnbardScreen from '@/components/OnbardScreen/OnbardScreen.tsx';
 
 export const App: FC = () => {
@@ -104,36 +83,6 @@ export const App: FC = () => {
         <main>
             <Router location={location} navigator={reactNavigator}>
                 <AppRoutes />
-                {/* <Routes>
-                    {routes.map((route) => {
-                        if (!route.parent?.length) {
-                            return (
-                                <Route
-                                    key={route.path}
-                                    Component={route.page}
-                                    path={route.path}
-                                />
-                            );
-                        } else {
-                            return (
-                                <Route
-                                    key={route.path}
-                                    Component={route.page}
-                                    {...route}
-                                >
-                                    {route.parent.map((subRoute) => (
-                                        <Route
-                                            key={subRoute.path}
-                                            path={subRoute.path}
-                                            Component={subRoute.page}
-                                        />
-                                    ))}
-                                </Route>
-                            );
-                        }
-                    })}
-                    <Route path="*" element={<Navigate to="/" />} />
-                </Routes> */}
                 <TabBar />
             </Router>
         </main>

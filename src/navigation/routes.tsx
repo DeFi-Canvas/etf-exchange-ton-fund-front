@@ -35,6 +35,8 @@ export const AppRoutes = () => {
         []
     );
 
+    //#region containers
+
     const WhatToBuyPageContainerResolved = WhatToBuyPageContainer({
         userStore,
     });
@@ -53,6 +55,8 @@ export const AppRoutes = () => {
     const DepositEndPointResolved = DepositEndPointContainer({
         userStore,
     });
+
+    //#region routes
     const routes: Route[] = [
         {
             path: '/',
@@ -83,7 +87,12 @@ export const AppRoutes = () => {
             path: 'profile',
             page: ProfileResolved,
         },
+        {
+            path: 'withdraw',
+            page: () => <span>withdraw</span>,
+        },
     ];
+
     return (
         <>
             <Routes>

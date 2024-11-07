@@ -1,3 +1,4 @@
+import { Withdraw } from '../withdraw/withdraw.component';
 import css from './settings.module.css';
 
 export const Settings = () => {
@@ -16,6 +17,8 @@ export const Settings = () => {
                     </div>
                 </div>
             </div>
+            <Withdraw />
+
             <div className={css.gitPages}>
                 <a
                     href="https://holstby.github.io/etf-exchange-ton-fund-gitbook/docs/introduction.html"

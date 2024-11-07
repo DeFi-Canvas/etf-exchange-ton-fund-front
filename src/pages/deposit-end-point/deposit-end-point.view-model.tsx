@@ -26,7 +26,7 @@ export const newDepositEndPointViewModel = injectable(
     (newWaletRestService): NewDepositEndPointViewModel =>
         () => {
             const details = newLensedAtom<E.Either<string, DepositDetails>>(
-                E.left('pending')
+                E.left('Loading')
             );
 
             const getDetails = pipe(

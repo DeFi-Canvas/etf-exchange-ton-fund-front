@@ -6,6 +6,7 @@ import * as E from 'fp-ts/Either';
 import { DepositDetails } from './deposit-end-point.view-model';
 import { pipe } from 'fp-ts/lib/function';
 import { useParams } from 'react-router-dom';
+import { ErrorResult } from '@/components/error-result/error-result.component';
 
 interface DepositEndPointProps {
     readonly details: E.Either<string, DepositDetails>;
@@ -17,23 +18,21 @@ export const DepositEndPoint = ({ details }: DepositEndPointProps) => {
     const renderDepositEndPoint = pipe(
         details,
         E.fold(
-            (e) => <span className={css.err}>{e}</span>,
+            (e) => <ErrorResult error={e} />,
             (details) => {
                 return (
                     <>
                         <div className={css.titleWrap}>
                             <p>
-                                Send only {ticker} via TON to this address.
-                                Other coins, jettons and NFTs will be
+                                Send only{' '}
+                                <span className={css.bold}>{ticker}</span> via{' '}
+                                <span className={css.bold}>TON</span> to this
+                                address. Other coins, jettons and NFTs will be
                                 permanently lost.
                             </p>
                         </div>
                         <div className={css.imgWrap}>
-                            <img
-                                src={details.qrCode}
-                                alt=""
-                                className={css.img}
-                            />
+                            <img src={details.qrCode} className={css.img} />
                         </div>
                         <div className={css.infoWrap}>
                             <InfoSection

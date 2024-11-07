@@ -11,8 +11,6 @@ export const AssetsContainer = injectable(
     (newAssetsViewModel) => () => {
         const vm = useValueWithEffect(() => newAssetsViewModel(), []);
         const assets = useProperty(vm.assets);
-        console.log(assets, 'assets');
-
         return React.createElement(Assets, { assets });
     }
 );

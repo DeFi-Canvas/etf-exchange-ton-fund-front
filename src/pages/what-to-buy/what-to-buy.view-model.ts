@@ -4,8 +4,6 @@ import { flow, pipe } from 'fp-ts/lib/function';
 import { tap } from '@most/core';
 import { Property } from '@frp-ts/core';
 import * as O from 'fp-ts/Option';
-// import * as S from 'fp-ts/string';
-// import * as A from 'fp-ts/Array';
 import { either } from 'fp-ts';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { newWaletRestService } from '@/API/rest-service';
@@ -37,6 +35,7 @@ export const newWhatToBuyViewModel = injectable(
                         either.map(({ balance }) => balance),
                         O.fromEither,
                         O.map((balance) => {
+                            console.log(balance);
                             const [int, float] = balance.toString().split('.');
                             return {
                                 int,
