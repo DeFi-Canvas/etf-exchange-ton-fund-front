@@ -7,6 +7,8 @@ import { pipe } from 'fp-ts/lib/function';
 import { UserStoreService } from '@/store/user.store';
 import { injectable, token } from '@injectable-ts/core';
 import { JettonType } from '@/types';
+import { DepositAsserts as DepositAssertsReturnType } from '@/pages/deposit/assets-card/assets-card.component';
+import { DepositDetails as DepositDetailsReturnType } from '@/pages/deposit-end-point/deposit-end-point.view-model';
 
 const DOMAIN_API_URL =
     'https://etf-exchange-ton-fund-back-production.up.railway.app';
@@ -15,6 +17,8 @@ const API = {
     getWalletInfo: `${DOMAIN_API_URL}/walletbalance`,
     appopened: `${DOMAIN_API_URL}/appopened`,
     depositAsserts: `${DOMAIN_API_URL}/assets`,
+    depositDetails: (id?: number) =>
+        `${DOMAIN_API_URL}/deposit?telegram_id=${id}`,
 };
 
 export interface RestService {}
@@ -34,10 +38,19 @@ interface DepositAsserts {
     image_url: string;
 }
 
+interface DepositDetails {
+    address: string;
+    memo: string;
+    qrimgsrc: string;
+}
+
 export interface WaletRestService {
     getWalletInfo: () => Stream<Either<string, WaletResponce>>;
     getAssets: () => Stream<Either<string, Array<JettonType>>>;
-    getDepositAssets: () => Stream<Either<string, Array<DepositAsserts>>>;
+    getDepositAssets: () => Stream<
+        Either<string, Array<DepositAssertsReturnType>>
+    >;
+    getDepositDetails: () => Stream<Either<string, DepositDetailsReturnType>>;
 }
 
 export const newWaletRestService = injectable(
@@ -109,8 +122,42 @@ export const newWaletRestService = injectable(
                 pipe(
                     fromPromise(
                         axios
-                            .get(`${API.depositAsserts}`)
-                            .then(({ data }) => either.of(data))
+                            .get<DepositAsserts[]>(`${API.depositAsserts}`)
+                            .then(({ data }) =>
+                                pipe(
+                                    data,
+                                    (data) =>
+                                        data.map((data) => ({
+                                            ...data,
+                                            img: data.image_url,
+                                        })),
+                                    either.of
+                                )
+                            )
+                            .catch((e) =>
+                                either.left(
+                                    `Something goes wrong status = ${e.response.status}`
+                                )
+                            )
+                    )
+                ),
+            getDepositDetails: () =>
+                pipe(
+                    fromPromise(
+                        axios
+                            .get<DepositDetails>(
+                                `${API.depositDetails(telegram_id)}`
+                            )
+                            .then(({ data }) =>
+                                pipe(
+                                    data,
+                                    (data) => ({
+                                        ...data,
+                                        qrCode: data.qrimgsrc,
+                                    }),
+                                    either.of
+                                )
+                            )
                             .catch((e) =>
                                 either.left(
                                     `Something goes wrong status = ${e.response.status}`

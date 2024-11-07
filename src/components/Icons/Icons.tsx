@@ -26,6 +26,7 @@ import Swap from '../../assets/icons/transactions/swap.svg?react';
 import Withdraw from '../../assets/icons/transactions/withdraw.svg?react';
 import Profile from '../../assets/icons/profile.svg?react';
 import SimpleArrow from '../../assets/icons/simple-arrow.svg?react';
+import Copy from '../../assets/icons/copy.svg?react';
 
 import { TransactionStatus } from '@/pages/what-to-buy/components/transaction/transaction.component';
 
@@ -48,6 +49,10 @@ export const AboutIcon = ({ className = '' }: { className?: string }) => (
 
 export const SimpleArrowIcon = ({ className = '' }: { className?: string }) => (
     <SimpleArrow className={className} />
+);
+
+export const CopyIcon = ({ className = '' }: { className?: string }) => (
+    <Copy className={className} />
 );
 export const DownIcon = ({ className = '' }: { className?: string }) => (
     <Down className={className} />
