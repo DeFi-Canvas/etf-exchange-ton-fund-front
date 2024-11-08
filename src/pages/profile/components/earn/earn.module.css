@@ -31,7 +31,7 @@
     .eranSteps {
         background: rgb(240 241 245);
         border-radius: var(--Font-Size-xs, 12px);
-        padding: 16px;
+        padding: 26px 16px;
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -51,6 +51,7 @@
         .info {
             display: flex;
             flex-direction: column;
+            gap: 4px;
 
             .title {
                 color: var(--Colors-Text-Dark, #24262e);
