@@ -3,7 +3,7 @@ import { SerchInput } from '@/components/ui-kit/serch-input/serch-input.componen
 import { injectable } from '@injectable-ts/core';
 import { AssetsContainer } from './assets/assets.container';
 
-export const DepositPage = injectable(
+export const DepositPageContainer = injectable(
     AssetsContainer,
     // eslint-disable-next-line react/display-name
     (AssetsContainer) => () => {

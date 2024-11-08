@@ -1,9 +1,9 @@
 import { injectable } from '@injectable-ts/core';
 import React from 'react';
-import { WhatToBuyPage } from './what-to-buy.page';
+import { WaletPage } from './what-to-buy.page';
 
-export const WhatToBuyPageContainer = injectable(
-    WhatToBuyPage,
+export const WaletPageContainer = injectable(
+    WaletPage,
     // eslint-disable-next-line react/display-name
     (WhatToBuyPage) => () => {
         return React.createElement(WhatToBuyPage);

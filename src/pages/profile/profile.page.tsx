@@ -3,7 +3,7 @@ import { UserInfoContainer } from './components/user-info/user-info.container';
 import { EarnContainer } from './components/earn/earn.container';
 import { Settings } from './components/settings/settings.component';
 
-export const Profile = injectable(
+export const ProfileContainer = injectable(
     UserInfoContainer,
     EarnContainer,
     // eslint-disable-next-line react/display-name

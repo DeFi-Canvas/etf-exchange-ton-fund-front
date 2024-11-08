@@ -1,18 +1,18 @@
 import type { ComponentType, JSX } from 'react';
 
-import { IndexPage } from '@/pages/IndexPage/IndexPage';
+import { IndexPage } from '@/pages/IndexPage-1/IndexPage';
 import AboutPage from '@/pages/AboutPage/AboutPage.tsx';
 import FundPage from '@/pages/FundPage/FundPage.tsx';
 import InvestPage from '@/pages/InvestPage/InvestPage.tsx';
-import { WhatToBuyPageContainer } from '@/pages/what-to-buy/what-to-buy.container';
-import { DepositPage } from '@/pages/deposit/deposit.page';
+import { WaletPageContainer } from '@/pages/what-to-buy/what-to-buy.container';
+import { DepositPageContainer } from '@/pages/deposit/deposit.page';
 import { Funds } from '@/pages/what-to-buy/sub-pages/founds/funds.page';
 import { Transactions } from '@/pages/what-to-buy/sub-pages/transactions/transactions.page';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { newNewUserStoreService } from '@/store/user.store';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useInitData } from '@telegram-apps/sdk-react';
-import { Profile } from '@/pages/profile/profile.page';
+import { ProfileContainer } from '@/pages/profile/profile.page';
 import { AssetsContainer } from '@/pages/what-to-buy/sub-pages/assets/assets.container';
 import { DepositEndPointContainer } from '@/pages/deposit-end-point/deposit-end-point.container';
 
@@ -37,18 +37,18 @@ export const AppRoutes = () => {
 
     //#region containers
 
-    const WhatToBuyPageContainerResolved = WhatToBuyPageContainer({
+    const WhatToBuyPageContainerResolved = WaletPageContainer({
         userStore,
     });
 
-    const ProfileResolved = Profile({
+    const ProfileResolved = ProfileContainer({
         userStore,
     });
 
     const AssetsResolved = AssetsContainer({
         userStore,
     });
-    const DepositPageResolved = DepositPage({
+    const DepositPageResolved = DepositPageContainer({
         userStore,
     });
 

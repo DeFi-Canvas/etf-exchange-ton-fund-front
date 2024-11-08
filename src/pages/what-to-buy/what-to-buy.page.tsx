@@ -15,7 +15,7 @@ import 'swiper/css';
 export interface WhatToBuyPageProps {
     balance: O.Option<number>;
 }
-export const WhatToBuyPage = injectable(
+export const WaletPage = injectable(
     BalanceContainer,
     // eslint-disable-next-line react/display-name
     (BalanceContainer) => () => {
