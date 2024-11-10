@@ -138,13 +138,16 @@ export const newWaletRestService = injectable(
                         );
                     })
                 ),
-            getDepositAssets: () =>
-                getRequest(API.depositAsserts, mapDepositAssets),
-            getDepositDetails: () =>
-                getRequest(API.depositDetails(telegram_id), mapDepositDetails),
+            getDepositAssets: getRequest(API.depositAsserts, mapDepositAssets),
+            getDepositDetails: getRequest(
+                API.depositDetails(telegram_id),
+                mapDepositDetails
+            ),
             // MOCK
-            getWithdrowAssets: () =>
-                getRequest(API.depositAsserts, mapWithdrowAssets),
+            getWithdrowAssets: getRequest(
+                API.depositAsserts,
+                mapWithdrowAssets
+            ),
         };
     }
 );

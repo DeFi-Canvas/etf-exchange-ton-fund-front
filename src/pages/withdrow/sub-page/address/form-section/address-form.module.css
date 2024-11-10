@@ -1,0 +1,94 @@
+.wrap {
+    padding: 20px 16px;
+    border-radius: 24px;
+    background: var(--Colors-Background-White, #fff);
+    margin-top: 16px;
+
+    .title {
+        color: var(--colors-text-dark-70, rgba(36, 38, 46, 0.7));
+        font-size: var(--Font-Size-sm, 14px);
+        font-style: normal;
+        font-weight: 510;
+        line-height: 150%;
+    }
+
+    .amount {
+        .coinInfo {
+            padding: 12px;
+            border-radius: var(--Font-Size-xs, 12px);
+            background: var(--Colors-Background-Light, #f9f8ff);
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+
+            img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+            }
+
+            .column {
+                display: flex;
+                flex-direction: column;
+
+                &:nth-child(2) {
+                    flex-grow: 1;
+                }
+
+                .title {
+                    color: var(--Colors-Text-Dark, #24262e);
+                    font-size: var(--Font-Size-md, 16px);
+                    font-style: normal;
+                    font-weight: 510;
+                    line-height: 135%; /* 21.6px */
+                }
+                .sub {
+                    color: var(--colors-text-dark-50, rgba(36, 38, 46, 0.5));
+                    font-size: var(--Font-Size-xs, 12px);
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 150%; /* 18px */
+                }
+            }
+        }
+    }
+
+    .column {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+        gap: 8px;
+
+        .input {
+            width: 100%;
+            resize: none;
+            padding: 12px;
+            border-radius: var(--Font-Size-xs, 12px);
+            border: 1px solid
+                var(--colors-main-purple-20, rgba(91, 57, 244, 0.2));
+            background: var(--Colors-Background-White, #fff);
+            overflow: hidden;
+            color: var(--colors-text-dark-50, rgba(36, 38, 46, 0.5));
+            text-overflow: ellipsis;
+            font-size: var(--Font-Size-md, 16px);
+            font-style: normal;
+            font-weight: 400;
+            line-height: 150%;
+            &:focus {
+                outline: 1px solid var(--Colors-Main-Purple, #5b39f4);
+            }
+        }
+
+        .commission {
+            display: flex;
+            padding: var(--Font-Size-sm, 14px) var(--Font-Size-xs, 12px);
+            align-items: center;
+            gap: 8px;
+            align-self: stretch;
+            border-radius: var(--Font-Size-xs, 12px);
+            border: 0px solid
+                var(--colors-main-purple-20, rgba(91, 57, 244, 0.2));
+            background: var(--Colors-Background-Light, #f9f8ff);
+        }
+    }
+}

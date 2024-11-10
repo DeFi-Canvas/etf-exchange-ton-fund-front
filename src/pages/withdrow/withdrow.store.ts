@@ -14,6 +14,7 @@ export interface WithdrowService {
     setAmmount: (d: number) => void;
     isNextButtonAvailable: Property<boolean>;
     approximateCost: Property<string>;
+    availableBalance: Property<number>;
 }
 
 export type NewWithdrowService = ValueWithEffect<WithdrowService>;
@@ -25,6 +26,7 @@ export const newNewWithdrowService = (): NewWithdrowService => {
     const tickerPrice = newLensedAtom(5.1);
     const setCurrency = currency.set;
     const approximateCost = newLensedAtom('');
+    const availableBalance = newLensedAtom(0);
 
     const setAmmount = (d: number) => {
         if (d > 0 && d < 1) {
@@ -72,6 +74,7 @@ export const newNewWithdrowService = (): NewWithdrowService => {
             setAmmount,
             isNextButtonAvailable,
             approximateCost,
+            availableBalance,
         },
         isNextButtonAvailableEffect,
         approximateCostInitEffect

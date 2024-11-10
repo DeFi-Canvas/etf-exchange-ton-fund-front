@@ -42,7 +42,7 @@ export const newProfileRestService = injectable(
         });
 
         return {
-            getTask: () => getRequest(API.getTask(telegram_id), mapGetTask),
+            getTask: getRequest(API.getTask(telegram_id), mapGetTask),
         };
     }
 );

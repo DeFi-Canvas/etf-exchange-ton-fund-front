@@ -5,7 +5,8 @@ import { Address } from './address.component';
 
 export const AddressContainer = injectable(
     token('withdrowStore')<WithdrowService>(),
-    (store) =>
+    Address,
+    (store, Address) =>
         memo(() => {
             return React.createElement(Address);
         })
