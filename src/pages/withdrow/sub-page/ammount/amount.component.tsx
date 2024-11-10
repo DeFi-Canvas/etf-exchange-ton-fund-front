@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import css from './amount.module.css';
 import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/lib/function';
@@ -31,6 +31,20 @@ export const Amount = ({
     isNextButtonAvailable,
     availableBalance,
 }: AmountProps) => {
+    const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+
+    useEffect(() => {
+        const handleResize = () => {
+            // Проверяем изменение высоты окна
+            setIsKeyboardOpen(window.innerHeight < window.outerHeight - 100);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     const navigate = useNavigate();
 
     const [amountValue, setAmountValue] = useState<string>(
@@ -57,6 +71,7 @@ export const Amount = ({
                 <div className={css.inputWrap}>
                     <input
                         type="number"
+                        inputMode="numeric"
                         className={cn(css.input, {
                             [css.err]: E.isLeft(amount),
                         })}
@@ -77,7 +92,11 @@ export const Amount = ({
                         : approximateCost}
                 </span>
             </div>
-            <div className={css.footerWrap}>
+            <div
+                className={cn(css.footerWrap, {
+                    [css.activeKeyboard]: isKeyboardOpen,
+                })}
+            >
                 <div className={css.availableBalance}>
                     <img src="" alt="img" />
                     <div className={css.infoWrap}>
