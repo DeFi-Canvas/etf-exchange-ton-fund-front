@@ -1,8 +1,18 @@
 import css from './address-form.module.css';
+import cn from 'classnames';
+import * as E from 'fp-ts/Either';
 
-interface AddressFormProps {}
+interface AddressFormProps {
+    ammount: E.Either<'too small', number>;
+    approximateCost: string;
+    currency: string;
+}
 
-export const AddressForm = () => {
+export const AddressForm = ({
+    ammount,
+    approximateCost,
+    currency,
+}: AddressFormProps) => {
     return (
         <div className={css.wrap}>
             <div className={css.amount}>
@@ -10,8 +20,10 @@ export const AddressForm = () => {
                 <div className={css.coinInfo}>
                     <img src="" alt="" />
                     <div className={css.column}>
-                        <span className={css.title}>1 253,03 TON</span>
-                        <span className={css.sub}>≈5 584,96 USD</span>
+                        <span className={css.title}>
+                            {E.isRight(ammount) && ammount.right} {currency}
+                        </span>
+                        <span className={css.sub}>{approximateCost}</span>
                     </div>
                     <div className={css.column}>
                         <span className={css.title}>TRC 20</span>
@@ -19,7 +31,8 @@ export const AddressForm = () => {
                     </div>
                 </div>
             </div>
-            <div className={css.column}>
+
+            <div className={cn(css.column, css.inputs)}>
                 <span className={css.title}>Withdraw address</span>
                 <textarea
                     name=""
@@ -27,8 +40,7 @@ export const AddressForm = () => {
                     placeholder="Input or press and hold to paste the withdrawal address"
                 />
             </div>
-
-            <div className={css.column}>
+            <div className={cn(css.column, css.inputs)}>
                 <span className={css.title}>
                     Tag/Memo (Comment/Note/Remark)
                 </span>
@@ -39,7 +51,7 @@ export const AddressForm = () => {
                 />
             </div>
 
-            <div className={css.column}>
+            <div className={cn(css.column, css.inputs)}>
                 <span className={css.title}>Commission</span>
                 <span className={css.commission}>0,5 TON ≈ 2,06 USD </span>
             </div>
