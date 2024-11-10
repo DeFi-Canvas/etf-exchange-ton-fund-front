@@ -9,7 +9,7 @@ const MOCK_TRANSACTION: Transaction = {
     type: O.some('MULTI-SWAP'),
     description: O.none,
     fullDate: O.some(new Date('2023-05-11')),
-    ammount: O.some(100),
+    amount: O.some(100),
     side: O.some('BUY'),
     currency: O.some('TON'),
     modificator: O.some('RECIVED'),

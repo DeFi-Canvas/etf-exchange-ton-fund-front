@@ -42,7 +42,7 @@ export const newAssetsViewModel = injectable(
                                 name: O.some(jetton.name),
                                 isStableCoin: false,
                                 ticker: O.some(jetton.symbol),
-                                coinAmmount: O.some(jetton.balance),
+                                coinAmount: O.some(jetton.balance),
                                 cost: O.some(jetton.price),
                                 pnl: O.none,
                             }))

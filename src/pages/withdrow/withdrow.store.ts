@@ -9,9 +9,9 @@ import { flow, pipe } from 'fp-ts/lib/function';
 
 export interface WithdrowService {
     currency: Property<string>;
-    ammount: Property<E.Either<'too small', number>>;
+    amount: Property<E.Either<'too small', number>>;
     setCurrency: (d: string) => void;
-    setAmmount: (d: number) => void;
+    setAmount: (d: number) => void;
     isNextButtonAvailable: Property<boolean>;
     approximateCost: Property<string>;
     availableBalance: Property<number>;
@@ -21,18 +21,18 @@ export type NewWithdrowService = ValueWithEffect<WithdrowService>;
 
 export const newNewWithdrowService = (): NewWithdrowService => {
     const currency = newLensedAtom<string>('');
-    const ammount = newLensedAtom<E.Either<'too small', number>>(E.right(0));
+    const amount = newLensedAtom<E.Either<'too small', number>>(E.right(0));
     const isNextButtonAvailable = newLensedAtom(false);
     const tickerPrice = newLensedAtom(5.1);
     const setCurrency = currency.set;
     const approximateCost = newLensedAtom('');
     const availableBalance = newLensedAtom(0);
 
-    const setAmmount = (d: number) => {
+    const setAmount = (d: number) => {
         if (d > 0 && d < 1) {
-            ammount.set(E.left('too small'));
+            amount.set(E.left('too small'));
         } else {
-            ammount.set(E.of(d));
+            amount.set(E.of(d));
             approximateCost.set(
                 `≈ ${formatNumberToUI(tickerPrice.get() * d)} USD`
             );
@@ -45,7 +45,7 @@ export const newNewWithdrowService = (): NewWithdrowService => {
     };
 
     const isNextButtonAvailableEffect = pipe(
-        ammount,
+        amount,
         fromProperty,
         tap(
             flow(
@@ -69,9 +69,9 @@ export const newNewWithdrowService = (): NewWithdrowService => {
     return valueWithEffect.new(
         {
             currency,
-            ammount,
+            amount,
             setCurrency,
-            setAmmount,
+            setAmount,
             isNextButtonAvailable,
             approximateCost,
             availableBalance,

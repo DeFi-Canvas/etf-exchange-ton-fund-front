@@ -1,11 +1,11 @@
 import { injectable, token } from '@injectable-ts/core';
 import { WithdrowService } from '../../withdrow.store';
 import { useProperty } from '@frp-ts/react';
-import { Ammount } from './ammount.component';
+import { Amount } from './amount.component';
 import React, { memo } from 'react';
 import { useParams } from 'react-router-dom';
 
-export const AmmountContainer = injectable(
+export const AmountContainer = injectable(
     token('withdrowStore')<WithdrowService>(),
     (store) =>
         memo(() => {
@@ -13,18 +13,18 @@ export const AmmountContainer = injectable(
             store.setCurrency(ticker ?? '');
 
             const currency = useProperty(store.currency);
-            const ammount = useProperty(store.ammount);
+            const ammount = useProperty(store.amount);
             const approximateCost = useProperty(store.approximateCost);
             const isNextButtonAvailable = useProperty(
                 store.isNextButtonAvailable
             );
-            const updateAmmount = store.setAmmount;
+            const updateAmmount = store.setAmount;
             const availableBalance = useProperty(store.availableBalance);
 
-            return React.createElement(Ammount, {
+            return React.createElement(Amount, {
                 currency,
-                ammount,
-                updateAmmount,
+                amount: ammount,
+                updateAmount: updateAmmount,
                 approximateCost,
                 isNextButtonAvailable,
                 availableBalance,

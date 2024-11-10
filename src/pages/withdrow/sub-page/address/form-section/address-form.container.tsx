@@ -8,7 +8,7 @@ export const AddressFormContainer = injectable(
     token('withdrowStore')<WithdrowService>(),
     (store) =>
         memo(() => {
-            const ammount = useProperty(store.ammount);
+            const ammount = useProperty(store.amount);
             const approximateCost = useProperty(store.approximateCost);
             const currency = useProperty(store.currency);
 

@@ -16,7 +16,7 @@ import { ProfileContainer } from '@/pages/profile/profile.page';
 import { AssetsContainer } from '@/pages/what-to-buy/sub-pages/assets/assets.container';
 import { DepositEndPointContainer } from '@/pages/deposit-end-point/deposit-end-point.container';
 import { Withdrow } from '@/pages/withdrow/withdrow.page';
-import { AmmountContainer } from '@/pages/withdrow/sub-page/ammount/ammount.container';
+import { AmountContainer } from '@/pages/withdrow/sub-page/ammount/amount.container';
 import { newNewWithdrowService } from '@/pages/withdrow/withdrow.store';
 import { AddressContainer } from '@/pages/withdrow/sub-page/address/address.container';
 
@@ -66,7 +66,7 @@ export const AppRoutes = () => {
         userStore,
     });
 
-    const AmmountResolved = AmmountContainer({
+    const AmountResolved = AmountContainer({
         withdrowStore,
     });
 
@@ -111,7 +111,7 @@ export const AppRoutes = () => {
         },
         {
             path: '/withdraw/:ticker',
-            page: AmmountResolved,
+            page: AmountResolved,
         },
         {
             path: '/withdraw/:ticker/address',

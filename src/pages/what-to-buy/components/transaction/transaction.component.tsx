@@ -35,14 +35,14 @@ export interface Transaction {
     status: O.Option<TransactionStatus>;
     description: O.Option<string>;
     fullDate: O.Option<Date>;
-    ammount: O.Option<number>;
+    amount: O.Option<number>;
     side: O.Option<'BUY' | 'SELL'>;
     currency: O.Option<string>;
     modificator: O.Option<
         'RECIVED' | 'SENT' | 'SUCCESS' | 'REJECT' | 'PROCESSING' | 'ERROR'
     >;
     pnl: O.Option<{
-        ammount: number;
+        amount: number;
         currency: string;
         side: 'PROFIT' | 'LOSE';
     }>;
@@ -52,7 +52,7 @@ export const Transaction = ({
     type,
     fullDate,
     description,
-    ammount,
+    amount,
     currency,
     modificator,
     pnl,
@@ -88,7 +88,7 @@ export const Transaction = ({
                 <div>
                     <OptionSpan
                         modificator={sideModificatorUI}
-                        data={mapNumberOptionToUI(ammount)}
+                        data={mapNumberOptionToUI(amount)}
                     />
                     <OptionSpan data={currency} />
                 </div>

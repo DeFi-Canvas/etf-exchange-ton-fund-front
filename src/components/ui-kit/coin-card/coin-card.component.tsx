@@ -12,10 +12,10 @@ export interface CoinCardProps {
     name: O.Option<string>;
     isStableCoin: boolean;
     ticker: O.Option<string>;
-    coinAmmount: O.Option<number>;
+    coinAmount: O.Option<number>;
     cost: O.Option<number>;
     pnl: O.Option<{
-        ammount: number;
+        amount: number;
         currency: string;
         side: 'PROFIT' | 'LOSE';
         persent: number;
@@ -28,7 +28,7 @@ export const CoinCard = ({
     name,
     isStableCoin = false,
     ticker,
-    coinAmmount,
+    coinAmount,
     cost,
     pnl,
     type = 'primary',
@@ -55,7 +55,7 @@ export const CoinCard = ({
     const isPnLExists = pipe(pnl, O.isSome);
 
     const dataAvailible = pipe(
-        { logo, name, ticker, coinAmmount },
+        { logo, name, ticker, coinAmount },
         A.sequenceS(O.Applicative),
         O.match(
             () => false,
@@ -72,7 +72,7 @@ export const CoinCard = ({
             <CoinLogo />
             <CoinInfo
                 isStableCoin={isStableCoin}
-                coinAmmount={coinAmmount}
+                coinAmount={coinAmount}
                 name={name}
                 ticker={ticker}
                 type={type}
@@ -106,7 +106,7 @@ export const CoinCard = ({
                                     pnl,
                                     O.map(
                                         (pnl) =>
-                                            `${pnl.ammount} ${pnl.currency} `
+                                            `${pnl.amount} ${pnl.currency} `
                                     )
                                 )}
                             />
@@ -137,12 +137,12 @@ export const CoinCard = ({
 interface CoinInfoProps
     extends Pick<
         CoinCardProps,
-        'isStableCoin' | 'coinAmmount' | 'name' | 'ticker' | 'type'
+        'isStableCoin' | 'coinAmount' | 'name' | 'ticker' | 'type'
     > {}
 
 const CoinInfo = ({
     isStableCoin,
-    coinAmmount,
+    coinAmount,
     name,
     ticker,
     type = 'primary',
@@ -153,9 +153,9 @@ const CoinInfo = ({
                 <div>
                     <OptionSpan
                         data={pipe(
-                            coinAmmount,
+                            coinAmount,
                             O.map(formatNumberToUI),
-                            O.map((coinAmmount) => `${coinAmmount}`)
+                            O.map((coinAmount) => `${coinAmount}`)
                         )}
                     />
                     <OptionSpan data={ticker} />
@@ -171,9 +171,9 @@ const CoinInfo = ({
                 {!isStableCoin && (
                     <OptionSpan
                         data={pipe(
-                            coinAmmount,
+                            coinAmount,
                             O.map(formatNumberToUI),
-                            O.map((coinAmmount) => `${coinAmmount}`)
+                            O.map((coinAmount) => `${coinAmount}`)
                         )}
                     />
                 )}

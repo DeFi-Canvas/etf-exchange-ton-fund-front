@@ -1,41 +1,41 @@
 import { useState } from 'react';
-import css from './ammount.module.css';
+import css from './amount.module.css';
 import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/lib/function';
 import cn from 'classnames';
 import { useNavigate } from 'react-router-dom';
 
-type AmmountErrors = 'too small';
+type AmountErrors = 'too small';
 
-const getAmmountErrorsText = (err: AmmountErrors) => {
+const getAmountErrorsText = (err: AmountErrors) => {
     switch (err) {
         case 'too small':
             return 'Minimum amount: 1 TON';
     }
 };
 
-interface AmmountProps {
+interface AmountProps {
     currency: string;
-    updateAmmount: (val: number) => void;
-    ammount: E.Either<AmmountErrors, number>;
+    updateAmount: (val: number) => void;
+    amount: E.Either<AmountErrors, number>;
     approximateCost: string;
     isNextButtonAvailable: boolean;
     availableBalance: number;
 }
 
-export const Ammount = ({
+export const Amount = ({
     currency,
-    updateAmmount,
-    ammount,
+    updateAmount,
+    amount,
     approximateCost,
     isNextButtonAvailable,
     availableBalance,
-}: AmmountProps) => {
+}: AmountProps) => {
     const navigate = useNavigate();
 
-    const [ammountValue, setAmmountValue] = useState<string>(
+    const [amountValue, setAmountValue] = useState<string>(
         pipe(
-            ammount,
+            amount,
             E.getOrElse(() => 0),
             (x) => `${x}`
         )
@@ -45,9 +45,9 @@ export const Ammount = ({
         const inputValue = event.target.value;
         const val = Number(inputValue);
 
-        updateAmmount(val);
+        updateAmount(val);
         //WTF???
-        setAmmountValue(inputValue.replace(',', '.'));
+        setAmountValue(inputValue.replace(',', '.'));
     };
 
     return (
@@ -58,24 +58,22 @@ export const Ammount = ({
                     <input
                         type="number"
                         className={cn(css.input, {
-                            [css.err]: E.isLeft(ammount),
+                            [css.err]: E.isLeft(amount),
                         })}
                         onChange={handleChange}
-                        value={ammountValue}
+                        value={amountValue}
                     />
                     <span
                         className={cn(css.prefix, {
-                            [css.err]: E.isLeft(ammount),
+                            [css.err]: E.isLeft(amount),
                         })}
                     >
                         {currency}
                     </span>
                 </div>
-                <span
-                    className={cn(css.calc, { [css.err]: E.isLeft(ammount) })}
-                >
-                    {E.isLeft(ammount)
-                        ? getAmmountErrorsText(ammount.left)
+                <span className={cn(css.calc, { [css.err]: E.isLeft(amount) })}>
+                    {E.isLeft(amount)
+                        ? getAmountErrorsText(amount.left)
                         : approximateCost}
                 </span>
             </div>
