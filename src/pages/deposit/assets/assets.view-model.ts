@@ -1,32 +1,55 @@
 import { injectable } from '@injectable-ts/core';
 
 import { pipe } from 'fp-ts/lib/function';
-import { tap } from '@most/core';
+import { empty, tap } from '@most/core';
 import { Property } from '@frp-ts/core';
 import * as E from 'fp-ts/Either';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { newWaletRestService } from '@/API/rest-service';
 import { newLensedAtom } from '@frp-ts/lens';
-import { DepositAsserts } from '../assets-card/assets-card.component';
+import {
+    DepositAsserts,
+    WithdrowAsserts,
+} from '../assets-card/assets-card.component';
 
+export type AssetsViewModelInit = 'deposit' | 'withdrow';
 export interface AssetsViewModel {
-    assets: Property<E.Either<string | 'pending', Array<DepositAsserts>>>;
+    assets: Property<
+        E.Either<string | 'pending', Array<DepositAsserts | WithdrowAsserts>>
+    >;
 }
 
 export interface NewAssetsViewModel {
-    (): ValueWithEffect<AssetsViewModel>;
+    (type: AssetsViewModelInit): ValueWithEffect<AssetsViewModel>;
 }
 
 export const newAssetsViewModel = injectable(
     newWaletRestService,
     (waletRestService): NewAssetsViewModel =>
-        () => {
+        (type) => {
             const assets = newLensedAtom<
-                E.Either<string | 'pending', Array<DepositAsserts>>
+                E.Either<
+                    string | 'pending',
+                    Array<DepositAsserts | WithdrowAsserts>
+                >
             >(E.left('pending'));
 
+            const currentAssets = (() => {
+                switch (type) {
+                    case 'withdrow':
+                        return waletRestService.getWithdrowAssets();
+                    case 'deposit': {
+                        return waletRestService.getDepositAssets();
+                    }
+                    default: {
+                        return empty();
+                    }
+                }
+            })();
+
             const getAssetsEffect = pipe(
-                waletRestService.getDepositAssets(),
+                // waletRestService.getDepositAssets(),
+                currentAssets,
                 tap(assets.set)
             );
 

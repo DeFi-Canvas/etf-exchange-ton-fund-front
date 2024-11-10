@@ -1,0 +1,11 @@
+.wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    padding: 16px;
+    margin-top: 32px;
+    h2 {
+        padding: 0;
+        margin: 0;
+    }
+}

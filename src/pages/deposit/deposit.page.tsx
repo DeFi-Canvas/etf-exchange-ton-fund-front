@@ -5,7 +5,6 @@ import { AssetsContainer } from './assets/assets.container';
 
 export const DepositPageContainer = injectable(
     AssetsContainer,
-    // eslint-disable-next-line react/display-name
     (AssetsContainer) => () => {
         return (
             <>
@@ -14,7 +13,7 @@ export const DepositPageContainer = injectable(
                     <SerchInput placeholder="Search" />
                 </div>
                 <div className={css.coinCards}>
-                    <AssetsContainer />
+                    <AssetsContainer type={'deposit'} />
                 </div>
             </>
         );

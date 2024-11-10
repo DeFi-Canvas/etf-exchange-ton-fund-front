@@ -1,9 +1,5 @@
 import { Stream } from '@most/types';
 import { Either } from 'fp-ts/lib/Either';
-// import { fromPromise } from '@most/core';
-// import axios from 'axios';
-// import { either } from 'fp-ts';
-// import { pipe } from 'fp-ts/lib/function';
 import { UserStoreService } from '@/store/user.store';
 import { injectable, token } from '@injectable-ts/core';
 import { EranStep } from '@/pages/profile/components/earn/earn.view-model';

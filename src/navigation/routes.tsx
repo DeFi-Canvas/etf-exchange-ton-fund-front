@@ -15,6 +15,10 @@ import { useInitData } from '@telegram-apps/sdk-react';
 import { ProfileContainer } from '@/pages/profile/profile.page';
 import { AssetsContainer } from '@/pages/what-to-buy/sub-pages/assets/assets.container';
 import { DepositEndPointContainer } from '@/pages/deposit-end-point/deposit-end-point.container';
+import { Withdrow } from '@/pages/withdrow/withdrow.page';
+import { AmmountContainer } from '@/pages/withdrow/sub-page/ammount/ammount.container';
+import { newNewWithdrowService } from '@/pages/withdrow/withdrow.store';
+import { AddressContainer } from '@/pages/withdrow/sub-page/address/address.container';
 
 interface Route {
     path: string;
@@ -30,13 +34,15 @@ interface Route {
 
 export const AppRoutes = () => {
     const initData = useInitData();
+
     const userStore = useValueWithEffect(
         () => newNewUserStoreService(initData?.user),
         []
     );
 
-    //#region containers
+    const withdrowStore = useValueWithEffect(() => newNewWithdrowService(), []);
 
+    //#region containers
     const WhatToBuyPageContainerResolved = WaletPageContainer({
         userStore,
     });
@@ -54,6 +60,18 @@ export const AppRoutes = () => {
 
     const DepositEndPointResolved = DepositEndPointContainer({
         userStore,
+    });
+
+    const WithdrowResolved = Withdrow({
+        userStore,
+    });
+
+    const AmmountResolved = AmmountContainer({
+        withdrowStore,
+    });
+
+    const AddressResolved = AddressContainer({
+        withdrowStore,
     });
 
     //#region routes
@@ -89,7 +107,15 @@ export const AppRoutes = () => {
         },
         {
             path: 'withdraw',
-            page: () => <span>withdraw</span>,
+            page: WithdrowResolved,
+        },
+        {
+            path: '/withdraw/:ticker',
+            page: AmmountResolved,
+        },
+        {
+            path: '/withdraw/:ticker/address',
+            page: AddressResolved,
         },
     ];
 

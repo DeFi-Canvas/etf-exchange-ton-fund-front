@@ -7,7 +7,10 @@ import { pipe } from 'fp-ts/lib/function';
 import { UserStoreService } from '@/store/user.store';
 import { injectable, token } from '@injectable-ts/core';
 import { JettonType } from '@/types';
-import { DepositAsserts as DepositAssertsReturnType } from '@/pages/deposit/assets-card/assets-card.component';
+import {
+    DepositAsserts as DepositAssetsReturnType,
+    WithdrowAsserts as WithdrowAssertsReturnType,
+} from '@/pages/deposit/assets-card/assets-card.component';
 import { DepositDetails as DepositDetailsReturnType } from '@/pages/deposit-end-point/deposit-end-point.view-model';
 import { getRequest } from './request.utils';
 
@@ -47,9 +50,13 @@ export interface WaletRestService {
     getWalletInfo: () => Stream<Either<string, WaletResponce>>;
     getAssets: () => Stream<Either<string, Array<JettonType>>>;
     getDepositAssets: () => Stream<
-        Either<string, Array<DepositAssertsReturnType>>
+        Either<string, Array<DepositAssetsReturnType>>
     >;
     getDepositDetails: () => Stream<Either<string, DepositDetailsReturnType>>;
+    //MOKED
+    getWithdrowAssets: () => Stream<
+        Either<string, Array<WithdrowAssertsReturnType>>
+    >;
 }
 
 export const newWaletRestService = injectable(
@@ -69,6 +76,12 @@ export const newWaletRestService = injectable(
         const mapDepositAssets = (data: DepositAsserts) => ({
             ...data,
             img: data.image_url,
+        });
+        // MOCK
+        const mapWithdrowAssets = (data: DepositAsserts) => ({
+            ...data,
+            img: data.image_url,
+            amount: 123,
         });
 
         return {
@@ -129,6 +142,9 @@ export const newWaletRestService = injectable(
                 getRequest(API.depositAsserts, mapDepositAssets),
             getDepositDetails: () =>
                 getRequest(API.depositDetails(telegram_id), mapDepositDetails),
+            // MOCK
+            getWithdrowAssets: () =>
+                getRequest(API.depositAsserts, mapWithdrowAssets),
         };
     }
 );

@@ -43,6 +43,7 @@
         border-bottom: 1px solid
             var(--colors-main-purple-10, rgba(91, 57, 244, 0.1));
         padding-bottom: 16px;
+        align-items: center;
         &:last-child {
             border-bottom: unset;
             padding-bottom: unset;
@@ -52,6 +53,7 @@
             display: flex;
             flex-direction: column;
             gap: 4px;
+            max-width: 230px;
 
             .title {
                 color: var(--Colors-Text-Dark, #24262e);
@@ -69,6 +71,7 @@
         .button {
             display: flex;
             width: 64px;
+            height: 34px;
             padding: 8px var(--Font-Size-md, 16px);
             justify-content: center;
             align-items: center;
