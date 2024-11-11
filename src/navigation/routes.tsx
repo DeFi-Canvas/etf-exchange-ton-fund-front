@@ -19,6 +19,8 @@ import { Withdrow } from '@/pages/withdrow/withdrow.page';
 import { AmountContainer } from '@/pages/withdrow/sub-page/ammount/amount.container';
 import { newNewWithdrowService } from '@/pages/withdrow/withdrow.store';
 import { AddressContainer } from '@/pages/withdrow/sub-page/address/address.container';
+import { CheckContainer } from '@/pages/withdrow/sub-page/check/check.container';
+import { FinalContainer } from '@/pages/withdrow/sub-page/final/final.container';
 
 interface Route {
     path: string;
@@ -74,6 +76,13 @@ export const AppRoutes = () => {
         withdrowStore,
     });
 
+    const CheckResolved = CheckContainer({
+        withdrowStore,
+    });
+
+    const FinalResolved = FinalContainer({
+        withdrowStore,
+    });
     //#region routes
     const routes: Route[] = [
         {
@@ -116,6 +125,14 @@ export const AppRoutes = () => {
         {
             path: '/withdraw/:ticker/address',
             page: AddressResolved,
+        },
+        {
+            path: '/withdraw/:ticker/address/check',
+            page: CheckResolved,
+        },
+        {
+            path: '/withdraw/:ticker/address/final',
+            page: FinalResolved,
         },
     ];
 

@@ -1,11 +1,13 @@
 import { formatNumberToUI } from '@/utils/number';
 import { fromProperty } from '@/utils/property.utils';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
-import { Property } from '@frp-ts/core';
+import { property, Property } from '@frp-ts/core';
 import { newLensedAtom } from '@frp-ts/lens';
 import { tap } from '@most/core';
 import * as E from 'fp-ts/Either';
 import { flow, pipe } from 'fp-ts/lib/function';
+import * as A from 'fp-ts/lib/Apply';
+import * as S from 'fp-ts/string';
 
 export interface WithdrowService {
     currency: Property<string>;
@@ -15,6 +17,13 @@ export interface WithdrowService {
     isNextButtonAvailable: Property<boolean>;
     approximateCost: Property<string>;
     availableBalance: Property<number>;
+
+    isGoToCheckAvailable: Property<boolean>;
+    balanceAfter: Property<number>;
+    address: Property<E.Either<string, string>>;
+    memo: Property<E.Either<string, string>>;
+    setAddress: (d: string) => void;
+    setMemo: (d: string) => void;
 }
 
 export type NewWithdrowService = ValueWithEffect<WithdrowService>;
@@ -27,6 +36,10 @@ export const newNewWithdrowService = (): NewWithdrowService => {
     const setCurrency = currency.set;
     const approximateCost = newLensedAtom('');
     const availableBalance = newLensedAtom(0);
+    const isGoToCheckAvailable = newLensedAtom(false);
+    const balanceAfter = newLensedAtom(110);
+    const address = newLensedAtom<E.Either<string, string>>(E.left('empty'));
+    const memo = newLensedAtom<E.Either<string, string>>(E.left('empty'));
 
     const setAmount = (d: number) => {
         if (d > 0 && d < 1) {
@@ -41,6 +54,19 @@ export const newNewWithdrowService = (): NewWithdrowService => {
             approximateCost.set(
                 `1 ${currency.get()} ≈ ${tickerPrice.get()} USD`
             );
+        }
+    };
+
+    const setAddress = (d: string) => {
+        address.set(E.of(d));
+        if (S.isEmpty(d)) {
+            address.set(E.left('empty'));
+        }
+    };
+    const setMemo = (d: string) => {
+        memo.set(E.of(d));
+        if (S.isEmpty(d)) {
+            memo.set(E.left('empty'));
         }
     };
 
@@ -66,6 +92,18 @@ export const newNewWithdrowService = (): NewWithdrowService => {
         )
     );
 
+    const addressFormValidationEffect = pipe(
+        property.combine(address, memo, (address, memo) => ({ address, memo })),
+        fromProperty,
+        tap(
+            flow(
+                A.sequenceS(E.Applicative),
+                E.isRight,
+                isGoToCheckAvailable.set
+            )
+        )
+    );
+
     return valueWithEffect.new(
         {
             currency,
@@ -75,8 +113,15 @@ export const newNewWithdrowService = (): NewWithdrowService => {
             isNextButtonAvailable,
             approximateCost,
             availableBalance,
+            isGoToCheckAvailable,
+            balanceAfter,
+            address,
+            memo,
+            setAddress,
+            setMemo,
         },
         isNextButtonAvailableEffect,
-        approximateCostInitEffect
+        approximateCostInitEffect,
+        addressFormValidationEffect
     );
 };

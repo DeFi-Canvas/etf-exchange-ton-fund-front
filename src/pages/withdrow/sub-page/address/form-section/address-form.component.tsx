@@ -1,41 +1,60 @@
 import css from './address-form.module.css';
 import cn from 'classnames';
 import * as E from 'fp-ts/Either';
+import { useState } from 'react';
+import { Amount } from '../../../components/amount/amount.component';
 
 interface AddressFormProps {
-    ammount: E.Either<'too small', number>;
+    ammount: E.Either<string, number>;
     approximateCost: string;
     currency: string;
+
+    address: E.Either<string, string>;
+    memo: E.Either<string, string>;
+    setAddress: (d: string) => void;
+    setMemo: (d: string) => void;
 }
 
 export const AddressForm = ({
     ammount,
     approximateCost,
     currency,
+    address,
+    memo,
+    setAddress,
+    setMemo,
 }: AddressFormProps) => {
+    const [currentAddress, setCurrentAddress] = useState(() =>
+        E.isRight(address) ? address.right : ''
+    );
+    const addressOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const val = e.currentTarget.value;
+        setCurrentAddress(val);
+        setAddress(val);
+    };
+
+    const [currentMemo, setCurrentMemo] = useState(() =>
+        E.isRight(memo) ? memo.right : ''
+    );
+    const memoOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const val = e.currentTarget.value;
+        setCurrentMemo(val);
+        setMemo(val);
+    };
+
     return (
         <div className={css.wrap}>
-            <div className={css.amount}>
-                <span className={css.title}>Withdraw amount</span>
-                <div className={css.coinInfo}>
-                    <img src="" alt="" />
-                    <div className={css.column}>
-                        <span className={css.title}>
-                            {E.isRight(ammount) && ammount.right} {currency}
-                        </span>
-                        <span className={css.sub}>{approximateCost}</span>
-                    </div>
-                    <div className={css.column}>
-                        <span className={css.title}>TRC 20</span>
-                        <span className={css.sub}>Tron Network</span>
-                    </div>
-                </div>
-            </div>
+            <Amount
+                ammount={ammount}
+                approximateCost={approximateCost}
+                currency={currency}
+            />
 
             <div className={cn(css.column, css.inputs)}>
                 <span className={css.title}>Withdraw address</span>
                 <textarea
-                    name=""
+                    value={currentAddress}
+                    onChange={addressOnChange}
                     className={css.input}
                     placeholder="Input or press and hold to paste the withdrawal address"
                 />
@@ -45,9 +64,10 @@ export const AddressForm = ({
                     Tag/Memo (Comment/Note/Remark)
                 </span>
                 <input
-                    name=""
                     className={css.input}
                     placeholder="Enter your tag"
+                    value={currentMemo}
+                    onChange={memoOnChange}
                 />
             </div>
 

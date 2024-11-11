@@ -12,47 +12,6 @@
         line-height: 150%;
     }
 
-    .amount {
-        .coinInfo {
-            padding: 12px;
-            border-radius: var(--Font-Size-xs, 12px);
-            background: var(--Colors-Background-Light, #f9f8ff);
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-
-            img {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-            }
-
-            .column {
-                display: flex;
-                flex-direction: column;
-
-                &:nth-child(2) {
-                    flex-grow: 1;
-                }
-
-                .title {
-                    color: var(--Colors-Text-Dark, #24262e);
-                    font-size: var(--Font-Size-md, 16px);
-                    font-style: normal;
-                    font-weight: 510;
-                    line-height: 135%; /* 21.6px */
-                }
-                .sub {
-                    color: var(--colors-text-dark-50, rgba(36, 38, 46, 0.5));
-                    font-size: var(--Font-Size-xs, 12px);
-                    font-style: normal;
-                    font-weight: 400;
-                    line-height: 150%; /* 18px */
-                }
-            }
-        }
-    }
-
     .column {
         display: flex;
         flex-direction: column;

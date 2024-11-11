@@ -58,14 +58,10 @@
     }
     .footerWrap {
         position: fixed;
-        bottom: 0px;
+        bottom: 21px;
         left: 0;
         z-index: 3;
         width: 100%;
-
-        &.activeKeyboard {
-            bottom: 50px;
-        }
 
         .availableBalance {
             padding: 16px;

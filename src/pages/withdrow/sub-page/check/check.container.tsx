@@ -1,12 +1,13 @@
 import { injectable, token } from '@injectable-ts/core';
 import React, { memo } from 'react';
-import { AddressForm } from './address-form.component';
 import { WithdrowService } from '@/pages/withdrow/withdrow.store';
 import { useProperty } from '@frp-ts/react';
+import { Check } from './check.component';
 
-export const AddressFormContainer = injectable(
+export const CheckContainer = injectable(
     token('withdrowStore')<WithdrowService>(),
-    (store) =>
+    Check,
+    (store, Check) =>
         memo(() => {
             const ammount = useProperty(store.amount);
             const approximateCost = useProperty(store.approximateCost);
@@ -14,14 +15,12 @@ export const AddressFormContainer = injectable(
             const address = useProperty(store.address);
             const memo = useProperty(store.memo);
 
-            return React.createElement(AddressForm, {
+            return React.createElement(Check, {
                 ammount,
                 approximateCost,
                 currency,
                 address,
                 memo,
-                setAddress: store.setAddress,
-                setMemo: store.setMemo,
             });
         })
 );

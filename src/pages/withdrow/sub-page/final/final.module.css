@@ -1,0 +1,86 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    z-index: 3;
+    display: flex;
+    padding: 8px var(--Font-Size-md, 16px);
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    border: 0.33px solid
+        var(--Separator-Colors-Non-Opaque, rgba(60, 60, 67, 0.36));
+    background: rgba(255, 255, 255, 0.75);
+    background-blend-mode: hard-light;
+    backdrop-filter: blur(10px);
+    width: 100%;
+
+    button {
+        width: 100%;
+        padding: 14px;
+        border-radius: var(--Font-Size-xs, 12px);
+        color: var(--Colors-Main-Purple, #5b39f4);
+        text-align: center;
+        font-size: var(--Font-Size-md, 16px);
+        font-style: normal;
+        font-weight: 510;
+        line-height: 135%;
+        border: none;
+    }
+
+    .transactions {
+        background: var(--colors-main-purple-10, rgba(91, 57, 244, 0.1));
+        color: var(--Colors-Main-Purple, #5b39f4);
+    }
+    .finish {
+        background: var(--Colors-Main-Purple, #5b39f4);
+        color: #fff;
+    }
+}
+
+.wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 32px;
+
+    .currency {
+        color: var(--Colors-Text-Dark, #24262e);
+        text-align: center;
+
+        font-size: var(--Font-Size-H2, 32px);
+        font-style: normal;
+        font-weight: 590;
+        line-height: 130%; /* 41.6px */
+        margin-bottom: 12px;
+    }
+
+    .normal {
+        color: var(--Colors-Text-Dark, #24262e);
+        text-align: center;
+
+        font-size: var(--Font-Size-md, 16px);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 150%; /* 24px */
+        max-width: 358px;
+        word-wrap: break-word;
+    }
+
+    img {
+        width: 225px;
+        height: 225px;
+        margin: 38px auto;
+    }
+    .amount {
+        color: #000;
+        text-align: center;
+        font-size: var(--Font-Size-md, 16px);
+        font-style: normal;
+        font-weight: 510;
+        line-height: 135%; /* 21.6px */
+        margin-bottom: 8px;
+    }
+    .address {
+        max-width: 232px;
+    }
+}

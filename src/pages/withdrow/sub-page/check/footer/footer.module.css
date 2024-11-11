@@ -1,0 +1,61 @@
+.footerWrap {
+    position: fixed;
+    bottom: 21px;
+    left: 0;
+    z-index: 3;
+    width: 100%;
+
+    .availableBalance {
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
+        .title {
+            color: var(--Colors-Text-Dark, #24262e);
+            font-size: var(--Font-Size-sm, 14px);
+            font-style: normal;
+            font-weight: 400;
+            line-height: 150%; /* 21px */
+        }
+
+        .infoWrap {
+            display: flex;
+
+            .balance {
+                color: var(--Text-Dark, #1b1b1b);
+                font-size: var(--Font-Size-md, 16px);
+                font-weight: 510;
+                line-height: 135%; /* 21.6px */
+            }
+        }
+    }
+
+    .footer {
+        border-top: 0.33px solid
+            var(--Separator-Colors-Non-Opaque, rgba(60, 60, 67, 0.36));
+        background: rgba(255, 255, 255, 0.75);
+        background-blend-mode: hard-light;
+        backdrop-filter: blur(10px);
+        padding: 12px 16px;
+
+        .nextButton {
+            border: none;
+            border-radius: var(--Font-Size-xs, 12px);
+            background: var(--Colors-Main-Purple, #5b39f4);
+            color: var(--Telegram-button_text_color, #fff);
+            font-size: var(--Font-Size-md, 16px);
+            font-style: normal;
+            font-weight: 510;
+            line-height: 135%;
+            width: 100%;
+            padding: 14px;
+
+            &.disabled {
+                background: var(
+                    --colors-pallete-dark-10,
+                    rgba(36, 38, 46, 0.1)
+                );
+                color: var(--colors-text-dark-20, rgba(36, 38, 46, 0.2));
+            }
+        }
+    }
+}

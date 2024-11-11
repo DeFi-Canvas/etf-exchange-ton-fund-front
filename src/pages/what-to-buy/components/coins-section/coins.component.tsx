@@ -25,7 +25,8 @@ const routesInit = [
 ];
 
 export const Coins = () => {
-    const [routes, serRoutes] = useState(routesInit);
+    //TODO: занести это в сервис сетингс
+    const [routes, setRoutes] = useState(routesInit);
 
     return (
         <div className={css.wrap}>
@@ -38,7 +39,7 @@ export const Coins = () => {
                         to={route.to}
                         key={route.id}
                         onClick={() => {
-                            serRoutes((r) =>
+                            setRoutes((r) =>
                                 r
                                     .map((t) => ({ ...t, isActive: false }))
                                     .map((t) => {
