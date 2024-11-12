@@ -1,9 +1,9 @@
 import type { ComponentType, JSX } from 'react';
 
 import { IndexPage } from '@/pages/IndexPage-1/IndexPage';
-import AboutPage from '@/pages/AboutPage/AboutPage.tsx';
+// import AboutPage from '@/pages/AboutPage/AboutPage.tsx';
 import FundPage from '@/pages/FundPage/FundPage.tsx';
-import InvestPage from '@/pages/InvestPage/InvestPage.tsx';
+// import InvestPage from '@/pages/InvestPage/InvestPage.tsx';
 import { WaletPageContainer } from '@/pages/what-to-buy/what-to-buy.container';
 import { DepositPageContainer } from '@/pages/deposit/deposit.page';
 import { Funds } from '@/pages/what-to-buy/sub-pages/founds/funds.page';
@@ -95,9 +95,9 @@ export const AppRoutes = () => {
                 { path: 'transactions', page: Transactions },
             ],
         },
-        { path: '/about', page: AboutPage },
+        // { path: '/about', page: AboutPage },
         { path: '/funds/:id', page: FundPage },
-        { path: '/invest/:id/:step', page: InvestPage },
+        // { path: '/invest/:id/:step', page: InvestPage },
         {
             path: '/what-to-buy',
             page: IndexPage,

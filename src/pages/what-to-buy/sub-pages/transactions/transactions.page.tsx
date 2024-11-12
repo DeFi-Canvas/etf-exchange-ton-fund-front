@@ -98,7 +98,7 @@ const TRANSACTIONS_PAGE_MOCK_EMPTY: Array<TransactionGroup> = [];
 export const Transactions = () => {
     return (
         <div className={css.wrap}>
-            {TRANSACTIONS_PAGE_MOCK.map((t) => (
+            {TRANSACTIONS_PAGE_MOCK_EMPTY.map((t) => (
                 <TransactionGroup key={t.date.getMilliseconds()} {...t} />
             ))}
         </div>
