@@ -19,12 +19,18 @@ export const WaletPage = injectable(
     BalanceContainer,
     // eslint-disable-next-line react/display-name
     (BalanceContainer) => () => {
+        const swiperOptions = {
+            spaceBetween: 10,
+            slidesPerView: 1.05, 
+            className: css.swiperWrap,
+        }
+
         return (
             <div className={css.wrap}>
                 <div className={css.content}>
                     <BalanceContainer />
                     <NavBar />
-                    <Swiper className={css.swiperWrap}>
+                    <Swiper { ...swiperOptions }>
                         <SwiperSlide>
                             <NewsEarn />
                         </SwiperSlide>

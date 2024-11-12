@@ -1,11 +1,11 @@
 import css from './lern-more.module.css';
-import book from './assets/book.png';
+import bookImage from './assets/book.png';
 import { SimpleArrowIcon } from '@/components/Icons/Icons';
 
 export const LernMore = () => {
     return (
         <div className={css.wrap}>
-            <div className={css.texts}>
+            <div className={css.content}>
                 <span className={css.title}>
                     Learn more about our application in GitPages
                 </span>
@@ -19,8 +19,8 @@ export const LernMore = () => {
                     </a>
                 </span>
             </div>
-            <div className={css.imgWrap}>
-                <img src={book} alt="" />
+            <div className={ css.imageWrapper }>
+                <img src={ bookImage } className={ css.image } />
             </div>
         </div>
     );
