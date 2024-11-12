@@ -1,7 +1,7 @@
 .application {
     --header-padding-bottom: 24px;
     padding-top: 32px;
-    height: 100vh;
+    height: 100%;
 }
 
 .header {
