@@ -1,6 +1,6 @@
 import css from './news-earn.module.css';
-import coinImg from './assets/coin-1.png';
-import coin2Img from './assets/coin-2.png';
+import coinSmallBlur from './assets/coin-small-blur.png';
+import coinBig from './assets/coin-big.png';
 import { SimpleArrowIcon } from '@/components/Icons/Icons';
 import { Link } from 'react-router-dom';
 
@@ -18,9 +18,9 @@ export const NewsEarn = () => {
                         </Link>
                     </span>
                 </div>
-                <div>
-                    <img src={coin2Img} alt="" className={css.img2} />
-                    <img src={coinImg} alt="" className={css.img} />
+                <div className={css.cardImageWrapper}>
+                    <img src={coinSmallBlur} alt="" className={ css.coinSmallBlur  } />
+                    <img src={coinBig} alt="" className={ css.coinBig } />
                 </div>
             </div>
         </div>
