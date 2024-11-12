@@ -1,26 +1,26 @@
 import css from './lern-more.module.css';
 import bookImage from './assets/book.png';
 import { SimpleArrowIcon } from '@/components/Icons/Icons';
+import { Link } from 'react-router-dom';
 
 export const LernMore = () => {
     return (
-        <div className={css.wrap}>
-            <div className={css.content}>
-                <span className={css.title}>
+        <div className={ css.card }>
+            <div className={ css.content }>
+                <span className={ css.contentTitle }>
                     Learn more about our application in GitPages
                 </span>
-                <span className={css.link}>
-                    <a
-                        href="https://holstby.github.io/etf-exchange-ton-fund-gitbook/docs/introduction.html"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        Learn more <SimpleArrowIcon />
-                    </a>
-                </span>
+                <Link 
+                    to={ 'https://holstby.github.io/etf-exchange-ton-fund-gitbook/docs/introduction.html' } 
+                    target="_blank"
+                    rel="noreferrer"
+                    className={ css.contentLink }
+                >
+                    Learn more <SimpleArrowIcon />
+                </Link>
             </div>
             <div className={ css.imageWrapper }>
-                <img src={ bookImage } className={ css.image } />
+            <img src={ bookImage } className={ css.image } />
             </div>
         </div>
     );
