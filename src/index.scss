@@ -48,11 +48,13 @@ body {
     background: var(--telegram-hint-color, white);
     padding: 0;
     margin: 0;
+    overflow: hidden;
 }
 
 main {
+    max-height: calc(var(--tg-viewport-height, 100vh) - var(--tab-bar-height));
+    overflow-y: auto;
     width: 100%;
-    padding-bottom: calc(var(--tab-bar-height) + 32px);
 }
 
 .container {
