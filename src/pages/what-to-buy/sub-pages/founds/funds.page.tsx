@@ -5,6 +5,8 @@ import img from './temp-teser.png';
 import * as O from 'fp-ts/Option';
 import { EmptyScrean } from '../epty-screan/epty-screan.component';
 import emptyGif from '../../../../assets/images/money_duck.gif';
+import AppButton from '@/components/AppButton/AppButton';
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const FOUNDS_MOCK: Array<CoinCardProps> = [
     {
@@ -62,18 +64,31 @@ const FOUNDS_MOCK: Array<CoinCardProps> = [
 const emptyText = `You don't have any investments in funds right now. Get started by browsing through funds to discover opportunities.`;
 
 export const Funds = () => {
-    return <EmptyScrean emptyGif={emptyGif} text={emptyText} />;
-    return (
-        <div className={css.wrap}>
-            {/* {FOUNDS_MOCK_EMPTY.map((el) => (
-                <CoinCard
-                    key={pipe(
-                        el.ticker,
-                        O.getOrElse(() => '-')
-                    )}
-                    {...el}
-                />
-            ))} */}
+    const footerSlot = () => (
+        <div className={ css.footerButtons }>
+            <AppButton label="Deposit" type="secondary" />
+            <AppButton label="Choose a fund" />
         </div>
+    )
+
+    return (
+        <EmptyScrean 
+            footerSlot={ footerSlot } 
+            emptyGif={emptyGif} 
+            text={emptyText} 
+        />
     );
+    // return (
+    //     <div className={css.wrap}>
+    //         {/* {FOUNDS_MOCK_EMPTY.map((el) => (
+    //             <CoinCard
+    //                 key={pipe(
+    //                     el.ticker,
+    //                     O.getOrElse(() => '-')
+    //                 )}
+    //                 {...el}
+    //             />
+    //         ))} */}
+    //     </div>
+    // );
 };
