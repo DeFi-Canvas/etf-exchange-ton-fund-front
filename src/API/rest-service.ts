@@ -1,9 +1,5 @@
 import { Stream } from '@most/types';
 import { Either } from 'fp-ts/lib/Either';
-import { chain, fromPromise } from '@most/core';
-import axios from 'axios';
-import { either } from 'fp-ts';
-import { pipe } from 'fp-ts/lib/function';
 import { UserStoreService } from '@/store/user.store';
 import { injectable, token } from '@injectable-ts/core';
 import { JettonType } from '@/types';
@@ -61,12 +57,7 @@ export interface WaletRestService {
 export const newWaletRestService = injectable(
     token('userStore')<UserStoreService>(),
     (userStore): WaletRestService => {
-        const {
-            lastName: last_name,
-            firstName: firs_name,
-            username,
-            id: telegram_id,
-        } = userStore.user.get();
+        const { id: telegram_id } = userStore.user.get();
 
         const mapDepositDetails = (data: DepositDetails) => ({
             ...data,
