@@ -75,9 +75,9 @@ export const newWaletRestService = injectable(
         });
 
         return {
-            getWalletInfo: getRequest(API.getWalletInfo(186942268)),
+            getWalletInfo: getRequest(API.getWalletInfo(telegram_id)),
             getAssets: getRequest(
-                API.getWalletInfo(186942268),
+                API.getWalletInfo(telegram_id),
                 (x: WaletResponce) => x.assets
             ),
             getDepositAssets: getRequest(API.depositAsserts, mapDepositAssets),
