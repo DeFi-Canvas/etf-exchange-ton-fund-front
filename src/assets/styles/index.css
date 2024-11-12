@@ -1,5 +1,3 @@
-/* Base */
 @import url('./reset.css');
-
-/* Variables */
-@import url('./variables/index.css');
+@import url('./variables.css');
+@import url('./global.css');
