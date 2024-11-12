@@ -57,8 +57,7 @@ export type JettonType = {
     name: string;
     symbol: string;
     balance: number;
-    image: string;
-    wallet: string;
     price: number;
-    jetton: string;
+    image_url: string;
+    value: number;
 };

@@ -18,7 +18,6 @@ export const DOMAIN_API_URL =
     'https://etf-exchange-ton-fund-back-production.up.railway.app';
 
 const API = {
-    // getWalletInfo: `${DOMAIN_API_URL}/walletbalance`,
     getWalletInfo: (id?: number) =>
         `${DOMAIN_API_URL}/wallet/balance?telegram_id=${id}`,
     appopened: `${DOMAIN_API_URL}/appopened`,
@@ -28,12 +27,8 @@ const API = {
 };
 
 interface WaletResponce {
-    // balance: number;
-    // price: number;
-    // totalamount: number;
-    // jettons: Array<JettonType>;
     total: number;
-    assets: Array<unknown>;
+    assets: Array<JettonType>;
 }
 
 interface DepositAsserts {
@@ -89,46 +84,11 @@ export const newWaletRestService = injectable(
         });
 
         return {
-            getWalletInfo: () =>
-                pipe(
-                    fromPromise(
-                        axios
-                            .get(API.getWalletInfo(telegram_id))
-                            .then(({ data }) => pipe(data, either.of))
-                            .catch((error) => {
-                                return either.left(
-                                    `Something goes wrong status = ${error.response.status}`
-                                );
-                            })
-                    )
-                ),
-            getAssets: () =>
-                pipe(
-                    fromPromise(
-                        axios
-                            .post(`${API.appopened}`, {
-                                telegram_id,
-                                username,
-                                firs_name,
-                                last_name,
-                            })
-                            .then(({ data }) => data)
-                    ),
-                    chain(({ address }) => {
-                        return fromPromise(
-                            axios
-                                .get(`${API.getWalletInfo}/${address}`)
-                                .then(({ data }) => {
-                                    return pipe(data.jettons, either.of);
-                                })
-                                .catch((error) => {
-                                    return either.left(
-                                        `Something goes wrong status = ${error.response.status}`
-                                    );
-                                })
-                        );
-                    })
-                ),
+            getWalletInfo: getRequest(API.getWalletInfo(186942268)),
+            getAssets: getRequest(
+                API.getWalletInfo(186942268),
+                (x: WaletResponce) => x.assets
+            ),
             getDepositAssets: getRequest(API.depositAsserts, mapDepositAssets),
             getDepositDetails: getRequest(
                 API.depositDetails(telegram_id),

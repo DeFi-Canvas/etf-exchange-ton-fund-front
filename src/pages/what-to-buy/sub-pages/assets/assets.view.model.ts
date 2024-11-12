@@ -38,7 +38,7 @@ export const newAssetsViewModel = injectable(
                     flow(
                         either.map((jettons) =>
                             jettons.map((jetton) => ({
-                                logo: O.some(jetton.image),
+                                logo: O.some(jetton.image_url),
                                 name: O.some(jetton.name),
                                 isStableCoin: false,
                                 ticker: O.some(jetton.symbol),

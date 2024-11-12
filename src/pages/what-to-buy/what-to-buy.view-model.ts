@@ -35,7 +35,6 @@ export const newWhatToBuyViewModel = injectable(
                         either.map(({ total }) => total),
                         O.fromEither,
                         O.map((balance) => {
-                            console.log(balance, 'newWhatToBuyViewModel');
                             const [int, float] = balance.toFixed(2).split('.');
                             return {
                                 int,

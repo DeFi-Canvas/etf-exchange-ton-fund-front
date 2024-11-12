@@ -47,11 +47,7 @@ export const newAssetsViewModel = injectable(
                 }
             })();
 
-            const getAssetsEffect = pipe(
-                // waletRestService.getDepositAssets(),
-                currentAssets,
-                tap(assets.set)
-            );
+            const getAssetsEffect = pipe(currentAssets, tap(assets.set));
 
             return valueWithEffect.new(
                 {
