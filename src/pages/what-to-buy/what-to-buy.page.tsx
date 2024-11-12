@@ -26,8 +26,8 @@ export const WaletPage = injectable(
         }
 
         return (
-            <div className={css.wrap}>
-                <div className={css.content}>
+            <div className={ css.application }>
+                <header className={ css.header }>
                     <BalanceContainer />
                     <NavBar />
                     <Swiper { ...swiperOptions }>
@@ -38,8 +38,10 @@ export const WaletPage = injectable(
                             <LernMore />
                         </SwiperSlide>
                     </Swiper>
+                </header>
+                <div className={ css.coinWrapper }>
+                    <Coins />
                 </div>
-                <Coins />
             </div>
         );
     }

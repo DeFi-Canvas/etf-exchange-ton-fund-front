@@ -1,6 +1,6 @@
 /* TODO: занятся переменными и шрифтами*/
 .wrap {
-    padding: 32px 16px 0;
+    position: relative;
 
     .balans {
         color: var(--Colors-Text-Dark, #24262e);
@@ -8,7 +8,6 @@
         font-size: var(--Font-Size-H1, 44px);
         font-weight: 590;
         line-height: 130%;
-        margin-bottom: 12px;
 
         .shadow {
             color: var(--colors-text-dark-50, rgba(36, 38, 46, 0.5));

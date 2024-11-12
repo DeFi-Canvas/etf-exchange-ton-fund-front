@@ -1,7 +1,8 @@
 .wrap {
     display: flex;
-    padding: var(--Font-Size-md, 16px);
     justify-content: space-between;
+    position: relative;
+    margin-top: 24px;
 
     .link {
         text-decoration: none;

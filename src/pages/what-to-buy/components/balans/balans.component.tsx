@@ -14,7 +14,7 @@ export interface BalansProps {
 
 export const Balans = ({ balance }: BalansProps) => {
     return (
-        <div className={css.wrap}>
+        <div className={ 'app-container ' + css.wrap }>
             <div className={css.labelWrap}>
                 <span className={css.label}>Current balance</span>
                 <div className={css.alert}>

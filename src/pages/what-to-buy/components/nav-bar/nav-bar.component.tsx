@@ -10,7 +10,7 @@ import { NavLink } from 'react-router-dom';
 // TODO  доделать на ссылки
 export const NavBar = () => {
     return (
-        <div className={css.wrap}>
+        <div className={ 'app-container ' + css.wrap }>
             <NavLink to={'deposit'} className={css.link}>
                 <div>
                     <DepositDepositIcon />

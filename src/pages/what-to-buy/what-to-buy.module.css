@@ -1,11 +1,37 @@
-.wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    margin-bottom: 35px;
+.application {
+    --header-padding-bottom: 24px;
+    padding-top: 32px;
     height: 100vh;
+}
 
-    .swiperWrap {
-        padding: 0 12px;
-    }
+.header {
+    position: relative;
+    z-index: 1;
+    padding-bottom: calc(var(--header-padding-bottom) * 2);
+    overflow: hidden;
+}
+
+.header::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -544px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1112px;
+    height: 645px;
+    filter: blur(175px);
+    background-color: #DED6FF;
+}
+
+/* Increasing the priority of specificity */
+.header .swiperWrap {
+    margin-top: 24px;
+    padding-inline: var(--container-padding-inline);
+}
+
+.coinWrapper {
+    position: relative;
+    z-index: var(--z-index-1);
+    margin-top: calc(var(--header-padding-bottom) * (-1));
 }
