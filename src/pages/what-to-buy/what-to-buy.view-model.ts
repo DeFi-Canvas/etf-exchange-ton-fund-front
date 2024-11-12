@@ -32,11 +32,11 @@ export const newWhatToBuyViewModel = injectable(
                 waletRestService.getWalletInfo(),
                 tap(
                     flow(
-                        either.map(({ balance }) => balance),
+                        either.map(({ total }) => total),
                         O.fromEither,
                         O.map((balance) => {
-                            console.log(balance);
-                            const [int, float] = balance.toString().split('.');
+                            console.log(balance, 'newWhatToBuyViewModel');
+                            const [int, float] = balance.toFixed(2).split('.');
                             return {
                                 int,
                                 float: `.${float
