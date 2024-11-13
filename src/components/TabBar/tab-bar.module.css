@@ -1,8 +1,7 @@
 .tabBar {
-    --base-save-area-bottom: env(safe-area-inset-bottom, 0);
     background: var(--telegram-bg-color);
     position: fixed;
-    bottom: var(--base-save-area-bottom);
+    bottom: var(--base-safe-area-bottom);
     right: 0;
     display: flex;
     flex-direction: row;
@@ -22,14 +21,6 @@
         align-items: center;
         gap: 24px;
         width: 100%;
-    }
-}
-@supports (constant(safe-area-inset-top)) {
-    .tabBar {
-        --base-save-area-bottom: max(
-            env(safe-area-inset-bottom, 0),
-            constant(safe-area-inset-bottom, 0)
-        );
     }
 }
 
