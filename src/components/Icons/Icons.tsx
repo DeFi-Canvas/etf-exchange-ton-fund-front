@@ -38,9 +38,9 @@ export const HomeIcon = ({
     isActive: boolean;
 }) =>
     isActive ? (
-        <HomeActive width={20} height={20} className={className} />
+        <HomeActive className={className} />
     ) : (
-        <Home width={20} height={20} className={className} />
+        <Home className={className} />
     );
 
 export const AboutIcon = ({ className = '' }: { className?: string }) => (
