@@ -1,0 +1,44 @@
+/* На данный момент неизвестные стили, переодически сюда поглядывать, может быть со временем они и совсе не нужны */
+.ton-connect__button {
+    & button {
+        background-color: #fff;
+        box-shadow: none;
+
+        & svg path {
+            fill: black;
+        }
+
+        & div {
+            color: var(--Text-Dark, black);
+            font-size: var(--Font-Size-sm, 14px);
+            font-style: normal;
+            font-weight: 400;
+            line-height: 150%;
+        }
+    }
+}
+
+.contract-call {
+    position: absolute;
+    width: 100%;
+    height: var(--tg-viewport-height, 100vh);
+    background: var(--telegram-hint-color, white);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+
+    & > p {
+        color: var(--Text-Dark, #1b1b1b);
+        text-align: center;
+        font-size: var(--Font-Size-xl, 20px);
+        font-weight: 500;
+        line-height: 130%;
+        margin: 0;
+    }
+}
+
+[data-tc-dropdown-container='true'] {
+    left: 50% !important;
+    transform: translate(-50%, 0) !important;
+}

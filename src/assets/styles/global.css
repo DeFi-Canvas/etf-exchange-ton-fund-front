@@ -1,5 +1,19 @@
 body {
     font-family: var(--font-family-default);
+    background: var(--telegram-hint-color, white);
+    color: var(--color-black);
+    overflow: hidden;
+}
+
+body,
+#root {
+    height: var(--tg-viewport-height, 100vh);
+}
+
+main {
+    max-height: calc(var(--tg-viewport-height, 100vh) - var(--tab-bar-height));
+    overflow-y: auto;
+    width: 100%;
 }
 
 .app-container {

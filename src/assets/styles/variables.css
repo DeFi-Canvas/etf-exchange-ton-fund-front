@@ -9,4 +9,8 @@
     /* Grid / Template */
     --container-padding-inline: 16px;
     --tab-bar-height: 83px;
+
+    /* Colors */
+    --color-black: #1b1b1b;
+    --color-white: #ffffff;
 }

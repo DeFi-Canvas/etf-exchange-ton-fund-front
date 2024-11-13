@@ -16,7 +16,7 @@ const FundPage = () => {
     if (!etfData) return <>404</>;
 
     return (
-        <div className={'container funds-page'}>
+        <div className={'funds-page'}>
             <h1 className={'funds-page--h1'}>{etfData.title}</h1>
             {id === 'ETFP' && (
                 <BigCard>
