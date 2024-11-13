@@ -54,7 +54,7 @@
     }
 
     .err {
-        color: var(--Colors-System-Red, #ff584e) !important;
+        color: var(--color-error) !important;
     }
     .footerWrap {
         position: fixed;

@@ -43,7 +43,7 @@
         font-size: var(--Font-Size-xxs, 10px);
 
         .lose {
-            color: var(--Colors-System-Red, #ff584e);
+            color: var(--color-error);
         }
         .profit {
             color: var(--Colors-System-Green, #61c66c);
@@ -55,7 +55,7 @@
             border-radius: 50%;
 
             &.lose {
-                background-color: var(--Colors-System-Red, #ff584e);
+                background-color: var(--color-error);
             }
             &.profit {
                 background-color: var(--Colors-System-Green, #61c66c);

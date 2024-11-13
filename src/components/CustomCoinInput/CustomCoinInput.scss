@@ -30,12 +30,12 @@
 
 .custom-coin-input.input-error {
     & > p {
-        color: var(--Colors-System-Red, #ff584e);
+        color: var(--color-error);
     }
     & input,
     span,
     p {
-        color: var(--Colors-System-Red, #ff584e);
+        color: var(--color-error);
     }
 }
 
