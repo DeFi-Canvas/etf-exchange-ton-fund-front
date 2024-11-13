@@ -47,7 +47,7 @@
         color: var(--Colors-Text-Dark, #24262e);
         text-align: center;
 
-        font-size: var(--Font-Size-H2, 32px);
+        font-size: 32px;
         font-style: normal;
         font-weight: 590;
         line-height: 130%; /* 41.6px */

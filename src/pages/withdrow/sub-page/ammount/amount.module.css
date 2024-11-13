@@ -2,7 +2,7 @@
     padding: 32px 16px;
     .title {
         color: var(--Colors-Text-Dark, #24262e);
-        font-size: var(--Font-Size-H2, 32px);
+        font-size: 32px;
         font-style: normal;
         font-weight: 590;
     }
@@ -21,7 +21,7 @@
 
             .input {
                 color: var(--Text-Dark, #1b1b1b);
-                font-size: var(--Font-Size-H1, 44px);
+                font-size: 44px;
                 border: none;
                 outline: none;
                 width: 120px;
@@ -37,7 +37,7 @@
 
             .prefix {
                 color: var(--colors-text-dark-50, rgba(36, 38, 46, 0.5));
-                font-size: var(--Font-Size-H2, 32px);
+                font-size: 32px;
                 font-style: normal;
                 font-weight: 590;
                 line-height: 130%;
@@ -73,7 +73,7 @@
                 .title {
                     color: var(--colors-text-dark-50, rgba(36, 38, 46, 0.5));
 
-                    font-size: var(--Font-Size-xs, 12px);
+                    font-size: 12px;
                     font-style: normal;
                     font-weight: 400;
                     line-height: 150%; /* 18px */

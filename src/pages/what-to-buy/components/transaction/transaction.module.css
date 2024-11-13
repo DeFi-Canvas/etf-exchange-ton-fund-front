@@ -29,7 +29,7 @@
 
     .samllText {
         color: var(--colors-text-dark-50, rgba(36, 38, 46, 0.5));
-        font-size: var(--Font-Size-xs, 12px);
+        font-size: 12px;
     }
 
     .dateWrap {

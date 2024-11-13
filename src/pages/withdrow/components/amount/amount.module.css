@@ -38,7 +38,7 @@
             }
             .sub {
                 color: var(--colors-text-dark-50, rgba(36, 38, 46, 0.5));
-                font-size: var(--Font-Size-xs, 12px);
+                font-size: 12px;
                 font-style: normal;
                 font-weight: 400;
                 line-height: 150%; /* 18px */

@@ -62,7 +62,7 @@
         border: none;
         border-radius: 8px;
         color: var(--Colors-Text-White, #fff);
-        font-size: var(--Font-Size-xs, 12px);
+        font-size: 12px;
         font-weight: 510;
         line-height: 150%;
 

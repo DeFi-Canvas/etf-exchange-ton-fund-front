@@ -63,7 +63,7 @@
 
             .reward {
                 color: var(--Colors-Main-Purple, #5b39f4);
-                font-size: var(--Font-Size-xs, 12px);
+                font-size: 12px;
                 line-height: 150%;
             }
         }
@@ -82,7 +82,7 @@
                 text-decoration: none;
                 color: var(--Telegram-button_text_color, #fff);
                 text-align: center;
-                font-size: var(--Font-Size-xs, 12px);
+                font-size: 12px;
                 font-weight: 510;
             }
         }

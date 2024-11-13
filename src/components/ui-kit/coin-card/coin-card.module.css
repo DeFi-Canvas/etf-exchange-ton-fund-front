@@ -29,7 +29,7 @@
 
     .coinName {
         color: var(--colors-text-dark-50, rgba(36, 38, 46, 0.5));
-        font-size: var(--Font-Size-xs, 12px);
+        font-size: 12px;
     }
 
     .money {
@@ -40,7 +40,7 @@
         display: flex;
         align-items: center;
         gap: 4px;
-        font-size: var(--Font-Size-xxs, 10px);
+        font-size: 10px;
 
         .lose {
             color: var(--color-error);
