@@ -1,5 +1,5 @@
 @import url('./reset.css');
 @import url('../fonts/sf-pro/index.css');
-@import url('./variables.css');
+@import url('./variables/index.css');
 @import url('./global.css');
 @import url('./unknow.css');
