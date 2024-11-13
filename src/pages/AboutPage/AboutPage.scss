@@ -23,12 +23,12 @@
             height: 15px;
 
             & path {
-                stroke: var(--Colors-System-Green, #61c66c);
+                stroke: var(--color-success);
             }
         }
 
         & p {
-            color: var(--Colors-System-Green, #61c66c);
+            color: var(--color-success);
             font-size: 16px;
             font-weight: 400;
             line-height: normal;

@@ -47,7 +47,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: var(--Colors-System-Green, #61c66c);
+    color: var(--color-success);
 
     &-apr {
         align-self: flex-start;
@@ -67,7 +67,7 @@
         height: 15px;
 
         & path {
-            stroke: var(--Colors-System-Green, #61c66c);
+            stroke: var(--color-success);
         }
     }
 
@@ -81,7 +81,7 @@
     }
 
     & p {
-        color: var(--Colors-System-Green, #61c66c);
+        color: var(--color-success);
         font-size: var(--Font-Size-md, 16px);
         font-weight: 500;
         line-height: 135%;

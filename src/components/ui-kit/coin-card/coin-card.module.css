@@ -46,7 +46,7 @@
             color: var(--color-error);
         }
         .profit {
-            color: var(--Colors-System-Green, #61c66c);
+            color: var(--color-success);
         }
 
         .dot {
@@ -58,7 +58,7 @@
                 background-color: var(--color-error);
             }
             &.profit {
-                background-color: var(--Colors-System-Green, #61c66c);
+                background-color: var(--color-success);
             }
         }
     }
