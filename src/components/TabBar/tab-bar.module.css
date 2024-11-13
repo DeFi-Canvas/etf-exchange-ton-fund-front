@@ -1,14 +1,14 @@
 .tabBar {
     background-color: var(--telegram-bg-color);
     position: fixed;
-    bottom: var(--base-safe-area-bottom);
+    bottom: 0;
     right: 0;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding: 8px 16px;
+    padding: 8px 16px 24px;
     border-top: 1px solid rgba(60, 60, 67, 0.1);
     z-index: var(--z-index-100);
     height: var(--tab-bar-height);
@@ -22,18 +22,6 @@
         gap: 24px;
         width: 100%;
     }
-}
-
-.tabBar::after {
-    content: '';
-    display: block;
-    width: 100%;
-    height: var(--base-safe-area-bottom);
-    background-color: var(--telegram-bg-color);
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
 }
 
 .item {
