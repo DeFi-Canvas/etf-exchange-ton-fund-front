@@ -22,7 +22,7 @@
     position: absolute;
     width: 100%;
     height: var(--tg-viewport-height, 100vh);
-    background: var(--telegram-hint-color, white);
+    background: var(--telegram-hint-color, #f0f1f5);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

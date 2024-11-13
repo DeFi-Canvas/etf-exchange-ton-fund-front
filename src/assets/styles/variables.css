@@ -15,4 +15,8 @@
     --color-white: #ffffff;
     --color-error: #ff584e;
     --color-success: #61c66c;
+
+    /* Telegram custom property */
+    --telegram-hint-color: #f0f1f5;
+    --telegram-bg-color: #ffffff;
 }
