@@ -12,6 +12,7 @@
     border-top: 1px solid rgba(60, 60, 67, 0.1);
     z-index: var(--z-index-100);
     height: var(--tab-bar-height);
+    padding-bottom: var(--base-safe-area-bottom, 24px);
 
     .wrapper {
         max-width: 480px;
