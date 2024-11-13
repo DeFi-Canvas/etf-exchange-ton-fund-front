@@ -11,6 +11,8 @@ body,
 }
 
 main {
+    height: calc(var(--tg-viewport-height, 100vh) - var(--tab-bar-height));
+    min-height: calc(var(--tg-viewport-height, 100vh) - var(--tab-bar-height));
     max-height: calc(var(--tg-viewport-height, 100vh) - var(--tab-bar-height));
     overflow-y: auto;
     width: 100%;
