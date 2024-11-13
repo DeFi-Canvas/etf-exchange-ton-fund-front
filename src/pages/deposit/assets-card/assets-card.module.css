@@ -2,12 +2,12 @@
     display: flex;
     height: 64px;
 
-    border-radius: var(--Font-Size-xs, 12px);
+    border-radius: 12px;
     background: var(--Colors-Background-Light, #f9f8ff);
     display: flex;
-    padding: 2px 0px 2px var(--Font-Size-xs, 12px);
+    padding: 2px 0px 2px 12px;
     align-items: center;
-    gap: var(--Font-Size-xs, 12px);
+    gap: 12px;
 
     .img {
         width: 40px;

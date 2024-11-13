@@ -12,7 +12,7 @@
         padding: 2px;
         margin-bottom: 24px;
         justify-content: space-between;
-        border-radius: var(--Font-Size-xs, 12px);
+        border-radius: 12px;
         background: var(--colors-main-purple-10, rgba(91, 57, 244, 0.1));
 
         .separete {
@@ -29,8 +29,8 @@
             height: 28px;
             text-align: center;
             text-decoration: none;
-            padding: 3px var(--Font-Size-xxs, 10px);
-            border-radius: var(--Font-Size-xxs, 10px);
+            padding: 3px 10px;
+            border-radius: 10px;
         }
 
         .active {

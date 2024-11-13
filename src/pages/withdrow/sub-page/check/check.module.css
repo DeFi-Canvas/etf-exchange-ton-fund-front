@@ -23,7 +23,7 @@
         }
 
         .row {
-            border-radius: var(--Font-Size-xs, 12px);
+            border-radius: 12px;
             border: 0px solid
                 var(--colors-main-purple-20, rgba(91, 57, 244, 0.2));
             background: var(--Colors-Background-Light, #f9f8ff);
@@ -32,11 +32,11 @@
         }
         .commission {
             display: flex;
-            padding: var(--Font-Size-sm, 14px) var(--Font-Size-xs, 12px);
+            padding: var(--Font-Size-sm, 14px) 12px;
             align-items: center;
             gap: 8px;
             align-self: stretch;
-            border-radius: var(--Font-Size-xs, 12px);
+            border-radius: 12px;
             border: 0px solid
                 var(--colors-main-purple-20, rgba(91, 57, 244, 0.2));
             background: var(--Colors-Background-Light, #f9f8ff);

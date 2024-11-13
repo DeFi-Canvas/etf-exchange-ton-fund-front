@@ -48,7 +48,7 @@
 
             .nextButton {
                 border: none;
-                border-radius: var(--Font-Size-xs, 12px);
+                border-radius: 12px;
                 background: var(--Colors-Main-Purple, #5b39f4);
                 color: var(--Telegram-button_text_color, #fff);
                 font-size: var(--Font-Size-md, 16px);

@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     padding: 20px 16px;
-    border-radius: var(--Font-Size-xs, 12px);
+    border-radius: 12px;
     background: var(--Colors-Background-Light, #f9f8ff);
     margin-bottom: 8px;
 
@@ -30,7 +30,7 @@
 
     .eranSteps {
         background: rgb(240 241 245);
-        border-radius: var(--Font-Size-xs, 12px);
+        border-radius: 12px;
         padding: 26px 16px;
         display: flex;
         flex-direction: column;

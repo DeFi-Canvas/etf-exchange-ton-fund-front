@@ -9,7 +9,7 @@
 
     .coinInfo {
         padding: 12px;
-        border-radius: var(--Font-Size-xs, 12px);
+        border-radius: 12px;
         background: var(--Colors-Background-Light, #f9f8ff);
         display: flex;
         justify-content: space-between;

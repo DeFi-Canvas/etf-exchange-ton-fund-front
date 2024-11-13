@@ -19,12 +19,12 @@
     .linkWrap {
         text-decoration: none;
         display: flex;
-        padding: 27px var(--Font-Size-xs, 12px) 27px var(--Font-Size-md, 16px);
+        padding: 27px 12px 27px var(--Font-Size-md, 16px);
         align-items: center;
         justify-content: space-between;
         gap: 9px;
         align-self: stretch;
-        border-radius: var(--Font-Size-xs, 12px);
+        border-radius: 12px;
         background: var(--Colors-Background-Light, #f9f8ff);
         svg {
             path {
