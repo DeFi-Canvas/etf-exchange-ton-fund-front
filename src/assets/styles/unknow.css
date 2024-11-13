@@ -9,7 +9,7 @@
         }
 
         & div {
-            color: var(--Text-Dark, black);
+            color: var(--color-black);
             font-size: var(--Font-Size-sm, 14px);
             font-style: normal;
             font-weight: 400;
@@ -29,7 +29,7 @@
     z-index: 1;
 
     & > p {
-        color: var(--Text-Dark, #1b1b1b);
+        color: var(--color-black);
         text-align: center;
         font-size: var(--Font-Size-xl, 20px);
         font-weight: 500;

@@ -16,7 +16,7 @@
         gap: 15px;
 
         & h3 {
-            color: var(--Text-Dark, #1b1b1b);
+            color: var(--color-black);
             font-size: var(--Font-Size-md, 16px);
             font-weight: 500;
             line-height: 135%;
@@ -33,7 +33,7 @@
 
     &--numbers {
         text-align: right;
-        color: var(--Text-Dark, #1b1b1b);
+        color: var(--color-black);
         font-size: var(--Font-Size-lg, 18px);
         font-weight: 500;
         line-height: 150%;

@@ -30,7 +30,7 @@
                 display: flex;
 
                 .balance {
-                    color: var(--Text-Dark, #1b1b1b);
+                    color: var(--color-black);
                     font-size: var(--Font-Size-md, 16px);
                     font-weight: 510;
                     line-height: 135%; /* 21.6px */

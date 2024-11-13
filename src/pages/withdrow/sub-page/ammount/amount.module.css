@@ -20,7 +20,7 @@
             position: relative;
 
             .input {
-                color: var(--Text-Dark, #1b1b1b);
+                color: var(--color-black);
                 font-size: 44px;
                 border: none;
                 outline: none;
@@ -45,7 +45,7 @@
         }
 
         .calc {
-            color: var(--Text-Dark, #1b1b1b);
+            color: var(--color-black);
             font-size: var(--Font-Size-md, 16px);
             font-style: normal;
             font-weight: 400;
@@ -79,7 +79,7 @@
                     line-height: 150%; /* 18px */
                 }
                 .balance {
-                    color: var(--Text-Dark, #1b1b1b);
+                    color: var(--color-black);
                     font-size: var(--Font-Size-md, 16px);
                     font-style: normal;
                     font-weight: 510;
