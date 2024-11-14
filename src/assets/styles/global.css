@@ -1,5 +1,14 @@
 body {
     font-family: var(--font-family-default);
+}
+
+@supports (font-variation-settings: normal) {
+    body {
+        font-family: var(--font-family-default-vf);
+    }
+}
+
+body {
     background: var(--telegram-hint-color, #f0f1f5);
     color: var(--color-black);
     overflow: hidden;
