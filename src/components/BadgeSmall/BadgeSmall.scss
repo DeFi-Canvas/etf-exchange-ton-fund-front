@@ -9,11 +9,11 @@
     width: fit-content;
 
     &-red {
-        background: var(--color-error);
+        background: var(--color-system-red);
     }
 
     &-green {
-        background: var(--color-success);
+        background: var(--color-system-green);
     }
 
     & span {

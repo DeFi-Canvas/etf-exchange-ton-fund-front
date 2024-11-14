@@ -43,10 +43,10 @@
         font-size: 10px;
 
         .lose {
-            color: var(--color-error);
+            color: var(--color-system-red);
         }
         .profit {
-            color: var(--color-success);
+            color: var(--color-system-green);
         }
 
         .dot {
@@ -55,10 +55,10 @@
             border-radius: 50%;
 
             &.lose {
-                background-color: var(--color-error);
+                background-color: var(--color-system-red);
             }
             &.profit {
-                background-color: var(--color-success);
+                background-color: var(--color-system-green);
             }
         }
     }
