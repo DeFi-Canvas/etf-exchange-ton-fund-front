@@ -1,5 +1,5 @@
 import { useIntegration } from '@telegram-apps/react-router-integration';
-import '@/assets/styles/index.css';
+import '@/assets/styles/index.scss';
 
 import {
     bindViewportCSSVars,
