@@ -11,7 +11,7 @@
         height: 164px;
     }
     span {
-        color: var(--Colors-Text-Dark, #24262e);
+        color: var(--color-text-dark);
         text-align: center;
         font-size: var(--Font-Size-xxl, 22px);
         font-style: normal;

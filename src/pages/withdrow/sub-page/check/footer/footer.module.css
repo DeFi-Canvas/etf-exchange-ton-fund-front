@@ -10,7 +10,7 @@
         display: flex;
         justify-content: space-between;
         .title {
-            color: var(--Colors-Text-Dark, #24262e);
+            color: var(--color-text-dark);
             font-size: var(--Font-Size-sm, 14px);
             font-style: normal;
             font-weight: 400;
@@ -21,7 +21,7 @@
             display: flex;
 
             .balance {
-                color: var(--color-black);
+                color: var(--color-text-dark);
                 font-size: var(--Font-Size-md, 16px);
                 font-weight: 510;
                 line-height: 135%; /* 21.6px */

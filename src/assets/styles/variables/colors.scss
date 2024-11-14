@@ -1,15 +1,11 @@
 :root {
-    // TODO: Возможно стоит заменить на $colorDark
-    --color-black: #1b1b1b;
-
-    /* from design */
     $colorDark: #24262E;
     $colorWhite: #FFFFFF;
     $colorGrey: #505464;
     $colorPurple: #5B39F4;
-    $colorBackgroundLight: #F9F8FF;
-    $colorSystemGreen: #61C66C;
-    $colorSystemRed: #FF584E;
+    $colorWhiteDark: #F9F8FF;
+    $colorGreen: #61C66C;
+    $colorRed: #FF584E;
 
     // Color text dark
     --color-text-dark: #{$colorDark};
@@ -20,12 +16,12 @@
     --color-text-dark-white: #{$colorWhite};
 
     // Color background
-    --color-background-light: #{$colorBackgroundLight};
+    --color-background-light: #{$colorWhiteDark};
     --color-background-white: #{$colorWhite};
 
     // Color system
-    --color-system-green: #{$colorSystemGreen};
-    --color-system-red: #{$colorSystemRed};
+    --color-system-green: #{$colorGreen};
+    --color-system-red: #{$colorRed};
 
     // Color pallete
     --color-pallete-grey: #{$colorGrey};

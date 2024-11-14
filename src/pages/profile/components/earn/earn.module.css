@@ -11,7 +11,7 @@
         align-items: center;
         gap: 4px;
         margin-bottom: 12px;
-        color: var(--Colors-Text-Dark, #24262e);
+        color: var(--color-text-dark);
         font-size: var(--Font-Size-lg, 18px);
         font-weight: 510;
 
@@ -56,7 +56,7 @@
             max-width: 230px;
 
             .title {
-                color: var(--Colors-Text-Dark, #24262e);
+                color: var(--color-text-dark);
                 font-size: var(--Font-Size-md, 16px);
                 font-weight: 510;
             }

@@ -7,7 +7,7 @@
 
 .index--balance {
     & h2 {
-        color: var(--color-black);
+        color: var(--color-text-dark);
         text-align: center;
         font-size: var(--Font-Size-md, 16px);
         font-style: normal;
@@ -17,7 +17,7 @@
     }
 
     & p {
-        color: var(--color-black);
+        color: var(--color-text-dark);
         text-align: center;
         font-size: 38px;
         font-weight: 600;

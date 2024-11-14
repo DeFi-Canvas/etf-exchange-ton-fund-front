@@ -55,7 +55,7 @@
 
     .date {
         display: block;
-        color: var(--Colors-Text-Dark, #24262e);
+        color: var(--color-text-dark);
         font-size: var(--Font-Size-lg, 18px);
         font-weight: 510;
         padding-bottom: 12px;

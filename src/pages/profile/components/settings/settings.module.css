@@ -7,7 +7,7 @@
     margin-bottom: 16px;
 
     .title {
-        color: var(--Colors-Text-Dark, #24262e);
+        color: var(--color-text-dark);
         font-size: var(--Font-Size-lg, 18px);
         font-weight: 510;
         margin-bottom: 12px;

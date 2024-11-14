@@ -14,8 +14,8 @@ button.button-primary {
     align-items: center;
 
     &:disabled {
-        color: #24262e33;
-        background: #24262e1a;
+        color: var(--color-text-dark-20);
+        background: var(--color-text-dark-10);        
     }
 }
 

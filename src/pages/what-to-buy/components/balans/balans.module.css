@@ -3,7 +3,7 @@
     position: relative;
 
     .balans {
-        color: var(--Colors-Text-Dark, #24262e);
+        color: var(--color-text-dark);
         font-family: var(--Font-Family-V1, 'SF Pro');
         font-size: 44px;
         font-weight: 590;

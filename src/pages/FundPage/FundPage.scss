@@ -16,7 +16,7 @@
     }
 
     &--h1 {
-        color: var(--color-black);
+        color: var(--color-text-dark);
         text-align: center;
         font-size: var(--Font-Size-xxl, 22px);
         font-weight: 500;
@@ -33,7 +33,7 @@
     }
 
     &--terms {
-        color: var(--Colors-Text-Dark, #24262e);
+        color: var(--color-text-dark);
         text-align: center;
         font-size: 12px;
         font-style: normal;
@@ -51,7 +51,7 @@
 
     &-apr {
         align-self: flex-start;
-        color: var(--Colors-Text-Dark, #24262e);
+        color: var(--color-text-dark);
         text-align: right;
         font-size: var(--Font-Size-lg, 18px);
         font-style: normal;
@@ -72,7 +72,7 @@
     }
 
     & h3 {
-        color: var(--Colors-Text-Dark, #24262e);
+        color: var(--color-text-dark);
         font-size: 24px;
         font-style: normal;
         font-weight: 600;

@@ -19,7 +19,7 @@
         flex-direction: column;
 
         .name {
-            color: var(--Colors-Text-Dark, #24262e);
+            color: var(--color-text-dark);
             font-size: var(--Font-Size-md, 16px);
             font-weight: 510;
             line-height: 135%; /* 21.6px */

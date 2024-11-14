@@ -30,7 +30,7 @@
             }
 
             .title {
-                color: var(--Colors-Text-Dark, #24262e);
+                color: var(--color-text-dark);
                 font-size: var(--Font-Size-md, 16px);
                 font-style: normal;
                 font-weight: 510;

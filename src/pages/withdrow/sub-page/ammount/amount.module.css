@@ -1,7 +1,7 @@
 .wrap {
     padding: 32px 16px;
     .title {
-        color: var(--Colors-Text-Dark, #24262e);
+        color: var(--color-text-dark);
         font-size: 32px;
         font-style: normal;
         font-weight: 590;
@@ -20,7 +20,7 @@
             position: relative;
 
             .input {
-                color: var(--color-black);
+                color: var(--color-text-dark);
                 font-size: 44px;
                 border: none;
                 outline: none;
@@ -45,7 +45,7 @@
         }
 
         .calc {
-            color: var(--color-black);
+            color: var(--color-text-dark);
             font-size: var(--Font-Size-md, 16px);
             font-style: normal;
             font-weight: 400;
@@ -79,7 +79,7 @@
                     line-height: 150%; /* 18px */
                 }
                 .balance {
-                    color: var(--color-black);
+                    color: var(--color-text-dark);
                     font-size: var(--Font-Size-md, 16px);
                     font-style: normal;
                     font-weight: 510;

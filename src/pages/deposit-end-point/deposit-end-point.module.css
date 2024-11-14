@@ -48,7 +48,7 @@
     }
 
     .title {
-        color: var(--Colors-Text-Dark, #24262e);
+        color: var(--color-text-dark);
         font-size: var(--Font-Size-md, 16px);
         font-weight: 510;
         line-height: 135%; /* 21.6px */
@@ -67,10 +67,10 @@
         line-height: 150%;
 
         background: var(--colors-main-purple-10, rgba(91, 57, 244, 0.1));
-        color: var(--Colors-Text-Dark, #24262e);
+        color: var(--color-text-dark);
 
         .svg {
-            stroke: var(--Colors-Text-Dark, #24262e);
+            stroke: var(--color-text-dark);
         }
     }
 
