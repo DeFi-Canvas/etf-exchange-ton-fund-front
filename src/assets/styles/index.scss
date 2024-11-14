@@ -1,6 +1,5 @@
-@import 
-    'reset',
-    '../fonts/sf-pro/index',
-    'variables/index',
-    'global',
-    'unknow';
+@import url('reset.scss');
+@import url('./../fonts/sf-pro/index.scss');
+@import url('variables/index.scss');
+@import url('global.scss');
+@import url('unknow.scss');
