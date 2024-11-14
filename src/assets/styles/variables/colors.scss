@@ -3,4 +3,41 @@
     --color-white: #ffffff;
     --color-error: #ff584e;
     --color-success: #61c66c;
+
+    /* from design */
+    $colorDark: #24262E;
+    $colorWhite: #FFFFFF;
+    $colorGrey: #505464;
+    $colorPurple: #5B39F4;
+    $colorBackgroundLight: #F9F8FF;
+    $colorSystemGreen: #61C66C;
+    $colorSystemRed: #FF584E;
+
+    // Color text dark
+    --color-text-dark: #{$colorDark};
+    --color-text-dark-70: #{rgba($colorDark, 70%)};
+    --color-text-dark-50: #{rgba($colorDark, 50%)};
+    --color-text-dark-20: #{rgba($colorDark, 20%)};
+    --color-text-dark-10: #{rgba($colorDark, 10%)};
+    --color-text-dark-white: #{$colorWhite};
+
+    // Color background
+    --color-background-light: #{$colorBackgroundLight};
+    --color-background-white: #{$colorWhite};
+
+    // Color system
+    --color-system-green: #{$colorSystemGreen};
+    --color-system-red: #{$colorSystemRed};
+
+    // Color pallete
+    --color-pallete-grey: #{$colorGrey};
+    --color-pallete-dark: #{$colorDark};
+    --color-pallete-dark-20: #{rgba($colorDark, 20%)};
+    --color-pallete-dark-10: #{rgba($colorDark, 10%)};
+    --color-pallete-white: #{$colorWhite};
+
+    // Color main
+    --color-main-purple: #{$colorPurple};
+    --color-main-purple-20: #{rgba($colorPurple, 20%)};
+    --color-main-purple-10: #{rgba($colorPurple, 10%)};
 }
