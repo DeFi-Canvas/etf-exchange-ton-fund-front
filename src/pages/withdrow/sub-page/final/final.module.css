@@ -44,7 +44,7 @@
     margin-top: 32px;
 
     .currency {
-        color: var(--Colors-Text-Dark, #24262e);
+        color: var(--color-text-dark);
         text-align: center;
 
         font-size: 32px;
@@ -55,7 +55,7 @@
     }
 
     .normal {
-        color: var(--Colors-Text-Dark, #24262e);
+        color: var(--color-text-dark);
         text-align: center;
 
         font-size: var(--Font-Size-md, 16px);
