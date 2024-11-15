@@ -4,8 +4,9 @@ import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { newLensedAtom } from '@frp-ts/lens';
 import { newProfileRestService } from '@/API/profile-service';
 import * as E from 'fp-ts/Either';
-import { pipe } from 'fp-ts/lib/function';
-import { tap } from '@most/core';
+import { flow, pipe } from 'fp-ts/lib/function';
+import { chain, tap } from '@most/core';
+import { createAdapter } from '@most/adapter';
 
 export interface EranStep {
     readonly id: string;
@@ -17,6 +18,7 @@ export interface EranStep {
 
 export interface EranViewModel {
     readonly steps: Property<E.Either<string, Array<EranStep>>>;
+    readonly checkStep: (id: string) => void;
 }
 
 export interface NewEranViewModel {
@@ -31,12 +33,39 @@ export const newEranViewModel = injectable(
                 E.left('pending')
             );
 
+            const [checkStep, checkStepEvent] = createAdapter<string>();
+
             const getStepsEffect = pipe(service.getTask(), tap(steps.set));
+            const checkStepEffect = pipe(
+                checkStepEvent,
+                chain(service.checkTask),
+                tap((data) => {
+                    steps.modify(
+                        flow(
+                            E.map((steps) =>
+                                steps.map((el) => {
+                                    if (el.id === data.id) {
+                                        return {
+                                            ...el,
+                                            isActive: data.success,
+                                        };
+                                    } else {
+                                        return el;
+                                    }
+                                })
+                            )
+                        )
+                    );
+                })
+            );
+
             return valueWithEffect.new(
                 {
                     steps,
+                    checkStep,
                 },
-                getStepsEffect
+                getStepsEffect,
+                checkStepEffect
             );
         }
 );

@@ -11,6 +11,6 @@ export const EarnContainer = injectable(
     (newEranViewModel) => () => {
         const vm = useValueWithEffect(() => newEranViewModel(), []);
         const steps = useProperty(vm.steps);
-        return React.createElement(Earn, { steps });
+        return React.createElement(Earn, { steps, checkStep: vm.checkStep });
     }
 );

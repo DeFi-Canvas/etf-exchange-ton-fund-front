@@ -37,6 +37,9 @@
         gap: 20px;
     }
 
+    .stepDone {
+    }
+
     .step {
         display: flex;
         justify-content: space-between;

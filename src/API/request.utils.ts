@@ -4,14 +4,21 @@ import axios from 'axios';
 import { either } from 'fp-ts';
 import { Stream } from '@most/types';
 import { Either } from 'fp-ts/lib/Either';
+import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
 
 export const getRequest =
     <GetType, ReturnType>(url: string, map?: (data: GetType) => ReturnType) =>
     <T>(): Stream<Either<string, T>> => {
+        const { initDataRaw } = retrieveLaunchParams();
+
         const stream: Stream<Either<string, T>> = pipe(
             fromPromise(
                 axios
-                    .get<GetType>(url, {})
+                    .get<GetType>(url, {
+                        headers: {
+                            Authorization: `Auth ${initDataRaw}`,
+                        },
+                    })
                     .then(({ data }) => {
                         if (!map) {
                             return either.of(data);
