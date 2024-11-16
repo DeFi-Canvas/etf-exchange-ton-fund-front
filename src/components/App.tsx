@@ -80,11 +80,11 @@ export const App: FC = () => {
     //     );
 
     return (
-        <main>
-            <Router location={location} navigator={reactNavigator}>
+        <Router location={location} navigator={reactNavigator}>
+            <main>
                 <AppRoutes />
-                <TabBar />
-            </Router>
-        </main>
+            </main>
+            <TabBar />
+        </Router>
     );
 };
