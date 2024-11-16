@@ -6,8 +6,8 @@ type CustomCSSProperties = CSSProperties & {
 };
 
 interface UserAvatarProps {
-    userNameLetter: string,
-    size?: number,
+    userNameLetter: string;
+    size?: number;
 }
 
 const UserAvatar: FC<UserAvatarProps> = (props) => {
@@ -15,15 +15,13 @@ const UserAvatar: FC<UserAvatarProps> = (props) => {
 
     const styleListUserAvatar: CustomCSSProperties = {
         '--size': `${props?.size ?? DEFAULT_SIZE}px`,
-    }
+    };
 
     return (
         <div className={css.userAvatar} style={styleListUserAvatar}>
-            <span className={css.userAvatarLetter}>
-                {props.userNameLetter}
-            </span>
+            <span className={css.userAvatarLetter}>{props.userNameLetter}</span>
         </div>
     );
-}
+};
 
 export default UserAvatar;

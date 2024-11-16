@@ -1,11 +1,11 @@
 :root {
-    $colorDark: #24262E;
-    $colorWhite: #FFFFFF;
+    $colorDark: #24262e;
+    $colorWhite: #ffffff;
     $colorGrey: #505464;
-    $colorPurple: #5B39F4;
-    $colorWhiteDark: #F9F8FF;
-    $colorGreen: #61C66C;
-    $colorRed: #FF584E;
+    $colorPurple: #5b39f4;
+    $colorWhiteDark: #f9f8ff;
+    $colorGreen: #61c66c;
+    $colorRed: #ff584e;
 
     // Color text white
     --color-text-white: #{$colorWhite};
@@ -39,5 +39,9 @@
     --color-main-purple-10: #{rgba($colorPurple, 10%)};
 
     // Gradients
-    --user-avatar-background: linear-gradient(150deg, #977fff 5.93%, #5b39f4 110.96%);
+    --user-avatar-background: linear-gradient(
+        150deg,
+        #977fff 5.93%,
+        #5b39f4 110.96%
+    );
 }

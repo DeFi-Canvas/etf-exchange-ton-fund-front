@@ -21,16 +21,16 @@ export const WaletPage = injectable(
     (BalanceContainer) => () => {
         const swiperOptions = {
             spaceBetween: 10,
-            slidesPerView: 1.05, 
+            slidesPerView: 1.05,
             className: css.swiperWrap,
-        }
+        };
 
         return (
-            <div className={ css.application }>
-                <header className={ css.header }>
+            <div className={css.application}>
+                <header className={css.header}>
                     <BalanceContainer />
                     <NavBar />
-                    <Swiper { ...swiperOptions }>
+                    <Swiper {...swiperOptions}>
                         <SwiperSlide>
                             <NewsEarn />
                         </SwiperSlide>
@@ -39,7 +39,7 @@ export const WaletPage = injectable(
                         </SwiperSlide>
                     </Swiper>
                 </header>
-                <div className={ css.coinWrapper }>
+                <div className={css.coinWrapper}>
                     <Coins />
                 </div>
             </div>

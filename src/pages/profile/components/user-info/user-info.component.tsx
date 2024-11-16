@@ -12,8 +12,8 @@ export interface UserInfoProps {
 
 export const UserInfo = ({ avatar, user }: UserInfoProps) => {
     return (
-        <div className={ cn('app-container', css.wrap) }>
-            <UserAvatar userNameLetter={ avatar } />
+        <div className={cn('app-container', css.wrap)}>
+            <UserAvatar userNameLetter={avatar} />
             <OptionSpan data={user} className={css.username} />
         </div>
     );

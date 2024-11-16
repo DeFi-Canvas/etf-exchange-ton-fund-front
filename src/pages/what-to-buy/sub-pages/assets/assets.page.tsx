@@ -23,17 +23,17 @@ export const Assets = ({ assets }: AssetsProps) => {
     );
 
     const footerSlot = () => (
-        <div className={ css.footerButtons }>
+        <div className={css.footerButtons}>
             <AppButton label="Choose a fund" type="secondary" />
-            <AppButton to={ '/deposit' } label="Deposit" />
+            <AppButton to={'/deposit'} label="Deposit" />
         </div>
-    )
+    );
 
     if (!currentAssets.length) {
         return (
-            <EmptyScrean 
-                footerSlot={ footerSlot } 
-                emptyGif={emptyGif} 
+            <EmptyScrean
+                footerSlot={footerSlot}
+                emptyGif={emptyGif}
                 text={emptyText}
             />
         );

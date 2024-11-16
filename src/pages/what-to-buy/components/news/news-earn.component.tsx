@@ -6,18 +6,18 @@ import { Link } from 'react-router-dom';
 
 export const NewsEarn = () => {
     return (
-        <div className={ css.card }>
-            <div className={ css.content }>
-                <span className={ css.contentTitle }>
+        <div className={css.card}>
+            <div className={css.content}>
+                <span className={css.contentTitle}>
                     Earn some TON for simple tasks
                 </span>
-                <Link to={ '/profile' } className={ css.contentLink }>
-                    Learn more <ChevronRightIcon size={ 16 } />
+                <Link to={'/profile'} className={css.contentLink}>
+                    Learn more <ChevronRightIcon size={16} />
                 </Link>
             </div>
-            <div className={ css.imageWrapper }>
-                <img src={ coinSmallBlurImage } className={ css.coinSmallBlur  } />
-                <img src={ coinBigImage } className={ css.coinBig } />
+            <div className={css.imageWrapper}>
+                <img src={coinSmallBlurImage} className={css.coinSmallBlur} />
+                <img src={coinBigImage} className={css.coinBig} />
             </div>
         </div>
     );

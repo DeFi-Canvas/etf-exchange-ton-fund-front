@@ -48,9 +48,13 @@ export const AboutIcon = ({ className = '' }: { className?: string }) => (
     <About width={20} height={20} className={className} />
 );
 
-export const ChevronRightIcon = ({ className = '', size = 20 }: { className?: string, size?: number }) => (
-    <ChevronRight className={className} width={ size } height={ size } />
-);
+export const ChevronRightIcon = ({
+    className = '',
+    size = 20,
+}: {
+    className?: string;
+    size?: number;
+}) => <ChevronRight className={className} width={size} height={size} />;
 
 export const CopyIcon = ({ className = '' }: { className?: string }) => (
     <Copy className={className} />
@@ -77,10 +81,11 @@ export const SuccessIcon = ({ className = '' }: { className?: string }) => (
     <Success className={className} />
 );
 
-export const SuccessWhiteSolidIcon = ({ className = '' }: { className?: string }) => (
-    <SuccessWhiteSolid className={className} />
-);
-
+export const SuccessWhiteSolidIcon = ({
+    className = '',
+}: {
+    className?: string;
+}) => <SuccessWhiteSolid className={className} />;
 
 export const WhatToBuyIcon = ({
     className = '',

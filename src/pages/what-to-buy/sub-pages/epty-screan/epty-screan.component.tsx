@@ -6,12 +6,16 @@ interface EmptyScreanProps {
     footerSlot: () => React.ReactNode;
 }
 
-export const EmptyScrean = ({ emptyGif, text, footerSlot }: EmptyScreanProps) => {
+export const EmptyScrean = ({
+    emptyGif,
+    text,
+    footerSlot,
+}: EmptyScreanProps) => {
     return (
         <div className={css.wrapEmptyScrean}>
             <img src={emptyGif} alt="nothig found" />
             <p className={css.text}>{text}</p>
-            { footerSlot() }
+            {footerSlot()}
         </div>
     );
 };

@@ -15,8 +15,8 @@ const ErrorBoundaryError: FC<{ error: unknown }> = ({ error }) => (
                 {error instanceof Error
                     ? error.message
                     : typeof error === 'string'
-                    ? error
-                    : JSON.stringify(error)}
+                      ? error
+                      : JSON.stringify(error)}
             </code>
         </blockquote>
     </div>

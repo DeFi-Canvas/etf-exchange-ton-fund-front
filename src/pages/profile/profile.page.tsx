@@ -12,7 +12,7 @@ export const ProfileContainer = injectable(
     // eslint-disable-next-line react/display-name
     (UserInfoContainer, EranContainer) => () => {
         return (
-            <div className={ css.profile } >
+            <div className={css.profile}>
                 <UserInfoContainer />
                 <EranContainer />
                 <Settings />

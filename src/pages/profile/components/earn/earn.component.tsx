@@ -22,7 +22,9 @@ export const Earn = ({ steps, checkStep }: EranProps) => {
                         <div className="app-container">
                             <div className={css.cardTitle}>
                                 <span>Earn Test TON</span>
-                                <div className={css.cardTitleCounter}>{steps.length}</div>
+                                <div className={css.cardTitleCounter}>
+                                    {steps.length}
+                                </div>
                             </div>
 
                             <div className={css.cardSteps}>
@@ -60,21 +62,25 @@ const Step = ({
         <div className={cn(css.step, { [css.stepDone]: isActive })}>
             <div className={css.stepInfo}>
                 <span>{title}</span>
-                <span className={css.stepInfoReward}>{ `+${reward}` } TON</span>
+                <span className={css.stepInfoReward}>{`+${reward}`} TON</span>
             </div>
 
-            {
-                isActive ? 
-                    <div className={ css.stepButton }>
-                        <SuccessWhiteSolidIcon />
-                    </div> 
-                    :
-                    <div className={css.stepButton} onClick={() => checkStep(id)}>
-                        <a href={externalLink} className={ css.stepButtonText } target="_blank" rel="noreferrer">
-                            Start
-                        </a>
-                    </div>
-            }
+            {isActive ? (
+                <div className={css.stepButton}>
+                    <SuccessWhiteSolidIcon />
+                </div>
+            ) : (
+                <div className={css.stepButton} onClick={() => checkStep(id)}>
+                    <a
+                        href={externalLink}
+                        className={css.stepButtonText}
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        Start
+                    </a>
+                </div>
+            )}
         </div>
     );
 };

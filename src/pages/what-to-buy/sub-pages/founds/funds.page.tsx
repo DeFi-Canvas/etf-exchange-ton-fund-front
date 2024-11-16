@@ -65,17 +65,17 @@ const emptyText = `You don't have any investments in funds right now. Get starte
 
 export const Funds = () => {
     const footerSlot = () => (
-        <div className={ css.footerButtons }>
-            <AppButton to={ '/deposit' } label="Deposit" type="secondary" />
+        <div className={css.footerButtons}>
+            <AppButton to={'/deposit'} label="Deposit" type="secondary" />
             <AppButton label="Choose a fund" />
         </div>
-    )
+    );
 
     return (
-        <EmptyScrean 
-            footerSlot={ footerSlot } 
-            emptyGif={emptyGif} 
-            text={emptyText} 
+        <EmptyScrean
+            footerSlot={footerSlot}
+            emptyGif={emptyGif}
+            text={emptyText}
         />
     );
     // return (
