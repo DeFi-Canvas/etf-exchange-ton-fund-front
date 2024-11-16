@@ -1,6 +1,6 @@
 import css from './lern-more.module.css';
 import bookImage from './assets/book.png';
-import { SimpleArrowIcon } from '@/components/Icons/Icons';
+import { ChevronRightIcon } from '@/components/Icons/Icons';
 import { Link } from 'react-router-dom';
 
 export const LernMore = () => {
@@ -16,7 +16,7 @@ export const LernMore = () => {
                     rel="noreferrer"
                     className={ css.contentLink }
                 >
-                    Learn more <SimpleArrowIcon />
+                    Learn more <ChevronRightIcon size={ 16 } />
                 </Link>
             </div>
             <div className={ css.imageWrapper }>

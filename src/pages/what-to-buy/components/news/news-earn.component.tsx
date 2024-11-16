@@ -1,7 +1,7 @@
 import css from './news-earn.module.css';
 import coinSmallBlurImage from './assets/coin-small-blur.png';
 import coinBigImage from './assets/coin-big.png';
-import { SimpleArrowIcon } from '@/components/Icons/Icons';
+import { ChevronRightIcon } from '@/components/Icons/Icons';
 import { Link } from 'react-router-dom';
 
 export const NewsEarn = () => {
@@ -12,7 +12,7 @@ export const NewsEarn = () => {
                     Earn some TON for simple tasks
                 </span>
                 <Link to={ '/profile' } className={ css.contentLink }>
-                    Learn more <SimpleArrowIcon />
+                    Learn more <ChevronRightIcon size={ 16 } />
                 </Link>
             </div>
             <div className={ css.imageWrapper }>

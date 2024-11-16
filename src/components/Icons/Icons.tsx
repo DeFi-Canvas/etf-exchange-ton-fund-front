@@ -26,7 +26,7 @@ import Processing from '../../assets/icons/transactions/processing.svg?react';
 import Swap from '../../assets/icons/transactions/swap.svg?react';
 import Withdraw from '../../assets/icons/transactions/withdraw.svg?react';
 import Profile from '../../assets/icons/profile.svg?react';
-import SimpleArrow from '../../assets/icons/simple-arrow.svg?react';
+import ChevronRight from '@/assets/icons/chevron-right.svg?react';
 import Copy from '../../assets/icons/copy.svg?react';
 
 import { TransactionStatus } from '@/pages/what-to-buy/components/transaction/transaction.component';
@@ -48,8 +48,8 @@ export const AboutIcon = ({ className = '' }: { className?: string }) => (
     <About width={20} height={20} className={className} />
 );
 
-export const SimpleArrowIcon = ({ className = '' }: { className?: string }) => (
-    <SimpleArrow className={className} />
+export const ChevronRightIcon = ({ className = '', size = 20 }: { className?: string, size?: number }) => (
+    <ChevronRight className={className} width={ size } height={ size } />
 );
 
 export const CopyIcon = ({ className = '' }: { className?: string }) => (
