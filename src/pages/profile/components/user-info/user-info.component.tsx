@@ -1,7 +1,9 @@
 import * as O from 'fp-ts/Option';
 
-import css from './user-info.module.css';
 import { OptionSpan } from '@/components/ui-kit/fpts-components-utils/options.component';
+import UserAvatar from '@/components/ui-kit/user-avatar/user-avatar.component';
+import css from './user-info.module.css';
+import cn from 'classnames';
 
 export interface UserInfoProps {
     readonly avatar: string;
@@ -10,10 +12,8 @@ export interface UserInfoProps {
 
 export const UserInfo = ({ avatar, user }: UserInfoProps) => {
     return (
-        <div className={css.wrap}>
-            <div className={css.avatar}>
-                <span className={css.letter}>{avatar}</span>
-            </div>
+        <div className={ cn('app-container', css.wrap) }>
+            <UserAvatar userNameLetter={ avatar } />
             <OptionSpan data={user} className={css.username} />
         </div>
     );

@@ -7,6 +7,9 @@
     $colorGreen: #61C66C;
     $colorRed: #FF584E;
 
+    // Color text white
+    --color-text-white: #{$colorWhite};
+
     // Color text dark
     --color-text-dark: #{$colorDark};
     --color-text-dark-70: #{rgba($colorDark, 70%)};
@@ -34,4 +37,7 @@
     --color-main-purple: #{$colorPurple};
     --color-main-purple-20: #{rgba($colorPurple, 20%)};
     --color-main-purple-10: #{rgba($colorPurple, 10%)};
+
+    // Gradients
+    --user-avatar-background: linear-gradient(150deg, #977fff 5.93%, #5b39f4 110.96%);
 }

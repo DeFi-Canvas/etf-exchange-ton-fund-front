@@ -1,0 +1,16 @@
+.userAvatar {
+    --default-size: 40px;
+    width: var(--size, var(--default-size));
+    height: var(--size, var(--default-size));
+    display: grid;
+    place-items: center;
+    border-radius: calc(var(--size) / 2);
+    background: var(--user-avatar-background);
+}
+
+.userAvatarLetter {
+    font-weight: 590;
+    font-size: 20px;
+    line-height: 1.3;
+    color: var(--color-text-white);
+}
