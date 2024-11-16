@@ -18,14 +18,14 @@ export const Earn = ({ steps, checkStep }: EranProps) => {
             () => null,
             (steps) => {
                 return (
-                    <div className={css.earnWrapper}>
+                    <div className={css.cardWrapper}>
                         <div className="app-container">
-                            <div className={css.earnWrapperTitleWrapper}>
+                            <div className={css.cardTitle}>
                                 <span>Earn Test TON</span>
-                                <div className={css.earnWrapperTitleCount}>{steps.length}</div>
+                                <div className={css.cardTitleCounter}>{steps.length}</div>
                             </div>
 
-                            <div className={css.eranSteps}>
+                            <div className={css.cardSteps}>
                                 {steps.map((step) => (
                                     <Step
                                         key={step.id}
