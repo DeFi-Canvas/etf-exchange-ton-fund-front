@@ -50,6 +50,7 @@ interface StepProps extends EranStep {
     readonly checkStep: (id: string) => void;
 }
 
+// TODO: isLoading доступна
 const Step = ({
     title,
     reward,
@@ -70,7 +71,10 @@ const Step = ({
                     <SuccessWhiteSolidIcon />
                 </div>
             ) : (
-                <div className={css.stepButton} onClick={() => checkStep(id)}>
+                <div
+                    className={cn(css.stepButton)}
+                    onClick={() => checkStep(id)}
+                >
                     <a
                         href={externalLink}
                         className={css.stepButtonText}

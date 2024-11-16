@@ -14,6 +14,7 @@ export interface EranStep {
     readonly reward: number;
     readonly isActive: boolean;
     readonly externalLink?: string;
+    readonly isLoading: boolean;
 }
 
 export interface EranViewModel {
@@ -38,6 +39,24 @@ export const newEranViewModel = injectable(
             const getStepsEffect = pipe(service.getTask(), tap(steps.set));
             const checkStepEffect = pipe(
                 checkStepEvent,
+                tap((id) => {
+                    steps.modify(
+                        flow(
+                            E.map((steps) =>
+                                steps.map((el) => {
+                                    if (el.id === id) {
+                                        return {
+                                            ...el,
+                                            isLoading: true,
+                                        };
+                                    } else {
+                                        return el;
+                                    }
+                                })
+                            )
+                        )
+                    );
+                }),
                 chain(service.checkTask),
                 tap((data) => {
                     steps.modify(
@@ -48,6 +67,7 @@ export const newEranViewModel = injectable(
                                         return {
                                             ...el,
                                             isActive: data.success,
+                                            isLoading: false,
                                         };
                                     } else {
                                         return el;

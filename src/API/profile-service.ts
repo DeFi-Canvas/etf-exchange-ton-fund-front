@@ -54,6 +54,7 @@ export const newProfileRestService = injectable(
             reward: d.Reward,
             isActive: d.Completed,
             externalLink: d.Url,
+            isLoading: false,
         });
 
         return {

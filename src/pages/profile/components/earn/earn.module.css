@@ -80,6 +80,10 @@
     place-items: center;
 }
 
+.stepButtonLoading {
+    background-color: red;
+}
+
 .stepButtonText {
     font-weight: 510;
     font-size: 12px;
