@@ -3,6 +3,7 @@ import css from './earn.module.css';
 import { EranStep } from './earn.view-model';
 import * as E from 'fp-ts/Either';
 import cn from 'classnames';
+import { SuccessWhiteSolidIcon } from '@/components/Icons/Icons.tsx';
 
 export interface EranProps {
     readonly steps: E.Either<string, Array<EranStep>>;
@@ -17,19 +18,22 @@ export const Earn = ({ steps, checkStep }: EranProps) => {
             () => null,
             (steps) => {
                 return (
-                    <div className={css.wrap}>
-                        <div className={css.titleWrap}>
-                            <span>Earn</span>
-                            <span className={css.count}>{steps.length}</span>
-                        </div>
-                        <div className={css.eranSteps}>
-                            {steps.map((step) => (
-                                <Step
-                                    key={step.id}
-                                    {...step}
-                                    checkStep={checkStep}
-                                />
-                            ))}
+                    <div className={css.earnWrapper}>
+                        <div className="app-container">
+                            <div className={css.earnWrapperTitleWrapper}>
+                                <span>Earn Test TON</span>
+                                <div className={css.earnWrapperTitleCount}>{steps.length}</div>
+                            </div>
+
+                            <div className={css.eranSteps}>
+                                {steps.map((step) => (
+                                    <Step
+                                        key={step.id}
+                                        {...step}
+                                        checkStep={checkStep}
+                                    />
+                                ))}
+                            </div>
                         </div>
                     </div>
                 );
@@ -44,7 +48,6 @@ interface StepProps extends EranStep {
     readonly checkStep: (id: string) => void;
 }
 
-// TODO: isActive - та пропса на которую можно опираться по стилям
 const Step = ({
     title,
     reward,
@@ -55,15 +58,23 @@ const Step = ({
 }: StepProps) => {
     return (
         <div className={cn(css.step, { [css.stepDone]: isActive })}>
-            <div className={css.info}>
-                <span className={css.title}>{title}</span>
-                <span className={css.reward}>+ {reward} TON</span>
+            <div className={css.stepInfo}>
+                <span>{title}</span>
+                <span className={css.stepInfoReward}>{ `+${reward}` } TON</span>
             </div>
-            <button className={css.button} onClick={() => checkStep(id)}>
-                <a href={externalLink} target="_blank" rel="noreferrer">
-                    Start
-                </a>
-            </button>
+
+            {
+                isActive ? 
+                    <div className={ css.stepButton }>
+                        <SuccessWhiteSolidIcon />
+                    </div> 
+                    :
+                    <div className={css.stepButton} onClick={() => checkStep(id)}>
+                        <a href={externalLink} className={ css.stepButtonText } target="_blank" rel="noreferrer">
+                            Start
+                        </a>
+                    </div>
+            }
         </div>
     );
 };

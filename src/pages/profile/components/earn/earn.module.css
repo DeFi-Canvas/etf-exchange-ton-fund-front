@@ -1,93 +1,99 @@
-.wrap {
+.earnWrapper {
+    background-color: var(--color-background-white);
+    border-radius: 24px;
+    margin-top: 16px;
+    padding-block: 20px;
+}
+
+.earnWrapperTitleWrapper {
+    font-weight: 510;
+    font-size: 18px;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.earnWrapperTitleCount {
+    --size: 20px;
+    width: var(--size);
+    height: var(--size);
+    font-size: 12px;
+    color: var(--color-text-white);
+    background-color: var(--color-main-purple);
+    display: grid;
+    place-items: center;
+    border-radius: calc(var(--size) / 2);
+}
+
+.eranSteps {
+    margin-top: 12px;
+    background-color: var(--color-background-light);
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding-block: 12px;
+}
+
+.step:first-child {
+    padding-top: unset;
+}
+.step:last-child {
+    padding-bottom: unset;
+}
+
+.step:not(:last-child) {
+    border-bottom: 1px solid var(--color-main-purple-10);
+}
+
+.stepInfo {
     display: flex;
     flex-direction: column;
-    padding: 20px 16px;
-    border-radius: 12px;
-    background: var(--Colors-Background-Light, #f9f8ff);
-    margin-bottom: 8px;
+    gap: 3px;
+    flex: 1 1 100%;
+    font-weight: 510;
+    font-size: 16px;
+    line-height: 1.35;
+}
 
-    .titleWrap {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        margin-bottom: 12px;
-        color: var(--color-text-dark);
-        font-size: var(--Font-Size-lg, 18px);
-        font-weight: 510;
+.stepInfoReward {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 150%;
+    color: var(--color-main-purple);
+}
 
-        .count {
-            width: 20px;
-            height: 20px;
-            background-color: var(--Colors-Main-Purple, #5b39f4);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 12px;
-        }
-    }
+.stepButton {
+    cursor: pointer;
+    min-width: 64px;
+    max-width: 64px;
+    width: 64px;
+    height: 32px;
+    border-radius: 24px;
+    background-color: var(--color-main-purple);
+    display: grid;
+    place-items: center;
+}
 
-    .eranSteps {
-        background: rgb(240 241 245);
-        border-radius: 12px;
-        padding: 26px 16px;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
+.stepButtonText {
+    font-weight: 510;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--color-text-white);
+    text-align: center;
+}
 
-    .stepDone {
-    }
+/* step done */
+.stepDone .stepInfoReward {
+    color: var(--color-system-green);
+}
 
-    .step {
-        display: flex;
-        justify-content: space-between;
-        border-bottom: 1px solid
-            var(--colors-main-purple-10, rgba(91, 57, 244, 0.1));
-        padding-bottom: 16px;
-        align-items: center;
-        &:last-child {
-            border-bottom: unset;
-            padding-bottom: unset;
-        }
-
-        .info {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            max-width: 230px;
-
-            .title {
-                color: var(--color-text-dark);
-                font-size: var(--Font-Size-md, 16px);
-                font-weight: 510;
-            }
-
-            .reward {
-                color: var(--Colors-Main-Purple, #5b39f4);
-                font-size: 12px;
-                line-height: 150%;
-            }
-        }
-
-        .button {
-            display: flex;
-            width: 64px;
-            height: 34px;
-            padding: 8px var(--Font-Size-md, 16px);
-            justify-content: center;
-            align-items: center;
-            border-radius: 24px;
-            background: var(--Colors-Main-Purple, #5b39f4);
-            border: unset;
-            a {
-                text-decoration: none;
-                color: var(--Telegram-button_text_color, #fff);
-                text-align: center;
-                font-size: 12px;
-                font-weight: 510;
-            }
-        }
-    }
+.stepDone .stepButton {
+    background-color: var(--color-main-purple-20);
+    cursor: default;
 }

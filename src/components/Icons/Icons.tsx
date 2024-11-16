@@ -8,6 +8,7 @@ import Chevron from '../../assets/icons/chevron-down.svg?react';
 import Right from '../../assets/icons/arrow-narrow-right.svg?react';
 import Load from '../../assets/icons/loading.svg?react';
 import Success from '../../assets/icons/success.svg?react';
+import SuccessWhiteSolid from '@/assets/icons/success-white-solid.svg?react';
 import WhatToBuy from '../../assets/icons/what-to-buy.svg?react';
 import WhatToBuyActive from '../../assets/icons/what-to-buy-active.svg?react';
 import Alert from '../../assets/icons/alert.svg?react';
@@ -75,6 +76,11 @@ export const SpinIcon = ({ className = '' }: { className?: string }) => (
 export const SuccessIcon = ({ className = '' }: { className?: string }) => (
     <Success className={className} />
 );
+
+export const SuccessWhiteSolidIcon = ({ className = '' }: { className?: string }) => (
+    <SuccessWhiteSolid className={className} />
+);
+
 
 export const WhatToBuyIcon = ({
     className = '',
