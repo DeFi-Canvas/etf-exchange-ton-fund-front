@@ -25,7 +25,7 @@ export const Assets = ({ assets }: AssetsProps) => {
     const footerSlot = () => (
         <div className={ css.footerButtons }>
             <AppButton label="Choose a fund" type="secondary" />
-            <AppButton label="Deposit" />
+            <AppButton to={ '/deposit' } label="Deposit" />
         </div>
     )
 
