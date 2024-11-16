@@ -6,7 +6,6 @@ import FundPage from '@/pages/FundPage/FundPage.tsx';
 // import InvestPage from '@/pages/InvestPage/InvestPage.tsx';
 import { WaletPageContainer } from '@/pages/what-to-buy/what-to-buy.container';
 import { DepositPageContainer } from '@/pages/deposit/deposit.page';
-import { Funds } from '@/pages/what-to-buy/sub-pages/founds/funds.page';
 import { Transactions } from '@/pages/what-to-buy/sub-pages/transactions/transactions.page';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { newNewUserStoreService } from '@/store/user.store';
@@ -21,6 +20,7 @@ import { newNewWithdrowService } from '@/pages/withdrow/withdrow.store';
 import { AddressContainer } from '@/pages/withdrow/sub-page/address/address.container';
 import { CheckContainer } from '@/pages/withdrow/sub-page/check/check.container';
 import { FinalContainer } from '@/pages/withdrow/sub-page/final/final.container';
+import { FundsContainer } from '@/pages/what-to-buy/sub-pages/founds/funds.container';
 
 interface Route {
     path: string;
@@ -54,6 +54,10 @@ export const AppRoutes = () => {
     });
 
     const AssetsResolved = AssetsContainer({
+        userStore,
+    });
+
+    const FundsResolved = FundsContainer({
         userStore,
     });
     const DepositPageResolved = DepositPageContainer({
@@ -91,7 +95,7 @@ export const AppRoutes = () => {
             parent: [
                 //загадка жака фреско откуда взялся #
                 { path: '/', page: AssetsResolved, isIndex: true },
-                { path: 'funds', page: Funds },
+                { path: 'funds', page: FundsResolved },
                 { path: 'transactions', page: Transactions },
             ],
         },

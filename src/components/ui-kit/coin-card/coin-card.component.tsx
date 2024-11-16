@@ -7,6 +7,29 @@ import { OptionSpan } from '../fpts-components-utils/options.component';
 import cn from 'classnames';
 import css from './coin-card.module.css';
 
+export interface CoinCardTempProps {
+    logo: string;
+    name: string;
+    ticker: string;
+    coinAmount: number;
+    cost: number;
+    pnl?: {
+        amount: number;
+        currency: string;
+        side: 'PROFIT' | 'LOSE';
+        persent: number;
+    };
+    type?: 'primary' | 'secondory';
+}
+export const CoinCardTemp = ({ logo, name }: CoinCardTempProps) => {
+    return (
+        <div>
+            <img src={logo} alt="" style={{ width: '30px' }} />
+            <span>{name}</span>
+        </div>
+    );
+};
+
 export interface CoinCardProps {
     logo: O.Option<string>;
     name: O.Option<string>;
@@ -22,7 +45,7 @@ export interface CoinCardProps {
     }>;
     type?: 'primary' | 'secondory';
 }
-
+// TODO Нужно сделать либо нормальный общий либо отдельный для ассетов и фондов
 export const CoinCard = ({
     logo,
     name,
