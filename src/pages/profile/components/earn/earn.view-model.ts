@@ -2,7 +2,7 @@ import { injectable } from '@injectable-ts/core';
 import { Property } from '@frp-ts/core';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { newLensedAtom } from '@frp-ts/lens';
-import { newProfileRestService } from '@/API/profile-service';
+import { newProfileRestService } from '@/API/profile.service';
 import * as E from 'fp-ts/Either';
 import { flow, pipe } from 'fp-ts/lib/function';
 import { chain, tap } from '@most/core';

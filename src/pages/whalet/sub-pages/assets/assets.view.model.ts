@@ -6,7 +6,7 @@ import { Property } from '@frp-ts/core';
 import * as O from 'fp-ts/Option';
 import { either } from 'fp-ts';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
-import { newWaletRestService } from '@/API/rest-service';
+import { newWaletRestService } from '@/API/whalet.service';
 import { newLensedAtom } from '@frp-ts/lens';
 import { CoinCardProps } from '@/components/ui-kit/coin-card/coin-card.component';
 import { UserStoreService } from '@/store/user.store';

@@ -2,10 +2,10 @@ import { injectable } from '@injectable-ts/core';
 import * as E from 'fp-ts/Either';
 import { Property } from '@frp-ts/core';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
-import { newWaletRestService } from '@/API/rest-service';
 import { newLensedAtom } from '@frp-ts/lens';
 import { pipe } from 'fp-ts/lib/function';
 import { tap } from '@most/core';
+import { newDepositRestService } from '@/API/deposit.service';
 
 export interface DepositDetails {
     readonly address: string;
@@ -22,15 +22,15 @@ export interface NewDepositEndPointViewModel {
 }
 
 export const newDepositEndPointViewModel = injectable(
-    newWaletRestService,
-    (newWaletRestService): NewDepositEndPointViewModel =>
+    newDepositRestService,
+    (service): NewDepositEndPointViewModel =>
         () => {
             const details = newLensedAtom<E.Either<string, DepositDetails>>(
                 E.left('Loading')
             );
 
             const getDetails = pipe(
-                newWaletRestService.getDepositDetails(),
+                service.getDepositDetails(),
                 tap(details.set)
             );
             return valueWithEffect.new(

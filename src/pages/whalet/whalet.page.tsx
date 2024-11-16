@@ -4,11 +4,10 @@ import { Coins } from './components/coins-section/coins.component';
 import { NavBar } from './components/nav-bar/nav-bar.component';
 import * as O from 'fp-ts/Option';
 
-import css from './what-to-buy.module.css';
+import css from './whalet.module.css';
 import { NewsEarn } from './components/news/news-earn.component';
 import { LernMore } from './components/news/lern-more.component';
 
-//
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
@@ -17,7 +16,6 @@ export interface WhatToBuyPageProps {
 }
 export const WaletPage = injectable(
     BalanceContainer,
-    // eslint-disable-next-line react/display-name
     (BalanceContainer) => () => {
         const swiperOptions = {
             spaceBetween: 10,

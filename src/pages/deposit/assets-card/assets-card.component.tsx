@@ -1,38 +1,13 @@
 import { AssetsViewModelInit } from '../assets/assets.view-model';
+import {
+    WithdrowAssets,
+    DepositAssetsCodec,
+    WithdrowAssetsCodec,
+    DepositAssets,
+} from '../deposit.model';
 import css from './assets-card.module.css';
-import * as t from 'io-ts';
 
-export interface DepositAsserts {
-    name: string;
-    ticker: string;
-    category: string;
-    description: string;
-    img: string;
-}
-const DepositAssertsCodec = t.type({
-    name: t.string,
-    ticker: t.string,
-    category: t.string,
-    description: t.string,
-    img: t.string,
-});
-
-export interface WithdrowAsserts {
-    name: string;
-    ticker: string;
-    description: string;
-    img: string;
-    amount: number;
-}
-const WithdrowAssertsCodec = t.type({
-    name: t.string,
-    ticker: t.string,
-    description: t.string,
-    img: t.string,
-    amount: t.number,
-});
-
-type AssetsCardProps = (DepositAsserts | WithdrowAsserts) & {
+type AssetsCardProps = (DepositAssets | WithdrowAssets) & {
     type: AssetsViewModelInit;
 };
 export const AssetsCard = ({ type, ...rest }: AssetsCardProps) => {
@@ -41,20 +16,18 @@ export const AssetsCard = ({ type, ...rest }: AssetsCardProps) => {
     switch (type) {
         case 'deposit':
             return (
-                DepositAssertsCodec.is(rest) && <AssetsCardDeposit {...rest} />
+                DepositAssetsCodec.is(rest) && <AssetsCardDeposit {...rest} />
             );
         case 'withdrow':
             return (
-                WithdrowAssertsCodec.is(rest) && (
-                    <AssetsCardWithdrow {...rest} />
-                )
+                WithdrowAssetsCodec.is(rest) && <AssetsCardWithdrow {...rest} />
             );
         default:
             break;
     }
 };
 
-export const AssetsCardDeposit = ({ name, ticker, img }: DepositAsserts) => {
+export const AssetsCardDeposit = ({ name, ticker, img }: DepositAssets) => {
     return (
         <div className={css.wrap}>
             <img src={img} className={css.img} />
@@ -71,7 +44,7 @@ export const AssetsCardWithdrow = ({
     ticker,
     img,
     amount,
-}: WithdrowAsserts) => {
+}: WithdrowAssets) => {
     return (
         <div className={css.wrap}>
             <img src={img} className={css.img} />

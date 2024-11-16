@@ -4,15 +4,15 @@ import { IndexPage } from '@/pages/IndexPage-1/IndexPage';
 // import AboutPage from '@/pages/AboutPage/AboutPage.tsx';
 import FundPage from '@/pages/FundPage/FundPage.tsx';
 // import InvestPage from '@/pages/InvestPage/InvestPage.tsx';
-import { WaletPageContainer } from '@/pages/what-to-buy/what-to-buy.container';
+import { WaletPageContainer } from '@/pages/whalet/whalet.container';
 import { DepositPageContainer } from '@/pages/deposit/deposit.page';
-import { Transactions } from '@/pages/what-to-buy/sub-pages/transactions/transactions.page';
+import { Transactions } from '@/pages/whalet/sub-pages/transactions/transactions.page';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { newNewUserStoreService } from '@/store/user.store';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useInitData } from '@telegram-apps/sdk-react';
 import { ProfileContainer } from '@/pages/profile/profile.page';
-import { AssetsContainer } from '@/pages/what-to-buy/sub-pages/assets/assets.container';
+import { AssetsContainer } from '@/pages/whalet/sub-pages/assets/assets.container';
 import { DepositEndPointContainer } from '@/pages/deposit-end-point/deposit-end-point.container';
 import { Withdrow } from '@/pages/withdrow/withdrow.page';
 import { AmountContainer } from '@/pages/withdrow/sub-page/ammount/amount.container';
@@ -20,7 +20,7 @@ import { newNewWithdrowService } from '@/pages/withdrow/withdrow.store';
 import { AddressContainer } from '@/pages/withdrow/sub-page/address/address.container';
 import { CheckContainer } from '@/pages/withdrow/sub-page/check/check.container';
 import { FinalContainer } from '@/pages/withdrow/sub-page/final/final.container';
-import { FundsContainer } from '@/pages/what-to-buy/sub-pages/founds/funds.container';
+import { FundsContainer } from '@/pages/whalet/sub-pages/founds/funds.container';
 
 interface Route {
     path: string;

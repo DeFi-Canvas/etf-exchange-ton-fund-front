@@ -5,7 +5,7 @@ import { newLensedAtom } from '@frp-ts/lens';
 import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/lib/function';
 import { tap } from '@most/core';
-import { newWaletRestService } from '@/API/rest-service';
+import { newWaletRestService } from '@/API/whalet.service';
 import { CoinCardTempProps } from '@/components/ui-kit/coin-card/coin-card.component';
 
 export interface FundsViewModel {

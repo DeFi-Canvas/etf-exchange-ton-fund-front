@@ -6,7 +6,7 @@ import * as O from 'fp-ts/Option';
 import css from './balans.module.css';
 import { OptionSpan } from '@/components/ui-kit/fpts-components-utils/options.component';
 import { pipe } from 'fp-ts/lib/function';
-import { Balance } from '../../what-to-buy.view-model';
+import { Balance } from '../../whalet.view-model';
 
 export interface BalansProps {
     balance: O.Option<Balance>;

@@ -1,5 +1,5 @@
 import { injectable } from '@injectable-ts/core';
-import { newWhatToBuyViewModel } from '../../what-to-buy.view-model';
+import { newWhatToBuyViewModel } from '../../whalet.view-model';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import React from 'react';
 import { useProperty } from '@frp-ts/react';

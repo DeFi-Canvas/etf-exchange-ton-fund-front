@@ -29,7 +29,7 @@ import Profile from '../../assets/icons/profile.svg?react';
 import ChevronRight from '@/assets/icons/chevron-right.svg?react';
 import Copy from '../../assets/icons/copy.svg?react';
 
-import { TransactionStatus } from '@/pages/what-to-buy/components/transaction/transaction.component';
+import { TransactionStatus } from '@/pages/whalet/components/transaction/transaction.component';
 
 export const HomeIcon = ({
     className = '',

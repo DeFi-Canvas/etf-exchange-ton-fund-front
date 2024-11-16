@@ -5,12 +5,13 @@ import { empty, tap } from '@most/core';
 import { Property } from '@frp-ts/core';
 import * as E from 'fp-ts/Either';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
-import { newWaletRestService } from '@/API/rest-service';
+import { newWaletRestService } from '@/API/whalet.service';
 import { newLensedAtom } from '@frp-ts/lens';
 import {
     DepositAsserts,
     WithdrowAsserts,
 } from '../assets-card/assets-card.component';
+import { newDepositRestService } from '@/API/deposit.service';
 
 export type AssetsViewModelInit = 'deposit' | 'withdrow';
 export interface AssetsViewModel {
@@ -25,7 +26,8 @@ export interface NewAssetsViewModel {
 
 export const newAssetsViewModel = injectable(
     newWaletRestService,
-    (waletRestService): NewAssetsViewModel =>
+    newDepositRestService,
+    (waletRestService, newDepositRestService): NewAssetsViewModel =>
         (type) => {
             const assets = newLensedAtom<
                 E.Either<
@@ -39,7 +41,7 @@ export const newAssetsViewModel = injectable(
                     case 'withdrow':
                         return waletRestService.getWithdrowAssets();
                     case 'deposit': {
-                        return waletRestService.getDepositAssets();
+                        return newDepositRestService.getDepositAssets();
                     }
                     default: {
                         return empty();

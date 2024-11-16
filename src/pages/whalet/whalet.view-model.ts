@@ -6,7 +6,7 @@ import { Property } from '@frp-ts/core';
 import * as O from 'fp-ts/Option';
 import { either } from 'fp-ts';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
-import { newWaletRestService } from '@/API/rest-service';
+import { newWaletRestService } from '@/API/whalet.service';
 import { newLensedAtom } from '@frp-ts/lens';
 
 export interface Balance {
@@ -29,7 +29,7 @@ export const newWhatToBuyViewModel = injectable(
             const balance = newLensedAtom<O.Option<Balance>>(O.none);
 
             const getBalanceEffect = pipe(
-                waletRestService.getWalletInfo(),
+                waletRestService.getBalance(),
                 tap(
                     flow(
                         either.map(({ total }) => total),
