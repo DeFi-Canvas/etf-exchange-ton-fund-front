@@ -1,33 +1,22 @@
-import { Withdraw } from '../withdraw/withdraw.component';
 import css from './settings.module.css';
 
 export const Settings = () => {
     return (
-        <>
-            <div className={css.wrap}>
-                <span className={css.title}>Settings</span>
-                <div className={css.settingWrap}>
-                    <div className={css.setting}>
-                        <span className={css.title}>Language</span>
-                        <span className={css.label}>English</span>
+        <div className={css.cardWrapper}>
+            <div className="app-container">
+                <div className={css.cardTitle}>Settings</div>
+
+                <div className={css.cardContent}>
+                    <div className={css.cardItem}>
+                        <span>Language</span>
+                        <span className={css.cardItemLabel}>English</span>
                     </div>
-                    <div className={css.setting}>
-                        <span className={css.title}>Local currency</span>
-                        <span className={css.label}>USD</span>
+                    <div className={css.cardItem}>
+                        <span>Local currency</span>
+                        <span className={css.cardItemLabel}>USD</span>
                     </div>
                 </div>
             </div>
-            <Withdraw />
-
-            <div className={css.gitPages}>
-                <a
-                    href="https://holstby.github.io/etf-exchange-ton-fund-gitbook/docs/introduction.html"
-                    target="_blank"
-                    rel="noreferrer"
-                >
-                    Documentation
-                </a>
-            </div>
-        </>
+        </div>
     );
 };

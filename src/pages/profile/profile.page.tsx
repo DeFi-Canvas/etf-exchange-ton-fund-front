@@ -2,6 +2,7 @@ import { injectable } from '@injectable-ts/core';
 import { UserInfoContainer } from './components/user-info/user-info.container';
 import { EarnContainer } from './components/earn/earn.container';
 import { Settings } from './components/settings/settings.component';
+import { Withdraw } from './components/withdraw/withdraw.component';
 import css from './profile.module.css';
 
 export const ProfileContainer = injectable(
@@ -14,6 +15,18 @@ export const ProfileContainer = injectable(
                 <UserInfoContainer />
                 <EranContainer />
                 <Settings />
+                <Withdraw />
+
+                
+                <div className={css.gitPages}>
+                    <a
+                        href="https://holstby.github.io/etf-exchange-ton-fund-gitbook/docs/introduction.html"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        Documentation
+                    </a>
+                </div>
             </div>
         );
     }

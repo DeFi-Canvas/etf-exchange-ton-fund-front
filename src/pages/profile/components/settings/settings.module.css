@@ -1,60 +1,49 @@
-.wrap {
-    display: flex;
-    flex-direction: column;
-    padding: 20px 16px;
-    border-radius: 12px;
-    background: var(--Colors-Background-Light, #f9f8ff);
-    margin-bottom: 16px;
-
-    .title {
-        color: var(--color-text-dark);
-        font-size: var(--Font-Size-lg, 18px);
-        font-weight: 510;
-        margin-bottom: 12px;
-    }
-
-    .settingWrap {
-        background: rgb(240 241 245);
-        border-radius: 12px;
-        padding: 16px;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .setting {
-        display: flex;
-        justify-content: space-between;
-        padding: 12px 0px;
-        border-bottom: 1px solid
-            var(--colors-main-purple-10, rgba(91, 57, 244, 0.1));
-        padding-bottom: 16px;
-        &:last-child {
-            border-bottom: unset;
-            padding-bottom: unset;
-            padding-top: unset;
-        }
-
-        .title {
-            font-size: var(--Font-Size-md, 16px);
-        }
-
-        .label {
-            color: var(--colors-text-dark-70, rgba(36, 38, 46, 0.7));
-            font-size: var(--Font-Size-md, 16px);
-            font-weight: 400;
-            line-height: 150%; /* 24px */
-        }
-    }
+.cardWrapper {
+    background-color: var(--color-background-white);
+    border-radius: 24px;
+    margin-top: 8px;
+    padding-block: 20px;
 }
 
-.gitPages {
-    /* WTF???? */
-    height: 40px;
+.cardTitle {
+    font-weight: 510;
+    font-size: 18px;
+    line-height: 1.5;
     display: flex;
-    justify-content: center;
-    margin-bottom: 12px;
-    a {
-        color: var(--Colors-Main-Purple, #5b39f4);
-    }
+    align-items: center;
+    gap: 4px;
+}
+
+.cardContent {
+    margin-top: 12px;
+    background-color: var(--color-background-light);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.cardItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-block: 12px;
+    font-weight: 510;
+    line-height: 1.35;
+}
+
+.cardItem:first-child {
+    padding-top: unset;
+}
+.cardItem:last-child {
+    padding-bottom: unset;
+}
+
+.cardItem:not(:last-child) {
+    border-bottom: 1px solid var(--color-main-purple-10);
+}
+
+.cardItemLabel {
+    line-height: 1.5;
+    text-align: right;
+    color: var(--color-text-dark-70);
 }
