@@ -28,7 +28,7 @@
     }
 
     .transactions {
-        background: var(--colors-main-purple-10, rgba(91, 57, 244, 0.1));
+        background: var(--color-main-purple-10);
         color: var(--Colors-Main-Purple, #5b39f4);
     }
     .finish {

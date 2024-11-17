@@ -4,7 +4,7 @@
     align-items: center;
     gap: 12px;
     border-radius: 12px;
-    background: var(--Colors-Background-Light, #f9f8ff);
+    background: var(--color-background-light);
 
     .img {
         width: 40px;
@@ -28,7 +28,7 @@
     }
 
     .coinName {
-        color: var(--colors-text-dark-50, rgba(36, 38, 46, 0.5));
+        color: var(--color-text-dark-50);
         font-size: 12px;
     }
 

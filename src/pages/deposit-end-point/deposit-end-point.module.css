@@ -66,7 +66,7 @@
         font-weight: 510;
         line-height: 150%;
 
-        background: var(--colors-main-purple-10, rgba(91, 57, 244, 0.1));
+        background: var(--color-main-purple-10);
         color: var(--color-text-dark);
 
         .svg {
@@ -85,7 +85,7 @@
 
     .node {
         word-break: break-all;
-        color: var(--colors-text-dark-50, rgba(36, 38, 46, 0.5));
+        color: var(--color-text-dark-50);
         font-size: var(--Font-Size-sm, 14px);
         font-weight: 400;
         line-height: 150%; /* 21px */

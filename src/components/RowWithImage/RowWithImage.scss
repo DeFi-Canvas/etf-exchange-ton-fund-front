@@ -24,7 +24,7 @@
         }
         & p {
             margin: 0;
-            color: var(--colors-text-dark-50, rgba(36, 38, 46, 0.5));
+            color: var(--color-text-dark-50);
             font-size: 12px;
             font-weight: 400;
             line-height: 150%;
@@ -42,7 +42,7 @@
 }
 
 .row-with-image.disabled {
-    background: var(--colors-pallete-dark-10, rgba(36, 38, 46, 0.1));
+    background: var(--color-pallete-dark-10);
     filter: grayscale(0.5);
     opacity: 0.4;
 }

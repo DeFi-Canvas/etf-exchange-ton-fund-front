@@ -14,7 +14,7 @@
         margin-top: 20px;
 
         .title {
-            color: var(--colors-text-dark-70, rgba(36, 38, 46, 0.7));
+            color: var(--color-text-dark-70);
 
             font-size: var(--Font-Size-sm, 14px);
             font-style: normal;
@@ -25,7 +25,7 @@
         .row {
             border-radius: 12px;
             border: 0px solid
-                var(--colors-main-purple-20, rgba(91, 57, 244, 0.2));
+                var(--color-main-purple-20);
             background: var(--Colors-Background-Light, #f9f8ff);
             padding: 14px 12px;
             word-break: break-all;
@@ -38,7 +38,7 @@
             align-self: stretch;
             border-radius: 12px;
             border: 0px solid
-                var(--colors-main-purple-20, rgba(91, 57, 244, 0.2));
+                var(--color-main-purple-20);
             background: var(--Colors-Background-Light, #f9f8ff);
         }
     }

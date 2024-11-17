@@ -50,11 +50,8 @@
             padding: 14px;
 
             &.disabled {
-                background: var(
-                    --colors-pallete-dark-10,
-                    rgba(36, 38, 46, 0.1)
-                );
-                color: var(--colors-text-dark-20, rgba(36, 38, 46, 0.2));
+                background: var(--color-pallete-dark-10);
+                color: var(--color-text-dark-20);
             }
         }
     }

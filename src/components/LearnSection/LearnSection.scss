@@ -16,14 +16,14 @@
         &-card {
             & img {
                 border: 2px solid
-                    var(--colors-main-purple-20, rgba(91, 57, 244, 0.2));
+                    var(--color-main-purple-20);
                 padding: 1px;
                 border-radius: 12px;
                 overflow: hidden;
             }
 
             & p {
-                color: var(--colors-text-dark-50, rgba(36, 38, 46, 0.5));
+                color: var(--color-text-dark-50);
                 font-size: 12px;
                 line-height: 150%;
                 margin: 0;
