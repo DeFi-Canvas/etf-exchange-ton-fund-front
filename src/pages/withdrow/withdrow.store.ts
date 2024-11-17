@@ -33,11 +33,11 @@ export interface WithdrowStore {
     clearData: () => void;
 }
 
-export type NewWithdrowService = ValueWithEffect<WithdrowStore>;
+export type NewWithdrowStore = ValueWithEffect<WithdrowStore>;
 
 export const newNewWithdrowStore = injectable(
     newWithdrawRestService,
-    (service): NewWithdrowService => {
+    (service): NewWithdrowStore => {
         //#region init Property
         const currency = newLensedAtom<string>('');
         const amount = newLensedAtom<E.Either<'too small', number>>(E.right(0));
