@@ -66,8 +66,9 @@ export const Assets = ({ assets, type, handleClick }: AssetsProps) => {
                                 className={css.assetCardWrapper}
                                 onClick={() => onClick(assetsItemData)}
                             >
+                                {/* TODO:V Тут закастил, чтоб не было ошибок :( */}
                                 <AssetsCard
-                                    {...formattedData(assetsItemData)}
+                                    {...formattedData(assetsItemData as IAssetDate)}
                                 />
                             </div>
                         ))}
