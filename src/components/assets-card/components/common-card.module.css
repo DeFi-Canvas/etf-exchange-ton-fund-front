@@ -52,3 +52,10 @@
     font-size: 10px;
     color: var(--color-text-dark-50);
 }
+
+.priceTextGreen {
+    color: var(--color-system-green);
+}
+.priceTextRed {
+    color: var(--color-system-red);
+}
