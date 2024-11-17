@@ -6,10 +6,20 @@ interface FooterProps {
     balanceAfter: number;
     currency: string;
     symbolLogo: string;
+    onWithdrow: () => void;
 }
 
-export const Footer = ({ balanceAfter, currency, symbolLogo }: FooterProps) => {
+export const Footer = ({
+    balanceAfter,
+    currency,
+    symbolLogo,
+    onWithdrow,
+}: FooterProps) => {
     const navigate = useNavigate();
+    const onClick = () => {
+        onWithdrow();
+        navigate('/withdraw/:ticker/address/final');
+    };
 
     return (
         <div className={cn(css.footerWrap)}>
@@ -23,10 +33,7 @@ export const Footer = ({ balanceAfter, currency, symbolLogo }: FooterProps) => {
                 </div>
             </div>
             <div className={css.footer}>
-                <button
-                    className={cn(css.nextButton)}
-                    onClick={() => navigate('/withdraw/:ticker/address/final')}
-                >
+                <button className={cn(css.nextButton)} onClick={onClick}>
                     Submit and withdraw
                 </button>
             </div>

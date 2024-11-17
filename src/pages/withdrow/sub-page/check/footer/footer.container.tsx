@@ -12,10 +12,13 @@ export const FooterContainer = injectable(
             const balanceAfter = useProperty(store.balanceAfter);
             const symbolLogo = useProperty(store.symbolLogo);
 
+            const onWithdrow = store.onWithdrow;
+
             return React.createElement(Footer, {
                 balanceAfter,
                 currency,
                 symbolLogo,
+                onWithdrow,
             });
         })
 );

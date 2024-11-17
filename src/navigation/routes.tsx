@@ -42,7 +42,10 @@ export const AppRoutes = () => {
         []
     );
 
-    const withdrowStore = useValueWithEffect(() => newNewWithdrowService(), []);
+    const withdrowStore = useValueWithEffect(
+        () => newNewWithdrowService({ userStore }),
+        []
+    );
 
     //#region containers
     const WhatToBuyPageContainerResolved = WaletPageContainer({

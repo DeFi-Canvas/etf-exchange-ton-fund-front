@@ -59,7 +59,6 @@ export const newAssetsViewModel = injectable(
                         store.setTickerPrice(currentAsset.price);
                         store.setSymbolLogo(currentAsset.image_url);
                     }
-                    console.log(currentAsset);
                 }
             };
 
