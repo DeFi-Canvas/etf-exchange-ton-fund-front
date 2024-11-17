@@ -28,6 +28,7 @@ import Withdraw from '../../assets/icons/transactions/withdraw.svg?react';
 import Profile from '../../assets/icons/profile.svg?react';
 import ChevronRight from '@/assets/icons/chevron-right.svg?react';
 import Copy from '../../assets/icons/copy.svg?react';
+import CopyDone from '@/assets/icons/copy-done.svg?react';
 
 import { TransactionStatus } from '@/pages/whalet/components/transaction/transaction.component';
 
@@ -59,6 +60,11 @@ export const ChevronRightIcon = ({
 export const CopyIcon = ({ className = '' }: { className?: string }) => (
     <Copy className={className} />
 );
+
+export const CopyDoneIcon = ({ className = '' }: { className?: string }) => (
+    <CopyDone className={className} />
+);
+
 export const DownIcon = ({ className = '' }: { className?: string }) => (
     <Down className={className} />
 );

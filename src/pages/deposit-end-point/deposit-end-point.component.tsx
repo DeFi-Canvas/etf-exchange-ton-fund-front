@@ -1,12 +1,11 @@
-import { CopyIcon } from '@/components/Icons/Icons';
 import css from './deposit-end-point.module.css';
 import cn from 'classnames';
-import { useState } from 'react';
 import * as E from 'fp-ts/Either';
 import { DepositDetails } from './deposit-end-point.view-model';
 import { pipe } from 'fp-ts/lib/function';
 import { useParams } from 'react-router-dom';
 import { ErrorResult } from '@/components/error-result/error-result.component';
+import InfoCard from './components/info-card/info-card.component';
 
 interface DepositEndPointProps {
     readonly details: E.Either<string, DepositDetails>;
@@ -26,60 +25,37 @@ export const DepositEndPoint = ({
             (details) => {
                 return (
                     <>
-                        <div className={css.titleWrap}>
-                            <p>
-                                Send only{' '}
-                                <span className={css.bold}>{ticker}</span> via{' '}
-                                <span className={css.bold}>TON</span> to this
-                                address. Other coins, jettons and NFTs will be
-                                permanently lost.
-                            </p>
-                        </div>
-                        <div className={css.imgWrap}>
-                            <img src={details.qrCode} className={css.img} />
-                        </div>
-                        <div className={css.infoWrap}>
-                            <InfoSection
-                                title={'Deposit address'}
-                                node={details.address}
+                        <div className={cn('app-container', css.content)}>
+                            <div className={css.titleWrap}>
+                                Send only&nbsp;
+                                <span className={css.bold}>{ticker}</span>&nbsp;via&nbsp; 
+                                <span className={css.bold}>TON</span>&nbsp;to this address. 
+                                Other coins, jettons and NFTs will be permanently lost.
+                            </div>
+                            <img 
+                                className={css.qrCode}
+                                src={details.qrCode} 
                             />
-                            <InfoSection
-                                title={'Tag/Memo (Comment/Note)'}
-                                node={details.memo}
-                            />
+                            <div className={css.infoWrapper}>
+                                <InfoCard
+                                    title={'Deposit address'}
+                                    node={details.address}
+                                />
+                                <InfoCard
+                                    title={'Tag/Memo (Comment/Note)'}
+                                    node={details.memo}
+                                />
+                            </div>
+                        </div>
+                        <div className={css.overlayWrapper}>
+                            <img src={coinLogo} className={css.coinLogoImage1}/>
+                            <img src={coinLogo} className={css.coinLogoImage2}/>
                         </div>
                     </>
                 );
             }
         )
     );
+
     return <div>{renderDepositEndPoint}</div>;
-};
-
-interface InfoSectionProps {
-    title: string;
-    node: string;
-}
-const InfoSection = ({ title, node }: InfoSectionProps) => {
-    const [isActive, setIsActive] = useState(false);
-    const onClick = () => {
-        navigator.clipboard.writeText(node);
-        setIsActive(true);
-    };
-
-    return (
-        <div className={css.infoSection}>
-            <div className={css.wrap}>
-                <span className={css.title}>{title}</span>
-                <button
-                    className={cn(css.btn, { [css.btnActive]: isActive })}
-                    onClick={onClick}
-                >
-                    Copy
-                    <CopyIcon className={cn(css.svg)} />
-                </button>
-            </div>
-            <span className={css.node}>{node}</span>
-        </div>
-    );
 };

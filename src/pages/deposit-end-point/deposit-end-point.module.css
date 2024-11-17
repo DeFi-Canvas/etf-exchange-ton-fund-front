@@ -1,93 +1,63 @@
+.content {
+    position: relative;
+    z-index: 1;
+    padding-top: 32px;
+}
+
 .titleWrap {
-    margin: 32px auto 16px;
     max-width: 293px;
-    color: var(--Accent-Black, #000);
+    margin-inline: auto;
     text-align: center;
-    font-size: var(--Font-Size-sm, 14px);
-    line-height: 150%;
-    .bold {
-        color: var(--Accent-Black, #000);
-        font-size: var(--Font-Size-sm, 14px);
-        font-weight: 510;
-        line-height: 150%;
-    }
+    font-size: 14px;
+    line-height: 1.5;
 }
 
-.imgWrap {
-    margin: 0 auto 23px;
-    width: fit-content;
-    padding: 16px;
+.bold {
+    font-weight: 510;
+}
+
+.qrCode {
+    --padding: 16px;
+    --size: calc(250px + (var(--padding) * 2));
+    width: var(--size);
+    height: var(--size);
+    padding: var(--padding);
+    background-color: var(--color-background-white);
     border-radius: 24px;
-    background: var(--Colors-Background-White, #fff);
-    .img {
-        width: 250px;
-        height: 250px;
-    }
+    margin-top: 16px;
+    margin-inline: auto;
+    display: block;
 }
 
-.infoWrap {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 9px;
-    margin-bottom: 19px;
-}
-
-.infoSection {
+.infoWrapper {
+    margin-top: 24px;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    padding: 12px 16px;
-    border-radius: var(--Font-Size-md, 16px);
-    background: #fff;
+}
 
-    .wrap {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-    }
+.overlayWrapper {
+    position: fixed;
+    inset: 0;
+}
 
-    .title {
-        color: var(--color-text-dark);
-        font-size: var(--Font-Size-md, 16px);
-        font-weight: 510;
-        line-height: 135%; /* 21.6px */
-    }
-    .btn {
-        display: flex;
-        width: 70px;
-        padding: 4px 8px;
-        align-items: center;
-        gap: 8px;
-        border: none;
-        border-radius: 8px;
-        color: var(--Colors-Text-White, #fff);
-        font-size: 12px;
-        font-weight: 510;
-        line-height: 150%;
+.coinLogoImage1,
+.coinLogoImage2 {
+    --size: 258px;
+    --default-position: calc(50% - var(--size) / 2);
+    width: var(--size);
+    height: var(--size);
+    position: absolute;
+    opacity: 0.5;
+    filter: blur(127px);
+}
 
-        background: var(--color-main-purple-10);
-        color: var(--color-text-dark);
+.coinLogoImage1 {
+    left: calc(var(--default-position) - 80px);
+    top: calc(var(--default-position) - 5px);
+}
 
-        .svg {
-            stroke: var(--color-text-dark);
-        }
-    }
-
-    .btnActive {
-        background: var(--Colors-Main-Purple, #5b39f4);
-        color: var(--Colors-Text-White, #fff);
-
-        .svg {
-            stroke: var(--Colors-Text-White, #fff);
-        }
-    }
-
-    .node {
-        word-break: break-all;
-        color: var(--color-text-dark-50);
-        font-size: var(--Font-Size-sm, 14px);
-        font-weight: 400;
-        line-height: 150%; /* 21px */
-    }
+.coinLogoImage2 {
+    left: calc(var(--default-position) + 92px);
+    top: calc(var(--default-position) + 285px);
 }
