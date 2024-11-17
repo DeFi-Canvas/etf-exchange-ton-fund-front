@@ -1,10 +1,10 @@
 import { injectable, token } from '@injectable-ts/core';
-import { WithdrowService } from '../../withdrow.store';
+import { WithdrowStore } from '../../withdrow.store';
 import React, { memo } from 'react';
 import { Address } from './address.component';
 
 export const AddressContainer = injectable(
-    token('withdrowStore')<WithdrowService>(),
+    token('withdrowStore')<WithdrowStore>(),
     Address,
     (store, Address) =>
         memo(() => {

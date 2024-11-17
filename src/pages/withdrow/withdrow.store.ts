@@ -11,7 +11,7 @@ import * as S from 'fp-ts/string';
 import { injectable } from '@injectable-ts/core';
 import { newWithdrawRestService } from '@/API/withdraw.service';
 
-export interface WithdrowService {
+export interface WithdrowStore {
     currency: Property<string>;
     amount: Property<E.Either<'too small', number>>;
     isNextButtonAvailable: Property<boolean>;
@@ -33,9 +33,9 @@ export interface WithdrowService {
     clearData: () => void;
 }
 
-export type NewWithdrowService = ValueWithEffect<WithdrowService>;
+export type NewWithdrowService = ValueWithEffect<WithdrowStore>;
 
-export const newNewWithdrowService = injectable(
+export const newNewWithdrowStore = injectable(
     newWithdrawRestService,
     (service): NewWithdrowService => {
         //#region init Property

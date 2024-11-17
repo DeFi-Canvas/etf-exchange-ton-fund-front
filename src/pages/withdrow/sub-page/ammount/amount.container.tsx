@@ -1,12 +1,12 @@
 import { injectable, token } from '@injectable-ts/core';
-import { WithdrowService } from '../../withdrow.store';
+import { WithdrowStore } from '../../withdrow.store';
 import { useProperty } from '@frp-ts/react';
 import { Amount } from './amount.component';
 import React, { memo } from 'react';
 import { useParams } from 'react-router-dom';
 
 export const AmountContainer = injectable(
-    token('withdrowStore')<WithdrowService>(),
+    token('withdrowStore')<WithdrowStore>(),
     (store) =>
         memo(() => {
             const { ticker } = useParams();

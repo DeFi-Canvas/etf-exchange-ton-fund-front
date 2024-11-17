@@ -10,7 +10,7 @@ import { newLensedAtom } from '@frp-ts/lens';
 import { newDepositRestService } from '@/API/deposit.service';
 import { DepositAssets } from '../deposit.model';
 import { Asset, AssetCodec } from '@/pages/whalet/whalet.model';
-import { WithdrowService } from '@/pages/withdrow/withdrow.store';
+import { WithdrowStore } from '@/pages/withdrow/withdrow.store';
 
 export type AssetsViewModelInit = 'deposit' | 'withdrow';
 export interface AssetsViewModel {
@@ -28,7 +28,7 @@ export interface NewAssetsViewModel {
 export const newAssetsViewModel = injectable(
     newWaletRestService,
     newDepositRestService,
-    token('withdrowStore')<WithdrowService>(),
+    token('withdrowStore')<WithdrowStore>(),
     (waletRestService, newDepositRestService, store): NewAssetsViewModel =>
         (type) => {
             const assets = newLensedAtom<

@@ -16,7 +16,7 @@ import { AssetsContainer } from '@/pages/whalet/sub-pages/assets/assets.containe
 import { DepositEndPointContainer } from '@/pages/deposit-end-point/deposit-end-point.container';
 import { Withdrow } from '@/pages/withdrow/withdrow.page';
 import { AmountContainer } from '@/pages/withdrow/sub-page/ammount/amount.container';
-import { newNewWithdrowService } from '@/pages/withdrow/withdrow.store';
+import { newNewWithdrowStore } from '@/pages/withdrow/withdrow.store';
 import { AddressContainer } from '@/pages/withdrow/sub-page/address/address.container';
 import { CheckContainer } from '@/pages/withdrow/sub-page/check/check.container';
 import { FinalContainer } from '@/pages/withdrow/sub-page/final/final.container';
@@ -43,7 +43,7 @@ export const AppRoutes = () => {
     );
 
     const withdrowStore = useValueWithEffect(
-        () => newNewWithdrowService({ userStore }),
+        () => newNewWithdrowStore({ userStore }),
         []
     );
 

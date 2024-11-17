@@ -1,11 +1,11 @@
 import { useProperty } from '@frp-ts/react';
 import { injectable, token } from '@injectable-ts/core';
 import React, { memo } from 'react';
-import { WithdrowService } from '../../withdrow.store';
+import { WithdrowStore } from '../../withdrow.store';
 import { Final } from './final.component';
 
 export const FinalContainer = injectable(
-    token('withdrowStore')<WithdrowService>(),
+    token('withdrowStore')<WithdrowStore>(),
     (store) =>
         memo(() => {
             const currency = useProperty(store.currency);

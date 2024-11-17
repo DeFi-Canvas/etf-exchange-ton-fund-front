@@ -1,11 +1,11 @@
 import { injectable, token } from '@injectable-ts/core';
 import React, { memo } from 'react';
-import { WithdrowService } from '@/pages/withdrow/withdrow.store';
+import { WithdrowStore } from '@/pages/withdrow/withdrow.store';
 import { useProperty } from '@frp-ts/react';
 import { Check } from './check.component';
 
 export const CheckContainer = injectable(
-    token('withdrowStore')<WithdrowService>(),
+    token('withdrowStore')<WithdrowStore>(),
     Check,
     (store, Check) =>
         memo(() => {
