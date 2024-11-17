@@ -10,17 +10,26 @@ interface CheckProps {
     currency: string;
     address: E.Either<string, string>;
     memo: E.Either<string, string>;
+    symbolLogo: string;
 }
 
 export const Check = injectable(
     FooterContainer,
     (FooterContainer) =>
-        ({ ammount, approximateCost, currency, address, memo }: CheckProps) => {
+        ({
+            ammount,
+            approximateCost,
+            currency,
+            address,
+            memo,
+            symbolLogo,
+        }: CheckProps) => {
             return (
                 <div className={css.main}>
                     <span>Check the data</span>
                     <div className={css.wrap}>
                         <Amount
+                            symbolLogo={symbolLogo}
                             ammount={ammount}
                             approximateCost={approximateCost}
                             currency={currency}

@@ -27,8 +27,8 @@ export const mapDepositAssets = (data: DepositAssetsResponce) => ({
 export interface DepositAssets {
     name: string;
     ticker: string;
-    category: string;
     description: string;
+    category: string;
     img: string;
 }
 
@@ -44,8 +44,8 @@ export interface WithdrowAssets {
     name: string;
     ticker: string;
     description: string;
-    img: string;
     amount: number;
+    img: string;
 }
 export const WithdrowAssetsCodec = t.type({
     name: t.string,

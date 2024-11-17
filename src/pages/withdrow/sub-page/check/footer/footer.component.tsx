@@ -5,9 +5,10 @@ import cn from 'classnames';
 interface FooterProps {
     balanceAfter: number;
     currency: string;
+    symbolLogo: string;
 }
 
-export const Footer = ({ balanceAfter, currency }: FooterProps) => {
+export const Footer = ({ balanceAfter, currency, symbolLogo }: FooterProps) => {
     const navigate = useNavigate();
 
     return (
@@ -15,7 +16,7 @@ export const Footer = ({ balanceAfter, currency }: FooterProps) => {
             <div className={css.availableBalance}>
                 <span className={css.title}>Balance after withdraw</span>
                 <div className={css.infoWrap}>
-                    <img src="" alt="img" />
+                    <img src={symbolLogo} alt="img" />
                     <span className={css.balance}>
                         {balanceAfter} {currency}
                     </span>

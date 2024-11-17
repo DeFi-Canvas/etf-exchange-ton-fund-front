@@ -1,27 +1,19 @@
+import { Asset, AssetCodec } from '@/pages/whalet/whalet.model';
 import { AssetsViewModelInit } from '../assets/assets.view-model';
-import {
-    WithdrowAssets,
-    DepositAssetsCodec,
-    WithdrowAssetsCodec,
-    DepositAssets,
-} from '../deposit.model';
+import { DepositAssetsCodec, DepositAssets } from '../deposit.model';
 import css from './assets-card.module.css';
 
-type AssetsCardProps = (DepositAssets | WithdrowAssets) & {
+type AssetsCardProps = (DepositAssets | Asset) & {
     type: AssetsViewModelInit;
 };
 export const AssetsCard = ({ type, ...rest }: AssetsCardProps) => {
-    console.log(type, 'AssetsCard');
-
     switch (type) {
         case 'deposit':
             return (
                 DepositAssetsCodec.is(rest) && <AssetsCardDeposit {...rest} />
             );
         case 'withdrow':
-            return (
-                WithdrowAssetsCodec.is(rest) && <AssetsCardWithdrow {...rest} />
-            );
+            return AssetCodec.is(rest) && <AssetsCardWithdrow {...rest} />;
         default:
             break;
     }
@@ -41,10 +33,10 @@ export const AssetsCardDeposit = ({ name, ticker, img }: DepositAssets) => {
 
 export const AssetsCardWithdrow = ({
     name,
-    ticker,
-    img,
-    amount,
-}: WithdrowAssets) => {
+    image_url: img,
+    value: amount,
+    symbol: ticker,
+}: Asset) => {
     return (
         <div className={css.wrap}>
             <img src={img} className={css.img} />

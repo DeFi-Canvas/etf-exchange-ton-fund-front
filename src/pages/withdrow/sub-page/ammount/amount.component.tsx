@@ -5,6 +5,7 @@ import { pipe } from 'fp-ts/lib/function';
 import cn from 'classnames';
 import { useNavigate } from 'react-router-dom';
 
+// TODO: добавить ошибку слишком много
 type AmountErrors = 'too small';
 
 const getAmountErrorsText = (err: AmountErrors) => {
@@ -21,6 +22,7 @@ interface AmountProps {
     approximateCost: string;
     isNextButtonAvailable: boolean;
     availableBalance: number;
+    symbolLogo: string;
 }
 
 export const Amount = ({
@@ -30,6 +32,7 @@ export const Amount = ({
     approximateCost,
     isNextButtonAvailable,
     availableBalance,
+    symbolLogo,
 }: AmountProps) => {
     const navigate = useNavigate();
 
@@ -81,7 +84,7 @@ export const Amount = ({
             {/* TODO не поднимается вместе с клавиатурой */}
             <div className={cn(css.footerWrap)}>
                 <div className={css.availableBalance}>
-                    <img src="" alt="img" />
+                    <img src={symbolLogo} alt="img" />
                     <div className={css.infoWrap}>
                         <span className={css.title}>Available balance</span>
                         <span className={css.balance}>{availableBalance}</span>

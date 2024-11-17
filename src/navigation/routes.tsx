@@ -62,6 +62,7 @@ export const AppRoutes = () => {
     });
     const DepositPageResolved = DepositPageContainer({
         userStore,
+        withdrowStore,
     });
 
     const DepositEndPointResolved = DepositEndPointContainer({
@@ -70,6 +71,7 @@ export const AppRoutes = () => {
 
     const WithdrowResolved = Withdrow({
         userStore,
+        withdrowStore,
     });
 
     const AmountResolved = AmountContainer({

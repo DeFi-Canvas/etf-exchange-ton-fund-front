@@ -10,10 +10,12 @@ export const FooterContainer = injectable(
         memo(() => {
             const currency = useProperty(store.currency);
             const balanceAfter = useProperty(store.balanceAfter);
+            const symbolLogo = useProperty(store.symbolLogo);
 
             return React.createElement(Footer, {
                 balanceAfter,
                 currency,
+                symbolLogo,
             });
         })
 );

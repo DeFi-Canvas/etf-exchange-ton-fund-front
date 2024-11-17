@@ -14,6 +14,7 @@ export const CheckContainer = injectable(
             const currency = useProperty(store.currency);
             const address = useProperty(store.address);
             const memo = useProperty(store.memo);
+            const symbolLogo = useProperty(store.symbolLogo);
 
             return React.createElement(Check, {
                 ammount,
@@ -21,6 +22,7 @@ export const CheckContainer = injectable(
                 currency,
                 address,
                 memo,
+                symbolLogo,
             });
         })
 );

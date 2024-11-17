@@ -20,6 +20,7 @@ export const AmountContainer = injectable(
             );
             const updateAmmount = store.setAmount;
             const availableBalance = useProperty(store.availableBalance);
+            const symbolLogo = useProperty(store.symbolLogo);
 
             return React.createElement(Amount, {
                 currency,
@@ -28,6 +29,7 @@ export const AmountContainer = injectable(
                 approximateCost,
                 isNextButtonAvailable,
                 availableBalance,
+                symbolLogo,
             });
         })
 );

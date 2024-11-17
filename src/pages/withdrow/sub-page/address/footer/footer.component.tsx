@@ -6,12 +6,14 @@ interface FooterProps {
     balanceAfter: number;
     isGoToCheckAvailable: boolean;
     currency: string;
+    symbolLogo: string;
 }
 
 export const Footer = ({
     balanceAfter,
     isGoToCheckAvailable,
     currency,
+    symbolLogo,
 }: FooterProps) => {
     const navigate = useNavigate();
 
@@ -20,7 +22,7 @@ export const Footer = ({
             <div className={css.availableBalance}>
                 <span className={css.title}>Balance after withdraw</span>
                 <div className={css.infoWrap}>
-                    <img src="" alt="img" />
+                    <img src={symbolLogo} alt="img" />
                     <span className={css.balance}>
                         {balanceAfter} {currency}
                     </span>

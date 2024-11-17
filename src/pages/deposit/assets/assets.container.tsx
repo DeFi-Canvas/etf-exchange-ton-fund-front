@@ -18,6 +18,7 @@ export const AssetsContainer = injectable(
                 [type]
             );
             const assets = useProperty(vm.assets);
-            return React.createElement(Assets, { assets, type });
+            const handleClick = vm.handleClick;
+            return React.createElement(Assets, { assets, type, handleClick });
         }
 );

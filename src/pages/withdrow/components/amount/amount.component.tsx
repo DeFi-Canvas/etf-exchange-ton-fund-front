@@ -5,14 +5,20 @@ interface AmountProps {
     ammount: E.Either<string, number>;
     approximateCost: string;
     currency: string;
+    symbolLogo: string;
 }
 
-export const Amount = ({ ammount, approximateCost, currency }: AmountProps) => {
+export const Amount = ({
+    ammount,
+    approximateCost,
+    currency,
+    symbolLogo,
+}: AmountProps) => {
     return (
         <div className={css.amount}>
             <span className={css.title}>Withdraw amount</span>
             <div className={css.coinInfo}>
-                <img src="" alt="" />
+                <img src={symbolLogo} alt="" />
                 <div className={css.column}>
                     <span className={css.title}>
                         {E.isRight(ammount) && ammount.right} {currency}

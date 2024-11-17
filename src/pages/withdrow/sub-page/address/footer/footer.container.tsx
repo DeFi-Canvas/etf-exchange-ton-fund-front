@@ -13,11 +13,13 @@ export const FooterContainer = injectable(
                 store.isGoToCheckAvailable
             );
             const balanceAfter = useProperty(store.balanceAfter);
+            const symbolLogo = useProperty(store.symbolLogo);
 
             return React.createElement(Footer, {
                 balanceAfter,
                 isGoToCheckAvailable,
                 currency,
+                symbolLogo,
             });
         })
 );

@@ -3,6 +3,9 @@ import css from './error-result.module.css';
 interface ErrorResult {
     error: string;
 }
+// TODO: сделать глобальным компонентом
+// сузить тип до 'penfing' | 'loading err' | string
+// стоит подумать над RenderResult
 export const ErrorResult = ({ error }: ErrorResult) => {
     return (
         <div className={css.wrap}>

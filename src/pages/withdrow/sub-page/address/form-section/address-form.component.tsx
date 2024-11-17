@@ -8,6 +8,7 @@ interface AddressFormProps {
     ammount: E.Either<string, number>;
     approximateCost: string;
     currency: string;
+    symbolLogo: string;
 
     address: E.Either<string, string>;
     memo: E.Either<string, string>;
@@ -23,6 +24,7 @@ export const AddressForm = ({
     memo,
     setAddress,
     setMemo,
+    symbolLogo,
 }: AddressFormProps) => {
     const [currentAddress, setCurrentAddress] = useState(() =>
         E.isRight(address) ? address.right : ''
@@ -45,6 +47,7 @@ export const AddressForm = ({
     return (
         <div className={css.wrap}>
             <Amount
+                symbolLogo={symbolLogo}
                 ammount={ammount}
                 approximateCost={approximateCost}
                 currency={currency}

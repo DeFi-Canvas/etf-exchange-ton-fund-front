@@ -1,4 +1,5 @@
 import { CoinCardTempProps } from '@/components/ui-kit/coin-card/coin-card.component';
+import * as t from 'io-ts';
 
 export interface WaletResponce {
     total: number;
@@ -13,6 +14,15 @@ export type Asset = {
     image_url: string;
     value: number;
 };
+
+export const AssetCodec = t.type({
+    name: t.string,
+    symbol: t.string,
+    balance: t.number,
+    price: t.number,
+    image_url: t.string,
+    value: t.number,
+});
 
 export const mapAssetsFromBalance = (data: WaletResponce) => data.assets;
 

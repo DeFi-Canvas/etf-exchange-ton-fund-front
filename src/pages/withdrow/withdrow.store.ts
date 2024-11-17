@@ -17,6 +17,10 @@ export interface WithdrowService {
     isNextButtonAvailable: Property<boolean>;
     approximateCost: Property<string>;
     availableBalance: Property<number>;
+    setAvailableBalance: (d: number) => void;
+    setTickerPrice: (d: number) => void;
+    symbolLogo: Property<string>;
+    setSymbolLogo: (d: string) => void;
 
     isGoToCheckAvailable: Property<boolean>;
     balanceAfter: Property<number>;
@@ -32,12 +36,18 @@ export const newNewWithdrowService = (): NewWithdrowService => {
     const currency = newLensedAtom<string>('');
     const amount = newLensedAtom<E.Either<'too small', number>>(E.right(0));
     const isNextButtonAvailable = newLensedAtom(false);
-    const tickerPrice = newLensedAtom(5.1);
+    const tickerPrice = newLensedAtom(0);
+    const setTickerPrice = tickerPrice.set;
+
+    const symbolLogo = newLensedAtom<string>('');
+    const setSymbolLogo = symbolLogo.set;
+
     const setCurrency = currency.set;
     const approximateCost = newLensedAtom('');
     const availableBalance = newLensedAtom(0);
+    const setAvailableBalance = availableBalance.set;
     const isGoToCheckAvailable = newLensedAtom(false);
-    const balanceAfter = newLensedAtom(110);
+    const balanceAfter = newLensedAtom(0);
     const address = newLensedAtom<E.Either<string, string>>(E.left('empty'));
     const memo = newLensedAtom<E.Either<string, string>>(E.left('empty'));
 
@@ -104,6 +114,18 @@ export const newNewWithdrowService = (): NewWithdrowService => {
         )
     );
 
+    const balanceAfterEffect = pipe(
+        amount,
+        fromProperty,
+        tap((x) => {
+            if (E.isRight(x)) {
+                balanceAfter.set(
+                    Number((availableBalance.get() - x.right).toFixed(2))
+                );
+            }
+        })
+    );
+
     return valueWithEffect.new(
         {
             currency,
@@ -113,15 +135,20 @@ export const newNewWithdrowService = (): NewWithdrowService => {
             isNextButtonAvailable,
             approximateCost,
             availableBalance,
+            setAvailableBalance,
             isGoToCheckAvailable,
             balanceAfter,
             address,
             memo,
             setAddress,
             setMemo,
+            setTickerPrice,
+            symbolLogo,
+            setSymbolLogo,
         },
         isNextButtonAvailableEffect,
         approximateCostInitEffect,
-        addressFormValidationEffect
+        addressFormValidationEffect,
+        balanceAfterEffect
     );
 };
