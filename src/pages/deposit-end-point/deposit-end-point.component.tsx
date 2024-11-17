@@ -10,9 +10,13 @@ import { ErrorResult } from '@/components/error-result/error-result.component';
 
 interface DepositEndPointProps {
     readonly details: E.Either<string, DepositDetails>;
+    readonly coinLogo: string;
 }
 
-export const DepositEndPoint = ({ details }: DepositEndPointProps) => {
+export const DepositEndPoint = ({
+    details,
+    coinLogo,
+}: DepositEndPointProps) => {
     const { ticker } = useParams();
 
     const renderDepositEndPoint = pipe(
