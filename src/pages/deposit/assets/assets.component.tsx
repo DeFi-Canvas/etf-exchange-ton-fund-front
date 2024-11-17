@@ -1,12 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import css from './assets.module.css';
-import { AssetsCard } from '../assets-card/assets-card.component';
+import { AssetsCard } from '@/components/assets-card/assets-card.component.tsx';
 import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/lib/function';
 import { ErrorResult } from '@/components/error-result/error-result.component';
 import { AssetsViewModelInit } from './assets.view-model';
 import { DepositAssets, DepositAssetsCodec } from '../deposit.model';
 import { Asset, AssetCodec } from '@/pages/whalet/whalet.model';
+import cn from 'classnames';
 
 interface AssetsProps {
     assets: E.Either<string, Array<DepositAssets | Asset>>;
@@ -28,6 +29,19 @@ export const Assets = ({ assets, type, handleClick }: AssetsProps) => {
         }
     };
 
+    // TODO:V Тут какакя-то шальная история с тиипизацией, возможно из-за кодеков 
+    const formattedData = (asset: DepositAssets | Asset) => {
+        const data = {
+            img: asset.img,
+            title: asset.name,
+            subTitle: asset.ticker,
+            price: '',
+            priceText: '',
+        };
+    
+        return data;
+    };
+
     const onClick = (asset: DepositAssets | Asset) => {
         handleClick(asset);
         navigate(mapLink(asset));
@@ -40,17 +54,19 @@ export const Assets = ({ assets, type, handleClick }: AssetsProps) => {
             (assets) => {
                 return (
                     <>
-                        {assets.map((el) => (
-                            // <Link key={el.name} to={mapLink(el)}>
-                            <button key={el.name} onClick={() => onClick(el)}>
-                                <AssetsCard {...el} type={type} />
-                            </button>
-                            // </Link>
+                        {assets.map((assetsItemData) => (
+                            <div key={assetsItemData.name} className={css.assetCardWrapper} onClick={() => onClick(assetsItemData)}>
+                                <AssetsCard {...formattedData(assetsItemData)} />
+                            </div>
                         ))}
                     </>
                 );
             }
         )
     );
-    return <div className={css.coinCards}>{renderAssets}</div>;
+    return (
+        <div className={cn('app-container', css.assetsWrapperContainer)}>
+            {renderAssets}
+        </div>
+    );
 };

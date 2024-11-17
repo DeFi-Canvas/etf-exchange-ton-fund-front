@@ -13,7 +13,7 @@ export const DepositPageContainer = injectable(
                     <h2 className={css.depositeTitle}>Deposit</h2>
                     <SerchInput placeholder="Search" />
                 </div>
-                <div className={css.depositCoins}>
+                <div className={css.assetsWrapper}>
                     <AssetsContainer type={'deposit'} />
                 </div>
             </div>
