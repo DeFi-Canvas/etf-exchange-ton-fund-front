@@ -5,6 +5,7 @@ export interface Assets {
     title: string;
     subTitle: string;
     price?: string;
+    priceText?: string;
 }
 
 export const assetsCodec = t.type({
@@ -12,6 +13,7 @@ export const assetsCodec = t.type({
     title: t.string,
     subTitle: t.string,
     price: t.union([t.string, t.undefined]),
+    priceText: t.string,
 });
 
 export interface AssetsPnl extends Assets {
