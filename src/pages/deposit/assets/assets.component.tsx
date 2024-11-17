@@ -29,8 +29,14 @@ export const Assets = ({ assets, type, handleClick }: AssetsProps) => {
         }
     };
 
-    // TODO:V Тут какакя-то шальная история с тиипизацией, возможно из-за кодеков
-    const formattedData = (asset: DepositAssets | Asset) => {
+    // TODO:V интерфейс пока что тут оставлю, но надо заменить скорее всего
+    interface IAssetDate {
+        img: string,
+        name: string,
+        ticker: string,
+    }
+    // TODO:V Тут какакя-то шальная история с тиипизацией, возможно из-за кодеков (должно быть вроде DepositAssets | Asset)
+    const formattedData = (asset: IAssetDate) => {
         const data = {
             img: asset.img,
             title: asset.name,
