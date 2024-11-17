@@ -5,6 +5,9 @@ import cn from 'classnames';
 interface CardPnlProps extends AssetsPnl {}
 
 const CardPnl = (props: CardPnlProps) => {
+    const isStatusSuccess = props.pnl.status === 'UP';
+    const isStatusError = props.pnl.value === 'DOWN';
+
     return (
         <div className={css.card}>
             <img className={css.image} src={props.img} alt="" />
@@ -20,10 +23,12 @@ const CardPnl = (props: CardPnlProps) => {
                             dangerouslySetInnerHTML={{ __html: props.price }}
                         />
                         {props.pnl.value && (
-                            <span className={cn(css.priceText, {
-                                [css.priceTextGreen]: props.pnl.status === 'UP',
-                                [css.priceTextRed]: props.pnl.status === 'DOWN',
-                            })}>
+                            <span
+                                className={cn(css.priceText, {
+                                    [css.priceTextGreen]: isStatusSuccess,
+                                    [css.priceTextRed]: isStatusError,
+                                })}
+                            >
                                 {props.pnl.value}
                             </span>
                         )}
@@ -31,7 +36,7 @@ const CardPnl = (props: CardPnlProps) => {
                 )}
             </div>
         </div>
-    )
+    );
 };
 
 export default CardPnl;

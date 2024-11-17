@@ -15,7 +15,7 @@ const InfoCard = (props: InfoCardProps) => {
         setIsActive(true);
     };
     const copyText = isActive ? 'Done' : 'Copy';
-    const copyIcon = isActive ? <CopyDoneIcon /> : <CopyIcon />
+    const copyIcon = isActive ? <CopyDoneIcon /> : <CopyIcon />;
 
     return (
         <div className={css.infoCard}>
@@ -32,6 +32,6 @@ const InfoCard = (props: InfoCardProps) => {
             <span className={css.node}>{props.node}</span>
         </div>
     );
-}
+};
 
 export default InfoCard;

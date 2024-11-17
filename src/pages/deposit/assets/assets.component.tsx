@@ -29,7 +29,7 @@ export const Assets = ({ assets, type, handleClick }: AssetsProps) => {
         }
     };
 
-    // TODO:V Тут какакя-то шальная история с тиипизацией, возможно из-за кодеков 
+    // TODO:V Тут какакя-то шальная история с тиипизацией, возможно из-за кодеков
     const formattedData = (asset: DepositAssets | Asset) => {
         const data = {
             img: asset.img,
@@ -38,7 +38,7 @@ export const Assets = ({ assets, type, handleClick }: AssetsProps) => {
             price: '',
             priceText: '',
         };
-    
+
         return data;
     };
 
@@ -55,8 +55,14 @@ export const Assets = ({ assets, type, handleClick }: AssetsProps) => {
                 return (
                     <>
                         {assets.map((assetsItemData) => (
-                            <div key={assetsItemData.name} className={css.assetCardWrapper} onClick={() => onClick(assetsItemData)}>
-                                <AssetsCard {...formattedData(assetsItemData)} />
+                            <div
+                                key={assetsItemData.name}
+                                className={css.assetCardWrapper}
+                                onClick={() => onClick(assetsItemData)}
+                            >
+                                <AssetsCard
+                                    {...formattedData(assetsItemData)}
+                                />
                             </div>
                         ))}
                     </>

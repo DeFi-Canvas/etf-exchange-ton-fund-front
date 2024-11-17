@@ -28,14 +28,13 @@ export const DepositEndPoint = ({
                         <div className={cn('app-container', css.content)}>
                             <div className={css.titleWrap}>
                                 Send only&nbsp;
-                                <span className={css.bold}>{ticker}</span>&nbsp;via&nbsp; 
-                                <span className={css.bold}>TON</span>&nbsp;to this address. 
-                                Other coins, jettons and NFTs will be permanently lost.
+                                <span className={css.bold}>{ticker}</span>
+                                &nbsp;via&nbsp;
+                                <span className={css.bold}>TON</span>&nbsp;to
+                                this address. Other coins, jettons and NFTs will
+                                be permanently lost.
                             </div>
-                            <img 
-                                className={css.qrCode}
-                                src={details.qrCode} 
-                            />
+                            <img src={details.qrCode} className={css.qrCode} />
                             <div className={css.infoWrapper}>
                                 <InfoCard
                                     title={'Deposit address'}
@@ -48,8 +47,14 @@ export const DepositEndPoint = ({
                             </div>
                         </div>
                         <div className={css.overlayWrapper}>
-                            <img src={coinLogo} className={css.coinLogoImage1}/>
-                            <img src={coinLogo} className={css.coinLogoImage2}/>
+                            <img
+                                src={coinLogo}
+                                className={css.coinLogoImage1}
+                            />
+                            <img
+                                src={coinLogo}
+                                className={css.coinLogoImage2}
+                            />
                         </div>
                     </>
                 );
