@@ -11,11 +11,13 @@ export const FinalContainer = injectable(
             const currency = useProperty(store.currency);
             const amount = useProperty(store.amount);
             const address = useProperty(store.address);
+            const onClick = store.clearData;
 
             return React.createElement(Final, {
                 currency,
                 amount,
                 address,
+                onClick,
             });
         })
 );

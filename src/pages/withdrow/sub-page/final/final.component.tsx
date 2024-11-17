@@ -8,9 +8,10 @@ interface FinalProps {
     amount: E.Either<string, number>;
     currency: string;
     address: E.Either<string, string>;
+    onClick: () => void;
 }
 
-export const Final = ({ amount, currency, address }: FinalProps) => {
+export const Final = ({ amount, currency, address, onClick }: FinalProps) => {
     const navigate = useNavigate();
     return (
         <div className={css.wrap}>
@@ -30,11 +31,20 @@ export const Final = ({ amount, currency, address }: FinalProps) => {
             <div className={css.footer}>
                 <button
                     className={css.transactions}
-                    onClick={() => navigate('/#transactions')}
+                    onClick={() => {
+                        navigate('/#transactions');
+                        onClick();
+                    }}
                 >
                     View the transaction
                 </button>
-                <button className={css.finish} onClick={() => navigate('/')}>
+                <button
+                    className={css.finish}
+                    onClick={() => {
+                        navigate('/');
+                        onClick();
+                    }}
+                >
                     Finish
                 </button>
             </div>

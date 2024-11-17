@@ -14,22 +14,23 @@ import { newWithdrawRestService } from '@/API/withdraw.service';
 export interface WithdrowService {
     currency: Property<string>;
     amount: Property<E.Either<'too small', number>>;
-    setCurrency: (d: string) => void;
-    setAmount: (d: number) => void;
     isNextButtonAvailable: Property<boolean>;
     approximateCost: Property<string>;
     availableBalance: Property<number>;
-    setAvailableBalance: (d: number) => void;
-    setTickerPrice: (d: number) => void;
     symbolLogo: Property<string>;
-    setSymbolLogo: (d: string) => void;
     isGoToCheckAvailable: Property<boolean>;
     balanceAfter: Property<number>;
     address: Property<E.Either<string, string>>;
     memo: Property<E.Either<string, string>>;
+    setCurrency: (d: string) => void;
+    setAmount: (d: number) => void;
+    setAvailableBalance: (d: number) => void;
+    setTickerPrice: (d: number) => void;
+    setSymbolLogo: (d: string) => void;
     setAddress: (d: string) => void;
     setMemo: (d: string) => void;
     onWithdrow: () => void;
+    clearData: () => void;
 }
 
 export type NewWithdrowService = ValueWithEffect<WithdrowService>;
@@ -37,25 +38,27 @@ export type NewWithdrowService = ValueWithEffect<WithdrowService>;
 export const newNewWithdrowService = injectable(
     newWithdrawRestService,
     (service): NewWithdrowService => {
+        //#region init Property
         const currency = newLensedAtom<string>('');
         const amount = newLensedAtom<E.Either<'too small', number>>(E.right(0));
-        const isNextButtonAvailable = newLensedAtom(false);
         const tickerPrice = newLensedAtom(0);
-        const setTickerPrice = tickerPrice.set;
-
         const symbolLogo = newLensedAtom<string>('');
-        const setSymbolLogo = symbolLogo.set;
-
-        const setCurrency = currency.set;
         const approximateCost = newLensedAtom('');
         const availableBalance = newLensedAtom(0);
-        const setAvailableBalance = availableBalance.set;
-        const isGoToCheckAvailable = newLensedAtom(false);
         const balanceAfter = newLensedAtom(0);
         const address = newLensedAtom<E.Either<string, string>>(
             E.left('empty')
         );
         const memo = newLensedAtom<E.Either<string, string>>(E.left('empty'));
+
+        const isGoToCheckAvailable = newLensedAtom(false);
+        const isNextButtonAvailable = newLensedAtom(false);
+
+        //#region seters Property
+        const setAvailableBalance = availableBalance.set;
+        const setSymbolLogo = symbolLogo.set;
+        const setCurrency = currency.set;
+        const setTickerPrice = tickerPrice.set;
 
         const setAmount = (d: number) => {
             if (d > 0 && d < 1) {
@@ -124,6 +127,21 @@ export const newNewWithdrowService = injectable(
             });
         };
 
+        const clearData = () => {
+            currency.set('');
+            amount.set(E.right(0));
+            isNextButtonAvailable.set(false);
+            tickerPrice.set(0);
+            symbolLogo.set('');
+            approximateCost.set('');
+            availableBalance.set(0);
+            isGoToCheckAvailable.set(false);
+            balanceAfter.set(0);
+            address.set(E.left('empty'));
+            memo.set(E.left('empty'));
+        };
+
+        //#region Effects
         const approximateCostInitEffect = pipe(
             currency,
             fromProperty,
@@ -179,6 +197,7 @@ export const newNewWithdrowService = injectable(
                 symbolLogo,
                 setSymbolLogo,
                 onWithdrow,
+                clearData,
             },
             isNextButtonAvailableEffect,
             approximateCostInitEffect,
