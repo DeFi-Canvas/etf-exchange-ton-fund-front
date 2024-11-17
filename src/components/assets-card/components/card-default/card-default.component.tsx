@@ -1,8 +1,8 @@
 import { Assets } from '@/components/assets-card/assets-card.model.ts';
 
-interface AssetsCardDefaultProps extends Assets {}
+interface CardDefaultProps extends Assets {}
 
-const AssetsCardDefault = (props: AssetsCardDefaultProps) => {
+const CardDefault = (props: CardDefaultProps) => {
     return (
         <div>
             <img src={props.img} alt="" />
@@ -21,4 +21,4 @@ const AssetsCardDefault = (props: AssetsCardDefaultProps) => {
     );
 };
 
-export default AssetsCardDefault;
+export default CardDefault;

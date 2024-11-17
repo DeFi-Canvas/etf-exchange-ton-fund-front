@@ -5,8 +5,8 @@ import {
     assetsPnlCodec,
 } from './assets-card.model';
 // Templates
-import AssetsCardDefault from './components/assets-card-default.component.tsx';
-import AssetsCardPnl from './components/assets-card-pnl.component.tsx';
+import CardDefault from './components/card-default/card-default.component.tsx';
+import CardPnl from './components/card-pnl/card-pnl.component.tsx';
 
 type AssetsCardType = 'pnl' | 'default';
 
@@ -15,9 +15,9 @@ type AssetsCard = (Assets | AssetsPnl) & { type?: AssetsCardType };
 export const AssetsCard = ({ type = 'default', ...props }: AssetsCard) => {
     switch (type) {
         case 'default':
-            return assetsCodec.is(props) && <AssetsCardDefault {...props} />;
+            return assetsCodec.is(props) && <CardDefault {...props} />;
         case 'pnl':
-            return assetsPnlCodec.is(props) && <AssetsCardPnl {...props} />;
+            return assetsPnlCodec.is(props) && <CardPnl {...props} />;
         default:
             break;
     }
