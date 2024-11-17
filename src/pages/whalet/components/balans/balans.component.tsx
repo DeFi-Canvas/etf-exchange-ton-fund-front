@@ -7,6 +7,7 @@ import css from './balans.module.css';
 import { OptionSpan } from '@/components/ui-kit/fpts-components-utils/options.component';
 import { pipe } from 'fp-ts/lib/function';
 import { Balance } from '../../whalet.view-model';
+import cn from 'classnames';
 
 export interface BalansProps {
     balance: O.Option<Balance>;
@@ -14,7 +15,7 @@ export interface BalansProps {
 
 export const Balans = ({ balance }: BalansProps) => {
     return (
-        <div className={'app-container ' + css.wrap}>
+        <div className={cn('app-container', css.wrap)}>
             <div className={css.labelWrap}>
                 <span className={css.label}>Current balance</span>
                 <div className={css.alert}>

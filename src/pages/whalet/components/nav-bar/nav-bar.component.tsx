@@ -6,11 +6,12 @@ import {
 } from '@/components/Icons/Icons';
 import css from './nav-bar.module.css';
 import { NavLink } from 'react-router-dom';
+import cn from 'classnames';
 
 // TODO  доделать на ссылки
 export const NavBar = () => {
     return (
-        <div className={'app-container ' + css.wrap}>
+        <div className={cn('app-container', css.wrap)}>
             <NavLink to={'deposit'} className={css.link}>
                 <div>
                     <DepositDepositIcon />

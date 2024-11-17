@@ -1,15 +1,19 @@
-.wrap {
-    padding: 15px 16px;
+.depositePage {
+    padding-top: 32px;
 }
 
-.coinCards {
+.depositeHeader {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    padding: 20px 16px;
-    border-radius: 24px;
-    background: var(--Colors-Background-White, #fff);
-    a {
-        text-decoration: none;
-    }
+    gap: 12px;
+}
+
+.depositeTitle {
+    font-weight: 590;
+    font-size: 32px;
+    line-height: 1.3;
+}
+
+.depositCoins {
+    margin-top: 16px;
 }
