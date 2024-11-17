@@ -9,7 +9,7 @@ export const DepositPageContainer = injectable(
     (AssetsContainer) => () => {
         return (
             <div className={css.depositePage}>
-                <div className={ cn('app-container', css.depositeHeader) }>
+                <div className={cn('app-container', css.depositeHeader)}>
                     <h2 className={css.depositeTitle}>Deposit</h2>
                     <SerchInput placeholder="Search" />
                 </div>

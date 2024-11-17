@@ -25,8 +25,7 @@
             resize: none;
             padding: 12px;
             border-radius: 12px;
-            border: 1px solid
-                var(--color-main-purple-20);
+            border: 1px solid var(--color-main-purple-20);
             background: var(--Colors-Background-White, #fff);
             overflow: hidden;
             color: var(--color-text-dark-50);
@@ -47,8 +46,7 @@
             gap: 8px;
             align-self: stretch;
             border-radius: 12px;
-            border: 0px solid
-                var(--color-main-purple-20);
+            border: 0px solid var(--color-main-purple-20);
             background: var(--Colors-Background-Light, #f9f8ff);
         }
     }

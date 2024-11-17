@@ -15,16 +15,16 @@ export interface AssetsProps {
 const emptyText =
     'Your assets balance is empty now. Get started by deposit or browsing through funds to discover opportunities.';
 
-const formattedData = (assets:  CoinCardProps) => {
+const formattedData = (assets: CoinCardProps) => {
     const data = {
         img: '',
         title: '',
         subTitle: '',
         price: '',
-    }
+    };
 
     // TODO:V Вынести глобально в стор или какое-то местное реакт хранилище - значок доллора перед переменной говорит о том, что переменная глобальная
-    const $currency = '&dollar;'
+    const $currency = '&dollar;';
 
     if (assets.logo._tag !== 'None') {
         data.img = assets.logo.value;
@@ -40,7 +40,7 @@ const formattedData = (assets:  CoinCardProps) => {
     }
 
     return data;
-}
+};
 
 export const Assets = ({ assets }: AssetsProps) => {
     const currentAssets = pipe(
@@ -67,16 +67,14 @@ export const Assets = ({ assets }: AssetsProps) => {
 
     return (
         <div className={css.wrap}>
-            {currentAssets.map(assets => {
+            {currentAssets.map((assets) => {
                 const assetsData = formattedData(assets);
-                const uniqKey = pipe(assets.ticker, O.getOrElse(() => '-'))
-
-                return (
-                    <AssetsCard
-                        key={uniqKey}
-                        {...assetsData}
-                    />
+                const uniqKey = pipe(
+                    assets.ticker,
+                    O.getOrElse(() => '-')
                 );
+
+                return <AssetsCard key={uniqKey} {...assetsData} />;
             })}
         </div>
     );

@@ -17,7 +17,7 @@ export const assetsCodec = t.type({
 export interface AssetsPnl extends Assets {
     pnl: {
         value: string;
-        status: string, // TODO: Временно заменил просто на строку, чтоб не ругался тип
+        status: string; // TODO: Временно заменил просто на строку, чтоб не ругался тип
     };
 }
 

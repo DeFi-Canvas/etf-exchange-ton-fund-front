@@ -24,8 +24,7 @@
 
         .row {
             border-radius: 12px;
-            border: 0px solid
-                var(--color-main-purple-20);
+            border: 0px solid var(--color-main-purple-20);
             background: var(--Colors-Background-Light, #f9f8ff);
             padding: 14px 12px;
             word-break: break-all;
@@ -37,8 +36,7 @@
             gap: 8px;
             align-self: stretch;
             border-radius: 12px;
-            border: 0px solid
-                var(--color-main-purple-20);
+            border: 0px solid var(--color-main-purple-20);
             background: var(--Colors-Background-Light, #f9f8ff);
         }
     }
