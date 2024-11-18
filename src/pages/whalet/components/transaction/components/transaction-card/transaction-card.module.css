@@ -45,6 +45,10 @@
     line-height: 1.5;
 }
 
+.price {
+    color: var(--color-status, var(--color-text-dark));
+}
+
 .status {
     font-size: 12px;
     color: var(--color-text-dark-50);

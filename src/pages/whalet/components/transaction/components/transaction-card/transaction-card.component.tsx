@@ -7,29 +7,40 @@ import { ITransaction } from '../../types';
 import { TransactionStatusIcon } from '@/components/Icons/Icons';
 import cn from 'classnames';
 import css from './transaction-card.module.css';
+import { CSSProperties } from 'react';
 
-const TransactionCard = ({
-    type,
-    fullDate,
-    description,
-    amount,
-    currency,
-    modificator,
-    side,
-    status,
-}: ITransaction) => {
-    const typeUI = pipe(type, O.map(formatCapsToSepareteCamel));
-    const modificatorUI = pipe(modificator, O.map(formatCapsToSepareteCamel));
-    const dateUI = pipe(fullDate, O.map(formatDateToStr));
+type CustomCSSProperties = CSSProperties & {
+    '--color-status'?: string;
+};
+
+const styleListForStatus = (modificatorUI: O.Option<string>): CustomCSSProperties => {
+    const statusText = pipe(
+        modificatorUI,
+        O.getOrElse(() => '-')
+    );
+
+    let colorStatus = 'var(--color-text-dark)';
+
+    if (statusText === 'Error') {
+        colorStatus = 'var(--color-system-red)';
+    }
+
+    return { '--color-status': colorStatus };
+}
+
+const TransactionCard = (props: ITransaction) => {
+    const typeUI = pipe(props.type, O.map(formatCapsToSepareteCamel));
+    const modificatorUI = pipe(props.modificator, O.map(formatCapsToSepareteCamel));
+    const dateUI = pipe(props.fullDate, O.map(formatDateToStr));
     const sideModificatorUI = pipe(
-        side,
+        props.side,
         O.map((side) => (side === 'BUY' ? '+' : '-')),
         O.getOrElse(() => '')
     );
-    const hasDescription = pipe(description, O.isSome);
+    const hasDescription = pipe(props.description, O.isSome);
     const Icon = () =>
         pipe(
-            status,
+            props.status,
             O.map((s) => (
                 // eslint-disable-next-line react/jsx-key
                 <TransactionStatusIcon status={s} className={css.icon} />
@@ -43,7 +54,7 @@ const TransactionCard = ({
                 <div className={css.cardInfoTitle}>
                     <OptionSpan data={typeUI} />
                     &nbsp;
-                    {hasDescription && <OptionSpan data={description} />}
+                    {hasDescription && <OptionSpan data={props.description} />}
                 </div>
                 <div className={css.statusDateWrapper}>
                     <Icon />
@@ -51,12 +62,12 @@ const TransactionCard = ({
                 </div>
             </div>
             <div className={cn(css.cardInfo, css.cardInfoEnd)}>
-                <div>
+                <div className={css.price} style={styleListForStatus(modificatorUI)}>
                     <OptionSpan
                         modificator={sideModificatorUI}
-                        data={mapNumberOptionToUI(amount)}
+                        data={mapNumberOptionToUI(props.amount)}
                     />
-                    <OptionSpan data={currency} />
+                    <OptionSpan data={props.currency} />
                 </div>
                 <div className={css.status}>
                     <OptionSpan data={modificatorUI} />
