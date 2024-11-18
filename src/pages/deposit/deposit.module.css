@@ -1,14 +1,14 @@
-.depositePage {
+.page {
     padding-top: 32px;
 }
 
-.depositeHeader {
+.pageHeader {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-.depositeTitle {
+.pageTitle {
     font-weight: 590;
     font-size: 32px;
     line-height: 1.3;

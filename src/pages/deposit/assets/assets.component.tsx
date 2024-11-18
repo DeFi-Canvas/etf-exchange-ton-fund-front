@@ -60,8 +60,6 @@ export const Assets = ({ assets, type, handleClick }: AssetsProps) => {
         navigate(mapLink(asset));
     };
 
-    console.log(assets, 'assets');
-
     return (
         <div className={cn('app-container', css.assetsWrapperContainer)}>
             <RenderEither
