@@ -1,4 +1,4 @@
-import { CoinCardTempProps } from '@/components/ui-kit/coin-card/coin-card.component';
+import { CoinCardData } from '@/components/assets-card/assets-card.model';
 import * as t from 'io-ts';
 
 export interface WaletResponce {
@@ -38,7 +38,7 @@ export interface FundsRespnce {
     is_avaiable: boolean;
 }
 
-export const mapFunds = (data: FundsRespnce): CoinCardTempProps => ({
+export const mapFunds = (data: FundsRespnce): CoinCardData => ({
     logo: data.image_url,
     name: data.name,
     ticker: '',

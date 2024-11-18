@@ -6,10 +6,10 @@ import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/lib/function';
 import { tap } from '@most/core';
 import { newWaletRestService } from '@/API/whalet.service';
-import { CoinCardTempProps } from '@/components/ui-kit/coin-card/coin-card.component';
+import { CoinCardData } from '@/components/assets-card/assets-card.model';
 
 export interface FundsViewModel {
-    readonly funds: Property<E.Either<string, Array<CoinCardTempProps>>>;
+    readonly funds: Property<E.Either<string, Array<CoinCardData>>>;
 }
 
 export interface NewFundsViewModel {
@@ -20,9 +20,9 @@ export const newFundsViewModel = injectable(
     newWaletRestService,
     (service): NewFundsViewModel =>
         () => {
-            const funds = newLensedAtom<
-                E.Either<string, Array<CoinCardTempProps>>
-            >(E.left('pending'));
+            const funds = newLensedAtom<E.Either<string, Array<CoinCardData>>>(
+                E.left('pending')
+            );
 
             const getFundsEffect = pipe(service.getFunds(), tap(funds.set));
 

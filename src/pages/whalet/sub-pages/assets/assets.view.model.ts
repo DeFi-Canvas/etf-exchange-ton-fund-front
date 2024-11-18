@@ -8,11 +8,11 @@ import { either } from 'fp-ts';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { newWaletRestService } from '@/API/whalet.service';
 import { newLensedAtom } from '@frp-ts/lens';
-import { CoinCardProps } from '@/components/ui-kit/coin-card/coin-card.component';
 import { UserStoreService } from '@/store/user.store';
+import { CoinCardData } from '@/components/assets-card/assets-card.model';
 
 export interface AssetsViewModel {
-    assets: Property<O.Option<Array<CoinCardProps>>>;
+    assets: Property<O.Option<Array<CoinCardData>>>;
 }
 
 export interface NewAssetsViewModel {
@@ -24,11 +24,11 @@ export const newAssetsViewModel = injectable(
     newWaletRestService,
     (userStore, waletRestService): NewAssetsViewModel =>
         () => {
-            const assets = newLensedAtom<O.Option<Array<CoinCardProps>>>(
+            const assets = newLensedAtom<O.Option<Array<CoinCardData>>>(
                 userStore.assets.get()
             );
 
-            const setAssets = (data: O.Option<Array<CoinCardProps>>) => {
+            const setAssets = (data: O.Option<Array<CoinCardData>>) => {
                 assets.set(data), userStore.setAssets(data);
             };
 
@@ -38,13 +38,11 @@ export const newAssetsViewModel = injectable(
                     flow(
                         either.map((jettons) =>
                             jettons.map((jetton) => ({
-                                logo: O.some(jetton.image_url),
-                                name: O.some(jetton.name),
-                                isStableCoin: false,
-                                ticker: O.some(jetton.symbol),
-                                coinAmount: O.some(jetton.balance),
-                                cost: O.some(jetton.price),
-                                pnl: O.none,
+                                logo: jetton.image_url,
+                                name: jetton.name,
+                                ticker: jetton.symbol,
+                                coinAmount: jetton.balance,
+                                cost: jetton.price,
                             }))
                         ),
                         O.fromEither,

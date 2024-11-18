@@ -1,4 +1,3 @@
-import { CoinCardTempProps } from '@/components/ui-kit/coin-card/coin-card.component';
 import css from './funds.module.css';
 import { EmptyScrean } from '../epty-screan/epty-screan.component';
 import emptyGif from '../../../../assets/images/money_duck.gif';
@@ -6,15 +5,16 @@ import AppButton from '@/components/AppButton/AppButton';
 import * as E from 'fp-ts/Either';
 import { AssetsCard } from '@/components/assets-card/assets-card.component';
 import { RenderEither } from '@/components/ui-kit/fpts-components-utils/either/either.component';
+import { CoinCardData } from '@/components/assets-card/assets-card.model';
 
 const emptyText = `You don't have any investments in funds right now. Get started by browsing through funds to discover opportunities.`;
 
 interface FundsProps {
-    funds: E.Either<string, Array<CoinCardTempProps>>;
+    funds: E.Either<string, Array<CoinCardData>>;
 }
 
 //TODO: вынести в модель
-const formattedData = (assets: CoinCardTempProps) => {
+const formattedData = (assets: CoinCardData) => {
     // TODO:V Вынести глобально в стор или какое-то местное реакт хранилище - значок доллора перед переменной говорит о том, что переменная глобальная
     const $currency = '&dollar;';
 

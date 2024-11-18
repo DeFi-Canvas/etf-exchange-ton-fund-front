@@ -3,7 +3,6 @@ import { Either } from 'fp-ts/lib/Either';
 import { UserStoreService } from '@/store/user.store';
 import { injectable, token } from '@injectable-ts/core';
 import { getRequest } from './request.utils';
-import { CoinCardTempProps } from '@/components/ui-kit/coin-card/coin-card.component';
 import {
     Asset,
     mapAssetsFromBalance,
@@ -13,11 +12,12 @@ import {
     WaletResponce,
 } from '@/pages/whalet/whalet.model';
 import { API } from './API';
+import { CoinCardData } from '@/components/assets-card/assets-card.model';
 
 export interface WaletRestService {
     getBalance: () => Stream<Either<string, WaletResponce>>;
     getAssets: () => Stream<Either<string, Array<Asset>>>;
-    getFunds: () => Stream<Either<string, Array<CoinCardTempProps>>>;
+    getFunds: () => Stream<Either<string, Array<CoinCardData>>>;
     getTransactions: () => Stream<Either<string, Array<Transactions>>>;
 }
 

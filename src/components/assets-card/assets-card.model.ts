@@ -33,3 +33,19 @@ export const assetsPnlCodec = t.type({
         status: t.string,
     }),
 });
+
+// нечто подобное ожидаем с бека
+export interface CoinCardData {
+    logo: string;
+    name: string;
+    ticker: string;
+    coinAmount: number;
+    cost: number;
+    pnl?: {
+        amount: number;
+        currency: string;
+        side: 'PROFIT' | 'LOSE';
+        persent: number;
+    };
+    type?: 'primary' | 'secondory';
+}
