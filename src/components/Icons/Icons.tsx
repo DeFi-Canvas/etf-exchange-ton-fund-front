@@ -30,7 +30,7 @@ import ChevronRight from '@/assets/icons/chevron-right.svg?react';
 import Copy from '../../assets/icons/copy.svg?react';
 import CopyDone from '@/assets/icons/copy-done.svg?react';
 
-import { TransactionStatus } from '@/pages/whalet/components/transaction/transaction.component';
+import { TTransactionStatus } from '@/pages/whalet/components/transaction/types';
 
 export const HomeIcon = ({
     className = '',
@@ -144,7 +144,7 @@ export const TransactionStatusIcon = ({
     className = '',
 }: {
     className?: string;
-    status: TransactionStatus;
+    status: TTransactionStatus;
 }) => {
     switch (status) {
         case 'BUY':
