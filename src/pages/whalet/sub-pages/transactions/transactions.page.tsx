@@ -1,11 +1,9 @@
 import * as O from 'fp-ts/Option';
 import css from './transactions.module.css';
-import {
-    Transaction,
-    TransactionGroup,
-} from '../../components/transaction/transaction.component';
+import { TransactionGroup } from '../../components/transaction/transaction.component';
+import { ITransaction } from '../../components/transaction/types';
 
-const MOCK_TRANSACTION: Transaction = {
+const MOCK_TRANSACTION: ITransaction = {
     type: O.some('MULTI-SWAP'),
     description: O.none,
     fullDate: O.some(new Date('2023-05-11')),
@@ -97,7 +95,7 @@ const TRANSACTIONS_PAGE_MOCK_EMPTY: Array<TransactionGroup> = [];
 
 export const Transactions = () => {
     return (
-        <div className={css.wrap}>
+        <div className={css.transactionsWrapper}>
             {TRANSACTIONS_PAGE_MOCK_EMPTY.map((t) => (
                 <TransactionGroup key={t.date.getMilliseconds()} {...t} />
             ))}

@@ -34,4 +34,5 @@
     position: relative;
     z-index: var(--z-index-1);
     margin-top: calc(var(--header-padding-bottom) * (-1));
+    padding-bottom: 32px;
 }

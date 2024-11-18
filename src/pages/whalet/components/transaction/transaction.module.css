@@ -1,63 +1,16 @@
-.wrap {
+.transactionSection {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    align-self: stretch;
-    border-top: 1px solid var(--color-main-purple-10);
-    padding-top: 12px;
-    padding-bottom: 12px;
-    &:first-child {
-        border-top: unset;
-        padding-top: unset;
-    }
-    &:last-child {
-        padding-bottom: unset;
-    }
-    .mb-1 {
-        margin-bottom: 5px;
-    }
-
-    .row {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .description {
-        max-width: 190px;
-    }
-
-    .samllText {
-        color: var(--color-text-dark-50);
-        font-size: 12px;
-    }
-
-    .dateWrap {
-        display: flex;
-    }
-    .icon {
-        width: 16px;
-        height: 16px;
-        margin-right: 8px;
-    }
+    gap: 12px;
+}
+.transactionTitle {
+    font-weight: 510;
+    font-size: 18px;
+    line-height: 1.5;
 }
 
-.blockWrap {
-    padding: var(--Font-Size-md, 16px);
-
-    .groupWrap {
-        border-radius: 12px;
-        background: var(--Colors-Background-Light, #f9f8ff);
-        display: flex;
-        padding: var(--Font-Size-md, 16px);
-        flex-direction: column;
-    }
-
-    .date {
-        display: block;
-        color: var(--color-text-dark);
-        font-size: var(--Font-Size-lg, 18px);
-        font-weight: 510;
-        padding-bottom: 12px;
-    }
+.transactionCardWrapper {
+    background-color: var(--color-background-light);
+    border-radius: 16px;
+    padding: 16px;
 }
