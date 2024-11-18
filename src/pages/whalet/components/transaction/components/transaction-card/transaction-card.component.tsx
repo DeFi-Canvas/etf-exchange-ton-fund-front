@@ -13,7 +13,9 @@ type CustomCSSProperties = CSSProperties & {
     '--color-status'?: string;
 };
 
-const styleListForStatus = (modificatorUI: O.Option<string>): CustomCSSProperties => {
+const styleListForStatus = (
+    modificatorUI: O.Option<string>
+): CustomCSSProperties => {
     const statusText = pipe(
         modificatorUI,
         O.getOrElse(() => '-')
@@ -26,11 +28,14 @@ const styleListForStatus = (modificatorUI: O.Option<string>): CustomCSSPropertie
     }
 
     return { '--color-status': colorStatus };
-}
+};
 
 const TransactionCard = (props: ITransaction) => {
     const typeUI = pipe(props.type, O.map(formatCapsToSepareteCamel));
-    const modificatorUI = pipe(props.modificator, O.map(formatCapsToSepareteCamel));
+    const modificatorUI = pipe(
+        props.modificator,
+        O.map(formatCapsToSepareteCamel)
+    );
     const dateUI = pipe(props.fullDate, O.map(formatDateToStr));
     const sideModificatorUI = pipe(
         props.side,
@@ -62,7 +67,10 @@ const TransactionCard = (props: ITransaction) => {
                 </div>
             </div>
             <div className={cn(css.cardInfo, css.cardInfoEnd)}>
-                <div className={css.price} style={styleListForStatus(modificatorUI)}>
+                <div
+                    className={css.price}
+                    style={styleListForStatus(modificatorUI)}
+                >
                     <OptionSpan
                         modificator={sideModificatorUI}
                         data={mapNumberOptionToUI(props.amount)}
