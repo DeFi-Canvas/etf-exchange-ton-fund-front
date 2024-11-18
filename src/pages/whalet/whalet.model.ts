@@ -85,7 +85,11 @@ export const normolizeTransactionKey = (
 ): Transactions => ({
     ...data,
     asset: {
-        ...data.asset,
+        name: data.asset.name,
+        ticker: data.asset.ticker,
+        category: data.asset.category,
+        description: data.asset.description,
+        price: data.asset.price,
         url: data.asset.image_url,
         withdrawalFee: data.asset.withdrawal_fee,
     },

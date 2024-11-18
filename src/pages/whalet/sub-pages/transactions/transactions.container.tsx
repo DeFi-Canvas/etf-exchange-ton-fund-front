@@ -10,7 +10,6 @@ export const TransactionsContainer = injectable(
     (newTransactionsViewModel) => () => {
         const vm = useValueWithEffect(() => newTransactionsViewModel(), []);
         const transactions = useProperty(vm.transactions);
-        console.log(transactions, 'TransactionsContainer');
 
         return React.createElement(Transactions, { transactions });
     }
