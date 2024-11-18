@@ -1,9 +1,6 @@
 import * as O from 'fp-ts/Option';
 import { pipe } from 'fp-ts/lib/function';
-import {
-    formatCapsToSepareteCamel,
-    formatDateToStr,
-} from '@/utils/string';
+import { formatCapsToSepareteCamel, formatDateToStr } from '@/utils/string';
 import { mapNumberOptionToUI } from '@/components/ui-kit/fpts-components-utils/options-map';
 import { OptionSpan } from '@/components/ui-kit/fpts-components-utils/options.component';
 import { ITransaction } from '../../types';

@@ -7,6 +7,6 @@ const isYesterday = (inputDate: Date) => {
     const yesterday = new Date(today.setDate(today.getDate() - 1));
 
     return inputDate.getTime() === yesterday.getTime();
-}
+};
 
 export default isYesterday;

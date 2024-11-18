@@ -1,5 +1,3 @@
 import type { IMonthData } from './IMonthData';
 
-export type {
-    IMonthData,
-}
+export type { IMonthData };

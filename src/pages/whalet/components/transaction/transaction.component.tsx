@@ -13,7 +13,9 @@ export interface TransactionGroup {
 export const TransactionGroup = ({ date, transactions }: TransactionGroup) => {
     return (
         <div className={css.transactionSection}>
-            <span className={css.transactionTitle}>{getFormattedDate(date)}</span>
+            <span className={css.transactionTitle}>
+                {getFormattedDate(date)}
+            </span>
             <div className={css.transactionCardWrapper}>
                 {transactions.map((t) => (
                     <TransactionCard

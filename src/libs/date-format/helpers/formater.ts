@@ -12,18 +12,18 @@ const mapMonthByIndex: Record<number, IMonthData> = {
     8: { short: 'Sep', full: 'September' },
     9: { short: 'Oct', full: 'October' },
     10: { short: 'Nov', full: 'November' },
-    11: { short: 'Dec', full: 'December' }
+    11: { short: 'Dec', full: 'December' },
 };
 
 const formatter = (date: Date): string => {
     const parseDate = date;
-    const indexMonth = parseDate.getMonth(); 
-    
+    const indexMonth = parseDate.getMonth();
+
     const day = parseDate.getDate();
     const month = mapMonthByIndex[indexMonth].short;
     const year = parseDate.getFullYear();
 
     return `${day} ${month}, ${year}`;
-}
+};
 
 export default formatter;

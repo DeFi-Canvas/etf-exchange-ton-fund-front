@@ -5,6 +5,6 @@ const isToday = (inputDate: Date) => {
     inputDate.setHours(0, 0, 0, 0);
 
     return inputDate.getTime() === today.getTime();
-}
+};
 
 export default isToday;

@@ -1,10 +1,6 @@
-import {
-    isToday,
-    isYesterday,
-    formatter,
-} from './helpers';
+import { isToday, isYesterday, formatter } from './helpers';
 
-const getFormattedDate = (date: Date) =>  {
+const getFormattedDate = (date: Date) => {
     const inputDate = new Date(date);
 
     if (isToday(inputDate)) {
@@ -13,8 +9,8 @@ const getFormattedDate = (date: Date) =>  {
     if (isYesterday(inputDate)) {
         return 'Yesterday';
     }
-    
+
     return formatter(date);
-}
+};
 
 export default getFormattedDate;
