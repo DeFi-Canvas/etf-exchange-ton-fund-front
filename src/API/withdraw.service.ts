@@ -4,20 +4,7 @@ import { UserStoreService } from '@/store/user.store';
 import { injectable, token } from '@injectable-ts/core';
 import { fromPromise } from '@most/core';
 import axios from 'axios';
-
-export const DOMAIN_API_URL =
-    'https://etf-exchange-ton-fund-back-production.up.railway.app';
-
-const API = {
-    getWalletInfo: (id?: number) =>
-        `${DOMAIN_API_URL}/wallet/balance?telegram_id=${id}`,
-    appopened: `${DOMAIN_API_URL}/appopened`,
-    getFunds: `${DOMAIN_API_URL}/funds`,
-    depositAsserts: `${DOMAIN_API_URL}/assets`,
-    depositDetails: (id?: number) =>
-        `${DOMAIN_API_URL}/deposit?telegram_id=${id}`,
-    withdraw: `${DOMAIN_API_URL}/withdraw`,
-};
+import { API } from './API';
 
 interface WithdrawResponce {
     status: boolean; //true или false

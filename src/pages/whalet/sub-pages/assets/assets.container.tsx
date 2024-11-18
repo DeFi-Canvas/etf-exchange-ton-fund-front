@@ -7,7 +7,6 @@ import { Assets } from './assets.page';
 
 export const AssetsContainer = injectable(
     newAssetsViewModel,
-    // eslint-disable-next-line react/display-name
     (newAssetsViewModel) => () => {
         const vm = useValueWithEffect(() => newAssetsViewModel(), []);
         const assets = useProperty(vm.assets);

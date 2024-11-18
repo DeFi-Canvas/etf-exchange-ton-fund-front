@@ -45,3 +45,48 @@ export const mapFunds = (data: FundsRespnce): CoinCardTempProps => ({
     coinAmount: 228,
     cost: 0,
 });
+
+//TODO : тип будет расширен (я надеюсь)
+export interface TransactionsResponce {
+    timestamp: string; // ISO_DATETIME
+    asset: {
+        name: string;
+        ticker: string;
+        category: string;
+        description: string;
+        image_url: string;
+        price: number;
+        withdrawal_fee: number;
+    };
+    address: string;
+    amount: number;
+    value: number;
+    tx: string;
+}
+
+export interface Transactions {
+    timestamp: string; // ISO_DATETIME
+    asset: {
+        name: string;
+        ticker: string;
+        category: string;
+        description: string;
+        url: string;
+        price: number;
+        withdrawalFee: number;
+    };
+    address: string;
+    amount: number;
+    value: number;
+    tx: string;
+}
+export const normolizeTransactionKey = (
+    data: TransactionsResponce
+): Transactions => ({
+    ...data,
+    asset: {
+        ...data.asset,
+        url: data.asset.image_url,
+        withdrawalFee: data.asset.withdrawal_fee,
+    },
+});

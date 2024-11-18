@@ -7,15 +7,7 @@ import { getRequest } from './request.utils';
 import { fromPromise } from '@most/core';
 import axios from 'axios';
 import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
-
-const DOMAIN_API_URL =
-    'https://etf-exchange-ton-fund-back-production.up.railway.app';
-
-const API = {
-    getTask: (id: number | undefined) =>
-        `${DOMAIN_API_URL}/tasks?telegram_id=${id}`,
-    checkTask: `${DOMAIN_API_URL}/tasks/complete`,
-};
+import { API } from './API';
 
 export interface Tasks {
     TelegramID: number;

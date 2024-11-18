@@ -9,19 +9,7 @@ import {
     mapDepositAssets,
     mapDepositDetails,
 } from '@/pages/deposit/deposit.model';
-
-export const DOMAIN_API_URL =
-    'https://etf-exchange-ton-fund-back-production.up.railway.app';
-
-const API = {
-    getWalletInfo: (id?: number) =>
-        `${DOMAIN_API_URL}/wallet/balance?telegram_id=${id}`,
-    appopened: `${DOMAIN_API_URL}/appopened`,
-    getFunds: `${DOMAIN_API_URL}/funds`,
-    depositAsserts: `${DOMAIN_API_URL}/assets`,
-    depositDetails: (id?: number) =>
-        `${DOMAIN_API_URL}/deposit?telegram_id=${id}`,
-};
+import { API } from './API';
 
 export interface DepositRestService {
     getDepositAssets: () => Stream<Either<string, Array<DepositAssets>>>;

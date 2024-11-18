@@ -1,12 +1,9 @@
 import type { ComponentType, JSX } from 'react';
 
 import { IndexPage } from '@/pages/IndexPage-1/IndexPage';
-// import AboutPage from '@/pages/AboutPage/AboutPage.tsx';
 import FundPage from '@/pages/FundPage/FundPage.tsx';
-// import InvestPage from '@/pages/InvestPage/InvestPage.tsx';
 import { WaletPageContainer } from '@/pages/whalet/whalet.container';
 import { DepositPageContainer } from '@/pages/deposit/deposit.page';
-import { Transactions } from '@/pages/whalet/sub-pages/transactions/transactions.page';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { newNewUserStoreService } from '@/store/user.store';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
@@ -21,6 +18,7 @@ import { AddressContainer } from '@/pages/withdrow/sub-page/address/address.cont
 import { CheckContainer } from '@/pages/withdrow/sub-page/check/check.container';
 import { FinalContainer } from '@/pages/withdrow/sub-page/final/final.container';
 import { FundsContainer } from '@/pages/whalet/sub-pages/founds/funds.container';
+import { TransactionsContainer } from '@/pages/whalet/sub-pages/transactions/transactions.container';
 
 interface Route {
     path: string;
@@ -57,6 +55,10 @@ export const AppRoutes = () => {
     });
 
     const AssetsResolved = AssetsContainer({
+        userStore,
+    });
+
+    const TransactionsResolved = TransactionsContainer({
         userStore,
     });
 
@@ -101,7 +103,7 @@ export const AppRoutes = () => {
                 //загадка жака фреско откуда взялся #
                 { path: '/', page: AssetsResolved, isIndex: true },
                 { path: 'funds', page: FundsResolved },
-                { path: 'transactions', page: Transactions },
+                { path: 'transactions', page: TransactionsResolved },
             ],
         },
         // { path: '/about', page: AboutPage },

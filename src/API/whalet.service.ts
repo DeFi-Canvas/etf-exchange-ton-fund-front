@@ -8,26 +8,17 @@ import {
     Asset,
     mapAssetsFromBalance,
     mapFunds,
+    normolizeTransactionKey,
+    Transactions,
     WaletResponce,
 } from '@/pages/whalet/whalet.model';
-
-export const DOMAIN_API_URL =
-    'https://etf-exchange-ton-fund-back-production.up.railway.app';
-
-const API = {
-    getWalletInfo: (id?: number) =>
-        `${DOMAIN_API_URL}/wallet/balance?telegram_id=${id}`,
-    appopened: `${DOMAIN_API_URL}/appopened`,
-    getFunds: `${DOMAIN_API_URL}/funds`,
-    depositAsserts: `${DOMAIN_API_URL}/assets`,
-    depositDetails: (id?: number) =>
-        `${DOMAIN_API_URL}/deposit?telegram_id=${id}`,
-};
+import { API } from './API';
 
 export interface WaletRestService {
     getBalance: () => Stream<Either<string, WaletResponce>>;
     getAssets: () => Stream<Either<string, Array<Asset>>>;
     getFunds: () => Stream<Either<string, Array<CoinCardTempProps>>>;
+    getTransactions: () => Stream<Either<string, Array<Transactions>>>;
 }
 
 export const newWaletRestService = injectable(
@@ -42,6 +33,10 @@ export const newWaletRestService = injectable(
                 mapAssetsFromBalance
             ),
             getFunds: getRequest(API.getFunds, mapFunds),
+            getTransactions: getRequest(
+                API.transactions(telegram_id),
+                normolizeTransactionKey
+            ),
         };
     }
 );
