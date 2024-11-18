@@ -41,7 +41,7 @@ export interface FundsRespnce {
 export const mapFunds = (data: FundsRespnce): CoinCardTempProps => ({
     logo: data.image_url,
     name: data.name,
-    ticker: 'O.none',
+    ticker: '',
     coinAmount: 228,
     cost: 0,
 });

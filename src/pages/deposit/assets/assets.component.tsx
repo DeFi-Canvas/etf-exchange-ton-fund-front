@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import css from './assets.module.css';
 import { AssetsCard } from '@/components/assets-card/assets-card.component.tsx';
+import { Assets as AssetsCardBaseProps } from '@/components/assets-card/assets-card.model';
 import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/lib/function';
 import { ErrorResult } from '@/components/error-result/error-result.component';
@@ -15,6 +16,27 @@ interface AssetsProps {
     handleClick: (asset: DepositAssets | Asset) => void;
 }
 
+// TODO:V Тут какакя-то шальная история с тиипизацией, возможно из-за кодеков (должно быть вроде DepositAssets | Asset)
+const formattedData = (asset: DepositAssets | Asset): AssetsCardBaseProps => {
+    if (DepositAssetsCodec.is(asset)) {
+        return {
+            img: asset.img,
+            title: asset.name,
+            subTitle: asset.description,
+            price: '',
+            priceText: undefined,
+        };
+    } else {
+        return {
+            img: asset.image_url,
+            title: asset.name,
+            subTitle: asset.symbol,
+            price: asset.value.toFixed(2),
+            priceText: '',
+        };
+    }
+};
+
 export const Assets = ({ assets, type, handleClick }: AssetsProps) => {
     const navigate = useNavigate();
 
@@ -27,25 +49,6 @@ export const Assets = ({ assets, type, handleClick }: AssetsProps) => {
             case 'withdrow':
                 return AssetCodec.is(asset) ? `/withdraw/${asset.symbol}` : '';
         }
-    };
-
-    // TODO:V интерфейс пока что тут оставлю, но надо заменить скорее всего
-    interface IAssetDate {
-        img: string;
-        name: string;
-        ticker: string;
-    }
-    // TODO:V Тут какакя-то шальная история с тиипизацией, возможно из-за кодеков (должно быть вроде DepositAssets | Asset)
-    const formattedData = (asset: IAssetDate) => {
-        const data = {
-            img: asset.img,
-            title: asset.name,
-            subTitle: asset.ticker,
-            price: '',
-            priceText: '',
-        };
-
-        return data;
     };
 
     const onClick = (asset: DepositAssets | Asset) => {
@@ -66,11 +69,8 @@ export const Assets = ({ assets, type, handleClick }: AssetsProps) => {
                                 className={css.assetCardWrapper}
                                 onClick={() => onClick(assetsItemData)}
                             >
-                                {/* TODO:V Тут закастил, чтоб не было ошибок :( */}
                                 <AssetsCard
-                                    {...formattedData(
-                                        assetsItemData as IAssetDate
-                                    )}
+                                    {...formattedData(assetsItemData)}
                                 />
                             </div>
                         ))}
