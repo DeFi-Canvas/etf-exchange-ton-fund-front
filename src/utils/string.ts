@@ -14,20 +14,3 @@ export const formatDateToStr = (date: Date) => {
 
     return `${day} ${month} ${hours}:${minutes}`;
 };
-
-export const formatDateToExtraStr = (date: Date) => {
-    const today = new Date();
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-
-    const formated = formatDateToStr(date);
-    if (formated === formatDateToStr(today)) {
-        return 'Today';
-    }
-
-    if (formated === formatDateToStr(yesterday)) {
-        return 'Yesterday';
-    }
-
-    return formated;
-};

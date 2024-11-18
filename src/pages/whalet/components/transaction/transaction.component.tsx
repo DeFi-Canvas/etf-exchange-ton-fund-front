@@ -2,9 +2,9 @@ import { mapNumberOptionToUI } from '@/components/ui-kit/fpts-components-utils/o
 import { OptionSpan } from '@/components/ui-kit/fpts-components-utils/options.component';
 import {
     formatCapsToSepareteCamel,
-    formatDateToExtraStr,
     formatDateToStr,
 } from '@/utils/string';
+import getFormattedDate from '@/libs/date-format';
 import { pipe } from 'fp-ts/lib/function';
 import * as O from 'fp-ts/Option';
 import css from './transaction.module.css';
@@ -111,7 +111,7 @@ export interface TransactionGroup {
 export const TransactionGroup = ({ date, transactions }: TransactionGroup) => {
     return (
         <div className={css.blockWrap}>
-            <span className={css.date}>{formatDateToExtraStr(date)}</span>
+            <span className={css.date}>{getFormattedDate(date)}</span>
             <div className={css.groupWrap}>
                 {transactions.map((t) => (
                     <Transaction
