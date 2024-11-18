@@ -12,13 +12,14 @@ type AssetsCardType = 'pnl' | 'default';
 
 type AssetsCard = (Assets | AssetsPnl) & { type?: AssetsCardType };
 
-export const AssetsCard = ({ type = 'default', ...props }: AssetsCard) => {
+export const AssetsCard = ({
+    type = 'default',
+    ...props
+}: AssetsCard): JSX.Element => {
     switch (type) {
         case 'default':
-            return assetsCodec.is(props) && <CardDefault {...props} />;
+            return assetsCodec.is(props) ? <CardDefault {...props} /> : <></>;
         case 'pnl':
-            return assetsPnlCodec.is(props) && <CardPnl {...props} />;
-        default:
-            break;
+            return assetsPnlCodec.is(props) ? <CardPnl {...props} /> : <></>;
     }
 };

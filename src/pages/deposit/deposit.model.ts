@@ -19,8 +19,13 @@ export const mapDepositDetails = (data: DepositDetails) => ({
     qrCode: data.qrimgsrc,
 });
 
-export const mapDepositAssets = (data: DepositAssetsResponce) => ({
-    ...data,
+export const mapDepositAssets = (
+    data: DepositAssetsResponce
+): DepositAssets => ({
+    name: data.name,
+    ticker: data.ticker,
+    description: data.description,
+    category: data.category,
     img: data.image_url,
 });
 

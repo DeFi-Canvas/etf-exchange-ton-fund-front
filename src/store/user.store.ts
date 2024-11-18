@@ -19,7 +19,6 @@ export interface UserStoreService {
     setUser: (data: Partial<UserData> | undefined) => void;
     assets: Property<O.Option<Array<CoinCardProps>>>;
     setAssets: (data: O.Option<Array<CoinCardProps>>) => void;
-    // TODO
     transactions: Property<Array<unknown>>;
 }
 
