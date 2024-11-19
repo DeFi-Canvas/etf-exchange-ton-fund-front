@@ -1,6 +1,7 @@
 // Templates
 import PurchaseSellIitle from '../components/purchase-sell-title/purchase-sell-title.component';
 import PurchaseSellAssetCard from '../components/purchase-sell-asset-card/purchase-sell-asset-card.component';
+import PurchaseSellAttention from '../components/purchase-sell-attention/purchase-sell-attention.component';
 // Types
 import { InterfacePurchaseSellAssetCardData } from '../types';
 // Style
@@ -21,6 +22,7 @@ const PurchasePage = () => {
             <div className="app-container">
                 <PurchaseSellIitle title="Purchase" />
                 <PurchaseSellAssetCard {...assetCardData} />
+                <PurchaseSellAttention />
             </div>
 
             {/* assetCard */}

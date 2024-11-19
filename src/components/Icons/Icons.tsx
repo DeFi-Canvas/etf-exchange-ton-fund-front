@@ -29,6 +29,7 @@ import Profile from '../../assets/icons/profile.svg?react';
 import ChevronRight from '@/assets/icons/chevron-right.svg?react';
 import Copy from '../../assets/icons/copy.svg?react';
 import CopyDone from '@/assets/icons/copy-done.svg?react';
+import Attention from '@/assets/icons/attention.svg?react';
 
 import { TTransactionStatus } from '@/pages/whalet/components/transaction/types';
 
@@ -165,3 +166,7 @@ export const TransactionStatusIcon = ({
             return <Processing className={className} />;
     }
 };
+
+export const AttentionIcon = ({ className = '' }: { className?: string }) => (
+    <Attention className={className} />
+);
