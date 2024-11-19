@@ -18,15 +18,18 @@ const PurchasePage = () => {
         allowedOpen: false,
         isBackgroundWhite: true,
     };
-    const assetCardDataContentCard = Object.assign({}, {
-        ...assetCardData, 
-        imageSrc: './temp-ton.png',
-        title: '649,92 TON',
-        subTitle: '$ 1 277,54',
-        price: '',
-        allowedOpen: true,
-        isBackgroundWhite: false,
-    });
+    const assetCardDataContentCard = Object.assign(
+        {},
+        {
+            ...assetCardData,
+            imageSrc: './temp-ton.png',
+            title: '649,92 TON',
+            subTitle: '$ 1 277,54',
+            price: '',
+            allowedOpen: true,
+            isBackgroundWhite: false,
+        }
+    );
 
     return (
         <div className={css.page}>

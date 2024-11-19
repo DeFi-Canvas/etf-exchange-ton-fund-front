@@ -11,7 +11,11 @@ interface PurchaseSellAssetCardProps
 
 const PurchaseSellAssetCard = (props: PurchaseSellAssetCardProps) => {
     return (
-        <div className={cn(css.card, { [css.cardWhite]: props.isBackgroundWhite })}>
+        <div
+            className={cn(css.card, {
+                [css.cardWhite]: props.isBackgroundWhite,
+            })}
+        >
             <img src={props.imageSrc} className={css.cardImage} />
             <div className={css.cardContent}>
                 <div className={css.cardContentInfo}>

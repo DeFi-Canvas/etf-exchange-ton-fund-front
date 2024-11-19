@@ -17,14 +17,17 @@ const SellPage = () => {
         allowedOpen: true,
         isBackgroundWhite: true,
     };
-    const assetCardDataContentCard = Object.assign({}, {
-        ...assetCardData, 
-        title: '5 pcs.',
-        subTitle: '',
-        price: '$ 25,39',
-        isBackgroundWhite: false,
-        allowedOpen: false,
-    });
+    const assetCardDataContentCard = Object.assign(
+        {},
+        {
+            ...assetCardData,
+            title: '5 pcs.',
+            subTitle: '',
+            price: '$ 25,39',
+            isBackgroundWhite: false,
+            allowedOpen: false,
+        }
+    );
 
     return (
         <div className={css.page}>

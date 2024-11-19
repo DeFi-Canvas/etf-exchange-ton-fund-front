@@ -25,7 +25,9 @@ const PurchaseSellContentCard = (props: PurchaseSellContentCardProps) => {
                 <div className={css.section}>
                     <header className={css.cardTitle}>
                         <span>Quantity</span>
-                        <div className={css.maxCounter}> MAX: {maxQuantity}</div>
+                        <div className={css.maxCounter}>
+                            MAX: {maxQuantity}
+                        </div>
                     </header>
                     <PurchaseSellFieldCounter />
                 </div>
@@ -39,6 +41,6 @@ const PurchaseSellContentCard = (props: PurchaseSellContentCardProps) => {
             </div>
         </div>
     );
-}
+};
 
 export default PurchaseSellContentCard;

@@ -11,17 +11,30 @@ const PurchaseSellFieldCounter = () => {
 
     return (
         <div className={css.fieldCounter}>
-            <input type="text" className={cn('trim-line', css.fieldCounterInput)} disabled value={fieldValue} />
+            <input
+                type="text"
+                className={cn('trim-line', css.fieldCounterInput)}
+                disabled
+                value={fieldValue}
+            />
             <div className={css.fieldCounterButtons}>
-                <button className={cn(css.fieldCounterButton, { [css.fieldCounterButtonDisabled]: isButtomMinusDisabled })}>
+                <button
+                    className={cn(css.fieldCounterButton, {
+                        [css.fieldCounterButtonDisabled]: isButtomMinusDisabled,
+                    })}
+                >
                     <MinusIcon />
                 </button>
-                <button className={cn(css.fieldCounterButton, { [css.fieldCounterButtonDisabled]: isButtomPlusDisabled })}>
+                <button
+                    className={cn(css.fieldCounterButton, {
+                        [css.fieldCounterButtonDisabled]: isButtomPlusDisabled,
+                    })}
+                >
                     <PlusIcon />
                 </button>
             </div>
         </div>
     );
-}
+};
 
 export default PurchaseSellFieldCounter;

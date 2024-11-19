@@ -4,5 +4,5 @@ export interface InterfacePurchaseSellAssetCardData {
     subTitle?: string;
     price?: string;
     allowedOpen?: boolean;
-    isBackgroundWhite?: boolean; 
+    isBackgroundWhite?: boolean;
 }
