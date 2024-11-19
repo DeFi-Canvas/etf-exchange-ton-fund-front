@@ -1,9 +1,10 @@
-import Title from '../components/title/title.component';
+import PurchaseSellIitle from '../components/purchase-sell-title/purchase-sell-title.component';
+import css from './sell.module.css';
 
 const SellPage = () => {
     return (
-        <div>
-            <Title title="Sell" />
+        <div className={css.page}>
+            <PurchaseSellIitle title="Sell" />
             {/* assetCard */}
             {/* attention */}
             {/* assetContentCard */}
