@@ -1,0 +1,27 @@
+.wrap {
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+    border-radius: var(--Font-Size-xs, 12px);
+    background: var(--colors-main-purple-10, rgba(91, 57, 244, 0.1));
+    width: fit-content;
+}
+
+.control {
+    width: 55.6px;
+    padding: 8px var(--Text-styles-Caption2-line-height, 13px);
+
+    color: var(--Colors-Main-Purple, #5b39f4);
+    font-family: var(--Font-Family-V1, 'SF Pro');
+    font-size: var(--Font-Size-sm, 14px);
+    font-weight: 510;
+    line-height: 150%; /* 21px */
+    text-align: center;
+    cursor: default;
+}
+
+.active {
+    border-radius: 8px;
+    background: var(--Colors-Main-Purple, #5b39f4);
+    color: #fff;
+}

@@ -1,0 +1,10 @@
+.dateRange {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    margin-bottom: 24px;
+    color: var(--colors-text-dark-70, rgba(36, 38, 46, 0.7));
+    font-family: var(--Font-Family-V1, 'SF Pro');
+    font-size: var(--Font-Size-xs, 12px);
+}
