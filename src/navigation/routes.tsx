@@ -109,9 +109,7 @@ export const AppRoutes = () => {
                 { path: 'transactions', page: TransactionsResolved },
             ],
         },
-        // { path: '/about', page: AboutPage },
         { path: '/funds/:id', page: FundPage },
-        // { path: '/invest/:id/:step', page: InvestPage },
         {
             path: '/what-to-buy',
             page: IndexPage,

@@ -7,10 +7,11 @@ import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { newWaletRestService } from '@/API/whalet.service';
 import { newLensedAtom } from '@frp-ts/lens';
 import { UserStoreService } from '@/store/user.store';
-import { Transactions } from '../../whalet.model';
+import { TransactionGroup } from '../../components/transaction/transaction.component';
+import { transformTransactions } from './transactions.model';
 
 export interface TransactionsViewModel {
-    transactions: Property<E.Either<string, Array<Transactions>>>;
+    transactions: Property<E.Either<string, Array<TransactionGroup>>>;
 }
 
 export interface NewTransactionsViewModel {
@@ -23,12 +24,14 @@ export const newTransactionsViewModel = injectable(
     (userStore, waletRestService): NewTransactionsViewModel =>
         () => {
             const transactions = newLensedAtom<
-                E.Either<string, Array<Transactions>>
+                E.Either<string, Array<TransactionGroup>>
             >(E.left('pending'));
 
             const getTransactionsEffect = pipe(
                 waletRestService.getTransactions(),
-                tap(transactions.set)
+                tap((data) => {
+                    pipe(data, E.map(transformTransactions), transactions.set);
+                })
             );
             return valueWithEffect.new(
                 {
