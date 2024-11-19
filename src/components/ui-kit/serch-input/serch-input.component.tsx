@@ -1,12 +1,14 @@
 import { SerchIcon } from '@/components/Icons/Icons';
 import { useRef } from 'react';
 import css from './serch-input.module.css';
+import cn from 'classnames';
 
 export interface SerchInputProps {
     placeholder: string;
+    theme?: string;
 }
 
-export const SerchInput = ({ placeholder }: SerchInputProps) => {
+export const SerchInput = ({ placeholder, theme }: SerchInputProps) => {
     const inputRef = useRef(null);
 
     const handleClick = () => {
@@ -15,7 +17,7 @@ export const SerchInput = ({ placeholder }: SerchInputProps) => {
         inputRef.current.focus();
     };
     return (
-        <div className={css.wrap} onClick={handleClick}>
+        <div className={cn(css.wrap, theme)} onClick={handleClick}>
             <SerchIcon />
             <input
                 type="text"

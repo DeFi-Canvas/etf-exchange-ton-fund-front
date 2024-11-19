@@ -1,6 +1,6 @@
 import type { ComponentType, JSX } from 'react';
 
-import { IndexPage } from '@/pages/IndexPage-1/IndexPage';
+import { WhatToBuyPage } from '@/pages/what-to-buy/what-to-buy.component';
 import FundPage from '@/pages/FundPage/FundPage.tsx';
 import { WaletPageContainer } from '@/pages/whalet/whalet.container';
 import { DepositPageContainer } from '@/pages/deposit/deposit.page';
@@ -52,7 +52,7 @@ export const AppRoutes = () => {
     );
 
     //#region containers
-    const WhatToBuyPageContainerResolved = WaletPageContainer({
+    const WaletPageResolved = WaletPageContainer({
         userStore,
     });
 
@@ -104,7 +104,7 @@ export const AppRoutes = () => {
     const routes: Route[] = [
         {
             path: '/',
-            page: WhatToBuyPageContainerResolved,
+            page: WaletPageResolved,
             parent: [
                 //загадка жака фреско откуда взялся #
                 { path: '/', page: AssetsResolved, isIndex: true },
@@ -167,7 +167,7 @@ export const AppRoutes = () => {
         // WTB
         {
             path: '/what-to-buy',
-            page: IndexPage,
+            page: WhatToBuyPage,
         },
         {
             path: '/what-to-buy/buy-sell',
