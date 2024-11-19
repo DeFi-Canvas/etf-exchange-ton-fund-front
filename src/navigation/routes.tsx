@@ -19,6 +19,9 @@ import { CheckContainer } from '@/pages/withdrow/sub-page/check/check.container'
 import { FinalContainer } from '@/pages/withdrow/sub-page/final/final.container';
 import { FundsContainer } from '@/pages/whalet/sub-pages/founds/funds.container';
 import { TransactionsContainer } from '@/pages/whalet/sub-pages/transactions/transactions.container';
+import { Swap } from '@/pages/swap/swap.page';
+import { SwapPage } from '@/pages/swap/sub-pages/swap/swap.component';
+import { MultiSwapPage } from '@/pages/swap/sub-pages/multi-swap/multi-swap.component';
 
 interface Route {
     path: string;
@@ -145,6 +148,14 @@ export const AppRoutes = () => {
             path: '/withdraw/:ticker/address/final',
             page: FinalResolved,
         },
+        {
+            path: '/swap',
+            page: Swap,
+            parent: [
+                { path: '', page: SwapPage, isIndex: true },
+                { path: 'multi-swap', page: MultiSwapPage },
+            ],
+        },
     ];
 
     return (
@@ -165,7 +176,7 @@ export const AppRoutes = () => {
                             <Route
                                 key={route.path}
                                 Component={route.page}
-                                {...route}
+                                path={route.path}
                             >
                                 {route.parent.map((subRoute) => (
                                     <Route
@@ -180,7 +191,7 @@ export const AppRoutes = () => {
                                     .map((subRoute) => (
                                         <Route
                                             key={subRoute.path}
-                                            path="/"
+                                            path={subRoute.path}
                                             element={
                                                 <Navigate to={subRoute.path} />
                                             }

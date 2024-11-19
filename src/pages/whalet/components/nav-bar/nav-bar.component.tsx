@@ -18,12 +18,12 @@ export const NavBar = () => {
                 </div>
                 <span className={css.title}>Deposit</span>
             </NavLink>
-            <div className={css.link}>
+            <NavLink to={'swap'} className={css.link}>
                 <div>
                     <DepositSwapIcon />
                 </div>
                 <span className={css.title}>Swap</span>
-            </div>
+            </NavLink>
             <div className={css.link}>
                 <div>
                     <DepositAnaliticsIcon />
