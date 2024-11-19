@@ -11,10 +11,11 @@ const PurchaseSellAttention = () => {
                 <span>Attention</span>
             </header>
             <div className={css.cardContent}>
-                Investments in the funds are in the beta testing phase. Please consider the risks.
+                Investments in the funds are in the beta testing phase. Please
+                consider the risks.
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default PurchaseSellAttention;

@@ -6,7 +6,8 @@ import { InterfacePurchaseSellAssetCardData } from '../../types';
 // Style
 import css from './purchase-sell-asset-card.module.css';
 
-interface PurchaseSellAssetCardProps extends InterfacePurchaseSellAssetCardData {}
+interface PurchaseSellAssetCardProps
+    extends InterfacePurchaseSellAssetCardData {}
 
 const PurchaseSellAssetCard = (props: PurchaseSellAssetCardProps) => {
     return (
@@ -23,11 +24,15 @@ const PurchaseSellAssetCard = (props: PurchaseSellAssetCardProps) => {
                 </div>
                 <div className={css.cardAdditional}>
                     {props.price && <div>{props.price}</div>}
-                    {props.allowedOpen && <div className={cn(css.icon, css.iconChevrone)}><ChevronDown /></div>}
+                    {props.allowedOpen && (
+                        <div className={cn(css.icon, css.iconChevrone)}>
+                            <ChevronDown />
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
     );
-}
+};
 
 export default PurchaseSellAssetCard;

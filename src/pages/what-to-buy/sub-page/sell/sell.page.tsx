@@ -18,7 +18,7 @@ const SellPage = () => {
 
     return (
         <div className={css.page}>
-           <div className="app-container">
+            <div className="app-container">
                 <PurchaseSellIitle title="Sell" />
                 <PurchaseSellAssetCard {...assetCardData} />
             </div>
@@ -29,7 +29,7 @@ const SellPage = () => {
             {/* Details */}
             {/* footer */}
         </div>
-    )
-}
+    );
+};
 
 export default SellPage;

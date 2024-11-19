@@ -31,7 +31,7 @@ const PurchasePage = () => {
             {/* Details */}
             {/* footer */}
         </div>
-    )
-}
+    );
+};
 
 export default PurchasePage;
