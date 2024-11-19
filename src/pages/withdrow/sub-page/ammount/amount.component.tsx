@@ -84,7 +84,7 @@ export const Amount = ({
             {/* TODO не поднимается вместе с клавиатурой */}
             <div className={cn(css.footerWrap)}>
                 <div className={css.availableBalance}>
-                    <img src={symbolLogo} alt="img" />
+                    <img src={symbolLogo} alt="img" className={css.imgFooter} />
                     <div className={css.infoWrap}>
                         <span className={css.title}>Available balance</span>
                         <span className={css.balance}>{availableBalance}</span>

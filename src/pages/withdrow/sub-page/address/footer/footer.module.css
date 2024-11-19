@@ -19,7 +19,7 @@
 
         .infoWrap {
             display: flex;
-
+            gap: 8px;
             .balance {
                 color: var(--color-text-dark);
                 font-size: var(--Font-Size-md, 16px);
@@ -55,4 +55,10 @@
             }
         }
     }
+}
+
+.imgFooter {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
 }
