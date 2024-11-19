@@ -1,0 +1,52 @@
+.fieldCounter {
+    --buttons-position-inline-end: 12px;
+    --buttons-width: 72px;
+    --input-padding: 12px;
+    --input-padding-inline-end: var(--input-padding);
+    --input-padding-inline-end-with-buttons: calc(
+        var(--input-padding) + var(--buttons-width) +
+            var(--input-padding-inline-end)
+    );
+    display: flex;
+    position: relative;
+}
+
+.fieldCounterInput {
+    height: 50px;
+    border-radius: 12px;
+    border: 1px solid var(--color-main-purple-20);
+    padding: 0;
+    width: 100%;
+    padding: 12px;
+    padding-inline-end: var(--input-padding-inline-end-with-buttons);
+    line-height: 1.5;
+    color: var(--color-text-dark);
+}
+
+.fieldCounterButtons {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: var(--buttons-position-inline-end);
+    width: var(--buttons-width);
+}
+
+.fieldCounterButton {
+    --size: 32px;
+    width: var(--size);
+    height: var(--size);
+    background-color: transparent;
+    padding: 0;
+}
+
+.fieldCounterButton svg {
+    width: var(--size);
+    height: var(--size);
+}
+
+.fieldCounterButtonDisabled {
+    opacity: 0.2;
+}

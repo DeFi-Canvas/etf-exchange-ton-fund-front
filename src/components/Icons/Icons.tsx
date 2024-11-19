@@ -30,6 +30,8 @@ import ChevronRight from '@/assets/icons/chevron-right.svg?react';
 import Copy from '../../assets/icons/copy.svg?react';
 import CopyDone from '@/assets/icons/copy-done.svg?react';
 import Attention from '@/assets/icons/attention.svg?react';
+import Plus from '@/assets/icons/plus.svg?react';
+import Minus from '@/assets/icons/minus.svg?react';
 
 import { TTransactionStatus } from '@/pages/whalet/components/transaction/types';
 
@@ -169,4 +171,12 @@ export const TransactionStatusIcon = ({
 
 export const AttentionIcon = ({ className = '' }: { className?: string }) => (
     <Attention className={className} />
+);
+
+export const PlusIcon = ({ className = '' }: { className?: string }) => (
+    <Plus className={className} />
+);
+
+export const MinusIcon = ({ className = '' }: { className?: string }) => (
+    <Minus className={className} />
 );

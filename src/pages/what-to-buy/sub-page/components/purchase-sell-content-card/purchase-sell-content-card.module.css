@@ -1,0 +1,48 @@
+.card {
+    margin-top: 16px;
+    background-color: var(--color-background-white);
+    border-radius: 24px;
+    padding-block: 20px;
+}
+
+.cardContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cardTitle {
+    font-weight: 510;
+    font-size: 14px;
+    line-height: 1.5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.maxCounter {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    text-decoration-line: underline;
+}
+
+.totalAmountCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    line-height: 1.5;
+    padding: 13px 12px;
+    border-radius: 12px;
+    background-color: var(--color-background-light);
+}
+
+.totalAmountCardPrice {
+    color: var(--color-text-dark-70);
+}

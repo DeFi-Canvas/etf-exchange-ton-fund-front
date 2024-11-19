@@ -1,6 +1,7 @@
 // Templates
 import PurchaseSellIitle from '../components/purchase-sell-title/purchase-sell-title.component';
 import PurchaseSellAssetCard from '../components/purchase-sell-asset-card/purchase-sell-asset-card.component';
+import PurchaseSellContentCard from '../components/purchase-sell-content-card/purchase-sell-content-card.component';
 // Types
 import { InterfacePurchaseSellAssetCardData } from '../types';
 // Style
@@ -14,18 +15,26 @@ const SellPage = () => {
         subTitle: 'Defi Canvas',
         price: '$ 5,42',
         allowedOpen: true,
+        isBackgroundWhite: true,
     };
+    const assetCardDataContentCard = Object.assign({}, {
+        ...assetCardData, 
+        title: '5 pcs.',
+        subTitle: '',
+        price: '$ 25,39',
+        isBackgroundWhite: false,
+        allowedOpen: false,
+    });
 
     return (
         <div className={css.page}>
             <div className="app-container">
                 <PurchaseSellIitle title="Sell" />
-                <PurchaseSellAssetCard {...assetCardData} />
+                <div className={css.assetCard}>
+                    <PurchaseSellAssetCard {...assetCardData} />
+                </div>
             </div>
-
-            {/* assetCard */}
-            {/* attention */}
-            {/* assetContentCard */}
+            <PurchaseSellContentCard assetCardData={assetCardDataContentCard} />
             {/* Details */}
             {/* footer */}
         </div>

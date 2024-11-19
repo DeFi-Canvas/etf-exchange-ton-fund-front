@@ -1,11 +1,14 @@
 .card {
-    margin-top: 12px;
-    background-color: var(--color-background-white);
+    background-color: var(--color-background-light);
     padding: 12px;
     border-radius: 12px;
     display: flex;
     align-items: center;
     gap: 12px;
+}
+
+.cardWhite {
+    background-color: var(--color-background-white);
 }
 
 .cardImage {
