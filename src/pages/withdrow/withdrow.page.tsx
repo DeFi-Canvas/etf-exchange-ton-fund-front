@@ -8,7 +8,7 @@ export const Withdrow = injectable(AssetsContainer, (AssetsContainer) => () => {
     return (
         <div className={css.page}>
             <div className={cn('app-container', css.pageHeader)}>
-                <h2 className={css.pageTitle}>Withdrow</h2>
+                <h2 className={css.pageTitle}>Withdraw</h2>
                 <SerchInput placeholder="Search" />
             </div>
             <div className={css.assetsWrapper}>

@@ -24,6 +24,7 @@ import { SwapPage } from '@/pages/swap/sub-pages/swap/swap.component';
 import { MultiSwapPage } from '@/pages/swap/sub-pages/multi-swap/multi-swap.component';
 import { Chart } from '@/components/chart/chart.component';
 import { constVoid } from 'fp-ts/lib/function';
+import { BuySellIndex } from '@/pages/buy-sell-index/buy-sell-index.component';
 
 interface Route {
     path: string;
@@ -113,10 +114,6 @@ export const AppRoutes = () => {
         },
         { path: '/funds/:id', page: FundPage },
         {
-            path: '/what-to-buy',
-            page: IndexPage,
-        },
-        {
             path: 'deposit',
             page: DepositPageResolved,
         },
@@ -156,6 +153,7 @@ export const AppRoutes = () => {
                 { path: 'multi-swap', page: MultiSwapPage },
             ],
         },
+        // TEMP CHART DEMO
         {
             path: 'chart',
             page: () => (
@@ -165,6 +163,15 @@ export const AppRoutes = () => {
                     controlOnClick={constVoid}
                 />
             ),
+        },
+        // WTB
+        {
+            path: '/what-to-buy',
+            page: IndexPage,
+        },
+        {
+            path: '/what-to-buy/buy-sell',
+            page: BuySellIndex,
         },
     ];
 
