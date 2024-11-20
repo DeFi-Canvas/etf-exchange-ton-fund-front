@@ -1,0 +1,22 @@
+.bottomSheet {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 8, 46, 0.4);
+    z-index: var(--z-index-max);
+    will-change: transform;
+    touch-action: manipulation;
+    display: flex;
+    width: 100%;
+}
+
+.bottomSheetContent {
+    margin-top: auto;
+    padding-block: 24px 12px;
+    background-color: var(--color-background-white);
+    border-radius: 16px 16px 0 0;
+    width: 100%;
+}
+
+.bottomSheetButton {
+    margin-top: 32px;
+}

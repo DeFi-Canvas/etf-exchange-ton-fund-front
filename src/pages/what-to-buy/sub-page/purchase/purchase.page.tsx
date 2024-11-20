@@ -15,6 +15,8 @@ import { Asset } from '@/pages/whalet/whalet.model';
 import { injectable } from '@injectable-ts/core';
 import { PurchaseSellContentCardContainer } from '../components/purchase-sell-content-card/purchase-sell-content-card.container';
 import PurchaseSellFooter from '../components/purchase-sell-footer/purchase-sell-footer.component';
+import BottomSheet from '@/components/ui-kit/bottom-sheet/bottom-sheet.component';
+import { useState } from 'react';
 
 interface PurchasePageProps {
     fundData: E.Either<string, FundsData>;
@@ -56,6 +58,36 @@ const PurchasePage = injectable(
                 { title: 'Total in TON', value: '5,46' },
             ];
 
+            const mockDataAssetCardList: InterfacePurchaseSellAssetCardData[] = [
+                {
+                    imageSrc: currentFundData.logo, // TODO сюда бы картиночку вкинуть монеты
+                    title: '1 253,03 USD₮',
+                    subTitle: 'Toncoin',
+                    price: '$ 277,89',
+                    allowedOpen: false,
+                },
+                {
+                    imageSrc: currentFundData.logo, // TODO сюда бы картиночку вкинуть монеты
+                    title: '649,92 TON',
+                    subTitle: 'Toncoin',
+                    price: '$ 1 277,54',
+                    allowedOpen: false,
+                },
+                {
+                    imageSrc: currentFundData.logo, // TODO сюда бы картиночку вкинуть монеты
+                    title: '120 592,03 NOT',
+                    subTitle: 'Toncoin',
+                    price: '$ 442,05',
+                    allowedOpen: false,
+                }
+            ];
+
+            const [showBottomSheet, setShowBottomSheet] = useState(false);
+
+            const handleToggleBottomSheet = () => {
+              setShowBottomSheet(!showBottomSheet);
+            };
+
             return (
                 <div className={css.page}>
                     <div className="app-container">
@@ -65,6 +97,10 @@ const PurchasePage = injectable(
                         </div>
                         <PurchaseSellAttention />
                     </div>
+
+                    {/* TODO:V Не знаю как правильно клик прокинуть, это временное решение */}
+                    <button onClick={(() => setShowBottomSheet(true))}>Open bottomSheet</button>
+
                     <PurchaseSellContentCardContainer />
                     <PurchaseSellDetails
                         className={css.details}
@@ -72,6 +108,13 @@ const PurchasePage = injectable(
                         details={mockDataDetails}
                     />
                     <PurchaseSellFooter title="Buy" onClick={onBuy} />
+
+                    <BottomSheet open={showBottomSheet} hasButtonClose={true} onClose={handleToggleBottomSheet}>
+                        <div className={css.bottomSheetTitle}>Select asset</div>
+                        <div className={css.assetList}>
+                            {mockDataAssetCardList.map(assetCardData => (<PurchaseSellAssetCard {...assetCardData} />))}
+                        </div>
+                    </BottomSheet>
                 </div>
             );
         }

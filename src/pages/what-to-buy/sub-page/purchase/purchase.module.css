@@ -9,3 +9,16 @@
 .details {
     margin-top: 24px;
 }
+
+.bottomSheetTitle {
+    font-weight: 510;
+    font-size: 20px;
+    line-height: 1.3;
+}
+
+.assetList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+}
