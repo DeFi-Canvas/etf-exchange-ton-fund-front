@@ -16,3 +16,16 @@
     background-color: rgba(#5b39f4, 0.1);
     color: #5b39f4;
 }
+
+.spinLoading {
+    animation-name: spin;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

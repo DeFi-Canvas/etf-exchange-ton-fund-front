@@ -7,6 +7,7 @@ import Up from '../../assets/icons/narrow-up-right.svg?react';
 import Chevron from '../../assets/icons/chevron-down.svg?react';
 import Right from '../../assets/icons/arrow-narrow-right.svg?react';
 import Load from '../../assets/icons/loading.svg?react';
+import LoadingLight from '@/assets/icons/loading-light.svg?react';
 import Success from '../../assets/icons/success.svg?react';
 import SuccessWhiteSolid from '@/assets/icons/success-white-solid.svg?react';
 import WhatToBuy from '../../assets/icons/what-to-buy.svg?react';
@@ -83,9 +84,18 @@ export const RightIcon = ({ className = '' }: { className?: string }) => (
     <Right className={className} />
 );
 
-export const SpinIcon = ({ className = '' }: { className?: string }) => (
-    <Load className={className} />
-);
+export const SpinIcon = ({ className = '', type = '' }: { className?: string; type?: string; }) => {
+    const isTypeLight = type && type === 'light'; 
+    return (
+        <>
+        { 
+            isTypeLight 
+                ? <LoadingLight className={className} />
+                : <Load className={className} />
+        }
+        </>
+    )
+};
 export const SuccessIcon = ({ className = '' }: { className?: string }) => (
     <Success className={className} />
 );

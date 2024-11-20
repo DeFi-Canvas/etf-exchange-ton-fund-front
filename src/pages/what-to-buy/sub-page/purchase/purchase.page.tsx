@@ -14,6 +14,7 @@ import { FundsData } from '../../what-to-buy.model';
 import { Asset } from '@/pages/whalet/whalet.model';
 import { injectable } from '@injectable-ts/core';
 import { PurchaseSellContentCardContainer } from '../components/purchase-sell-content-card/purchase-sell-content-card.container';
+import PurchaseSellFooter from '../components/purchase-sell-footer/purchase-sell-footer.component';
 
 interface PurchasePageProps {
     fundData: E.Either<string, FundsData>;
@@ -70,9 +71,7 @@ const PurchasePage = injectable(
                         title="Purchase Details"
                         details={mockDataDetails}
                     />
-
-                    <button onClick={onBuy}>купить</button>
-                    {/* footer */}
+                    <PurchaseSellFooter title="Buy" onClick={onBuy} />
                 </div>
             );
         }

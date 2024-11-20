@@ -1,28 +1,33 @@
-import styles from './AppButton.module.scss';
+import { SpinIcon } from '../Icons/Icons';
+import css from './AppButton.module.scss';
 import { Link } from '@/components/Link/Link.tsx';
 
 type TButtomType = 'default' | 'secondary';
 
-interface IProps {
+interface AppButtonProps {
     label: string;
+    className?: string;
     type?: TButtomType;
     to?: string;
     isDisabled?: boolean;
+    isLoading?: boolean;
     onClick?: () => void;
 }
 
-const AppButton = (props: IProps) => {
+const AppButton = (props: AppButtonProps) => {
     // Script
     const buttonType = props?.type ?? 'default';
     const classList = [
-        styles.button,
-        buttonType === 'secondary' ? styles.buttonSecondary : '',
+        props.className,
+        css.button,
+        buttonType === 'secondary' ? css.buttonSecondary : '',
     ].join(' ');
+
 
     // Template
     return props.to ? (
         <Link to={props.to} className={classList}>
-            {props.label}
+            {props.isLoading ? <SpinIcon className={css.spinLoading} type="light" /> : props.label}
         </Link>
     ) : (
         <button
@@ -31,7 +36,7 @@ const AppButton = (props: IProps) => {
             disabled={props.isDisabled}
             onClick={props.onClick}
         >
-            {props.label}
+            {props.isLoading ? <SpinIcon className={css.spinLoading} type="light" /> : props.label}
         </button>
     );
 };
