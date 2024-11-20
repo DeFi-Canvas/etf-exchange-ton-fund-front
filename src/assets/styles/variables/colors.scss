@@ -24,6 +24,7 @@
     // Color system
     --color-system-green: #{$colorGreen};
     --color-system-red: #{$colorRed};
+    --color-system-red-50: #{rgba($colorRed, 50%)};
 
     // Color pallete
     --color-pallete-grey: #{$colorGrey};

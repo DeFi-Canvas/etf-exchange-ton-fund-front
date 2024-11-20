@@ -1,0 +1,69 @@
+.card {
+    background-color: var(--color-background-light);
+    padding: 12px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.cardWhite {
+    background-color: var(--color-background-white);
+}
+
+.cardImage {
+    --size: 40px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+}
+
+.cardContent {
+    display: flex;
+    align-items: center;
+    flex: 1 1 100%;
+}
+
+.cardContentInfo {
+    flex: 1 1 100%;
+}
+
+.cardContentInfoTitle {
+    font-weight: 510;
+    line-height: 135%;
+}
+
+.cardContentInfoSubTitle {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--color-text-dark-50);
+}
+
+.cardAdditional {
+    min-width: 72px;
+    max-width: 72px;
+    flex: 1 1 100%;
+    line-height: 1.5;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.icon {
+    --size: 24px;
+    width: var(--size);
+    height: var(--size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon svg {
+    width: var(--size);
+    height: var(--size);
+}
+
+.iconChevrone {
+    cursor: pointer;
+}
