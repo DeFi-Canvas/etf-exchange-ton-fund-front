@@ -3,11 +3,32 @@ import cn from 'classnames';
 import { MinusIcon, PlusIcon } from '@/components/Icons/Icons';
 // Style
 import css from './purchase-sell-field-counter.module.css';
+import { useState } from 'react';
 
-const PurchaseSellFieldCounter = () => {
-    const fieldValue = '5 pcs.';
+export interface PurchaseSellFieldCounterProps {
+    quantity: number;
+    increment: () => void;
+    dicrement: () => void;
+}
+
+const PurchaseSellFieldCounter = ({
+    quantity,
+    increment,
+    dicrement,
+}: PurchaseSellFieldCounterProps) => {
+    const [inputVal, setInputVal] = useState(quantity);
+
+    const onIncrement = () => {
+        setInputVal((x) => x + 1);
+        increment();
+    };
+    const onDicrement = () => {
+        setInputVal((x) => x - 1);
+        dicrement();
+    };
+
     const isButtomMinusDisabled = false;
-    const isButtomPlusDisabled = true;
+    const isButtomPlusDisabled = false;
 
     return (
         <div className={css.fieldCounter}>
@@ -15,10 +36,11 @@ const PurchaseSellFieldCounter = () => {
                 type="text"
                 className={cn('trim-line', css.fieldCounterInput)}
                 disabled
-                value={fieldValue}
+                value={`${inputVal} pcs.`}
             />
             <div className={css.fieldCounterButtons}>
                 <button
+                    onClick={onDicrement}
                     className={cn(css.fieldCounterButton, {
                         [css.fieldCounterButtonDisabled]: isButtomMinusDisabled,
                     })}
@@ -26,6 +48,7 @@ const PurchaseSellFieldCounter = () => {
                     <MinusIcon />
                 </button>
                 <button
+                    onClick={onIncrement}
                     className={cn(css.fieldCounterButton, {
                         [css.fieldCounterButtonDisabled]: isButtomPlusDisabled,
                     })}

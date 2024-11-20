@@ -15,4 +15,7 @@ export const API = {
     withdraw: `${DOMAIN_API_URL}/withdraw`,
     transactions: (id?: number) =>
         `${DOMAIN_API_URL}/wallet/transactions?telegram_id=${id}`,
+
+    getFund: (id?: string) => `${DOMAIN_API_URL}/fund/${id}`,
+    buyFund: `${DOMAIN_API_URL}/wallet/buyindex`,
 };

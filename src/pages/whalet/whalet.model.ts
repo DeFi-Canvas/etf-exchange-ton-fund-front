@@ -42,7 +42,7 @@ export const mapFunds = (data: FundsRespnce): CoinCardData => ({
     logo: data.image_url,
     name: data.name,
     ticker: '',
-    coinAmount: 228,
+    coinAmount: 0,
     cost: 0,
 });
 

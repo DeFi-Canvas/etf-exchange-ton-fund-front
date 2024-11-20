@@ -1,3 +1,6 @@
+import * as E from 'fp-ts/Either';
+import * as O from 'fp-ts/Option';
+
 // Templates
 import PurchaseSellIitle from '../components/purchase-sell-title/purchase-sell-title.component';
 import PurchaseSellAssetCard from '../components/purchase-sell-asset-card/purchase-sell-asset-card.component';
@@ -7,29 +10,65 @@ import PurchaseSellContentCard from '../components/purchase-sell-content-card/pu
 import { InterfacePurchaseSellAssetCardData } from '../types';
 // Style
 import css from './purchase.module.css';
+import { FundsData } from '../../what-to-buy.model';
+import { Asset } from '@/pages/whalet/whalet.model';
+import { TotalAmount } from './purchase.view-model';
 
-const PurchasePage = () => {
-    // TODO:V Моки для (<PurchaseSellAssetCard />)
+interface PurchasePageProps {
+    fundData: E.Either<string, FundsData>;
+    assets: E.Either<string, Array<Asset>>;
+    selectedAssets: E.Either<string, Asset>;
+    totalAmount: O.Option<TotalAmount>;
+    quantity: number;
+    increment: () => void;
+    onBuy: () => void;
+    dicrement: () => void;
+}
+
+const PurchasePage = ({
+    fundData,
+    assets,
+    selectedAssets,
+    quantity,
+    increment,
+    dicrement,
+    totalAmount,
+    onBuy,
+}: PurchasePageProps) => {
+    console.log(selectedAssets);
+
+    // TODO: Сделать через RenderEither
+    const currentFundData = E.isRight(fundData)
+        ? fundData.right
+        : ({} as FundsData);
+    //TODO:V - все доступные ассееты  в типе Asset
+    // const currentAssets = E.isRight(assets)
+    //     ? assets.right
+    //     : ([] as Array<Asset>);
+
+    const currentSelectedAssets = E.isRight(selectedAssets)
+        ? selectedAssets.right
+        : ({} as Asset);
+    // TODO:V Моки для (<PurchaseSellAssetCard />) - ЕСЛИ ДЕЛАЕШЬ МОК УКАЗЫВАЙ ЕГО ТИП
     const assetCardData: InterfacePurchaseSellAssetCardData = {
-        imageSrc: './temp-asset-card-avatar.png', // TODO:V Лежит в root/public
-        title: 'Canvas stable',
-        subTitle: 'Defi Canvas',
-        price: '$ 5,42',
+        imageSrc: currentFundData.logo, // TODO:V Лежит в root/public
+        title: currentFundData.name,
+        subTitle: currentFundData.description,
+        price: `$ ${currentFundData.cost}`,
         allowedOpen: false,
         isBackgroundWhite: true,
     };
-    const assetCardDataContentCard = Object.assign(
-        {},
-        {
-            ...assetCardData,
-            imageSrc: './temp-ton.png',
-            title: '649,92 TON',
-            subTitle: '$ 1 277,54',
-            price: '',
-            allowedOpen: true,
-            isBackgroundWhite: false,
-        }
-    );
+    //TODO: написать маппер
+    const assetCardDataContentCard = {
+        imageSrc: currentSelectedAssets.image_url,
+        title: `${currentSelectedAssets.value} ${currentSelectedAssets.symbol}`,
+        subTitle: `$ ${
+            currentSelectedAssets.price * currentSelectedAssets.value
+        }`,
+        price: `${currentSelectedAssets.balance}`,
+        allowedOpen: true,
+        isBackgroundWhite: false,
+    };
 
     return (
         <div className={css.page}>
@@ -40,7 +79,14 @@ const PurchasePage = () => {
                 </div>
                 <PurchaseSellAttention />
             </div>
-            <PurchaseSellContentCard assetCardData={assetCardDataContentCard} />
+            <PurchaseSellContentCard
+                assetCardData={assetCardDataContentCard}
+                quantity={quantity}
+                increment={increment}
+                dicrement={dicrement}
+                totalAmount={totalAmount}
+            />
+            <button onClick={onBuy}>купить</button>
             {/* Details */}
             {/* footer */}
         </div>

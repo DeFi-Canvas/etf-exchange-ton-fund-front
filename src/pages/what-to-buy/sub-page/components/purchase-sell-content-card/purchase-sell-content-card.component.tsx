@@ -5,37 +5,53 @@ import PurchaseSellAssetCard from '../purchase-sell-asset-card/purchase-sell-ass
 import { InterfacePurchaseSellAssetCardData } from '../../types';
 // Style
 import css from './purchase-sell-content-card.module.css';
-import PurchaseSellFieldCounter from '../purchase-sell-field-counter/purchase-sell-field-counter.component';
+import PurchaseSellFieldCounter, {
+    PurchaseSellFieldCounterProps,
+} from '../purchase-sell-field-counter/purchase-sell-field-counter.component';
+import * as O from 'fp-ts/Option';
+import { TotalAmount } from '../../purchase/purchase.view-model';
+import { pipe } from 'fp-ts/lib/function';
 
-interface PurchaseSellContentCardProps {
+interface PurchaseSellContentCardProps extends PurchaseSellFieldCounterProps {
     assetCardData: InterfacePurchaseSellAssetCardData;
+    totalAmount: O.Option<TotalAmount>;
 }
-const PurchaseSellContentCard = (props: PurchaseSellContentCardProps) => {
+const PurchaseSellContentCard = ({
+    assetCardData,
+    totalAmount,
+    ...rest
+}: PurchaseSellContentCardProps) => {
+    const currentTotalAmount = pipe(
+        totalAmount,
+        O.getOrElse(() => ({
+            currency: 0,
+            coin: 0,
+        }))
+    );
+
     const maxQuantity = 304;
-    const price = '$ 25,39';
-    const priceConverted = '5,46 TON';
 
     return (
         <div className={css.card}>
             <div className={cn('app-container', css.cardContainer)}>
                 <div className={css.section}>
                     <div className={css.cardTitle}>Asset</div>
-                    <PurchaseSellAssetCard {...props.assetCardData} />
+                    <PurchaseSellAssetCard {...assetCardData} />
                 </div>
                 <div className={css.section}>
                     <header className={css.cardTitle}>
                         <span>Quantity</span>
-                        <div className={css.maxCounter}>
-                            MAX: {maxQuantity}
-                        </div>
+                        <div className={css.maxCounter}>MAX: {maxQuantity}</div>
                     </header>
-                    <PurchaseSellFieldCounter />
+                    <PurchaseSellFieldCounter {...rest} />
                 </div>
                 <div className={css.section}>
                     Total amount
                     <div className={css.totalAmountCard}>
-                        <div className={css.totalAmountCardPrice}>{price}</div>
-                        <div>{priceConverted}</div>
+                        <div className={css.totalAmountCardPrice}>
+                            {currentTotalAmount.currency}
+                        </div>
+                        <div>{currentTotalAmount.coin}</div>
                     </div>
                 </div>
             </div>

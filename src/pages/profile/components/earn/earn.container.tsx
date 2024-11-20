@@ -7,7 +7,6 @@ import { Earn } from './earn.component';
 
 export const EarnContainer = injectable(
     newEranViewModel,
-    // eslint-disable-next-line react/display-name
     (newEranViewModel) => () => {
         const vm = useValueWithEffect(() => newEranViewModel(), []);
         const steps = useProperty(vm.steps);
