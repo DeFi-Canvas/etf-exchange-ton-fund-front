@@ -23,11 +23,14 @@ const AppButton = (props: AppButtonProps) => {
         buttonType === 'secondary' ? css.buttonSecondary : '',
     ].join(' ');
 
-
     // Template
     return props.to ? (
         <Link to={props.to} className={classList}>
-            {props.isLoading ? <SpinIcon className={css.spinLoading} type="light" /> : props.label}
+            {props.isLoading ? (
+                <SpinIcon className={css.spinLoading} type="light" />
+            ) : (
+                props.label
+            )}
         </Link>
     ) : (
         <button
@@ -36,7 +39,11 @@ const AppButton = (props: AppButtonProps) => {
             disabled={props.isDisabled}
             onClick={props.onClick}
         >
-            {props.isLoading ? <SpinIcon className={css.spinLoading} type="light" /> : props.label}
+            {props.isLoading ? (
+                <SpinIcon className={css.spinLoading} type="light" />
+            ) : (
+                props.label
+            )}
         </button>
     );
 };

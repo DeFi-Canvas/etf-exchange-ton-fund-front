@@ -11,9 +11,14 @@ interface PurchaseSellFooterProps {
 const PurchaseSellFooter = (props: PurchaseSellFooterProps) => {
     return (
         <footer className={css.footer}>
-            <AppButton className={css.button} label={props.title} onClick={props.onClick} isLoading={false} /> 
+            <AppButton
+                className={css.button}
+                label={props.title}
+                onClick={props.onClick}
+                isLoading={false}
+            />
         </footer>
-    )
-}
+    );
+};
 
 export default PurchaseSellFooter;

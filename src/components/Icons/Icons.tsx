@@ -84,17 +84,23 @@ export const RightIcon = ({ className = '' }: { className?: string }) => (
     <Right className={className} />
 );
 
-export const SpinIcon = ({ className = '', type = '' }: { className?: string; type?: string; }) => {
-    const isTypeLight = type && type === 'light'; 
+export const SpinIcon = ({
+    className = '',
+    type = '',
+}: {
+    className?: string;
+    type?: string;
+}) => {
+    const isTypeLight = type && type === 'light';
     return (
         <>
-        { 
-            isTypeLight 
-                ? <LoadingLight className={className} />
-                : <Load className={className} />
-        }
+            {isTypeLight ? (
+                <LoadingLight className={className} />
+            ) : (
+                <Load className={className} />
+            )}
         </>
-    )
+    );
 };
 export const SuccessIcon = ({ className = '' }: { className?: string }) => (
     <Success className={className} />
