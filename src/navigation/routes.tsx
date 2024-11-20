@@ -24,7 +24,7 @@ import { SwapPage } from '@/pages/swap/sub-pages/swap/swap.component';
 import { MultiSwapPage } from '@/pages/swap/sub-pages/multi-swap/multi-swap.component';
 import { Chart } from '@/components/chart/chart.component';
 import { constVoid } from 'fp-ts/lib/function';
-import SellPage from '@/pages/what-to-buy/sub-page/sell/sell.page';
+// import SellPage from '@/pages/what-to-buy/sub-page/sell/sell.page';
 import { PurchaseContainer } from '@/pages/what-to-buy/sub-page/purchase/purchase.container';
 
 interface Route {
@@ -178,10 +178,10 @@ export const AppRoutes = () => {
             path: '/what-to-buy/purchase',
             page: PurchaseContainerResolved,
         },
-        {
-            path: '/what-to-buy/sell',
-            page: SellPage,
-        },
+        // {
+        //     path: '/what-to-buy/sell',
+        //     page: SellPage,
+        // },
     ];
 
     return (

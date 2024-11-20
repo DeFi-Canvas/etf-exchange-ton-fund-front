@@ -18,7 +18,7 @@ export interface TotalAmount {
     coin: number;
 }
 
-export interface purchaseViewModel {
+export interface PurchaseViewModel {
     fundData: Property<E.Either<string, FundsData>>;
     assets: Property<E.Either<string, Array<Asset>>>;
     selectedAssets: Property<E.Either<string, Asset>>;
@@ -30,7 +30,7 @@ export interface purchaseViewModel {
 }
 
 export interface NewPurchaseViewModel {
-    (): ValueWithEffect<purchaseViewModel>;
+    (): ValueWithEffect<PurchaseViewModel>;
 }
 
 export const newPurchaseViewModel = injectable(
@@ -124,10 +124,10 @@ export const newPurchaseViewModel = injectable(
                         fundData.get(),
                         E.getOrElse(() => ({} as FundsData))
                     );
-                    const currentAsset = pipe(
-                        selectedAssets.get(),
-                        E.getOrElse(() => ({} as Asset))
-                    );
+                    // const currentAsset = pipe(
+                    //     selectedAssets.get(),
+                    //     E.getOrElse(() => ({} as Asset))
+                    // );
                     return service.buyFund({
                         fundId: currentFund.id,
                         assetId: '',

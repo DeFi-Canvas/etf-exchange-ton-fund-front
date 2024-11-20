@@ -5,58 +5,59 @@ import PurchaseSellAssetCard from '../purchase-sell-asset-card/purchase-sell-ass
 import { InterfacePurchaseSellAssetCardData } from '../../types';
 // Style
 import css from './purchase-sell-content-card.module.css';
-import PurchaseSellFieldCounter, {
-    PurchaseSellFieldCounterProps,
-} from '../purchase-sell-field-counter/purchase-sell-field-counter.component';
 import * as O from 'fp-ts/Option';
 import { TotalAmount } from '../../purchase/purchase.view-model';
 import { pipe } from 'fp-ts/lib/function';
+import { injectable } from '@injectable-ts/core';
+import { PurchaseSellFieldCounterContainer } from '../purchase-sell-field-counter/purchase-sell-field-counter.container';
 
-interface PurchaseSellContentCardProps extends PurchaseSellFieldCounterProps {
+interface PurchaseSellContentCardProps {
     assetCardData: InterfacePurchaseSellAssetCardData;
     totalAmount: O.Option<TotalAmount>;
 }
-const PurchaseSellContentCard = ({
-    assetCardData,
-    totalAmount,
-    ...rest
-}: PurchaseSellContentCardProps) => {
-    const currentTotalAmount = pipe(
-        totalAmount,
-        O.getOrElse(() => ({
-            currency: 0,
-            coin: 0,
-        }))
-    );
+const PurchaseSellContentCard = injectable(
+    PurchaseSellFieldCounterContainer,
+    (PurchaseSellFieldCounterContainer) =>
+        ({ assetCardData, totalAmount }: PurchaseSellContentCardProps) => {
+            const currentTotalAmount = pipe(
+                totalAmount,
+                O.getOrElse(() => ({
+                    currency: 0,
+                    coin: 0,
+                }))
+            );
 
-    const maxQuantity = 304;
+            const maxQuantity = 304;
 
-    return (
-        <div className={css.card}>
-            <div className={cn('app-container', css.cardContainer)}>
-                <div className={css.section}>
-                    <div className={css.cardTitle}>Asset</div>
-                    <PurchaseSellAssetCard {...assetCardData} />
-                </div>
-                <div className={css.section}>
-                    <header className={css.cardTitle}>
-                        <span>Quantity</span>
-                        <div className={css.maxCounter}>MAX: {maxQuantity}</div>
-                    </header>
-                    <PurchaseSellFieldCounter {...rest} />
-                </div>
-                <div className={css.section}>
-                    Total amount
-                    <div className={css.totalAmountCard}>
-                        <div className={css.totalAmountCardPrice}>
-                            {currentTotalAmount.currency}
+            return (
+                <div className={css.card}>
+                    <div className={cn('app-container', css.cardContainer)}>
+                        <div className={css.section}>
+                            <div className={css.cardTitle}>Asset</div>
+                            <PurchaseSellAssetCard {...assetCardData} />
                         </div>
-                        <div>{currentTotalAmount.coin}</div>
+                        <div className={css.section}>
+                            <header className={css.cardTitle}>
+                                <span>Quantity</span>
+                                <div className={css.maxCounter}>
+                                    MAX: {maxQuantity}
+                                </div>
+                            </header>
+                            <PurchaseSellFieldCounterContainer />
+                        </div>
+                        <div className={css.section}>
+                            Total amount
+                            <div className={css.totalAmountCard}>
+                                <div className={css.totalAmountCardPrice}>
+                                    {currentTotalAmount.currency}
+                                </div>
+                                <div>{currentTotalAmount.coin}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    );
-};
+            );
+        }
+);
 
 export default PurchaseSellContentCard;
