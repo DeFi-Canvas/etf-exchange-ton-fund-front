@@ -4,6 +4,7 @@ import PurchaseSellIitle from '../components/purchase-sell-title/purchase-sell-t
 import PurchaseSellAssetCard from '../components/purchase-sell-asset-card/purchase-sell-asset-card.component';
 // import PurchaseSellContentCard from '../components/purchase-sell-content-card/purchase-sell-content-card.component';
 import PurchaseSellDetails from '../components/purchase-sell-details/purchase-sell-details.component';
+import PurchaseSellFooter from '../components/purchase-sell-footer/purchase-sell-footer.component';
 // Types
 import type { InterfacePurchaseSellAssetCardData } from '../types';
 import type { PurchaseSellDetailsData } from '../components/purchase-sell-details/purchase-sell-details.component';
@@ -64,7 +65,7 @@ const SellPage = injectable(
                     title="Sell Details"
                     details={mockDataDetails}
                 />
-                {/* footer */}
+                <PurchaseSellFooter title="Sell" onClick={() => {}} />
             </div>
         );
     }
