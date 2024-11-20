@@ -32,7 +32,7 @@ export interface PurchaseViewModel {
 export interface NewPurchaseViewModel {
     (): ValueWithEffect<PurchaseViewModel>;
 }
-
+//TODO: Это стор дебил!
 export const newPurchaseViewModel = injectable(
     newWTBRestService,
     newWaletRestService,

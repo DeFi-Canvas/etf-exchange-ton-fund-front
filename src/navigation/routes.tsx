@@ -26,6 +26,7 @@ import { Chart } from '@/components/chart/chart.component';
 import { constVoid } from 'fp-ts/lib/function';
 // import SellPage from '@/pages/what-to-buy/sub-page/sell/sell.page';
 import { PurchaseContainer } from '@/pages/what-to-buy/sub-page/purchase/purchase.container';
+import { SellContainer } from '@/pages/what-to-buy/sub-page/sell/sell.container';
 
 interface Route {
     path: string;
@@ -105,6 +106,10 @@ export const AppRoutes = () => {
     const PurchaseContainerResolved = PurchaseContainer({
         userStore,
     });
+
+    const SellContainerResolved = SellContainer({
+        userStore,
+    });
     //#region routes
     const routes: Route[] = [
         {
@@ -178,10 +183,10 @@ export const AppRoutes = () => {
             path: '/what-to-buy/purchase',
             page: PurchaseContainerResolved,
         },
-        // {
-        //     path: '/what-to-buy/sell',
-        //     page: SellPage,
-        // },
+        {
+            path: '/what-to-buy/sell',
+            page: SellContainerResolved,
+        },
     ];
 
     return (
