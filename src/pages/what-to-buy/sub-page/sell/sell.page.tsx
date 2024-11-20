@@ -3,8 +3,10 @@
 import PurchaseSellIitle from '../components/purchase-sell-title/purchase-sell-title.component';
 import PurchaseSellAssetCard from '../components/purchase-sell-asset-card/purchase-sell-asset-card.component';
 // import PurchaseSellContentCard from '../components/purchase-sell-content-card/purchase-sell-content-card.component';
+import PurchaseSellDetails from '../components/purchase-sell-details/purchase-sell-details.component';
 // Types
-import { InterfacePurchaseSellAssetCardData } from '../types';
+import type { InterfacePurchaseSellAssetCardData } from '../types';
+import type { PurchaseSellDetailsData } from '../components/purchase-sell-details/purchase-sell-details.component';
 // Style
 import css from './sell.module.css';
 import { PurchaseSellContentCardContainer } from '../components/purchase-sell-content-card/purchase-sell-content-card.container';
@@ -35,6 +37,12 @@ const SellPage = injectable(
         //     }
         // );
 
+        const mockDataDetails: PurchaseSellDetailsData[] = [
+            { title: 'Commission', value: '$ 0' },
+            { title: 'Total in USD', value: '$ 25,39' },
+            { title: 'Total in TON', value: '5,46' },
+        ];
+
         return (
             <div className={css.page}>
                 <div className="app-container">
@@ -51,7 +59,7 @@ const SellPage = injectable(
                 dicrement={constVoid}
                 totalAmount={O.of({ coin: 0, currency: 0 })}
             /> */}
-                {/* Details */}
+                <PurchaseSellDetails className={css.details} title="Sell Details" details={mockDataDetails} />
                 {/* footer */}
             </div>
         );

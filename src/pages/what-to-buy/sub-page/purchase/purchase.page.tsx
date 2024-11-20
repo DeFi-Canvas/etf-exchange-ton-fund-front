@@ -6,8 +6,8 @@ import PurchaseSellAssetCard from '../components/purchase-sell-asset-card/purcha
 import PurchaseSellAttention from '../components/purchase-sell-attention/purchase-sell-attention.component';
 import PurchaseSellDetails from '../components/purchase-sell-details/purchase-sell-details.component';
 // Types
-import { InterfacePurchaseSellAssetCardData } from '../types';
-import { PurchaseSellDetailsData } from '../components/purchase-sell-details/purchase-sell-details.component';
+import type { InterfacePurchaseSellAssetCardData } from '../types';
+import type { PurchaseSellDetailsData } from '../components/purchase-sell-details/purchase-sell-details.component';
 // Style
 import css from './purchase.module.css';
 import { FundsData } from '../../what-to-buy.model';
