@@ -1,3 +1,4 @@
+import * as O from 'fp-ts/Option';
 // Templates
 import PurchaseSellIitle from '../components/purchase-sell-title/purchase-sell-title.component';
 import PurchaseSellAssetCard from '../components/purchase-sell-asset-card/purchase-sell-asset-card.component';
@@ -6,6 +7,7 @@ import PurchaseSellContentCard from '../components/purchase-sell-content-card/pu
 import { InterfacePurchaseSellAssetCardData } from '../types';
 // Style
 import css from './sell.module.css';
+import { constVoid } from 'fp-ts/lib/function';
 
 const SellPage = () => {
     // TODO:V Моки для (<PurchaseSellAssetCard />)
@@ -37,7 +39,13 @@ const SellPage = () => {
                     <PurchaseSellAssetCard {...assetCardData} />
                 </div>
             </div>
-            <PurchaseSellContentCard assetCardData={assetCardDataContentCard} />
+            <PurchaseSellContentCard
+                assetCardData={assetCardDataContentCard}
+                quantity={0}
+                increment={constVoid}
+                dicrement={constVoid}
+                totalAmount={O.of({ coin: 0, currency: 0 })}
+            />
             {/* Details */}
             {/* footer */}
         </div>
