@@ -1,0 +1,57 @@
+.details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.detailsTitle {
+    font-weight: 510;
+    line-height: 1.35;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.iconChevron {
+    --size: 24px;
+    width: var(--size);
+    height: var(--size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s;
+}
+
+.iconChevron svg {
+    width: var(--size);
+    height: var(--size);
+}
+
+.iconChevronActive {
+    transform: rotate(180deg);
+}
+
+.detailList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s;
+}
+
+.detailListOpen {
+    height: var(--height, fit-content);
+}
+
+.detailItem {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.detailItemTitle {
+    color: var(--color-text-dark-70);
+}

@@ -4,8 +4,10 @@ import * as E from 'fp-ts/Either';
 import PurchaseSellIitle from '../components/purchase-sell-title/purchase-sell-title.component';
 import PurchaseSellAssetCard from '../components/purchase-sell-asset-card/purchase-sell-asset-card.component';
 import PurchaseSellAttention from '../components/purchase-sell-attention/purchase-sell-attention.component';
+import PurchaseSellDetails from '../components/purchase-sell-details/purchase-sell-details.component';
 // Types
 import { InterfacePurchaseSellAssetCardData } from '../types';
+import { PurchaseSellDetailsData } from '../components/purchase-sell-details/purchase-sell-details.component';
 // Style
 import css from './purchase.module.css';
 import { FundsData } from '../../what-to-buy.model';
@@ -47,6 +49,12 @@ const PurchasePage = injectable(
                 isBackgroundWhite: true,
             };
 
+            const mockDataDetails: PurchaseSellDetailsData[] = [
+                { title: 'Commission', value: '$ 0' },
+                { title: 'Total in USD', value: '$ 25,39' },
+                { title: 'Total in TON', value: '5,46' },
+            ];
+
             return (
                 <div className={css.page}>
                     <div className="app-container">
@@ -57,8 +65,9 @@ const PurchasePage = injectable(
                         <PurchaseSellAttention />
                     </div>
                     <PurchaseSellContentCardContainer />
+                    <PurchaseSellDetails className={css.details} title="Purchase Details" details={mockDataDetails} />
+
                     <button onClick={onBuy}>купить</button>
-                    {/* Details */}
                     {/* footer */}
                 </div>
             );
