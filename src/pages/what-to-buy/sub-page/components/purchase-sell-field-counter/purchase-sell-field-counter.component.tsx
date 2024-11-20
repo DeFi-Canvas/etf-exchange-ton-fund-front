@@ -34,7 +34,7 @@ const PurchaseSellFieldCounter = ({
         <div className={css.fieldCounter}>
             <input
                 type="text"
-                className={cn('trim-line', css.fieldCounterInput)}
+                className={cn('trim-lines-1', css.fieldCounterInput)}
                 disabled
                 value={`${inputVal} pcs.`}
             />

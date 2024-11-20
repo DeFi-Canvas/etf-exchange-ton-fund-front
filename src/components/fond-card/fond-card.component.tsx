@@ -35,7 +35,7 @@ export const FondCard = () => {
             <div className={css.mainInfo}>
                 <div className={css.info}>
                     <span className={css.title}>Stablecoin Yield Fund</span>
-                    <div className={cn('trim-line', css.description)}>
+                    <div className={cn('trim-lines-1', css.description)}>
                         A fund that generates returns using stablecoins by
                         leveraging
                     </div>
