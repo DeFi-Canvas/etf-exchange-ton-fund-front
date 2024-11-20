@@ -1,0 +1,117 @@
+.wrap {
+    display: flex;
+    flex-direction: column;
+    border-radius: 24px;
+    color: var(--Colors-Text-White, #fff);
+}
+
+.statisticInfo {
+    background-image: var(--backgroundUrl);
+    padding: 20px;
+    border-radius: 24px 24px 0 0;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+}
+
+.risk {
+    font-family: var(--Font-Family-V1, 'SF Pro');
+    font-size: var(--Font-Size-xxs, 10px);
+    font-weight: 510;
+    line-height: 140%;
+}
+
+.coinWrap {
+    display: flex;
+    gap: 2px;
+}
+
+.riskInfo {
+    display: flex;
+    justify-content: space-between;
+}
+
+.img {
+    border-radius: 50%;
+}
+
+.prediction {
+    display: flex;
+    flex-direction: column;
+    margin-top: 26px;
+}
+
+.mainInfo {
+    padding: 20px;
+    background: var(--Pallete-White, #fff);
+    color: var(--Text-Dark, #1b1b1b);
+    border-radius: 0 0 24px 24px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    max-width: 305px;
+}
+
+.description {
+    overflow: hidden;
+    color: var(--text-dark-70, rgba(27, 27, 27, 0.7));
+    text-overflow: ellipsis;
+
+    /* Body M Regular */
+    font-family: var(--Font-Family-V1, 'SF Pro');
+    font-size: var(--Font-Size-sm, 14px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 21px */
+}
+
+.title {
+    color: var(--Text-Dark, #1b1b1b);
+
+    /* Subhead S */
+    font-family: var(--Font-Family-V1, 'SF Pro');
+    font-size: var(--Font-Size-xl, 20px);
+    font-style: normal;
+    font-weight: 510;
+    line-height: 130%; /* 26px */
+}
+
+.owner {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    gap: 8px;
+    border-radius: 12px;
+    background: var(--Colors-Background-Light, #f9f8ff);
+    margin-top: 16px;
+}
+.ownerLogo {
+    width: 32px;
+    height: 32px;
+}
+
+.ownerInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+/* TODO:V клал я на то что они на 90% идентичные */
+.ownerTitle {
+    color: var(--Text-Dark, #1b1b1b);
+    font-family: var(--Font-Family-V1, 'SF Pro');
+    font-size: var(--Font-Size-sm, 14px);
+    font-style: normal;
+    font-weight: 510;
+    line-height: 150%; /* 21px */
+}
+
+.ownerDescription {
+    color: var(--text-dark-70, rgba(27, 27, 27, 0.7));
+    font-family: var(--Font-Family-V1, 'SF Pro');
+    font-size: var(--Font-Size-xs, 12px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 18px */
+}

@@ -3,6 +3,9 @@ import css from './what-to-buy.module.css';
 import cn from 'classnames';
 import { Crumbs } from '@/components/crumbs/crumbs.component';
 import { BoardOfInterest } from '@/components/board-of-interest/board-of-interest.component';
+import { AssetsCard } from '@/components/assets-card/assets-card.component';
+import { FondsSlider } from '@/components/fond-card/fond-slider/fond-slider.component';
+
 import src1 from './assets/imgs/kiril.png';
 import src2 from './assets/imgs/nikitajpg.jpg';
 import src3 from './assets/imgs/sameOne.jpg';
@@ -18,7 +21,6 @@ import src11 from './assets/imgs/dimondpng.png';
 import src12 from './assets/imgs/rocket.png';
 import src13 from './assets/imgs/stone.png';
 import src14 from './assets/imgs/vpng.png';
-import { AssetsCard } from '@/components/assets-card/assets-card.component';
 
 const colorFolowCompany =
     'linear-gradient(180deg, #9D87FF 0%, #5B39F4 101.95%)';
@@ -40,6 +42,10 @@ export const WhatToBuyPage = () => {
                 title="Follow the community"
                 subTitle="Reuse the best strategies"
             />
+            <div>
+                <span className={css.h2}>Investments for beginners</span>
+                <FondsSlider theme={css.swiper} />
+            </div>
 
             <BoardOfInterest
                 imgs={[src8, src9, src10, src11, src12, src13, src14]}

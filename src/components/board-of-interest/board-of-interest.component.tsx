@@ -30,6 +30,7 @@ export const BoardOfInterest = ({
                 <span className={css.topTitle}>{title}</span>
                 <span className={css.bottomTitle}>{subTitle}</span>
             </div>
+            {/* TODO: сделанно шакально */}
             <div className={css.imgBody}>
                 <div className={css.imgWrap}>
                     {imgs.slice(0, 3).map((src) => (

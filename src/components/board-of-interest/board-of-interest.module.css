@@ -19,7 +19,6 @@
 }
 
 .topTitle {
-    /* color: var(--Colors-Text-White, #fff); */
     font-family: var(--Font-Family-V1, 'SF Pro');
     font-size: var(--Font-Size-sm, 14px);
     font-weight: 510;
@@ -27,7 +26,6 @@
 }
 
 .bottomTitle {
-    /* color: var(--Colors-Text-White, #fff); */
     font-family: var(--Font-Family-V1, 'SF Pro');
     font-size: var(--Font-Size-xxl, 22px);
     font-style: normal;
@@ -37,13 +35,16 @@
 
 .imgBody {
     margin: 34px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 .imgWrap {
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0 34px;
+    gap: 0 4px;
 }
 
 .img {
