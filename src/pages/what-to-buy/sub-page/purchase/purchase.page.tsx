@@ -58,34 +58,35 @@ const PurchasePage = injectable(
                 { title: 'Total in TON', value: '5,46' },
             ];
 
-            const mockDataAssetCardList: InterfacePurchaseSellAssetCardData[] = [
-                {
-                    imageSrc: currentFundData.logo, // TODO сюда бы картиночку вкинуть монеты
-                    title: '1 253,03 USD₮',
-                    subTitle: 'Toncoin',
-                    price: '$ 277,89',
-                    allowedOpen: false,
-                },
-                {
-                    imageSrc: currentFundData.logo, // TODO сюда бы картиночку вкинуть монеты
-                    title: '649,92 TON',
-                    subTitle: 'Toncoin',
-                    price: '$ 1 277,54',
-                    allowedOpen: false,
-                },
-                {
-                    imageSrc: currentFundData.logo, // TODO сюда бы картиночку вкинуть монеты
-                    title: '120 592,03 NOT',
-                    subTitle: 'Toncoin',
-                    price: '$ 442,05',
-                    allowedOpen: false,
-                }
-            ];
+            const mockDataAssetCardList: InterfacePurchaseSellAssetCardData[] =
+                [
+                    {
+                        imageSrc: currentFundData.logo, // TODO сюда бы картиночку вкинуть монеты
+                        title: '1 253,03 USD₮',
+                        subTitle: 'Toncoin',
+                        price: '$ 277,89',
+                        allowedOpen: false,
+                    },
+                    {
+                        imageSrc: currentFundData.logo, // TODO сюда бы картиночку вкинуть монеты
+                        title: '649,92 TON',
+                        subTitle: 'Toncoin',
+                        price: '$ 1 277,54',
+                        allowedOpen: false,
+                    },
+                    {
+                        imageSrc: currentFundData.logo, // TODO сюда бы картиночку вкинуть монеты
+                        title: '120 592,03 NOT',
+                        subTitle: 'Toncoin',
+                        price: '$ 442,05',
+                        allowedOpen: false,
+                    },
+                ];
 
             const [showBottomSheet, setShowBottomSheet] = useState(false);
 
             const handleToggleBottomSheet = () => {
-              setShowBottomSheet(!showBottomSheet);
+                setShowBottomSheet(!showBottomSheet);
             };
 
             return (
@@ -99,7 +100,9 @@ const PurchasePage = injectable(
                     </div>
 
                     {/* TODO:V Не знаю как правильно клик прокинуть, это временное решение */}
-                    <button onClick={(() => setShowBottomSheet(true))}>Open bottomSheet</button>
+                    <button onClick={() => setShowBottomSheet(true)}>
+                        Open bottomSheet
+                    </button>
 
                     <PurchaseSellContentCardContainer />
                     <PurchaseSellDetails
@@ -109,10 +112,16 @@ const PurchasePage = injectable(
                     />
                     <PurchaseSellFooter title="Buy" onClick={onBuy} />
 
-                    <BottomSheet open={showBottomSheet} hasButtonClose={true} onClose={handleToggleBottomSheet}>
+                    <BottomSheet
+                        open={showBottomSheet}
+                        hasButtonClose={true}
+                        onClose={handleToggleBottomSheet}
+                    >
                         <div className={css.bottomSheetTitle}>Select asset</div>
                         <div className={css.assetList}>
-                            {mockDataAssetCardList.map(assetCardData => (<PurchaseSellAssetCard {...assetCardData} />))}
+                            {mockDataAssetCardList.map((assetCardData) => (
+                                <PurchaseSellAssetCard {...assetCardData} />
+                            ))}
                         </div>
                     </BottomSheet>
                 </div>
