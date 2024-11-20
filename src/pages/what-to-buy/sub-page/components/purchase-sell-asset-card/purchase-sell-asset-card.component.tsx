@@ -23,7 +23,12 @@ const PurchaseSellAssetCard = (props: PurchaseSellAssetCardProps) => {
                         {props.title}
                     </div>
                     {props.subTitle && (
-                        <div className={cn('trim-lines-1', css.cardContentInfoSubTitle)}>
+                        <div
+                            className={cn(
+                                'trim-lines-1',
+                                css.cardContentInfoSubTitle
+                            )}
+                        >
                             {props.subTitle}
                         </div>
                     )}

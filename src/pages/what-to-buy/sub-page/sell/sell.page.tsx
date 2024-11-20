@@ -59,7 +59,11 @@ const SellPage = injectable(
                 dicrement={constVoid}
                 totalAmount={O.of({ coin: 0, currency: 0 })}
             /> */}
-                <PurchaseSellDetails className={css.details} title="Sell Details" details={mockDataDetails} />
+                <PurchaseSellDetails
+                    className={css.details}
+                    title="Sell Details"
+                    details={mockDataDetails}
+                />
                 {/* footer */}
             </div>
         );

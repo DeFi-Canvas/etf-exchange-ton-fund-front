@@ -24,34 +24,47 @@ const PurchaseSellDetails = (props: PurchaseSellDetailsProps) => {
 
     const heightDetailItem = props.details.length * 21;
     const gapBetweenDetailItem = (props.details.length - 1) * 12;
-    const detailListHeight = heightDetailItem + gapBetweenDetailItem;   
+    const detailListHeight = heightDetailItem + gapBetweenDetailItem;
 
     const styleListDetailList: CustomCSSProperties = {
-        '--height': `${detailListHeight}px`
-    }
+        '--height': `${detailListHeight}px`,
+    };
 
     const toggleDetails = () => {
-        setIsOpen(prevIsOpen => !prevIsOpen);
-    }
+        setIsOpen((prevIsOpen) => !prevIsOpen);
+    };
 
     return (
         <div className={cn('app-container', props.className, css.details)}>
             <div className={css.detailsTitle} onClick={toggleDetails}>
                 {props.title}
-                <div className={cn(css.iconChevron, {[css.iconChevronActive]: isOpen})}>
+                <div
+                    className={cn(css.iconChevron, {
+                        [css.iconChevronActive]: isOpen,
+                    })}
+                >
                     <ChevronDown />
                 </div>
             </div>
-            {props.details.length && (<div className={cn(css.detailList, {[css.detailListOpen]: isOpen})} style={styleListDetailList}>
-                {props.details.map((detail, index) => (
-                    <div key={index} className={css.detailItem}>
-                        <span className={css.detailItemTitle}>{detail.title}</span>
-                        <span>{detail.value}</span>
-                    </div>
-                ))}
-            </div>)}
+            {props.details.length && (
+                <div
+                    className={cn(css.detailList, {
+                        [css.detailListOpen]: isOpen,
+                    })}
+                    style={styleListDetailList}
+                >
+                    {props.details.map((detail, index) => (
+                        <div key={index} className={css.detailItem}>
+                            <span className={css.detailItemTitle}>
+                                {detail.title}
+                            </span>
+                            <span>{detail.value}</span>
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
-    )
-}
+    );
+};
 
 export default PurchaseSellDetails;

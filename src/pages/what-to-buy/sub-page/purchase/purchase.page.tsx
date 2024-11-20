@@ -65,7 +65,11 @@ const PurchasePage = injectable(
                         <PurchaseSellAttention />
                     </div>
                     <PurchaseSellContentCardContainer />
-                    <PurchaseSellDetails className={css.details} title="Purchase Details" details={mockDataDetails} />
+                    <PurchaseSellDetails
+                        className={css.details}
+                        title="Purchase Details"
+                        details={mockDataDetails}
+                    />
 
                     <button onClick={onBuy}>купить</button>
                     {/* footer */}
