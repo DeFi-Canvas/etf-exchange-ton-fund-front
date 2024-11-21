@@ -9,3 +9,61 @@
 .details {
     margin-top: 24px;
 }
+
+.bottomSheetContent {
+    padding-block: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.bottomSheetHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+}
+
+.bottomSheetTitle {
+    font-weight: 510;
+    font-size: 20px;
+    line-height: 1.3;
+}
+
+.bottomSheetSubTitle {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-text-dark-70);
+}
+
+.bottomSheetImage {
+    --size: 56px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    display: flex;
+}
+
+.bottomSheetInfoList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.bottomSheetInfoItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 510;
+    font-size: 16px;
+    line-height: 1.35;
+}
+
+.bottomSheetInfoItemTitle {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-text-dark-70);
+}
