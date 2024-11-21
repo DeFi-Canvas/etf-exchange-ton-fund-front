@@ -6,6 +6,7 @@ import { BottomSheetBody } from './bottom-sheet-body';
 import { InterfacePurchaseSellAssetCardData } from '../../../types';
 import { useProperty } from '@frp-ts/react';
 import { PurchaseViewModel } from '../../purchase.view-model';
+import { mapAssetToUICard } from '@/pages/what-to-buy/what-to-buy.model';
 
 export const BottomSheetBodyContainer = injectable(
     token('purchaseStore')<PurchaseViewModel>(),
@@ -16,13 +17,7 @@ export const BottomSheetBodyContainer = injectable(
             ? assets.right
             : ([] as Array<Asset>);
         const data: InterfacePurchaseSellAssetCardData[] = currentAssets.map(
-            (d) => ({
-                imageSrc: d.image_url,
-                title: d.symbol,
-                subTitle: d.name,
-                price: `${d.price}`,
-                allowedOpen: false,
-            })
+            (e) => mapAssetToUICard(e, false)
         );
         return React.createElement(BottomSheetBody, { data });
     }

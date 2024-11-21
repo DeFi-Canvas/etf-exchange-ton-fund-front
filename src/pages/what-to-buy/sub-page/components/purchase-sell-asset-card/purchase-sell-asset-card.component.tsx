@@ -3,6 +3,7 @@ import cn from 'classnames';
 import { ChevronDown } from '@/components/Icons/Icons';
 // Types
 import { InterfacePurchaseSellAssetCardData } from '../../types';
+//TODO:V мб вынесем это в глобальные стили чтоб мозга ебать не пришлось каждый раз это импортить?
 // Style
 import css from './purchase-sell-asset-card.module.css';
 

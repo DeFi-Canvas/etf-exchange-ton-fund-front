@@ -1,4 +1,5 @@
-import { FundsRespnce } from '../whalet/whalet.model';
+import { Asset, FundsRespnce } from '../whalet/whalet.model';
+import { InterfacePurchaseSellAssetCardData } from './sub-page/types';
 
 export interface FundsData {
     id: string;
@@ -24,4 +25,30 @@ export const mapFunds = (data: FundsRespnce): FundsData => ({
     updatedEvent: data.updated_event,
     isAvaiable: data.is_avaiable,
     cost: 1,
+});
+
+export const mapAssetToUICard = (
+    date: Asset,
+    allowedOpen?: boolean,
+    isBackgroundWhite?: boolean
+): InterfacePurchaseSellAssetCardData => ({
+    imageSrc: date.image_url,
+    title: `${date.value} ${date.symbol}`,
+    subTitle: `$ ${date.price * date.value}`,
+    price: `${date.balance}`,
+    allowedOpen: allowedOpen ?? true,
+    isBackgroundWhite: isBackgroundWhite ?? false,
+});
+
+export const mapFundToUICard = (
+    date: FundsData,
+    allowedOpen?: boolean,
+    isBackgroundWhite?: boolean
+): InterfacePurchaseSellAssetCardData => ({
+    imageSrc: date.logo, // TODO:V Лежит в root/public
+    title: date.name,
+    subTitle: date.description,
+    price: `$ ${date.cost}`,
+    allowedOpen: allowedOpen ?? true,
+    isBackgroundWhite: isBackgroundWhite ?? false,
 });

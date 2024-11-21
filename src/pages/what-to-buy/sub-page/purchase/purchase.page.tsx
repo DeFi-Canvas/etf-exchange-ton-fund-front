@@ -4,13 +4,9 @@ import * as E from 'fp-ts/Either';
 import PurchaseSellIitle from '../components/purchase-sell-title/purchase-sell-title.component';
 import PurchaseSellAssetCard from '../components/purchase-sell-asset-card/purchase-sell-asset-card.component';
 import PurchaseSellAttention from '../components/purchase-sell-attention/purchase-sell-attention.component';
-import PurchaseSellDetails from '../components/purchase-sell-details/purchase-sell-details.component';
-// Types
-import type { InterfacePurchaseSellAssetCardData } from '../types';
-import type { PurchaseSellDetailsData } from '../components/purchase-sell-details/purchase-sell-details.component';
 // Style
 import css from './purchase.module.css';
-import { FundsData } from '../../what-to-buy.model';
+import { FundsData, mapFundToUICard } from '../../what-to-buy.model';
 import { Asset } from '@/pages/whalet/whalet.model';
 import { injectable } from '@injectable-ts/core';
 import { PurchaseSellContentCardContainer } from '../components/purchase-sell-content-card/purchase-sell-content-card.container';
@@ -48,15 +44,7 @@ const PurchasePage = injectable(
                 ? fundData.right
                 : ({} as FundsData);
 
-            // TODO:V Моки для (<PurchaseSellAssetCard />) - ЕСЛИ ДЕЛАЕШЬ МОК УКАЗЫВАЙ ЕГО ТИП
-            const assetCardData: InterfacePurchaseSellAssetCardData = {
-                imageSrc: currentFundData.logo, // TODO:V Лежит в root/public
-                title: currentFundData.name,
-                subTitle: currentFundData.description,
-                price: `$ ${currentFundData.cost}`,
-                allowedOpen: false,
-                isBackgroundWhite: true,
-            };
+            const assetCardData = mapFundToUICard(currentFundData, false);
 
             const handleToggleBottomSheet = () => {
                 setShowBottomSheet(!showBottomSheet);

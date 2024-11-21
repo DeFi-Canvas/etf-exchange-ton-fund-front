@@ -5,6 +5,7 @@ import { useProperty } from '@frp-ts/react';
 import PurchaseSellContentCard from './purchase-sell-content-card.component';
 import * as E from 'fp-ts/Either';
 import { Asset } from '@/pages/whalet/whalet.model';
+import { mapAssetToUICard } from '@/pages/what-to-buy/what-to-buy.model';
 
 export const PurchaseSellContentCardContainer = injectable(
     token('purchaseStore')<PurchaseViewModel>(),
@@ -17,17 +18,10 @@ export const PurchaseSellContentCardContainer = injectable(
         const currentSelectedAssets = E.isRight(selectedAssets)
             ? selectedAssets.right
             : ({} as Asset);
-        //TODO: написать маппер
-        const assetCardDataContentCard = {
-            imageSrc: currentSelectedAssets.image_url,
-            title: `${currentSelectedAssets.value} ${currentSelectedAssets.symbol}`,
-            subTitle: `$ ${
-                currentSelectedAssets.price * currentSelectedAssets.value
-            }`,
-            price: `${currentSelectedAssets.balance}`,
-            allowedOpen: true,
-            isBackgroundWhite: false,
-        };
+        const assetCardDataContentCard = mapAssetToUICard(
+            currentSelectedAssets
+        );
+
         return React.createElement(PurchaseSellContentCard, {
             ...store,
             totalAmount,
