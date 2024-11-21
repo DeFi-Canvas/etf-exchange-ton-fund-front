@@ -35,7 +35,6 @@ export interface PurchaseSellStore {
 export interface NewPurchaseSellStore {
     (): ValueWithEffect<PurchaseSellStore>;
 }
-//TODO: Это стор дебил!
 export const newPurchaseSellStore = injectable(
     newWTBRestService,
     newWaletRestService,
@@ -145,6 +144,11 @@ export const newPurchaseSellStore = injectable(
                 })
             );
 
+            const getFundsEffect = pipe(
+                walletService.getFunds(),
+                tap(funds.set)
+            );
+
             return valueWithEffect.new(
                 {
                     fundData,
@@ -163,7 +167,8 @@ export const newPurchaseSellStore = injectable(
                 getAssetsEffect,
                 selectedAssetsEffect,
                 quantityEffect,
-                onBuyEffect
+                onBuyEffect,
+                getFundsEffect
             );
         }
 );

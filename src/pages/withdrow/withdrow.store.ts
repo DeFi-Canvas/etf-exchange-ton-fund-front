@@ -10,10 +10,11 @@ import * as A from 'fp-ts/lib/Apply';
 import * as S from 'fp-ts/string';
 import { injectable } from '@injectable-ts/core';
 import { newWithdrawRestService } from '@/API/withdraw.service';
+import { AmountErrors } from './sub-page/ammount/amount.component';
 
 export interface WithdrowStore {
     currency: Property<string>;
-    amount: Property<E.Either<'too small', number>>;
+    amount: Property<E.Either<AmountErrors, number>>;
     isNextButtonAvailable: Property<boolean>;
     approximateCost: Property<string>;
     availableBalance: Property<number>;
@@ -41,7 +42,9 @@ export const newNewWithdrowStore = injectable(
         console.log('newNewWithdrowStore');
         //#region init Property
         const currency = newLensedAtom<string>('');
-        const amount = newLensedAtom<E.Either<'too small', number>>(E.right(0));
+        const amount = newLensedAtom<E.Either<AmountErrors, number>>(
+            E.right(0)
+        );
         const tickerPrice = newLensedAtom(0);
         const symbolLogo = newLensedAtom<string>('');
         const approximateCost = newLensedAtom('');
@@ -64,6 +67,8 @@ export const newNewWithdrowStore = injectable(
         const setAmount = (d: number) => {
             if (d > 0 && d < 1) {
                 amount.set(E.left('too small'));
+            } else if (d > availableBalance.get()) {
+                amount.set(E.left('too big'));
             } else {
                 amount.set(E.of(d));
                 approximateCost.set(

@@ -8,15 +8,15 @@ import { newPurchaseSellStore } from './purchase.view-model';
 export const PurchaseContainer = injectable(
     newPurchaseSellStore,
     provide(PurchasePage)<'purchaseStore'>(),
-    (newPurchaseViewModel, PurchasePage) => () => {
-        const vm = useValueWithEffect(() => newPurchaseViewModel(), []);
-        const showBottomSheet = useProperty(vm.isBottomPanel);
-        const PurchasePageResolve = PurchasePage({ purchaseStore: vm });
+    (newPurchaseSellStore, PurchasePage) => () => {
+        const store = useValueWithEffect(() => newPurchaseSellStore(), []);
+        const showBottomSheet = useProperty(store.isBottomPanel);
+        const PurchasePageResolve = PurchasePage({ purchaseStore: store });
 
         return React.createElement(PurchasePageResolve, {
-            ...vm,
+            ...store,
             showBottomSheet,
-            setShowBottomSheet: vm.setIsBottomPanel,
+            setShowBottomSheet: store.setIsBottomPanel,
         });
     }
 );

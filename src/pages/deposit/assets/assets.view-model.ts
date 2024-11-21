@@ -25,6 +25,7 @@ export interface NewAssetsViewModel {
 }
 
 // TODO: зря объеденил в одну сущность надо разводить по разным
+// или норм?
 export const newAssetsViewModel = injectable(
     newWaletRestService,
     newDepositRestService,

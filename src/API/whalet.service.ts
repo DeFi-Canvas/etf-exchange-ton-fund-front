@@ -12,12 +12,13 @@ import {
     WaletResponce,
 } from '@/pages/whalet/whalet.model';
 import { API } from './API';
-import { CoinCardData } from '@/components/assets-card/assets-card.model';
+import { FundsData } from '@/pages/what-to-buy/what-to-buy.model';
 
 export interface WaletRestService {
     getBalance: () => Stream<Either<string, WaletResponce>>;
     getAssets: () => Stream<Either<string, Array<Asset>>>;
-    getFunds: () => Stream<Either<string, Array<CoinCardData>>>;
+    // getFunds: () => Stream<Either<string, Array<CoinCardData>>>;
+    getFunds: () => Stream<Either<string, Array<FundsData>>>;
     getTransactions: () => Stream<Either<string, Array<Transactions>>>;
 }
 

@@ -6,12 +6,14 @@ import cn from 'classnames';
 import { useNavigate } from 'react-router-dom';
 
 // TODO: добавить ошибку слишком много
-type AmountErrors = 'too small';
+export type AmountErrors = 'too small' | 'too big';
 
 const getAmountErrorsText = (err: AmountErrors) => {
     switch (err) {
         case 'too small':
             return 'Minimum amount: 1 TON';
+        case 'too big':
+            return 'Insufficient balance';
     }
 };
 

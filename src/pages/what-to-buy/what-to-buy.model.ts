@@ -48,7 +48,7 @@ export const mapFundToUICard = (
     allowedOpen?: boolean,
     isBackgroundWhite?: boolean
 ): InterfacePurchaseSellAssetCardData => ({
-    imageSrc: date.logo, // TODO:V Лежит в root/public
+    imageSrc: date.logo,
     title: date.name,
     subTitle: date.description,
     price: `$ ${date.cost}`,

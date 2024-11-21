@@ -6,11 +6,12 @@ import * as E from 'fp-ts/Either';
 import { AssetsCard } from '@/components/assets-card/assets-card.component';
 import { RenderEither } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import { CoinCardData } from '@/components/assets-card/assets-card.model';
+import { FundsData } from '@/pages/what-to-buy/what-to-buy.model';
 
 const emptyText = `You don't have any investments in funds right now. Get started by browsing through funds to discover opportunities.`;
 
 interface FundsProps {
-    funds: E.Either<string, Array<CoinCardData>>;
+    funds: E.Either<string, Array<FundsData>>;
 }
 
 //TODO: вынести в модель
