@@ -32,14 +32,14 @@ export interface PurchaseSellStore {
     setIsBottomPanel: (x: boolean) => void;
 }
 
-export interface NewPurchaseViewModel {
+export interface NewPurchaseSellStore {
     (): ValueWithEffect<PurchaseSellStore>;
 }
 //TODO: Это стор дебил!
-export const newPurchaseViewModel = injectable(
+export const newPurchaseSellStore = injectable(
     newWTBRestService,
     newWaletRestService,
-    (service, walletService): NewPurchaseViewModel =>
+    (service, walletService): NewPurchaseSellStore =>
         () => {
             const funds = newLensedAtom<E.Either<string, Array<FundsData>>>(
                 E.left('pending')

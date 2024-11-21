@@ -13,7 +13,6 @@ import { AssetsContainer } from '@/pages/whalet/sub-pages/assets/assets.containe
 import { DepositEndPointContainer } from '@/pages/deposit-end-point/deposit-end-point.container';
 import { Withdrow } from '@/pages/withdrow/withdrow.page';
 import { AmountContainer } from '@/pages/withdrow/sub-page/ammount/amount.container';
-import { newNewWithdrowStore } from '@/pages/withdrow/withdrow.store';
 import { AddressContainer } from '@/pages/withdrow/sub-page/address/address.container';
 import { CheckContainer } from '@/pages/withdrow/sub-page/check/check.container';
 import { FinalContainer } from '@/pages/withdrow/sub-page/final/final.container';
@@ -24,7 +23,6 @@ import { SwapPage } from '@/pages/swap/sub-pages/swap/swap.component';
 import { MultiSwapPage } from '@/pages/swap/sub-pages/multi-swap/multi-swap.component';
 import { Chart } from '@/components/chart/chart.component';
 import { constVoid } from 'fp-ts/lib/function';
-// import SellPage from '@/pages/what-to-buy/sub-page/sell/sell.page';
 import { PurchaseContainer } from '@/pages/what-to-buy/sub-page/purchase/purchase.container';
 import { SellContainer } from '@/pages/what-to-buy/sub-page/sell/sell.container';
 
@@ -45,11 +43,6 @@ export const AppRoutes = () => {
 
     const userStore = useValueWithEffect(
         () => newNewUserStoreService(initData?.user),
-        []
-    );
-
-    const withdrowStore = useValueWithEffect(
-        () => newNewWithdrowStore({ userStore }),
         []
     );
 
@@ -75,7 +68,6 @@ export const AppRoutes = () => {
     });
     const DepositPageResolved = DepositPageContainer({
         userStore,
-        withdrowStore,
     });
 
     const DepositEndPointResolved = DepositEndPointContainer({
@@ -84,23 +76,22 @@ export const AppRoutes = () => {
 
     const WithdrowResolved = Withdrow({
         userStore,
-        withdrowStore,
     });
 
     const AmountResolved = AmountContainer({
-        withdrowStore,
+        userStore,
     });
 
     const AddressResolved = AddressContainer({
-        withdrowStore,
+        userStore,
     });
 
     const CheckResolved = CheckContainer({
-        withdrowStore,
+        userStore,
     });
 
     const FinalResolved = FinalContainer({
-        withdrowStore,
+        userStore,
     });
 
     const PurchaseContainerResolved = PurchaseContainer({

@@ -1,13 +1,20 @@
-import { injectable, token } from '@injectable-ts/core';
-import { WithdrowStore } from '../../withdrow.store';
+import { injectable, provide, token } from '@injectable-ts/core';
+import { newNewWithdrowStore } from '../../withdrow.store';
 import React, { memo } from 'react';
 import { Address } from './address.component';
+import { UserStoreService } from '@/store/user.store';
+import { useValueWithEffect } from '@/utils/run-view-model.utils';
 
 export const AddressContainer = injectable(
-    token('withdrowStore')<WithdrowStore>(),
-    Address,
-    (store, Address) =>
+    provide(Address)<'withdrowStore'>(),
+    token('userStore')<UserStoreService>(),
+    (Address, userStore) =>
         memo(() => {
-            return React.createElement(Address);
+            const withdrowStore = useValueWithEffect(
+                () => newNewWithdrowStore({ userStore }),
+                []
+            );
+            const AddressResolve = Address({ withdrowStore });
+            return React.createElement(AddressResolve);
         })
 );

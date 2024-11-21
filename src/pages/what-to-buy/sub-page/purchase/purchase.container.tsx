@@ -3,10 +3,10 @@ import React from 'react';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useProperty } from '@frp-ts/react';
 import PurchasePage from './purchase.page';
-import { newPurchaseViewModel } from './purchase.view-model';
+import { newPurchaseSellStore } from './purchase.view-model';
 
 export const PurchaseContainer = injectable(
-    newPurchaseViewModel,
+    newPurchaseSellStore,
     provide(PurchasePage)<'purchaseStore'>(),
     (newPurchaseViewModel, PurchasePage) => () => {
         const vm = useValueWithEffect(() => newPurchaseViewModel(), []);
