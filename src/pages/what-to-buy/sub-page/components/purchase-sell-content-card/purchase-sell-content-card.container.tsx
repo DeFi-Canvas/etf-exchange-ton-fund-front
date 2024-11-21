@@ -32,6 +32,7 @@ export const PurchaseSellContentCardContainer = injectable(
             ...store,
             totalAmount,
             assetCardData: assetCardDataContentCard,
+            onClick: () => store.setIsBottomPanel(true),
         });
     }
 );

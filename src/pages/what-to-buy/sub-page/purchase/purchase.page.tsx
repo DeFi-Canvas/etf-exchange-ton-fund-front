@@ -16,31 +16,37 @@ import { injectable } from '@injectable-ts/core';
 import { PurchaseSellContentCardContainer } from '../components/purchase-sell-content-card/purchase-sell-content-card.container';
 import PurchaseSellFooter from '../components/purchase-sell-footer/purchase-sell-footer.component';
 import BottomSheet from '@/components/ui-kit/bottom-sheet/bottom-sheet.component';
-import { useState } from 'react';
+import { constVoid } from 'fp-ts/lib/function';
+import { BottomSheetBodyContainer } from './components/bottom-sheet-body/bottom-sheet-body.container';
+import { PurchaseSellDetailsContainer } from '../components/purchase-sell-details/purchase-sell-details.container';
 
 interface PurchasePageProps {
     fundData: E.Either<string, FundsData>;
     assets: E.Either<string, Array<Asset>>;
     onBuy: () => void;
+    showBottomSheet: boolean;
+    setShowBottomSheet: (x: boolean) => void;
 }
 
 const PurchasePage = injectable(
     PurchaseSellContentCardContainer,
-    (PurchaseSellContentCardContainer) =>
+    BottomSheetBodyContainer,
+    PurchaseSellDetailsContainer,
+    (
+            PurchaseSellContentCardContainer,
+            BottomSheetBodyContainer,
+            PurchaseSellDetailsContainer
+        ) =>
         ({
             fundData,
-            // assets,
-            // totalAmount,
+            showBottomSheet,
+            setShowBottomSheet,
             onBuy,
         }: PurchasePageProps) => {
             // TODO: Сделать через RenderEither
             const currentFundData = E.isRight(fundData)
                 ? fundData.right
                 : ({} as FundsData);
-            //TODO:V - все доступные ассееты  в типе Asset
-            // const currentAssets = E.isRight(assets)
-            //     ? assets.right
-            //     : ([] as Array<Asset>);
 
             // TODO:V Моки для (<PurchaseSellAssetCard />) - ЕСЛИ ДЕЛАЕШЬ МОК УКАЗЫВАЙ ЕГО ТИП
             const assetCardData: InterfacePurchaseSellAssetCardData = {
@@ -52,39 +58,6 @@ const PurchasePage = injectable(
                 isBackgroundWhite: true,
             };
 
-            const mockDataDetails: PurchaseSellDetailsData[] = [
-                { title: 'Commission', value: '$ 0' },
-                { title: 'Total in USD', value: '$ 25,39' },
-                { title: 'Total in TON', value: '5,46' },
-            ];
-
-            const mockDataAssetCardList: InterfacePurchaseSellAssetCardData[] =
-                [
-                    {
-                        imageSrc: currentFundData.logo, // TODO сюда бы картиночку вкинуть монеты
-                        title: '1 253,03 USD₮',
-                        subTitle: 'Toncoin',
-                        price: '$ 277,89',
-                        allowedOpen: false,
-                    },
-                    {
-                        imageSrc: currentFundData.logo, // TODO сюда бы картиночку вкинуть монеты
-                        title: '649,92 TON',
-                        subTitle: 'Toncoin',
-                        price: '$ 1 277,54',
-                        allowedOpen: false,
-                    },
-                    {
-                        imageSrc: currentFundData.logo, // TODO сюда бы картиночку вкинуть монеты
-                        title: '120 592,03 NOT',
-                        subTitle: 'Toncoin',
-                        price: '$ 442,05',
-                        allowedOpen: false,
-                    },
-                ];
-
-            const [showBottomSheet, setShowBottomSheet] = useState(false);
-
             const handleToggleBottomSheet = () => {
                 setShowBottomSheet(!showBottomSheet);
             };
@@ -94,22 +67,21 @@ const PurchasePage = injectable(
                     <div className="app-container">
                         <PurchaseSellIitle title="Purchase" />
                         <div className={css.assetCard}>
-                            <PurchaseSellAssetCard {...assetCardData} />
+                            <PurchaseSellAssetCard
+                                {...assetCardData}
+                                onClick={constVoid}
+                            />
                         </div>
                         <PurchaseSellAttention />
                     </div>
 
-                    {/* TODO:V Не знаю как правильно клик прокинуть, это временное решение */}
-                    <button onClick={() => setShowBottomSheet(true)}>
-                        Open bottomSheet
-                    </button>
-
                     <PurchaseSellContentCardContainer />
-                    <PurchaseSellDetails
+
+                    <PurchaseSellDetailsContainer
                         className={css.details}
                         title="Purchase Details"
-                        details={mockDataDetails}
                     />
+
                     <PurchaseSellFooter title="Buy" onClick={onBuy} />
 
                     <BottomSheet
@@ -119,9 +91,7 @@ const PurchasePage = injectable(
                     >
                         <div className={css.bottomSheetTitle}>Select asset</div>
                         <div className={css.assetList}>
-                            {mockDataAssetCardList.map((assetCardData) => (
-                                <PurchaseSellAssetCard {...assetCardData} />
-                            ))}
+                            <BottomSheetBodyContainer />
                         </div>
                     </BottomSheet>
                 </div>

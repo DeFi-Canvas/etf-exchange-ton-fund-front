@@ -12,7 +12,7 @@ interface BottomSheetProps {
 
 const BottomSheet = (props: BottomSheetProps) => {
     const [isMounted, setIsMounted] = useState(false);
-    const sheetRef = useRef();
+    const sheetRef = useRef(null);
 
     useEffect(() => {
         if (props.open) {

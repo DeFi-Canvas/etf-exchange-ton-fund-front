@@ -7,7 +7,9 @@ import { InterfacePurchaseSellAssetCardData } from '../../types';
 import css from './purchase-sell-asset-card.module.css';
 
 interface PurchaseSellAssetCardProps
-    extends InterfacePurchaseSellAssetCardData {}
+    extends InterfacePurchaseSellAssetCardData {
+    onClick: () => void;
+}
 
 const PurchaseSellAssetCard = (props: PurchaseSellAssetCardProps) => {
     return (
@@ -15,6 +17,7 @@ const PurchaseSellAssetCard = (props: PurchaseSellAssetCardProps) => {
             className={cn(css.card, {
                 [css.cardWhite]: props.isBackgroundWhite,
             })}
+            onClick={props.onClick}
         >
             <img src={props.imageSrc} className={css.cardImage} />
             <div className={css.cardContent}>

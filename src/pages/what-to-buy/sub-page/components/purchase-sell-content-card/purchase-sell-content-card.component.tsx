@@ -14,11 +14,16 @@ import { PurchaseSellFieldCounterContainer } from '../purchase-sell-field-counte
 interface PurchaseSellContentCardProps {
     assetCardData: InterfacePurchaseSellAssetCardData;
     totalAmount: O.Option<TotalAmount>;
+    onClick: () => void;
 }
 const PurchaseSellContentCard = injectable(
     PurchaseSellFieldCounterContainer,
     (PurchaseSellFieldCounterContainer) =>
-        ({ assetCardData, totalAmount }: PurchaseSellContentCardProps) => {
+        ({
+            assetCardData,
+            totalAmount,
+            onClick,
+        }: PurchaseSellContentCardProps) => {
             const currentTotalAmount = pipe(
                 totalAmount,
                 O.getOrElse(() => ({
@@ -34,7 +39,10 @@ const PurchaseSellContentCard = injectable(
                     <div className={cn('app-container', css.cardContainer)}>
                         <div className={css.section}>
                             <div className={css.cardTitle}>Asset</div>
-                            <PurchaseSellAssetCard {...assetCardData} />
+                            <PurchaseSellAssetCard
+                                {...assetCardData}
+                                onClick={onClick}
+                            />
                         </div>
                         <div className={css.section}>
                             <header className={css.cardTitle}>

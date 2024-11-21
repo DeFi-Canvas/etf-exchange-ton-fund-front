@@ -24,9 +24,11 @@ export interface PurchaseViewModel {
     selectedAssets: Property<E.Either<string, Asset>>;
     totalAmount: Property<O.Option<TotalAmount>>;
     quantity: Property<number>;
+    isBottomPanel: Property<boolean>;
     increment: () => void;
     dicrement: () => void;
     onBuy: () => void;
+    setIsBottomPanel: (x: boolean) => void;
 }
 
 export interface NewPurchaseViewModel {
@@ -54,6 +56,7 @@ export const newPurchaseViewModel = injectable(
                 O.of({ currency: 0, coin: 0 })
             );
             const quantity = newLensedAtom(0);
+            const isBottomPanel = newLensedAtom(false);
 
             const [onBuy, onBuyEvent] = createAdapter<void>();
 
@@ -63,6 +66,8 @@ export const newPurchaseViewModel = injectable(
             const dicrement = () => {
                 quantity.modify((x) => x - 1);
             };
+
+            const setIsBottomPanel = isBottomPanel.set;
 
             const getFundDataEffect = pipe(
                 service.getFund(),
@@ -104,11 +109,11 @@ export const newPurchaseViewModel = injectable(
                 tap((x) => {
                     const currentFund = pipe(
                         fundData.get(),
-                        E.getOrElse(() => ({}) as FundsData)
+                        E.getOrElse(() => ({} as FundsData))
                     );
                     const currentAsset = pipe(
                         selectedAssets.get(),
-                        E.getOrElse(() => ({}) as Asset)
+                        E.getOrElse(() => ({} as Asset))
                     );
                     const currency = x * currentFund.cost;
                     const coin = currency / currentAsset.price;
@@ -122,7 +127,7 @@ export const newPurchaseViewModel = injectable(
                 chain(() => {
                     const currentFund = pipe(
                         fundData.get(),
-                        E.getOrElse(() => ({}) as FundsData)
+                        E.getOrElse(() => ({} as FundsData))
                     );
                     // const currentAsset = pipe(
                     //     selectedAssets.get(),
@@ -146,6 +151,8 @@ export const newPurchaseViewModel = injectable(
                     increment,
                     dicrement,
                     onBuy,
+                    isBottomPanel,
+                    setIsBottomPanel,
                 },
                 getFundDataEffect,
                 getAssetsEffect,

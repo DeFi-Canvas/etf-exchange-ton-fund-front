@@ -13,7 +13,7 @@ export interface PurchaseSellDetailsData {
     value: string;
 }
 
-interface PurchaseSellDetailsProps {
+export interface PurchaseSellDetailsProps {
     title: string;
     details: PurchaseSellDetailsData[];
     className?: string;
