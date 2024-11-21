@@ -5,11 +5,11 @@ import { Asset } from '@/pages/whalet/whalet.model';
 import { BottomSheetBody } from './bottom-sheet-body';
 import { InterfacePurchaseSellAssetCardData } from '../../../types';
 import { useProperty } from '@frp-ts/react';
-import { PurchaseViewModel } from '../../purchase.view-model';
+import { PurchaseSellStore } from '../../purchase.view-model';
 import { mapAssetToUICard } from '@/pages/what-to-buy/what-to-buy.model';
 
-export const BottomSheetBodyContainer = injectable(
-    token('purchaseStore')<PurchaseViewModel>(),
+export const BottomSheetPurchaseBodyContainer = injectable(
+    token('purchaseStore')<PurchaseSellStore>(),
     (store) => () => {
         const assets = useProperty(store.assets);
 

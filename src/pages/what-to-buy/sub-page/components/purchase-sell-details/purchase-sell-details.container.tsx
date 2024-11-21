@@ -5,14 +5,14 @@ import { useProperty } from '@frp-ts/react';
 import PurchaseSellDetails, {
     PurchaseSellDetailsProps,
 } from './purchase-sell-details.component';
-import { PurchaseViewModel } from '../../purchase/purchase.view-model';
+import { PurchaseSellStore } from '../../purchase/purchase.view-model';
 import { pipe } from 'fp-ts/lib/function';
 
 interface PurchaseSellDetailsContainerProps
     extends Omit<PurchaseSellDetailsProps, 'details'> {}
 
 export const PurchaseSellDetailsContainer = injectable(
-    token('purchaseStore')<PurchaseViewModel>(),
+    token('purchaseStore')<PurchaseSellStore>(),
     (store) => (props: PurchaseSellDetailsContainerProps) => {
         const totalValue = pipe(
             useProperty(store.totalAmount),

@@ -1,6 +1,9 @@
 import { Asset, FundsRespnce } from '../whalet/whalet.model';
 import { InterfacePurchaseSellAssetCardData } from './sub-page/types';
 
+export type PageType = 'BUY' | 'SELL';
+export const isAssetAvailible = (type: PageType) => type === 'BUY';
+
 export interface FundsData {
     id: string;
     name: string;

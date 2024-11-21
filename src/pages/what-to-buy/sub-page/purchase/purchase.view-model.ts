@@ -18,7 +18,8 @@ export interface TotalAmount {
     coin: number;
 }
 
-export interface PurchaseViewModel {
+export interface PurchaseSellStore {
+    funds: Property<E.Either<string, Array<FundsData>>>;
     fundData: Property<E.Either<string, FundsData>>;
     assets: Property<E.Either<string, Array<Asset>>>;
     selectedAssets: Property<E.Either<string, Asset>>;
@@ -32,7 +33,7 @@ export interface PurchaseViewModel {
 }
 
 export interface NewPurchaseViewModel {
-    (): ValueWithEffect<PurchaseViewModel>;
+    (): ValueWithEffect<PurchaseSellStore>;
 }
 //TODO: Это стор дебил!
 export const newPurchaseViewModel = injectable(
@@ -40,6 +41,9 @@ export const newPurchaseViewModel = injectable(
     newWaletRestService,
     (service, walletService): NewPurchaseViewModel =>
         () => {
+            const funds = newLensedAtom<E.Either<string, Array<FundsData>>>(
+                E.left('pending')
+            );
             const fundData = newLensedAtom<E.Either<string, FundsData>>(
                 E.left('pending')
             );
@@ -153,6 +157,7 @@ export const newPurchaseViewModel = injectable(
                     onBuy,
                     isBottomPanel,
                     setIsBottomPanel,
+                    funds,
                 },
                 getFundDataEffect,
                 getAssetsEffect,

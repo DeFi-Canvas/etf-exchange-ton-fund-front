@@ -20,7 +20,7 @@ const formattedData = (assets: CoinCardData) => {
 
     return {
         img: assets.logo,
-        title: `${assets.coinAmount} ${assets.name}`,
+        title: `${assets.name}`,
         subTitle: assets.ticker,
         price: `${$currency} ${assets.cost}`,
         priceText: '',

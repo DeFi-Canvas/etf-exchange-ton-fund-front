@@ -10,15 +10,11 @@ export const PurchaseContainer = injectable(
     provide(PurchasePage)<'purchaseStore'>(),
     (newPurchaseViewModel, PurchasePage) => () => {
         const vm = useValueWithEffect(() => newPurchaseViewModel(), []);
-        const fundData = useProperty(vm.fundData);
-        const assets = useProperty(vm.assets);
         const showBottomSheet = useProperty(vm.isBottomPanel);
         const PurchasePageResolve = PurchasePage({ purchaseStore: vm });
 
         return React.createElement(PurchasePageResolve, {
             ...vm,
-            fundData,
-            assets,
             showBottomSheet,
             setShowBottomSheet: vm.setIsBottomPanel,
         });
