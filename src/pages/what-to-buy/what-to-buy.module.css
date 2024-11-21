@@ -1,5 +1,5 @@
 .wrap {
-    padding-top: 32px;
+    padding-block: 32px;
 }
 
 .serch {
@@ -135,4 +135,8 @@
     border-radius: calc(var(--size) / 2);
     background-color: var(--color-pallete-dark);
     display: block;
+}
+
+.newsButtonLoadMore {
+    margin-top: 16px;
 }

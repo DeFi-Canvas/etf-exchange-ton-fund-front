@@ -22,6 +22,7 @@ import src12 from './assets/imgs/rocket.png';
 import src13 from './assets/imgs/stone.png';
 import src14 from './assets/imgs/vpng.png';
 import { ArrowTopRightIcon } from '@/components/Icons/Icons';
+import AppButton from '@/components/AppButton/AppButton';
 
 const colorFolowCompany =
     'linear-gradient(180deg, #9D87FF 0%, #5B39F4 101.95%)';
@@ -168,6 +169,7 @@ export const WhatToBuyPage = () => {
                         ))}
                     </div>
                 </div>
+                <AppButton className={css.newsButtonLoadMore} label="Load more" type="secondary" />
             </section>
         </div>
     );
