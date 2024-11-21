@@ -7,8 +7,6 @@ interface CrumbsProps {
 //TODO: будет ссылкой
 export const Crumbs = ({ title }: CrumbsProps) => {
     return (
-        <div className={css.wrap}>
-            <span>{title}</span>
-        </div>
+        <div className={css.crumbCard}>{title}</div>
     );
 };
