@@ -198,6 +198,8 @@ export const MinusIcon = ({ className = '' }: { className?: string }) => (
     <Minus className={className} />
 );
 
-export const ArrowTopRightIcon = ({ className = '' }: { className?: string }) => (
-    <ArrowTopRight className={className} />
-);
+export const ArrowTopRightIcon = ({
+    className = '',
+}: {
+    className?: string;
+}) => <ArrowTopRight className={className} />;

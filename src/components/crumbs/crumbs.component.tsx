@@ -6,7 +6,5 @@ interface CrumbsProps {
 
 //TODO: будет ссылкой
 export const Crumbs = ({ title }: CrumbsProps) => {
-    return (
-        <div className={css.crumbCard}>{title}</div>
-    );
+    return <div className={css.crumbCard}>{title}</div>;
 };
