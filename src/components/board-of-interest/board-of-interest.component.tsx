@@ -3,7 +3,7 @@ import css from './board-of-interest.module.css';
 import cn from 'classnames';
 
 type CustomCSSProperties = CSSProperties & {
-    '--backgroundColor'?: string;
+    '--background'?: string;
 };
 interface BoardOfInterestProps {
     backgroundColor?: string;
@@ -21,27 +21,29 @@ export const BoardOfInterest = ({
     subTitle,
 }: BoardOfInterestProps) => {
     const style: CustomCSSProperties = {
-        '--backgroundColor': `${backgroundColor ?? '#fff'}`,
+        '--background': `${backgroundColor ?? '#fff'}`,
     };
 
+    const imageSet = [imgs.slice(0, 3), imgs.slice(3)];
+    
     return (
-        <div className={cn(css.wrap, theme)} style={style}>
-            <div className={css.titles}>
-                <span className={css.topTitle}>{title}</span>
-                <span className={css.bottomTitle}>{subTitle}</span>
+        <div className={cn(css.card, theme)} style={style}>
+            <div className={css.cardHeader}>
+                <div className={css.cardTitle}>{title}</div>
+                <div className={css.cardSubTitle}>{subTitle}</div>
             </div>
-            {/* TODO: сделанно шакально ВОВА СДЕЛАЙ КРАСИВА Я НАГАДИЛ ТУТ*/}
-            <div className={css.imgBody}>
-                <div className={css.imgWrap}>
-                    {imgs.slice(0, 3).map((src) => (
-                        <img src={src} alt="" key={src} className={css.img} />
-                    ))}
-                </div>
-                <div className={css.imgWrap}>
-                    {imgs.slice(3).map((src) => (
-                        <img src={src} alt="" key={src} className={css.img} />
-                    ))}
-                </div>
+            <div className={css.imageSet}>
+                {imageSet.map(((imageList, index) => {
+                    const isImageListWide = index % 2 !== 0;
+
+                    return (
+                        <div className={cn(css.imageList, {[css.imageListWide]: isImageListWide})}>
+                            {imageList.map((imageSrc) => (
+                                <img src={imageSrc} alt="Avatar" className={css.image} />
+                            ))}
+                        </div>
+                    );
+                }))}
             </div>
         </div>
     );
