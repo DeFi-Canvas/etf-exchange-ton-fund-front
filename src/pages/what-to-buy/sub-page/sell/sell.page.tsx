@@ -22,11 +22,11 @@ const SellPage = injectable(
     BottomSheetSellBodyContainer,
     PurchaseSellAssetCardContainer,
     (
-            PurchaseSellContentCardContainer,
-            PurchaseSellDetailsContainer,
-            BottomSheetSellBodyContainer,
-            PurchaseSellAssetCardContainer
-        ) =>
+        PurchaseSellContentCardContainer,
+        PurchaseSellDetailsContainer,
+        BottomSheetSellBodyContainer,
+        PurchaseSellAssetCardContainer
+    ) =>
         ({ showBottomSheet, setShowBottomSheet }: SellPageProps) => {
             // TODO:V Моки для (<PurchaseSellAssetCard />)
             // const assetCardData: InterfacePurchaseSellAssetCardData = {
@@ -46,14 +46,9 @@ const SellPage = injectable(
                         <PurchaseSellIitle title="Sell" />
                         <div className={css.assetCard}>
                             <PurchaseSellAssetCardContainer type={'SELL'} />
-                            {/* <PurchaseSellAssetCard
-                                {...assetCardData}
-                                onClick={() => setShowBottomSheet(true)}
-                            /> */}
                         </div>
                     </div>
                     <PurchaseSellContentCardContainer type={'SELL'} />
-
                     <PurchaseSellDetailsContainer
                         className={css.details}
                         title="Sell Details"
@@ -65,9 +60,46 @@ const SellPage = injectable(
                         hasButtonClose={true}
                         onClose={handleToggleBottomSheet}
                     >
-                        <div className={css.bottomSheetTitle}>Select asset</div>
-                        <div className={css.assetList}>
-                            <BottomSheetSellBodyContainer />
+                        {/* TODO: Это всё мок, нужно заменить */}
+                        <div className={css.bottomSheetContent}>
+                            <header className={css.bottomSheetHeader}>
+                                <img
+                                    className={css.bottomSheetImage}
+                                    src="https://etf-exchange.s3.eu-north-1.amazonaws.com/fund-backgrounds/Stablecoin+Yield+Fund.jpg"
+                                />
+                                <div className={css.bottomSheetTitle}>
+                                    The sale is successful
+                                </div>
+                                <div className={css.bottomSheetSubTitle}>
+                                    «Canvas Stable» fund sale
+                                </div>
+                            </header>
+                            <div className={css.bottomSheetInfoList}>
+                                <div className={css.bottomSheetInfoItem}>
+                                    <span
+                                        className={css.bottomSheetInfoItemTitle}
+                                    >
+                                        Value
+                                    </span>
+                                    <span>$ 5,42</span>
+                                </div>
+                                <div className={css.bottomSheetInfoItem}>
+                                    <span
+                                        className={css.bottomSheetInfoItemTitle}
+                                    >
+                                        Quantity
+                                    </span>
+                                    <span>5</span>
+                                </div>
+                                <div className={css.bottomSheetInfoItem}>
+                                    <span
+                                        className={css.bottomSheetInfoItemTitle}
+                                    >
+                                        Total amount
+                                    </span>
+                                    <span>$ 25,39</span>
+                                </div>
+                            </div>
                         </div>
                     </BottomSheet>
                 </div>

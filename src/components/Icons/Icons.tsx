@@ -33,6 +33,7 @@ import CopyDone from '@/assets/icons/copy-done.svg?react';
 import Attention from '@/assets/icons/attention.svg?react';
 import Plus from '@/assets/icons/plus.svg?react';
 import Minus from '@/assets/icons/minus.svg?react';
+import ArrowTopRight from '@/assets/icons/arrow-top-right.svg?react';
 
 import { TTransactionStatus } from '@/pages/whalet/components/transaction/types';
 
@@ -196,3 +197,9 @@ export const PlusIcon = ({ className = '' }: { className?: string }) => (
 export const MinusIcon = ({ className = '' }: { className?: string }) => (
     <Minus className={className} />
 );
+
+export const ArrowTopRightIcon = ({
+    className = '',
+}: {
+    className?: string;
+}) => <ArrowTopRight className={className} />;

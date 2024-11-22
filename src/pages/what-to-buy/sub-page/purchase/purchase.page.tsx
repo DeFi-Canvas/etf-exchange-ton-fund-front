@@ -24,11 +24,11 @@ const PurchasePage = injectable(
     PurchaseSellAssetCardContainer,
 
     (
-            PurchaseSellContentCardContainer,
-            BottomSheetBodyContainer,
-            PurchaseSellDetailsContainer,
-            PurchaseSellAssetCardContainer
-        ) =>
+        PurchaseSellContentCardContainer,
+        BottomSheetBodyContainer,
+        PurchaseSellDetailsContainer,
+        PurchaseSellAssetCardContainer
+    ) =>
         ({ showBottomSheet, setShowBottomSheet, onBuy }: PurchasePageProps) => {
             const handleToggleBottomSheet = () => {
                 setShowBottomSheet(!showBottomSheet);

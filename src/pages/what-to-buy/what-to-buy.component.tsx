@@ -22,13 +22,63 @@ import src13 from './assets/imgs/stone.png';
 import src14 from './assets/imgs/vpng.png';
 import { injectable } from '@injectable-ts/core';
 import { FondsSliderContainer } from './components/fonds-slider/fonds-slider.container';
+import { ArrowTopRightIcon } from '@/components/Icons/Icons';
+import AppButton from '@/components/AppButton/AppButton';
 
 const colorFolowCompany =
     'linear-gradient(180deg, #9D87FF 0%, #5B39F4 101.95%)';
 
+interface NewsItemImageInterface {
+    src: string;
+    alt: string;
+}
+interface NewsItemInterface {
+    id: number;
+    image: NewsItemImageInterface | null;
+    title: string;
+    datePublishAt: string;
+    readTimeMin: string;
+}
+
 export const WhatToBuyPage = injectable(
     FondsSliderContainer,
     (FondsSliderContainer) => () => {
+    // TODO Это моки, нужно будет заменить на новости
+    // datePublishAt Возможно нужно прогнать через либу, чтоб пришедшая дата конвертилась в нужную, без года
+    const newsList: NewsItemInterface[] = [
+        {
+            id: 1,
+            image: null,
+            title: 'Empowering Builders for Growth with TON Nest',
+            datePublishAt: '4 Oct',
+            readTimeMin: '7',
+        },
+        {
+            id: 2,
+            image: null,
+            title: 'TON Foundation Collaborates with Leading DEX Curve Finance to Incubate a TON-Based Stable Swap Project',
+            datePublishAt: '29 Sep',
+            readTimeMin: '3',
+        },
+        {
+            id: 3,
+            image: null,
+            title: 'TADA and TON Foundation Bring Web3 Ride-Hailing to Telegram',
+            datePublishAt: '22 Sep',
+            readTimeMin: '10',
+        },
+        {
+            id: 4,
+            image: {
+                src: 'temp-news-item-cover.png',
+                alt: 'News cover',
+            },
+            title: 'Empowering Builders for Growth with TON Nest',
+            datePublishAt: '28 Sep',
+            readTimeMin: '5',
+        },
+    ];
+
         return (
             <div className={cn('app-container', css.wrap)}>
                 <span className={css.title}>What to buy</span>
@@ -45,8 +95,10 @@ export const WhatToBuyPage = injectable(
                     title="Follow the community"
                     subTitle="Reuse the best strategies"
                 />
-                <div>
-                    <span className={css.h2}>Investments for beginners</span>
+                <div className={css.sectionCard}>
+                    <span className={css.sectionTitle}>
+                    Investments for beginners
+                </span>
                     <FondsSliderContainer theme={css.swiper} />
                 </div>
 
@@ -57,9 +109,13 @@ export const WhatToBuyPage = injectable(
                     subTitle="Frequently purchased"
                 />
 
-                <span className={css.h2}>Trade Leaders</span>
-                <div className={css.leadersWrap}>
-                    <span className={css.leadersWrapTitle}>Growth Leaders</span>
+            <section className={css.sectionCard}>
+                <h2 className={css.sectionCardTitle}>Trade Leaders</h2>
+                <div className={css.sectionCardContent}>
+                    <div className={css.leadersCardTitle}>
+                        <ArrowTopRightIcon />
+                        Growth Leaders
+                    </div>
                     <div className={css.leadersAssets}>
                         <AssetsCard
                             img={src8}
@@ -89,8 +145,52 @@ export const WhatToBuyPage = injectable(
                             type="pnl"
                         />
                     </div>
+                    <button
+                        type="button"
+                        className={css.leadersCardButtonShowAll}
+                    >
+                        View all 10
+                    </button>
                 </div>
-            </div>
-        );
-    }
-);
+            </section>
+
+            <section className={css.sectionCard}>
+                <h2 className={css.sectionCardTitle}>News</h2>
+                <div className={css.sectionCardContent}>
+                    <div className={css.newsList}>
+                        {newsList.map((newsItem) => (
+                            <div key={newsItem.id} className={css.newsItem}>
+                                {newsItem.image && (
+                                    <img
+                                        className={css.newItemImage}
+                                        src={newsItem.image.src}
+                                        alt={newsItem.image.alt}
+                                    />
+                                )}
+                                <div className={css.newsItemContent}>
+                                    <div className={css.newsItemTitle}>
+                                        {newsItem.title}
+                                    </div>
+                                    <div className={css.newsItemMeta}>
+                                        <span>{newsItem.datePublishAt}</span>
+                                        <span
+                                            className={css.newsItemMetaDot}
+                                        ></span>
+                                        <span>
+                                            {newsItem.readTimeMin} min read
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <AppButton
+                    className={css.newsButtonLoadMore}
+                    label="Load more"
+                    type="secondary"
+                />
+            </section>
+        </div>
+    );
+};

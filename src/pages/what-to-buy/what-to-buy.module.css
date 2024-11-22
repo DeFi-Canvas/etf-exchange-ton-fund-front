@@ -1,5 +1,5 @@
 .wrap {
-    margin-top: 32px;
+    padding-block: 32px;
 }
 
 .serch {
@@ -22,39 +22,39 @@
 }
 
 .folowCompany {
-    margin-top: 40px;
-    color: var(--Colors-Text-White, #fff);
+    margin-top: 32px;
+    color: var(--color-text-white);
 }
 
 .topOfTheWeek {
     margin-top: 40px;
-    color: var(--Colors-Text-Dark, #24262e);
+    color: var(--color-text-dark);
 }
 
-.h2 {
-    color: #000;
-    font-family: var(--Font-Family-V1, 'SF Pro');
-    font-size: var(--Font-Size-xxl, 22px);
-    font-style: normal;
+.sectionCard {
+    margin-top: 40px;
+}
+
+.sectionCardTitle {
     font-weight: 510;
-    line-height: 130%;
-    margin-top: 33px;
-    display: block;
+    font-size: 22px;
+    line-height: 1.3;
 }
 
-.leadersWrap {
+.sectionCardContent {
     margin-top: 16px;
     border-radius: 24px;
-    background: var(--Colors-Background-White, #fff);
-    padding: var(--Font-Size-xl, 20px);
+    background-color: var(--color-background-white);
+    padding: 20px;
 }
 
-.leadersWrapTitle {
-    color: #000;
-    font-family: var(--Font-Family-V1, 'SF Pro');
-    font-size: var(--Font-Size-md, 16px);
+.leadersCardTitle {
     font-weight: 510;
-    line-height: 135%;
+    font-size: 16px;
+    line-height: 1.35;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
 }
 
 .leadersAssets {
@@ -64,6 +64,79 @@
     gap: 8px;
 }
 
+.leadersCardButtonShowAll {
+    margin-top: 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-main-purple);
+    padding: 0;
+    background-color: transparent;
+}
+
 .swiper {
+    margin-top: 16px;
+}
+
+.newsList {
+    padding-block: 4px;
+}
+
+.newsItem {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-block: 16px;
+    cursor: pointer;
+}
+
+.newsItem:not(:last-child) {
+    border-bottom: 1px solid var(--color-main-purple-10);
+}
+
+.newsItem:first-child {
+    padding-top: unset;
+}
+
+.newsItemTitle {
+    font-weight: 510;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.newItemImage {
+    display: block;
+    border-radius: 12px;
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.newsItemContent {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.newsItemMeta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.5;
+    font-weight: 510;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.newsItemMetaDot {
+    --size: 4px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: calc(var(--size) / 2);
+    background-color: var(--color-pallete-dark);
+    display: block;
+}
+
+.newsButtonLoadMore {
     margin-top: 16px;
 }
