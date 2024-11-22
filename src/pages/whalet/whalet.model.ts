@@ -33,11 +33,50 @@ export interface FundsRespnce {
     description: string;
     management_fee: number;
     image_url: string;
-    is_dao: false;
+    is_dao: boolean;
     risk_score: string;
     updated_event: string;
     is_avaiable: boolean;
+    value: number;
 }
+
+interface Temp {
+    total: number;
+    funds: [
+        {
+            fund: {
+                id: string;
+                name: string;
+                description: string;
+                management_fee: number;
+                image_url: string;
+                is_dao: boolean;
+                risk_score: string;
+                updated_event: string;
+                is_avaiable: boolean;
+                PTonAddress: string;
+                value: number;
+            };
+            value: number;
+        }
+    ];
+}
+
+export const mapWhaletFunds = (data: Temp): Array<FundsData> => {
+    if (!data.funds.length) return [];
+    return data.funds.map(({ fund: data }) => ({
+        id: data.id,
+        name: data.name,
+        description: data.description,
+        managementFee: data.management_fee,
+        logo: data.image_url,
+        isDao: data.is_dao,
+        riskScore: data.risk_score,
+        updatedEvent: data.updated_event,
+        isAvaiable: data.is_avaiable,
+        cost: data.value,
+    }));
+};
 
 export const mapFunds = (data: FundsRespnce): FundsData => ({
     id: data.id,
@@ -49,7 +88,7 @@ export const mapFunds = (data: FundsRespnce): FundsData => ({
     riskScore: data.risk_score,
     updatedEvent: data.updated_event,
     isAvaiable: data.is_avaiable,
-    cost: 0,
+    cost: data.value,
 });
 
 //TODO : тип будет расширен (я надеюсь)
