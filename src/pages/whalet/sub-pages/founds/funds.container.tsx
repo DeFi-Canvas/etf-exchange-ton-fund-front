@@ -7,7 +7,6 @@ import { newFundsViewModel } from './funds.view-model';
 
 export const FundsContainer = injectable(
     newFundsViewModel,
-    // eslint-disable-next-line react/display-name
     (newFundsViewModel) => () => {
         const vm = useValueWithEffect(() => newFundsViewModel(), []);
         const funds = useProperty(vm.funds);

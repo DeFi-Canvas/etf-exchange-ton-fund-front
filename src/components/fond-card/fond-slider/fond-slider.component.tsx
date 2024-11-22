@@ -5,10 +5,15 @@ import 'swiper/css';
 
 export interface FondsSliderProps {
     theme?: string;
-    slidesData: Array<FondCardProps>;
+    slidesData: Array<Omit<FondCardProps, 'onClick'>>;
+    onClick: (id: string) => void;
 }
 
-export const FondsSlider = ({ theme, slidesData }: FondsSliderProps) => {
+export const FondsSlider = ({
+    theme,
+    slidesData,
+    onClick,
+}: FondsSliderProps) => {
     const swiperOptions = {
         spaceBetween: 10,
         slidesPerView: 1.05,
@@ -19,24 +24,9 @@ export const FondsSlider = ({ theme, slidesData }: FondsSliderProps) => {
             <Swiper {...swiperOptions} className={theme}>
                 {slidesData.map((slideData) => (
                     <SwiperSlide key={slideData.title}>
-                        <FondCard {...slideData} />
+                        <FondCard {...slideData} onClick={onClick} />
                     </SwiperSlide>
                 ))}
-                {/* <SwiperSlide>
-                    <FondCard />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <FondCard />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <FondCard />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <FondCard />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <FondCard />
-                </SwiperSlide> */}
             </Swiper>
         </>
     );

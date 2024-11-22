@@ -175,7 +175,7 @@ export const AppRoutes = () => {
             page: WhatToBuyPageResolved,
         },
         {
-            path: '/what-to-buy/purchase',
+            path: '/what-to-buy/purchase/:id',
             page: PurchaseContainerResolved,
         },
         {

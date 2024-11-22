@@ -1,7 +1,6 @@
 // Templates
 import PurchaseSellIitle from '../components/purchase-sell-title/purchase-sell-title.component';
 import PurchaseSellFooter from '../components/purchase-sell-footer/purchase-sell-footer.component';
-// Types
 // Style
 import css from './sell.module.css';
 import { PurchaseSellContentCardContainer } from '../components/purchase-sell-content-card/purchase-sell-content-card.container';
@@ -22,21 +21,12 @@ const SellPage = injectable(
     BottomSheetSellBodyContainer,
     PurchaseSellAssetCardContainer,
     (
-        PurchaseSellContentCardContainer,
-        PurchaseSellDetailsContainer,
-        BottomSheetSellBodyContainer,
-        PurchaseSellAssetCardContainer
-    ) =>
+            PurchaseSellContentCardContainer,
+            PurchaseSellDetailsContainer,
+            BottomSheetSellBodyContainer,
+            PurchaseSellAssetCardContainer
+        ) =>
         ({ showBottomSheet, setShowBottomSheet }: SellPageProps) => {
-            // TODO:V Моки для (<PurchaseSellAssetCard />)
-            // const assetCardData: InterfacePurchaseSellAssetCardData = {
-            //     imageSrc: './temp-asset-card-avatar.png', // TODO:V Лежит в root/public
-            //     title: 'Canvas stable',
-            //     subTitle: 'Defi Canvas',
-            //     price: '$ 5,42',
-            //     allowedOpen: true,
-            //     isBackgroundWhite: true,
-            // };
             const handleToggleBottomSheet = () => {
                 setShowBottomSheet(!showBottomSheet);
             };

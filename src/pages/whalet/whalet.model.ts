@@ -1,5 +1,6 @@
-import { CoinCardData } from '@/components/assets-card/assets-card.model';
+// import { CoinCardData } from '@/components/assets-card/assets-card.model';
 import * as t from 'io-ts';
+import { FundsData } from '../what-to-buy/what-to-buy.model';
 
 export interface WaletResponce {
     total: number;
@@ -38,11 +39,21 @@ export interface FundsRespnce {
     is_avaiable: boolean;
 }
 
-export const mapFunds = (data: FundsRespnce): CoinCardData => ({
-    logo: data.image_url,
+export const mapFunds = (data: FundsRespnce): FundsData => ({
+    // logo: data.image_url,
+    // name: data.name,
+    // // ticker: '',
+    // // coinAmount: NaN,
+    // cost: 0,
+    id: data.id,
     name: data.name,
-    ticker: '',
-    coinAmount: NaN,
+    description: data.description,
+    managementFee: data.management_fee,
+    logo: data.image_url,
+    isDao: data.is_dao,
+    riskScore: data.risk_score,
+    updatedEvent: data.updated_event,
+    isAvaiable: data.is_avaiable,
     cost: 0,
 });
 

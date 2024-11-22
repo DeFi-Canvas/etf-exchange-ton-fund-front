@@ -12,16 +12,27 @@ type CustomCSSProperties = CSSProperties & {
 
 // остальных данных тупо нет:(
 export interface FondCardProps {
+    id: string;
     title: string;
     description: string;
+    onClick: (id: string) => void;
 }
 
-export const FondCard = ({ title, description }: FondCardProps) => {
+export const FondCard = ({
+    title,
+    description,
+    id,
+    onClick,
+}: FondCardProps) => {
     const style: CustomCSSProperties = {
         '--backgroundUrl': `url(${img2})`,
     };
+
+    const heandleClick = () => {
+        onClick(id);
+    };
     return (
-        <div className={css.wrap}>
+        <div className={css.wrap} onClick={heandleClick}>
             <div className={css.statisticInfo} style={style}>
                 <div className={css.riskInfo}>
                     <div className={css.risk}>
