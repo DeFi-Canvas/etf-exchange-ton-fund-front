@@ -7,13 +7,12 @@ import { useInitData } from '@telegram-apps/sdk-react';
 import { Swap } from '@/pages/swap/swap.page';
 import { SwapPage } from '@/pages/swap/sub-pages/swap/swap.component';
 import { MultiSwapPage } from '@/pages/swap/sub-pages/multi-swap/multi-swap.component';
-import { Chart } from '@/components/chart/chart.component';
-import { constVoid } from 'fp-ts/lib/function';
 import { getContainers } from './containers';
 import { indexRouter } from './page-routes/index-router';
 import { depositRouter } from './page-routes/deposit-router';
 import { withdrawRouter } from './page-routes/withdraw-router';
 import { whatToBuyRouter } from './page-routes/what-to-buy-router';
+import { ChartPage } from '@/pages/what-to-buy/sub-page/chart/chart.page';
 
 interface Route {
     path: string;
@@ -61,11 +60,7 @@ export const AppRoutes = () => {
         {
             path: '/chart',
             page: () => (
-                <Chart
-                    data={[1, 2, 3, 4, 5, 6, 7, 8, 3, 3, 5, 6]}
-                    dateRange={{ from: '4 AUG', to: '4 OCT' }}
-                    controlOnClick={constVoid}
-                />
+                <ChartPage />
             ),
         },
     ];
