@@ -96,7 +96,7 @@ export const WhatToBuyPage = injectable(
                     subTitle="Reuse the best strategies"
                 />
                 <div className={css.sectionCard}>
-                    <span className={css.sectionTitle}>
+                    <span className={css.sectionCardTitle}>
                         Investments for beginners
                     </span>
                     <FondsSliderContainer theme={css.swiper} />
