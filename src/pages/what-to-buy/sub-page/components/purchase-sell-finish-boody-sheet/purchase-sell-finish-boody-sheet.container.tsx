@@ -18,7 +18,7 @@ export const PurchaseSellFinishBoodySheetContainer = injectable(
         ({ type: typePage }: PurchaseSellFinishBoodySheetContainerProps) => {
             const fundData = pipe(
                 useProperty(store.fundData),
-                E.getOrElse(() => ({} as FundsData))
+                E.getOrElse(() => ({}) as FundsData)
             );
 
             const totalAmount = pipe(

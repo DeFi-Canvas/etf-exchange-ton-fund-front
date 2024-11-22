@@ -7,7 +7,7 @@ const ChartInvestedCard = () => {
             <span className={css.cardTitle}>Invested</span>
             <CardPrice className={css.cardPrice} />
         </div>
-    )
-}
+    );
+};
 
 export default ChartInvestedCard;

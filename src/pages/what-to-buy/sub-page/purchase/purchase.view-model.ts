@@ -114,11 +114,11 @@ export const newPurchaseSellStore = injectable(
                 tap((x) => {
                     const currentFund = pipe(
                         fundData.get(),
-                        E.getOrElse(() => ({} as FundsData))
+                        E.getOrElse(() => ({}) as FundsData)
                     );
                     const currentAsset = pipe(
                         selectedAssets.get(),
-                        E.getOrElse(() => ({} as Asset))
+                        E.getOrElse(() => ({}) as Asset)
                     );
                     const currency = x * currentFund.cost;
                     const coin = currency / currentAsset.price;
@@ -132,7 +132,7 @@ export const newPurchaseSellStore = injectable(
                 chain(() => {
                     const currentFund = pipe(
                         fundData.get(),
-                        E.getOrElse(() => ({} as FundsData))
+                        E.getOrElse(() => ({}) as FundsData)
                     );
                     // const currentAsset = pipe(
                     //     selectedAssets.get(),

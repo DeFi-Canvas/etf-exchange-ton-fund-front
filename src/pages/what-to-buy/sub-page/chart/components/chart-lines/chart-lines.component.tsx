@@ -8,8 +8,18 @@ const ChartLines = () => {
     return (
         <div className={css.chartWrapper}>
             <div className={css.chartTabs}>
-                <div className={cn(css.chartTab, {[css.chartTabActive]: true})}>TVL</div>
-                <div className={cn(css.chartTab, {[css.chartTabActive]: false})}>Value</div>
+                <div
+                    className={cn(css.chartTab, { [css.chartTabActive]: true })}
+                >
+                    TVL
+                </div>
+                <div
+                    className={cn(css.chartTab, {
+                        [css.chartTabActive]: false,
+                    })}
+                >
+                    Value
+                </div>
             </div>
             <CardPrice className={css.cardPrice} />
             <div className={css.chartLines}>
@@ -21,6 +31,6 @@ const ChartLines = () => {
             </div>
         </div>
     );
-}
+};
 
 export default ChartLines;

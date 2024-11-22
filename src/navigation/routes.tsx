@@ -59,9 +59,7 @@ export const AppRoutes = () => {
         // TEMP CHART DEMO
         {
             path: '/chart',
-            page: () => (
-                <ChartPage />
-            ),
+            page: () => <ChartPage />,
         },
     ];
 

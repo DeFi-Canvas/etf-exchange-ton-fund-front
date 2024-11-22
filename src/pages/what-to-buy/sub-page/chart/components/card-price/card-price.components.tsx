@@ -18,7 +18,7 @@ const CardPrice = (props: CardPriceProps) => {
                 <span>4,72%</span>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default CardPrice;

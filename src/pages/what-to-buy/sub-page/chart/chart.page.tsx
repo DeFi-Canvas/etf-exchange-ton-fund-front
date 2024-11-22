@@ -13,5 +13,5 @@ export const ChartPage = () => {
             <ChartLines />
             <ChartInvestedCard />
         </div>
-    )
-}
+    );
+};

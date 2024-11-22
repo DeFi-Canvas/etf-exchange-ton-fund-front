@@ -27,12 +27,12 @@ const PurchasePage = injectable(
     PurchaseSellAssetCardContainer,
     PurchaseSellFinishBoodySheetContainer,
     (
-            PurchaseSellContentCardContainer,
-            BottomSheetBodyContainer,
-            PurchaseSellDetailsContainer,
-            PurchaseSellAssetCardContainer,
-            PurchaseSellFinishBoodySheetContainer
-        ) =>
+        PurchaseSellContentCardContainer,
+        BottomSheetBodyContainer,
+        PurchaseSellDetailsContainer,
+        PurchaseSellAssetCardContainer,
+        PurchaseSellFinishBoodySheetContainer
+    ) =>
         ({
             showBottomSheet,
             setShowBottomSheet,
