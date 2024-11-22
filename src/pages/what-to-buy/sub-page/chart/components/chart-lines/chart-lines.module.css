@@ -17,6 +17,7 @@
     border-radius: 10px;
     text-align: center;
     padding: 6.5px 10px;
+    cursor: pointer;
 }
 
 .chartTabActive {

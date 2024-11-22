@@ -34,6 +34,8 @@ import Attention from '@/assets/icons/attention.svg?react';
 import Plus from '@/assets/icons/plus.svg?react';
 import Minus from '@/assets/icons/minus.svg?react';
 import ArrowTopRight from '@/assets/icons/arrow-top-right.svg?react';
+import RiskLow from '@/assets/icons/risk-low-icon.svg?react';
+import Fee from '@/assets/icons/fee-icon.svg?react';
 
 import { TTransactionStatus } from '@/pages/whalet/components/transaction/types';
 
@@ -203,3 +205,11 @@ export const ArrowTopRightIcon = ({
 }: {
     className?: string;
 }) => <ArrowTopRight className={className} />;
+
+export const RiskLowIcon = ({ className = '' }: { className?: string }) => (
+    <RiskLow className={className} />
+);
+
+export const FeeIcon = ({ className = '' }: { className?: string }) => (
+    <Fee className={className} />
+);
