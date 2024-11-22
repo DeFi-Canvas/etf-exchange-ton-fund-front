@@ -6,6 +6,7 @@ import ChartAbout from './components/chart-about/chart-about.component';
 import ChartWhatInside from './components/chart-what-inside/chart-what-inside.component';
 import ChartMoreInfo from './components/chart-more-info/chart-more-info.component';
 import ChartCardAuthor from './components/chart-card-author/chart-card-author.component';
+import ChartFooter from './components/chart-footer/chart-footer.component';
 
 export const ChartPage = () => {
     return (
@@ -20,6 +21,7 @@ export const ChartPage = () => {
             <ChartWhatInside />
             <ChartMoreInfo />
             <ChartCardAuthor />
+            <ChartFooter />
         </div>
     );
 };
