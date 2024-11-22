@@ -73,7 +73,7 @@ export const newPurchaseSellStore = injectable(
             const setIsBottomPanel = isBottomPanel.set;
 
             const getFundDataEffect = pipe(
-                service.getFund(id ?? ''),
+                service.getFund(id ?? 'cec02e9a-ab1b-4a6e-b0fd-e3b0a54842d0'),
                 tap(fundData.set)
             );
 

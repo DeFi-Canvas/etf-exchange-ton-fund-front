@@ -36,9 +36,9 @@ export const mapAssetToUICard = (
     isBackgroundWhite?: boolean
 ): InterfacePurchaseSellAssetCardData => ({
     imageSrc: date.image_url,
-    title: `${date.value} ${date.symbol}`,
-    subTitle: `$ ${date.price * date.value}`,
-    price: `${date.balance}`,
+    title: `${(date.balance ?? 0).toFixed(2)} ${date.symbol}`,
+    subTitle: `$ ${(date.price * date.balance).toFixed(2)}`,
+    price: `${date.price}`,
     allowedOpen: allowedOpen ?? true,
     isBackgroundWhite: isBackgroundWhite ?? false,
 });

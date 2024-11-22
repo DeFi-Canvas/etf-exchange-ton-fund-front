@@ -40,11 +40,6 @@ export interface FundsRespnce {
 }
 
 export const mapFunds = (data: FundsRespnce): FundsData => ({
-    // logo: data.image_url,
-    // name: data.name,
-    // // ticker: '',
-    // // coinAmount: NaN,
-    // cost: 0,
     id: data.id,
     name: data.name,
     description: data.description,

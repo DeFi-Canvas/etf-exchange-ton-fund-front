@@ -42,11 +42,13 @@ export const AppRoutes = () => {
     const routes: Route[] = [
         ...indexRouter(containers),
         ...depositRouter(containers),
+        ...withdrawRouter(containers),
+        ...whatToBuyRouter(containers),
         {
             path: 'profile',
             page: containers.ProfileResolved,
         },
-        ...withdrawRouter(containers),
+        // не рабочие стр
         {
             path: '/swap',
             page: Swap,
@@ -66,7 +68,6 @@ export const AppRoutes = () => {
                 />
             ),
         },
-        ...whatToBuyRouter(containers),
     ];
 
     return (
