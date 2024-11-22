@@ -3,6 +3,7 @@
 }
 
 .foundCard {
+    background-color: var(--color-background-white);
     padding: 20px;
     border-radius: 24px;
     display: flex;
@@ -11,7 +12,6 @@
     font-weight: 510;
     font-size: 22px;
     line-height: 1.3;
-    background-color: var(--color-background-white);
 }
 
 .foundCardImage {
@@ -24,4 +24,35 @@
     max-height: var(--size);
     display: block;
     border-radius: calc(var(--size) / 2);
+}
+
+.chartWrapper {
+    background-color: var(--color-background-white);
+    border-radius: 24px;
+    padding: 16px;
+    margin-top: 12px;
+}
+
+.chartTabs {
+    background-color: var(--color-main-purple-10);
+    display: flex;
+    padding: 2px;
+    border-radius: 12px;
+}
+
+.chartTab {
+    flex: 1 1 100%;
+    border-radius: 10px;
+    text-align: center;
+    padding: 6.5px 10px;
+}
+
+.chartTabActive {
+    background-color: var(--color-background-white);
+    border: 0.5px solid rgba(191, 71, 71, 0.04);
+    box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.04);
+}
+
+.chartLines canvas {
+    max-height: 176px;
 }
