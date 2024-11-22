@@ -31,6 +31,7 @@ export const BoardOfInterest = ({
                 <span className={css.bottomTitle}>{subTitle}</span>
             </div>
             {/* TODO: сделанно шакально ВОВА СДЕЛАЙ КРАСИВА Я НАГАДИЛ ТУТ*/}
+            {/* а ебани чтоб они по кругу крутились аахахха */}
             <div className={css.imgBody}>
                 <div className={css.imgWrap}>
                     {imgs.slice(0, 3).map((src) => (

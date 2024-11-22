@@ -10,7 +10,13 @@ type CustomCSSProperties = CSSProperties & {
     '--backgroundUrl'?: string;
 };
 
-export const FondCard = () => {
+// остальных данных тупо нет:(
+export interface FondCardProps {
+    title: string;
+    description: string;
+}
+
+export const FondCard = ({ title, description }: FondCardProps) => {
     const style: CustomCSSProperties = {
         '--backgroundUrl': `url(${img2})`,
     };
@@ -20,6 +26,7 @@ export const FondCard = () => {
                 <div className={css.riskInfo}>
                     <div className={css.risk}>
                         Risk
+                        {/* TODO: заменить на иконку риска */}
                         <span>1</span>
                     </div>
                     <div className={css.coinWrap}>
@@ -34,10 +41,9 @@ export const FondCard = () => {
             </div>
             <div className={css.mainInfo}>
                 <div className={css.info}>
-                    <span className={css.title}>Stablecoin Yield Fund</span>
+                    <span className={css.title}>{title}</span>
                     <div className={cn('trim-lines-1', css.description)}>
-                        A fund that generates returns using stablecoins by
-                        leveraging
+                        {description}
                     </div>
                 </div>
                 <div className={css.owner}>

@@ -1,6 +1,5 @@
 import type { ComponentType, JSX } from 'react';
 
-import { WhatToBuyPage } from '@/pages/what-to-buy/what-to-buy.component';
 import FundPage from '@/pages/FundPage/FundPage.tsx';
 import { WaletPageContainer } from '@/pages/whalet/whalet.container';
 import { DepositPageContainer } from '@/pages/deposit/deposit.page';
@@ -25,6 +24,7 @@ import { Chart } from '@/components/chart/chart.component';
 import { constVoid } from 'fp-ts/lib/function';
 import { PurchaseContainer } from '@/pages/what-to-buy/sub-page/purchase/purchase.container';
 import { SellContainer } from '@/pages/what-to-buy/sub-page/sell/sell.container';
+import { WhatToBuyPageContainer } from '@/pages/what-to-buy/what-to-buy.container';
 
 interface Route {
     path: string;
@@ -101,6 +101,10 @@ export const AppRoutes = () => {
     const SellContainerResolved = SellContainer({
         userStore,
     });
+
+    const WhatToBuyPageResolved = WhatToBuyPageContainer({
+        userStore,
+    });
     //#region routes
     const routes: Route[] = [
         {
@@ -168,7 +172,7 @@ export const AppRoutes = () => {
         // WTB
         {
             path: '/what-to-buy',
-            page: WhatToBuyPage,
+            page: WhatToBuyPageResolved,
         },
         {
             path: '/what-to-buy/purchase',

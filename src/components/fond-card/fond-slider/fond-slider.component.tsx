@@ -1,13 +1,14 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { FondCard } from '../fond-card.component';
+import { FondCard, FondCardProps } from '../fond-card.component';
 import 'swiper/css';
 
-interface FondsSliderProps {
+export interface FondsSliderProps {
     theme?: string;
+    slidesData: Array<FondCardProps>;
 }
 
-export const FondsSlider = ({ theme }: FondsSliderProps) => {
+export const FondsSlider = ({ theme, slidesData }: FondsSliderProps) => {
     const swiperOptions = {
         spaceBetween: 10,
         slidesPerView: 1.05,
@@ -16,7 +17,12 @@ export const FondsSlider = ({ theme }: FondsSliderProps) => {
     return (
         <>
             <Swiper {...swiperOptions} className={theme}>
-                <SwiperSlide>
+                {slidesData.map((slideData) => (
+                    <SwiperSlide key={slideData.title}>
+                        <FondCard {...slideData} />
+                    </SwiperSlide>
+                ))}
+                {/* <SwiperSlide>
                     <FondCard />
                 </SwiperSlide>
                 <SwiperSlide>
@@ -30,7 +36,7 @@ export const FondsSlider = ({ theme }: FondsSliderProps) => {
                 </SwiperSlide>
                 <SwiperSlide>
                     <FondCard />
-                </SwiperSlide>
+                </SwiperSlide> */}
             </Swiper>
         </>
     );
