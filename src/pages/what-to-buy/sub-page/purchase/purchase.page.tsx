@@ -10,10 +10,13 @@ import BottomSheet from '@/components/ui-kit/bottom-sheet/bottom-sheet.component
 import { BottomSheetPurchaseBodyContainer } from './components/bottom-sheet-body/bottom-sheet-purchase-body.container';
 import { PurchaseSellDetailsContainer } from '../components/purchase-sell-details/purchase-sell-details.container';
 import { PurchaseSellAssetCardContainer } from '../components/purchase-sell-asset-card/purchase-sell-asset-card.container';
+import { PurchaseSellFinishBoodySheetContainer } from '../components/purchase-sell-finish-boody-sheet/purchase-sell-finish-boody-sheet.container';
+import { useNavigate } from 'react-router-dom';
 
 interface PurchasePageProps {
     onBuy: () => void;
     showBottomSheet: boolean;
+    isShowBottomSheetFinishBoody: boolean;
     setShowBottomSheet: (x: boolean) => void;
 }
 
@@ -22,18 +25,24 @@ const PurchasePage = injectable(
     BottomSheetPurchaseBodyContainer,
     PurchaseSellDetailsContainer,
     PurchaseSellAssetCardContainer,
-
+    PurchaseSellFinishBoodySheetContainer,
     (
-        PurchaseSellContentCardContainer,
-        BottomSheetBodyContainer,
-        PurchaseSellDetailsContainer,
-        PurchaseSellAssetCardContainer
-    ) =>
-        ({ showBottomSheet, setShowBottomSheet, onBuy }: PurchasePageProps) => {
+            PurchaseSellContentCardContainer,
+            BottomSheetBodyContainer,
+            PurchaseSellDetailsContainer,
+            PurchaseSellAssetCardContainer,
+            PurchaseSellFinishBoodySheetContainer
+        ) =>
+        ({
+            showBottomSheet,
+            setShowBottomSheet,
+            isShowBottomSheetFinishBoody,
+            onBuy,
+        }: PurchasePageProps) => {
+            const navigator = useNavigate();
             const handleToggleBottomSheet = () => {
                 setShowBottomSheet(!showBottomSheet);
             };
-
             return (
                 <div className={css.page}>
                     <div className="app-container">
@@ -62,6 +71,14 @@ const PurchasePage = injectable(
                         <div className={css.assetList}>
                             <BottomSheetBodyContainer />
                         </div>
+                    </BottomSheet>
+
+                    <BottomSheet
+                        open={isShowBottomSheetFinishBoody}
+                        hasButtonClose={true}
+                        onClose={() => navigator('')}
+                    >
+                        <PurchaseSellFinishBoodySheetContainer type={'BUY'} />
                     </BottomSheet>
                 </div>
             );

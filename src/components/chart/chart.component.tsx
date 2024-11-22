@@ -2,6 +2,29 @@ import { Line } from 'react-chartjs-2';
 import css from './chart.module.css';
 import { ChartControl } from './control/control.component';
 
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+    TimeScale,
+} from 'chart.js';
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+    TimeScale
+);
+
 const dataStruct = {
     labels: ['', '', '', '', '', ''],
     datasets: [
@@ -65,7 +88,7 @@ export const Chart = ({ data, dateRange, controlOnClick }: ChartProps) => {
         datasets: [
             {
                 ...dataStruct.datasets[0],
-                data,
+                data: data,
             },
         ],
     };

@@ -59,7 +59,7 @@ export const AppRoutes = () => {
         },
         // TEMP CHART DEMO
         {
-            path: 'chart',
+            path: '/chart',
             page: () => (
                 <Chart
                     data={[1, 2, 3, 4, 5, 6, 7, 8, 3, 3, 5, 6]}

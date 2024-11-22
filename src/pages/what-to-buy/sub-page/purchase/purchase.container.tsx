@@ -14,12 +14,16 @@ export const PurchaseContainer = injectable(
 
         const store = useValueWithEffect(() => newPurchaseSellStore(id), []);
         const showBottomSheet = useProperty(store.isBottomPanel);
+        const isShowBottomSheetFinishBoody = useProperty(
+            store.isShowBottomSheetFinishBoody
+        );
         const PurchasePageResolve = PurchasePage({ purchaseStore: store });
 
         return React.createElement(PurchasePageResolve, {
             ...store,
             showBottomSheet,
             setShowBottomSheet: store.setIsBottomPanel,
+            isShowBottomSheetFinishBoody,
         });
     }
 );

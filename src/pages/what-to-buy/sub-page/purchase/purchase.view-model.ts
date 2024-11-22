@@ -4,7 +4,7 @@ import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { newLensedAtom } from '@frp-ts/lens';
 import * as E from 'fp-ts/Either';
 import * as O from 'fp-ts/Option';
-import { constVoid, pipe } from 'fp-ts/lib/function';
+import { constVoid, flow, pipe } from 'fp-ts/lib/function';
 import { chain, tap } from '@most/core';
 import { newWTBRestService } from '@/API/wtb.service';
 import { FundsData } from '../../what-to-buy.model';
@@ -26,6 +26,7 @@ export interface PurchaseSellStore {
     totalAmount: Property<O.Option<TotalAmount>>;
     quantity: Property<number>;
     isBottomPanel: Property<boolean>;
+    isShowBottomSheetFinishBoody: Property<boolean>;
     increment: () => void;
     dicrement: () => void;
     onBuy: () => void;
@@ -60,6 +61,7 @@ export const newPurchaseSellStore = injectable(
             );
             const quantity = newLensedAtom(0);
             const isBottomPanel = newLensedAtom(false);
+            const isShowBottomSheetFinishBoody = newLensedAtom(false);
 
             const [onBuy, onBuyEvent] = createAdapter<void>();
 
@@ -141,7 +143,8 @@ export const newPurchaseSellStore = injectable(
                         assetId: '',
                         amount: quantity.get(),
                     });
-                })
+                }),
+                tap(flow(E.isRight, isShowBottomSheetFinishBoody.set))
             );
 
             const getFundsEffect = pipe(
@@ -162,6 +165,7 @@ export const newPurchaseSellStore = injectable(
                     isBottomPanel,
                     setIsBottomPanel,
                     funds,
+                    isShowBottomSheetFinishBoody,
                 },
                 getFundDataEffect,
                 getAssetsEffect,
