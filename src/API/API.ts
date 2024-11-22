@@ -6,6 +6,8 @@ export const API = {
         `${DOMAIN_API_URL}/wallet/balance?telegram_id=${id}`,
     appopened: `${DOMAIN_API_URL}/appopened`,
     getFunds: `${DOMAIN_API_URL}/funds`,
+    getWhaletFunds: (id?: number) =>
+        `${DOMAIN_API_URL}/wallet/funds?telegram_id=${id}`,
     depositAsserts: `${DOMAIN_API_URL}/assets`,
     depositDetails: (id?: number) =>
         `${DOMAIN_API_URL}/deposit?telegram_id=${id}`,

@@ -7,6 +7,7 @@ import {
     Asset,
     mapAssetsFromBalance,
     mapFunds,
+    mapWhaletFunds,
     normolizeTransactionKey,
     Transactions,
     WaletResponce,
@@ -19,6 +20,7 @@ export interface WaletRestService {
     getAssets: () => Stream<Either<string, Array<Asset>>>;
     // getFunds: () => Stream<Either<string, Array<CoinCardData>>>;
     getFunds: () => Stream<Either<string, Array<FundsData>>>;
+    getWhaletFunds: () => Stream<Either<string, Array<FundsData>>>;
     getTransactions: () => Stream<Either<string, Array<Transactions>>>;
 }
 
@@ -34,6 +36,10 @@ export const newWaletRestService = injectable(
                 mapAssetsFromBalance
             ),
             getFunds: getRequest(API.getFunds, mapFunds),
+            getWhaletFunds: getRequest(
+                API.getWhaletFunds(telegram_id),
+                mapWhaletFunds
+            ),
             getTransactions: getRequest(
                 API.transactions(telegram_id),
                 normolizeTransactionKey

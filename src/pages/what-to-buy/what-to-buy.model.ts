@@ -10,7 +10,7 @@ export interface FundsData {
     description: string;
     managementFee: number;
     logo: string;
-    isDao: false;
+    isDao: boolean;
     riskScore: string;
     updatedEvent: string;
     isAvaiable: boolean;
