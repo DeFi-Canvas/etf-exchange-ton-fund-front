@@ -1,30 +1,19 @@
 import type { ComponentType, JSX } from 'react';
 
-import FundPage from '@/pages/FundPage/FundPage.tsx';
-import { WaletPageContainer } from '@/pages/whalet/whalet.container';
-import { DepositPageContainer } from '@/pages/deposit/deposit.page';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { newNewUserStoreService } from '@/store/user.store';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useInitData } from '@telegram-apps/sdk-react';
-import { ProfileContainer } from '@/pages/profile/profile.page';
-import { AssetsContainer } from '@/pages/whalet/sub-pages/assets/assets.container';
-import { DepositEndPointContainer } from '@/pages/deposit-end-point/deposit-end-point.container';
-import { Withdrow } from '@/pages/withdrow/withdrow.page';
-import { AmountContainer } from '@/pages/withdrow/sub-page/ammount/amount.container';
-import { AddressContainer } from '@/pages/withdrow/sub-page/address/address.container';
-import { CheckContainer } from '@/pages/withdrow/sub-page/check/check.container';
-import { FinalContainer } from '@/pages/withdrow/sub-page/final/final.container';
-import { FundsContainer } from '@/pages/whalet/sub-pages/founds/funds.container';
-import { TransactionsContainer } from '@/pages/whalet/sub-pages/transactions/transactions.container';
 import { Swap } from '@/pages/swap/swap.page';
 import { SwapPage } from '@/pages/swap/sub-pages/swap/swap.component';
 import { MultiSwapPage } from '@/pages/swap/sub-pages/multi-swap/multi-swap.component';
 import { Chart } from '@/components/chart/chart.component';
 import { constVoid } from 'fp-ts/lib/function';
-import { PurchaseContainer } from '@/pages/what-to-buy/sub-page/purchase/purchase.container';
-import { SellContainer } from '@/pages/what-to-buy/sub-page/sell/sell.container';
-import { WhatToBuyPageContainer } from '@/pages/what-to-buy/what-to-buy.container';
+import { getContainers } from './containers';
+import { indexRouter } from './page-routes/index-router';
+import { depositRouter } from './page-routes/deposit-router';
+import { withdrawRouter } from './page-routes/withdraw-router';
+import { whatToBuyRouter } from './page-routes/what-to-buy-router';
 
 interface Route {
     path: string;
@@ -47,109 +36,17 @@ export const AppRoutes = () => {
     );
 
     //#region containers
-    const WaletPageResolved = WaletPageContainer({
-        userStore,
-    });
+    const containers = getContainers({ userStore });
 
-    const ProfileResolved = ProfileContainer({
-        userStore,
-    });
-
-    const AssetsResolved = AssetsContainer({
-        userStore,
-    });
-
-    const TransactionsResolved = TransactionsContainer({
-        userStore,
-    });
-
-    const FundsResolved = FundsContainer({
-        userStore,
-    });
-    const DepositPageResolved = DepositPageContainer({
-        userStore,
-    });
-
-    const DepositEndPointResolved = DepositEndPointContainer({
-        userStore,
-    });
-
-    const WithdrowResolved = Withdrow({
-        userStore,
-    });
-
-    const AmountResolved = AmountContainer({
-        userStore,
-    });
-
-    const AddressResolved = AddressContainer({
-        userStore,
-    });
-
-    const CheckResolved = CheckContainer({
-        userStore,
-    });
-
-    const FinalResolved = FinalContainer({
-        userStore,
-    });
-
-    const PurchaseContainerResolved = PurchaseContainer({
-        userStore,
-    });
-
-    const SellContainerResolved = SellContainer({
-        userStore,
-    });
-
-    const WhatToBuyPageResolved = WhatToBuyPageContainer({
-        userStore,
-    });
     //#region routes
     const routes: Route[] = [
-        {
-            path: '/',
-            page: WaletPageResolved,
-            parent: [
-                //загадка жака фреско откуда взялся #
-                { path: '/', page: AssetsResolved, isIndex: true },
-                { path: 'funds', page: FundsResolved },
-                { path: 'transactions', page: TransactionsResolved },
-            ],
-        },
-        { path: '/funds/:id', page: FundPage },
-        {
-            path: 'deposit',
-            page: DepositPageResolved,
-        },
-        {
-            path: '/deposit/:ticker/deposit-end-point',
-            page: DepositEndPointResolved,
-        },
+        ...indexRouter(containers),
+        ...depositRouter(containers),
         {
             path: 'profile',
-            page: ProfileResolved,
+            page: containers.ProfileResolved,
         },
-        {
-            path: 'withdraw',
-            page: WithdrowResolved,
-        },
-        {
-            path: '/withdraw/:ticker',
-            page: AmountResolved,
-        },
-        {
-            path: '/withdraw/:ticker/address',
-            page: AddressResolved,
-        },
-        {
-            path: '/withdraw/:ticker/address/check',
-            page: CheckResolved,
-        },
-        {
-            path: '/withdraw/:ticker/address/final',
-            page: FinalResolved,
-        },
+        ...withdrawRouter(containers),
         {
             path: '/swap',
             page: Swap,
@@ -169,19 +66,7 @@ export const AppRoutes = () => {
                 />
             ),
         },
-        // WTB
-        {
-            path: '/what-to-buy',
-            page: WhatToBuyPageResolved,
-        },
-        {
-            path: '/what-to-buy/purchase/:id',
-            page: PurchaseContainerResolved,
-        },
-        {
-            path: '/what-to-buy/sell',
-            page: SellContainerResolved,
-        },
+        ...whatToBuyRouter(containers),
     ];
 
     return (

@@ -18,6 +18,8 @@ export const NavBar = () => {
                 </div>
                 <span className={css.title}>Deposit</span>
             </NavLink>
+
+            {/* TODO это не работает */}
             <NavLink to={'swap'} className={css.link}>
                 <div>
                     <DepositSwapIcon />

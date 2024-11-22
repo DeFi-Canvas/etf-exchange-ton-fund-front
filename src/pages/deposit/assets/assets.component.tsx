@@ -20,7 +20,6 @@ interface AssetsCardResult {
     props: AssetsCardBaseProps;
 }
 
-// TODO:V Тут какакя-то шальная история с тиипизацией, возможно из-за кодеков (должно быть вроде DepositAssets | Asset)
 const formattedData = (asset: DepositAssets | Asset): AssetsCardBaseProps => {
     if (DepositAssetsCodec.is(asset)) {
         return {
