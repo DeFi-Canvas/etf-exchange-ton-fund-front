@@ -7,37 +7,76 @@ import {
 import css from './nav-bar.module.css';
 import { NavLink } from 'react-router-dom';
 import cn from 'classnames';
+import { ReactNode } from 'react';
+
+interface NavItem {
+    id: number;
+    href: string;
+    isDisabled: boolean;
+    title: string;
+    icon: ReactNode;
+}
 
 // TODO  доделать на ссылки
 export const NavBar = () => {
-    return (
-        <div className={cn('app-container', css.wrap)}>
-            <NavLink to={'deposit'} className={css.link}>
-                <div>
-                    <DepositDepositIcon />
-                </div>
-                <span className={css.title}>Deposit</span>
-            </NavLink>
+    const navMenu: NavItem[] = [
+        {
+            id: 1,
+            href: 'deposit',
+            isDisabled: false,
+            title: 'Deposit',
+            icon: <DepositDepositIcon />,
+        },
+        {
+            id: 2,
+            href: 'swap',
+            isDisabled: true,
+            title: 'Swap',
+            icon: <DepositSwapIcon />,
+        },
+        {
+            id: 3,
+            href: '',
+            isDisabled: true,
+            title: 'Analytics',
+            icon: <DepositAnaliticsIcon />,
+        },
+        {
+            id: 4,
+            href: '',
+            isDisabled: true,
+            title: 'Featured',
+            icon: <DepositFeaturedIcon />,
+        },
+    ];
 
-            {/* TODO это не работает */}
-            <NavLink to={'swap'} className={css.link}>
-                <div>
-                    <DepositSwapIcon />
-                </div>
-                <span className={css.title}>Swap</span>
-            </NavLink>
-            <div className={css.link}>
-                <div>
-                    <DepositAnaliticsIcon />
-                </div>
-                <span className={css.title}>Analytics</span>
-            </div>
-            <div className={css.link}>
-                <div>
-                    <DepositFeaturedIcon />
-                </div>
-                <span className={css.title}>Featured</span>
-            </div>
+    return (
+        <div className={cn('app-container', css.navBar)}>
+            {navMenu.map((navItem) => {
+                if (navItem.isDisabled) {
+                    return (
+                        <div
+                            className={cn(css.navItemCard, {
+                                [css.navItemCardDisabled]: navItem.isDisabled,
+                            })}
+                        >
+                            <div>{navItem.icon}</div>
+                            <span className={css.navItemTitle}>
+                                {navItem.title}
+                            </span>
+                        </div>
+                    );
+                }
+
+                return (
+                    <NavLink to={navItem.href} className={css.navItemCard}>
+                        <div>{navItem.icon}</div>
+                        <span className={css.navItemTitle}>
+                            {navItem.title}
+                        </span>
+                    </NavLink>
+                );
+            })}
         </div>
     );
 };

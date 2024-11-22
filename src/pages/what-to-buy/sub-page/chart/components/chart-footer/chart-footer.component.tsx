@@ -7,7 +7,7 @@ const ChartFooter = () => {
             <AppButton label="Sell" type="secondary" />
             <AppButton label="Buy" />
         </footer>
-    )
-}
+    );
+};
 
 export default ChartFooter;

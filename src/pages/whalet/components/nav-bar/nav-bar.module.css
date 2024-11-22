@@ -1,24 +1,26 @@
-.wrap {
+.navBar {
     display: flex;
     justify-content: space-between;
-    position: relative;
     margin-top: 24px;
+    isolation: isolate;
+}
 
-    .link {
-        text-decoration: none;
-        width: 83px;
-        display: flex;
-        padding: 12px 15px;
-        flex-direction: column;
-        align-items: center;
-        border-radius: var(--Font-Size-md, 16px);
-        background: var(--Colors-Background-White, #fff);
-    }
+.navItemCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 83px;
+    border-radius: 16px;
+    background-color: var(--color-background-white);
+    padding: 12px 15px;
+}
 
-    .title {
-        color: var(--color-text-dark);
-        font-size: var(--Font-Size-sm, 14px);
-        font-weight: 510;
-        line-height: 150%;
-    }
+.navItemCardDisabled {
+    opacity: 0.5;
+}
+
+.navItemTitle {
+    font-weight: 510;
+    font-size: 14px;
+    line-height: 1.5;
 }
