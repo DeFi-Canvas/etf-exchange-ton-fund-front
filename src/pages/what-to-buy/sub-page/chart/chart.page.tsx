@@ -22,9 +22,7 @@ export const ChartPage = () => {
             <ChartMoreInfo />
             <ChartCardAuthor />
             <ChartFooter />
-            <div className={css.termsCondition}>
-                Terms & conditions
-            </div>
+            <div className={css.termsCondition}>Terms & conditions</div>
         </div>
     );
 };
