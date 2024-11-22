@@ -1,0 +1,34 @@
+.priceInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.price {
+    display: flex;
+    font-weight: 590;
+    font-size: 32px;
+    line-height: 1.3;
+}
+
+.priceRemains {
+    opacity: 0.5;
+}
+
+.priceProgress {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-system-green);
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.dot {
+    --size: 4px;
+    width: var(--size);
+    height: var(--size);
+    display: block;
+    border-radius: calc(var(--size) / 2);
+    background-color: currentColor;
+}
