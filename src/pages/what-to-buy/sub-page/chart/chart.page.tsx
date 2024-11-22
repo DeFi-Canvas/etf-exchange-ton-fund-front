@@ -3,6 +3,7 @@ import css from './chart.module.css';
 import ChartLines from './components/chart-lines/chart-lines.component';
 import ChartInvestedCard from './components/chart-invested-card/chart-invested-card.component';
 import ChartAbout from './components/chart-about/chart-about.component';
+import ChartWhatInside from './components/chart-what-inside/chart-what-inside.component';
 
 export const ChartPage = () => {
     return (
@@ -14,6 +15,7 @@ export const ChartPage = () => {
             <ChartLines />
             <ChartInvestedCard />
             <ChartAbout />
+            <ChartWhatInside />
         </div>
     );
 };
