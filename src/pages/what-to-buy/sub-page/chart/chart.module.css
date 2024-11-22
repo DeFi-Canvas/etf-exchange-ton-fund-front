@@ -1,5 +1,6 @@
 .page {
-    padding-block: 12px;
+    padding-top: 12px;
+    padding-bottom: 32px;
 }
 
 .foundCard {
@@ -24,4 +25,12 @@
     max-height: var(--size);
     display: block;
     border-radius: calc(var(--size) / 2);
+}
+
+.termsCondition {
+    margin-top: 24px;
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: center;
+    cursor: pointer;
 }
