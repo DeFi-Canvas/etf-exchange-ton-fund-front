@@ -1,0 +1,36 @@
+.card {
+    margin-top: 12px;
+    background-color: var(--color-background-white);
+    border-radius: 24px;
+    padding: 20px;
+}
+
+.cardTitle {
+    font-weight: 510;
+    font-size: 22px;
+    line-height: 1.3;
+}
+
+.cardContent {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.cardContentItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cardContentItemTitle {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-text-dark-70);
+}
+
+.cardContentItemValue {
+    font-weight: 510;
+    line-height: 1.35;
+}
