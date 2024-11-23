@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import css from './fund.module.css';
 import ChartLines from './components/lines/lines.component';
-import ChartInvestedCard from './components/invested-card/invested-card.component';
+// import ChartInvestedCard from './components/invested-card/invested-card.component';
 import ChartMoreInfo from './components/more-info/more-info.component';
 import ChartCardAuthor from './components/author/card-author.component';
 import ChartFooter from './components/footer/footer.component';
