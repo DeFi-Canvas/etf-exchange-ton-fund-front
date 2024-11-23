@@ -7,7 +7,7 @@ const ChartFooter = () => {
     const navigate = useNavigate();
     return (
         <footer className={css.footer}>
-            <AppButton label="Sell" type="secondary" />
+            {/* <AppButton label="Sell" type="secondary" /> */}
             <AppButton
                 label="Buy"
                 onClick={() => navigate(`/what-to-buy/purchase/${id}`)}

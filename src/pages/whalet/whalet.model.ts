@@ -38,6 +38,18 @@ export interface FundsRespnce {
     updated_event: string;
     is_avaiable: boolean;
     value: number;
+    assets: Array<{
+        asset: {
+            name: string;
+            ticker: string;
+            category: string;
+            description: string;
+            image_url: string;
+            price: number;
+            withdrawal_fee: number;
+        };
+        allocation_percentage: number;
+    }>;
 }
 
 interface Temp {
@@ -58,7 +70,7 @@ interface Temp {
                 value: number;
             };
             value: number;
-        },
+        }
     ];
 }
 
@@ -75,6 +87,7 @@ export const mapWhaletFunds = (data: Temp): Array<FundsData> => {
         updatedEvent: data.updated_event,
         isAvaiable: data.is_avaiable,
         cost: data.value,
+        assets: [],
     }));
 };
 
@@ -89,6 +102,7 @@ export const mapFunds = (data: FundsRespnce): FundsData => ({
     updatedEvent: data.updated_event,
     isAvaiable: data.is_avaiable,
     cost: data.value,
+    assets: [],
 });
 
 //TODO : тип будет расширен (я надеюсь)

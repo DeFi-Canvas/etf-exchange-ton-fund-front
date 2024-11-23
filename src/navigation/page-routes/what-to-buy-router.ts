@@ -1,4 +1,3 @@
-import { FundPage } from '@/pages/what-to-buy/sub-page/funds/fund.page';
 import { Containers } from '../containers';
 
 export const whatToBuyRouter = (containers: Containers) => [
@@ -8,7 +7,7 @@ export const whatToBuyRouter = (containers: Containers) => [
     },
     {
         path: '/what-to-buy/fund/:id',
-        page: FundPage,
+        page: containers.FundPageResolved,
     },
     {
         path: '/what-to-buy/purchase/:id',

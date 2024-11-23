@@ -1,19 +1,16 @@
 import { FeeIcon, RiskLowIcon } from '@/components/Icons/Icons';
 import css from './about.module.css';
 
-const ChartAbout = () => {
+interface ChartAboutProps {
+    description: string;
+    fee: number;
+}
+
+const About = ({ description, fee }: ChartAboutProps) => {
     return (
         <div className={css.card}>
             <div className={css.cardTitle}>About</div>
-            <div className={css.cardContent}>
-                A DeFi fund is a decentralized financial investment vehicle
-                built on blockchain technology. It enables users to pool capital
-                and invest in a range of decentralized finance (DeFi) protocols,
-                earning returns through yield farming, liquidity provision,
-                staking, and other innovative mechanisms. The fund operates
-                without intermediaries, offering transparency, security, and
-                global accessibility.
-            </div>
+            <div className={css.cardContent}>{description}</div>
             <div className={css.cardInfoWrapper}>
                 <div className={css.cardInfoItem}>
                     <RiskLowIcon className={css.icon} />
@@ -27,7 +24,9 @@ const ChartAbout = () => {
                 <div className={css.cardInfoItem}>
                     <FeeIcon className={css.icon} />
                     <div className={css.cardInfoItemContent}>
-                        <div className={css.cardInfoTitle}>Commission 0,5%</div>
+                        <div className={css.cardInfoTitle}>
+                            Commission {fee}%
+                        </div>
                         <div className={css.cardInfoSubTitle}>
                             Coins exchange fee
                         </div>
@@ -38,4 +37,4 @@ const ChartAbout = () => {
     );
 };
 
-export default ChartAbout;
+export default About;

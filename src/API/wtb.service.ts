@@ -31,9 +31,11 @@ export const newWTBRestService = injectable(
             // getFund: (id) => getRequest(API.getFund(id), mapFunds)(),
             getFund: (id) =>
                 fromPromise(
-                    axios
-                        .get(API.getFund(id))
-                        .then(({ data }) => either.of(mapFunds(data)))
+                    axios.get(API.getFund(id)).then(({ data }) => {
+                        console.log(data, 'getFund');
+
+                        return either.of(mapFunds(data));
+                    })
                 ),
             buyFund: (args) =>
                 fromPromise(
