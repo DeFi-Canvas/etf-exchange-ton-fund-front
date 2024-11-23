@@ -1,17 +1,17 @@
 import cn from 'classnames';
-import css from './skeleton-card-line.module.css';
+import css from './skeleton-line.module.css';
 import { CSSProperties } from 'react';
 
 type CustomCSSProperties = CSSProperties & {
     '--height'?: string;
 };
 
-interface SkeletonCardLineProps {
+interface SkeletonLineProps {
     height?: number;
     className?: string;
 }
 
-const SkeletonCardLine = (props: SkeletonCardLineProps) => {
+const SkeletonLine = (props: SkeletonLineProps) => {
     const styleList: CustomCSSProperties = {
         '--height': `${props.height ?? 16}px`,
     };
@@ -24,4 +24,4 @@ const SkeletonCardLine = (props: SkeletonCardLineProps) => {
     );
 };
 
-export default SkeletonCardLine;
+export default SkeletonLine;

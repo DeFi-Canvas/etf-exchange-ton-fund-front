@@ -1,4 +1,3 @@
-import SkeletonAssetCard from '@/components/skeletons/skeleton-asset-card/skeleton-asset-card.component';
 import css from './epty-screan.module.css';
 
 interface EmptyScreanProps {
