@@ -8,6 +8,7 @@ type CustomCSSProperties = CSSProperties & {
 
 interface SkeletonCardBlockProps {
     size?: number;
+    className?: string;
 }
 
 const SkeletonCardBlock = (props: SkeletonCardBlockProps) => {
@@ -15,7 +16,7 @@ const SkeletonCardBlock = (props: SkeletonCardBlockProps) => {
         '--size': `${props.size ?? 40}px`,
     };
 
-    return <div className={cn('skeleton', css.block)} style={styleList}></div>;
+    return <div className={cn('skeleton', css.block, props.className)} style={styleList}></div>;
 };
 
 export default SkeletonCardBlock;

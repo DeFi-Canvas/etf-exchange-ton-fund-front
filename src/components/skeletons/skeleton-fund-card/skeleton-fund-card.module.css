@@ -1,0 +1,53 @@
+.card {
+    background-color: var(--color-background-white);
+    width: 100%;
+}
+
+.cardHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    background-color: var(--color-main-purple-10);
+    padding: 20px;
+    border-radius: 24px 24px 0 0;
+}
+
+.cardHeaderTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cardHeaderTitle {
+    max-width: 44px;
+}
+
+.cardHeaderMore {
+    display: flex;
+    gap: 2px;
+}
+
+.cardHeaderSubTitle {
+    margin-top: 4px;
+}
+
+.cardHeaderButton {
+    max-width: 62px;
+    margin-top: 8px;
+    border-radius: 24px;
+}
+
+.cardBody {
+    padding: 20px;
+    border-radius: 0 0 24px 24px;
+}
+
+.cardBodySubTitle {
+    margin-top: 5px;
+}
+
+.cardBodyInfo {
+    margin-top: 16px;
+    border-radius: 12px;
+}

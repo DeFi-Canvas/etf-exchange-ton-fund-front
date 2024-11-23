@@ -8,6 +8,7 @@ type CustomCSSProperties = CSSProperties & {
 
 interface SkeletonCardLineProps {
     height?: number;
+    className?: string;
 }
 
 const SkeletonCardLine = (props: SkeletonCardLineProps) => {
@@ -15,7 +16,7 @@ const SkeletonCardLine = (props: SkeletonCardLineProps) => {
         '--height': `${props.height ?? 16}px`,
     };
 
-    return <div className={cn('skeleton', css.line)} style={styleList}></div>;
+    return <div className={cn('skeleton', css.line, props.className)} style={styleList}></div>;
 };
 
 export default SkeletonCardLine;
