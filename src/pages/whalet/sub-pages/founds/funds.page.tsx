@@ -28,8 +28,6 @@ const formattedData = (assets: FundsData) => {
 };
 
 export const Funds = ({ funds }: FundsProps) => {
-    console.log(funds, 'funds');
-
     const footerSlot = () => (
         <div className={css.footerButtons}>
             <AppButton to={'/deposit'} label="Deposit" type="secondary" />

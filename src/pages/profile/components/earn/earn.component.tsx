@@ -1,9 +1,11 @@
-import { pipe } from 'fp-ts/lib/function';
+import { identity } from 'fp-ts/lib/function';
 import css from './earn.module.css';
 import { EranStep } from './earn.view-model';
 import * as E from 'fp-ts/Either';
 import cn from 'classnames';
 import { SuccessWhiteSolidIcon } from '@/components/Icons/Icons.tsx';
+import { RenderEither } from '@/components/ui-kit/fpts-components-utils/either/either.component';
+import SkeletonSmallCard from '@/components/skeletons/components/skeleton-small-card/skeleton-smal-card.component';
 
 export interface EranProps {
     readonly steps: E.Either<string, Array<EranStep>>;
@@ -11,39 +13,35 @@ export interface EranProps {
 }
 
 export const Earn = ({ steps, checkStep }: EranProps) => {
-    const stepRender = pipe(
-        steps,
-        E.fold(
-            // TODO: использовать нужную эмоцию а именно показывать сккелетон пока грузятся данные (релевантно ко всем подобным кейсам)
-            () => null,
-            (steps) => {
-                return (
-                    <div className={css.cardWrapper}>
-                        <div className="app-container">
-                            <div className={css.cardTitle}>
-                                <span>Earn Test TON</span>
-                                <div className={css.cardTitleCounter}>
-                                    {steps.length}
-                                </div>
-                            </div>
+    const stepLength = E.isRight(steps) ? steps.right.length : 0;
+    return (
+        <div className={css.cardWrapper}>
+            <div className="app-container">
+                <div className={css.cardTitle}>
+                    <span>Earn Test TON</span>
+                    <div className={css.cardTitleCounter}>{stepLength}</div>
+                </div>
 
-                            <div className={css.cardSteps}>
-                                {steps.map((step) => (
-                                    <Step
-                                        key={step.id}
-                                        {...step}
-                                        checkStep={checkStep}
-                                    />
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                );
-            }
-        )
+                <div className={css.cardSteps}>
+                    <RenderEither
+                        OnLoad={() => (
+                            <>
+                                <SkeletonSmallCard />
+                                <SkeletonSmallCard />
+                                <SkeletonSmallCard />
+                                <SkeletonSmallCard />
+                            </>
+                        )}
+                        data={steps}
+                        Component={(props: EranStep) => (
+                            <Step {...props} checkStep={checkStep} />
+                        )}
+                        map={identity}
+                    />
+                </div>
+            </div>
+        </div>
     );
-
-    return <>{stepRender}</>;
 };
 
 interface StepProps extends EranStep {

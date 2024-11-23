@@ -9,7 +9,6 @@ import css from './profile.module.css';
 export const ProfileContainer = injectable(
     UserInfoContainer,
     EarnContainer,
-    // eslint-disable-next-line react/display-name
     (UserInfoContainer, EranContainer) => () => {
         return (
             <div className={css.profile}>

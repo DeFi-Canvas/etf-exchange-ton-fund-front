@@ -133,10 +133,6 @@ export const newPurchaseSellStore = injectable(
                         fundData.get(),
                         E.getOrElse(() => ({} as FundsData))
                     );
-                    // const currentAsset = pipe(
-                    //     selectedAssets.get(),
-                    //     E.getOrElse(() => ({} as Asset))
-                    // );
                     isShowBottomSheetFinishBoody.set(true);
                     return service.buyFund({
                         fundId: currentFund.id,

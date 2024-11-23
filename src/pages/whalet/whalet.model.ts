@@ -43,6 +43,28 @@ export interface FundsRespnce {
     }>;
 }
 
+interface WhaletFundsResponce {
+    total: number;
+    funds: [
+        {
+            fund: {
+                id: string;
+                name: string;
+                description: string;
+                management_fee: number;
+                image_url: string;
+                is_dao: boolean;
+                risk_score: string;
+                updated_event: string;
+                is_avaiable: boolean;
+                PTonAddress: string;
+                value: number;
+            };
+            value: number;
+        }
+    ];
+}
+
 //#region UI
 export type Asset = {
     name: string;
@@ -79,29 +101,7 @@ export const AssetCodec = t.type({
 export const mapAssetsFromBalance = (data: WaletResponce): Array<Asset> =>
     data.assets.map((asset) => ({ ...asset, logo: asset.image_url }));
 
-interface Temp {
-    total: number;
-    funds: [
-        {
-            fund: {
-                id: string;
-                name: string;
-                description: string;
-                management_fee: number;
-                image_url: string;
-                is_dao: boolean;
-                risk_score: string;
-                updated_event: string;
-                is_avaiable: boolean;
-                PTonAddress: string;
-                value: number;
-            };
-            value: number;
-        }
-    ];
-}
-
-export const mapWhaletFunds = (data: Temp): Array<FundsData> => {
+export const mapWhaletFunds = (data: WhaletFundsResponce): Array<FundsData> => {
     if (!data.funds.length) return [];
     return data.funds.map(({ fund: data }) => ({
         id: data.id,
