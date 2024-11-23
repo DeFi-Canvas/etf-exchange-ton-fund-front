@@ -9,6 +9,7 @@ import {
 } from '@/components/fond-card/fond-slider/fond-slider.component';
 import { FondCardProps } from '@/components/fond-card/fond-card.component';
 import { useNavigate } from 'react-router-dom';
+import { pipe } from 'fp-ts/lib/function';
 
 interface FondsSliderContainerProps
     extends Omit<FondsSliderProps, 'slidesData' | 'onClick'> {}
@@ -16,22 +17,27 @@ interface FondsSliderContainerProps
 export const FondsSliderContainer = injectable(
     token('purchaseStore')<PurchaseSellStore>(),
     (store) => (props: FondsSliderContainerProps) => {
+        //TODO: создать вм и перенести туда
         const funds = useProperty(store.funds);
-        const currentFunds: Array<Omit<FondCardProps, 'onClick'>> = E.isRight(
-            funds
-        )
-            ? funds.right.map((e) => ({
-                  id: e.id,
-                  title: e.name,
-                  description: e.description,
-              }))
-            : [];
+        const slidesData: E.Either<
+            string,
+            Array<Omit<FondCardProps, 'onClick'>>
+        > = pipe(
+            funds,
+            E.map((e) =>
+                e.map((e) => ({
+                    id: e.id,
+                    title: e.name,
+                    description: e.description,
+                }))
+            )
+        );
 
         const navigate = useNavigate();
 
         return React.createElement(FondsSlider, {
             ...props,
-            slidesData: currentFunds,
+            slidesData,
             onClick: (id) => {
                 navigate(`/what-to-buy/fund/${id}`);
             },

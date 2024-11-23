@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/lib/function';
 
@@ -35,15 +36,21 @@ export const RenderEither = <T,>({
                 }
             },
             (props) => {
-                console.log(props);
-
                 if (Array.isArray(props) && map) {
-                    return props.map((el, id) => {
-                        const currentProps = map(el);
-                        //TODO: очень плохо нужно будет поменять на uuid
-                        return <Component {...currentProps} key={id} />;
-                    });
+                    console.log('props', props);
+
+                    //TODO: очень плохо нужно будет поменять на uuid
+                    return (
+                        <>
+                            {props.map(map).map((props, id) => (
+                                <Component {...props} key={id} />
+                            ))}
+                            ;
+                        </>
+                    );
                 } else {
+                    console.log('else');
+
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-ignore
                     return <Component {...props} />;
@@ -51,5 +58,36 @@ export const RenderEither = <T,>({
             }
         )
     );
-    return render;
+    return <>{render}</>;
 };
+
+export interface RenderResultProps<E, A> {
+    readonly data: E.Either<E, A>;
+    readonly success: (value: A) => JSX.Element | null;
+    readonly loading?: () => JSX.Element | null;
+    readonly failure?: (e: E) => JSX.Element | null;
+}
+
+export interface RenderResultComponent {
+    <E, A>(props: RenderResultProps<E, A>): JSX.Element | null;
+}
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+export const RenderResult: RenderResultComponent = memo((props) => {
+    const { data, success, failure, loading } = props;
+
+    return pipe(
+        data,
+        E.fold((err) => {
+            switch (err) {
+                case 'pending':
+                    return loading && loading();
+                case 'error':
+                    return failure && failure(err);
+                default:
+                    return <span>error</span>;
+            }
+        }, success)
+    );
+});

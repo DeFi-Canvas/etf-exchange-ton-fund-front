@@ -7,17 +7,12 @@ import { AssetsViewModelInit } from './assets.view-model';
 import { DepositAssets, DepositAssetsCodec } from '../deposit.model';
 import { Asset, AssetCodec } from '@/pages/whalet/whalet.model';
 import cn from 'classnames';
-import { RenderEither } from '@/components/ui-kit/fpts-components-utils/either/either.component';
+import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 
 interface AssetsProps {
     assets: E.Either<string, Array<DepositAssets | Asset>>;
     type: AssetsViewModelInit;
     handleClick: (asset: DepositAssets | Asset) => void;
-}
-
-interface AssetsCardResult {
-    data: DepositAssets | Asset;
-    props: AssetsCardBaseProps;
 }
 
 const formattedData = (asset: DepositAssets | Asset): AssetsCardBaseProps => {
@@ -61,17 +56,23 @@ export const Assets = ({ assets, type, handleClick }: AssetsProps) => {
 
     return (
         <div className={cn('app-container', css.assetsWrapperContainer)}>
-            <RenderEither
+            <RenderResult
                 data={assets}
-                Component={(assetsItemData: AssetsCardResult) => (
-                    <div
-                        className={css.assetCardWrapper}
-                        onClick={() => onClick(assetsItemData.data)}
-                    >
-                        <AssetsCard {...assetsItemData.props} />
-                    </div>
-                )}
-                map={(d) => ({ data: d, props: formattedData(d) })}
+                success={(assets) => {
+                    return (
+                        <>
+                            {assets.map((asset) => (
+                                <div
+                                    key={asset.name}
+                                    className={css.assetCardWrapper}
+                                    onClick={() => onClick(asset)}
+                                >
+                                    <AssetsCard {...formattedData(asset)} />
+                                </div>
+                            ))}
+                        </>
+                    );
+                }}
             />
         </div>
     );

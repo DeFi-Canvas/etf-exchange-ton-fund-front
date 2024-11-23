@@ -1,10 +1,9 @@
-import { identity } from 'fp-ts/lib/function';
 import css from './earn.module.css';
 import { EranStep } from './earn.view-model';
 import * as E from 'fp-ts/Either';
 import cn from 'classnames';
 import { SuccessWhiteSolidIcon } from '@/components/Icons/Icons.tsx';
-import { RenderEither } from '@/components/ui-kit/fpts-components-utils/either/either.component';
+import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import SkeletonSmallCard from '@/components/skeletons/components/skeleton-small-card/skeleton-smal-card.component';
 
 export interface EranProps {
@@ -23,8 +22,20 @@ export const Earn = ({ steps, checkStep }: EranProps) => {
                 </div>
 
                 <div className={css.cardSteps}>
-                    <RenderEither
-                        OnLoad={() => (
+                    <RenderResult
+                        data={steps}
+                        success={(steps) => (
+                            <>
+                                {steps.map((step) => (
+                                    <Step
+                                        {...step}
+                                        checkStep={checkStep}
+                                        key={step.id}
+                                    />
+                                ))}
+                            </>
+                        )}
+                        loading={() => (
                             <>
                                 <SkeletonSmallCard />
                                 <SkeletonSmallCard />
@@ -32,11 +43,6 @@ export const Earn = ({ steps, checkStep }: EranProps) => {
                                 <SkeletonSmallCard />
                             </>
                         )}
-                        data={steps}
-                        Component={(props: EranStep) => (
-                            <Step {...props} checkStep={checkStep} />
-                        )}
-                        map={identity}
                     />
                 </div>
             </div>

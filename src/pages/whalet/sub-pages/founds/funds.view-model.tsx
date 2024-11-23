@@ -26,7 +26,9 @@ export const newFundsViewModel = injectable(
 
             const getFundsEffect = pipe(
                 service.getWhaletFunds(),
-                tap(funds.set)
+                tap((x) => {
+                    funds.set(x);
+                })
             );
 
             return valueWithEffect.new(
