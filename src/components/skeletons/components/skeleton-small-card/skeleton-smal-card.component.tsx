@@ -1,4 +1,4 @@
-import SkeletonBlock from '../skeleton-block/skeleton-block.component'
+import SkeletonBlock from '../skeleton-block/skeleton-block.component';
 import SkeletonLine from '../skeleton-line/skeleton-line.component';
 import css from './skeleton-small-card.module.css';
 

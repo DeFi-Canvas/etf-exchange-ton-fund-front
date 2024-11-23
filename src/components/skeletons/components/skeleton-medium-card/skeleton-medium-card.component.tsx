@@ -28,10 +28,7 @@ const SkeletonMediumCard = () => {
             </header>
             <div className={css.cardBody}>
                 <SkeletonLine height={26} />
-                <SkeletonLine
-                    height={21}
-                    className={css.cardBodySubTitle}
-                />
+                <SkeletonLine height={21} className={css.cardBodySubTitle} />
                 <SkeletonLine height={63} className={css.cardBodyInfo} />
             </div>
         </div>
