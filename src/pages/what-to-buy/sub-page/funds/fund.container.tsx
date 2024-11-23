@@ -19,7 +19,7 @@ export const FundPageContainer = injectable(
 
         const fund = pipe(
             useProperty(purchaseStore.fundData),
-            E.getOrElse(() => ({} as FundsData))
+            E.getOrElse(() => ({}) as FundsData)
         );
 
         const FundPageResolve = FundPage({

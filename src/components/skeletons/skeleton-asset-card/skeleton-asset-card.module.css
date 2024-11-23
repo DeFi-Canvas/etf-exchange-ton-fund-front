@@ -1,0 +1,16 @@
+.assetCard {
+    background-color: var(--color-background-light);
+    padding: 12px;
+    border-radius: 12px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.assetCardContent {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1 1 100%;
+}

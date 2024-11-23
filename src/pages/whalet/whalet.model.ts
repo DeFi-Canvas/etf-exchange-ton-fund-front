@@ -70,7 +70,7 @@ interface Temp {
                 value: number;
             };
             value: number;
-        }
+        },
     ];
 }
 
