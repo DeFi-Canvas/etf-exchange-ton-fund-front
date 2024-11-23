@@ -14,7 +14,6 @@ export const EmptyScrean = ({
 }: EmptyScreanProps) => {
     return (
         <div className={css.wrapEmptyScrean}>
-            <SkeletonAssetCard />
             <img src={emptyGif} alt="nothig found" />
             <p className={css.text}>{text}</p>
             {footerSlot()}
