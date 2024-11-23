@@ -26,7 +26,7 @@ export const FundPage = injectable(
                         {name}
                     </div>
                     <ChartLines />
-                    <ChartInvestedCard />
+                    {/* <ChartInvestedCard /> */}
                     <AboutContainer />
                     <WhatInsideContainer />
                     <ChartMoreInfo />
