@@ -16,7 +16,12 @@ const SkeletonCardBlock = (props: SkeletonCardBlockProps) => {
         '--size': `${props.size ?? 40}px`,
     };
 
-    return <div className={cn('skeleton', css.block, props.className)} style={styleList}></div>;
+    return (
+        <div
+            className={cn('skeleton', css.block, props.className)}
+            style={styleList}
+        ></div>
+    );
 };
 
 export default SkeletonCardBlock;

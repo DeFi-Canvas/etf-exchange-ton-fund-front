@@ -16,7 +16,12 @@ const SkeletonCardLine = (props: SkeletonCardLineProps) => {
         '--height': `${props.height ?? 16}px`,
     };
 
-    return <div className={cn('skeleton', css.line, props.className)} style={styleList}></div>;
+    return (
+        <div
+            className={cn('skeleton', css.line, props.className)}
+            style={styleList}
+        ></div>
+    );
 };
 
 export default SkeletonCardLine;
