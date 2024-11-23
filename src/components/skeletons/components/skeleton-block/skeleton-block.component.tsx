@@ -1,17 +1,17 @@
 import cn from 'classnames';
-import css from './skeleton-block-card.module.css';
+import css from './skeleton-block.module.css';
 import { CSSProperties } from 'react';
 
 type CustomCSSProperties = CSSProperties & {
     '--size'?: string;
 };
 
-interface SkeletonCardBlockProps {
+interface SkeletonBlockProps {
     size?: number;
     className?: string;
 }
 
-const SkeletonCardBlock = (props: SkeletonCardBlockProps) => {
+const SkeletonBlock = (props: SkeletonBlockProps) => {
     const styleList: CustomCSSProperties = {
         '--size': `${props.size ?? 40}px`,
     };
@@ -24,4 +24,4 @@ const SkeletonCardBlock = (props: SkeletonCardBlockProps) => {
     );
 };
 
-export default SkeletonCardBlock;
+export default SkeletonBlock;
