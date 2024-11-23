@@ -4,7 +4,7 @@ import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { newLensedAtom } from '@frp-ts/lens';
 import * as E from 'fp-ts/Either';
 import * as O from 'fp-ts/Option';
-import { constVoid, flow, pipe } from 'fp-ts/lib/function';
+import { constVoid, pipe } from 'fp-ts/lib/function';
 import { chain, tap } from '@most/core';
 import { newWTBRestService } from '@/API/wtb.service';
 import { newWaletRestService } from '@/API/whalet.service';
@@ -137,13 +137,15 @@ export const newPurchaseSellStore = injectable(
                     //     selectedAssets.get(),
                     //     E.getOrElse(() => ({} as Asset))
                     // );
+                    isShowBottomSheetFinishBoody.set(true);
                     return service.buyFund({
                         fundId: currentFund.id,
                         assetId: '',
                         amount: quantity.get(),
                     });
-                }),
-                tap(flow(E.isRight, isShowBottomSheetFinishBoody.set))
+                })
+                //когда решим че делать
+                // tap(() => isShowBottomSheetFinishBoody.set(true))
             );
 
             const getFundsEffect = pipe(
@@ -171,7 +173,8 @@ export const newPurchaseSellStore = injectable(
                 selectedAssetsEffect,
                 quantityEffect,
                 onBuyEffect,
-                getFundsEffect
+                getFundsEffect,
+                onBuyEffect
             );
         }
 );
