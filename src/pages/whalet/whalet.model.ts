@@ -1,6 +1,8 @@
 import * as t from 'io-ts';
 import { FundsData } from '../what-to-buy/what-to-buy.model';
 
+// TODO: -> Asset, Funds, Transactions
+
 //#region RESPONCE
 export interface WaletResponce {
     total: number;

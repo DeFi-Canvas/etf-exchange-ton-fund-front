@@ -75,7 +75,7 @@ export const newPurchaseSellStore = injectable(
             const setIsBottomPanel = isBottomPanel.set;
 
             const getFundDataEffect = pipe(
-                service.getFund(id ?? 'cec02e9a-ab1b-4a6e-b0fd-e3b0a54842d0'),
+                service.getFund(id),
                 tap(fundData.set)
             );
 
@@ -114,11 +114,11 @@ export const newPurchaseSellStore = injectable(
                 tap((x) => {
                     const currentFund = pipe(
                         fundData.get(),
-                        E.getOrElse(() => ({}) as FundsData)
+                        E.getOrElse(() => ({} as FundsData))
                     );
                     const currentAsset = pipe(
                         selectedAssets.get(),
-                        E.getOrElse(() => ({}) as Asset)
+                        E.getOrElse(() => ({} as Asset))
                     );
                     const currency = x * currentFund.cost;
                     const coin = currency / currentAsset.price;
@@ -132,7 +132,7 @@ export const newPurchaseSellStore = injectable(
                 chain(() => {
                     const currentFund = pipe(
                         fundData.get(),
-                        E.getOrElse(() => ({}) as FundsData)
+                        E.getOrElse(() => ({} as FundsData))
                     );
                     // const currentAsset = pipe(
                     //     selectedAssets.get(),

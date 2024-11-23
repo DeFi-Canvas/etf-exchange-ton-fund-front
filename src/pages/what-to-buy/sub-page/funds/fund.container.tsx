@@ -7,19 +7,22 @@ import { pipe } from 'fp-ts/lib/function';
 import { useProperty } from '@frp-ts/react';
 import * as E from 'fp-ts/Either';
 import { FundsData } from '../../what-to-buy.model';
+import { useParams } from 'react-router-dom';
 
 export const FundPageContainer = injectable(
     provide(FundPage)<'purchaseStore'>(),
     newPurchaseSellStore,
     (FundPage, newPurchaseViewModel) => () => {
+        const { id } = useParams();
+
         const purchaseStore = useValueWithEffect(
-            () => newPurchaseViewModel(),
+            () => newPurchaseViewModel(id),
             []
         );
 
         const fund = pipe(
             useProperty(purchaseStore.fundData),
-            E.getOrElse(() => ({}) as FundsData)
+            E.getOrElse(() => ({} as FundsData))
         );
 
         const FundPageResolve = FundPage({
