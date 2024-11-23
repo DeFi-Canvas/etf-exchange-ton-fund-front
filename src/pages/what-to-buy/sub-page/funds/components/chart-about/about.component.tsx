@@ -1,5 +1,5 @@
 import { FeeIcon, RiskLowIcon } from '@/components/Icons/Icons';
-import css from './chart-about.module.css';
+import css from './about.module.css';
 
 const ChartAbout = () => {
     return (

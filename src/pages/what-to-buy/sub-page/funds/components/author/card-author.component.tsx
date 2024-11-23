@@ -1,4 +1,4 @@
-import css from './chart-card-author.module.css';
+import css from './card-author.module.css';
 
 const ChartCardAuthor = () => {
     return (

@@ -7,7 +7,6 @@ import { newPurchaseSellStore } from './sub-page/purchase/purchase.view-model';
 export const WhatToBuyPageContainer = injectable(
     provide(WhatToBuyPage)<'purchaseStore'>(),
     newPurchaseSellStore,
-
     (WhatToBuyPage, newPurchaseViewModel) => () => {
         const purchaseStore = useValueWithEffect(
             () => newPurchaseViewModel(),

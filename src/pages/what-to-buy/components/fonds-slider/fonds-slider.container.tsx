@@ -33,7 +33,7 @@ export const FondsSliderContainer = injectable(
             ...props,
             slidesData: currentFunds,
             onClick: (id) => {
-                navigate(`/what-to-buy/purchase/${id}`);
+                navigate(`/what-to-buy/fund/${id}`);
             },
         });
     }

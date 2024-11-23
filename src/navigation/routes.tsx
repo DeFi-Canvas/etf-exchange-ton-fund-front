@@ -12,7 +12,6 @@ import { indexRouter } from './page-routes/index-router';
 import { depositRouter } from './page-routes/deposit-router';
 import { withdrawRouter } from './page-routes/withdraw-router';
 import { whatToBuyRouter } from './page-routes/what-to-buy-router';
-import { ChartPage } from '@/pages/what-to-buy/sub-page/chart/chart.page';
 
 interface Route {
     path: string;
@@ -55,11 +54,6 @@ export const AppRoutes = () => {
                 { path: '', page: SwapPage, isIndex: true },
                 { path: 'multi-swap', page: MultiSwapPage },
             ],
-        },
-        // TEMP CHART DEMO
-        {
-            path: '/chart',
-            page: () => <ChartPage />,
         },
     ];
 

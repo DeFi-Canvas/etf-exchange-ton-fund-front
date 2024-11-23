@@ -1,8 +1,8 @@
 import { Chart } from '@/components/chart/chart.component';
 import { constVoid } from 'fp-ts/lib/function';
-import css from './chart-lines.module.css';
+import css from './lines.module.css';
 import cn from 'classnames';
-import CardPrice from '../card-price/card-price.components';
+import CardPrice from '../price/price.components';
 
 const ChartLines = () => {
     return (
@@ -24,7 +24,7 @@ const ChartLines = () => {
             <CardPrice className={css.cardPrice} />
             <div className={css.chartLines}>
                 <Chart
-                    data={[1, 2, 3, 4, 5, 6, 7, 8, 3, 3, 5, 6]}
+                    data={[1, 3, 2, 6, 5, 8]}
                     dateRange={{ from: '4 AUG', to: '4 OCT' }}
                     controlOnClick={constVoid}
                 />

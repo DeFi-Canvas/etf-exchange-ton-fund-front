@@ -1,5 +1,5 @@
-import CardPrice from '../card-price/card-price.components';
-import css from './chart-invested-card.module.css';
+import CardPrice from '../price/price.components';
+import css from './invested-card.module.css';
 
 const ChartInvestedCard = () => {
     return (

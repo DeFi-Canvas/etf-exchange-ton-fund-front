@@ -1,5 +1,5 @@
 import AppButton from '@/components/AppButton/AppButton';
-import css from './chart-footer.module.css';
+import css from './footer.module.css';
 
 const ChartFooter = () => {
     return (

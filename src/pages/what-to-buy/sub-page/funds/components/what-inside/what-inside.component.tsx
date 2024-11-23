@@ -1,9 +1,9 @@
-import css from './chart-what-inside.module.css';
+import css from './what-inside.module.css';
 
 const ChartWhatInside = () => {
     return (
         <div className={css.card}>
-            <div className={css.cardTitle}>What's inside</div>
+            <div className={css.cardTitle}>What&apos;s inside</div>
             <div className={css.cardContent}>
                 <div className={css.cardItem}>
                     <img src="temp-ton.png" className={css.cardItemImage} />

@@ -1,4 +1,4 @@
-import css from './chart-more-info.module.css';
+import css from './more-info.module.css';
 
 interface ChartMoreInfoCardInterface {
     id: number;
@@ -35,7 +35,7 @@ const ChartMoreInfo = () => {
             <div className={css.cardTitle}>More info</div>
             <div className={css.cardContent}>
                 {cards.map((card) => (
-                    <div className={css.cardContentItem}>
+                    <div className={css.cardContentItem} key={card.id}>
                         <div className={css.cardContentItemTitle}>
                             {card.title}
                         </div>

@@ -1,4 +1,4 @@
-import css from './card-price.module.css';
+import css from './price.module.css';
 import cn from 'classnames';
 
 interface CardPriceProps {
