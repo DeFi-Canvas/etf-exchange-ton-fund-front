@@ -31,20 +31,15 @@ export const AssetsCardDeposit = ({ name, ticker, img }: DepositAssets) => {
     );
 };
 
-export const AssetsCardWithdrow = ({
-    name,
-    image_url: img,
-    value: amount,
-    symbol: ticker,
-}: Asset) => {
+export const AssetsCardWithdrow = ({ name, logo, value, symbol }: Asset) => {
     return (
         <div className={css.wrap}>
-            <img src={img} className={css.img} />
+            <img src={logo} className={css.img} />
             <div className={css.infoWrap}>
                 <span className={css.name}>
-                    {amount} {name}
+                    {value} {name}
                 </span>
-                <span className={css.ticker}>{ticker}</span>
+                <span className={css.ticker}>{symbol}</span>
             </div>
         </div>
     );

@@ -13,7 +13,7 @@ const WhatInside = ({ assets }: WhatInsideProps) => {
                 {assets.assets?.map((asset) => (
                     <div className={css.cardItem} key={asset.asset.name}>
                         <img
-                            src={asset.asset.image_url}
+                            src={asset.asset.logo}
                             className={css.cardItemImage}
                         />
                         <div className={css.cardContentInfo}>

@@ -36,13 +36,12 @@ export const newAssetsViewModel = injectable(
                 waletRestService.getAssets(),
                 tap(
                     flow(
-                        either.map((jettons) =>
-                            jettons.map((jetton) => ({
-                                logo: jetton.image_url,
-                                name: jetton.name,
-                                ticker: jetton.symbol,
-                                coinAmount: jetton.balance,
-                                cost: jetton.price,
+                        either.map((assets) =>
+                            assets.map((asset) => ({
+                                ...asset,
+                                ticker: asset.symbol,
+                                coinAmount: asset.balance,
+                                cost: asset.price,
                             }))
                         ),
                         O.fromEither,

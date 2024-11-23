@@ -18,7 +18,6 @@ import { FundsData } from '@/pages/what-to-buy/what-to-buy.model';
 export interface WaletRestService {
     getBalance: () => Stream<Either<string, WaletResponce>>;
     getAssets: () => Stream<Either<string, Array<Asset>>>;
-    // getFunds: () => Stream<Either<string, Array<CoinCardData>>>;
     getFunds: () => Stream<Either<string, Array<FundsData>>>;
     getWhaletFunds: () => Stream<Either<string, Array<FundsData>>>;
     getTransactions: () => Stream<Either<string, Array<Transactions>>>;

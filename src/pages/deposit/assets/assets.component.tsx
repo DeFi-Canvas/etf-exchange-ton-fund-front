@@ -31,7 +31,7 @@ const formattedData = (asset: DepositAssets | Asset): AssetsCardBaseProps => {
         };
     } else {
         return {
-            img: asset.image_url,
+            img: asset.logo,
             title: asset.name,
             subTitle: asset.symbol,
             price: asset.value.toFixed(2),

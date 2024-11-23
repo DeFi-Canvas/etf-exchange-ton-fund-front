@@ -1,13 +1,13 @@
-// import { CoinCardData } from '@/components/assets-card/assets-card.model';
 import * as t from 'io-ts';
 import { FundsData } from '../what-to-buy/what-to-buy.model';
 
+//#region RESPONCE
 export interface WaletResponce {
     total: number;
-    assets: Array<Asset>;
+    assets: Array<AssetResponce>;
 }
 
-export type Asset = {
+export type AssetResponce = {
     name: string;
     symbol: string;
     balance: number;
@@ -16,16 +16,27 @@ export type Asset = {
     value: number;
 };
 
+//#region UI
+export type Asset = {
+    name: string;
+    symbol: string;
+    balance: number;
+    price: number;
+    logo: string;
+    value: number;
+};
+
 export const AssetCodec = t.type({
     name: t.string,
     symbol: t.string,
     balance: t.number,
     price: t.number,
-    image_url: t.string,
+    logo: t.string,
     value: t.number,
 });
 
-export const mapAssetsFromBalance = (data: WaletResponce) => data.assets;
+export const mapAssetsFromBalance = (data: WaletResponce): Array<Asset> =>
+    data.assets.map((asset) => ({ ...asset, logo: asset.image_url }));
 
 export interface FundsRespnce {
     id: string;
@@ -70,7 +81,7 @@ interface Temp {
                 value: number;
             };
             value: number;
-        },
+        }
     ];
 }
 

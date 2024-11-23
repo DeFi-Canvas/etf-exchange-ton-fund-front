@@ -58,7 +58,7 @@ export const newAssetsViewModel = injectable(
                     if (AssetCodec.is(currentAsset)) {
                         store.setAvailableBalance(currentAsset.balance);
                         store.setTickerPrice(currentAsset.price);
-                        store.setSymbolLogo(currentAsset.image_url);
+                        store.setSymbolLogo(currentAsset.logo);
                     }
                 }
             };

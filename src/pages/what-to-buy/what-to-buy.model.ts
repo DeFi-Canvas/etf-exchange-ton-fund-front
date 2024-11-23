@@ -38,7 +38,7 @@ export const mapFunds = (data: FundsRespnce): FundsData => ({
             symbol: asset.asset.ticker,
             balance: asset.asset.price,
             price: asset.asset.price,
-            image_url: asset.asset.image_url,
+            logo: asset.asset.image_url,
             value: 0,
             allocationPercentage: asset.allocation_percentage,
         },
@@ -50,7 +50,7 @@ export const mapAssetToUICard = (
     allowedOpen?: boolean,
     isBackgroundWhite?: boolean
 ): InterfacePurchaseSellAssetCardData => ({
-    imageSrc: date.image_url,
+    imageSrc: date.logo,
     title: `${(date.balance ?? 0).toFixed(2)} ${date.symbol}`,
     subTitle: `$ ${(date.price * date.balance).toFixed(2)}`,
     price: `${date.price}`,

@@ -18,6 +18,7 @@ const emptyText =
 const formattedData = (assets: CoinCardData) => {
     // TODO:V Вынести глобально в стор или какое-то местное реакт хранилище - значок доллора перед переменной говорит о том, что переменная глобальная
     const $currency = '&dollar;';
+    console.log(assets, '123');
 
     return {
         img: assets.logo,
@@ -55,6 +56,8 @@ export const Assets = ({ assets }: AssetsProps) => {
         <div className={css.wrap}>
             {currentAssets.map((assets) => {
                 const assetsData = formattedData(assets);
+                console.log(assetsData);
+
                 return <AssetsCard key={assets.ticker} {...assetsData} />;
             })}
         </div>
