@@ -5,10 +5,8 @@ import { BottomSheetBody } from './bottom-sheet-body';
 import { InterfacePurchaseSellAssetCardData } from '../../../types';
 import { useProperty } from '@frp-ts/react';
 import { PurchaseSellStore } from '../../purchase.view-model';
-import {
-    FundsData,
-    mapFundToUICard,
-} from '@/pages/what-to-buy/what-to-buy.model';
+import { mapFundToUICard } from '@/pages/what-to-buy/what-to-buy.model';
+import { FundsData } from '@/pages/whalet/whalet.model';
 
 export const BottomSheetSellBodyContainer = injectable(
     token('purchaseStore')<PurchaseSellStore>(),

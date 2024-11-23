@@ -1,5 +1,5 @@
 import * as t from 'io-ts';
-import { FundsData } from '../what-to-buy/what-to-buy.model';
+// import { FundsData } from '../what-to-buy/what-to-buy.model';
 
 // TODO: -> Asset, Funds, Transactions
 
@@ -17,28 +17,6 @@ export type AssetResponce = {
     image_url: string;
     value: number;
 };
-
-//#region UI
-export type Asset = {
-    name: string;
-    symbol: string;
-    balance: number;
-    price: number;
-    logo: string;
-    value: number;
-};
-
-export const AssetCodec = t.type({
-    name: t.string,
-    symbol: t.string,
-    balance: t.number,
-    price: t.number,
-    logo: t.string,
-    value: t.number,
-});
-
-export const mapAssetsFromBalance = (data: WaletResponce): Array<Asset> =>
-    data.assets.map((asset) => ({ ...asset, logo: asset.image_url }));
 
 export interface FundsRespnce {
     id: string;
@@ -64,6 +42,42 @@ export interface FundsRespnce {
         allocation_percentage: number;
     }>;
 }
+
+//#region UI
+export type Asset = {
+    name: string;
+    symbol: string;
+    balance: number;
+    price: number;
+    logo: string;
+    value: number;
+};
+
+export interface FundsData {
+    id: string;
+    name: string;
+    description: string;
+    managementFee: number;
+    logo: string;
+    isDao: boolean;
+    riskScore: string;
+    updatedEvent: string;
+    isAvaiable: boolean;
+    cost: number;
+    assets: Array<Asset & { allocationPercentage: number }>;
+}
+
+export const AssetCodec = t.type({
+    name: t.string,
+    symbol: t.string,
+    balance: t.number,
+    price: t.number,
+    logo: t.string,
+    value: t.number,
+});
+
+export const mapAssetsFromBalance = (data: WaletResponce): Array<Asset> =>
+    data.assets.map((asset) => ({ ...asset, logo: asset.image_url }));
 
 interface Temp {
     total: number;

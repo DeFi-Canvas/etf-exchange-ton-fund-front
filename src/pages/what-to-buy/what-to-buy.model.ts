@@ -1,25 +1,8 @@
-import { Asset, FundsRespnce } from '../whalet/whalet.model';
+import { Asset, FundsData, FundsRespnce } from '../whalet/whalet.model';
 import { InterfacePurchaseSellAssetCardData } from './sub-page/types';
 
 export type PageType = 'BUY' | 'SELL';
 export const isAssetAvailible = (type: PageType) => type === 'BUY';
-
-export interface FundsData {
-    id: string;
-    name: string;
-    description: string;
-    managementFee: number;
-    logo: string;
-    isDao: boolean;
-    riskScore: string;
-    updatedEvent: string;
-    isAvaiable: boolean;
-    cost: number;
-    //TODO: need to normolize
-    assets: Array<{
-        asset: Asset & { allocationPercentage: number };
-    }>;
-}
 
 export const mapFunds = (data: FundsRespnce): FundsData => ({
     id: data.id,
@@ -32,16 +15,14 @@ export const mapFunds = (data: FundsRespnce): FundsData => ({
     updatedEvent: data.updated_event,
     isAvaiable: data.is_avaiable,
     cost: 1,
-    assets: data.assets.map((asset) => ({
-        asset: {
-            name: asset.asset.name,
-            symbol: asset.asset.ticker,
-            balance: asset.asset.price,
-            price: asset.asset.price,
-            logo: asset.asset.image_url,
-            value: 0,
-            allocationPercentage: asset.allocation_percentage,
-        },
+    assets: data.assets.map(({ asset, allocation_percentage }) => ({
+        name: asset.name,
+        symbol: asset.ticker,
+        balance: asset.price,
+        price: asset.price,
+        logo: asset.image_url,
+        value: 0,
+        allocationPercentage: allocation_percentage,
     })),
 });
 

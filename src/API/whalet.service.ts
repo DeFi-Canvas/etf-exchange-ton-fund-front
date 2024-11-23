@@ -5,6 +5,7 @@ import { injectable, token } from '@injectable-ts/core';
 import { getRequest } from './request.utils';
 import {
     Asset,
+    FundsData,
     mapAssetsFromBalance,
     mapFunds,
     mapWhaletFunds,
@@ -13,7 +14,6 @@ import {
     WaletResponce,
 } from '@/pages/whalet/whalet.model';
 import { API } from './API';
-import { FundsData } from '@/pages/what-to-buy/what-to-buy.model';
 
 export interface WaletRestService {
     getBalance: () => Stream<Either<string, WaletResponce>>;

@@ -5,7 +5,7 @@ import AppButton from '@/components/AppButton/AppButton';
 import * as E from 'fp-ts/Either';
 import { AssetsCard } from '@/components/assets-card/assets-card.component';
 import { RenderEither } from '@/components/ui-kit/fpts-components-utils/either/either.component';
-import { FundsData } from '@/pages/what-to-buy/what-to-buy.model';
+import { FundsData } from '../../whalet.model';
 
 const emptyText = `You don't have any investments in funds right now. Get started by browsing through funds to discover opportunities.`;
 

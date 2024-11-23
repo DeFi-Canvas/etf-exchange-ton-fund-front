@@ -3,13 +3,13 @@ import React from 'react';
 import * as E from 'fp-ts/Either';
 import { useProperty } from '@frp-ts/react';
 import {
-    FundsData,
     isAssetAvailible,
     mapFundToUICard,
     PageType,
 } from '@/pages/what-to-buy/what-to-buy.model';
 import { PurchaseSellStore } from '../../purchase/purchase.view-model';
 import PurchaseSellAssetCard from './purchase-sell-asset-card.component';
+import { FundsData } from '@/pages/whalet/whalet.model';
 
 interface PurchaseSellAssetCardContainerProps {
     type: PageType;

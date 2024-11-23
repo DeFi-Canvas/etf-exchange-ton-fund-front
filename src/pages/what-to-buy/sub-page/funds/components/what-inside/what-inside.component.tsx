@@ -1,4 +1,4 @@
-import { FundsData } from '@/pages/what-to-buy/what-to-buy.model';
+import { FundsData } from '@/pages/whalet/whalet.model';
 import css from './what-inside.module.css';
 
 interface WhatInsideProps {
@@ -11,21 +11,18 @@ const WhatInside = ({ assets }: WhatInsideProps) => {
             <div className={css.cardTitle}>What&apos;s inside</div>
             <div className={css.cardContent}>
                 {assets.assets?.map((asset) => (
-                    <div className={css.cardItem} key={asset.asset.name}>
-                        <img
-                            src={asset.asset.logo}
-                            className={css.cardItemImage}
-                        />
+                    <div className={css.cardItem} key={asset.name}>
+                        <img src={asset.logo} className={css.cardItemImage} />
                         <div className={css.cardContentInfo}>
                             <div className={css.cardContentInfoTitle}>
-                                {asset.asset.symbol}
+                                {asset.symbol}
                             </div>
                             <div className={css.cardContentInfoSubTitle}>
-                                {asset.asset.name}
+                                {asset.name}
                             </div>
                         </div>
                         <div className={css.cardContentInfoValue}>
-                            {asset.asset.allocationPercentage}%
+                            {asset.allocationPercentage}%
                         </div>
                     </div>
                 ))}

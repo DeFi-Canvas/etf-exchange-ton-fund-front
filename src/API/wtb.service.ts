@@ -2,13 +2,13 @@ import { Stream } from '@most/types';
 import { Either } from 'fp-ts/lib/Either';
 import { UserStoreService } from '@/store/user.store';
 import { injectable, token } from '@injectable-ts/core';
-// import { getRequest } from './request.utils';
 import { API } from './API';
-import { FundsData, mapFunds } from '@/pages/what-to-buy/what-to-buy.model';
+import { mapFunds } from '@/pages/what-to-buy/what-to-buy.model';
 import { fromPromise } from '@most/core';
 import axios from 'axios';
 import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
 import { either } from 'fp-ts';
+import { FundsData } from '@/pages/whalet/whalet.model';
 
 interface BuyFundArgs {
     fundId: string;

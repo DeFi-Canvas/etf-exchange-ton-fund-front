@@ -5,8 +5,9 @@ import { PurchaseSellStore } from '../../purchase/purchase.view-model';
 import { PurchaseSellFinishBoodySheet } from './purchase-sell-finish-boody-sheet.component';
 import * as E from 'fp-ts/Either';
 import * as O from 'fp-ts/Option';
-import { FundsData, PageType } from '@/pages/what-to-buy/what-to-buy.model';
+import { PageType } from '@/pages/what-to-buy/what-to-buy.model';
 import { pipe } from 'fp-ts/lib/function';
+import { FundsData } from '@/pages/whalet/whalet.model';
 
 interface PurchaseSellFinishBoodySheetContainerProps {
     type?: PageType;
@@ -18,7 +19,7 @@ export const PurchaseSellFinishBoodySheetContainer = injectable(
         ({ type: typePage }: PurchaseSellFinishBoodySheetContainerProps) => {
             const fundData = pipe(
                 useProperty(store.fundData),
-                E.getOrElse(() => ({}) as FundsData)
+                E.getOrElse(() => ({} as FundsData))
             );
 
             const totalAmount = pipe(

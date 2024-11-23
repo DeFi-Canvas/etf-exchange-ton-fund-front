@@ -7,9 +7,8 @@ import * as O from 'fp-ts/Option';
 import { constVoid, flow, pipe } from 'fp-ts/lib/function';
 import { chain, tap } from '@most/core';
 import { newWTBRestService } from '@/API/wtb.service';
-import { FundsData } from '../../what-to-buy.model';
 import { newWaletRestService } from '@/API/whalet.service';
-import { Asset } from '@/pages/whalet/whalet.model';
+import { Asset, FundsData } from '@/pages/whalet/whalet.model';
 import { fromProperty } from '@/utils/property.utils';
 import { createAdapter } from '@most/adapter';
 

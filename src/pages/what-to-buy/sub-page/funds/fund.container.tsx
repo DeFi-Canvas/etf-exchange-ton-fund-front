@@ -6,8 +6,8 @@ import { newPurchaseSellStore } from '../purchase/purchase.view-model';
 import { pipe } from 'fp-ts/lib/function';
 import { useProperty } from '@frp-ts/react';
 import * as E from 'fp-ts/Either';
-import { FundsData } from '../../what-to-buy.model';
 import { useParams } from 'react-router-dom';
+import { FundsData } from '@/pages/whalet/whalet.model';
 
 export const FundPageContainer = injectable(
     provide(FundPage)<'purchaseStore'>(),

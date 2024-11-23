@@ -6,7 +6,7 @@ import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/lib/function';
 import { tap } from '@most/core';
 import { newWaletRestService } from '@/API/whalet.service';
-import { FundsData } from '@/pages/what-to-buy/what-to-buy.model';
+import { FundsData } from '../../whalet.model';
 
 export interface FundsViewModel {
     readonly funds: Property<E.Either<string, Array<FundsData>>>;
@@ -24,7 +24,10 @@ export const newFundsViewModel = injectable(
                 E.left('pending')
             );
 
-            const getFundsEffect = pipe(service.getFunds(), tap(funds.set));
+            const getFundsEffect = pipe(
+                service.getWhaletFunds(),
+                tap(funds.set)
+            );
 
             return valueWithEffect.new(
                 {
