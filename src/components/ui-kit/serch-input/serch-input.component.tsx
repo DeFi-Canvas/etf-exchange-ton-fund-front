@@ -21,6 +21,7 @@ export const SerchInput = ({ placeholder, theme }: SerchInputProps) => {
             className={cn(css.wrap, theme)}
             onClick={handleClick}
             onTouchCancel={handleClick}
+            style={{ zIndex: 10000 }}
         >
             <SerchIcon />
             <input
