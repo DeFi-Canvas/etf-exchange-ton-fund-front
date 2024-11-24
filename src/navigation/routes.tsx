@@ -44,7 +44,7 @@ export const AppRoutes = () => {
         ...whatToBuyRouter(containers),
         {
             path: 'profile',
-            page: containers.ProfileResolved,
+            page: containers.Profile,
         },
         // не рабочие стр
         {

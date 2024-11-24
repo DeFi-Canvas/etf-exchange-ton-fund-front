@@ -24,71 +24,71 @@ interface getContainersArgs {
 type MemoComponent = MemoExoticComponent<FC>;
 
 export interface Containers {
-    WaletPageResolved: () => JSX.Element;
-    ProfileResolved: () => JSX.Element;
-    AssetsResolved: () => JSX.Element;
-    TransactionsResolved: () => JSX.Element;
-    FundsResolved: () => JSX.Element;
-    DepositPageResolved: () => JSX.Element;
-    DepositEndPointResolved: () => JSX.Element;
-    WithdrowResolved: () => JSX.Element;
-    AmountResolved: MemoComponent;
-    AddressResolved: MemoComponent;
-    CheckResolved: MemoComponent;
-    FinalResolved: MemoComponent;
-    PurchaseContainerResolved: () => JSX.Element;
-    SellContainerResolved: () => JSX.Element;
-    WhatToBuyPageResolved: () => JSX.Element;
-    FundPageResolved: () => JSX.Element;
+    WaletPage: () => JSX.Element;
+    Profile: () => JSX.Element;
+    Assets: () => JSX.Element;
+    Transactions: () => JSX.Element;
+    Funds: () => JSX.Element;
+    DepositPage: () => JSX.Element;
+    DepositEndPoint: () => JSX.Element;
+    Withdrow: () => JSX.Element;
+    Amount: MemoComponent;
+    Address: MemoComponent;
+    Check: MemoComponent;
+    Final: MemoComponent;
+    PurchaseContainer: () => JSX.Element;
+    SellContainer: () => JSX.Element;
+    WhatToBuyPage: () => JSX.Element;
+    FundPage: () => JSX.Element;
 }
 
 export const getContainers = ({
     userStore,
 }: getContainersArgs): Containers => ({
-    WaletPageResolved: WaletPageContainer({
+    WaletPage: WaletPageContainer({
         userStore,
     }),
-    ProfileResolved: ProfileContainer({
+    Profile: ProfileContainer({
         userStore,
     }),
-    AssetsResolved: AssetsContainer({
+    Assets: AssetsContainer({
         userStore,
     }),
-    TransactionsResolved: TransactionsContainer({
+    Transactions: TransactionsContainer({
         userStore,
     }),
-    FundsResolved: FundsContainer({
+    Funds: FundsContainer({
         userStore,
     }),
-    DepositPageResolved: DepositPageContainer({
+    DepositPage: DepositPageContainer({
         userStore,
     }),
-    DepositEndPointResolved: DepositEndPointContainer({
+    DepositEndPoint: DepositEndPointContainer({
         userStore,
     }),
-    WithdrowResolved: Withdrow({
+    Withdrow: Withdrow({
         userStore,
     }),
-    AmountResolved: AmountContainer({
+    Amount: AmountContainer({
         userStore,
     }),
-    AddressResolved: AddressContainer({
+    Address: AddressContainer({
         userStore,
     }),
-    CheckResolved: CheckContainer({
+    Check: CheckContainer({
         userStore,
     }),
-    FinalResolved: FinalContainer({
+    Final: FinalContainer({
         userStore,
     }),
-    PurchaseContainerResolved: PurchaseContainer({
+    PurchaseContainer: PurchaseContainer({
         userStore,
     }),
-    SellContainerResolved: SellContainer({
+    SellContainer: SellContainer({
         userStore,
     }),
-    WhatToBuyPageResolved: WhatToBuyPageContainer({
+    WhatToBuyPage: WhatToBuyPageContainer({
         userStore,
     }),
-    FundPageResolved: FundPageContainer({ userStore }),
+    FundPage: FundPageContainer({ userStore }),
 });

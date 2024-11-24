@@ -3,10 +3,10 @@ import { Containers } from '../containers';
 export const depositRouter = (containers: Containers) => [
     {
         path: 'deposit',
-        page: containers.DepositPageResolved,
+        page: containers.DepositPage,
     },
     {
         path: '/deposit/:ticker/deposit-end-point',
-        page: containers.DepositEndPointResolved,
+        page: containers.DepositEndPoint,
     },
 ];

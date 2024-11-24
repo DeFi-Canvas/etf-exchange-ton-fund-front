@@ -3,18 +3,18 @@ import { Containers } from '../containers';
 export const whatToBuyRouter = (containers: Containers) => [
     {
         path: '/what-to-buy',
-        page: containers.WhatToBuyPageResolved,
+        page: containers.WhatToBuyPage,
     },
     {
         path: '/what-to-buy/fund/:id',
-        page: containers.FundPageResolved,
+        page: containers.FundPage,
     },
     {
         path: '/what-to-buy/purchase/:id',
-        page: containers.PurchaseContainerResolved,
+        page: containers.PurchaseContainer,
     },
     {
         path: '/what-to-buy/sell',
-        page: containers.SellContainerResolved,
+        page: containers.SellContainer,
     },
 ];
