@@ -17,7 +17,11 @@ export const SerchInput = ({ placeholder, theme }: SerchInputProps) => {
         inputRef.current.focus();
     };
     return (
-        <div className={cn(css.wrap, theme)} onClick={handleClick}>
+        <div
+            className={cn(css.wrap, theme)}
+            onClick={handleClick}
+            onTouchCancel={handleClick}
+        >
             <SerchIcon />
             <input
                 type="text"
