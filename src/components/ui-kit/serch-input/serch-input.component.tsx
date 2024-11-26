@@ -13,6 +13,7 @@ export const SerchInput = ({ placeholder, theme }: SerchInputProps) => {
 
     const handleClick = (e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation();
+        e.preventDefault();
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-ignore
         inputRef.current.focus();
@@ -26,6 +27,9 @@ export const SerchInput = ({ placeholder, theme }: SerchInputProps) => {
                 className={css.input}
                 inputMode={'text'}
                 ref={inputRef}
+                autoComplete="off"
+                autoCorrect="off"
+                spellCheck="false"
             />
         </div>
     );
