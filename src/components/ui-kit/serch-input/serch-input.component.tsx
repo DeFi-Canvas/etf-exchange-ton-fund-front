@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { SerchIcon } from '@/components/Icons/Icons';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import css from './serch-input.module.css';
 import cn from 'classnames';
 
@@ -8,16 +9,49 @@ export interface SerchInputProps {
     theme?: string;
 }
 
+// export const SerchInput = ({ placeholder, theme }: SerchInputProps) => {
+//     const inputRef = useRef(null);
+
+//     const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+//         e.stopPropagation();
+//         e.preventDefault();
+//         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//         //@ts-ignore
+//         inputRef.current.focus();
+//     };
+//     return (
+//         <div className={cn(css.wrap, theme)} onClick={handleClick}>
+//             <SerchIcon />
+//             <input
+//                 type="text"
+//                 placeholder={placeholder}
+//                 className={css.input}
+//                 inputMode={'text'}
+//                 ref={inputRef}
+//             />
+//         </div>
+//     );
+// };
 export const SerchInput = ({ placeholder, theme }: SerchInputProps) => {
-    const inputRef = useRef(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const handleClick = (e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation();
-        e.preventDefault();
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore
-        inputRef.current.focus();
+        setTimeout(() => {
+            inputRef.current?.focus();
+        }, 0);
     };
+
+    useEffect(() => {
+        // @ts-ignore
+        if (window.Telegram) {
+            // @ts-ignore
+            const tg = window.Telegram.WebApp;
+            tg.ready();
+            tg.expand();
+        }
+    }, []);
+
     return (
         <div className={cn(css.wrap, theme)} onClick={handleClick}>
             <SerchIcon />
@@ -25,7 +59,7 @@ export const SerchInput = ({ placeholder, theme }: SerchInputProps) => {
                 type="text"
                 placeholder={placeholder}
                 className={css.input}
-                inputMode={'text'}
+                inputMode="text"
                 ref={inputRef}
             />
         </div>
