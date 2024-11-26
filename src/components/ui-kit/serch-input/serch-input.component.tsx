@@ -1,7 +1,7 @@
-import { SerchIcon } from '@/components/Icons/Icons';
-import { useRef } from 'react';
+// import { SerchIcon } from '@/components/Icons/Icons';
+// import { useRef } from 'react';
 import css from './serch-input.module.css';
-import cn from 'classnames';
+// import cn from 'classnames';
 
 export interface SerchInputProps {
     placeholder: string;
@@ -9,26 +9,26 @@ export interface SerchInputProps {
 }
 
 export const SerchInput = ({ placeholder, theme }: SerchInputProps) => {
-    const inputRef = useRef(null);
+    // const inputRef = useRef(null);
 
-    const handleClick = () => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore
-        inputRef.current.focus();
-    };
+    // const handleClick = () => {
+    //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //     //@ts-ignore
+    //     inputRef.current.focus();
+    // };
     return (
-        <div
-            className={cn(css.wrap, theme)}
-            onClick={handleClick}
-            onTouchCancel={handleClick}
-        >
-            <SerchIcon />
-            <input
-                type="text"
-                placeholder={placeholder}
-                className={css.input}
-                ref={inputRef}
-            />
-        </div>
+        // <div
+        //     className={cn(css.wrap, theme)}
+        //     onClick={handleClick}
+        //     onTouchCancel={handleClick}
+        // >
+        // <SerchIcon />
+        <input
+            type="text"
+            placeholder={placeholder}
+            className={css.input}
+            // ref={inputRef}
+        />
+        // </div>
     );
 };
