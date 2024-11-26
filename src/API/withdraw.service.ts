@@ -7,8 +7,8 @@ import axios from 'axios';
 import { API } from './API';
 
 interface WithdrawResponce {
-    status: boolean; //true или false
-    message: string; //пусто или текст сообщения об ошибке
+    status: boolean;
+    message: string;
     transaction: string;
 }
 
