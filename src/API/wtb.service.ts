@@ -7,8 +7,8 @@ import { mapFunds } from '@/pages/what-to-buy/what-to-buy.model';
 import { fromPromise } from '@most/core';
 import axios from 'axios';
 import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
-import { either } from 'fp-ts';
 import { FundsData } from '@/pages/whalet/whalet.model';
+import { getRequest } from './request.utils';
 
 interface BuyFundArgs {
     fundId: string;
@@ -28,15 +28,7 @@ export const newWTBRestService = injectable(
         const { initDataRaw } = retrieveLaunchParams();
 
         return {
-            // getFund: (id) => getRequest(API.getFund(id), mapFunds)(),
-            getFund: (id) =>
-                fromPromise(
-                    axios.get(API.getFund(id)).then(({ data }) => {
-                        console.log(data, 'getFund');
-
-                        return either.of(mapFunds(data));
-                    })
-                ),
+            getFund: (id) => getRequest(API.getFund(id), mapFunds)(),
             buyFund: (args) =>
                 fromPromise(
                     axios.post(API.buyFund, {

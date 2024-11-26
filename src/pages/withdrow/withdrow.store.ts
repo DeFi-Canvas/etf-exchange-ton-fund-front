@@ -39,7 +39,6 @@ export type NewWithdrowStore = ValueWithEffect<WithdrowStore>;
 export const newNewWithdrowStore = injectable(
     newWithdrawRestService,
     (service): NewWithdrowStore => {
-        console.log('newNewWithdrowStore');
         //#region init Property
         const currency = newLensedAtom<string>('');
         const amount = newLensedAtom<E.Either<AmountErrors, number>>(

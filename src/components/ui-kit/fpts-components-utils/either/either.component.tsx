@@ -29,9 +29,8 @@ export const RenderResult: RenderResultComponent = memo((props) => {
                 case 'pending':
                     return loading && loading();
                 case 'error':
-                    return failure && failure(err);
                 default:
-                    return <span>error</span>;
+                    return failure && failure(err);
             }
         }, success)
     );

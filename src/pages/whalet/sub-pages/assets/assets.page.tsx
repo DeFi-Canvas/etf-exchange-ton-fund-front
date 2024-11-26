@@ -1,14 +1,15 @@
 import css from './assets.module.css';
-import * as O from 'fp-ts/Option';
-import { pipe } from 'fp-ts/lib/function';
+import * as E from 'fp-ts/Either';
 import { EmptyScrean } from '../epty-screan/epty-screan.component';
 import emptyGif from '../../../../assets/images/e6de3a540555efba875b6afc5e8181ff.gif';
 import AppButton from '@/components/AppButton/AppButton';
 import { AssetsCard } from '@/components/assets-card/assets-card.component.tsx';
 import { CoinCardData } from '@/components/assets-card/assets-card.model';
+import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
+import { SkeletonCardSection } from '@/components/skeletons/skeleton-card/skeleton-card-section.component';
 
 export interface AssetsProps {
-    assets: O.Option<Array<CoinCardData>>;
+    assets: E.Either<string, Array<CoinCardData>>;
 }
 
 const emptyText =
@@ -18,7 +19,6 @@ const emptyText =
 const formattedData = (assets: CoinCardData) => {
     // TODO:V Вынести глобально в стор или какое-то местное реакт хранилище - значок доллора перед переменной говорит о том, что переменная глобальная
     const $currency = '&dollar;';
-    console.log(assets, '123');
 
     return {
         img: assets.logo,
@@ -30,34 +30,36 @@ const formattedData = (assets: CoinCardData) => {
 };
 
 export const Assets = ({ assets }: AssetsProps) => {
-    const currentAssets = pipe(
-        assets,
-        O.getOrElse(() => [] as Array<CoinCardData>)
-    );
-
     const footerSlot = () => (
         <div className={css.footerButtons}>
             <AppButton label="Choose a fund" type="secondary" />
             <AppButton to={'/deposit'} label="Deposit" />
         </div>
     );
-
-    if (!currentAssets.length) {
-        return (
-            <EmptyScrean
-                footerSlot={footerSlot}
-                emptyGif={emptyGif}
-                text={emptyText}
-            />
-        );
-    }
-
     return (
         <div className={css.wrap}>
-            {currentAssets.map((assets) => {
-                const assetsData = formattedData(assets);
-                return <AssetsCard key={assets.ticker} {...assetsData} />;
-            })}
+            <RenderResult
+                data={assets}
+                loading={() => <SkeletonCardSection count={4} type={'small'} />}
+                success={(assets) => (
+                    <>
+                        {!assets.length && (
+                            <EmptyScrean
+                                footerSlot={footerSlot}
+                                emptyGif={emptyGif}
+                                text={emptyText}
+                            />
+                        )}
+                        {assets.length &&
+                            assets.map((assets) => (
+                                <AssetsCard
+                                    key={assets.ticker}
+                                    {...formattedData(assets)}
+                                />
+                            ))}
+                    </>
+                )}
+            />
         </div>
     );
 };

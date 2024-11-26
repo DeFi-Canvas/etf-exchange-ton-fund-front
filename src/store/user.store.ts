@@ -2,7 +2,7 @@ import { CoinCardData } from '@/components/assets-card/assets-card.model';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { Property } from '@frp-ts/core';
 import { newLensedAtom } from '@frp-ts/lens';
-import * as O from 'fp-ts/Option';
+import * as E from 'fp-ts/Either';
 
 export interface UserData {
     allowsWriteToPm?: boolean;
@@ -17,8 +17,8 @@ export interface UserData {
 export interface UserStoreService {
     user: Property<UserData>;
     setUser: (data: Partial<UserData> | undefined) => void;
-    assets: Property<O.Option<Array<CoinCardData>>>;
-    setAssets: (data: O.Option<Array<CoinCardData>>) => void;
+    assets: Property<E.Either<string, Array<CoinCardData>>>;
+    setAssets: (data: E.Either<string, Array<CoinCardData>>) => void;
     transactions: Property<Array<unknown>>;
 }
 
@@ -28,7 +28,9 @@ export const newNewUserStoreService = (
     init: UserData | undefined
 ): NewUserStoreService => {
     const user = newLensedAtom<UserData>(init ?? {});
-    const assets = newLensedAtom<O.Option<Array<CoinCardData>>>(O.none);
+    const assets = newLensedAtom<E.Either<string, Array<CoinCardData>>>(
+        E.left('pending')
+    );
     const transactions = newLensedAtom([]);
 
     return valueWithEffect.new({

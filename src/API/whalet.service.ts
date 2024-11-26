@@ -44,7 +44,6 @@ export const newWaletRestService = injectable(
                     axios
                         .get(API.getWhaletFunds(telegram_id))
                         .then(({ data }) => {
-                            console.log(data, 'getWhaletFunds');
                             if (data.total === 0) {
                                 return either.left('error');
                             } else {

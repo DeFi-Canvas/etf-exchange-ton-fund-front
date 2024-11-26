@@ -19,7 +19,7 @@ export const assetsCodec = t.type({
 export interface AssetsPnl extends Assets {
     pnl: {
         value: string;
-        status: string; // TODO: Временно заменил просто на строку, чтоб не ругался тип
+        status: 'UP' | 'DOWN';
     };
 }
 
@@ -30,7 +30,7 @@ export const assetsPnlCodec = t.type({
     price: t.union([t.string, t.undefined]),
     pnl: t.type({
         value: t.string,
-        status: t.string,
+        status: t.union([t.literal('UP'), t.literal('DOWN')]),
     }),
 });
 
