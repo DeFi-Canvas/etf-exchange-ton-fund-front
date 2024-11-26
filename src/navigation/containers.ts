@@ -31,7 +31,7 @@ export interface Containers {
     Funds: () => JSX.Element;
     DepositPage: () => JSX.Element;
     DepositEndPoint: () => JSX.Element;
-    Withdrow: () => JSX.Element;
+    Withdrow: MemoComponent;
     Amount: MemoComponent;
     Address: MemoComponent;
     Check: MemoComponent;
