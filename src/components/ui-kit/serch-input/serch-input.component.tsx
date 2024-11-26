@@ -11,6 +11,7 @@ export interface SerchInputProps {
 export const SerchInput = ({ placeholder, theme }: SerchInputProps) => {
     const inputRef = useRef(null);
     const [t, setT] = useState('');
+    alert(123);
 
     const handleClick = (e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation();
