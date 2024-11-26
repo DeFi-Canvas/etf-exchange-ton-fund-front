@@ -37,9 +37,9 @@ export const SerchInput = ({ placeholder, theme }: SerchInputProps) => {
 
     const handleClick = (e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation();
-        setTimeout(() => {
+        requestAnimationFrame(() => {
             inputRef.current?.focus();
-        }, 0);
+        });
     };
 
     useEffect(() => {

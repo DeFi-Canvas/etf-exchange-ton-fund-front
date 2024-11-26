@@ -1,10 +1,5 @@
 .wrap {
     padding-block: 32px;
-
-    /* TODO DELETE */
-    position: relative;
-    width: 100%;
-    height: auto;
 }
 
 .serch {
