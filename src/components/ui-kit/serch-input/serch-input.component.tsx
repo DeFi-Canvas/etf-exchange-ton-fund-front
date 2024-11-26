@@ -43,10 +43,9 @@ export const SerchInput = ({ placeholder, theme }: SerchInputProps) => {
     };
 
     useEffect(() => {
-        // @ts-ignore
-        if (window.Telegram) {
-            // @ts-ignore
-            const tg = window.Telegram.WebApp;
+        //@ts-ignore
+        const tg = window.Telegram.WebApp;
+        if (tg) {
             tg.ready();
             tg.expand();
         }
