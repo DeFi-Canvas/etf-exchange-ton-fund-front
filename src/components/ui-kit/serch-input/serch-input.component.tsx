@@ -27,6 +27,7 @@ export const SerchInput = ({ placeholder, theme }: SerchInputProps) => {
             type="text"
             placeholder={placeholder}
             className={css.input}
+            inputMode={'text'}
             // ref={inputRef}
         />
         // </div>
