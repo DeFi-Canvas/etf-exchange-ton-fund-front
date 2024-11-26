@@ -1,5 +1,5 @@
 import { SerchIcon } from '@/components/Icons/Icons';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import css from './serch-input.module.css';
 import cn from 'classnames';
 
@@ -10,8 +10,6 @@ export interface SerchInputProps {
 
 export const SerchInput = ({ placeholder, theme }: SerchInputProps) => {
     const inputRef = useRef(null);
-    const [t, setT] = useState('');
-    alert(123);
 
     const handleClick = (e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation();
@@ -29,8 +27,6 @@ export const SerchInput = ({ placeholder, theme }: SerchInputProps) => {
                 className={css.input}
                 inputMode={'text'}
                 ref={inputRef}
-                value={t}
-                onChange={(e) => setT(e.target.value)}
             />
         </div>
     );
