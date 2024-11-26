@@ -8,7 +8,7 @@ import { DepositAssets, DepositAssetsCodec } from '../deposit.model';
 import { Asset, AssetCodec } from '@/pages/whalet/whalet.model';
 import cn from 'classnames';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
-import SkeletonCard from '@/components/skeletons/skeleton-card/skeleton-card.component';
+import { SkeletonCardSection } from '@/components/skeletons/skeleton-card/skeleton-card-section.component';
 
 interface AssetsProps {
     assets: E.Either<string, Array<DepositAssets | Asset>>;
@@ -59,14 +59,7 @@ export const Assets = ({ assets, type, handleClick }: AssetsProps) => {
         <div className={cn('app-container', css.assetsWrapperContainer)}>
             <RenderResult
                 data={assets}
-                loading={() => (
-                    <>
-                        <SkeletonCard type={'small'} />
-                        <SkeletonCard type={'small'} />
-                        <SkeletonCard type={'small'} />
-                        <SkeletonCard type={'small'} />
-                    </>
-                )}
+                loading={() => <SkeletonCardSection count={4} type={'small'} />}
                 success={(assets) => {
                     return (
                         <>

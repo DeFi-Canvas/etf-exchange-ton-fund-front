@@ -1,7 +1,7 @@
 import SkeletonMediumCard from '../components/skeleton-medium-card/skeleton-medium-card.component';
 import SkeletonSmallCard from '../components/skeleton-small-card/skeleton-smal-card.component';
 
-interface SkeletonCardProps {
+export interface SkeletonCardProps {
     type: 'small' | 'medium';
 }
 

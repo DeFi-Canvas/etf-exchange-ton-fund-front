@@ -56,8 +56,6 @@ export const Assets = ({ assets }: AssetsProps) => {
         <div className={css.wrap}>
             {currentAssets.map((assets) => {
                 const assetsData = formattedData(assets);
-                console.log(assetsData);
-
                 return <AssetsCard key={assets.ticker} {...assetsData} />;
             })}
         </div>

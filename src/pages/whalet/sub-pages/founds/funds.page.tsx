@@ -6,7 +6,7 @@ import * as E from 'fp-ts/Either';
 import { AssetsCard } from '@/components/assets-card/assets-card.component';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import { FundsData } from '../../whalet.model';
-import SkeletonCard from '@/components/skeletons/skeleton-card/skeleton-card.component';
+import { SkeletonCardSection } from '@/components/skeletons/skeleton-card/skeleton-card-section.component';
 
 const emptyText = `You don't have any investments in funds right now. Get started by browsing through funds to discover opportunities.`;
 
@@ -50,14 +50,7 @@ export const Funds = ({ funds }: FundsProps) => {
                         ))}
                     </>
                 )}
-                loading={() => (
-                    <>
-                        <SkeletonCard type={'small'} />
-                        <SkeletonCard type={'small'} />
-                        <SkeletonCard type={'small'} />
-                        <SkeletonCard type={'small'} />
-                    </>
-                )}
+                loading={() => <SkeletonCardSection count={4} type={'small'} />}
                 failure={() => (
                     <EmptyScrean
                         footerSlot={footerSlot}
@@ -69,23 +62,3 @@ export const Funds = ({ funds }: FundsProps) => {
         </div>
     );
 };
-
-//  <RenderEither
-//      data={funds}
-//      OnLoad={() => (
-//          <EmptyScrean
-//              footerSlot={footerSlot}
-//              emptyGif={emptyGif}
-//              text={emptyText}
-//          />
-//      )}
-//      OnError={() => (
-//          <EmptyScrean
-//              footerSlot={footerSlot}
-//              emptyGif={emptyGif}
-//              text={emptyText}
-//          />
-//      )}
-//      Component={AssetsCard}
-//      map={formattedData}
-//  />;
