@@ -75,7 +75,7 @@ export const getContainers = ({
         withdrowStore,
     }),
     Amount: AmountContainer({
-        withdrowStore,
+        userStore,
     }),
     Address: AddressContainer({
         withdrowStore,
