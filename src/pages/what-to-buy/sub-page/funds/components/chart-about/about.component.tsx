@@ -9,7 +9,6 @@ interface ChartAboutProps {
 const About = ({ description, fee }: ChartAboutProps) => {
     return (
         <div className={css.card}>
-            <input type="text" />
             <div className={css.cardTitle}>About</div>
             <div className={css.cardContent}>{description}</div>
             <div className={css.cardInfoWrapper}>
