@@ -10,14 +10,14 @@ body {
 
 body,
 #root {
-    // height: var(--tg-viewport-height, 100dvh);
+    height: var(--tg-viewport-height, 100dvh);
 }
 
 main {
-    // height: calc(var(--tg-viewport-height, 100dvh) - var(--tab-bar-height));
-    // min-height: calc(var(--tg-viewport-height, 100dvh) - var(--tab-bar-height));
-    // max-height: calc(var(--tg-viewport-height, 100dvh) - var(--tab-bar-height));
-    // overflow-y: auto;
+    height: calc(var(--tg-viewport-height, 100dvh) - var(--tab-bar-height));
+    min-height: calc(var(--tg-viewport-height, 100dvh) - var(--tab-bar-height));
+    max-height: calc(var(--tg-viewport-height, 100dvh) - var(--tab-bar-height));
+    overflow-y: auto;
     width: 100%;
 }
 
