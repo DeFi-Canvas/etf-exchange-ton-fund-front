@@ -40,7 +40,6 @@ export const newPurchaseSellStore = injectable(
     newWaletRestService,
     (service, walletService): NewPurchaseSellStore =>
         (id) => {
-            alert(1);
             const funds = newLensedAtom<E.Either<string, Array<FundsData>>>(
                 E.left('pending')
             );
