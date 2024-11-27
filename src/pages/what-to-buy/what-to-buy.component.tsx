@@ -41,8 +41,6 @@ interface NewsItemInterface {
     readTimeMin: string;
 }
 
-import { useState } from 'react';
-
 export const WhatToBuyPage = injectable(
     FondsSliderContainer,
     (FondsSliderContainer) =>
@@ -83,19 +81,13 @@ export const WhatToBuyPage = injectable(
                 },
             ];
 
-            const [val, setVal] = useState('0');
-            const changeInp = (event: React.ChangeEvent<HTMLInputElement>) => {
-                setVal(event.currentTarget.value);
-            }
-
             return (
                 <div className={cn('app-container', css.wrap)}>
-                    <input 
-                        type="text"
-                        value={val}
-                        onChange={changeInp}
+                    <AppButton
+                        to='/lol'
+                        label="Load more"
+                        type="secondary"
                     />
-
                     <span className={css.title}>What to buy</span>
                     <SerchInput placeholder={'Search'} theme={css.serch} />
                     <div className={css.crumbs}>
