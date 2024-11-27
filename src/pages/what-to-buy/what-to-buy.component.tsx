@@ -193,7 +193,6 @@ export const WhatToBuyPage = injectable(
                         type="secondary"
                     />
                 </section>
-                <div className={css.footer}>1</div>
             </div>
         );
     }
