@@ -1,26 +1,16 @@
 import { injectable, token } from '@injectable-ts/core';
-import {
-    // newNewWithdrowStore,
-    WithdrowStore,
-} from '../../withdrow.store';
+import { WithdrowStore } from '../../withdrow.store';
 import { useProperty } from '@frp-ts/react';
 import { Amount } from './amount.component';
 import React, { memo } from 'react';
 import { useParams } from 'react-router-dom';
-// import { UserStoreService } from '@/store/user.store';
-// import { useValueWithEffect } from '@/utils/run-view-model.utils';
 
 export const AmountContainer = injectable(
-    // token('userStore')<UserStoreService>(),
     token('withdrowStore')<WithdrowStore>(),
-
     (store) =>
         memo(() => {
             const { ticker } = useParams();
-            // const store = useValueWithEffect(
-            //     () => newNewWithdrowStore({ userStore }),
-            //     []
-            // );
+
             store.setCurrency(ticker ?? '');
 
             const currency = useProperty(store.currency);

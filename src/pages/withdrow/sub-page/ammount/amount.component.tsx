@@ -32,7 +32,7 @@ export const Amount = ({
     updateAmount,
     amount,
     approximateCost,
-    // isNextButtonAvailable,
+    isNextButtonAvailable,
     availableBalance,
     symbolLogo,
 }: AmountProps) => {
@@ -94,7 +94,7 @@ export const Amount = ({
                 </div>
                 <div className={css.footer}>
                     <button
-                        // disabled={!isNextButtonAvailable}
+                        disabled={!isNextButtonAvailable}
                         className={css.nextButton}
                         onClick={() => navigate('/withdraw/:ticker/address')}
                     >
