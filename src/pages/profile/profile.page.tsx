@@ -12,6 +12,7 @@ export const ProfileContainer = injectable(
     (UserInfoContainer, EranContainer) => () => {
         return (
             <div className={css.profile}>
+                <input type="text" />
                 <UserInfoContainer />
                 <EranContainer />
                 <Settings />
