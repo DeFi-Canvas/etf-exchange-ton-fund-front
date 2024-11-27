@@ -46,8 +46,8 @@ export interface Containers {
 
 export const getContainers = ({
     userStore,
-}: // withdrowStore,
-getContainersArgs): Containers => ({
+    withdrowStore,
+}: getContainersArgs): Containers => ({
     WaletPage: WaletPageContainer({
         userStore,
     }),
@@ -65,13 +65,14 @@ getContainersArgs): Containers => ({
     }),
     DepositPage: DepositPageContainer({
         userStore,
+        withdrowStore,
     }),
     DepositEndPoint: DepositEndPointContainer({
         userStore,
     }),
     Withdrow: Withdrow({
         userStore,
-        // withdrowStore,
+        withdrowStore,
     }),
     Amount: AmountContainer({
         userStore,

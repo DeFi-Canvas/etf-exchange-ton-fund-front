@@ -1,24 +1,12 @@
 import css from './deposit.module.css';
 import { SerchInput } from '@/components/ui-kit/serch-input/serch-input.component';
-import { injectable, token } from '@injectable-ts/core';
+import { injectable } from '@injectable-ts/core';
 import { AssetsContainer } from './assets/assets.container';
 import cn from 'classnames';
-import { UserStoreService } from '@/store/user.store';
-// import { useValueWithEffect } from '@/utils/run-view-model.utils';
-// import { newNewWithdrowStore } from '../withdrow/withdrow.store';
 
 export const DepositPageContainer = injectable(
-    token('userStore')<UserStoreService>(),
     AssetsContainer,
-    // provide(AssetsContainer)<'withdrowStore'>(),
-    (userStore, AssetsContainer) => () => {
-        // const withdrowStore = useValueWithEffect(
-        //     () => newNewWithdrowStore({ userStore }),
-        //     []
-        // );
-        // const AssetsContainerResolve = AssetsContainer({
-        //     withdrowStore,
-        // });
+    (AssetsContainer) => () => {
         return (
             <div className={css.page}>
                 <div className={cn('app-container', css.pageHeader)}>
