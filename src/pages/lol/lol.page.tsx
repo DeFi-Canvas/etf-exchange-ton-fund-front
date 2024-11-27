@@ -13,6 +13,8 @@ const LolPage = () => {
                 value={val}
                 onChange={changeInp}
             />
+
+            <div style={{ width: '100px', height: '1000px', border: '1px solid red',}}></div>
         </>
     )
 }
