@@ -6,7 +6,7 @@ import cn from 'classnames';
 import { UserStoreService } from '@/store/user.store';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { newNewWithdrowStore } from './withdrow.store';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import React from 'react';
 
 // export const Withdrow = injectable(
@@ -58,11 +58,15 @@ export const Withdrow = injectable(
         memo(() => {
             const withdrowStore = useValueWithEffect(
                 () => newNewWithdrowStore({ userStore }),
-                []
+                [userStore]
             );
-            const PageResolve = Page({
-                withdrowStore,
-            });
+            const PageResolve = useMemo(
+                () =>
+                    Page({
+                        withdrowStore,
+                    }),
+                [withdrowStore]
+            );
 
             return React.createElement(PageResolve);
         })
