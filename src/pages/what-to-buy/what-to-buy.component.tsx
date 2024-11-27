@@ -82,7 +82,7 @@ export const WhatToBuyPage = injectable(
             // ];
 
             const [v, setV] = useState('');
-            const change = (event) => {
+            const change = (event: React.ChangeEvent<HTMLInputElement>) => {
                 setV(event.currentTarget.value);
             }
 
