@@ -140,3 +140,12 @@
 .newsButtonLoadMore {
     margin-top: 16px;
 }
+
+.footer {
+    --z-index-over-tab-bar: var(--z-index-101);
+    position: fixed;
+    bottom: 21px;
+    left: 0;
+    width: 100%;
+    z-index: var(--z-index-over-tab-bar);
+}
