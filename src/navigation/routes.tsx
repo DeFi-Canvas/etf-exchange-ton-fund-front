@@ -12,6 +12,7 @@ import { indexRouter } from './page-routes/index-router';
 import { depositRouter } from './page-routes/deposit-router';
 import { withdrawRouter } from './page-routes/withdraw-router';
 import { whatToBuyRouter } from './page-routes/what-to-buy-router';
+import { newNewWithdrowStore } from '@/pages/withdrow/withdrow.store';
 
 interface Route {
     path: string;
@@ -33,8 +34,13 @@ export const AppRoutes = () => {
         []
     );
 
+    const withdrowStore = useValueWithEffect(
+        () => newNewWithdrowStore({ userStore }),
+        []
+    );
+
     //#region containers
-    const containers = getContainers({ userStore });
+    const containers = getContainers({ userStore, withdrowStore });
 
     //#region routes
     const routes: Route[] = [
