@@ -66,9 +66,10 @@ export const getContainers = ({
     DepositEndPoint: DepositEndPointContainer({
         userStore,
     }),
-    Withdrow: Withdrow({
-        userStore,
-    }),
+    // Withdrow: Withdrow({
+    //     userStore,
+    // }),
+    Withdrow: Withdrow,
     Amount: AmountContainer({
         userStore,
     }),
