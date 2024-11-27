@@ -75,10 +75,12 @@ export const getContainers = ({
         withdrowStore,
     }),
     Amount: AmountContainer({
-        userStore,
+        // userStore,
+        withdrowStore,
     }),
     Address: AddressContainer({
-        userStore,
+        // userStore,
+        withdrowStore,
     }),
     Check: CheckContainer({
         userStore,
