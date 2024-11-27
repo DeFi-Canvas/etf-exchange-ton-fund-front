@@ -34,10 +34,19 @@ export const WaletPage = injectable(
             setCurrentMemo(val);
         };
 
+        const [val, setVal] = useState('0');
+        const changeInp = (event: React.ChangeEvent<HTMLInputElement>) => {
+            setVal(event.currentTarget.value);
+        }
+
         return (
             <div className={css.application}>
                 <header className={css.header}>
-                    <input type="text" />
+                    <input 
+                        type="text"
+                        value={val}
+                        onChange={changeInp}
+                    />
                    
                     <input
                         placeholder="Enter"

@@ -10,11 +10,11 @@ body {
 
 body,
 #root {
-    height: var(--tg-viewport-stable-height, 100vh);
+    height: var(--tg-viewport-height, 100vh);
 }
 
 main {
-    --height: calc(var(--tg-viewport-stable-height, 100vh) - var(--tab-bar-height)); 
+    --height: calc(var(--tg-viewport-height, 100vh) - var(--tab-bar-height)); 
     height: var(--height);
     min-height: var(--height);
     max-height: var(--height);
