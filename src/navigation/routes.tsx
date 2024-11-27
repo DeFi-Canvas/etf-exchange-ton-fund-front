@@ -13,7 +13,6 @@ import { depositRouter } from './page-routes/deposit-router';
 import { withdrawRouter } from './page-routes/withdraw-router';
 import { whatToBuyRouter } from './page-routes/what-to-buy-router';
 import { newNewWithdrowStore } from '@/pages/withdrow/withdrow.store';
-import LolPage from '@/pages/lol/lol.page';
 
 interface Route {
     path: string;
@@ -62,10 +61,6 @@ export const AppRoutes = () => {
                 { path: 'multi-swap', page: MultiSwapPage },
             ],
         },
-        {
-            path: '/lol',
-            page: LolPage,
-        }
     ];
 
     return (

@@ -83,11 +83,6 @@ export const WhatToBuyPage = injectable(
 
             return (
                 <div className={cn('app-container', css.wrap)}>
-                    <AppButton
-                        to='/lol'
-                        label="Load more"
-                        type="secondary"
-                    />
                     <span className={css.title}>What to buy</span>
                     <SerchInput placeholder={'Search'} theme={css.serch} />
                     <div className={css.crumbs}>
