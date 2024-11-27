@@ -51,12 +51,8 @@ const WithdrowPage = injectable(AssetsContainer, (AssetsContainer) =>
     })
 );
 
-export const Withdrow = injectable(
-    // token('userStore')<UserStoreService>(),
-    // provide(WithdrowPage)<'withdrowStore'>(),
-    WithdrowPage,
-    (Page) =>
-        memo(() => {
-            return React.createElement(Page);
-        })
+export const Withdrow = injectable(WithdrowPage, (Page) =>
+    memo(() => {
+        return React.createElement(Page);
+    })
 );

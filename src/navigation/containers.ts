@@ -46,8 +46,8 @@ export interface Containers {
 
 export const getContainers = ({
     userStore,
-    withdrowStore,
-}: getContainersArgs): Containers => ({
+}: // withdrowStore,
+getContainersArgs): Containers => ({
     WaletPage: WaletPageContainer({
         userStore,
     }),
@@ -71,7 +71,7 @@ export const getContainers = ({
     }),
     Withdrow: Withdrow({
         userStore,
-        withdrowStore,
+        // withdrowStore,
     }),
     Amount: AmountContainer({
         userStore,
