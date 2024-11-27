@@ -1,29 +1,21 @@
-import { injectable, token } from '@injectable-ts/core';
+import { injectable, provide } from '@injectable-ts/core';
 import React from 'react';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { WhatToBuyPage } from './what-to-buy.component';
 import { newPurchaseSellStore } from './sub-page/purchase/purchase.view-model';
-import { UserStoreService } from '@/store/user.store';
 
 export const WhatToBuyPageContainer = injectable(
-    // provide(WhatToBuyPage)<'purchaseStore'>(),
-    token('userStore')<UserStoreService>(),
+    provide(WhatToBuyPage)<'purchaseStore'>(),
+    newPurchaseSellStore,
+    (WhatToBuyPage, newPurchaseSellStore) => () => {
+        const purchaseStore = useValueWithEffect(
+            () => newPurchaseSellStore(),
+            []
+        );
 
-    // newPurchaseSellStore,
-    (
-            // WhatToBuyPage,
-            userStore
-            // newPurchaseViewModel
-        ) =>
-        () => {
-            const purchaseStore = useValueWithEffect(
-                () => newPurchaseSellStore({ userStore })(),
-                []
-            );
-
-            const WhatToBuyPageResolve = WhatToBuyPage({
-                purchaseStore,
-            });
-            return React.createElement(WhatToBuyPageResolve, {});
-        }
+        const WhatToBuyPageResolve = WhatToBuyPage({
+            purchaseStore,
+        });
+        return React.createElement(WhatToBuyPageResolve);
+    }
 );
