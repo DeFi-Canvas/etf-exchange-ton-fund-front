@@ -1,5 +1,5 @@
 export const DOMAIN_API_URL =
-    'https://etf-exchange-ton-fund-back-production.up.railway.app';
+    'https://etf-exchange-ton-fund-back-development.up.railway.app';
 
 export const API = {
     getWalletInfo: (id?: number) =>
