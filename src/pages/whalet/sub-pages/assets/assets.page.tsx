@@ -38,7 +38,6 @@ export const Assets = ({ assets }: AssetsProps) => {
     );
     return (
         <div className={css.wrap}>
-            <input type="text" />
             <RenderResult
                 data={assets}
                 loading={() => <SkeletonCardSection count={4} type={'small'} />}
