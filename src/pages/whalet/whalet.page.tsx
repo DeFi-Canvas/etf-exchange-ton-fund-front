@@ -11,10 +11,6 @@ import { LernMore } from './components/news/lern-more.component';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
-import { useState } from 'react';
-import * as E from 'fp-ts/Either';
-
-
 export interface WhatToBuyPageProps {
     balance: O.Option<number>;
 }
@@ -27,33 +23,9 @@ export const WaletPage = injectable(
             className: css.swiperWrap,
         };
 
-        const [currentMemo, setCurrentMemo] = useState('');
-
-        const memoOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-            const val = e.currentTarget.value;
-            setCurrentMemo(val);
-        };
-
-        const [val, setVal] = useState('0');
-        const changeInp = (event: React.ChangeEvent<HTMLInputElement>) => {
-            setVal(event.currentTarget.value);
-        }
-
         return (
             <div className={css.application}>
                 <header className={css.header}>
-                    <input 
-                        type="text"
-                        value={val}
-                        onChange={changeInp}
-                    />
-                   
-                    <input
-                        placeholder="Enter"
-                        value={currentMemo}
-                        onChange={memoOnChange}
-                    />
-
                     <BalanceContainer />
                     <NavBar />
                     <Swiper {...swiperOptions}>
