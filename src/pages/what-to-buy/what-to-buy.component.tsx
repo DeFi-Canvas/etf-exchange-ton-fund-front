@@ -24,7 +24,7 @@ import { injectable } from '@injectable-ts/core';
 import { FondsSliderContainer } from './components/fonds-slider/fonds-slider.container';
 import { ArrowTopRightIcon } from '@/components/Icons/Icons';
 import AppButton from '@/components/AppButton/AppButton';
-import { memo } from 'react';
+import { memo, useState } from 'react';
 
 const colorFolowCompany =
     'linear-gradient(180deg, #9D87FF 0%, #5B39F4 101.95%)';
@@ -47,71 +47,77 @@ export const WhatToBuyPage = injectable(
         memo(() => {
             // TODO Это моки, нужно будет заменить на новости
             // datePublishAt Возможно нужно прогнать через либу, чтоб пришедшая дата конвертилась в нужную, без года
-            const newsList: NewsItemInterface[] = [
-                {
-                    id: 1,
-                    image: null,
-                    title: 'Empowering Builders for Growth with TON Nest',
-                    datePublishAt: '4 Oct',
-                    readTimeMin: '7',
-                },
-                {
-                    id: 2,
-                    image: null,
-                    title: 'TON Foundation Collaborates with Leading DEX Curve Finance to Incubate a TON-Based Stable Swap Project',
-                    datePublishAt: '29 Sep',
-                    readTimeMin: '3',
-                },
-                {
-                    id: 3,
-                    image: null,
-                    title: 'TADA and TON Foundation Bring Web3 Ride-Hailing to Telegram',
-                    datePublishAt: '22 Sep',
-                    readTimeMin: '10',
-                },
-                {
-                    id: 4,
-                    image: {
-                        src: 'temp-news-item-cover.png',
-                        alt: 'News cover',
-                    },
-                    title: 'Empowering Builders for Growth with TON Nest',
-                    datePublishAt: '28 Sep',
-                    readTimeMin: '5',
-                },
-            ];
+            // const newsList: NewsItemInterface[] = [
+            //     {
+            //         id: 1,
+            //         image: null,
+            //         title: 'Empowering Builders for Growth with TON Nest',
+            //         datePublishAt: '4 Oct',
+            //         readTimeMin: '7',
+            //     },
+            //     {
+            //         id: 2,
+            //         image: null,
+            //         title: 'TON Foundation Collaborates with Leading DEX Curve Finance to Incubate a TON-Based Stable Swap Project',
+            //         datePublishAt: '29 Sep',
+            //         readTimeMin: '3',
+            //     },
+            //     {
+            //         id: 3,
+            //         image: null,
+            //         title: 'TADA and TON Foundation Bring Web3 Ride-Hailing to Telegram',
+            //         datePublishAt: '22 Sep',
+            //         readTimeMin: '10',
+            //     },
+            //     {
+            //         id: 4,
+            //         image: {
+            //             src: 'temp-news-item-cover.png',
+            //             alt: 'News cover',
+            //         },
+            //         title: 'Empowering Builders for Growth with TON Nest',
+            //         datePublishAt: '28 Sep',
+            //         readTimeMin: '5',
+            //     },
+            // ];
+
+            const [v, setV] = useState('');
+            const change = (event) => {
+                setV(event.currentTarget.value);
+            }
 
             return (
                 <div className={cn('app-container', css.wrap)}>
                     <span className={css.title}>What to buy</span>
+                    <input type="text" value={v} onChange={change} />
                     <SerchInput placeholder={'Search'} theme={css.serch} />
-                    <div className={css.crumbs}>
+                    {/* <div className={css.crumbs}>
                         <Crumbs title="Funds" />
                         <Crumbs title="Assets" />
                         <Crumbs title="Favorites" />
-                    </div>
-                    <BoardOfInterest
+                    </div> */}
+                    {/* <BoardOfInterest
                         backgroundColor={colorFolowCompany}
                         imgs={[src1, src2, src3, src4, src5, src6, src7]}
                         theme={css.folowCompany}
                         title="Follow the community"
                         subTitle="Reuse the best strategies"
-                    />
-                    <div className={css.sectionCard}>
+                    /> */}
+                    {/* <div className={css.sectionCard}>
                         <span className={css.sectionCardTitle}>
                             Investments for beginners
                         </span>
                         <FondsSliderContainer theme={css.swiper} />
-                    </div>
+                    </div> */}
 
-                    <BoardOfInterest
+                    {/* <BoardOfInterest
                         imgs={[src8, src9, src10, src11, src12, src13, src14]}
                         theme={css.topOfTheWeek}
                         title="Top of the week"
                         subTitle="Frequently purchased"
-                    />
+                    /> */}
 
-                    <section className={css.sectionCard}>
+                    {/* <section className={css.sectionCard}>
                         <h2 className={css.sectionCardTitle}>Trade Leaders</h2>
                         <div className={css.sectionCardContent}>
                             <div className={css.leadersCardTitle}>
@@ -163,9 +169,9 @@ export const WhatToBuyPage = injectable(
                                 View all 10
                             </button>
                         </div>
-                    </section>
+                    </section> */}
 
-                    <section className={css.sectionCard}>
+                    {/* <section className={css.sectionCard}>
                         <h2 className={css.sectionCardTitle}>News</h2>
                         <div className={css.sectionCardContent}>
                             <div className={css.newsList}>
@@ -209,7 +215,7 @@ export const WhatToBuyPage = injectable(
                             label="Load more"
                             type="secondary"
                         />
-                    </section>
+                    </section> */}
                 </div>
             );
         })
