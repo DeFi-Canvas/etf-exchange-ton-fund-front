@@ -41,6 +41,13 @@ export const Assets = ({ assets }: AssetsProps) => {
             <RenderResult
                 data={assets}
                 loading={() => <SkeletonCardSection count={4} type={'small'} />}
+                failure={() => (
+                    <EmptyScrean
+                        footerSlot={footerSlot}
+                        emptyGif={emptyGif}
+                        text={emptyText}
+                    />
+                )}
                 success={(assets) => (
                     <>
                         {!assets.length && (

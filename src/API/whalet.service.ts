@@ -6,7 +6,9 @@ import { getRequest } from './request.utils';
 import {
     Asset,
     FundsData,
+    getWhaletFundsValidation,
     mapAssetsFromBalance,
+    mapAssetsFromBalanceValidation,
     mapFunds,
     mapWhaletFunds,
     normolizeTransactionKey,
@@ -14,9 +16,6 @@ import {
     WaletResponce,
 } from '@/pages/whalet/whalet.model';
 import { API } from './API';
-import { fromPromise } from '@most/core';
-import axios from 'axios';
-import { either } from 'fp-ts';
 
 export interface WaletRestService {
     getBalance: () => Stream<Either<string, WaletResponce>>;
@@ -35,22 +34,15 @@ export const newWaletRestService = injectable(
             getBalance: getRequest(API.getWalletInfo(telegram_id)),
             getAssets: getRequest(
                 API.getWalletInfo(telegram_id),
-                mapAssetsFromBalance
+                mapAssetsFromBalance,
+                mapAssetsFromBalanceValidation
             ),
             getFunds: getRequest(API.getFunds, mapFunds),
-            //TODO: че то сделать с getRequest
-            getWhaletFunds: () =>
-                fromPromise(
-                    axios
-                        .get(API.getWhaletFunds(telegram_id))
-                        .then(({ data }) => {
-                            if (data.total === 0) {
-                                return either.left('error');
-                            } else {
-                                return either.of(mapWhaletFunds(data));
-                            }
-                        })
-                ),
+            getWhaletFunds: getRequest(
+                API.getWhaletFunds(telegram_id),
+                mapWhaletFunds,
+                getWhaletFundsValidation
+            ),
             getTransactions: getRequest(
                 API.transactions(telegram_id),
                 normolizeTransactionKey
