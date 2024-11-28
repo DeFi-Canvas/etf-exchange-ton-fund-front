@@ -4,9 +4,9 @@ import {
     token,
 } from '@injectable-ts/core';
 import React from 'react';
-// import { useValueWithEffect } from '@/utils/run-view-model.utils';
+import { useValueWithEffect } from '@/utils/run-view-model.utils';
 // import { WhatToBuyPage } from './what-to-buy.component';
-// import { newPurchaseSellStore } from './sub-page/purchase/purchase.view-model';
+import { newPurchaseSellStore } from './sub-page/purchase/purchase.view-model';
 import { UserStoreService } from '@/store/user.store';
 
 // export const WhatToBuyPageContainer = injectable(
@@ -27,9 +27,10 @@ import { UserStoreService } from '@/store/user.store';
 
 export const WhatToBuyPageContainer = injectable(
     token('userStore')<UserStoreService>(),
-
     (userStore) => () => {
-        userStore.assets;
+        const store = newPurchaseSellStore({ userStore });
+        const purchaseStore = useValueWithEffect(() => store(), []);
+        purchaseStore;
         return React.createElement(WhatToBuyPage);
     }
 );
