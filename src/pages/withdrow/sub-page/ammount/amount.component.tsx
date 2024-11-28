@@ -53,7 +53,9 @@ export const Amount = ({
         const inputValue = event.target.value;
         const val = Number(inputValue);
 
-        hapticFeedback.impactOccurred('light');
+        if(E.isLeft(amount)) {
+            hapticFeedback.impactOccurred('medium')
+        }
 
         updateAmount(val);
         //WTF???
