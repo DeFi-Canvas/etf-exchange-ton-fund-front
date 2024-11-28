@@ -53,10 +53,19 @@ export const Amount = ({
         const inputValue = event.target.value;
         const val = Number(inputValue);
 
+        console.log(event.target.value, amount);
+        
+
         if(E.isLeft(amount)) {
-            hapticFeedback.impactOccurred('soft')
-            hapticFeedback.impactOccurred('light')
-            hapticFeedback.impactOccurred('soft')
+            hapticFeedback.impactOccurred('medium');
+    
+            setTimeout(() => {
+                hapticFeedback.impactOccurred('soft');
+            }, 100);
+            
+            setTimeout(() => {
+                hapticFeedback.impactOccurred('medium');
+            }, 300);
         }
 
         updateAmount(val);
