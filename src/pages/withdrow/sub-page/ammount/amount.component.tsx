@@ -4,7 +4,6 @@ import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/lib/function';
 import cn from 'classnames';
 import { useNavigate } from 'react-router-dom';
-import { initHapticFeedback } from '@telegram-apps/sdk-react';
 
 // TODO: добавить ошибку слишком много
 export type AmountErrors = 'too small' | 'too big';
@@ -47,26 +46,9 @@ export const Amount = ({
         )
     );
     
-    const hapticFeedback = initHapticFeedback();
-
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = event.target.value;
         const val = Number(inputValue);
-
-        console.log(event.target.value, amount);
-        
-
-        if(E.isLeft(amount)) {
-            hapticFeedback.impactOccurred('light');
-    
-            setTimeout(() => {
-                hapticFeedback.impactOccurred('light');
-            }, 100);
-            
-            setTimeout(() => {
-                hapticFeedback.impactOccurred('medium');
-            }, 300);
-        }
 
         updateAmount(val);
         //WTF???

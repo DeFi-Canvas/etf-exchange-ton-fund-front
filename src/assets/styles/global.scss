@@ -28,3 +28,9 @@ main {
     max-width: calc(var(--max-width) + var(--padding-inline));
     width: 100%;
 }
+
+// TODO:V проверить в разных браузерах
+::-webkit-outer-spin-button,
+::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
