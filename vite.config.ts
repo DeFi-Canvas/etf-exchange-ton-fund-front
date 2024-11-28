@@ -7,7 +7,7 @@ import basicSsl from '@vitejs/plugin-basic-ssl';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    base: '/etf-exchange-ton-fund-front/',
+    base: '/',
     resolve: {
         alias: {
             util: 'rollup-plugin-node-polyfills/polyfills/util',
