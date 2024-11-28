@@ -1,6 +1,6 @@
 import { injectable, token } from '@injectable-ts/core';
 import * as E from 'fp-ts/Either';
-import React from 'react';
+import React, { memo } from 'react';
 import { useProperty } from '@frp-ts/react';
 import { PurchaseSellStore } from '../../sub-page/purchase/purchase.view-model';
 import {
@@ -16,31 +16,32 @@ interface FondsSliderContainerProps
 
 export const FondsSliderContainer = injectable(
     token('purchaseStore')<PurchaseSellStore>(),
-    (store) => (props: FondsSliderContainerProps) => {
-        //TODO: создать вм и перенести туда
-        const funds = useProperty(store.funds);
-        const slidesData: E.Either<
-            string,
-            Array<Omit<FondCardProps, 'onClick'>>
-        > = pipe(
-            funds,
-            E.map((e) =>
-                e.map((e) => ({
-                    id: e.id,
-                    title: e.name,
-                    description: e.description,
-                }))
-            )
-        );
+    (store) =>
+        memo((props: FondsSliderContainerProps) => {
+            //TODO: создать вм и перенести туда
+            const funds = useProperty(store.funds);
+            const slidesData: E.Either<
+                string,
+                Array<Omit<FondCardProps, 'onClick'>>
+            > = pipe(
+                funds,
+                E.map((e) =>
+                    e.map((e) => ({
+                        id: e.id,
+                        title: e.name,
+                        description: e.description,
+                    }))
+                )
+            );
 
-        const navigate = useNavigate();
+            const navigate = useNavigate();
 
-        return React.createElement(FondsSlider, {
-            ...props,
-            slidesData,
-            onClick: (id) => {
-                navigate(`/what-to-buy/fund/${id}`);
-            },
-        });
-    }
+            return React.createElement(FondsSlider, {
+                ...props,
+                slidesData,
+                onClick: (id) => {
+                    navigate(`/what-to-buy/fund/${id}`);
+                },
+            });
+        })
 );

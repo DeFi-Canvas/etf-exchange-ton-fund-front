@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { SerchIcon } from '@/components/Icons/Icons';
 import { useRef } from 'react';
 import css from './serch-input.module.css';
@@ -27,9 +28,6 @@ export const SerchInput = ({ placeholder, theme }: SerchInputProps) => {
                 className={css.input}
                 inputMode={'text'}
                 ref={inputRef}
-                autoComplete="off"
-                autoCorrect="off"
-                spellCheck="false"
             />
         </div>
     );

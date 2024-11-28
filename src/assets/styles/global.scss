@@ -1,7 +1,6 @@
 body {
     background: var(--telegram-hint-color, #f0f1f5);
     color: var(--color-text-dark);
-    overflow: hidden;
     font-family: var(--font-family-default);
 
     @supports (font-variation-settings: normal) {
