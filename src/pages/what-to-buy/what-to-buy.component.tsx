@@ -101,7 +101,7 @@ export const WhatToBuyPage = injectable(
                         <span className={css.sectionCardTitle}>
                             Investments for beginners
                         </span>
-                        <FondsSliderContainer theme={css.swiper} />
+                        {/* <FondsSliderContainer theme={css.swiper} /> */}
                     </div>
 
                     <BoardOfInterest
