@@ -1,5 +1,5 @@
 import { DepositEndPointContainer } from '@/pages/deposit-end-point/deposit-end-point.container';
-import { DepositPageContainer } from '@/pages/deposit/deposit.page';
+import { Deposit } from '@/pages/deposit/deposit.page';
 import { ProfileContainer } from '@/pages/profile/profile.page';
 import { AssetsContainer } from '@/pages/whalet/sub-pages/assets/assets.container';
 import { FundsContainer } from '@/pages/whalet/sub-pages/founds/funds.container';
@@ -14,13 +14,13 @@ import { AmountContainer } from '@/pages/withdrow/sub-page/ammount/amount.contai
 import { CheckContainer } from '@/pages/withdrow/sub-page/check/check.container';
 import { FinalContainer } from '@/pages/withdrow/sub-page/final/final.container';
 import { Withdrow } from '@/pages/withdrow/withdrow.page';
-import { WithdrowStore } from '@/pages/withdrow/withdrow.store';
+// import { WithdrowStore } from '@/pages/withdrow/withdrow.store';
 import { UserStoreService } from '@/store/user.store';
 import { MemoExoticComponent, FC } from 'react';
 
 interface getContainersArgs {
     userStore: UserStoreService;
-    withdrowStore: WithdrowStore;
+    // withdrowStore: WithdrowStore;
 }
 
 type MemoComponent = MemoExoticComponent<FC>;
@@ -31,7 +31,7 @@ export interface Containers {
     Assets: () => JSX.Element;
     Transactions: () => JSX.Element;
     Funds: () => JSX.Element;
-    DepositPage: () => JSX.Element;
+    DepositPage: MemoComponent;
     DepositEndPoint: () => JSX.Element;
     Withdrow: MemoComponent;
     Amount: MemoComponent;
@@ -46,7 +46,6 @@ export interface Containers {
 
 export const getContainers = ({
     userStore,
-    withdrowStore,
 }: getContainersArgs): Containers => ({
     WaletPage: WaletPageContainer({
         userStore,
@@ -63,9 +62,8 @@ export const getContainers = ({
     Funds: FundsContainer({
         userStore,
     }),
-    DepositPage: DepositPageContainer({
+    DepositPage: Deposit({
         userStore,
-        withdrowStore,
     }),
     DepositEndPoint: DepositEndPointContainer({
         userStore,
