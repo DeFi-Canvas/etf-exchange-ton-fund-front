@@ -8,6 +8,7 @@ import { useValueWithEffect } from '@/utils/run-view-model.utils';
 // import { WhatToBuyPage } from './what-to-buy.component';
 import { newPurchaseSellStore } from './sub-page/purchase/purchase.view-model';
 import { UserStoreService } from '@/store/user.store';
+import { SerchInput } from '@/components/ui-kit/serch-input/serch-input.component';
 
 // export const WhatToBuyPageContainer = injectable(
 //     provide(WhatToBuyPage)<'purchaseStore'>(),
@@ -40,6 +41,7 @@ const WhatToBuyPage = () => {
         <div>
             WhatToBuyPage
             <input type="text" />
+            <SerchInput placeholder={'Search'} />
         </div>
     );
 };
