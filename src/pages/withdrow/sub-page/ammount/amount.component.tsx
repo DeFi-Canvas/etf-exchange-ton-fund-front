@@ -54,7 +54,7 @@ export const Amount = ({
         const val = Number(inputValue);
 
         if(E.isLeft(amount)) {
-            hapticFeedback.impactOccurred('medium')
+            hapticFeedback.impactOccurred('soft')
         }
 
         updateAmount(val);
