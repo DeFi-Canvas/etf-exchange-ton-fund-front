@@ -5,22 +5,6 @@ import { WhatToBuyPage } from './what-to-buy.component';
 import { newPurchaseSellStore } from './sub-page/purchase/purchase.view-model';
 import { UserStoreService } from '@/store/user.store';
 
-// export const WhatToBuyPageContainer = injectable(
-//     provide(WhatToBuyPage)<'purchaseStore'>(),
-//     newPurchaseSellStore,
-//     (WhatToBuyPage, newPurchaseSellStore) => () => {
-//         const purchaseStore = useValueWithEffect(
-//             () => newPurchaseSellStore(),
-//             []
-//         );
-
-//         const WhatToBuyPageResolve = WhatToBuyPage({
-//             purchaseStore,
-//         });
-//         return React.createElement(WhatToBuyPageResolve);
-//     }
-// );
-
 export const WhatToBuyPageContainer = injectable(
     token('userStore')<UserStoreService>(),
     (userStore) => () => {
