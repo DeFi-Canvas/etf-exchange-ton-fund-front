@@ -5,10 +5,9 @@ import {
 } from '@injectable-ts/core';
 import React from 'react';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
-// import { WhatToBuyPage } from './what-to-buy.component';
+import { WhatToBuyPage } from './what-to-buy.component';
 import { newPurchaseSellStore } from './sub-page/purchase/purchase.view-model';
 import { UserStoreService } from '@/store/user.store';
-import { SerchInput } from '@/components/ui-kit/serch-input/serch-input.component';
 
 // export const WhatToBuyPageContainer = injectable(
 //     provide(WhatToBuyPage)<'purchaseStore'>(),
@@ -31,17 +30,16 @@ export const WhatToBuyPageContainer = injectable(
     (userStore) => () => {
         const store = newPurchaseSellStore({ userStore });
         const purchaseStore = useValueWithEffect(() => store(), []);
-        purchaseStore;
-        return React.createElement(WhatToBuyPage);
+        return React.createElement(WhatToBuyPage({ purchaseStore }));
     }
 );
 
-const WhatToBuyPage = () => {
-    return (
-        <div>
-            WhatToBuyPage
-            <input type="text" />
-            <SerchInput placeholder={'Search'} />
-        </div>
-    );
-};
+// const WhatToBuyPage = () => {
+//     return (
+//         <div>
+//             WhatToBuyPage
+//             <input type="text" />
+//             <SerchInput placeholder={'Search'} />
+//         </div>
+//     );
+// };
