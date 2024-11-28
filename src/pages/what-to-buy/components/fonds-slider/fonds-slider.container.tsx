@@ -4,6 +4,7 @@ import React, { memo } from 'react';
 import { useProperty } from '@frp-ts/react';
 import { PurchaseSellStore } from '../../sub-page/purchase/purchase.view-model';
 import {
+    FondsSlider,
     // FondsSlider,
     FondsSliderProps,
 } from '@/components/fond-card/fond-slider/fond-slider.component';
@@ -35,23 +36,13 @@ export const FondsSliderContainer = injectable(
             );
 
             const navigate = useNavigate();
-            console.log(slidesData, props);
 
-            return (
-                <div
-                    onClick={() => (id: number) => {
-                        navigate(`/what-to-buy/fund/${id}`);
-                    }}
-                >
-                    FondsSlider{' '}
-                </div>
-            );
-            // return React.createElement(FondsSlider, {
-            //     ...props,
-            //     slidesData,
-            // onClick: (id) => {
-            //     navigate(`/what-to-buy/fund/${id}`);
-            // },
-            // });
+            return React.createElement(FondsSlider, {
+                ...props,
+                slidesData,
+                onClick: (id) => {
+                    navigate(`/what-to-buy/fund/${id}`);
+                },
+            });
         })
 );
