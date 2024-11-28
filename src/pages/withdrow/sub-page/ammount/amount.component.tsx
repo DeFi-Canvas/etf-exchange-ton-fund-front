@@ -73,7 +73,6 @@ export const Amount = ({
                         })}
                         onChange={handleChange}
                         value={amountValue}
-                        onInput={handleInput}
                     />
                     <span
                         className={cn(css.prefix, {
