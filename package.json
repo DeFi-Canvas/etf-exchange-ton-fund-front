@@ -12,7 +12,7 @@
         "lint:fix": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
         "preview": "vite preview",
         "predeploy": "npm run build",
-	"serve": "vite preview"
+        "serve": "vite preview"
     },
     "dependencies": {
         "@frp-ts/core": "^1.0.0-beta.5",
@@ -36,6 +36,7 @@
         "buffer": "^6.0.3",
         "chart.js": "^4.4.6",
         "classnames": "^2.5.1",
+        "dotenv": "^16.4.5",
         "eruda": "^3.0.1",
         "formik": "^2.4.6",
         "fp-ts": "^2.16.1",
