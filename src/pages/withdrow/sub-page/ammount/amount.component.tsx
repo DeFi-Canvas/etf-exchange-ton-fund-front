@@ -4,6 +4,7 @@ import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/lib/function';
 import cn from 'classnames';
 import { useNavigate } from 'react-router-dom';
+import { initHapticFeedback } from '@telegram-apps/sdk-react';
 
 // TODO: добавить ошибку слишком много
 export type AmountErrors = 'too small' | 'too big';
@@ -45,10 +46,14 @@ export const Amount = ({
             (x) => `${x}`
         )
     );
+    
+    const hapticFeedback = initHapticFeedback();
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = event.target.value;
         const val = Number(inputValue);
+
+        hapticFeedback.impactOccurred('light');
 
         updateAmount(val);
         //WTF???
@@ -68,6 +73,7 @@ export const Amount = ({
                         })}
                         onChange={handleChange}
                         value={amountValue}
+                        onInput={handleInput}
                     />
                     <span
                         className={cn(css.prefix, {
