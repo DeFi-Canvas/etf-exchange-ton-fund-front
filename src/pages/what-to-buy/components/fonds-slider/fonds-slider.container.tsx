@@ -5,7 +5,6 @@ import { useProperty } from '@frp-ts/react';
 import { PurchaseSellStore } from '../../sub-page/purchase/purchase.view-model';
 import {
     FondsSlider,
-    // FondsSlider,
     FondsSliderProps,
 } from '@/components/fond-card/fond-slider/fond-slider.component';
 import { FondCardProps } from '@/components/fond-card/fond-card.component';
