@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { SerchInput } from '@/components/ui-kit/serch-input/serch-input.component';
 import css from './what-to-buy.module.css';
 import cn from 'classnames';
@@ -101,7 +102,7 @@ export const WhatToBuyPage = injectable(
                         <span className={css.sectionCardTitle}>
                             Investments for beginners
                         </span>
-                        {/* <FondsSliderContainer theme={css.swiper} /> */}
+                        <FondsSliderContainer theme={css.swiper} />
                     </div>
 
                     <BoardOfInterest
