@@ -78,7 +78,7 @@ export const getContainers = ({
         userStore,
     }),
     Address: AddressContainer({
-        withdrowStore,
+        userStore,
     }),
     Check: CheckContainer({
         userStore,
