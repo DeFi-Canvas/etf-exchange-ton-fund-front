@@ -57,19 +57,15 @@ export const Amount = ({
         
 
         if(E.isLeft(amount)) {
-            hapticFeedback.impactOccurred('soft');
+            hapticFeedback.impactOccurred('light');
     
             setTimeout(() => {
-                hapticFeedback.impactOccurred('soft');
+                hapticFeedback.impactOccurred('light');
             }, 100);
             
             setTimeout(() => {
-                hapticFeedback.impactOccurred('soft');
-            }, 200);
-
-            setTimeout(() => {
                 hapticFeedback.impactOccurred('medium');
-            }, 400);
+            }, 300);
         }
 
         updateAmount(val);
