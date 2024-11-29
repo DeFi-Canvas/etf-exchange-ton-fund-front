@@ -17,4 +17,3 @@ EXPOSE 3000
 
 CMD ["npm", "run", "preview"]
 
-# CMD [ "serve", "-s", "dist" ]
