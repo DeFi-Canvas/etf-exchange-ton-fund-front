@@ -13,6 +13,7 @@ export const BottomSheetSellBodyContainer = injectable(
     (store) => () => {
         const funds = useProperty(store.funds);
 
+        // TODO: переписать на RenderEither
         const fundsAssets: Array<FundsData> = E.isRight(funds)
             ? funds.right
             : ([] as Array<FundsData>);

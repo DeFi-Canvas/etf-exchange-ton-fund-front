@@ -4,8 +4,8 @@ import * as E from 'fp-ts/Either';
 import cn from 'classnames';
 import { useNavigate } from 'react-router-dom';
 import AmountField from './amount-field/amount-field.component';
+import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 
-// TODO: добавить ошибку слишком много
 export type AmountErrors = 'too small' | 'too big';
 
 const getAmountErrorsText = (err: AmountErrors) => {
@@ -61,11 +61,17 @@ export const Amount = ({
                         isError={E.isLeft(amount)}
                     />
                 </div>
-                <span className={cn(css.calc, { [css.err]: E.isLeft(amount) })}>
-                    {E.isLeft(amount)
-                        ? getAmountErrorsText(amount.left)
-                        : approximateCost}
-                </span>
+                <RenderResult
+                    data={amount}
+                    failure={(err) => (
+                        <span className={cn(css.calc, css.err)}>
+                            {getAmountErrorsText(err)}
+                        </span>
+                    )}
+                    success={() => (
+                        <span className={css.calc}>{approximateCost}</span>
+                    )}
+                />
             </div>
             {/* TODO не поднимается вместе с клавиатурой */}
             <div className={cn(css.footerWrap)}>
