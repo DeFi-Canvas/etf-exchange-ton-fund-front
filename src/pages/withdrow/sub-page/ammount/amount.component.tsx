@@ -45,7 +45,7 @@ export const Amount = ({
             (x) => `${x}`
         )
     );
-
+    
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = event.target.value;
         const val = Number(inputValue);
