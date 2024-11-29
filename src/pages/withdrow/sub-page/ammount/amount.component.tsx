@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import css from './amount.module.css';
 import * as E from 'fp-ts/Either';
-import { pipe } from 'fp-ts/lib/function';
 import cn from 'classnames';
 import { useNavigate } from 'react-router-dom';
+import AmountField from './amount-field/amount-field.component';
 
 // TODO: добавить ошибку слишком много
 export type AmountErrors = 'too small' | 'too big';
@@ -32,20 +32,14 @@ export const Amount = ({
     updateAmount,
     amount,
     approximateCost,
-    // isNextButtonAvailable,
+    isNextButtonAvailable,
     availableBalance,
     symbolLogo,
 }: AmountProps) => {
     const navigate = useNavigate();
 
-    const [amountValue, setAmountValue] = useState<string>(
-        pipe(
-            amount,
-            E.getOrElse(() => 0),
-            (x) => `${x}`
-        )
-    );
-    
+    const [amountValue, setAmountValue] = useState<string>('');
+
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = event.target.value;
         const val = Number(inputValue);
@@ -60,22 +54,12 @@ export const Amount = ({
             <span className={css.title}>Enter amount</span>
             <div className={css.inputSection}>
                 <div className={css.inputWrap}>
-                    <input
-                        type="number"
-                        inputMode="numeric"
-                        className={cn(css.input, {
-                            [css.err]: E.isLeft(amount),
-                        })}
-                        onChange={handleChange}
+                    <AmountField
+                        currency={currency}
                         value={amountValue}
+                        handleChange={handleChange}
+                        isError={E.isLeft(amount)}
                     />
-                    <span
-                        className={cn(css.prefix, {
-                            [css.err]: E.isLeft(amount),
-                        })}
-                    >
-                        {currency}
-                    </span>
                 </div>
                 <span className={cn(css.calc, { [css.err]: E.isLeft(amount) })}>
                     {E.isLeft(amount)
@@ -94,7 +78,7 @@ export const Amount = ({
                 </div>
                 <div className={css.footer}>
                     <button
-                        // disabled={!isNextButtonAvailable}
+                        disabled={!isNextButtonAvailable}
                         className={css.nextButton}
                         onClick={() => navigate('/withdraw/:ticker/address')}
                     >
