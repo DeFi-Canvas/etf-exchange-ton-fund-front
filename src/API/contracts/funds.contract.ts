@@ -1,5 +1,6 @@
 import * as t from 'io-ts';
 
+// /funds
 const assetCodec = t.type({
   category: t.string,
   description: t.string,

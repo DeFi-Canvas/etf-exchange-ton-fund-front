@@ -1,5 +1,6 @@
 import * as t from 'io-ts';
 
+// /users
 const userCodec = t.type({
     first_name: t.string,
     id: t.string,

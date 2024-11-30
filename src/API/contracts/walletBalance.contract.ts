@@ -1,5 +1,6 @@
 import * as t from 'io-ts';
 
+// /wallet/balance
 const assetCodec = t.type({
   balance: t.number,
   image_url: t.string,

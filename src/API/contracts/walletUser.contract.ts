@@ -1,5 +1,6 @@
 import * as t from 'io-ts';
 
+// /wallets/{user_id}
 const userCodec = t.type({
   address: t.string,
   id: t.string,

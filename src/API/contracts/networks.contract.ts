@@ -1,5 +1,6 @@
 import * as t from 'io-ts';
 
+// /assets/{assetName}/networks
 const networkCodec = t.type({
     created_at: t.number,
     description: t.string,
