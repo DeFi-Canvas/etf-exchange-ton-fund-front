@@ -1,6 +1,6 @@
 import * as t from 'io-ts';
 
 // /appopened
-export const AppOpenedResponseCodec = t.type({
+export const appOpenedResponseCodec = t.type({
     user_id: t.string,
 });
