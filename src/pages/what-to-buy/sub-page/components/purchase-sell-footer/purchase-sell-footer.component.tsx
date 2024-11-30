@@ -6,6 +6,7 @@ import css from './purchase-sell-footer.module.css';
 interface PurchaseSellFooterProps {
     title: string;
     onClick: () => void;
+    isLoading: boolean;
 }
 
 const PurchaseSellFooter = (props: PurchaseSellFooterProps) => {
@@ -15,7 +16,7 @@ const PurchaseSellFooter = (props: PurchaseSellFooterProps) => {
                 className={css.button}
                 label={props.title}
                 onClick={props.onClick}
-                isLoading={false}
+                isLoading={props.isLoading}
             />
         </footer>
     );

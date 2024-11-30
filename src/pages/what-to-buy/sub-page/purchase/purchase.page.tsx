@@ -18,6 +18,7 @@ interface PurchasePageProps {
     showBottomSheet: boolean;
     isShowBottomSheetFinishBoody: boolean;
     setShowBottomSheet: (x: boolean) => void;
+    isLoading: boolean;
 }
 
 const PurchasePage = injectable(
@@ -38,6 +39,7 @@ const PurchasePage = injectable(
             setShowBottomSheet,
             isShowBottomSheetFinishBoody,
             onBuy,
+            isLoading,
         }: PurchasePageProps) => {
             const navigator = useNavigate();
             const handleToggleBottomSheet = () => {
@@ -60,7 +62,11 @@ const PurchasePage = injectable(
                         title="Purchase Details"
                     />
 
-                    <PurchaseSellFooter title="Buy" onClick={onBuy} />
+                    <PurchaseSellFooter
+                        title="Buy"
+                        onClick={onBuy}
+                        isLoading={isLoading}
+                    />
 
                     <BottomSheet
                         open={showBottomSheet}

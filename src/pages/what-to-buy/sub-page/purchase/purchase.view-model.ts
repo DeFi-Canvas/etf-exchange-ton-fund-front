@@ -5,7 +5,7 @@ import { newLensedAtom } from '@frp-ts/lens';
 import * as E from 'fp-ts/Either';
 import * as O from 'fp-ts/Option';
 import { constVoid, pipe } from 'fp-ts/lib/function';
-import { chain, tap } from '@most/core';
+import { chain, take, tap } from '@most/core';
 import { newWTBRestService } from '@/API/wtb.service';
 import { newWaletRestService } from '@/API/whalet.service';
 import { Asset, FundsData } from '@/pages/whalet/whalet.model';
@@ -26,6 +26,7 @@ export interface PurchaseSellStore {
     quantity: Property<number>;
     isBottomPanel: Property<boolean>;
     isShowBottomSheetFinishBoody: Property<boolean>;
+    isLoading: Property<boolean>;
     increment: () => void;
     dicrement: () => void;
     onBuy: () => void;
@@ -61,6 +62,7 @@ export const newPurchaseSellStore = injectable(
             const quantity = newLensedAtom(0);
             const isBottomPanel = newLensedAtom(false);
             const isShowBottomSheetFinishBoody = newLensedAtom(false);
+            const isLoading = newLensedAtom(false);
 
             const [onBuy, onBuyEvent] = createAdapter<void>();
 
@@ -128,20 +130,28 @@ export const newPurchaseSellStore = injectable(
 
             const onBuyEffect = pipe(
                 onBuyEvent,
+                take(1),
+                tap(() => isLoading.set(true)),
                 chain(() => {
                     const currentFund = pipe(
                         fundData.get(),
                         E.getOrElse(() => ({} as FundsData))
                     );
-                    isShowBottomSheetFinishBoody.set(true);
+
+                    // const currentAsset = pipe(
+                    //     selectedAssets.get(),
+                    //     E.getOrElse(() => ({} as Asset))
+                    // );
                     return service.buyFund({
                         fundId: currentFund.id,
                         assetId: '',
                         amount: quantity.get(),
                     });
+                }),
+                tap(() => {
+                    isLoading.set(false);
+                    isShowBottomSheetFinishBoody.set(true);
                 })
-                //когда решим че делать
-                // tap(() => isShowBottomSheetFinishBoody.set(true))
             );
 
             const getFundsEffect = pipe(
@@ -163,6 +173,7 @@ export const newPurchaseSellStore = injectable(
                     setIsBottomPanel,
                     funds,
                     isShowBottomSheetFinishBoody,
+                    isLoading,
                 },
                 getFundDataEffect,
                 getAssetsEffect,
