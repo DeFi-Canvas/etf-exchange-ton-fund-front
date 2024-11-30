@@ -1,11 +1,8 @@
 import { SDKProvider } from '@telegram-apps/sdk-react';
 import { THEME, TonConnectUIProvider } from '@tonconnect/ui-react';
-// import { Provider as ReduxProvider } from 'react-redux';
 import { type FC, useMemo } from 'react';
-
 import { App } from '@/components/App.tsx';
 import { ErrorBoundary } from '@/components/ErrorBoundary.tsx';
-// import { store } from '@/store';
 
 const ErrorBoundaryError: FC<{ error: unknown }> = ({ error }) => (
     <div>
@@ -36,9 +33,7 @@ const Inner: FC = () => {
             manifestUrl={manifestUrl}
         >
             <SDKProvider acceptCustomStyles>
-                {/* <ReduxProvider store={store}> */}
                 <App />
-                {/* </ReduxProvider> */}
             </SDKProvider>
         </TonConnectUIProvider>
     );
