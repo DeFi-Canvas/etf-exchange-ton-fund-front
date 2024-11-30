@@ -56,6 +56,7 @@ export const NavBar = () => {
                 if (navItem.isDisabled) {
                     return (
                         <div
+                            key={navItem.id}
                             className={cn(css.navItemCard, {
                                 [css.navItemCardDisabled]: navItem.isDisabled,
                             })}
@@ -69,7 +70,11 @@ export const NavBar = () => {
                 }
 
                 return (
-                    <NavLink to={navItem.href} className={css.navItemCard}>
+                    <NavLink
+                        to={navItem.href}
+                        key={navItem.id}
+                        className={css.navItemCard}
+                    >
                         <div>{navItem.icon}</div>
                         <span className={css.navItemTitle}>
                             {navItem.title}

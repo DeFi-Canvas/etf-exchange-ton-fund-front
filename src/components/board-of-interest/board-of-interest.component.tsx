@@ -38,12 +38,14 @@ export const BoardOfInterest = ({
 
                     return (
                         <div
+                            key={index}
                             className={cn(css.imageList, {
                                 [css.imageListWide]: isImageListWide,
                             })}
                         >
-                            {imageList.map((imageSrc) => (
+                            {imageList.map((imageSrc, index) => (
                                 <img
+                                    key={index}
                                     src={imageSrc}
                                     alt="Avatar"
                                     className={css.image}
