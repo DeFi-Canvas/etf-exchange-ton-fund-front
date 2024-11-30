@@ -5,6 +5,7 @@ import { injectable, token } from '@injectable-ts/core';
 import { getRequest } from './request.utils';
 import {
     Asset,
+    assetsIsValidData,
     FundsData,
     getWhaletFundsValidation,
     mapAssetsFromBalance,
@@ -16,6 +17,7 @@ import {
     WaletResponce,
 } from '@/pages/whalet/whalet.model';
 import { API } from './API';
+import { flow } from 'fp-ts/lib/function';
 
 export interface WaletRestService {
     getBalance: () => Stream<Either<string, WaletResponce>>;
@@ -35,7 +37,7 @@ export const newWaletRestService = injectable(
             getAssets: getRequest(
                 API.getWalletInfo(telegram_id),
                 mapAssetsFromBalance,
-                mapAssetsFromBalanceValidation
+                flow(assetsIsValidData, mapAssetsFromBalanceValidation)
             ),
             getFunds: getRequest(API.getFunds, mapFunds),
             getWhaletFunds: getRequest(

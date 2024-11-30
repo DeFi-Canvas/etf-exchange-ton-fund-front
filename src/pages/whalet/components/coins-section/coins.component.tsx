@@ -37,8 +37,6 @@ export const OperationsNav = ({
 }: OperationsNavProps) => {
     //TODO: занести это в сервис сетингс
     const [routes, setRoutes] = useState(routesInit);
-    console.log(isTransactionAvailible);
-
     return (
         <div className={css.wrap}>
             <div className={css.navLinks}>
