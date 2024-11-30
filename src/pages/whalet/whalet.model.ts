@@ -13,6 +13,7 @@ export interface WaletResponce {
 }
 
 export type AssetResponce = {
+    id: string;
     name: string;
     symbol: string;
     balance: number;
@@ -70,6 +71,7 @@ interface WhaletFundsResponce {
 
 //#region UI
 export type Asset = {
+    id: string;
     name: string;
     symbol: string;
     balance: number;

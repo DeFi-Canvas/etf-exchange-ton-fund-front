@@ -138,13 +138,13 @@ export const newPurchaseSellStore = injectable(
                         E.getOrElse(() => ({} as FundsData))
                     );
 
-                    // const currentAsset = pipe(
-                    //     selectedAssets.get(),
-                    //     E.getOrElse(() => ({} as Asset))
-                    // );
+                    const currentAsset = pipe(
+                        selectedAssets.get(),
+                        E.getOrElse(() => ({} as Asset))
+                    );
                     return service.buyFund({
                         fundId: currentFund.id,
-                        assetId: '',
+                        assetId: currentAsset.id,
                         amount: quantity.get(),
                     });
                 }),
