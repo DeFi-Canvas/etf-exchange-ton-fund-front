@@ -6,6 +6,7 @@ import { FundsContainer } from '@/pages/whalet/sub-pages/founds/funds.container'
 import { TransactionsContainer } from '@/pages/whalet/sub-pages/transactions/transactions.container';
 import { WaletPageContainer } from '@/pages/whalet/whalet.container';
 import { FundPageContainer } from '@/pages/what-to-buy/sub-page/funds/fund.container';
+import { FundsPageContainer } from '@/pages/what-to-buy/sub-page/funds/funds.container';
 import { PurchaseContainer } from '@/pages/what-to-buy/sub-page/purchase/purchase.container';
 import { SellContainer } from '@/pages/what-to-buy/sub-page/sell/sell.container';
 import { WhatToBuyPageContainer } from '@/pages/what-to-buy/what-to-buy.container';
@@ -40,6 +41,7 @@ export interface Containers {
     SellContainer: () => JSX.Element;
     WhatToBuyPage: () => JSX.Element;
     FundPage: () => JSX.Element;
+    FundsPage: () => JSX.Element;
 }
 
 export const getContainers = ({
@@ -91,4 +93,7 @@ export const getContainers = ({
         userStore,
     }),
     FundPage: FundPageContainer({ userStore }),
+    FundsPage: FundsPageContainer({
+        userStore,
+    }),
 });
