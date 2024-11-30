@@ -35,6 +35,7 @@ export interface FundsRespnce {
     value: number;
     assets: Array<{
         asset: {
+            id: string;
             name: string;
             ticker: string;
             category: string;

@@ -16,6 +16,7 @@ export const mapFunds = (data: FundsRespnce): FundsData => ({
     isAvaiable: data.is_avaiable,
     cost: 1,
     assets: data.assets.map(({ asset, allocation_percentage }) => ({
+        id: asset.id,
         name: asset.name,
         symbol: asset.ticker,
         balance: asset.price,
