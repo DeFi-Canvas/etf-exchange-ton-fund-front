@@ -3,12 +3,19 @@ import { Either } from 'fp-ts/lib/Either';
 import { UserStoreService } from '@/store/user.store';
 import { injectable, token } from '@injectable-ts/core';
 import { EranStep } from '@/pages/profile/components/earn/earn.view-model';
-import { getRequest } from './request.utils';
+import { getRequestGenerated } from './request.utils';
 import { fromPromise } from '@most/core';
 import axios from 'axios';
 import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
-import { API } from './API';
+import { API, DOMAIN_API_URL } from './API';
+import { TasksApi } from './shema/rest-genereted/api';
+import { Configuration } from './shema/rest-genereted';
+import { taskListCodec } from './contracts/task.contract';
+// import { taskCompleteResponseCodec } from './contracts/taskComplete.contract';
 
+const tasksApi = new TasksApi({
+    basePath: DOMAIN_API_URL,
+} as Configuration);
 export interface Tasks {
     TelegramID: number;
     ID: string;
@@ -30,6 +37,7 @@ export interface TasksCheckResponce extends TasksCheck {
 
 export interface ProfileRestService {
     getTask: () => Stream<Either<string, Array<EranStep>>>;
+    // checkTask: (id: string) => Stream<Either<string, TasksCheckResponce>>;
     checkTask: (id: string) => Stream<TasksCheckResponce>;
 }
 
@@ -50,7 +58,20 @@ export const newProfileRestService = injectable(
         });
 
         return {
-            getTask: getRequest(API.getTask(telegram_id), mapGetTask),
+            getTask: getRequestGenerated(
+                tasksApi.tasksGet(telegram_id ?? 0),
+                taskListCodec,
+                mapGetTask
+            ),
+            // checkTask: (id) =>
+            //     getRequestGenerated(
+            //         tasksApi.tasksCompletePost({
+            //             telegram_id,
+            //             task_id: id,
+            //             init_data: initDataRaw,
+            //         }),
+            //         taskCompleteResponseCodec,
+            //     )(),
             checkTask: (id) => {
                 return fromPromise(
                     axios

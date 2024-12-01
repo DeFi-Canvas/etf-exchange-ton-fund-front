@@ -2,13 +2,13 @@ import * as t from 'io-ts';
 
 // tasks
 const taskCodec = t.type({
-  channelID: t.number,
-  completed: t.boolean,
-  id: t.string,
-  reward: t.number,
-  telegramID: t.number,
-  title: t.string,
-  url: t.string
+    TelegramID: t.number,
+    ID: t.string,
+    Title: t.string,
+    Url: t.string,
+    Reward: t.number,
+    Completed: t.boolean,
+    ChannelID: t.number,
 });
 
 export const taskListCodec = t.array(taskCodec);

@@ -2,25 +2,24 @@ import { Stream } from '@most/types';
 import { Either } from 'fp-ts/lib/Either';
 import { UserStoreService } from '@/store/user.store';
 import { injectable, token } from '@injectable-ts/core';
-import { getRequest } from './request.utils';
+import { getRequestGenerated } from './request.utils';
 import {
     Asset,
-    assetsIsValidData,
     FundsData,
-    getWhaletFundsValidation,
     mapAssetsFromBalance,
-    mapAssetsFromBalanceValidation,
     mapFunds,
     mapWhaletFunds,
     normolizeTransactionKey,
     Transactions,
     WaletResponce,
 } from '@/pages/whalet/whalet.model';
-import { API, DOMAIN_API_URL } from './API';
-import { flow } from 'fp-ts/lib/function';
-import { fromPromise } from '@most/core';
-import { WalletsApi } from '../API/shema/rest-genereted/api';
-import { either } from 'fp-ts';
+import { DOMAIN_API_URL } from './API';
+import { FundsApi, WalletsApi } from '../API/shema/rest-genereted/api';
+import { walletBalanceCodec } from './contracts/walletBalance.contract';
+import { Configuration } from './shema/rest-genereted';
+import { walletFundsCodec } from './contracts/walletFunds.contract';
+import { transactionListCodec } from './contracts/walletTransaction.contract';
+import { allFundsCodec } from './contracts/funds.contract';
 
 export interface WaletRestService {
     getBalance: () => Stream<Either<string, WaletResponce>>;
@@ -30,9 +29,13 @@ export interface WaletRestService {
     getTransactions: () => Stream<Either<string, Array<Transactions>>>;
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-const temp = new WalletsApi({ basePath: DOMAIN_API_URL });
+const walletsApi = new WalletsApi({
+    basePath: DOMAIN_API_URL,
+} as Configuration);
+
+const fundsApi = new FundsApi({
+    basePath: DOMAIN_API_URL,
+} as Configuration);
 
 export const newWaletRestService = injectable(
     token('userStore')<UserStoreService>(),
@@ -40,34 +43,28 @@ export const newWaletRestService = injectable(
         const { id: telegram_id } = userStore.user.get();
 
         return {
-            // getBalance: getRequest(API.getWalletInfo(telegram_id)),
-            getBalance: () =>
-                fromPromise(
-                    temp
-                        .walletBalanceGet(telegram_id ?? 0)
-                        .then(({ data }) => either.of(data))
-                ),
-            getAssets: () =>
-                fromPromise(
-                    temp.walletBalanceGet(telegram_id ?? 0).then(({ data }) =>
-                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                        // @ts-ignore
-                        either.of(mapAssetsFromBalance(data))
-                    )
-                ),
-            // getAssets: getRequest(
-            //     API.getWalletInfo(telegram_id),
-            //     mapAssetsFromBalance,
-            //     flow(assetsIsValidData, mapAssetsFromBalanceValidation)
-            // ),
-            getFunds: getRequest(API.getFunds, mapFunds),
-            getWhaletFunds: getRequest(
-                API.getWhaletFunds(telegram_id),
-                mapWhaletFunds,
-                getWhaletFundsValidation
+            getBalance: getRequestGenerated(
+                walletsApi.walletBalanceGet(telegram_id ?? 0),
+                walletBalanceCodec
             ),
-            getTransactions: getRequest(
-                API.transactions(telegram_id),
+            getAssets: getRequestGenerated(
+                walletsApi.walletBalanceGet(telegram_id ?? 0),
+                walletBalanceCodec,
+                mapAssetsFromBalance
+            ),
+            getFunds: getRequestGenerated(
+                fundsApi.fundsGet(),
+                allFundsCodec,
+                mapFunds
+            ),
+            getWhaletFunds: getRequestGenerated(
+                walletsApi.walletFundsGet(telegram_id ?? 0),
+                walletFundsCodec,
+                mapWhaletFunds
+            ),
+            getTransactions: getRequestGenerated(
+                walletsApi.walletTransactionsGet(telegram_id ?? 0),
+                transactionListCodec,
                 normolizeTransactionKey
             ),
         };
