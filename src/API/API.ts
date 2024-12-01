@@ -1,4 +1,4 @@
-const DOMAIN_API_URL = import.meta.env.VITE_DOMAIN_API_URL;
+export const DOMAIN_API_URL = import.meta.env.VITE_DOMAIN_API_URL;
 export const API = {
     getWalletInfo: (id?: number) =>
         `${DOMAIN_API_URL}/wallet/balance?telegram_id=${id}`,
