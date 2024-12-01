@@ -1,6 +1,4 @@
 import { useIntegration } from '@telegram-apps/react-router-integration';
-import '@/assets/styles/index.scss';
-
 import {
     bindViewportCSSVars,
     initNavigator,
@@ -10,8 +8,6 @@ import { type FC, useEffect, useMemo } from 'react';
 import { Router } from 'react-router-dom';
 import { AppRoutes } from '@/navigation/routes.tsx';
 import TabBar from '@/components/TabBar/TabBar.tsx';
-
-// import OnbardScreen from '@/components/OnbardScreen/OnbardScreen.tsx';
 
 export const App: FC = () => {
     const viewport = useViewport();
@@ -24,18 +20,6 @@ export const App: FC = () => {
     useEffect(() => {
         return viewport && bindViewportCSSVars(viewport) && viewport.expand();
     }, [viewport]);
-
-    // Create a new application navigator and attach it to the browser history, so it could modify
-    // it and listen to its changes.
-    const navigator = useMemo(() => initNavigator('app-navigation-state'), []);
-    const [location, reactNavigator] = useIntegration(navigator);
-
-    // Don't forget to attach the navigator to allow it to control the BackButton state as well
-    // as browser history.
-    useEffect(() => {
-        navigator.attach();
-        return () => navigator.detach();
-    }, [navigator]);
 
     // useEffect(() => {
     //     if (wallet?.account.address && !wallet_info) {
@@ -78,6 +62,18 @@ export const App: FC = () => {
     //             )}
     //         </div>
     //     );
+
+    // Create a new application navigator and attach it to the browser history, so it could modify
+    // it and listen to its changes.
+    const navigator = useMemo(() => initNavigator('app-navigation-state'), []);
+    const [location, reactNavigator] = useIntegration(navigator);
+
+    // Don't forget to attach the navigator to allow it to control the BackButton state as well
+    // as browser history.
+    useEffect(() => {
+        navigator.attach();
+        return () => navigator.detach();
+    }, [navigator]);
 
     return (
         <Router location={location} navigator={reactNavigator}>

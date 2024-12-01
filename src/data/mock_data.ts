@@ -1,8 +1,8 @@
 import { ETFType } from '@/types.ts';
 import firstCardImage from './../assets/images/first_card_image.png';
 import secondCardImage from './../assets/images/second_card_image.png';
-import lowRisk from './../assets/images/Low risk.png';
-import commision from './../assets/images/Fee.png';
+import lowRisk from './../assets/images/low_risk.png';
+import commision from './../assets/images/fee.png';
 import Ton from './../assets/icons/Ton.svg?url';
 import usdt from './../assets/icons/USDT.svg?url';
 import btc from './../assets/icons/Bitcoin.svg?url';

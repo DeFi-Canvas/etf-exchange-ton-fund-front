@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import css from './final.module.css';
 import * as E from 'fp-ts/Either';
-import img from '../../../../assets/images/finalgif.gif';
+import img from '../../../../assets/images/joyful_duck.gif';
 import cn from 'classnames';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 

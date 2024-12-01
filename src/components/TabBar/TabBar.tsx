@@ -6,16 +6,12 @@ import {
     ProfileIcon,
     WhatToBuyIcon,
 } from '@/components/Icons/Icons.tsx';
-import {
-    useLocation,
-    // useNavigate
-} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 // import { useAppSelector } from '@/hooks/useAppSelector.ts';
 // import { useTonWallet } from '@tonconnect/ui-react';
 // import ButtonsSecondary from '@/components/Buttons/ButtonsSecondary.tsx';
 // import { calcIsError } from '@/utils/calcIsError.ts';
 // import SlideButton from '@/components/SlideButton/SlideButton.tsx';
-
 import css from './tab-bar.module.css';
 import cn from 'classnames';
 
@@ -41,8 +37,8 @@ const TabBar = () => {
     //         );
     //     }
     // }, [wallet_info, selectedCoinToInvest]);
+
     const { pathname } = useLocation();
-    // const navigator = useNavigate();
 
     const renderTabBar = () => {
         // const wallet = useTonWallet();
