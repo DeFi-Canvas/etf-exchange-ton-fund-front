@@ -2,7 +2,7 @@ FROM node:20.18.1-bullseye-slim
 
 WORKDIR /app
 
-ENV VITE_DOMAIN_API_URL ""
+ENV VITE_DOMAIN_API_URL "https://etf-exchange-ton-fund-back-development.up.railway.app"
 
 COPY package.json .
 COPY package-lock.json .
