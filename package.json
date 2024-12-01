@@ -28,6 +28,7 @@
         "@telegram-apps/react-router-integration": "^1.0.0",
         "@telegram-apps/sdk-react": "^1.0.0",
         "@telegram-apps/telegram-ui": "^2.1.8",
+        "@ton/ton": "^15.1.0",
         "@tonconnect/ui-react": "^2.0.5",
         "@tonsolutions/telemetree-react": "^1.1.10",
         "axios": "^1.7.8",
