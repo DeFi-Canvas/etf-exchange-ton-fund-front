@@ -3,6 +3,7 @@ import { Amount } from '../../components/amount/amount.component';
 import css from './check.module.css';
 import { injectable } from '@injectable-ts/core';
 import { FooterContainer } from './footer/footer.container';
+import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 
 interface CheckProps {
     ammount: E.Either<string, number>;
@@ -37,17 +38,23 @@ export const Check = injectable(
 
                         <div className={css.column}>
                             <span className={css.title}>Withdraw address</span>
-                            <span className={css.row}>
-                                {E.isRight(address) && address.right}
-                            </span>
+                            <RenderResult
+                                data={address}
+                                success={(address) => (
+                                    <span className={css.row}>{address}</span>
+                                )}
+                            />
                         </div>
                         <div className={css.column}>
                             <span className={css.title}>
                                 Tag/Memo (Comment/Note/Remark)
                             </span>
-                            <span className={css.row}>
-                                {E.isRight(memo) && memo.right}
-                            </span>
+                            <RenderResult
+                                data={memo}
+                                success={(memo) => (
+                                    <span className={css.row}>{memo}</span>
+                                )}
+                            />
                         </div>
 
                         <div className={css.column}>

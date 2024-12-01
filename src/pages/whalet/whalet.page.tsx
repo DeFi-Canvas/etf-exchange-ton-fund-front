@@ -1,6 +1,6 @@
 import { injectable } from '@injectable-ts/core';
 import { BalanceContainer } from './components/balans/balans.container';
-import { Coins } from './components/coins-section/coins.component';
+import { OperationsNavContainer } from './components/coins-section/coins.component';
 import { NavBar } from './components/nav-bar/nav-bar.component';
 import * as O from 'fp-ts/Option';
 
@@ -16,7 +16,8 @@ export interface WhatToBuyPageProps {
 }
 export const WaletPage = injectable(
     BalanceContainer,
-    (BalanceContainer) => () => {
+    OperationsNavContainer,
+    (BalanceContainer, OperationsNavContainer) => () => {
         const swiperOptions = {
             spaceBetween: 10,
             slidesPerView: 1.05,
@@ -38,7 +39,7 @@ export const WaletPage = injectable(
                     </Swiper>
                 </header>
                 <div className={css.coinWrapper}>
-                    <Coins />
+                    <OperationsNavContainer />
                 </div>
             </div>
         );

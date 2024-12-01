@@ -10,8 +10,6 @@ interface AddressFormProps {
     currency: string;
     symbolLogo: string;
 
-    address: E.Either<string, string>;
-    memo: E.Either<string, string>;
     setAddress: (d: string) => void;
     setMemo: (d: string) => void;
 }
@@ -20,24 +18,18 @@ export const AddressForm = ({
     ammount,
     approximateCost,
     currency,
-    address,
-    memo,
     setAddress,
     setMemo,
     symbolLogo,
 }: AddressFormProps) => {
-    const [currentAddress, setCurrentAddress] = useState(() =>
-        E.isRight(address) ? address.right : ''
-    );
+    const [currentAddress, setCurrentAddress] = useState('');
     const addressOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const val = e.currentTarget.value;
         setCurrentAddress(val);
         setAddress(val);
     };
 
-    const [currentMemo, setCurrentMemo] = useState(() =>
-        E.isRight(memo) ? memo.right : ''
-    );
+    const [currentMemo, setCurrentMemo] = useState('');
     const memoOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const val = e.currentTarget.value;
         setCurrentMemo(val);

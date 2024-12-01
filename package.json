@@ -3,9 +3,7 @@
     "private": true,
     "version": "0.0.1",
     "type": "module",
-    "homepage": "https://defi-canvas.github.io/etf-exchange-ton-fund-front",
     "scripts": {
-        "deploy": "gh-pages -d dist",
         "dev": "vite",
         "ngrok": "ngrok http http://localhost:5173",
         "build": "tsc --noEmit && vite build",
@@ -13,7 +11,8 @@
         "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "lint:fix": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
         "preview": "vite preview",
-        "predeploy": "npm run build"
+        "predeploy": "npm run build",
+        "start": "vite preview"
     },
     "dependencies": {
         "@frp-ts/core": "^1.0.0-beta.5",
@@ -35,6 +34,7 @@
         "buffer": "^6.0.3",
         "chart.js": "^4.4.6",
         "classnames": "^2.5.1",
+        "dotenv": "^16.4.5",
         "eruda": "^3.0.1",
         "formik": "^2.4.6",
         "fp-ts": "^2.16.1",

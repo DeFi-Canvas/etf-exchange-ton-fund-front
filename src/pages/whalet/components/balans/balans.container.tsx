@@ -7,7 +7,6 @@ import { Balans } from './balans.component';
 
 export const BalanceContainer = injectable(
     newWhatToBuyViewModel,
-    // eslint-disable-next-line react/display-name
     (newWhatToBuyViewModel) => () => {
         const vm = useValueWithEffect(() => newWhatToBuyViewModel(), []);
         const balance = useProperty(vm.balance);

@@ -17,4 +17,8 @@ export const whatToBuyRouter = (containers: Containers) => [
         path: '/what-to-buy/sell',
         page: containers.SellContainer,
     },
+    {
+        path: '/what-to-buy/funds',
+        page: containers.FundsPage,
+    },
 ];

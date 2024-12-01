@@ -1,6 +1,6 @@
 import { injectable } from '@injectable-ts/core';
 
-import { flow, pipe } from 'fp-ts/lib/function';
+import { constant, flow, pipe } from 'fp-ts/lib/function';
 import { tap } from '@most/core';
 import { Property } from '@frp-ts/core';
 import * as O from 'fp-ts/Option';
@@ -8,6 +8,7 @@ import { either } from 'fp-ts';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { newWaletRestService } from '@/API/whalet.service';
 import { newLensedAtom } from '@frp-ts/lens';
+import { Transactions } from './whalet.model';
 
 export interface Balance {
     int: string;
@@ -16,6 +17,7 @@ export interface Balance {
 
 export interface WhatToBuyViewModel {
     balance: Property<O.Option<Balance>>;
+    isTransactionAvailible: Property<boolean>;
 }
 
 export interface NewWhatToBuyViewModel {
@@ -27,6 +29,7 @@ export const newWhatToBuyViewModel = injectable(
     (waletRestService): NewWhatToBuyViewModel =>
         () => {
             const balance = newLensedAtom<O.Option<Balance>>(O.none);
+            const isTransactionAvailible = newLensedAtom(true);
 
             const getBalanceEffect = pipe(
                 waletRestService.getBalance(),
@@ -49,11 +52,24 @@ export const newWhatToBuyViewModel = injectable(
                     )
                 )
             );
+
+            const isTransactionAvailibleEffect = pipe(
+                waletRestService.getTransactions(),
+                tap((x) => {
+                    const transactions = pipe(
+                        x,
+                        either.getOrElse(constant([] as Transactions[]))
+                    );
+                    isTransactionAvailible.set(!!transactions.length);
+                })
+            );
             return valueWithEffect.new(
                 {
                     balance,
+                    isTransactionAvailible,
                 },
-                getBalanceEffect
+                getBalanceEffect,
+                isTransactionAvailibleEffect
             );
         }
 );

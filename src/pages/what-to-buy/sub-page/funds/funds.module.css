@@ -1,0 +1,22 @@
+.wrap {
+    padding-block: 32px;
+}
+
+.serch {
+    margin-top: 12px;
+}
+
+.title {
+    color: var(--Colors-Text-Dark, #24262e);
+    font-family: var(--Font-Family-V1, 'SF Pro');
+    font-size: var(--Font-Size-H2, 32px);
+    font-weight: 590;
+    display: block;
+}
+
+.crumbs {
+    margin-top: 16px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}

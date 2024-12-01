@@ -1,8 +1,4 @@
-export const DOMAIN_API_URL =
-    'https://etf-exchange-ton-fund-back-production.up.railway.app';
-
-// export const DOMAIN_API_URL =
-//     'https://etf-exchange-ton-fund-back-development.up.railway.app';
+const DOMAIN_API_URL = import.meta.env.VITE_DOMAIN_API_URL;
 export const API = {
     getWalletInfo: (id?: number) =>
         `${DOMAIN_API_URL}/wallet/balance?telegram_id=${id}`,

@@ -87,9 +87,9 @@ export const WhatToBuyPage = injectable(
                     <span className={css.title}>What to buy</span>
                     <SerchInput placeholder={'Search'} theme={css.serch} />
                     <div className={css.crumbs}>
-                        <Crumbs title="Funds" />
-                        <Crumbs title="Assets" />
-                        <Crumbs title="Favorites" />
+                        <Crumbs title="Funds" to={'/what-to-buy/funds'} />
+                        <Crumbs title="Assets" to={'/'} />
+                        <Crumbs title="Favorites" to={'/'} />
                     </div>
                     <BoardOfInterest
                         backgroundColor={colorFolowCompany}

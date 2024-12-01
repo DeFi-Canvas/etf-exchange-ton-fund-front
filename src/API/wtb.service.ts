@@ -9,6 +9,7 @@ import axios from 'axios';
 import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
 import { FundsData } from '@/pages/whalet/whalet.model';
 import { getRequest } from './request.utils';
+import { either } from 'fp-ts';
 
 interface BuyFundArgs {
     fundId: string;
@@ -18,7 +19,7 @@ interface BuyFundArgs {
 
 export interface WTBRestService {
     getFund: (id: string) => Stream<Either<string, FundsData>>;
-    buyFund: (buyFundArgs: BuyFundArgs) => Stream<Either<string, void>>;
+    buyFund: (buyFundArgs: BuyFundArgs) => Stream<Either<string, unknown>>;
 }
 
 export const newWTBRestService = injectable(
@@ -31,13 +32,16 @@ export const newWTBRestService = injectable(
             getFund: (id) => getRequest(API.getFund(id), mapFunds)(),
             buyFund: (args) =>
                 fromPromise(
-                    axios.post(API.buyFund, {
-                        telegram_id,
-                        fund_id: args.fundId,
-                        amount: args.amount,
-                        asset_id: args.assetId,
-                        init_data: initDataRaw,
-                    })
+                    axios
+                        .post(API.buyFund, {
+                            telegram_id,
+                            fund_id: args.fundId,
+                            amount: args.amount,
+                            asset_id: args.assetId,
+                            init_data: initDataRaw,
+                        })
+                        .then(({ data }) => either.of(data))
+                        .catch(() => either.of(null))
                 ),
         };
     }
