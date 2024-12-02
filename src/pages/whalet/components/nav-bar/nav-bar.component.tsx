@@ -17,45 +17,45 @@ interface NavItem {
     icon: ReactNode;
 }
 
+const navMenu: NavItem[] = [
+    {
+        id: 1,
+        href: 'deposit',
+        isDisabled: false,
+        title: 'Deposit',
+        icon: <DepositDepositIcon />,
+    },
+    {
+        id: 2,
+        href: 'swap',
+        isDisabled: true,
+        title: 'Swap',
+        icon: <DepositSwapIcon />,
+    },
+    {
+        id: 3,
+        href: '',
+        isDisabled: true,
+        title: 'Analytics',
+        icon: <DepositAnaliticsIcon />,
+    },
+    {
+        id: 4,
+        href: '',
+        isDisabled: true,
+        title: 'Featured',
+        icon: <DepositFeaturedIcon />,
+    },
+];
 // TODO  доделать на ссылки
 export const NavBar = () => {
-    const navMenu: NavItem[] = [
-        {
-            id: 1,
-            href: 'deposit',
-            isDisabled: false,
-            title: 'Deposit',
-            icon: <DepositDepositIcon />,
-        },
-        {
-            id: 2,
-            href: 'swap',
-            isDisabled: true,
-            title: 'Swap',
-            icon: <DepositSwapIcon />,
-        },
-        {
-            id: 3,
-            href: '',
-            isDisabled: true,
-            title: 'Analytics',
-            icon: <DepositAnaliticsIcon />,
-        },
-        {
-            id: 4,
-            href: '',
-            isDisabled: true,
-            title: 'Featured',
-            icon: <DepositFeaturedIcon />,
-        },
-    ];
-
     return (
         <div className={cn('app-container', css.navBar)}>
             {navMenu.map((navItem) => {
                 if (navItem.isDisabled) {
                     return (
                         <div
+                            key={navItem.id}
                             className={cn(css.navItemCard, {
                                 [css.navItemCardDisabled]: navItem.isDisabled,
                             })}
@@ -69,7 +69,11 @@ export const NavBar = () => {
                 }
 
                 return (
-                    <NavLink to={navItem.href} className={css.navItemCard}>
+                    <NavLink
+                        to={navItem.href}
+                        className={css.navItemCard}
+                        key={navItem.id}
+                    >
                         <div>{navItem.icon}</div>
                         <span className={css.navItemTitle}>
                             {navItem.title}

@@ -17,6 +17,8 @@ export const PurchaseContainer = injectable(
         const isShowBottomSheetFinishBoody = useProperty(
             store.isShowBottomSheetFinishBoody
         );
+        const isLoading = useProperty(store.isLoading);
+
         const PurchasePageResolve = PurchasePage({ purchaseStore: store });
 
         return React.createElement(PurchasePageResolve, {
@@ -24,6 +26,7 @@ export const PurchaseContainer = injectable(
             showBottomSheet,
             setShowBottomSheet: store.setIsBottomPanel,
             isShowBottomSheetFinishBoody,
+            isLoading,
         });
     }
 );

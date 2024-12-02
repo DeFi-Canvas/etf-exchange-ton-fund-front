@@ -18,8 +18,8 @@ export const FondsSliderContainer = injectable(
     token('purchaseStore')<PurchaseSellStore>(),
     (store) =>
         memo((props: FondsSliderContainerProps) => {
-            //TODO: создать вм и перенести туда
             const funds = useProperty(store.funds);
+            //TODO: создать вм и перенести туда
             const slidesData: E.Either<
                 string,
                 Array<Omit<FondCardProps, 'onClick'>>

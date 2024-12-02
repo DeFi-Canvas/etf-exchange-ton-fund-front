@@ -5,6 +5,7 @@ import { injectable, token } from '@injectable-ts/core';
 import { fromPromise } from '@most/core';
 import axios from 'axios';
 import { API } from './API';
+import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
 
 interface WithdrawResponce {
     status: boolean;
@@ -27,10 +28,17 @@ export const newWithdrawRestService = injectable(
     token('userStore')<UserStoreService>(),
     (userStore): WithdrawRestService => {
         const { id: telegram_id } = userStore.user.get();
+        const { initDataRaw } = retrieveLaunchParams();
 
         return {
             withdraw: (data) =>
-                fromPromise(axios.post(API.withdraw, { ...data, telegram_id })),
+                fromPromise(
+                    axios.post(API.withdraw, {
+                        ...data,
+                        telegram_id,
+                        init_data: initDataRaw,
+                    })
+                ),
         };
     }
 );

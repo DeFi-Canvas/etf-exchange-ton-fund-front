@@ -6,6 +6,7 @@ import { FundsContainer } from '@/pages/whalet/sub-pages/founds/funds.container'
 import { TransactionsContainer } from '@/pages/whalet/sub-pages/transactions/transactions.container';
 import { WaletPageContainer } from '@/pages/whalet/whalet.container';
 import { FundPageContainer } from '@/pages/what-to-buy/sub-page/funds/fund.container';
+import { FundsPageContainer } from '@/pages/what-to-buy/sub-page/funds/funds.container';
 import { PurchaseContainer } from '@/pages/what-to-buy/sub-page/purchase/purchase.container';
 import { SellContainer } from '@/pages/what-to-buy/sub-page/sell/sell.container';
 import { WhatToBuyPageContainer } from '@/pages/what-to-buy/what-to-buy.container';
@@ -14,13 +15,11 @@ import { AmountContainer } from '@/pages/withdrow/sub-page/ammount/amount.contai
 import { CheckContainer } from '@/pages/withdrow/sub-page/check/check.container';
 import { FinalContainer } from '@/pages/withdrow/sub-page/final/final.container';
 import { Withdrow } from '@/pages/withdrow/withdrow.page';
-// import { WithdrowStore } from '@/pages/withdrow/withdrow.store';
 import { UserStoreService } from '@/store/user.store';
 import { MemoExoticComponent, FC } from 'react';
 
 interface getContainersArgs {
     userStore: UserStoreService;
-    // withdrowStore: WithdrowStore;
 }
 
 type MemoComponent = MemoExoticComponent<FC>;
@@ -42,6 +41,7 @@ export interface Containers {
     SellContainer: () => JSX.Element;
     WhatToBuyPage: () => JSX.Element;
     FundPage: () => JSX.Element;
+    FundsPage: () => JSX.Element;
 }
 
 export const getContainers = ({
@@ -70,7 +70,6 @@ export const getContainers = ({
     }),
     Withdrow: Withdrow({
         userStore,
-        // withdrowStore,
     }),
     Amount: AmountContainer({
         userStore,
@@ -94,4 +93,7 @@ export const getContainers = ({
         userStore,
     }),
     FundPage: FundPageContainer({ userStore }),
+    FundsPage: FundsPageContainer({
+        userStore,
+    }),
 });

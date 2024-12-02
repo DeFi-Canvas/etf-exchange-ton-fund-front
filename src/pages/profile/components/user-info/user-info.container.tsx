@@ -8,7 +8,6 @@ import { UserInfo } from './user-info.component';
 
 export const UserInfoContainer = injectable(
     token('userStore')<UserStoreService>(),
-    // eslint-disable-next-line react/display-name
     (userStore) => () => {
         const user = O.fromNullable(userStore.user.get().username);
         const avatar = pipe(

@@ -2,21 +2,26 @@ import { Stream } from '@most/types';
 import { Either } from 'fp-ts/lib/Either';
 import { UserStoreService } from '@/store/user.store';
 import { injectable, token } from '@injectable-ts/core';
-import { getRequest } from './request.utils';
+import { getRequestGenerated } from './request.utils';
 import {
     Asset,
     FundsData,
+    getWhaletFundsValidation,
     mapAssetsFromBalance,
+    mapAssetsFromBalanceValidation,
     mapFunds,
     mapWhaletFunds,
     normolizeTransactionKey,
     Transactions,
     WaletResponce,
 } from '@/pages/whalet/whalet.model';
-import { API } from './API';
-import { fromPromise } from '@most/core';
-import axios from 'axios';
-import { either } from 'fp-ts';
+import { DOMAIN_API_URL } from './API';
+import { FundsApi, WalletsApi } from './scheme/rest-genereted/api';
+import { walletBalanceCodec } from './contracts/walletBalance.contract';
+import { Configuration } from './scheme/rest-genereted';
+import { walletFundsCodec } from './contracts/walletFunds.contract';
+import { transactionListCodec } from './contracts/walletTransaction.contract';
+import { allFundsCodec } from './contracts/funds.contract';
 
 export interface WaletRestService {
     getBalance: () => Stream<Either<string, WaletResponce>>;
@@ -26,33 +31,44 @@ export interface WaletRestService {
     getTransactions: () => Stream<Either<string, Array<Transactions>>>;
 }
 
+const walletsApi = new WalletsApi({
+    basePath: DOMAIN_API_URL,
+} as Configuration);
+
+const fundsApi = new FundsApi({
+    basePath: DOMAIN_API_URL,
+} as Configuration);
+
 export const newWaletRestService = injectable(
     token('userStore')<UserStoreService>(),
     (userStore): WaletRestService => {
         const { id: telegram_id } = userStore.user.get();
 
         return {
-            getBalance: getRequest(API.getWalletInfo(telegram_id)),
-            getAssets: getRequest(
-                API.getWalletInfo(telegram_id),
-                mapAssetsFromBalance
+            getBalance: getRequestGenerated(
+                walletsApi.walletBalanceGet(telegram_id ?? 0),
+                walletBalanceCodec
             ),
-            getFunds: getRequest(API.getFunds, mapFunds),
-            //TODO: че то сделать с getRequest
-            getWhaletFunds: () =>
-                fromPromise(
-                    axios
-                        .get(API.getWhaletFunds(telegram_id))
-                        .then(({ data }) => {
-                            if (data.total === 0) {
-                                return either.left('error');
-                            } else {
-                                return either.of(mapWhaletFunds(data));
-                            }
-                        })
-                ),
-            getTransactions: getRequest(
-                API.transactions(telegram_id),
+            getAssets: getRequestGenerated(
+                walletsApi.walletBalanceGet(telegram_id ?? 0),
+                walletBalanceCodec,
+                mapAssetsFromBalance,
+                mapAssetsFromBalanceValidation
+            ),
+            getFunds: getRequestGenerated(
+                fundsApi.fundsGet(),
+                allFundsCodec,
+                mapFunds
+            ),
+            getWhaletFunds: getRequestGenerated(
+                walletsApi.walletFundsGet(telegram_id ?? 0),
+                walletFundsCodec,
+                mapWhaletFunds,
+                getWhaletFundsValidation
+            ),
+            getTransactions: getRequestGenerated(
+                walletsApi.walletTransactionsGet(telegram_id ?? 0),
+                transactionListCodec,
                 normolizeTransactionKey
             ),
         };

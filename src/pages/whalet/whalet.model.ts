@@ -1,5 +1,5 @@
+import { either } from 'fp-ts';
 import * as t from 'io-ts';
-// import { FundsData } from '../what-to-buy/what-to-buy.model';
 
 // TODO: -> Asset, Funds, Transactions
 
@@ -10,6 +10,7 @@ export interface WaletResponce {
 }
 
 export type AssetResponce = {
+    id: string;
     name: string;
     symbol: string;
     balance: number;
@@ -31,6 +32,7 @@ export interface FundsRespnce {
     value: number;
     assets: Array<{
         asset: {
+            id: string;
             name: string;
             ticker: string;
             category: string;
@@ -67,6 +69,7 @@ interface WhaletFundsResponce {
 
 //#region UI
 export type Asset = {
+    id: string;
     name: string;
     symbol: string;
     balance: number;
@@ -101,6 +104,14 @@ export const AssetCodec = t.type({
 export const mapAssetsFromBalance = (data: WaletResponce): Array<Asset> =>
     data.assets.map((asset) => ({ ...asset, logo: asset.image_url }));
 
+// #region getAssetsValidations
+export const mapAssetsFromBalanceValidation = (data: WaletResponce) => {
+    if (data.total === 0) {
+        // переименовать в пустое состояние
+        return either.left('error');
+    }
+};
+
 export const mapWhaletFunds = (data: WhaletFundsResponce): Array<FundsData> => {
     if (!data.funds.length) return [];
     return data.funds.map(({ fund: data }) => ({
@@ -116,6 +127,12 @@ export const mapWhaletFunds = (data: WhaletFundsResponce): Array<FundsData> => {
         cost: data.value,
         assets: [],
     }));
+};
+
+export const getWhaletFundsValidation = (data: WhaletFundsResponce) => {
+    if (data.total === 0) {
+        return either.left('error');
+    }
 };
 
 export const mapFunds = (data: FundsRespnce): FundsData => ({

@@ -32,7 +32,12 @@ const formattedData = (assets: CoinCardData) => {
 export const Assets = ({ assets }: AssetsProps) => {
     const footerSlot = () => (
         <div className={css.footerButtons}>
-            <AppButton label="Choose a fund" type="secondary" />
+            {/* TODO:  на страницу фондов */}
+            <AppButton
+                label="Choose a fund"
+                type="secondary"
+                to="/what-to-buy"
+            />
             <AppButton to={'/deposit'} label="Deposit" />
         </div>
     );
@@ -41,6 +46,13 @@ export const Assets = ({ assets }: AssetsProps) => {
             <RenderResult
                 data={assets}
                 loading={() => <SkeletonCardSection count={4} type={'small'} />}
+                failure={() => (
+                    <EmptyScrean
+                        footerSlot={footerSlot}
+                        emptyGif={emptyGif}
+                        text={emptyText}
+                    />
+                )}
                 success={(assets) => (
                     <>
                         {!assets.length && (

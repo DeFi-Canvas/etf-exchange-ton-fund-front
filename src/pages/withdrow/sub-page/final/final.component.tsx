@@ -3,6 +3,7 @@ import css from './final.module.css';
 import * as E from 'fp-ts/Either';
 import img from '../../../../assets/images/finalgif.gif';
 import cn from 'classnames';
+import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 
 interface FinalProps {
     amount: E.Either<string, number>;
@@ -21,13 +22,22 @@ export const Final = ({ amount, currency, address, onClick }: FinalProps) => {
                 in the “Transactions” section.
             </span>
             <img src={img} alt="" />
-            <span className={css.amount}>
-                The amount of {E.isRight(amount) && amount.right} {currency} has
-                been sent to:
-            </span>
-            <span className={cn(css.normal, css.address)}>
-                {E.isRight(address) && address.right}
-            </span>
+            <RenderResult
+                data={amount}
+                success={(amount) => (
+                    <span className={css.amount}>
+                        The amount of {amount} {currency} has been sent to:
+                    </span>
+                )}
+            />
+            <RenderResult
+                data={address}
+                success={(address) => (
+                    <span className={cn(css.normal, css.address)}>
+                        {address}
+                    </span>
+                )}
+            />
             <div className={css.footer}>
                 <button
                     className={css.transactions}

@@ -21,11 +21,11 @@ const SellPage = injectable(
     PurchaseSellAssetCardContainer,
     PurchaseSellFinishBoodySheetContainer,
     (
-        PurchaseSellContentCardContainer,
-        PurchaseSellDetailsContainer,
-        PurchaseSellAssetCardContainer,
-        PurchaseSellFinishBoodySheetContainer
-    ) =>
+            PurchaseSellContentCardContainer,
+            PurchaseSellDetailsContainer,
+            PurchaseSellAssetCardContainer,
+            PurchaseSellFinishBoodySheetContainer
+        ) =>
         ({ showBottomSheet, setShowBottomSheet }: SellPageProps) => {
             const handleToggleBottomSheet = () => {
                 setShowBottomSheet(!showBottomSheet);
@@ -43,7 +43,11 @@ const SellPage = injectable(
                         className={css.details}
                         title="Sell Details"
                     />
-                    <PurchaseSellFooter title="Sell" onClick={() => {}} />
+                    <PurchaseSellFooter
+                        title="Sell"
+                        onClick={() => {}}
+                        isLoading={false}
+                    />
 
                     <BottomSheet
                         open={showBottomSheet}
