@@ -3,17 +3,16 @@ import * as t from 'io-ts';
 // /funds
 export const allFundsCodec = t.array(
     t.type({
-        id: t.string,
-        name: t.string,
+        assets: t.unknown,
         description: t.string,
-        management_fee: t.number,
+        id: t.string,
         image_url: t.string,
+        is_avaiable: t.boolean,
         is_dao: t.boolean,
+        management_fee: t.number,
+        name: t.string,
         risk_score: t.string,
         updated_event: t.string,
-        is_avaiable: t.boolean,
-        PTonAddress: t.string,
-        assets: t.unknown,
         value: t.number,
     })
 );

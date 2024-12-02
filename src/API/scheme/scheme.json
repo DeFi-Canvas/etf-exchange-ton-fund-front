@@ -855,9 +855,6 @@
                 "name": {
                     "type": "string"
                 },
-                "ptonAddress": {
-                    "type": "string"
-                },
                 "risk_score": {
                     "type": "string"
                 },
@@ -877,12 +874,6 @@
                 },
                 "asset": {
                     "$ref": "#/definitions/models.Asset"
-                },
-                "contractAddress": {
-                    "type": "string"
-                },
-                "routerVersion": {
-                    "type": "integer"
                 }
             }
         },

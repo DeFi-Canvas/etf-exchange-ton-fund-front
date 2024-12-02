@@ -454,12 +454,6 @@ export interface ModelsFund {
      * @type {string}
      * @memberof ModelsFund
      */
-    'ptonAddress'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsFund
-     */
     'risk_score'?: string;
     /**
      * 
@@ -492,18 +486,6 @@ export interface ModelsFundAsset {
      * @memberof ModelsFundAsset
      */
     'asset'?: ModelsAsset;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsFundAsset
-     */
-    'contractAddress'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ModelsFundAsset
-     */
-    'routerVersion'?: number;
 }
 /**
  * 
