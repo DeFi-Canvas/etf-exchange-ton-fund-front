@@ -16,9 +16,9 @@ import {
     WaletResponce,
 } from '@/pages/whalet/whalet.model';
 import { DOMAIN_API_URL } from './API';
-import { FundsApi, WalletsApi } from '../API/shema/rest-genereted/api';
+import { FundsApi, WalletsApi } from './scheme/rest-genereted/api';
 import { walletBalanceCodec } from './contracts/walletBalance.contract';
-import { Configuration } from './shema/rest-genereted';
+import { Configuration } from './scheme/rest-genereted';
 import { walletFundsCodec } from './contracts/walletFunds.contract';
 import { transactionListCodec } from './contracts/walletTransaction.contract';
 import { allFundsCodec } from './contracts/funds.contract';

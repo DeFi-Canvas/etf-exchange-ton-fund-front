@@ -8,8 +8,8 @@ import { fromPromise } from '@most/core';
 import axios from 'axios';
 import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
 import { API, DOMAIN_API_URL } from './API';
-import { TasksApi } from './shema/rest-genereted/api';
-import { Configuration } from './shema/rest-genereted';
+import { TasksApi } from './scheme/rest-genereted/api';
+import { Configuration } from './scheme/rest-genereted';
 import { taskListCodec } from './contracts/task.contract';
 // import { taskCompleteResponseCodec } from './contracts/taskComplete.contract';
 
@@ -37,7 +37,6 @@ export interface TasksCheckResponce extends TasksCheck {
 
 export interface ProfileRestService {
     getTask: () => Stream<Either<string, Array<EranStep>>>;
-    // checkTask: (id: string) => Stream<Either<string, TasksCheckResponce>>;
     checkTask: (id: string) => Stream<TasksCheckResponce>;
 }
 
@@ -63,15 +62,6 @@ export const newProfileRestService = injectable(
                 taskListCodec,
                 mapGetTask
             ),
-            // checkTask: (id) =>
-            //     getRequestGenerated(
-            //         tasksApi.tasksCompletePost({
-            //             telegram_id,
-            //             task_id: id,
-            //             init_data: initDataRaw,
-            //         }),
-            //         taskCompleteResponseCodec,
-            //     )(),
             checkTask: (id) => {
                 return fromPromise(
                     axios

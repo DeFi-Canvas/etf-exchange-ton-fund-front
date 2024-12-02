@@ -13,7 +13,7 @@
         "preview": "vite preview",
         "predeploy": "npm run build",
         "start": "vite preview",
-        "api:codegen": "openapi-generator-cli generate -i ./src/API/shema/shema.json -g typescript-axios -o ./src/API/shema/rest-genereted"
+        "api:codegen": "openapi-generator-cli generate -i ./src/API/scheme/scheme.json -g typescript-axios -o ./src/API/scheme/rest-genereted"
     },
     "dependencies": {
         "@frp-ts/core": "^1.0.0-beta.5",

@@ -10,8 +10,8 @@ import {
     mapDepositDetails,
 } from '@/pages/deposit/deposit.model';
 import { DOMAIN_API_URL } from './API';
-import { AssetsApi, DepositApi } from './shema/rest-genereted/api';
-import { Configuration } from './shema/rest-genereted';
+import { AssetsApi, DepositApi } from './scheme/rest-genereted/api';
+import { Configuration } from './scheme/rest-genereted';
 import { assetsCodec } from './contracts/assets.contract';
 import { depositResponseCodec } from './contracts/deposit.contract';
 

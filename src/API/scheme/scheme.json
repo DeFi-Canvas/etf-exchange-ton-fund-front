@@ -635,6 +635,9 @@
                 "amount": {
                     "type": "number"
                 },
+                "asset_id": {
+                    "type": "string"
+                },
                 "fund_id": {
                     "type": "string"
                 },
