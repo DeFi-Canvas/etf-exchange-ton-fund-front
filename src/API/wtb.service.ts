@@ -48,9 +48,6 @@ export const newWTBRestService = injectable(
                         telegram_id,
                         fund_id: args.fundId,
                         amount: args.amount,
-                        // TODO перегенерить
-                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                        //@ts-ignore
                         asset_id: args.assetId,
                         init_data: initDataRaw,
                     }),

@@ -53,6 +53,12 @@ export interface ControllersBuyIndexData {
      * @type {string}
      * @memberof ControllersBuyIndexData
      */
+    'asset_id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllersBuyIndexData
+     */
     'fund_id'?: string;
     /**
      * 
