@@ -9,13 +9,12 @@ const assetCodec = t.type({
     price: t.number,
     ticker: t.string,
     withdrawal_fee: t.number,
+    id: t.string,
 });
 
 const assetItemCodec = t.type({
     allocation_percentage: t.number,
     asset: assetCodec,
-    contractAddress: t.string,
-    routerVersion: t.number,
 });
 
 export const fundByIdResponseCodec = t.type({
