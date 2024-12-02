@@ -109,6 +109,8 @@ export const mapAssetsFromBalance = (data: WaletResponce): Array<Asset> =>
 
 // #region getAssetsValidations
 export const mapAssetsFromBalanceValidation = (data: WaletResponce) => {
+    console.log('mapAssetsFromBalanceValidation', data);
+
     if (data.total === 0) {
         // переименовать в пустое состояние
         return either.left('error');

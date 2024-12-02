@@ -47,7 +47,10 @@ export const getRequestGenerated =
     <P extends Props, C extends Mixed, ReturnType>(
         req: Promise<AxiosResponse<unknown, unknown>>,
         shema: TypeC<P> | ArrayType<C>,
-        map?: (data: t.TypeOf<typeof shema>) => ReturnType
+        map?: (data: t.TypeOf<typeof shema>) => ReturnType,
+        validation?: (
+            data: t.TypeOf<typeof shema>
+        ) => Either<string, unknown> | undefined
     ) =>
     <T>(): Stream<Either<string, T>> => {
         const stream: Stream<Either<string, T>> = fromPromise(
@@ -61,8 +64,13 @@ export const getRequestGenerated =
                                 'ALAAAAAARM Errors:',
                                 PathReporter.report(shema.decode(data))
                             );
+                            return either.left('error');
                         },
                         (data) => {
+                            const validData = validation && validation(data);
+                            if (validData) {
+                                return validData;
+                            }
                             if (!map) {
                                 return either.of(data);
                             }

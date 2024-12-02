@@ -6,7 +6,9 @@ import { getRequestGenerated } from './request.utils';
 import {
     Asset,
     FundsData,
+    getWhaletFundsValidation,
     mapAssetsFromBalance,
+    mapAssetsFromBalanceValidation,
     mapFunds,
     mapWhaletFunds,
     normolizeTransactionKey,
@@ -50,7 +52,8 @@ export const newWaletRestService = injectable(
             getAssets: getRequestGenerated(
                 walletsApi.walletBalanceGet(telegram_id ?? 0),
                 walletBalanceCodec,
-                mapAssetsFromBalance
+                mapAssetsFromBalance,
+                mapAssetsFromBalanceValidation
             ),
             getFunds: getRequestGenerated(
                 fundsApi.fundsGet(),
@@ -60,7 +63,8 @@ export const newWaletRestService = injectable(
             getWhaletFunds: getRequestGenerated(
                 walletsApi.walletFundsGet(telegram_id ?? 0),
                 walletFundsCodec,
-                mapWhaletFunds
+                mapWhaletFunds,
+                getWhaletFundsValidation
             ),
             getTransactions: getRequestGenerated(
                 walletsApi.walletTransactionsGet(telegram_id ?? 0),
