@@ -7,6 +7,7 @@ import { AssetsCard } from '@/components/assets-card/assets-card.component';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import { FundsData } from '../../whalet.model';
 import { SkeletonCardSection } from '@/components/skeletons/skeleton-card/skeleton-card-section.component';
+import { formatNumberToUI } from '@/utils/number';
 
 const emptyText = `You don't have any investments in funds right now. Get started by browsing through funds to discover opportunities.`;
 
@@ -23,7 +24,7 @@ const formattedData = (assets: FundsData) => {
         img: assets.logo,
         title: `${assets.name}`,
         subTitle: '',
-        price: `${$currency} ${assets.cost}`,
+        price: `${$currency} ${formatNumberToUI(assets.cost)}`,
         priceText: '',
     };
 };
@@ -32,8 +33,7 @@ export const Funds = ({ funds }: FundsProps) => {
     const footerSlot = () => (
         <div className={css.footerButtons}>
             <AppButton to={'/deposit'} label="Deposit" type="secondary" />
-            {/* TODO:  на страницу фондов */}
-            <AppButton label="Choose a fund" to="/what-to-buy" />
+            <AppButton label="Choose a fund" to="/what-to-buy/funds" />
         </div>
     );
 

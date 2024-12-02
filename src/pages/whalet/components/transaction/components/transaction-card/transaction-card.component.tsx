@@ -1,13 +1,13 @@
 import * as O from 'fp-ts/Option';
 import { pipe } from 'fp-ts/lib/function';
 import { formatCapsToSepareteCamel, formatDateToStr } from '@/utils/string';
-import { mapNumberOptionToUI } from '@/components/ui-kit/fpts-components-utils/options-map';
 import { OptionSpan } from '@/components/ui-kit/fpts-components-utils/options.component';
 import { ITransaction } from '../../types';
 import { TransactionStatusIcon } from '@/components/Icons/Icons';
 import cn from 'classnames';
 import css from './transaction-card.module.css';
 import { CSSProperties } from 'react';
+import { formatNumberToUI } from '@/utils/number';
 
 type CustomCSSProperties = CSSProperties & {
     '--color-status'?: string;
@@ -73,7 +73,7 @@ const TransactionCard = (props: ITransaction) => {
                 >
                     <OptionSpan
                         modificator={sideModificatorUI}
-                        data={mapNumberOptionToUI(props.amount)}
+                        data={pipe(props.amount, O.map(formatNumberToUI))}
                     />
                     <OptionSpan data={props.currency} />
                 </div>
