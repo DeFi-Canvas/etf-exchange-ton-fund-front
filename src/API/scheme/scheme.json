@@ -1,0 +1,1058 @@
+{
+    "schemes": [],
+    "swagger": "2.0",
+    "info": {
+        "description": "API для взаимодействия с ETF Exchange TON Fund",
+        "title": "ETF Exchange TON Fund API",
+        "contact": {
+            "name": "API Support",
+            "email": "support@example.com"
+        },
+        "version": "1.0"
+    },
+    "host": "",
+    "basePath": "/",
+    "paths": {
+        "/appopened": {
+            "post": {
+                "description": "Регистрирует или обновляет пользователя при открытии приложения",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["users"],
+                "summary": "App opened",
+                "parameters": [
+                    {
+                        "description": "Данные пользователя",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Успешный ответ с идентификатором пользователя",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.AppOpenedResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/assets": {
+            "get": {
+                "description": "Получить список всех активов",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["assets"],
+                "summary": "Get all assets",
+                "responses": {
+                    "200": {
+                        "description": "Список активов",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Asset"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/assets/{assetName}/networks": {
+            "get": {
+                "description": "Получить список сетей для указанного актива",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["assets"],
+                "summary": "Get networks for an asset",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Название актива",
+                        "name": "assetName",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список сетей",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Network"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Актив не найден",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/deposit": {
+            "get": {
+                "description": "Получить адрес для депозита по Telegram ID пользователя",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["deposit"],
+                "summary": "Get deposit address",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Telegram ID пользователя",
+                        "name": "telegram_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Успешный ответ с адресом депозита",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.DepositResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректный запрос",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/fund/{fund_id}": {
+            "get": {
+                "description": "Получить информацию о фонде по его идентификатору",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["funds"],
+                "summary": "Get fund by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Идентификатор фонда",
+                        "name": "fund_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Информация о фонде",
+                        "schema": {
+                            "$ref": "#/definitions/models.Fund"
+                        }
+                    },
+                    "404": {
+                        "description": "Фонд не найден",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/fundinfo": {
+            "get": {
+                "description": "Получить общую информацию о фонде",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["fund-stats"],
+                "summary": "Get fund information",
+                "responses": {
+                    "200": {
+                        "description": "Информация о фонде",
+                        "schema": {
+                            "$ref": "#/definitions/models.FundStats"
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/funds": {
+            "get": {
+                "description": "Получить список всех фондов",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["funds"],
+                "summary": "Get all funds",
+                "responses": {
+                    "200": {
+                        "description": "Список фондов",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Fund"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/news": {
+            "get": {
+                "description": "Получить список последних новостей",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["news"],
+                "summary": "Get latest news",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Количество новостей (по умолчанию 10)",
+                        "name": "count",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список новостей",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.News"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/tasks": {
+            "get": {
+                "description": "Получить список задач для указанного пользователя",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["tasks"],
+                "summary": "Get tasks for a user",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Telegram ID пользователя",
+                        "name": "telegram_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список задач",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Task"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/tasks/complete": {
+            "post": {
+                "description": "Завершить задачу для пользователя",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["tasks"],
+                "summary": "Complete a task",
+                "parameters": [
+                    {
+                        "description": "Запрос на завершение задачи",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.CompleteTaskRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Успешное завершение задачи",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.CompleteTaskResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "description": "Получить список всех пользователей",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["users"],
+                "summary": "Get all users",
+                "responses": {
+                    "200": {
+                        "description": "Список пользователей",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.User"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/wallet/balance": {
+            "get": {
+                "description": "Получить баланс кошелька пользователя",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["wallets"],
+                "summary": "Get wallet balance",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Telegram ID пользователя",
+                        "name": "telegram_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Баланс кошелька",
+                        "schema": {
+                            "$ref": "#/definitions/models.WalletBalance"
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/wallet/buyindex": {
+            "post": {
+                "description": "Купить индекс для пользователя",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["wallets"],
+                "summary": "Buy index",
+                "parameters": [
+                    {
+                        "description": "Запрос на покупку индекса",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.BuyIndexData"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Успешная покупка индекса",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.BuyIndexResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/wallet/funds": {
+            "get": {
+                "description": "Получить средства пользователя из кошелька",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["wallets"],
+                "summary": "Get wallet funds",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Telegram ID пользователя",
+                        "name": "telegram_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список средств",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Fund"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/wallet/sellindex": {
+            "post": {
+                "description": "Продать индекс для пользователя",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["wallets"],
+                "summary": "Sell index",
+                "parameters": [
+                    {
+                        "description": "Запрос на продажу индекса",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.SellIndexRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Успешная продажа индекса",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.SellIndexResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/wallet/transactions": {
+            "get": {
+                "description": "Получить транзакции пользователя",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["wallets"],
+                "summary": "Get wallet transactions",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Telegram ID пользователя",
+                        "name": "telegram_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Максимальное количество транзакций (по умолчанию 20)",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Смещение для пагинации",
+                        "name": "offset",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список транзакций",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Transaction"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/wallets/{user_id}": {
+            "get": {
+                "description": "Получить список кошельков пользователя",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["wallets"],
+                "summary": "Get user wallets",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Идентификатор пользователя",
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список кошельков",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Wallet"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/withdraw": {
+            "post": {
+                "description": "Вывести средства с кошелька пользователя",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["wallets"],
+                "summary": "Withdraw funds",
+                "parameters": [
+                    {
+                        "description": "Запрос на вывод средств",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.WithdrawData"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Успешный вывод средств",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.WithdrawResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "controllers.AppOpenedResponse": {
+            "type": "object",
+            "properties": {
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "controllers.BuyIndexData": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number"
+                },
+                "asset_id": {
+                    "type": "string"
+                },
+                "fund_id": {
+                    "type": "string"
+                },
+                "init_data": {
+                    "type": "string"
+                },
+                "telegram_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "controllers.BuyIndexResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "boolean"
+                },
+                "transaction": {
+                    "type": "string"
+                }
+            }
+        },
+        "controllers.CompleteTaskRequest": {
+            "type": "object",
+            "properties": {
+                "init_data": {
+                    "type": "string"
+                },
+                "task_id": {
+                    "type": "string"
+                },
+                "telegram_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "controllers.CompleteTaskResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "controllers.DepositResponse": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "memo": {
+                    "type": "string"
+                },
+                "qrimgsrc": {
+                    "type": "string"
+                }
+            }
+        },
+        "controllers.SellIndexRequest": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number"
+                },
+                "fund_id": {
+                    "type": "string"
+                },
+                "init_data": {
+                    "type": "string"
+                },
+                "telegram_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "controllers.SellIndexResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "boolean"
+                },
+                "transaction": {
+                    "type": "string"
+                }
+            }
+        },
+        "controllers.WithdrawData": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "amount": {
+                    "type": "number"
+                },
+                "asset": {
+                    "type": "string"
+                },
+                "init_data": {
+                    "type": "string"
+                },
+                "memo": {
+                    "type": "string"
+                },
+                "telegram_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "controllers.WithdrawResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "boolean"
+                },
+                "transaction": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Asset": {
+            "type": "object",
+            "properties": {
+                "category": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "image_url": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "ticker": {
+                    "type": "string"
+                },
+                "withdrawal_fee": {
+                    "type": "number"
+                }
+            }
+        },
+        "models.AssetBalance": {
+            "type": "object",
+            "properties": {
+                "balance": {
+                    "type": "number"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "image_url": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "symbol": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "number"
+                }
+            }
+        },
+        "models.Fund": {
+            "type": "object",
+            "properties": {
+                "assets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.FundAsset"
+                    }
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "image_url": {
+                    "type": "string"
+                },
+                "is_avaiable": {
+                    "type": "boolean"
+                },
+                "is_dao": {
+                    "type": "boolean"
+                },
+                "management_fee": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "ptonAddress": {
+                    "type": "string"
+                },
+                "risk_score": {
+                    "type": "string"
+                },
+                "updated_event": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "number"
+                }
+            }
+        },
+        "models.FundAsset": {
+            "type": "object",
+            "properties": {
+                "allocation_percentage": {
+                    "type": "number"
+                },
+                "asset": {
+                    "$ref": "#/definitions/models.Asset"
+                },
+                "contractAddress": {
+                    "type": "string"
+                },
+                "routerVersion": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.FundStats": {
+            "type": "object",
+            "properties": {
+                "holders": {
+                    "type": "integer"
+                },
+                "tvl": {
+                    "type": "number"
+                }
+            }
+        },
+        "models.Network": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "integer"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "image_url": {
+                    "type": "string"
+                },
+                "isTestnet": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.News": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "published_at": {
+                    "type": "string"
+                },
+                "source": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.ResponseError": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Task": {
+            "type": "object",
+            "properties": {
+                "channelID": {
+                    "type": "integer"
+                },
+                "completed": {
+                    "type": "boolean"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "reward": {
+                    "type": "number"
+                },
+                "telegramID": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Transaction": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "amount": {
+                    "type": "number"
+                },
+                "asset": {
+                    "$ref": "#/definitions/models.Asset"
+                },
+                "timestamp": {
+                    "type": "string"
+                },
+                "tx": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "number"
+                }
+            }
+        },
+        "models.User": {
+            "type": "object",
+            "properties": {
+                "first_name": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "memo": {
+                    "type": "integer"
+                },
+                "telegram_id": {
+                    "type": "integer"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Wallet": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "network_id": {
+                    "type": "string"
+                },
+                "secretKey": {
+                    "type": "string"
+                },
+                "userID": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.WalletBalance": {
+            "type": "object",
+            "properties": {
+                "assets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.AssetBalance"
+                    }
+                },
+                "total": {
+                    "type": "number"
+                }
+            }
+        }
+    }
+}

@@ -12,6 +12,6 @@ const assetCodec = t.type({
 });
 
 export const walletBalanceCodec = t.type({
-    assets: t.array(assetCodec),
+    assets: t.union([t.array(assetCodec), t.undefined]),
     total: t.number,
 });

@@ -1,8 +1,5 @@
-import { walletBalanceCodec } from '@/API/contracts/walletBalance.contract';
 import { either } from 'fp-ts';
 import * as t from 'io-ts';
-import { PathReporter } from 'io-ts/PathReporter';
-// import { FundsData } from '../what-to-buy/what-to-buy.model';
 
 // TODO: -> Asset, Funds, Transactions
 
@@ -113,13 +110,6 @@ export const mapAssetsFromBalanceValidation = (data: WaletResponce) => {
         // переименовать в пустое состояние
         return either.left('error');
     }
-};
-
-export const assetsIsValidData = (data: WaletResponce) => {
-    if (!walletBalanceCodec.is(data)) {
-        console.log(PathReporter.report(walletBalanceCodec.decode(data)));
-    }
-    return data;
 };
 
 export const mapWhaletFunds = (data: WhaletFundsResponce): Array<FundsData> => {
