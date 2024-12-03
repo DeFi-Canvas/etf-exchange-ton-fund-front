@@ -3,6 +3,7 @@ import { constVoid } from 'fp-ts/function';
 import CardPrice from '@/pages/what-to-buy/sub-page/funds/components/price/price.components.tsx';
 import css from './assets-single.module.css';
 import cn from 'classnames';
+import TermsAndConditions from '@/components/terms-and-conditions/terms-and-conditions.components.tsx';
 
 interface MoreInfoItem {
     title: string;
@@ -43,8 +44,8 @@ const AssetsSinglePage = () => {
                     Toncoin (TON) is a decentralized layer-1 blockchain that was
                     initially developed in 2018 by an encrypted messaging
                     platform. However, the project was later taken over by the
-                    TON Foundation and renamed from "Telegram Open Network" to
-                    "The Open Network". Toncoin, previously known as Gram, is
+                    TON Foundation and renamed from &#34;Telegram Open Network&#34; to
+                    &#34;The Open Network&#34;. Toncoin, previously known as Gram, is
                     the native cryptocurrency of the TON network. The network
                     seeks to provide an ecosystem with decentralized storage,
                     services, a domain name system, an anonymous network, an
@@ -67,6 +68,7 @@ const AssetsSinglePage = () => {
                     ))}
                 </div>
             </div>
+            <TermsAndConditions />
         </div>
     );
 };

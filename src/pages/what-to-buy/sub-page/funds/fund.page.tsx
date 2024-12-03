@@ -8,6 +8,7 @@ import ChartFooter from './components/footer/footer.component';
 import { injectable } from '@injectable-ts/core';
 import { AboutContainer } from './components/chart-about/about.container';
 import { WhatInsideContainer } from './components/what-inside/what-inside.container';
+import TermsAndConditions from '@/components/terms-and-conditions/terms-and-conditions.components.tsx';
 
 interface FundPageProps {
     name: string;
@@ -32,7 +33,7 @@ export const FundPage = injectable(
                     <ChartMoreInfo />
                     <ChartCardAuthor />
                     <ChartFooter />
-                    <div className={css.termsCondition}>Terms & conditions</div>
+                    <TermsAndConditions />
                 </div>
             );
         }
