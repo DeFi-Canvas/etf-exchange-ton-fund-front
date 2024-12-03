@@ -17,18 +17,19 @@ export const AssetsCard = ({
     type = 'default',
     ...props
 }: AssetsCard): JSX.Element => {
+    const linkTo = '/assets/:name';
+
     switch (type) {
         case 'default':
             return assetsCodec.is(props) ? (
-                <Link to={'/assets/:name'}>
-                    <CardDefault {...props} />
-                </Link>
+                // TODO:N Мистер фиш, почините это плс, чтоб была возможность снаружи прокидывать куда мы топаем, но решалось всё внутри
+                <CardDefault {...props} />
             ) : (
                 <></>
             );
         case 'pnl':
             return assetsPnlCodec.is(props) ? (
-                <Link to={'/assets/:name'}>
+                <Link to={linkTo}>
                     <CardPnl {...props} />
                 </Link>
             ) : (

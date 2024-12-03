@@ -4,11 +4,13 @@ import ChartLines from './components/lines/lines.component';
 // import ChartInvestedCard from './components/invested-card/invested-card.component';
 import ChartMoreInfo from './components/more-info/more-info.component';
 import ChartCardAuthor from './components/author/card-author.component';
-import ChartFooter from './components/footer/footer.component';
 import { injectable } from '@injectable-ts/core';
 import { AboutContainer } from './components/chart-about/about.container';
 import { WhatInsideContainer } from './components/what-inside/what-inside.container';
 import TermsAndConditions from '@/components/terms-and-conditions/terms-and-conditions.components.tsx';
+import AppFooter from '@/components/app-footer/app-footer.components.tsx';
+import AppButton from '@/components/AppButton/AppButton.tsx';
+import { useNavigate, useParams } from 'react-router-dom';
 
 interface FundPageProps {
     name: string;
@@ -20,6 +22,9 @@ export const FundPage = injectable(
     WhatInsideContainer,
     (AboutContainer, WhatInsideContainer) =>
         ({ name, logo }: FundPageProps) => {
+            const { id } = useParams();
+            const navigate = useNavigate();
+
             return (
                 <div className={cn('app-container', css.page)}>
                     <div className={css.foundCard}>
@@ -32,7 +37,12 @@ export const FundPage = injectable(
                     <WhatInsideContainer />
                     <ChartMoreInfo />
                     <ChartCardAuthor />
-                    <ChartFooter />
+                    <AppFooter>
+                        <AppButton
+                            label="Buy"
+                            onClick={() => navigate(`/what-to-buy/purchase/${id}`)}
+                        />
+                    </AppFooter>
                     <TermsAndConditions />
                 </div>
             );

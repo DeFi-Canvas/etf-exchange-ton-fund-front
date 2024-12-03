@@ -8,7 +8,7 @@ interface AppFooterProps {
 
 const AppFooter = (props: AppFooterProps) => {
     return (
-        <footer className={cn(css.footer, props.className)}>
+        <footer className={cn(css.appFooter, props.className)}>
             {props.children}
         </footer>
     );
