@@ -6,9 +6,9 @@ ARG VITE_DOMAIN_API_URL
 ENV VITE_DOMAIN_API_URL=$VITE_DOMAIN_API_URL
 
 COPY package.json .
-COPY package-lock.json .
+# COPY package-lock.json .
 
-RUN npm ci
+RUN npm i
 
 RUN npm i -g serve
 
