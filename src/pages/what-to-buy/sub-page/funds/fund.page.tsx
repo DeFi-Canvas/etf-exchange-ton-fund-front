@@ -9,7 +9,7 @@ import { AboutContainer } from './components/chart-about/about.container';
 import { WhatInsideContainer } from './components/what-inside/what-inside.container';
 import TermsAndConditions from '@/components/terms-and-conditions/terms-and-conditions.components.tsx';
 import AppFooter from '@/components/app-footer/app-footer.components.tsx';
-import AppButton from '@/components/AppButton/AppButton.tsx';
+import AppButton from '@/components/app-button/app-button.component.tsx';
 import { useNavigate, useParams } from 'react-router-dom';
 
 interface FundPageProps {

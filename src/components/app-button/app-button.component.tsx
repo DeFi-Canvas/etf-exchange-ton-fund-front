@@ -1,13 +1,14 @@
 import { SpinIcon } from '../Icons/Icons';
-import css from './AppButton.module.scss';
+import css from './app-button.module.css';
 import { Link } from '@/components/Link/Link.tsx';
+import cn from 'classnames';
 
-type TButtomType = 'default' | 'secondary';
+type ButtonType = 'default' | 'secondary';
 
 interface AppButtonProps {
     label: string;
     className?: string;
-    type?: TButtomType;
+    type?: ButtonType;
     to?: string;
     isDisabled?: boolean;
     isLoading?: boolean;
@@ -15,15 +16,11 @@ interface AppButtonProps {
 }
 
 const AppButton = (props: AppButtonProps) => {
-    // Script
     const buttonType = props?.type ?? 'default';
-    const classList = [
-        props.className,
-        css.button,
-        buttonType === 'secondary' ? css.buttonSecondary : '',
-    ].join(' ');
+    const classList = cn(props.className, css.button, {
+        [css.buttonSecondary]: buttonType === 'secondary',
+    })
 
-    // Template
     return props.to ? (
         <Link to={props.to} className={classList}>
             {props.isLoading ? (

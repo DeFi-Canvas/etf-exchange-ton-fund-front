@@ -1,7 +1,7 @@
 import css from './funds.module.css';
 import { EmptyScrean } from '../epty-screan/epty-screan.component';
 import emptyGif from '../../../../assets/images/money_duck.gif';
-import AppButton from '@/components/AppButton/AppButton';
+import AppButton from '@/components/app-button/app-button.component.tsx';
 import * as E from 'fp-ts/Either';
 import { AssetsCard } from '@/components/assets-card/assets-card.component';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';

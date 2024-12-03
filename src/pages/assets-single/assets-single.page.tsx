@@ -5,7 +5,7 @@ import css from './assets-single.module.css';
 import cn from 'classnames';
 import TermsAndConditions from '@/components/terms-and-conditions/terms-and-conditions.components.tsx';
 import AppFooter from '@/components/app-footer/app-footer.components.tsx';
-import AppButton from '@/components/AppButton/AppButton.tsx';
+import AppButton from '@/components/app-button/app-button.component.tsx';
 
 interface MoreInfoItem {
     title: string;
