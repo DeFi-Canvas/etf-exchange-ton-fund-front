@@ -2,12 +2,12 @@ import cn from 'classnames';
 import css from './fund.module.css';
 import ChartLines from './components/lines/lines.component';
 // import ChartInvestedCard from './components/invested-card/invested-card.component';
-import ChartMoreInfo from './components/more-info/more-info.component';
-import ChartCardAuthor from './components/author/card-author.component';
-import ChartFooter from './components/footer/footer.component';
+import MoreInfo from './components/more-info/more-info.component';
+import CardAuthor from './components/author/card-author.component';
 import { injectable } from '@injectable-ts/core';
 import { AboutContainer } from './components/chart-about/about.container';
 import { WhatInsideContainer } from './components/what-inside/what-inside.container';
+import { FooterContainer } from './components/footer/footer.container';
 
 interface FundPageProps {
     name: string;
@@ -17,7 +17,8 @@ interface FundPageProps {
 export const FundPage = injectable(
     AboutContainer,
     WhatInsideContainer,
-    (AboutContainer, WhatInsideContainer) =>
+    FooterContainer,
+    (AboutContainer, WhatInsideContainer, FooterContainer) =>
         ({ name, logo }: FundPageProps) => {
             return (
                 <div className={cn('app-container', css.page)}>
@@ -29,9 +30,9 @@ export const FundPage = injectable(
                     {/* <ChartInvestedCard /> */}
                     <AboutContainer />
                     <WhatInsideContainer />
-                    <ChartMoreInfo />
-                    <ChartCardAuthor />
-                    <ChartFooter />
+                    <MoreInfo />
+                    <CardAuthor />
+                    <FooterContainer />
                     <div className={css.termsCondition}>Terms & conditions</div>
                 </div>
             );

@@ -17,7 +17,6 @@ const fundItem = t.type({
                     risk_score: t.string,
                     updated_event: t.string,
                     is_avaiable: t.boolean,
-                    PTonAddress: t.string,
                     assets: t.unknown,
                     value: t.number,
                 }),

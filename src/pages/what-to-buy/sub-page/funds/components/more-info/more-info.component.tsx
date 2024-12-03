@@ -6,7 +6,7 @@ interface ChartMoreInfoCardInterface {
     value: string;
 }
 
-const ChartMoreInfo = () => {
+const MoreInfo = () => {
     const cards: ChartMoreInfoCardInterface[] = [
         {
             id: 1,
@@ -49,4 +49,4 @@ const ChartMoreInfo = () => {
     );
 };
 
-export default ChartMoreInfo;
+export default MoreInfo;

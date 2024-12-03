@@ -1,6 +1,6 @@
 import css from './card-author.module.css';
 
-const ChartCardAuthor = () => {
+const CardAuthor = () => {
     return (
         <div className={css.card}>
             <div className={css.cardTitle}>Author</div>
@@ -19,4 +19,4 @@ const ChartCardAuthor = () => {
     );
 };
 
-export default ChartCardAuthor;
+export default CardAuthor;

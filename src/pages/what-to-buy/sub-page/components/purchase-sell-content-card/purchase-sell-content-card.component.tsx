@@ -15,6 +15,7 @@ interface PurchaseSellContentCardProps {
     assetCardData: InterfacePurchaseSellAssetCardData;
     totalAmount: O.Option<TotalAmount>;
     onClick: () => void;
+    maxQuantity: number;
 }
 const PurchaseSellContentCard = injectable(
     PurchaseSellFieldCounterContainer,
@@ -23,6 +24,7 @@ const PurchaseSellContentCard = injectable(
             assetCardData,
             totalAmount,
             onClick,
+            maxQuantity,
         }: PurchaseSellContentCardProps) => {
             const currentTotalAmount = pipe(
                 totalAmount,
@@ -31,8 +33,6 @@ const PurchaseSellContentCard = injectable(
                     coin: 0,
                 }))
             );
-
-            const maxQuantity = 304;
 
             return (
                 <div className={css.card}>
@@ -48,7 +48,7 @@ const PurchaseSellContentCard = injectable(
                             <header className={css.cardTitle}>
                                 <span>Quantity</span>
                                 <div className={css.maxCounter}>
-                                    MAX: {maxQuantity}
+                                    MAX: {Number.parseInt(`${maxQuantity}`)}
                                 </div>
                             </header>
                             <PurchaseSellFieldCounterContainer />

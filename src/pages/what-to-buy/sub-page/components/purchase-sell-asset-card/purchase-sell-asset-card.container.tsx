@@ -20,7 +20,6 @@ export const PurchaseSellAssetCardContainer = injectable(
     (store) =>
         ({ type }: PurchaseSellAssetCardContainerProps) => {
             const funds = useProperty(store.fundData);
-
             // TODO: переписать на RenderEither
             const fundsAssets: FundsData = E.isRight(funds)
                 ? funds.right

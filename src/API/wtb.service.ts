@@ -53,19 +53,6 @@ export const newWTBRestService = injectable(
                     }),
                     buyIndexResponseCodec
                 )(),
-            // buyFund: (args) =>
-            //     fromPromise(
-            //         axios
-            //             .post(API.buyFund, {
-            //                 telegram_id,
-            //                 fund_id: args.fundId,
-            //                 amount: args.amount,
-            //                 asset_id: args.assetId,
-            //                 init_data: initDataRaw,
-            //             })
-            //             .then(({ data }) => either.of(data))
-            //             .catch(() => either.of(null))
-            //     ),
         };
     }
 );

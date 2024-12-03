@@ -18,7 +18,6 @@ const assetItemCodec = t.type({
 });
 
 export const fundByIdResponseCodec = t.type({
-    PTonAddress: t.string,
     assets: t.array(assetItemCodec),
     description: t.string,
     id: t.string,
