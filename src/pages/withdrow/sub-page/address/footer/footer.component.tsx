@@ -1,6 +1,6 @@
-import { useNavigate } from 'react-router-dom';
 import css from './footer.module.css';
 import cn from 'classnames';
+import AppButton from '@/components/app-button/app-button.component.tsx';
 
 interface FooterProps {
     balanceAfter: number;
@@ -15,8 +15,6 @@ export const Footer = ({
     currency,
     symbolLogo,
 }: FooterProps) => {
-    const navigate = useNavigate();
-
     return (
         <div className={cn(css.footerWrap)}>
             <div className={css.availableBalance}>
@@ -29,15 +27,11 @@ export const Footer = ({
                 </div>
             </div>
             <div className={css.footer}>
-                <button
-                    disabled={!isGoToCheckAvailable}
-                    className={cn(css.nextButton, {
-                        [css.disabled]: !isGoToCheckAvailable,
-                    })}
-                    onClick={() => navigate('/withdraw/:ticker/address/check')}
-                >
-                    Continue
-                </button>
+                <AppButton
+                    label="Continue123"
+                    to={'/withdraw/:ticker/address/check'}
+                    isDisabled={!isGoToCheckAvailable}
+                />
             </div>
         </div>
     );

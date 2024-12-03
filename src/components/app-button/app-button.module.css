@@ -17,6 +17,11 @@
     color: var(--color-main-purple);
 }
 
+.buttonDisabled {
+    background-color: var(--color-text-dark-10);
+    color: var(--color-text-dark-20);
+}
+
 .spinLoading {
     animation-name: spin;
     animation-duration: 1s;

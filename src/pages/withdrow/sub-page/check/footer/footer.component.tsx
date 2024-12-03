@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import css from './footer.module.css';
 import cn from 'classnames';
+import AppButton from '@/components/app-button/app-button.component.tsx';
 
 interface FooterProps {
     balanceAfter: number;
@@ -33,9 +34,7 @@ export const Footer = ({
                 </div>
             </div>
             <div className={css.footer}>
-                <button className={cn(css.nextButton)} onClick={onClick}>
-                    Submit and withdraw
-                </button>
+                <AppButton label="Submit and withdraw" onClick={onClick} />
             </div>
         </div>
     );

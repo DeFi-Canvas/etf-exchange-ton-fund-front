@@ -2,9 +2,9 @@ import { useState } from 'react';
 import css from './amount.module.css';
 import * as E from 'fp-ts/Either';
 import cn from 'classnames';
-import { useNavigate } from 'react-router-dom';
 import AmountField from './amount-field/amount-field.component';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
+import AppButton from '@/components/app-button/app-button.component.tsx';
 
 export type AmountErrors = 'too small' | 'too big';
 
@@ -36,8 +36,6 @@ export const Amount = ({
     availableBalance,
     symbolLogo,
 }: AmountProps) => {
-    const navigate = useNavigate();
-
     const [amountValue, setAmountValue] = useState<string>('');
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,13 +81,11 @@ export const Amount = ({
                     </div>
                 </div>
                 <div className={css.footer}>
-                    <button
-                        disabled={!isNextButtonAvailable}
-                        className={css.nextButton}
-                        onClick={() => navigate('/withdraw/:ticker/address')}
-                    >
-                        Continue
-                    </button>
+                    <AppButton
+                        label="Continue"
+                        isDisabled={!isNextButtonAvailable}
+                        to={'/withdraw/:ticker/address'}
+                    />
                 </div>
             </div>
         </div>

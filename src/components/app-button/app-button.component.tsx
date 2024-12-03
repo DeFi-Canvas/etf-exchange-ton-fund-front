@@ -16,12 +16,14 @@ interface AppButtonProps {
 }
 
 const AppButton = (props: AppButtonProps) => {
+    const isDisabled = props.isDisabled ?? false;
     const buttonType = props?.type ?? 'default';
     const classList = cn(props.className, css.button, {
         [css.buttonSecondary]: buttonType === 'secondary',
+        [css.buttonDisabled]: isDisabled,
     })
 
-    return props.to ? (
+    return (props.to && !isDisabled) ? (
         <Link to={props.to} className={classList}>
             {props.isLoading ? (
                 <SpinIcon className={css.spinLoading} type="light" />
