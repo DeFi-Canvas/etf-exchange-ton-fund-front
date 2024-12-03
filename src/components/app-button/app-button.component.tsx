@@ -21,9 +21,9 @@ const AppButton = (props: AppButtonProps) => {
     const classList = cn(props.className, css.button, {
         [css.buttonSecondary]: buttonType === 'secondary',
         [css.buttonDisabled]: isDisabled,
-    })
+    });
 
-    return (props.to && !isDisabled) ? (
+    return props.to && !isDisabled ? (
         <Link to={props.to} className={classList}>
             {props.isLoading ? (
                 <SpinIcon className={css.spinLoading} type="light" />

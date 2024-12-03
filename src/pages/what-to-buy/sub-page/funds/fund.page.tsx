@@ -40,7 +40,9 @@ export const FundPage = injectable(
                     <AppFooter>
                         <AppButton
                             label="Buy"
-                            onClick={() => navigate(`/what-to-buy/purchase/${id}`)}
+                            onClick={() =>
+                                navigate(`/what-to-buy/purchase/${id}`)
+                            }
                         />
                     </AppFooter>
                     <TermsAndConditions />

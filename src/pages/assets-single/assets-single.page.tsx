@@ -46,15 +46,15 @@ const AssetsSinglePage = () => {
                     Toncoin (TON) is a decentralized layer-1 blockchain that was
                     initially developed in 2018 by an encrypted messaging
                     platform. However, the project was later taken over by the
-                    TON Foundation and renamed from &#34;Telegram Open Network&#34; to
-                    &#34;The Open Network&#34;. Toncoin, previously known as Gram, is
-                    the native cryptocurrency of the TON network. The network
-                    seeks to provide an ecosystem with decentralized storage,
-                    services, a domain name system, an anonymous network, an
-                    instant payment platform, and efficient transaction
-                    processing. The TON network is community-driven and focuses
-                    on serving a typical consumer with its flexible
-                    architecture.
+                    TON Foundation and renamed from &#34;Telegram Open
+                    Network&#34; to &#34;The Open Network&#34;. Toncoin,
+                    previously known as Gram, is the native cryptocurrency of
+                    the TON network. The network seeks to provide an ecosystem
+                    with decentralized storage, services, a domain name system,
+                    an anonymous network, an instant payment platform, and
+                    efficient transaction processing. The TON network is
+                    community-driven and focuses on serving a typical consumer
+                    with its flexible architecture.
                 </p>
             </div>
             <div className={cn(css.card, css.moreInfoCard)}>
