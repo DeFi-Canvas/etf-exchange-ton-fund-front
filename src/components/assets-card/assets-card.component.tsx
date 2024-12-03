@@ -7,6 +7,7 @@ import {
 // Templates
 import CardDefault from './components/card-default/card-default.component.tsx';
 import CardPnl from './components/card-pnl/card-pnl.component.tsx';
+import { Link } from 'react-router-dom';
 
 type AssetsCardType = 'pnl' | 'default';
 
@@ -18,8 +19,8 @@ export const AssetsCard = ({
 }: AssetsCard): JSX.Element => {
     switch (type) {
         case 'default':
-            return assetsCodec.is(props) ? <CardDefault {...props} /> : <></>;
+            return assetsCodec.is(props) ? <Link to={'/assets/:name'}><CardDefault {...props} /></Link> : <></>;
         case 'pnl':
-            return assetsPnlCodec.is(props) ? <CardPnl {...props} /> : <></>;
+            return assetsPnlCodec.is(props) ? <Link to={'/assets/:name'}><CardPnl {...props} /></Link> : <></>;
     }
 };
