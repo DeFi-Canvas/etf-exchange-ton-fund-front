@@ -63,7 +63,7 @@ interface WhaletFundsResponce {
                 value: number;
             };
             value: number;
-        }
+        },
     ];
 }
 
