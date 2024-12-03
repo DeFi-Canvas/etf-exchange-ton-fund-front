@@ -4,6 +4,8 @@ import CardPrice from '@/pages/what-to-buy/sub-page/funds/components/price/price
 import css from './assets-single.module.css';
 import cn from 'classnames';
 import TermsAndConditions from '@/components/terms-and-conditions/terms-and-conditions.components.tsx';
+import AppFooter from '@/components/app-footer/app-footer.components.tsx';
+import AppButton from '@/components/AppButton/AppButton.tsx';
 
 interface MoreInfoItem {
     title: string;
@@ -69,6 +71,9 @@ const AssetsSinglePage = () => {
                 </div>
             </div>
             <TermsAndConditions />
+            <AppFooter>
+                <AppButton label="Swap" />
+            </AppFooter>
         </div>
     );
 };
