@@ -47,6 +47,7 @@ const SellPage = injectable(
                         title="Sell"
                         onClick={() => {}}
                         isLoading={false}
+                        isDisabled={false}
                     />
 
                     <BottomSheet
