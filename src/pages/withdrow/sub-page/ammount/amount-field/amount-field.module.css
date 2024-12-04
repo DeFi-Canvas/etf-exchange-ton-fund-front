@@ -17,8 +17,7 @@
 .currencyLabel {
     position: absolute;
     left: 35px;
-    top: 50%;
-    transform: translateY(-50%);
+    bottom: 5px;
     pointer-events: none;
     transition: left 0.1s ease-in;
     color: var(--color-text-dark-50);
