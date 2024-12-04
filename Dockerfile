@@ -1,26 +1,21 @@
-# syntax=docker/dockerfile:1
+FROM node:latest as builder
 
-FROM node:20.18.1-bullseye-slim
+WORKDIR /usr/src/app
+ENV PATH /usr/src/node_modules/.bin:$PATH
 
-WORKDIR /app
+ARG VITE_DOMAIN_API_URL
+ENV VITE_DOMAIN_API_URL=$VITE_DOMAIN_API_URL
 
-# ARG VITE_DOMAIN_API_URL
-# ENV VITE_DOMAIN_API_URL=$VITE_DOMAIN_API_URL
+COPY package.json ./
 
-COPY package.json .
-# COPY package-lock.json .
+RUN npm install
 
-RUN npm i
-
-# RUN npm i -g serve
-
-COPY . .
+COPY . ./
 
 RUN npm run build
 
-# EXPOSE 3000
+FROM nginx:latest as prod
 
-CMD ["npm", "run", "start"]
+COPY --from=builder /usr/src/app/dist /usr/share/nginx/html
 
-# CMD ["serve", "-s", "dist"]
-
+CMD ["nginx", "-g", "daemon off;"]
