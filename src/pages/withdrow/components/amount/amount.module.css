@@ -1,48 +1,49 @@
-.amount {
-    .title {
-        color: var(--color-text-dark-70);
-        font-size: var(--Font-Size-sm, 14px);
-        font-style: normal;
-        font-weight: 510;
-        line-height: 150%;
-    }
+.amountWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
 
-    .coinInfo {
-        padding: 12px;
-        border-radius: 12px;
-        background: var(--Colors-Background-Light, #f9f8ff);
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
+.amountTitle {
+    font-weight: 510;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-text-dark-70);
+}
 
-        img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
+.coinInfo {
+    padding: 12px;
+    border-radius: 12px;
+    background: var(--color-background-light);
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
 
-        .column {
-            display: flex;
-            flex-direction: column;
+.coinInfoImage {
+    --size: 40px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: calc(var(--size) / 2);
+}
 
-            &:nth-child(2) {
-                flex-grow: 1;
-            }
+.column {
+    display: flex;
+    flex-direction: column;
+}
 
-            .title {
-                color: var(--color-text-dark);
-                font-size: var(--Font-Size-md, 16px);
-                font-style: normal;
-                font-weight: 510;
-                line-height: 135%;
-            }
-            .sub {
-                color: var(--color-text-dark-50);
-                font-size: 12px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: 150%; /* 18px */
-            }
-        }
-    }
+.columnWide {
+    flex-grow: 1;;
+}
+
+.coinInfoTitle {
+    color: var(--color-text-dark);
+    font-weight: 510;
+    line-height: 1.35;
+}
+
+.coinInfoSubtitle {
+    color: var(--color-text-dark-50);
+    font-size: 12px;
+    line-height: 1.5;
 }
