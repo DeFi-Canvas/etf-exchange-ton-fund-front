@@ -75,12 +75,21 @@ export const App: FC = () => {
         return () => navigator.detach();
     }, [navigator]);
 
+    const pageHasTabBar = [
+        '/',
+        '/what-to-buy',
+        '/profile',
+        '/funds', // TODO временно, пока не будет переписано на табы
+        '/transactions', // TODO временно, пока не будет переписано на табы
+    ];
+    const isVisibleTabBar = pageHasTabBar.includes(location.pathname);
+
     return (
         <Router location={location} navigator={reactNavigator}>
             <main>
                 <AppRoutes />
             </main>
-            <TabBar />
+            {isVisibleTabBar ? <TabBar /> : null}
         </Router>
     );
 };
