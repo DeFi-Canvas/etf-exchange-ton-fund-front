@@ -7,6 +7,8 @@ import CardAuthor from './components/author/card-author.component';
 import { injectable } from '@injectable-ts/core';
 import { AboutContainer } from './components/chart-about/about.container';
 import { WhatInsideContainer } from './components/what-inside/what-inside.container';
+import AppFooter from '@/components/app-footer/app-footer.components';
+import TermsAndConditions from '@/components/terms-and-conditions/terms-and-conditions.components';
 import { FooterContainer } from './components/footer/footer.container';
 
 interface FundPageProps {
@@ -20,9 +22,6 @@ export const FundPage = injectable(
     FooterContainer,
     (AboutContainer, WhatInsideContainer, FooterContainer) =>
         ({ name, logo }: FundPageProps) => {
-            const { id } = useParams();
-            const navigate = useNavigate();
-
             return (
                 <div className={cn('app-container', css.page)}>
                     <div className={css.foundCard}>
@@ -33,15 +32,10 @@ export const FundPage = injectable(
                     {/* <ChartInvestedCard /> */}
                     <AboutContainer />
                     <WhatInsideContainer />
-                    <ChartMoreInfo />
-                    <ChartCardAuthor />
+                    <MoreInfo />
+                    <CardAuthor />
                     <AppFooter>
-                        <AppButton
-                            label="Buy"
-                            onClick={() =>
-                                navigate(`/what-to-buy/purchase/${id}`)
-                            }
-                        />
+                        <FooterContainer />
                     </AppFooter>
                     <TermsAndConditions />
                 </div>
