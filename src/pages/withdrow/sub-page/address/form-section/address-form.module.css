@@ -1,52 +1,48 @@
-.wrap {
-    padding: 20px 16px;
+.cardAddress {
+    padding-block: 20px;
     border-radius: 24px;
-    background: var(--Colors-Background-White, #fff);
+    background: var(--color-background-white);
     margin-top: 16px;
+}
 
-    .title {
-        color: var(--color-text-dark-70);
-        font-size: var(--Font-Size-sm, 14px);
-        font-style: normal;
-        font-weight: 510;
-        line-height: 150%;
-    }
+.cardAddressContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
-    .column {
-        display: flex;
-        flex-direction: column;
-        &.inputs {
-            margin-top: 20px;
-            gap: 8px;
-        }
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
 
-        .input {
-            width: 100%;
-            resize: none;
-            padding: 12px;
-            border-radius: 12px;
-            border: 1px solid var(--color-main-purple-20);
-            background: var(--Colors-Background-White, #fff);
-            color: var(--color-text-dark-50);
-            text-overflow: ellipsis;
-            font-size: var(--Font-Size-md, 16px);
-            font-style: normal;
-            font-weight: 400;
-            line-height: 150%;
-            &:focus {
-                outline: 1px solid var(--Colors-Main-Purple, #5b39f4);
-            }
-        }
+.sectionTitle {
+    font-weight: 510;
+    font-size: 14px;
+    line-height: 1.5;
+}
 
-        .commission {
-            display: flex;
-            padding: var(--Font-Size-sm, 14px) 12px;
-            align-items: center;
-            gap: 8px;
-            align-self: stretch;
-            border-radius: 12px;
-            border: 0px solid var(--color-main-purple-20);
-            background: var(--Colors-Background-Light, #f9f8ff);
-        }
-    }
+.textField {
+    border: none;
+    outline: 1px solid var(--color-main-purple-20);
+    resize: none;
+    padding: 14px 12px;
+    width: 100%;
+    border-radius: 12px;
+    line-height: 1.5;
+    background-color: var(--color-background-white);
+    color: var(--color-text-dark);
+}
+
+.textField:focus-visible {
+    outline-color: var(--color-main-purple);
+}
+
+.cardCommission {
+    display: flex;
+    align-items: center;
+    border-radius: 12px;
+    padding: 14px 12px;
+    background-color: var(--color-background-light);
 }

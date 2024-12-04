@@ -37,38 +37,39 @@ export const AddressForm = ({
     };
 
     return (
-        <div className={css.wrap}>
-            <Amount
-                symbolLogo={symbolLogo}
-                ammount={ammount}
-                approximateCost={approximateCost}
-                currency={currency}
-            />
-
-            <div className={cn(css.column, css.inputs)}>
-                <span className={css.title}>Withdraw address</span>
-                <textarea
-                    value={currentAddress}
-                    onChange={addressOnChange}
-                    className={css.input}
-                    placeholder="Input or press and hold to paste the withdrawal address"
+        <div className={css.cardAddress}>
+            <div className={cn('app-container', css.cardAddressContainer)}>
+                <Amount
+                    symbolLogo={symbolLogo}
+                    ammount={ammount}
+                    approximateCost={approximateCost}
+                    currency={currency}
                 />
-            </div>
-            <div className={cn(css.column, css.inputs)}>
-                <span className={css.title}>
-                    Tag/Memo (Comment/Note/Remark)
-                </span>
-                <input
-                    className={css.input}
-                    placeholder="Enter your tag"
-                    value={currentMemo}
-                    onChange={memoOnChange}
-                />
-            </div>
-
-            <div className={cn(css.column, css.inputs)}>
-                <span className={css.title}>Commission</span>
-                <span className={css.commission}>0,5 TON ≈ 2,06 USD </span>
+                <section className={cn(css.section)}>
+                    <div className={css.sectionTitle}>Withdraw address</div>
+                    <textarea
+                        value={currentAddress}
+                        onChange={addressOnChange}
+                        className={css.textField}
+                        placeholder="Input or press and hold to paste the withdrawal address"
+                        rows={2}
+                    />
+                </section>
+                <section className={cn(css.section)}>
+                    <div className={css.sectionTitle}>
+                        Tag/Memo (Comment/Note/Remark)
+                    </div>
+                    <input
+                        className={css.textField}
+                        placeholder="Enter your tag"
+                        value={currentMemo}
+                        onChange={memoOnChange}
+                    />
+                </section>
+                <section className={cn(css.section)}>
+                    <div className={css.sectionTitle}>Commission</div>
+                    <span className={css.cardCommission}>0,5 TON ≈ 2,06 USD </span>
+                </section>
             </div>
         </div>
     );
