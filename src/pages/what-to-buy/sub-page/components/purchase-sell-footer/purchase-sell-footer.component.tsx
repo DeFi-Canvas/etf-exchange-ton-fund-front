@@ -1,7 +1,8 @@
 // Templates
-import AppButton from '@/components/AppButton/AppButton';
+import AppButton from '@/components/app-button/app-button.component.tsx';
 // Style
 import css from './purchase-sell-footer.module.css';
+import AppFooter from '@/components/app-footer/app-footer.components.tsx';
 
 export interface PurchaseSellFooterProps {
     title: string;
@@ -12,7 +13,7 @@ export interface PurchaseSellFooterProps {
 
 const PurchaseSellFooter = (props: PurchaseSellFooterProps) => {
     return (
-        <footer className={css.footer}>
+        <AppFooter>
             <AppButton
                 className={css.button}
                 label={props.title}
@@ -20,7 +21,7 @@ const PurchaseSellFooter = (props: PurchaseSellFooterProps) => {
                 isLoading={props.isLoading}
                 isDisabled={true}
             />
-        </footer>
+        </AppFooter>
     );
 };
 

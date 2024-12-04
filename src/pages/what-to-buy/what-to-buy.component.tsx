@@ -24,7 +24,7 @@ import src14 from './assets/imgs/vpng.png';
 import { injectable } from '@injectable-ts/core';
 import { FondsSliderContainer } from './components/fonds-slider/fonds-slider.container';
 import { ArrowTopRightIcon } from '@/components/Icons/Icons';
-import AppButton from '@/components/AppButton/AppButton';
+import AppButton from '@/components/app-button/app-button.component.tsx';
 import { memo } from 'react';
 
 const colorFolowCompany =

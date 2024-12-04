@@ -6,7 +6,6 @@ const newsCodec = t.type({
     published_at: t.string,
     source: t.string,
     title: t.string,
-    
 });
 
 export const newsResponseCodec = t.array(newsCodec);

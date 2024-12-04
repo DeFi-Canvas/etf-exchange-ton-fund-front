@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { animated, config, useSpring } from 'react-spring';
 import css from './bottom-sheet.module.css';
-import AppButton from '@/components/AppButton/AppButton';
+import AppButton from '@/components/app-button/app-button.component.tsx';
 
 interface BottomSheetProps {
     children: React.ReactNode;

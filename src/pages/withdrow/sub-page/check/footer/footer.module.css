@@ -37,24 +37,6 @@
         background-blend-mode: hard-light;
         backdrop-filter: blur(10px);
         padding: 12px 16px;
-
-        .nextButton {
-            border: none;
-            border-radius: 12px;
-            background: var(--Colors-Main-Purple, #5b39f4);
-            color: var(--Telegram-button_text_color, #fff);
-            font-size: var(--Font-Size-md, 16px);
-            font-style: normal;
-            font-weight: 510;
-            line-height: 135%;
-            width: 100%;
-            padding: 14px;
-
-            &.disabled {
-                background: var(--color-pallete-dark-10);
-                color: var(--color-text-dark-20);
-            }
-        }
     }
 }
 

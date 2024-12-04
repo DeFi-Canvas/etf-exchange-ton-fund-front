@@ -8,7 +8,7 @@ const networkCodec = t.type({
     image_url: t.string,
     isTestnet: t.boolean,
     name: t.string,
-    updated_at: t.number
+    updated_at: t.number,
 });
 
 export const networksCodec = t.array(networkCodec);

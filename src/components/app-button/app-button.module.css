@@ -5,16 +5,21 @@
     width: 100%;
     padding: 14px 24px;
     border-radius: 12px;
-    background-color: #5b39f4;
-    color: #ffffff;
+    background-color: var(--color-main-purple);
+    color: var(--color-text-white);
     text-align: center;
     font-weight: 500;
-    line-height: 135%;
+    line-height: 1.35;
 }
 
 .buttonSecondary {
-    background-color: rgba(#5b39f4, 0.1);
-    color: #5b39f4;
+    background-color: var(--color-main-purple-10);
+    color: var(--color-main-purple);
+}
+
+.buttonDisabled {
+    background-color: var(--color-text-dark-10);
+    color: var(--color-text-dark-20);
 }
 
 .spinLoading {

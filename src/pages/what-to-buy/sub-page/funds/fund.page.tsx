@@ -20,6 +20,9 @@ export const FundPage = injectable(
     FooterContainer,
     (AboutContainer, WhatInsideContainer, FooterContainer) =>
         ({ name, logo }: FundPageProps) => {
+            const { id } = useParams();
+            const navigate = useNavigate();
+
             return (
                 <div className={cn('app-container', css.page)}>
                     <div className={css.foundCard}>
@@ -30,10 +33,17 @@ export const FundPage = injectable(
                     {/* <ChartInvestedCard /> */}
                     <AboutContainer />
                     <WhatInsideContainer />
-                    <MoreInfo />
-                    <CardAuthor />
-                    <FooterContainer />
-                    <div className={css.termsCondition}>Terms & conditions</div>
+                    <ChartMoreInfo />
+                    <ChartCardAuthor />
+                    <AppFooter>
+                        <AppButton
+                            label="Buy"
+                            onClick={() =>
+                                navigate(`/what-to-buy/purchase/${id}`)
+                            }
+                        />
+                    </AppFooter>
+                    <TermsAndConditions />
                 </div>
             );
         }

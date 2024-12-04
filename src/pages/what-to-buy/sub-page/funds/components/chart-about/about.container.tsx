@@ -12,7 +12,7 @@ export const AboutContainer = injectable(
     (store) => () => {
         const fund = pipe(
             useProperty(store.fundData),
-            E.getOrElse(() => ({} as FundsData))
+            E.getOrElse(() => ({}) as FundsData)
         );
 
         return React.createElement(About, {
