@@ -5,13 +5,13 @@ import PurchaseSellAttention from '../components/purchase-sell-attention/purchas
 import css from './purchase.module.css';
 import { injectable } from '@injectable-ts/core';
 import { PurchaseSellContentCardContainer } from '../components/purchase-sell-content-card/purchase-sell-content-card.container';
-import PurchaseSellFooter from '../components/purchase-sell-footer/purchase-sell-footer.component';
 import BottomSheet from '@/components/ui-kit/bottom-sheet/bottom-sheet.component';
 import { BottomSheetPurchaseBodyContainer } from './components/bottom-sheet-body/bottom-sheet-purchase-body.container';
 import { PurchaseSellDetailsContainer } from '../components/purchase-sell-details/purchase-sell-details.container';
 import { PurchaseSellAssetCardContainer } from '../components/purchase-sell-asset-card/purchase-sell-asset-card.container';
 import { PurchaseSellFinishBoodySheetContainer } from '../components/purchase-sell-finish-boody-sheet/purchase-sell-finish-boody-sheet.container';
 import { useNavigate } from 'react-router-dom';
+import { PurchaseSellFooterContainer } from '../components/purchase-sell-footer/purchase-sell-footer.container';
 
 interface PurchasePageProps {
     onBuy: () => void;
@@ -27,12 +27,14 @@ const PurchasePage = injectable(
     PurchaseSellDetailsContainer,
     PurchaseSellAssetCardContainer,
     PurchaseSellFinishBoodySheetContainer,
+    PurchaseSellFooterContainer,
     (
         PurchaseSellContentCardContainer,
         BottomSheetBodyContainer,
         PurchaseSellDetailsContainer,
         PurchaseSellAssetCardContainer,
-        PurchaseSellFinishBoodySheetContainer
+        PurchaseSellFinishBoodySheetContainer,
+        PurchaseSellFooterContainer
     ) =>
         ({
             showBottomSheet,
@@ -62,7 +64,7 @@ const PurchasePage = injectable(
                         title="Purchase Details"
                     />
 
-                    <PurchaseSellFooter
+                    <PurchaseSellFooterContainer
                         title="Buy"
                         onClick={onBuy}
                         isLoading={isLoading}
