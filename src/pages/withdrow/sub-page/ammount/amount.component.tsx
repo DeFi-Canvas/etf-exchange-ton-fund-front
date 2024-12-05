@@ -48,46 +48,56 @@ export const Amount = ({
     };
 
     return (
-        <div className={css.wrap}>
-            <span className={css.title}>Enter amount</span>
-            <div className={css.inputSection}>
-                <div className={css.inputWrap}>
-                    <AmountField
-                        currency={currency}
-                        value={amountValue}
-                        handleChange={handleChange}
-                        isError={E.isLeft(amount)}
-                    />
-                </div>
+        <div className={cn('app-container', css.page)}>
+            <h2 className={css.title}>Enter amount</h2>
+            <div className={css.cardFieldAmount}>
+                <AmountField
+                    currency={currency}
+                    value={amountValue}
+                    handleChange={handleChange}
+                    isError={E.isLeft(amount)}
+                />
                 <RenderResult
                     data={amount}
                     failure={(err) => (
-                        <span className={cn(css.calc, css.err)}>
+                        <span
+                            className={cn(css.currencyRatio, css.invalidError)}
+                        >
                             {getAmountErrorsText(err)}
                         </span>
                     )}
                     success={() => (
-                        <span className={css.calc}>{approximateCost}</span>
+                        <span className={css.currencyRatio}>
+                            {approximateCost}
+                        </span>
                     )}
                 />
             </div>
-            {/* TODO не поднимается вместе с клавиатурой */}
-            <div className={cn(css.footerWrap)}>
-                <div className={css.availableBalance}>
-                    <img src={symbolLogo} alt="img" className={css.imgFooter} />
-                    <div className={css.infoWrap}>
-                        <span className={css.title}>Available balance</span>
-                        <span className={css.balance}>{availableBalance}</span>
+            <div className={css.balance}>
+                <img
+                    src={symbolLogo}
+                    alt="Current asset"
+                    className={css.imageAsset}
+                />
+                <div className={css.balanceInfo}>
+                    <div className={css.balanceInfoTitle}>
+                        Available balance
+                    </div>
+                    <div className={css.balanceInfoValue}>
+                        {availableBalance}
                     </div>
                 </div>
-                <div className={css.footer}>
-                    <AppButton
-                        label="Continue"
-                        isDisabled={!isNextButtonAvailable}
-                        to={'/withdraw/:ticker/address'}
-                    />
-                </div>
             </div>
+            <AppButton
+                label={
+                    isNextButtonAvailable
+                        ? 'Continue'
+                        : 'Enter the total amount'
+                }
+                type={isNextButtonAvailable ? 'default' : 'secondary'}
+                to={isNextButtonAvailable ? '/withdraw/:ticker/address' : ''}
+                className={css.button}
+            />
         </div>
     );
 };

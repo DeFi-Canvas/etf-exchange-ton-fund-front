@@ -23,7 +23,7 @@
     background-color: var(--color-main-purple);
     display: grid;
     place-items: center;
-    border-radius: calc(var(--size) / 2);
+    border-radius: 50%;
 }
 
 .cardSteps {

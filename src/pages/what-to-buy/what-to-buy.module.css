@@ -132,7 +132,7 @@
     --size: 4px;
     width: var(--size);
     height: var(--size);
-    border-radius: calc(var(--size) / 2);
+    border-radius: 50%;
     background-color: var(--color-pallete-dark);
     display: block;
 }

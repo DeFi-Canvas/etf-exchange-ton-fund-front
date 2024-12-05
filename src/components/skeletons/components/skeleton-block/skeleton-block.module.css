@@ -5,5 +5,5 @@
     min-height: var(--size);
     max-width: var(--size);
     max-height: var(--size);
-    border-radius: calc(var(--size) / 2);
+    border-radius: 50%;
 }

@@ -10,10 +10,11 @@ export const Address = injectable(
     (AddressFormContainer, FooterContainer) =>
         memo(() => {
             return (
-                <div className={css.wrap}>
-                    <span className={css.title}>Enter address</span>
+                <div className={css.page}>
+                    <div className="app-container">
+                        <h2 className={css.title}>Enter address</h2>
+                    </div>
                     <AddressFormContainer />
-                    {/* TODO не поднимается вместе с клавиатурой */}
                     <FooterContainer />
                 </div>
             );

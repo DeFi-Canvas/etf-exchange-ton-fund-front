@@ -4,7 +4,7 @@
     height: var(--size, var(--default-size));
     display: grid;
     place-items: center;
-    border-radius: calc(var(--size) / 2);
+    border-radius: 50%;
     background: var(--user-avatar-background);
 }
 

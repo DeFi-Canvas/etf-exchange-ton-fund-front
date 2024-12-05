@@ -13,9 +13,11 @@ a {
     color: inherit;
 }
 
-input {
+input,
+textarea {
     font: inherit;
     outline: none;
+    caret-color: var(--color-main-purple);
 }
 
 button {
@@ -32,4 +34,8 @@ h5,
 h6,
 p {
     margin: 0;
+}
+
+img {
+    display: block;
 }

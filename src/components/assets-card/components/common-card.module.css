@@ -12,7 +12,7 @@
     display: block;
     width: var(--size);
     height: var(--size);
-    border-radius: calc(var(--size) / 2);
+    border-radius: 50%;
 }
 
 .infoWrapper {

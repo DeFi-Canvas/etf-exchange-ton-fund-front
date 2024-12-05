@@ -1,5 +1,6 @@
 import css from './amount.module.css';
 import * as E from 'fp-ts/Either';
+import cn from 'classnames';
 
 interface AmountProps {
     ammount: E.Either<string, number>;
@@ -15,19 +16,22 @@ export const Amount = ({
     symbolLogo,
 }: AmountProps) => {
     return (
-        <div className={css.amount}>
-            <span className={css.title}>Withdraw amount</span>
+        <div className={css.amountWrapper}>
+            <div className={css.amountTitle}>Withdraw amount</div>
+
             <div className={css.coinInfo}>
-                <img src={symbolLogo} alt="" />
-                <div className={css.column}>
-                    <span className={css.title}>
+                <img src={symbolLogo} className={css.coinInfoImage} />
+                <div className={cn(css.column, css.columnWide)}>
+                    <span className={css.coinInfoTitle}>
                         {E.isRight(ammount) && ammount.right} {currency}
                     </span>
-                    <span className={css.sub}>{approximateCost}</span>
+                    <span className={css.coinInfoSubtitle}>
+                        {approximateCost}
+                    </span>
                 </div>
                 <div className={css.column}>
-                    <span className={css.title}>TRC 20</span>
-                    <span className={css.sub}>Tron Network</span>
+                    <span className={css.coinInfoTitle}>TRC 20</span>
+                    <span className={css.coinInfoSubtitle}>Tron Network</span>
                 </div>
             </div>
         </div>
