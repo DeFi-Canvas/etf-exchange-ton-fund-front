@@ -13,6 +13,7 @@ import { depositRouter } from './page-routes/deposit-router';
 import { withdrawRouter } from './page-routes/withdraw-router';
 import { whatToBuyRouter } from './page-routes/what-to-buy-router';
 import AssetsSinglePage from '@/pages/assets-single/assets-single.page.tsx';
+import { NotKastadial } from '@/pages/not-kastadial/not-kastadial.page';
 
 interface Route {
     path: string;
@@ -46,6 +47,10 @@ export const AppRoutes = () => {
         {
             path: 'profile',
             page: containers.Profile,
+        },
+        {
+            path: '/not-kastadial',
+            page: NotKastadial,
         },
         // не рабочие стр
         {
