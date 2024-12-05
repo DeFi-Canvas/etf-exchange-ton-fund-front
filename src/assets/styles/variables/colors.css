@@ -1,0 +1,49 @@
+:root {
+    --base-color-dark: 36 38 46;
+    --base-color-white: 255 255 255;
+    --base-color-light: 249 248 255;
+    --base-color-grey: 80 84 100;
+    --base-color-purple: 91 57 244;
+    --base-color-purple-light: 151 127 255;
+    --base-color-green: 97 198 108;
+    --base-color-red: 255 88 78;
+
+    /* Color text white */
+    --color-text-white: rgb(var(--base-color-white));
+
+    /* Color text dark */
+    --color-text-dark: rgb(var(--base-color-dark));
+    --color-text-dark-70: rgb(var(--base-color-dark) / 70%);
+    --color-text-dark-50: rgb(var(--base-color-dark) / 50%);
+    --color-text-dark-20: rgb(var(--base-color-dark) / 20%);
+    --color-text-dark-10: rgb(var(--base-color-dark) / 10%);
+
+    /* Color background */
+    --color-background-light: rgb(var(--base-color-light));
+    --color-background-white: rgb(var(--base-color-white));
+
+    /* Color system */
+    --color-system-green: rgb(var(--base-color-green));
+    --color-system-red: rgb(var(--base-color-red));
+    --color-system-red-50: rgb(var(--base-color-red) / 50%);
+
+    /* Color pallete */
+    --color-pallete-grey: rgb(var(--base-color-grey));
+    --color-pallete-dark: rgb(var(--base-color-dark));
+    --color-pallete-dark-20: rgb(var(--base-color-dark) / 20%);
+    --color-pallete-dark-10: rgb(var(--base-color-dark) / 10%);
+    --color-pallete-white: rgb(var(--base-color-white));
+
+    /* Color main */
+    --color-main-purple: rgb(var(--base-color-purple));
+    --color-main-purple-light: rgb(var(--base-color-purple-light));
+    --color-main-purple-20: rgb(var(--base-color-purple) / 20%);
+    --color-main-purple-10: rgb(var(--base-color-purple) / 10%);
+
+    /* Gradients */
+    --user-avatar-background: linear-gradient(
+        150deg,
+        #977fff 5.93%,
+        var(--color-main-purple) 110.96%
+    );
+}
