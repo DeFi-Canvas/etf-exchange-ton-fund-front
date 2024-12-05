@@ -21,7 +21,11 @@ export const Footer = ({
             <div className={css.availableBalance}>
                 <span className={css.title}>Balance after withdraw</span>
                 <div className={css.infoWrap}>
-                    <img src={symbolLogo} alt="img" className={css.availableBalanceImage} />
+                    <img
+                        src={symbolLogo}
+                        alt="img"
+                        className={css.availableBalanceImage}
+                    />
                     <span className={css.balance}>
                         {balanceAfter} {currency}
                     </span>

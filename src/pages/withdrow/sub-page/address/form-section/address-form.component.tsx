@@ -68,7 +68,9 @@ export const AddressForm = ({
                 </section>
                 <section className={cn(css.section)}>
                     <div className={css.sectionTitle}>Commission</div>
-                    <span className={css.cardCommission}>0,5 TON ≈ 2,06 USD </span>
+                    <span className={css.cardCommission}>
+                        0,5 TON ≈ 2,06 USD{' '}
+                    </span>
                 </section>
             </div>
         </div>

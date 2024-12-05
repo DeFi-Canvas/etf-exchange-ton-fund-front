@@ -25,7 +25,9 @@ export const Amount = ({
                     <span className={css.coinInfoTitle}>
                         {E.isRight(ammount) && ammount.right} {currency}
                     </span>
-                    <span className={css.coinInfoSubtitle}>{approximateCost}</span>
+                    <span className={css.coinInfoSubtitle}>
+                        {approximateCost}
+                    </span>
                 </div>
                 <div className={css.column}>
                     <span className={css.coinInfoTitle}>TRC 20</span>

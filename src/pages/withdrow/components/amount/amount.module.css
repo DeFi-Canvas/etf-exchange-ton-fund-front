@@ -24,7 +24,7 @@
     --size: 40px;
     width: var(--size);
     height: var(--size);
-    border-radius: 50%
+    border-radius: 50%;
 }
 
 .column {
@@ -33,7 +33,7 @@
 }
 
 .columnWide {
-    flex-grow: 1;;
+    flex-grow: 1;
 }
 
 .coinInfoTitle {

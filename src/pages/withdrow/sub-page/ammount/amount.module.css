@@ -23,7 +23,7 @@
 }
 
 .imageAsset {
-   --size: 40px;
+    --size: 40px;
     width: var(--size);
     height: var(--size);
     border-radius: 50%;
@@ -49,7 +49,6 @@
 .button {
     margin-top: 24px;
 }
-
 
 .currencyRatio {
     color: var(--color-text-dark);

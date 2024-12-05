@@ -15,7 +15,7 @@ const PAGE_URLS = [
     '/profile',
     '/funds', // TODO временно, пока не будет переписано на табы
     '/transactions', // TODO временно, пока не будет переписано на табы
-]
+];
 
 export const App: FC = () => {
     const viewport = useViewport();

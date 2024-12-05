@@ -60,24 +60,40 @@ export const Amount = ({
                 <RenderResult
                     data={amount}
                     failure={(err) => (
-                        <span className={cn(css.currencyRatio, css.invalidError)}>
+                        <span
+                            className={cn(css.currencyRatio, css.invalidError)}
+                        >
                             {getAmountErrorsText(err)}
                         </span>
                     )}
                     success={() => (
-                        <span className={css.currencyRatio}>{approximateCost}</span>
+                        <span className={css.currencyRatio}>
+                            {approximateCost}
+                        </span>
                     )}
                 />
             </div>
             <div className={css.balance}>
-                <img src={symbolLogo} alt="Current asset" className={css.imageAsset} />
+                <img
+                    src={symbolLogo}
+                    alt="Current asset"
+                    className={css.imageAsset}
+                />
                 <div className={css.balanceInfo}>
-                    <div className={css.balanceInfoTitle}>Available balance</div>
-                    <div className={css.balanceInfoValue}>{availableBalance}</div>
+                    <div className={css.balanceInfoTitle}>
+                        Available balance
+                    </div>
+                    <div className={css.balanceInfoValue}>
+                        {availableBalance}
+                    </div>
                 </div>
             </div>
             <AppButton
-                label={isNextButtonAvailable ? 'Continue' : 'Enter the total amount'}
+                label={
+                    isNextButtonAvailable
+                        ? 'Continue'
+                        : 'Enter the total amount'
+                }
                 type={isNextButtonAvailable ? 'default' : 'secondary'}
                 to={isNextButtonAvailable ? '/withdraw/:ticker/address' : ''}
                 className={css.button}
