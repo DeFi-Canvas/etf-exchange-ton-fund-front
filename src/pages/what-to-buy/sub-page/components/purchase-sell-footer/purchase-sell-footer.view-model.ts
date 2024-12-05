@@ -23,7 +23,7 @@ export const newPurchaseSellFooterViewModel = injectable(
             const isDisabledEffect = pipe(
                 store.quantity,
                 fromProperty,
-                tap((x) => isDisabled.set(x >= 5))
+                tap((x) => isDisabled.set(x < 5))
             );
 
             return valueWithEffect.new({ isDisabled }, isDisabledEffect);

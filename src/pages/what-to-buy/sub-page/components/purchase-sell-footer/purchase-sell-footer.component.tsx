@@ -19,7 +19,7 @@ const PurchaseSellFooter = (props: PurchaseSellFooterProps) => {
                 label={props.title}
                 onClick={props.onClick}
                 isLoading={props.isLoading}
-                isDisabled={!props.isDisabled}
+                isDisabled={props.isDisabled}
             />
         </AppFooter>
     );
