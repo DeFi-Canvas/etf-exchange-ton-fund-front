@@ -9,6 +9,14 @@ import { Router } from 'react-router-dom';
 import { AppRoutes } from '@/navigation/routes.tsx';
 import TabBar from '@/components/TabBar/TabBar.tsx';
 
+const PAGE_URLS = [
+    '/',
+    '/what-to-buy',
+    '/profile',
+    '/funds', // TODO временно, пока не будет переписано на табы
+    '/transactions', // TODO временно, пока не будет переписано на табы
+]
+
 export const App: FC = () => {
     const viewport = useViewport();
     // const wallet = useTonWallet();
@@ -75,14 +83,7 @@ export const App: FC = () => {
         return () => navigator.detach();
     }, [navigator]);
 
-    const pageHasTabBar = [
-        '/',
-        '/what-to-buy',
-        '/profile',
-        '/funds', // TODO временно, пока не будет переписано на табы
-        '/transactions', // TODO временно, пока не будет переписано на табы
-    ];
-    const isVisibleTabBar = pageHasTabBar.includes(location.pathname);
+    const isVisibleTabBar = PAGE_URLS.includes(location.pathname);
 
     return (
         <Router location={location} navigator={reactNavigator}>
