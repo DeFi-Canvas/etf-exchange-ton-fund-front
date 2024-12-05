@@ -24,5 +24,5 @@
     max-width: var(--size);
     max-height: var(--size);
     display: block;
-    border-radius: calc(var(--size) / 2);
+    border-radius: 50%;
 }
