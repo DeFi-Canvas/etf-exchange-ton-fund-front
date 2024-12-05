@@ -1,9 +1,0 @@
-@for $index from 1 through 3 {
-    .trim-lines-#{$index} {
-        display: -webkit-box;
-        -webkit-line-clamp: $index;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        white-space: normal;
-    }
-}
