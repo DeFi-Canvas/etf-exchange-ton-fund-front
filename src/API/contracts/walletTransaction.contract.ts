@@ -18,6 +18,8 @@ const transactionCodec = t.type({
     timestamp: t.string,
     tx: t.string,
     value: t.number,
+    transaction_type: t.string,
+    transaction_status: t.string,
 });
 
 export const transactionListCodec = t.array(transactionCodec);
