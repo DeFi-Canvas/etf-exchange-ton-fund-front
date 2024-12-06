@@ -32,6 +32,7 @@ export interface PurchaseSellStore {
     increment: () => void;
     dicrement: () => void;
     onBuy: () => void;
+    onSell: () => void;
     setIsBottomPanel: (x: boolean) => void;
 }
 
@@ -71,6 +72,7 @@ export const newPurchaseSellStore = injectable(
             const isLoading = newLensedAtom(false);
 
             const [onBuy, onBuyEvent] = createAdapter<void>();
+            const [onSell, onSellEvent] = createAdapter<void>();
 
             const increment = () => {
                 quantity.modify((x) => x + 1);
@@ -165,6 +167,27 @@ export const newPurchaseSellStore = injectable(
                 })
             );
 
+            const onSellEffect = pipe(
+                onSellEvent,
+                take(1),
+                tap(() => isLoading.set(true)),
+                chain(() => {
+                    const currentFund = pipe(
+                        fundData.get(),
+                        E.getOrElse(() => ({}) as FundsData)
+                    );
+
+                    return service.sellFund({
+                        fundId: currentFund.id,
+                        amount: quantity.get(),
+                    });
+                }),
+                tap(() => {
+                    isLoading.set(false);
+                    isShowBottomSheetFinishBoody.set(true);
+                })
+            );
+
             const getFundsEffect = pipe(
                 walletService.getFunds(),
                 tap(funds.set)
@@ -215,6 +238,7 @@ export const newPurchaseSellStore = injectable(
                     isLoading,
                     fundsAvailableSale,
                     maxAvailableBuy,
+                    onSell,
                 },
                 getFundDataEffect,
                 getAssetsEffect,
@@ -224,7 +248,8 @@ export const newPurchaseSellStore = injectable(
                 getFundsEffect,
                 onBuyEffect,
                 getFundsAvailableSaleEffect,
-                getMaxAvailableBuyEffect
+                getMaxAvailableBuyEffect,
+                onSellEffect
             );
         }
 );

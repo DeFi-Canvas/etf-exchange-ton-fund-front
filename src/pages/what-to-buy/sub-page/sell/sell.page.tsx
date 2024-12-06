@@ -13,6 +13,7 @@ import { PurchaseSellFinishBoodySheetContainer } from '../components/purchase-se
 interface SellPageProps {
     showBottomSheet: boolean;
     setShowBottomSheet: (x: boolean) => void;
+    onSell: () => void;
 }
 
 const SellPage = injectable(
@@ -26,7 +27,7 @@ const SellPage = injectable(
         PurchaseSellAssetCardContainer,
         PurchaseSellFinishBoodySheetContainer
     ) =>
-        ({ showBottomSheet, setShowBottomSheet }: SellPageProps) => {
+        ({ showBottomSheet, setShowBottomSheet, onSell }: SellPageProps) => {
             const handleToggleBottomSheet = () => {
                 setShowBottomSheet(!showBottomSheet);
             };
@@ -45,7 +46,7 @@ const SellPage = injectable(
                     />
                     <PurchaseSellFooter
                         title="Sell"
-                        onClick={() => {}}
+                        onClick={onSell}
                         isLoading={false}
                         isDisabled={false}
                     />

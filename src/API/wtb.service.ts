@@ -21,6 +21,9 @@ interface BuyFundArgs {
 export interface WTBRestService {
     getFund: (id: string) => Stream<Either<string, FundsData>>;
     buyFund: (buyFundArgs: BuyFundArgs) => Stream<Either<string, unknown>>;
+    sellFund: (
+        buyFundArgs: Omit<BuyFundArgs, 'assetId'>
+    ) => Stream<Either<string, unknown>>;
 }
 
 const fundsApi = new FundsApi({ basePath: DOMAIN_API_URL } as Configuration);
@@ -49,6 +52,17 @@ export const newWTBRestService = injectable(
                         fund_id: args.fundId,
                         amount: args.amount,
                         asset_id: args.assetId,
+                        init_data: initDataRaw,
+                    }),
+                    buyIndexResponseCodec
+                )(),
+
+            sellFund: (args) =>
+                getRequestGenerated(
+                    walletsApi.walletSellindexPost({
+                        telegram_id,
+                        fund_id: args.fundId,
+                        amount: args.amount,
                         init_data: initDataRaw,
                     }),
                     buyIndexResponseCodec

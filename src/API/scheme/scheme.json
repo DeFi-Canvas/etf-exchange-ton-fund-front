@@ -47,6 +47,44 @@
                 }
             }
         },
+        "/asset/{asset_id}": {
+            "get": {
+                "description": "Получить информацию об активе по его идентификатору",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["assetss"],
+                "summary": "Get asset by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Идентификатор актива",
+                        "name": "asset_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Информация об активе",
+                        "schema": {
+                            "$ref": "#/definitions/models.Asset"
+                        }
+                    },
+                    "404": {
+                        "description": "Актив не найден",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
         "/assets": {
             "get": {
                 "description": "Получить список всех активов",
