@@ -16,13 +16,13 @@ export const PurchaseSellFieldCounterContainer = injectable(
             []
         );
 
-        const isButtomMinusDisabled = useProperty(viewModel.isMinusDisabled);
-        const isButtomPlusDisabled = useProperty(viewModel.isPlusDisabled);
+        const isButtonMinusDisabled = useProperty(viewModel.isMinusDisabled);
+        const isButtonPlusDisabled = useProperty(viewModel.isPlusDisabled);
         return React.createElement(PurchaseSellFieldCounter, {
             ...store,
             quantity,
-            isButtomMinusDisabled,
-            isButtomPlusDisabled,
+            isButtonMinusDisabled,
+            isButtonPlusDisabled,
         });
     }
 );
