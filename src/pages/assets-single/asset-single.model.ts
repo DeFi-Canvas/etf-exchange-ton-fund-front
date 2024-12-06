@@ -18,5 +18,5 @@ export const assetMapping = (asset: AssetResponse): AssetResponseMapping => {
         ...asset,
         imageUrl: asset.image_url,
         withdrawalFee: asset.withdrawal_fee,
-    }
-}
+    };
+};

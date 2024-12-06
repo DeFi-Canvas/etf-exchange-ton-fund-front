@@ -16,15 +16,9 @@
         "/appopened": {
             "post": {
                 "description": "Регистрирует или обновляет пользователя при открытии приложения",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "users"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["users"],
                 "summary": "App opened",
                 "parameters": [
                     {
@@ -56,15 +50,9 @@
         "/asset/{asset_id}": {
             "get": {
                 "description": "Получить информацию об активе по его идентификатору",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "assetss"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["assetss"],
                 "summary": "Get asset by ID",
                 "parameters": [
                     {
@@ -100,15 +88,9 @@
         "/assets": {
             "get": {
                 "description": "Получить список всех активов",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "assets"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["assets"],
                 "summary": "Get all assets",
                 "responses": {
                     "200": {
@@ -132,15 +114,9 @@
         "/assets/{assetName}/networks": {
             "get": {
                 "description": "Получить список сетей для указанного актива",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "assets"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["assets"],
                 "summary": "Get networks for an asset",
                 "parameters": [
                     {
@@ -179,15 +155,9 @@
         "/deposit": {
             "get": {
                 "description": "Получить адрес для депозита по Telegram ID пользователя",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "deposit"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["deposit"],
                 "summary": "Get deposit address",
                 "parameters": [
                     {
@@ -223,15 +193,9 @@
         "/fund/{fund_id}": {
             "get": {
                 "description": "Получить информацию о фонде по его идентификатору",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "funds"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["funds"],
                 "summary": "Get fund by ID",
                 "parameters": [
                     {
@@ -267,15 +231,9 @@
         "/fundinfo": {
             "get": {
                 "description": "Получить общую информацию о фонде",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "fund-stats"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["fund-stats"],
                 "summary": "Get fund information",
                 "responses": {
                     "200": {
@@ -296,15 +254,9 @@
         "/funds": {
             "get": {
                 "description": "Получить список всех фондов",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "funds"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["funds"],
                 "summary": "Get all funds",
                 "responses": {
                     "200": {
@@ -328,15 +280,9 @@
         "/news": {
             "get": {
                 "description": "Получить список последних новостей",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "news"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["news"],
                 "summary": "Get latest news",
                 "parameters": [
                     {
@@ -368,15 +314,9 @@
         "/tasks": {
             "get": {
                 "description": "Получить список задач для указанного пользователя",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "tasks"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["tasks"],
                 "summary": "Get tasks for a user",
                 "parameters": [
                     {
@@ -409,15 +349,9 @@
         "/tasks/complete": {
             "post": {
                 "description": "Завершить задачу для пользователя",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "tasks"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["tasks"],
                 "summary": "Complete a task",
                 "parameters": [
                     {
@@ -449,15 +383,9 @@
         "/users": {
             "get": {
                 "description": "Получить список всех пользователей",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "users"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["users"],
                 "summary": "Get all users",
                 "responses": {
                     "200": {
@@ -481,15 +409,9 @@
         "/wallet/balance": {
             "get": {
                 "description": "Получить баланс кошелька пользователя",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "wallets"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["wallets"],
                 "summary": "Get wallet balance",
                 "parameters": [
                     {
@@ -519,15 +441,9 @@
         "/wallet/buyindex": {
             "post": {
                 "description": "Купить индекс для пользователя",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "wallets"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["wallets"],
                 "summary": "Buy index",
                 "parameters": [
                     {
@@ -559,15 +475,9 @@
         "/wallet/funds": {
             "get": {
                 "description": "Получить средства пользователя из кошелька",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "wallets"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["wallets"],
                 "summary": "Get wallet funds",
                 "parameters": [
                     {
@@ -600,15 +510,9 @@
         "/wallet/sellindex": {
             "post": {
                 "description": "Продать индекс для пользователя",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "wallets"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["wallets"],
                 "summary": "Sell index",
                 "parameters": [
                     {
@@ -640,15 +544,9 @@
         "/wallet/transactions": {
             "get": {
                 "description": "Получить транзакции пользователя",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "wallets"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["wallets"],
                 "summary": "Get wallet transactions",
                 "parameters": [
                     {
@@ -693,15 +591,9 @@
         "/wallets/{user_id}": {
             "get": {
                 "description": "Получить список кошельков пользователя",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "wallets"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["wallets"],
                 "summary": "Get user wallets",
                 "parameters": [
                     {
@@ -734,15 +626,9 @@
         "/withdraw": {
             "post": {
                 "description": "Вывести средства с кошелька пользователя",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "wallets"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["wallets"],
                 "summary": "Withdraw funds",
                 "parameters": [
                     {

@@ -4,10 +4,13 @@ import { getRequestGenerated } from '@/API/request.utils.ts';
 import { AssetssApi, Configuration } from '@/API/scheme/rest-genereted';
 import { DOMAIN_API_URL } from '@/API/API.ts';
 import { assetCodec } from '@/API/contracts/assets.contract.ts';
-import { assetMapping, AssetResponse } from '@/pages/assets-single/asset-single.model.ts';
+import {
+    assetMapping,
+    AssetResponse,
+} from '@/pages/assets-single/asset-single.model.ts';
 
 export interface AssetsRestService {
-    getAssets: (assetId: string) => Stream<Either<string, AssetResponse>>
+    getAssets: (assetId: string) => Stream<Either<string, AssetResponse>>;
 }
 
 const assetsApi = new AssetssApi({
@@ -20,8 +23,8 @@ export const newAssetsRestService = (): AssetsRestService => {
             return getRequestGenerated(
                 assetsApi.assetAssetIdGet(assetId),
                 assetCodec,
-                assetMapping,
+                assetMapping
             )();
         },
-    }
-}
+    };
+};

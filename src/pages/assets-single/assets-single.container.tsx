@@ -12,14 +12,14 @@ export const AssetsSingleContainer = injectable(
         const { assetId } = useParams();
 
         const viewModel = useValueWithEffect(
-            () =>  newAssetsSingleViewModel(assetId ?? ''),
-            [],
+            () => newAssetsSingleViewModel(assetId ?? ''),
+            []
         );
 
-        const asset = useProperty(viewModel.asset)
+        const asset = useProperty(viewModel.asset);
 
         return React.createElement(AssetsSinglePage, {
-                asset,
+            asset,
         });
-    },
+    }
 );

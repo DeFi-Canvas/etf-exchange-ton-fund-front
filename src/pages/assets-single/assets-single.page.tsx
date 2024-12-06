@@ -16,7 +16,7 @@ interface MoreInfoItem {
 }
 
 interface AssetsSinglePageProps {
-    asset: Either<string, AssetResponseMapping>
+    asset: Either<string, AssetResponseMapping>;
 }
 
 const AssetsSinglePage = (props: AssetsSinglePageProps) => {
@@ -33,7 +33,10 @@ const AssetsSinglePage = (props: AssetsSinglePageProps) => {
             success={(asset) => (
                 <div className={cn('app-container', css.page)}>
                     <div className={cn(css.card, css.assetCard)}>
-                        <img src={asset.imageUrl} className={css.assetCardImage} />
+                        <img
+                            src={asset.imageUrl}
+                            className={css.assetCardImage}
+                        />
                         <div className={css.assetCardText}>{asset.name}</div>
                     </div>
                     <div
@@ -52,9 +55,7 @@ const AssetsSinglePage = (props: AssetsSinglePageProps) => {
                     </div>
                     <div className={cn(css.card, css.aboutCard)}>
                         <h2 className={css.aboutCardTitle}>About</h2>
-                        <p className={css.aboutCardText}>
-                            {asset.description}
-                        </p>
+                        <p className={css.aboutCardText}>{asset.description}</p>
                     </div>
                     <div className={cn(css.card, css.moreInfoCard)}>
                         <h2 className={css.moreInfoCardTitle}>More info</h2>
