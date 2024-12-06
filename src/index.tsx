@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client';
 import { Root } from '@/components/Root';
-import '@/assets/styles/index.scss';
+import '@/assets/styles/index.css';
 
 // Uncomment this import in case, you would like to develop the application even outside
 // the Telegram application, just in your browser.
