@@ -1,6 +1,6 @@
 .footerWrap {
     position: fixed;
-    bottom: 21px;
+    bottom: 0;
     left: 0;
     z-index: 101;
     width: 100%;
@@ -31,11 +31,11 @@
 }
 
 .footer {
-    border-top: 0.33px solid rgba(60, 60, 67, 0.36);
+    border-top: 1px solid rgba(60, 60, 67, 0.36);
     background-color: rgba(255, 255, 255, 0.75);
     background-blend-mode: hard-light;
     backdrop-filter: blur(10px);
-    padding: 12px 16px;
+    padding: 12px 16px 24px 16px;
 }
 
 .imgFooter {
