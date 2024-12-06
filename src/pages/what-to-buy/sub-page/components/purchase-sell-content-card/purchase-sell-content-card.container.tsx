@@ -22,7 +22,6 @@ export const PurchaseSellContentCardContainer = injectable(
         ({ type }: PurchaseSellContentCardContainerProps) => {
             const totalAmount = useProperty(store.totalAmount);
             const selectedAssets = useProperty(store.selectedAssets);
-            const maxQuantity = useProperty(store.maxAvailableBuy);
 
             // TODO: переписать на RenderEither
             const currentSelectedAssets = E.isRight(selectedAssets)
@@ -38,7 +37,6 @@ export const PurchaseSellContentCardContainer = injectable(
                 totalAmount,
                 assetCardData: assetCardDataContentCard,
                 onClick: () => store.setIsBottomPanel(isAssetAvailible(type)),
-                maxQuantity,
             });
         }
 );

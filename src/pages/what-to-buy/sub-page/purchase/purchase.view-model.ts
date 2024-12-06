@@ -24,13 +24,11 @@ export interface PurchaseSellStore {
     selectedAssets: Property<E.Either<string, Asset>>;
     totalAmount: Property<O.Option<TotalAmount>>;
     quantity: Property<number>;
+    setQuantity: (quantity: number) => void;
     isBottomPanel: Property<boolean>;
     isShowBottomSheetFinishBoody: Property<boolean>;
     isLoading: Property<boolean>;
     fundsAvailableSale: Property<E.Either<string, Array<FundsData>>>;
-    maxAvailableBuy: Property<number>;
-    increment: () => void;
-    dicrement: () => void;
     onBuy: () => void;
     onSell: () => void;
     setIsBottomPanel: (x: boolean) => void;
@@ -66,6 +64,7 @@ export const newPurchaseSellStore = injectable(
                 O.of({ currency: 0, coin: 0 })
             );
             const quantity = newLensedAtom(0);
+            const setQuantity = quantity.set;
             const maxAvailableBuy = newLensedAtom(0);
             const isBottomPanel = newLensedAtom(false);
             const isShowBottomSheetFinishBoody = newLensedAtom(false);
@@ -73,13 +72,6 @@ export const newPurchaseSellStore = injectable(
 
             const [onBuy, onBuyEvent] = createAdapter<void>();
             const [onSell, onSellEvent] = createAdapter<void>();
-
-            const increment = () => {
-                quantity.modify((x) => x + 1);
-            };
-            const dicrement = () => {
-                quantity.modify((x) => x - 1);
-            };
 
             const setIsBottomPanel = isBottomPanel.set;
 
@@ -228,8 +220,6 @@ export const newPurchaseSellStore = injectable(
                     selectedAssets,
                     totalAmount,
                     quantity,
-                    increment,
-                    dicrement,
                     onBuy,
                     isBottomPanel,
                     setIsBottomPanel,
@@ -239,6 +229,7 @@ export const newPurchaseSellStore = injectable(
                     fundsAvailableSale,
                     maxAvailableBuy,
                     onSell,
+                    setQuantity,
                 },
                 getFundDataEffect,
                 getAssetsEffect,
