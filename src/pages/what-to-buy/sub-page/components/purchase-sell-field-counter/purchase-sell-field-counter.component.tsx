@@ -9,12 +9,16 @@ export interface PurchaseSellFieldCounterProps {
     quantity: number;
     increment: () => void;
     dicrement: () => void;
+    isButtomMinusDisabled: boolean;
+    isButtomPlusDisabled: boolean;
 }
 
 const PurchaseSellFieldCounter = ({
     quantity,
     increment,
     dicrement,
+    isButtomMinusDisabled,
+    isButtomPlusDisabled,
 }: PurchaseSellFieldCounterProps) => {
     const [inputVal, setInputVal] = useState(quantity);
 
@@ -26,9 +30,6 @@ const PurchaseSellFieldCounter = ({
         setInputVal((x) => x - 1);
         dicrement();
     };
-
-    const isButtomMinusDisabled = false;
-    const isButtomPlusDisabled = false;
 
     return (
         <div className={css.fieldCounter}>
@@ -44,6 +45,7 @@ const PurchaseSellFieldCounter = ({
                     className={cn(css.fieldCounterButton, {
                         [css.fieldCounterButtonDisabled]: isButtomMinusDisabled,
                     })}
+                    disabled={isButtomMinusDisabled}
                 >
                     <MinusIcon />
                 </button>
@@ -52,6 +54,7 @@ const PurchaseSellFieldCounter = ({
                     className={cn(css.fieldCounterButton, {
                         [css.fieldCounterButtonDisabled]: isButtomPlusDisabled,
                     })}
+                    disabled={isButtomPlusDisabled}
                 >
                     <PlusIcon />
                 </button>
