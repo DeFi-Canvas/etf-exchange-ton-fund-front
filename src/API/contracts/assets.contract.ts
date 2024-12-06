@@ -1,6 +1,7 @@
 import * as t from 'io-ts';
 
-const assetCodec = t.type({
+export const assetCodec = t.type({
+    id: t.string,
     name: t.string,
     ticker: t.string,
     category: t.string,

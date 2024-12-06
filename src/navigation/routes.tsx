@@ -12,7 +12,8 @@ import { indexRouter } from './page-routes/index-router';
 import { depositRouter } from './page-routes/deposit-router';
 import { withdrawRouter } from './page-routes/withdraw-router';
 import { whatToBuyRouter } from './page-routes/what-to-buy-router';
-import AssetsSinglePage from '@/pages/assets-single/assets-single.page.tsx';
+import { AssetsSingleContainer } from '@/pages/assets-single/assets-single.container.tsx';
+import { newAssetsRestService } from '@/API/assets.service.ts';
 
 interface Route {
     path: string;
@@ -37,6 +38,10 @@ export const AppRoutes = () => {
     //#region containers
     const containers = getContainers({ userStore });
 
+    const AssetsSingleContainerResolved = AssetsSingleContainer({
+        assetRestService: newAssetsRestService(),
+    });
+
     //#region routes
     const routes: Route[] = [
         ...indexRouter(containers),
@@ -58,8 +63,8 @@ export const AppRoutes = () => {
         },
         // TODO: Пока что оставлю роут в таком виде
         {
-            path: '/assets/:name',
-            page: AssetsSinglePage,
+            path: '/assets/:assetId',
+            page: AssetsSingleContainerResolved,
         },
     ];
 
