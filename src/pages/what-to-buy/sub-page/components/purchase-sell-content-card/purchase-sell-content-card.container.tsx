@@ -35,6 +35,7 @@ export const PurchaseSellContentCardContainer = injectable(
             return React.createElement(PurchaseSellContentCard, {
                 ...store,
                 totalAmount,
+                asset: currentSelectedAssets,
                 assetCardData: assetCardDataContentCard,
                 onClick: () => store.setIsBottomPanel(isAssetAvailible(type)),
             });

@@ -10,11 +10,13 @@ import { TotalAmount } from '../../purchase/purchase.view-model';
 import { pipe } from 'fp-ts/lib/function';
 import { injectable } from '@injectable-ts/core';
 import { PurchaseSellFieldCounterContainer } from '../purchase-sell-field-counter/purchase-sell-field-counter.container';
+import { Asset } from '@/pages/whalet/whalet.model';
 
 interface PurchaseSellContentCardProps {
     assetCardData: InterfacePurchaseSellAssetCardData;
     totalAmount: O.Option<TotalAmount>;
     onClick: () => void;
+    asset: Asset;
 }
 const PurchaseSellContentCard = injectable(
     PurchaseSellFieldCounterContainer,
@@ -23,6 +25,7 @@ const PurchaseSellContentCard = injectable(
             assetCardData,
             totalAmount,
             onClick,
+            asset,
         }: PurchaseSellContentCardProps) => {
             const currentTotalAmount = pipe(
                 totalAmount,
@@ -47,7 +50,9 @@ const PurchaseSellContentCard = injectable(
                                 <span>Amount</span>
                             </header>
                             <PurchaseSellFieldCounterContainer />
-                            <div>≈ {currentTotalAmount.coin}</div>
+                            <div>
+                                ≈ {currentTotalAmount.coin} {asset.name}
+                            </div>
                         </div>
                     </div>
                 </div>

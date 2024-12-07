@@ -20,7 +20,7 @@ export interface PurchaseSellDetailsProps {
 }
 
 const PurchaseSellDetails = (props: PurchaseSellDetailsProps) => {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
 
     const heightDetailItem = props.details.length * 21;
     const gapBetweenDetailItem = (props.details.length - 1) * 12;

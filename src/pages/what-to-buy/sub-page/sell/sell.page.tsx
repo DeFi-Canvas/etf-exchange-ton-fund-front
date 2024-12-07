@@ -38,7 +38,7 @@ const SellPage = injectable(
                     <div className="app-container">
                         <PurchaseSellIitle title="Sell" />
                         <div className={css.assetCard}>
-                            <PurchaseSellAssetCardContainer type={'SELL'} />
+                            <PurchaseSellAssetCardContainer type={'BUY'} />
                         </div>
                     </div>
                     <PurchaseSellContentCardContainer type={'SELL'} />
