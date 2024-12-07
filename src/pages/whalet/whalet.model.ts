@@ -165,6 +165,8 @@ export interface TransactionsResponce {
     amount: number;
     value: number;
     tx: string;
+    transaction_type: string;
+    transaction_status: string;
 }
 
 export interface Transactions {
@@ -182,6 +184,8 @@ export interface Transactions {
     amount: number;
     value: number;
     tx: string;
+    transactionType: string;
+    transactionStatus: string;
 }
 export const normolizeTransactionKey = (
     data: TransactionsResponce
@@ -196,4 +200,6 @@ export const normolizeTransactionKey = (
         url: data.asset.image_url,
         withdrawalFee: data.asset.withdrawal_fee,
     },
+    transactionType: data.transaction_type,
+    transactionStatus: data.transaction_status,
 });

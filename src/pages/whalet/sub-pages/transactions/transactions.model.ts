@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { TransactionGroup } from '../../components/transaction/transaction.component';
 import { ITransaction } from '../../components/transaction/types';
 import { Transactions } from '../../whalet.model';
@@ -23,16 +24,23 @@ export function transformTransactions(
     }));
 }
 
+// TODO нужно переделать весь компонент и всратые типы
 function transformTransaction(transaction: Transactions): ITransaction {
+
     return {
-        type: O.some('DEPOSIT'),
-        status: O.some('BUY'),
+        //@ts-ignore
+        type: O.some(transaction.transactionType.toUpperCase() ?? 'BUY'),
+        //@ts-ignore
+        status: O.some(transaction.transactionType.toUpperCase()),
+        //@ts-ignore
+        modificator: O.some(
+            transaction.transactionStatus.toUpperCase() ?? 'DEPOSIT'
+        ),
         description: O.some(transaction.asset.description),
         fullDate: O.some(new Date(transaction.timestamp)),
         amount: O.some(transaction.amount),
         side: O.none,
         currency: O.some(transaction.asset.ticker),
-        modificator: O.none,
         pnl: O.none,
     };
 }
