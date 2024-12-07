@@ -26,7 +26,6 @@ export function transformTransactions(
 
 // TODO нужно переделать весь компонент и всратые типы
 function transformTransaction(transaction: Transactions): ITransaction {
-    console.log(transaction.transactionStatus, transaction.transactionType);
 
     return {
         //@ts-ignore
