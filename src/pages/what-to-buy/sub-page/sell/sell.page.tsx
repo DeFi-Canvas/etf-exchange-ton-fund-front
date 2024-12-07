@@ -9,11 +9,12 @@ import { PurchaseSellDetailsContainer } from '../components/purchase-sell-detail
 import BottomSheet from '@/components/ui-kit/bottom-sheet/bottom-sheet.component';
 import { PurchaseSellAssetCardContainer } from '../components/purchase-sell-asset-card/purchase-sell-asset-card.container';
 import { PurchaseSellFinishBoodySheetContainer } from '../components/purchase-sell-finish-boody-sheet/purchase-sell-finish-boody-sheet.container';
+import { useNavigate } from 'react-router-dom';
 
 interface SellPageProps {
     showBottomSheet: boolean;
-    setShowBottomSheet: (x: boolean) => void;
     onSell: () => void;
+    isLoading: boolean;
 }
 
 const SellPage = injectable(
@@ -27,9 +28,10 @@ const SellPage = injectable(
         PurchaseSellAssetCardContainer,
         PurchaseSellFinishBoodySheetContainer
     ) =>
-        ({ showBottomSheet, setShowBottomSheet, onSell }: SellPageProps) => {
+        ({ showBottomSheet, onSell, isLoading }: SellPageProps) => {
+            const navigation = useNavigate();
             const handleToggleBottomSheet = () => {
-                setShowBottomSheet(!showBottomSheet);
+                navigation('/');
             };
             return (
                 <div className={css.page}>
@@ -47,7 +49,7 @@ const SellPage = injectable(
                     <PurchaseSellFooter
                         title="Sell"
                         onClick={onSell}
-                        isLoading={false}
+                        isLoading={isLoading}
                         isDisabled={false}
                     />
 
