@@ -13,14 +13,14 @@ export const SellContainer = injectable(
         const { id } = useParams();
 
         const vm = useValueWithEffect(() => newPurchaseViewModel(id), []);
-        const showBottomSheet = useProperty(vm.isBottomPanel);
-
+        const showBottomSheet = useProperty(vm.isShowBottomSheetFinishBoody);
+        const isLoading = useProperty(vm.isLoading);
         const SellPageResolve = SellPage({ purchaseStore: vm });
 
         return React.createElement(SellPageResolve, {
             ...vm,
             showBottomSheet,
-            setShowBottomSheet: vm.setIsBottomPanel,
+            isLoading,
         });
     }
 );
