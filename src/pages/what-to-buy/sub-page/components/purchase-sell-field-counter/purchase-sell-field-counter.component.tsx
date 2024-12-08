@@ -27,6 +27,7 @@ const PurchaseSellFieldCounter = ({
                 value={`${inputVal}`}
                 onChange={onChange}
                 inputMode={'numeric'}
+                placeholder="Enter amount"
             />
         </div>
     );
