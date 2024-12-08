@@ -20,6 +20,12 @@
     align-items: center;
 }
 
+.cardTitleMaxValue {
+    text-decoration-line: underline;
+    font-weight: 400;
+    cursor: pointer;
+}
+
 .section {
     display: flex;
     flex-direction: column;
@@ -44,5 +50,11 @@
 }
 
 .totalAmountCardPrice {
+    color: var(--color-text-dark-70);
+}
+
+.currentTotalAmount {
+    font-size: 12px;
+    line-height: 1.5;
     color: var(--color-text-dark-70);
 }
