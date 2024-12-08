@@ -47,14 +47,14 @@ const PurchaseSellContentCard = injectable(
                         </div>
                         <div className={css.section}>
                             <header className={css.cardTitle}>
-                                <span>Amount</span>
+                                <span>Amount ($)</span>
                                 <span className={css.cardTitleMaxValue}>
                                     MAX
                                 </span>
                             </header>
                             <PurchaseSellFieldCounterContainer />
                             <div className={css.currentTotalAmount}>
-                                ≈ $ {currentTotalAmount.coin.toFixed(2)}
+                                ≈ {currentTotalAmount.coin.toFixed(2)} {asset.name}
                             </div>
                         </div>
                     </div>

@@ -23,6 +23,7 @@
 .cardTitleMaxValue {
     text-decoration-line: underline;
     font-weight: 400;
+    cursor: pointer;
 }
 
 .section {
