@@ -26,7 +26,6 @@ export function transformTransactions(
 
 // TODO нужно переделать весь компонент и всратые типы
 function transformTransaction(transaction: Transactions): ITransaction {
-
     return {
         //@ts-ignore
         type: O.some(transaction.transactionType.toUpperCase() ?? 'BUY'),
