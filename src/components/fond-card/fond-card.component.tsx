@@ -7,7 +7,7 @@ import img2 from './temp/2.jpg';
 import img3 from './temp/Frame 260862772 1.png';
 
 type CustomCSSProperties = CSSProperties & {
-    '--backgroundUrl'?: string;
+    '--background-url'?: string;
 };
 
 // остальных данных тупо нет:(
@@ -25,7 +25,7 @@ export const FondCard = ({
     onClick,
 }: FondCardProps) => {
     const style: CustomCSSProperties = {
-        '--backgroundUrl': `url(${img2})`,
+        '--background-url': `url(${img2})`,
     };
 
     const heandleClick = () => {
@@ -34,7 +34,7 @@ export const FondCard = ({
     return (
         <div className={css.wrap} onClick={heandleClick}>
             <div className={css.statisticInfo} style={style}>
-                <div className={css.riskInfo}>
+                <div className={cn(css.riskInfo, css.isolateOverlay)}>
                     <div className={css.risk}>
                         Risk
                         {/* TODO: заменить на иконку риска */}
@@ -45,7 +45,7 @@ export const FondCard = ({
                         <img src={img} alt="" className={css.img} />
                     </div>
                 </div>
-                <div className={css.prediction}>
+                <div className={cn(css.prediction, css.isolateOverlay)}>
                     <span>Forecast</span>
                     <span>5% Annual Return</span>
                 </div>
@@ -60,7 +60,7 @@ export const FondCard = ({
                 <div className={css.owner}>
                     <img src={img3} alt="" className={css.ownerLogo} />
                     <div className={css.ownerInfo}>
-                        <span className={css.ownerTitle}>Defi Canvas</span>
+                        <span>Defi Canvas</span>
                         <span className={css.ownerDescription}>
                             Investing since 2018
                         </span>
