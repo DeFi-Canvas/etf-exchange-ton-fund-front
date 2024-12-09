@@ -13,6 +13,10 @@ const InfoCard = (props: InfoCardProps) => {
     const onClick = () => {
         navigator.clipboard.writeText(props.node);
         setIsActive(true);
+
+        setTimeout(() => {
+            setIsActive(false);
+        }, 3000);
     };
     const copyText = isActive ? 'Done' : 'Copy';
     const copyIcon = isActive ? <CopyDoneIcon /> : <CopyIcon />;
