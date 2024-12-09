@@ -1,3 +1,5 @@
+import { newAssetsRestService } from '@/API/assets.service';
+import { AssetsSingleContainer } from '@/pages/assets-single/assets-single.container';
 import { DepositEndPointContainer } from '@/pages/deposit-end-point/deposit-end-point.container';
 import { Deposit } from '@/pages/deposit/deposit.page';
 import { ProfileContainer } from '@/pages/profile/profile.page';
@@ -42,6 +44,7 @@ export interface Containers {
     WhatToBuyPage: () => JSX.Element;
     FundPage: () => JSX.Element;
     FundsPage: () => JSX.Element;
+    AssetPage: () => JSX.Element;
 }
 
 export const getContainers = ({
@@ -95,5 +98,8 @@ export const getContainers = ({
     FundPage: FundPageContainer({ userStore }),
     FundsPage: FundsPageContainer({
         userStore,
+    }),
+    AssetPage: AssetsSingleContainer({
+        assetRestService: newAssetsRestService(),
     }),
 });
