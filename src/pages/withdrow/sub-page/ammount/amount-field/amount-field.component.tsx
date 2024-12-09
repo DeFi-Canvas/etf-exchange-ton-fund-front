@@ -42,7 +42,8 @@ const AmountField = ({
         <div className={cn(css.fieldContainer, { [css.fieldError]: isError })}>
             <input
                 ref={inputRef}
-                type="number"
+                type="text"
+                inputMode="decimal"
                 className={css.field}
                 value={value}
                 onChange={handleChange}

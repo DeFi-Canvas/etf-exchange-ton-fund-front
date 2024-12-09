@@ -46,9 +46,9 @@ const TransactionCard = (props: ITransaction) => {
     const Icon = () =>
         pipe(
             props.status,
-            O.map((s) => (
+            O.map((status) => (
                 // eslint-disable-next-line react/jsx-key
-                <TransactionStatusIcon status={s} className={css.icon} />
+                <TransactionStatusIcon status={status} className={css.icon} />
             )),
             O.getOrElse(() => <> </>)
         );

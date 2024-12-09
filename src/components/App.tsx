@@ -3,6 +3,7 @@ import {
     bindViewportCSSVars,
     initNavigator,
     useViewport,
+    initMiniApp,
 } from '@telegram-apps/sdk-react';
 import { type FC, useEffect, useMemo } from 'react';
 import { Router } from 'react-router-dom';
@@ -18,6 +19,11 @@ const PAGE_URLS = [
 ];
 
 export const App: FC = () => {
+    const [miniApp] = initMiniApp();
+
+    // Красим фон шапки приложения. TODO По хорошему бы сформировать константы js на основе css переменных
+    miniApp.setHeaderColor('#F9F8FF');
+
     const viewport = useViewport();
     // const wallet = useTonWallet();
     // const dispatch = useAppDispatch();

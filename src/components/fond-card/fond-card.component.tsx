@@ -5,6 +5,7 @@ import cn from 'classnames';
 import img from './temp/1.png';
 import img2 from './temp/2.jpg';
 import img3 from './temp/Frame 260862772 1.png';
+import { RiskIcon } from '@/components/Icons/Icons.tsx';
 
 type CustomCSSProperties = CSSProperties & {
     '--background-url'?: string;
@@ -37,8 +38,7 @@ export const FondCard = ({
                 <div className={cn(css.riskInfo, css.isolateOverlay)}>
                     <div className={css.risk}>
                         Risk
-                        {/* TODO: заменить на иконку риска */}
-                        <span>1</span>
+                        <RiskIcon />
                     </div>
                     <div className={css.coinWrap}>
                         <img src={img} alt="" className={css.img} />

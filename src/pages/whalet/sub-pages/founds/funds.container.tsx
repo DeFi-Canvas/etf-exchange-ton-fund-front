@@ -10,6 +10,7 @@ export const FundsContainer = injectable(
     (newFundsViewModel) => () => {
         const vm = useValueWithEffect(() => newFundsViewModel(), []);
         const funds = useProperty(vm.funds);
+
         return React.createElement(Funds, { funds });
     }
 );

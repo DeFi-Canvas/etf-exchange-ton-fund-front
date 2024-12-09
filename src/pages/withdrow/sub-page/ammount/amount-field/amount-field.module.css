@@ -1,9 +1,12 @@
 .fieldContainer {
     position: relative;
+    height: 60px;
 }
 
 .field {
     width: 100%;
+    height: 60px;
+    padding: 0;
     color: var(--color-text-dark);
     font-size: 44px;
     border: none;

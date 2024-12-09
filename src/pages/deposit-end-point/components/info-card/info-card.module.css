@@ -19,6 +19,7 @@
     height: fit-content;
     font-size: 12px;
     background-color: var(--color-main-purple-10);
+    color: var(--color-text-dark);
     border-radius: 8px;
     display: flex;
     align-items: center;

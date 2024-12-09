@@ -6,6 +6,8 @@ import { pipe } from 'fp-ts/lib/function';
 import { useParams } from 'react-router-dom';
 import { ErrorResult } from '@/components/error-result/error-result.component';
 import InfoCard from './components/info-card/info-card.component';
+import AppFooter from '@/components/app-footer/app-footer.components.tsx';
+import AppButton from '@/components/app-button/app-button.component.tsx';
 
 interface DepositEndPointProps {
     readonly details: E.Either<string, DepositDetails>;
@@ -56,6 +58,9 @@ export const DepositEndPoint = ({
                                 className={css.coinLogoImage2}
                             />
                         </div>
+                        <AppFooter>
+                            <AppButton label={'Finish'} />
+                        </AppFooter>
                     </>
                 );
             }
