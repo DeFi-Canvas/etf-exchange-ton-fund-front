@@ -35,6 +35,7 @@ import Minus from '@/assets/icons/minus.svg?react';
 import ArrowTopRight from '@/assets/icons/arrow-top-right.svg?react';
 import RiskLow from '@/assets/icons/risk-low-icon.svg?react';
 import Fee from '@/assets/icons/fee-icon.svg?react';
+import Risk from '@/assets/icons/risk.svg?react';
 
 import { TTransactionStatus } from '@/pages/whalet/components/transaction/types';
 
@@ -211,4 +212,8 @@ export const RiskLowIcon = ({ className = '' }: { className?: string }) => (
 
 export const FeeIcon = ({ className = '' }: { className?: string }) => (
     <Fee className={className} />
+);
+
+export const RiskIcon = ({ className = '' }: { className?: string }) => (
+    <Risk className={className} />
 );

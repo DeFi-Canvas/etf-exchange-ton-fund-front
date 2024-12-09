@@ -8,6 +8,7 @@ import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/e
 import { FundsData } from '../../whalet.model';
 import { SkeletonCardSection } from '@/components/skeletons/skeleton-card/skeleton-card-section.component';
 import { formatNumberToUI } from '@/utils/number';
+import { Link } from 'react-router-dom';
 
 const emptyText = `You don't have any investments in funds right now. Get started by browsing through funds to discover opportunities.`;
 
@@ -45,10 +46,9 @@ export const Funds = ({ funds }: FundsProps) => {
                 success={(funds) => (
                     <>
                         {funds.map((fund) => (
-                            <AssetsCard
-                                {...formattedData(fund)}
-                                key={fund.id}
-                            />
+                            <Link to={`/what-to-buy/fund/${fund.id}`} key={fund.id}>
+                                <AssetsCard {...formattedData(fund)} />
+                            </Link>
                         ))}
                     </>
                 )}
