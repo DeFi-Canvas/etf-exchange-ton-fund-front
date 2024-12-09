@@ -12,7 +12,6 @@ import { indexRouter } from './page-routes/index-router';
 import { depositRouter } from './page-routes/deposit-router';
 import { withdrawRouter } from './page-routes/withdraw-router';
 import { whatToBuyRouter } from './page-routes/what-to-buy-router';
-import AssetsSinglePage from '@/pages/assets-single/assets-single.page.tsx';
 
 interface Route {
     path: string;
@@ -58,8 +57,8 @@ export const AppRoutes = () => {
         },
         // TODO: Пока что оставлю роут в таком виде
         {
-            path: '/assets/:name',
-            page: AssetsSinglePage,
+            path: '/assets/:assetId',
+            page: containers.AssetPage,
         },
     ];
 

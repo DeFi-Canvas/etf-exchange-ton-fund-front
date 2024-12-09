@@ -7,6 +7,7 @@ import { AssetsCard } from '@/components/assets-card/assets-card.component.tsx';
 import { CoinCardData } from '@/components/assets-card/assets-card.model';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import { SkeletonCardSection } from '@/components/skeletons/skeleton-card/skeleton-card-section.component';
+import { Link } from 'react-router-dom';
 
 export interface AssetsProps {
     assets: E.Either<string, Array<CoinCardData>>;
@@ -21,6 +22,7 @@ const formattedData = (assets: CoinCardData) => {
     const $currency = '&dollar;';
 
     return {
+        id: assets.id,
         img: assets.logo,
         title: `${assets.coinAmount} ${assets.name}`,
         subTitle: assets.ticker,
@@ -64,10 +66,12 @@ export const Assets = ({ assets }: AssetsProps) => {
                         )}
                         {assets.length &&
                             assets.map((assets) => (
-                                <AssetsCard
+                                <Link
+                                    to={`/assets/${assets.id}`}
                                     key={assets.ticker}
-                                    {...formattedData(assets)}
-                                />
+                                >
+                                    <AssetsCard {...formattedData(assets)} />
+                                </Link>
                             ))}
                     </>
                 )}

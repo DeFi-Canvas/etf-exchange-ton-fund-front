@@ -1,6 +1,7 @@
 import * as t from 'io-ts';
 
 export interface Assets {
+    id: string;
     img: string;
     title: string;
     subTitle: string;
@@ -9,6 +10,7 @@ export interface Assets {
 }
 
 export const assetsCodec = t.type({
+    id: t.string,
     img: t.string,
     title: t.string,
     subTitle: t.string,
@@ -24,6 +26,7 @@ export interface AssetsPnl extends Assets {
 }
 
 export const assetsPnlCodec = t.type({
+    id: t.string,
     img: t.string,
     title: t.string,
     subTitle: t.string,
@@ -36,6 +39,7 @@ export const assetsPnlCodec = t.type({
 
 // нечто подобное ожидаем с бека
 export interface CoinCardData {
+    id: string;
     logo: string;
     name: string;
     ticker: string;
