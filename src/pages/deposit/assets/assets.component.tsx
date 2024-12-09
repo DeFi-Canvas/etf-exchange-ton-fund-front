@@ -19,6 +19,7 @@ interface AssetsProps {
 const formattedData = (asset: DepositAssets | Asset): AssetsCardBaseProps => {
     if (DepositAssetsCodec.is(asset)) {
         return {
+            id: asset.id,
             img: asset.img,
             title: asset.name,
             subTitle: asset.description,
@@ -27,6 +28,7 @@ const formattedData = (asset: DepositAssets | Asset): AssetsCardBaseProps => {
         };
     } else {
         return {
+            id: asset.id,
             img: asset.logo,
             title: asset.name,
             subTitle: asset.symbol,

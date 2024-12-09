@@ -1,6 +1,7 @@
 import * as t from 'io-ts';
 
 export interface DepositAssetsResponce {
+    id: string;
     name: string;
     ticker: string;
     category: string;
@@ -22,6 +23,7 @@ export const mapDepositDetails = (data: DepositDetails) => ({
 export const mapDepositAssets = (
     data: DepositAssetsResponce
 ): DepositAssets => ({
+    id: data.id,
     name: data.name,
     ticker: data.ticker,
     description: data.description,
@@ -30,6 +32,7 @@ export const mapDepositAssets = (
 });
 
 export interface DepositAssets {
+    id: string;
     name: string;
     ticker: string;
     description: string;

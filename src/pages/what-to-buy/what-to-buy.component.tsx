@@ -121,6 +121,7 @@ export const WhatToBuyPage = injectable(
                             </div>
                             <div className={css.leadersAssets}>
                                 <AssetsCard
+                                    id="0"
                                     img={src8}
                                     title={'TON'}
                                     subTitle={'Toncoin'}
@@ -133,6 +134,7 @@ export const WhatToBuyPage = injectable(
                                     type="pnl"
                                 />
                                 <AssetsCard
+                                    id="1"
                                     img={src8}
                                     title={'TON'}
                                     subTitle={'Toncoin'}
@@ -145,6 +147,7 @@ export const WhatToBuyPage = injectable(
                                     type="pnl"
                                 />
                                 <AssetsCard
+                                    id="1"
                                     img={src8}
                                     title={'TON'}
                                     subTitle={'Toncoin'}

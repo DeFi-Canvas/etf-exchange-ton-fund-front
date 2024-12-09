@@ -21,6 +21,7 @@ const formattedData = (assets: FundsData) => {
     const $currency = '&dollar;';
 
     return {
+        id: assets.id,
         img: assets.logo,
         title: `${assets.name}`,
         subTitle: '',
