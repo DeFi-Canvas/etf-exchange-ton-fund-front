@@ -25,6 +25,7 @@ import MultiSwap from '@/assets/icons/transactions/multi-svap.svg?react';
 import Processing from '@/assets/icons/transactions/processing.svg?react';
 import Swap from '@/assets/icons/transactions/swap.svg?react';
 import Withdraw from '@/assets/icons/transactions/withdraw.svg?react';
+import Sell from '@/assets/icons/transactions/sell.svg?react';
 import Profile from '@/assets/icons/profile.svg?react';
 import ChevronRight from '@/assets/icons/chevron-right.svg?react';
 import Copy from '@/assets/icons/copy.svg?react';
@@ -180,7 +181,7 @@ export const TransactionStatusIcon = ({
         case 'MULTI-SWAP':
             return <MultiSwap className={className} />;
         case 'SELL':
-            return <Buy className={className} />;
+            return <Sell className={className} />;
         case 'ERROR':
             return <TransaactionError className={className} />;
         case 'PROCESSING':
