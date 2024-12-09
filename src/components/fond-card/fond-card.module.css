@@ -115,7 +115,6 @@
     font-weight: 400;
 }
 
-
 .isolateOverlay {
     position: relative;
     z-index: var(--z-index-1);

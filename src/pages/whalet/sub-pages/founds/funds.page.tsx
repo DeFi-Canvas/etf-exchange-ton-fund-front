@@ -46,7 +46,10 @@ export const Funds = ({ funds }: FundsProps) => {
                 success={(funds) => (
                     <>
                         {funds.map((fund) => (
-                            <Link to={`/what-to-buy/fund/${fund.id}`} key={fund.id}>
+                            <Link
+                                to={`/what-to-buy/fund/${fund.id}`}
+                                key={fund.id}
+                            >
                                 <AssetsCard {...formattedData(fund)} />
                             </Link>
                         ))}
