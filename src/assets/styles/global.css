@@ -6,7 +6,7 @@ body {
 
 body,
 #root {
-    height: var(--tg-viewport-height, 100vh);
+    height: 100dvh;
 }
 
 main {
