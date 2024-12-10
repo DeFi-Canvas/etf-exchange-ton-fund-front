@@ -54,7 +54,8 @@ const PurchaseSellContentCard = injectable(
                             </header>
                             <PurchaseSellFieldCounterContainer />
                             <div className={css.currentTotalAmount}>
-                                ≈ {currentTotalAmount.coin.toFixed(2)} {asset.name}
+                                ≈ {currentTotalAmount.coin.toFixed(2)}{' '}
+                                {asset.name}
                             </div>
                         </div>
                     </div>
