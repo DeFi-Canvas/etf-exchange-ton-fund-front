@@ -38,7 +38,6 @@ const PurchaseSellAssetCard = (props: PurchaseSellAssetCardProps) => {
                     )}
                 </div>
                 <div className={css.cardAdditional}>
-                    {props.price && <div>{props.price}</div>}
                     {props.allowedOpen && (
                         <div className={cn(css.icon, css.iconChevrone)}>
                             <ChevronDown />

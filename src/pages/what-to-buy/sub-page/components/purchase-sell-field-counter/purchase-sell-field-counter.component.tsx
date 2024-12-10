@@ -1,16 +1,22 @@
 import cn from 'classnames';
 // Style
 import css from './purchase-sell-field-counter.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export interface PurchaseSellFieldCounterProps {
     setValue: (ammount: number) => void;
+    quantity: number;
 }
 
 const PurchaseSellFieldCounter = ({
     setValue,
+    quantity,
 }: PurchaseSellFieldCounterProps) => {
-    const [inputVal, setInputVal] = useState('');
+    const [inputVal, setInputVal] = useState(``);
+
+    useEffect(() => {
+        setInputVal(`${quantity?.toFixed(2)}`);
+    }, [quantity]);
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;

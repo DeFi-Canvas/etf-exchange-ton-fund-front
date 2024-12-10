@@ -22,6 +22,8 @@ export const PurchaseSellContentCardContainer = injectable(
         ({ type }: PurchaseSellContentCardContainerProps) => {
             const totalAmount = useProperty(store.totalAmount);
             const selectedAssets = useProperty(store.selectedAssets);
+            const maxAvailableBuy = useProperty(store.maxAvailableBuy);
+            const maxAvailableSell = useProperty(store.maxAvailableSell);
 
             // TODO: переписать на RenderEither
             const currentSelectedAssets = E.isRight(selectedAssets)
@@ -32,12 +34,17 @@ export const PurchaseSellContentCardContainer = injectable(
                 isAssetAvailible(type)
             );
 
+            const maxAvailable =
+                type === 'BUY' ? maxAvailableBuy : maxAvailableSell;
+
             return React.createElement(PurchaseSellContentCard, {
                 ...store,
                 totalAmount,
                 asset: currentSelectedAssets,
                 assetCardData: assetCardDataContentCard,
                 onClick: () => store.setIsBottomPanel(isAssetAvailible(type)),
+                maxAvailable,
+                onMaxAvailableClick: store.onMaxAvailableClick(type),
             });
         }
 );

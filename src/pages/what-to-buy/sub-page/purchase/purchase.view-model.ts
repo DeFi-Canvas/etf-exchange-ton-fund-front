@@ -1,5 +1,5 @@
 import { injectable } from '@injectable-ts/core';
-import { property, Property } from '@frp-ts/core';
+import { Property } from '@frp-ts/core';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { newLensedAtom } from '@frp-ts/lens';
 import * as E from 'fp-ts/Either';
@@ -11,6 +11,7 @@ import { newWaletRestService } from '@/API/whalet.service';
 import { Asset, FundsData } from '@/pages/whalet/whalet.model';
 import { fromProperty } from '@/utils/property.utils';
 import { createAdapter } from '@most/adapter';
+import { PageType } from '../../what-to-buy.model';
 
 export interface TotalAmount {
     currency: number;
@@ -32,6 +33,9 @@ export interface PurchaseSellStore {
     onBuy: () => void;
     onSell: () => void;
     setIsBottomPanel: (x: boolean) => void;
+    maxAvailableBuy: Property<number>;
+    maxAvailableSell: Property<number>;
+    onMaxAvailableClick: (type: PageType) => () => void;
 }
 
 export interface NewPurchaseSellStore {
@@ -66,6 +70,7 @@ export const newPurchaseSellStore = injectable(
             const quantity = newLensedAtom(0);
             const setQuantity = quantity.set;
             const maxAvailableBuy = newLensedAtom(0);
+            const maxAvailableSell = newLensedAtom(0);
             const isBottomPanel = newLensedAtom(false);
             const isShowBottomSheetFinishBoody = newLensedAtom(false);
             const isLoading = newLensedAtom(false);
@@ -74,6 +79,14 @@ export const newPurchaseSellStore = injectable(
             const [onSell, onSellEvent] = createAdapter<void>();
 
             const setIsBottomPanel = isBottomPanel.set;
+
+            const onMaxAvailableClick = (type: PageType) => () => {
+                if (type === 'BUY') {
+                    quantity.set(maxAvailableBuy.get());
+                } else {
+                    quantity.set(maxAvailableSell.get());
+                }
+            };
 
             const getFundDataEffect = pipe(
                 service.getFund(id ?? ''),
@@ -185,34 +198,43 @@ export const newPurchaseSellStore = injectable(
                 tap(funds.set)
             );
 
-            const getMaxAvailableBuyEffect = pipe(
-                property.combine(
-                    selectedAssets,
-                    fundData,
-                    (selectedAssets, fundData) => ({
-                        selectedAssets,
-                        fundData,
-                    })
-                ),
-                fromProperty,
-                tap(({ selectedAssets, fundData }) => {
-                    const priceData = pipe(
-                        selectedAssets,
-                        E.map(({ value }) => value),
-                        E.getOrElse(() => 0)
-                    );
-                    const currentFundDataPrice = pipe(
-                        fundData,
-                        E.map(({ cost }) => cost),
-                        E.getOrElse(() => 0)
+            const getMaxAvailableSellEffect = pipe(
+                walletService.getWhaletFunds(),
+                tap((fundsData) => {
+                    const maxAvailableSize = pipe(
+                        fundData.get(),
+                        E.chain((fundData) => {
+                            return pipe(
+                                fundsData,
+                                E.map(
+                                    (fundsData) =>
+                                        fundsData.filter(
+                                            ({ id }) => id === fundData.id
+                                        )[0]
+                                )
+                            );
+                        }),
+                        E.fold(
+                            () => 0,
+                            ({ cost }) => cost
+                        )
                     );
 
-                    const currentMaxAvailableBuy =
-                        priceData / currentFundDataPrice;
-                    maxAvailableBuy.set(currentMaxAvailableBuy);
+                    maxAvailableSell.set(maxAvailableSize);
                 })
             );
 
+            const getMaxAvailableBuyEffect = pipe(
+                selectedAssets,
+                fromProperty,
+                tap((selectedAssets) => {
+                    const currentAsset = pipe(
+                        selectedAssets,
+                        E.getOrElse(() => ({}) as Asset)
+                    );
+                    maxAvailableBuy.set(currentAsset.value);
+                })
+            );
             return valueWithEffect.new(
                 {
                     fundData,
@@ -230,6 +252,8 @@ export const newPurchaseSellStore = injectable(
                     maxAvailableBuy,
                     onSell,
                     setQuantity,
+                    maxAvailableSell,
+                    onMaxAvailableClick,
                 },
                 getFundDataEffect,
                 getAssetsEffect,
@@ -240,7 +264,8 @@ export const newPurchaseSellStore = injectable(
                 onBuyEffect,
                 getFundsAvailableSaleEffect,
                 getMaxAvailableBuyEffect,
-                onSellEffect
+                onSellEffect,
+                getMaxAvailableSellEffect
             );
         }
 );

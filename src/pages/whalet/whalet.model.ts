@@ -114,17 +114,17 @@ export const mapAssetsFromBalanceValidation = (data: WaletResponce) => {
 
 export const mapWhaletFunds = (data: WhaletFundsResponce): Array<FundsData> => {
     if (!data.funds.length) return [];
-    return data.funds.map(({ fund: data }) => ({
-        id: data.id,
-        name: data.name,
-        description: data.description,
-        managementFee: data.management_fee,
-        logo: data.image_url,
-        isDao: data.is_dao,
-        riskScore: data.risk_score,
-        updatedEvent: data.updated_event,
-        isAvaiable: data.is_avaiable,
-        cost: data.value,
+    return data.funds.map(({ fund: fundData }) => ({
+        id: fundData.id,
+        name: fundData.name,
+        description: fundData.description,
+        managementFee: fundData.management_fee,
+        logo: fundData.image_url,
+        isDao: fundData.is_dao,
+        riskScore: fundData.risk_score,
+        updatedEvent: fundData.updated_event,
+        isAvaiable: fundData.is_avaiable,
+        cost: data.total,
         assets: [],
     }));
 };
