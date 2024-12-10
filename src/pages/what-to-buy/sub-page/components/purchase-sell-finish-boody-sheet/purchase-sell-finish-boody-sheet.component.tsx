@@ -18,7 +18,7 @@ export const PurchaseSellFinishBoodySheet = ({
     logo,
     type,
 }: PurchaseSellFinishBoodySheetProps) => {
-    const operation = type === 'BUY' ? 'purchase' : 'sele';
+    const operation = type === 'BUY' ? 'purchase' : 'sale';
     return (
         <div className={css.bottomSheetContent}>
             <header className={css.bottomSheetHeader}>

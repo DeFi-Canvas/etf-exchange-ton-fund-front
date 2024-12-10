@@ -25,6 +25,7 @@ import MultiSwap from '@/assets/icons/transactions/multi-svap.svg?react';
 import Processing from '@/assets/icons/transactions/processing.svg?react';
 import Swap from '@/assets/icons/transactions/swap.svg?react';
 import Withdraw from '@/assets/icons/transactions/withdraw.svg?react';
+import Sell from '@/assets/icons/transactions/sell.svg?react';
 import Profile from '@/assets/icons/profile.svg?react';
 import ChevronRight from '@/assets/icons/chevron-right.svg?react';
 import Copy from '@/assets/icons/copy.svg?react';
@@ -35,6 +36,7 @@ import Minus from '@/assets/icons/minus.svg?react';
 import ArrowTopRight from '@/assets/icons/arrow-top-right.svg?react';
 import RiskLow from '@/assets/icons/risk-low-icon.svg?react';
 import Fee from '@/assets/icons/fee-icon.svg?react';
+import Risk from '@/assets/icons/risk.svg?react';
 
 import { TTransactionStatus } from '@/pages/whalet/components/transaction/types';
 
@@ -179,7 +181,7 @@ export const TransactionStatusIcon = ({
         case 'MULTI-SWAP':
             return <MultiSwap className={className} />;
         case 'SELL':
-            return <Buy className={className} />;
+            return <Sell className={className} />;
         case 'ERROR':
             return <TransaactionError className={className} />;
         case 'PROCESSING':
@@ -211,4 +213,8 @@ export const RiskLowIcon = ({ className = '' }: { className?: string }) => (
 
 export const FeeIcon = ({ className = '' }: { className?: string }) => (
     <Fee className={className} />
+);
+
+export const RiskIcon = ({ className = '' }: { className?: string }) => (
+    <Risk className={className} />
 );
