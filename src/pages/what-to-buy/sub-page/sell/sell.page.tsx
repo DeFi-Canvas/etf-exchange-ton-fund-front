@@ -1,5 +1,5 @@
 // Templates
-import PurchaseSellIitle from '../components/purchase-sell-title/purchase-sell-title.component';
+import PurchaseSellTitle from '../components/purchase-sell-title/purchase-sell-title.component';
 import PurchaseSellFooter from '../components/purchase-sell-footer/purchase-sell-footer.component';
 // Style
 import css from './sell.module.css';
@@ -36,7 +36,7 @@ const SellPage = injectable(
             return (
                 <div className={css.page}>
                     <div className="app-container">
-                        <PurchaseSellIitle title="Selling" />
+                        <PurchaseSellTitle title="Selling" />
                         <div className={css.assetCard}>
                             <PurchaseSellAssetCardContainer type={'BUY'} />
                         </div>

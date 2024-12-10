@@ -29,6 +29,7 @@ export const PurchaseSellAssetCardContainer = injectable(
             return React.createElement(PurchaseSellAssetCard, {
                 ...data,
                 onClick: () => store.setIsBottomPanel(!isAssetAvailible(type)),
+                isBackgroundWhite: true,
             });
         }
 );
