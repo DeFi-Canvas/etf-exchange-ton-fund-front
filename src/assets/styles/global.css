@@ -6,16 +6,15 @@ body {
 
 body,
 #root {
-    height: 100dvh;
+    height: var(--tg-viewport-height, 100vh);
 }
 
 main {
-    /*height: calc(var(--tg-viewport-height, 100vh) - var(--tab-bar-height));*/
-    /*min-height: calc(var(--tg-viewport-height, 100vh) - var(--tab-bar-height));*/
-    /*max-height: calc(var(--tg-viewport-height, 100vh) - var(--tab-bar-height));*/
-    /*overflow-y: auto;*/
-    /*width: 100%;*/
-    padding-bottom: calc(var(--tab-bar-height) + var(--base-safe-area-bottom));
+    height: calc(var(--tg-viewport-height, 100vh) - var(--tab-bar-height));
+    min-height: calc(var(--tg-viewport-height, 100vh) - var(--tab-bar-height));
+    max-height: calc(var(--tg-viewport-height, 100vh) - var(--tab-bar-height));
+    overflow-y: auto;
+    width: 100%;
 }
 
 .app-container {
