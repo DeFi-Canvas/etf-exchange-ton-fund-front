@@ -199,7 +199,9 @@ export const newPurchaseSellStore = injectable(
             );
 
             const getMaxAvailableSellEffect = pipe(
-                walletService.getWhaletFunds(),
+                fundData,
+                fromProperty,
+                chain(() => walletService.getWhaletFunds()),
                 tap((fundsData) => {
                     const maxAvailableSize = pipe(
                         fundData.get(),
