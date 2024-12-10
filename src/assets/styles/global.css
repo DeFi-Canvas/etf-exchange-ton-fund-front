@@ -10,10 +10,9 @@ body,
 }
 
 main {
-    --height: calc(var(--tg-viewport-height, 100dvh) - var(--tab-bar-height) - var(--base-safe-area-bottom));
-    height: var(--height);
-    min-height: var(--height);
-    max-height: var(--height);
+    height: calc(var(--tg-viewport-height, 100vh) - var(--tab-bar-height));
+    min-height: calc(var(--tg-viewport-height, 100vh) - var(--tab-bar-height));
+    max-height: calc(var(--tg-viewport-height, 100vh) - var(--tab-bar-height));
     overflow-y: auto;
     width: 100%;
 }
