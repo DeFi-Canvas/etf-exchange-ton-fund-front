@@ -59,7 +59,7 @@ export const DepositEndPoint = ({
                             />
                         </div>
                         <AppFooter>
-                            <AppButton label={'Finish'} />
+                            <AppButton label="Finish" to={'/'} />
                         </AppFooter>
                     </>
                 );
