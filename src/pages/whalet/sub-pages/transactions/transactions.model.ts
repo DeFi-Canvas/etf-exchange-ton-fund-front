@@ -35,7 +35,7 @@ function transformTransaction(transaction: Transactions): ITransaction {
         modificator: O.some(
             transaction.transactionStatus.toUpperCase() ?? 'DEPOSIT'
         ),
-        description: O.some(transaction.asset.description),
+        description: O.some(transaction.asset.name),
         fullDate: O.some(new Date(transaction.timestamp)),
         amount: O.some(transaction.amount),
         side: O.none,
