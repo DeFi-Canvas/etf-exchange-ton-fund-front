@@ -182,9 +182,16 @@ export const newPurchaseSellStore = injectable(
                         E.getOrElse(() => ({}) as FundsData)
                     );
 
+                    const currentAsset = pipe(
+                        selectedAssets.get(),
+                        E.getOrElse(() => ({}) as Asset)
+                    );
                     return service.sellFund({
                         fundId: currentFund.id,
-                        amount: quantity.get(),
+                        amount:
+                            maxAvailableSell.get() > 0
+                                ? quantity.get() - currentAsset.price / 2
+                                : quantity.get(),
                     });
                 }),
                 tap(() => {
