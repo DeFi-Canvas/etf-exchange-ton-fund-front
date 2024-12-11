@@ -1,0 +1,20 @@
+.card {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 2em;
+}
+
+.card button {
+    align-self: center;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: burlywood;
+    color: black;
+    width: fit-content;
+}
+
+.card button:disabled {
+    background-color: gray;
+
+}
