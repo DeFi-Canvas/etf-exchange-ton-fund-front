@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import css from './tabs.module.css';
 import { TabSlider } from './components/tab-slider/tab-slider.component';
 import { TabItem } from './components/tab-item/tab-item.component.tsx';
@@ -7,10 +7,20 @@ import { TabItemInterface } from './tabs.model.ts';
 interface TabsProps {
     tabs: TabItemInterface[];
     onChangeTab: (currentTab: TabItemInterface) => void;
+    activeTabName?: string;
 }
 
-export const Tabs = ({ tabs, onChangeTab }: TabsProps) => {
+export const Tabs = ({ tabs, onChangeTab, activeTabName = '' }: TabsProps) => {
     const [activeTab, setActiveTab] = useState(0);
+
+    useEffect(() => {
+        if (activeTabName) {
+            const activeIndex =
+                tabs.findIndex((tab) => tab.name === activeTabName) ?? 0;
+            setActiveTab(activeIndex);
+        }
+    }, [activeTabName]);
+
     const totalTabsCount = tabs.length;
     const lastTabIndex = totalTabsCount - 1;
 
