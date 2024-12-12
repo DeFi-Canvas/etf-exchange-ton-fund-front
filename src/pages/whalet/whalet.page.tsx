@@ -10,6 +10,7 @@ import { LernMore } from './components/news/lern-more.component';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import { Onboarding } from '@/components/onboarding/onboarding.component.tsx';
 
 export interface WhatToBuyPageProps {
     balance: O.Option<number>;
@@ -41,6 +42,7 @@ export const WaletPage = injectable(
                 <div className={css.coinWrapper}>
                     <OperationsNavContainer />
                 </div>
+                <Onboarding />
             </div>
         );
     }
