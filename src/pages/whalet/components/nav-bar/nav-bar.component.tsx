@@ -1,8 +1,7 @@
 import {
     DepositAnaliticsIcon,
     DepositDepositIcon,
-    DepositFeaturedIcon,
-    DepositSwapIcon,
+    AIBubbleIcon,
 } from '@/components/Icons/Icons';
 import css from './nav-bar.module.css';
 import { NavLink } from 'react-router-dom';
@@ -10,7 +9,6 @@ import cn from 'classnames';
 import { ReactNode } from 'react';
 
 interface NavItem {
-    id: number;
     href: string;
     isDisabled: boolean;
     title: string;
@@ -19,43 +17,33 @@ interface NavItem {
 
 const navMenu: NavItem[] = [
     {
-        id: 1,
         href: 'deposit',
         isDisabled: false,
         title: 'Deposit',
         icon: <DepositDepositIcon />,
     },
     {
-        id: 2,
-        href: 'swap',
-        isDisabled: true,
-        title: 'Swap',
-        icon: <DepositSwapIcon />,
-    },
-    {
-        id: 3,
         href: '',
         isDisabled: true,
-        title: 'Analytics',
+        title: 'Portfolio',
         icon: <DepositAnaliticsIcon />,
     },
     {
-        id: 4,
         href: '',
         isDisabled: true,
-        title: 'Featured',
-        icon: <DepositFeaturedIcon />,
+        title: 'Assistant',
+        icon: <AIBubbleIcon />,
     },
 ];
 // TODO  доделать на ссылки
 export const NavBar = () => {
     return (
         <div className={cn('app-container', css.navBar)}>
-            {navMenu.map((navItem) => {
+            {navMenu.map((navItem, index) => {
                 if (navItem.isDisabled) {
                     return (
                         <div
-                            key={navItem.id}
+                            key={index}
                             className={cn(css.navItemCard, {
                                 [css.navItemCardDisabled]: navItem.isDisabled,
                             })}
@@ -72,7 +60,7 @@ export const NavBar = () => {
                     <NavLink
                         to={navItem.href}
                         className={css.navItemCard}
-                        key={navItem.id}
+                        key={index}
                     >
                         <div>{navItem.icon}</div>
                         <span className={css.navItemTitle}>
