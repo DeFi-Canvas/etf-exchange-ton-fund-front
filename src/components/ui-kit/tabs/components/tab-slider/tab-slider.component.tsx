@@ -12,22 +12,26 @@ interface TabSliderProps {
     activeTab: number;
 }
 
-const TabSlider = (props: TabSliderProps) => {
+export const TabSlider = ({
+    totalTabsCount,
+    lastTabIndex,
+    activeTab,
+}: TabSliderProps) => {
     const firstTabIndex = 0;
 
     const styleSlider: CustomCSSProperties = {
         '--left': '2px',
-        '--width': `${100 / props.totalTabsCount}%`,
+        '--width': `${100 / totalTabsCount}%`,
     };
 
     useMemo(() => {
         let positionLeft = '0px';
-        const sliderByCountTab = (props.activeTab * 100) / props.totalTabsCount;
+        const sliderByCountTab = (activeTab * 100) / totalTabsCount;
 
-        if (firstTabIndex === props.activeTab) {
+        if (firstTabIndex === activeTab) {
             // Позиция для первого таба
             positionLeft = '2px';
-        } else if (props.lastTabIndex === props.activeTab) {
+        } else if (lastTabIndex === activeTab) {
             // Позиция для последнего таба
             positionLeft = `calc(${sliderByCountTab}% - 2px)`;
         } else {
@@ -36,9 +40,7 @@ const TabSlider = (props: TabSliderProps) => {
         }
 
         styleSlider['--left'] = positionLeft;
-    }, [props.activeTab, props.totalTabsCount]);
+    }, [activeTab, totalTabsCount]);
 
     return <span className={css.slider} style={styleSlider} />;
 };
-
-export default TabSlider;

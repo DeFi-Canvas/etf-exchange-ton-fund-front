@@ -11,22 +11,24 @@ interface TabItemProps {
     onSelectTab: (index: number) => void;
 }
 
-const TabItem = (props: TabItemProps) => {
+export const TabItem = ({
+    activeTab,
+    index,
+    lastTabIndex,
+    tab,
+    onSelectTab,
+}: TabItemProps) => {
     return (
         <React.Fragment>
             <div
-                onClick={() => props.onSelectTab(props.index)}
+                onClick={() => onSelectTab(index)}
                 className={cn(css.tabLink, {
-                    [css.tabLinkActive]: props.activeTab === props.index,
+                    [css.tabLinkActive]: activeTab === index,
                 })}
             >
-                {props.tab.title}
+                {tab.title}
             </div>
-            {props.lastTabIndex !== props.index && (
-                <div className={css.separator} />
-            )}
+            {lastTabIndex !== index && <div className={css.separator} />}
         </React.Fragment>
     );
 };
-
-export default TabItem;
