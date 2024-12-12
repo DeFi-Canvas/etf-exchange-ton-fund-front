@@ -1,6 +1,5 @@
 import cn from 'classnames';
 import css from './fund.module.css';
-import ChartLines from './components/lines/lines.component';
 // import ChartInvestedCard from './components/invested-card/invested-card.component';
 import MoreInfo from './components/more-info/more-info.component';
 import CardAuthor from './components/author/card-author.component';
@@ -10,6 +9,7 @@ import { WhatInsideContainer } from './components/what-inside/what-inside.contai
 import AppFooter from '@/components/app-footer/app-footer.components';
 import TermsAndConditions from '@/components/terms-and-conditions/terms-and-conditions.components';
 import { FooterContainer } from './components/footer/footer.container';
+import { ChartLinesContainer } from './components/lines/lines.container';
 
 interface FundPageProps {
     name: string;
@@ -20,7 +20,13 @@ export const FundPage = injectable(
     AboutContainer,
     WhatInsideContainer,
     FooterContainer,
-    (AboutContainer, WhatInsideContainer, FooterContainer) =>
+    ChartLinesContainer,
+    (
+        AboutContainer,
+        WhatInsideContainer,
+        FooterContainer,
+        ChartLinesContainer
+    ) =>
         ({ name, logo }: FundPageProps) => {
             return (
                 <div className={cn('app-container', css.page)}>
@@ -28,7 +34,7 @@ export const FundPage = injectable(
                         <img src={logo} className={css.foundCardImage} />
                         {name}
                     </div>
-                    <ChartLines />
+                    <ChartLinesContainer />
                     {/* <ChartInvestedCard /> */}
                     <AboutContainer />
                     <WhatInsideContainer />

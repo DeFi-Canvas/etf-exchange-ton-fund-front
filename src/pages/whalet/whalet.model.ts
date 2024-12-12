@@ -90,6 +90,7 @@ export interface FundsData {
     isAvaiable: boolean;
     cost: number;
     assets: Array<Asset & { allocationPercentage: number }>;
+    tvlValue: number;
 }
 
 export const AssetCodec = t.type({
@@ -126,6 +127,7 @@ export const mapWhaletFunds = (data: WhaletFundsResponce): Array<FundsData> => {
         isAvaiable: fundData.is_avaiable,
         cost: data.total,
         assets: [],
+        tvlValue: fundData.value,
     }));
 };
 
@@ -147,6 +149,7 @@ export const mapFunds = (data: FundsRespnce): FundsData => ({
     isAvaiable: data.is_avaiable,
     cost: data.value,
     assets: [],
+    tvlValue: data.value,
 });
 
 //TODO : тип будет расширен (я надеюсь)

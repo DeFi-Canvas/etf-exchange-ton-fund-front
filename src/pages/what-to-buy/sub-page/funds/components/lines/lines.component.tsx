@@ -2,9 +2,13 @@ import { Chart } from '@/components/chart/chart.component';
 import { constVoid } from 'fp-ts/lib/function';
 import css from './lines.module.css';
 import cn from 'classnames';
-import CardPrice from '../price/price.components';
+import { CardPrice } from '../price/price.components';
 
-const ChartLines = () => {
+interface ChartLinesProps {
+    tvlValue: number;
+}
+
+const ChartLines = ({ tvlValue }: ChartLinesProps) => {
     return (
         <div className={css.chartWrapper}>
             <div className={css.chartTabs}>
@@ -21,7 +25,7 @@ const ChartLines = () => {
                     Value
                 </div>
             </div>
-            <CardPrice className={css.cardPrice} />
+            <CardPrice className={css.cardPrice} value={tvlValue} />
             <div className={css.chartLines}>
                 <Chart
                     data={[1, 3, 2, 6, 5, 8]}

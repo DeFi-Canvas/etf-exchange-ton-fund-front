@@ -1,4 +1,4 @@
-import CardPrice from '../price/price.components';
+import { CardPrice } from '../price/price.components';
 import css from './invested-card.module.css';
 
 const ChartInvestedCard = () => {

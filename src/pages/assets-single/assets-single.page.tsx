@@ -1,6 +1,6 @@
 import { Chart } from '@/components/chart/chart.component.tsx';
 import { constVoid } from 'fp-ts/function';
-import CardPrice from '@/pages/what-to-buy/sub-page/funds/components/price/price.components.tsx';
+import { CardPrice } from '@/pages/what-to-buy/sub-page/funds/components/price/price.components.tsx';
 import css from './assets-single.module.css';
 import cn from 'classnames';
 import TermsAndConditions from '@/components/terms-and-conditions/terms-and-conditions.components.tsx';
