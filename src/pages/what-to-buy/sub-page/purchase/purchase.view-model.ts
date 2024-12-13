@@ -5,7 +5,7 @@ import { newLensedAtom } from '@frp-ts/lens';
 import * as E from 'fp-ts/Either';
 import * as O from 'fp-ts/Option';
 import { constVoid, pipe } from 'fp-ts/lib/function';
-import { chain, take, tap } from '@most/core';
+import { chain, combine, take, tap } from '@most/core';
 import { newWTBRestService } from '@/API/wtb.service';
 import { newWaletRestService } from '@/API/whalet.service';
 import { Asset, FundsData } from '@/pages/whalet/whalet.model';
@@ -105,10 +105,36 @@ export const newPurchaseSellStore = injectable(
                     );
                 })
             );
-
             const getFundsAvailableSaleEffect = pipe(
-                walletService.getWhaletFunds(),
-                tap(fundsAvailableSale.set)
+                combine(
+                    (fundData, fundsAvailableSale) => ({
+                        fundData,
+                        fundsAvailableSale,
+                    }),
+                    pipe(fundData, fromProperty),
+                    walletService.getWhaletFunds()
+                ),
+                tap(({ fundData, fundsAvailableSale: fundsAvailableSaleS }) => {
+                    const fundDataId = pipe(
+                        fundData,
+                        E.map(({ id }) => id),
+                        E.getOrElse(() => '')
+                    );
+                    const newFundsAvailableSale = pipe(
+                        fundsAvailableSaleS,
+                        E.chain((fundData) => {
+                            const fundDataFiltred = fundData.filter(
+                                ({ id }) => fundDataId === id
+                            )[0];
+                            if (fundDataFiltred) {
+                                return E.right([fundDataFiltred]);
+                            } else {
+                                return E.left('err');
+                            }
+                        })
+                    );
+                    fundsAvailableSale.set(newFundsAvailableSale);
+                })
             );
 
             const selectedAssetsEffect = pipe(

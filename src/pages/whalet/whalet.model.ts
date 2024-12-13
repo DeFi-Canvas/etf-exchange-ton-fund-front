@@ -43,6 +43,7 @@ export interface FundsRespnce {
         };
         allocation_percentage: number;
     }>;
+    created_at: string;
 }
 
 interface WhaletFundsResponce {
@@ -61,6 +62,7 @@ interface WhaletFundsResponce {
                 is_avaiable: boolean;
                 PTonAddress: string;
                 value: number;
+                created_at: string;
             };
             value: number;
         },
@@ -91,6 +93,7 @@ export interface FundsData {
     cost: number;
     assets: Array<Asset & { allocationPercentage: number }>;
     tvlValue: number;
+    createdAt: string;
 }
 
 export const AssetCodec = t.type({
@@ -128,6 +131,7 @@ export const mapWhaletFunds = (data: WhaletFundsResponce): Array<FundsData> => {
         cost: data.total,
         assets: [],
         tvlValue: fundData.value,
+        createdAt: fundData.created_at,
     }));
 };
 
@@ -150,6 +154,7 @@ export const mapFunds = (data: FundsRespnce): FundsData => ({
     cost: data.value,
     assets: [],
     tvlValue: data.value,
+    createdAt: data.created_at,
 });
 
 //TODO : тип будет расширен (я надеюсь)

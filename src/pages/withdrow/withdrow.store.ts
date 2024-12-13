@@ -1,12 +1,11 @@
 import { formatNumberToUI } from '@/utils/number';
 import { fromProperty } from '@/utils/property.utils';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
-import { property, Property } from '@frp-ts/core';
+import { Property } from '@frp-ts/core';
 import { newLensedAtom } from '@frp-ts/lens';
 import { tap } from '@most/core';
 import * as E from 'fp-ts/Either';
 import { flow, pipe } from 'fp-ts/lib/function';
-import * as A from 'fp-ts/lib/Apply';
 import * as S from 'fp-ts/string';
 import { injectable } from '@injectable-ts/core';
 import { newWithdrawRestService } from '@/API/withdraw.service';
@@ -156,20 +155,10 @@ export const newNewWithdrowStore = injectable(
         );
 
         const addressFormValidationEffect = pipe(
-            property.combine(address, memo, (address, memo) => ({
-                address,
-                memo,
-            })),
+            address,
             fromProperty,
-            tap(
-                flow(
-                    A.sequenceS(E.Applicative),
-                    E.isRight,
-                    isGoToCheckAvailable.set
-                )
-            )
+            tap(flow(E.isRight, isGoToCheckAvailable.set))
         );
-
         const balanceAfterEffect = pipe(
             amount,
             fromProperty,

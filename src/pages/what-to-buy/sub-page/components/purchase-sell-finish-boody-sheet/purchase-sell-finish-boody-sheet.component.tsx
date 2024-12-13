@@ -11,8 +11,6 @@ interface PurchaseSellFinishBoodySheetProps {
 }
 
 export const PurchaseSellFinishBoodySheet = ({
-    value,
-    quantity,
     totalAmount,
     name,
     logo,
@@ -31,16 +29,6 @@ export const PurchaseSellFinishBoodySheet = ({
                 </div>
             </header>
             <div className={css.bottomSheetInfoList}>
-                <div className={css.bottomSheetInfoItem}>
-                    <span className={css.bottomSheetInfoItemTitle}>Value</span>
-                    <span>$ {value}</span>
-                </div>
-                <div className={css.bottomSheetInfoItem}>
-                    <span className={css.bottomSheetInfoItemTitle}>
-                        Quantity
-                    </span>
-                    <span>{quantity}</span>
-                </div>
                 <div className={css.bottomSheetInfoItem}>
                     <span className={css.bottomSheetInfoItemTitle}>
                         Total amount

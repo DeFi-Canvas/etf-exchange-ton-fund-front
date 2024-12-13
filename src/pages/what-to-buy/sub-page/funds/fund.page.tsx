@@ -1,7 +1,6 @@
 import cn from 'classnames';
 import css from './fund.module.css';
 // import ChartInvestedCard from './components/invested-card/invested-card.component';
-import MoreInfo from './components/more-info/more-info.component';
 import CardAuthor from './components/author/card-author.component';
 import { injectable } from '@injectable-ts/core';
 import { AboutContainer } from './components/chart-about/about.container';
@@ -10,6 +9,7 @@ import AppFooter from '@/components/app-footer/app-footer.components';
 import TermsAndConditions from '@/components/terms-and-conditions/terms-and-conditions.components';
 import { FooterContainer } from './components/footer/footer.container';
 import { ChartLinesContainer } from './components/lines/lines.container';
+import { MoreInfoContainer } from './components/more-info/more-info.componentcontainer';
 
 interface FundPageProps {
     name: string;
@@ -21,11 +21,13 @@ export const FundPage = injectable(
     WhatInsideContainer,
     FooterContainer,
     ChartLinesContainer,
+    MoreInfoContainer,
     (
         AboutContainer,
         WhatInsideContainer,
         FooterContainer,
-        ChartLinesContainer
+        ChartLinesContainer,
+        MoreInfoContainer
     ) =>
         ({ name, logo }: FundPageProps) => {
             return (
@@ -38,7 +40,7 @@ export const FundPage = injectable(
                     {/* <ChartInvestedCard /> */}
                     <AboutContainer />
                     <WhatInsideContainer />
-                    <MoreInfo />
+                    <MoreInfoContainer />
                     <CardAuthor />
                     <AppFooter>
                         <FooterContainer />
