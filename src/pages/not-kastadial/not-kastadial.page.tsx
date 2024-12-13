@@ -1,11 +1,11 @@
-import { TonConnectButton, TonConnectUIProvider, useTonConnectUI } from "@tonconnect/ui-react";
-import { Address, beginCell, Cell, contractAddress, Dictionary, fromNano, storeStateInit, toNano } from '@ton/core';
+import { TonConnectButton, useTonConnectUI } from "@tonconnect/ui-react";
+import { Address, beginCell, fromNano, toNano } from '@ton/core';
 import css from './not-kastadial.module.css';
 import { TonApiClient } from '@ton-api/client';
 import { useState } from "react";
 
 export const NotKastadial = () => {
-    const FUND_ADDRESS = "kQDi8LdDVgmYmJpjCNORHUY9N6g1wRhqkkbx-zc1Yh094due"
+    const FUND_ADDRESS = "EQBoAYx_HVEkZlg3M6sU43HVzqh_Eb6gIEGYdQT-te-2ybgV"
     const ta = new TonApiClient({
         baseUrl: 'https://testnet.tonapi.io',
         apiKey: 'AEKR52OX7GMTTOAAAAAOYZ34DYB6MDKNEX7FGBGXHT6O6XIICMCK32VHS7A5T4VOFHCZ5YA'
@@ -17,10 +17,12 @@ export const NotKastadial = () => {
     const [isWalletConnected, setIsWalletConnected] = useState(false)
     tonConnectUI.onStatusChange(async (wallet) => {
         if (wallet?.account) {
-            const res = await getBalance(Address.parse(wallet?.account.address), Address.parse(FUND_ADDRESS))
-            setBalance(res.balance)
-            setLMWallet(res.walletAddress.address.toString())
             setIsWalletConnected(true)
+            const res = await getBalance(Address.parse(wallet?.account.address), Address.parse(FUND_ADDRESS)).catch(e => console.log(e))
+            if (res) {
+                setBalance(res.balance)
+                setLMWallet(res.walletAddress.address.toString())
+            }
         } else {
             setIsWalletConnected(false)
             setBalance(0n)
@@ -145,8 +147,8 @@ export const NotKastadial = () => {
             })
         }
     }
+    const jettonAmount = balance.toString()
     const burn = async () => {
-        const jettonAmount = 1000
         const body = beginCell().storeUint(0x595f07bc, 32).storeUint(0, 64) // op, queryId
             .storeCoins(toNano(jettonAmount))
             .storeMaybeRef(null)
@@ -170,7 +172,10 @@ export const NotKastadial = () => {
                 invest ton to fund
             </button>
             <button onClick={burn} disabled={!isWalletConnected || balance == 0n}>
-                burn all {fromNano(balance.toString())}
+                burn all {
+                    fromNano(balance.toString())
+                    // jettonAmount
+                }
             </button>
         </div>
     );
