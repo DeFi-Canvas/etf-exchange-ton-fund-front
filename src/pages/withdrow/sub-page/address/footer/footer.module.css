@@ -7,7 +7,7 @@
     align-items: center;
     flex-direction: column;
     width: 100%;
-    z-index: var(--z-index-101);
+    z-index: var(--z-index-3);
 }
 
 .availableBalance {

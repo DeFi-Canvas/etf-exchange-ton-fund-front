@@ -10,6 +10,7 @@ import { LernMore } from './components/news/lern-more.component';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import { Onboarding } from '@/components/onboarding/onboarding.component.tsx';
 
 export interface WhatToBuyPageProps {
     balance: O.Option<number>;
@@ -23,6 +24,7 @@ export const WaletPage = injectable(
             slidesPerView: 1.05,
             className: css.swiperWrap,
         };
+        const isOnboardingShown = localStorage.getItem('isOnboardingShown');
 
         return (
             <div className={css.application}>
@@ -41,6 +43,7 @@ export const WaletPage = injectable(
                 <div className={css.coinWrapper}>
                     <OperationsNavContainer />
                 </div>
+                {isOnboardingShown === null && <Onboarding />}
             </div>
         );
     }

@@ -1,0 +1,11 @@
+/* Общие стили */
+@import './styles/common.module.css';
+
+/* Общие анимации */
+@import './styles/animations/index.module.css';
+
+/* Стили для картинок первого шага */
+@import './styles/step-one-images.module.css';
+
+/* Стили для картинок второго шага */
+@import './styles/step-two-images.module.css';
