@@ -1,12 +1,12 @@
 .application {
     --header-padding-bottom: 24px;
-    padding-top: 32px;
     height: 100%;
 }
 
 .header {
     position: relative;
     z-index: 1;
+    padding-top: 32px;
     padding-bottom: calc(var(--header-padding-bottom) * 2);
     overflow: hidden;
 }
