@@ -1,0 +1,56 @@
+/* Запуск анимации как только пропадает .stepHidden */
+.stepTwo.stepHidden > img {
+    animation-play-state: paused
+}
+.stepTwo > img {
+    animation-play-state: running;
+}
+
+.storm {
+    --width: 111px;
+    --height: 97px;
+    --position-top: 308;
+    --position-left: 46;
+    --animation-duration-local: calc(var(--animation-duration) + 200ms);
+}
+.coin {
+    --width: 77px;
+    --height: 51px;
+    --position-top: 184;
+    --position-left: -24;
+    --animation-duration-local: calc(var(--animation-duration) + 300ms);
+}
+.bubbles {
+    --width: 102px;
+    --height: 193px;
+    --position-top: -45;
+    --position-left: 173;
+    --animation-duration-local: calc(var(--animation-duration) + 500ms);
+}
+.case {
+    position: absolute;
+    top: 50%;
+    left: calc(50% + 32px);
+    translate: -50% -50%;
+    scale: 0;
+    opacity: 0;
+}
+.coffee {
+    --width: 88px;
+    --height: 79px;
+    --position-top: 82;
+    --position-left: 265;
+    --animation-duration-local: calc(var(--animation-duration) + 100ms);
+}
+.ton {
+    --width: 102px;
+    --height: 102px;
+    --position-top: 46;
+    --position-left: 69;
+}
+.tonStake {
+    --width: 109px;
+    --height: 101px;
+    --position-top: 208;
+    --position-left: 299;
+}

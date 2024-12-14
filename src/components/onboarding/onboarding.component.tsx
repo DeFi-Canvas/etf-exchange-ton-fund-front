@@ -1,25 +1,17 @@
+import { useState } from 'react';
 import css from './onboarding.module.css';
-// Images
-import deFi from '@/assets/images/onboarding/step-one/de-fI.png';
-import ton1 from '@/assets/images/onboarding/step-one/ton1.png';
-import ton2 from '@/assets/images/onboarding/step-one/ton2.png';
-import ton3 from '@/assets/images/onboarding/step-one/ton3.png';
-import bubble1 from '@/assets/images/onboarding/step-one/bubble1.png';
-import bubble2 from '@/assets/images/onboarding/step-one/bubble2.png';
-import bubble3 from '@/assets/images/onboarding/step-one/bubble3.png';
+import { StepOne } from '@/components/onboarding/components/step-one.component.tsx';
+import { StepTwo } from '@/components/onboarding/components/step-two.component.tsx';
 
 export const Onboarding = () => {
+    const [isStepOne, setIsSetOne] = useState(false); // default false
+    const toStepTwo = () => setIsSetOne(true);
+    const toFinish = () => console.log('FINISH!!');
+
     return (
         <div className={css.page}>
-            <div className={css.step}>
-                <img src={deFi} className={css.defi} />
-                <img src={ton1} className={css.ton1} />
-                <img src={ton2} className={css.ton2} />
-                <img src={ton3} className={css.ton3} />
-                <img src={bubble1} className={css.bubble1} />
-                <img src={bubble2} className={css.bubble2} />
-                <img src={bubble3} className={css.bubble3} />
-            </div>
+            <StepOne isStepOne={isStepOne} onClickButton={toStepTwo} />
+            <StepTwo isStepOne={isStepOne} onClickButton={toFinish} />
         </div>
     );
 };

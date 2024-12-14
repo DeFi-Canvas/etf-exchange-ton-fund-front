@@ -1,0 +1,24 @@
+/*
+    --animation-duration-local
+        - задаёт время анимации для каждого блока отдельно
+        может быть полезным, если хотим добавить время анимации для стандартного времени
+*/
+
+.animationBubbleUp {
+    --animation-duration-local: var(--animation-duration);
+    animation-duration: var(--animation-duration-local);
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.12, 0.48, 0.32, 0.96);
+    animation-name: bubbleUp;
+}
+
+@keyframes bubbleUp {
+    0% {
+        scale: 0.3;
+    }
+    100% {
+        scale: 1;
+        bottom: var(--animation-bottom);
+        opacity: 1;
+    }
+}

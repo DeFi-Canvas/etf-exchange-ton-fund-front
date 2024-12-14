@@ -1,0 +1,63 @@
+/*
+    --animation-bottom
+        - расчитывается внутри imageBlock
+        и сообщает насколько от низа нужно оттлокнуться
+
+    --animation-duration
+        - указывает стандартное время анимации, задаётся в родителе
+
+    --animation-duration-local
+        - задаёт время анимации для каждого блока отдельно
+        может быть полезным, если хотим добавить время анимации для стандартного времени
+*/
+
+
+/* Добавляем анимацию появления снизу и крутиться по оси X */
+.animationRotateX {
+    --animation-duration-local: var(--animation-duration);
+    animation-duration: var(--animation-duration-local);
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.64, 0.29, 0.49, 1);
+    animation-name: animation-rotate-x;
+}
+
+/* Добавляем анимацию появления снизу и крутиться по оси Y */
+.animationRotateY {
+    --animation-duration-local: var(--animation-duration);
+    animation-duration: var(--animation-duration-local);
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.64, 0.29, 0.49, 1);
+    animation-name: animation-rotate-y;
+}
+
+/* Добавляем анимацию появления снизу и крутиться по оси Z */
+.animationRotateZ {
+    --animation-duration-local: var(--animation-duration);
+    animation-duration: var(--animation-duration-local);
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.64, 0.29, 0.49, 1);
+    animation-name: animation-rotate-z;
+}
+
+@keyframes animation-rotate-x {
+    100% {
+        bottom: var(--animation-bottom);
+        transform: rotateX(360deg);
+        opacity: 1;
+    }
+}
+
+@keyframes animation-rotate-y {
+    100% {
+        bottom: var(--animation-bottom);
+        transform: rotateY(360deg);
+        opacity: 1;
+    }
+}
+@keyframes animation-rotate-z {
+    100% {
+        bottom: var(--animation-bottom);
+        transform: rotateZ(360deg);
+        opacity: 1;
+    }
+}
