@@ -20,6 +20,17 @@
     align-items: center;
 }
 
+.availablePrice {
+    display: flex;
+    gap: 12px;
+}
+
+.maxAvailable {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .cardTitleMaxValue {
     text-decoration-line: underline;
     font-weight: 400;
