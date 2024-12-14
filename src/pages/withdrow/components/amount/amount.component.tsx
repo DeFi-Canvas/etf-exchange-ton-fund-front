@@ -30,8 +30,8 @@ export const Amount = ({
                     </span>
                 </div>
                 <div className={css.column}>
-                    <span className={css.coinInfoTitle}>TRC 20</span>
-                    <span className={css.coinInfoSubtitle}>Tron Network</span>
+                    <span className={css.coinInfoTitle}>TON</span>
+                    <span className={css.coinInfoSubtitle}>Ton Network</span>
                 </div>
             </div>
         </div>
