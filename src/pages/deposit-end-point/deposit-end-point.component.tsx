@@ -35,6 +35,9 @@ export const DepositEndPoint = ({
                                 <span className={css.bold}>TON</span>&nbsp;to
                                 this address. Other coins, jettons and NFTs will
                                 be permanently lost.
+                                <span className={css.bold}>
+                                    Memo is mandatory to make a deposit!
+                                </span>
                             </div>
                             <img src={details.qrCode} className={css.qrCode} />
                             <div className={css.infoWrapper}>
