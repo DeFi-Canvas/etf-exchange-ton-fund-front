@@ -3,7 +3,7 @@ import css from './app-button.module.css';
 import { Link } from '@/components/Link/Link.tsx';
 import cn from 'classnames';
 
-type ButtonType = 'default' | 'secondary';
+type ButtonType = 'default' | 'secondary' | 'white';
 
 interface AppButtonProps {
     label: string;
@@ -20,6 +20,7 @@ const AppButton = (props: AppButtonProps) => {
     const buttonType = props?.type ?? 'default';
     const classList = cn(props.className, css.button, {
         [css.buttonSecondary]: buttonType === 'secondary',
+        [css.buttonWhite]: buttonType === 'white',
         [css.buttonDisabled]: isDisabled,
     });
 

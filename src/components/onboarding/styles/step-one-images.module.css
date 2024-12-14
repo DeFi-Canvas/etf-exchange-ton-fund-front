@@ -1,0 +1,51 @@
+.defi {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    scale: 0;
+    opacity: 0;
+}
+
+.ton1 {
+    --width: 82px;
+    --height: 89px;
+    --position-top: 51;
+    --position-left: 66;
+}
+.ton2 {
+    --width: 63px;
+    --height: 62px;
+    --position-top: 164;
+    --position-left: 301;
+    --animation-duration-local: calc(var(--animation-duration) + 300ms);
+}
+.ton3 {
+    --width: 65px;
+    --height: 60px;
+    --position-top: 323;
+    --position-left: 90;
+    --animation-duration-local: calc(var(--animation-duration) + 600ms);
+}
+
+.bubble1 {
+    --width: 141px;
+    --height: 134px;
+    --position-top: 183;
+    --position-left: -53;
+    --animation-duration-local: calc(var(--animation-duration) + 800ms);
+}
+.bubble2 {
+    --width: 88px;
+    --height: 84px;
+    --position-top: 112;
+    --position-left: 223;
+    --animation-duration-local: calc(var(--animation-duration) + 900ms);
+}
+.bubble3 {
+    --width: 200px;
+    --height: 190px;
+    --position-top: 229;
+    --position-left: 264;
+    --animation-duration-local: calc(var(--animation-duration) + 1200ms);
+}

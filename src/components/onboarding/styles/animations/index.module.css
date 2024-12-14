@@ -1,0 +1,4 @@
+@import './animation-base.module.css';
+@import './animation-rotate.module.css';
+@import './animation-zoom.module.css';
+@import './animation-bubble.module.css';

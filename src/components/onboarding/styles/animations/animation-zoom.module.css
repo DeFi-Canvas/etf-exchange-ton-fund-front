@@ -1,0 +1,18 @@
+/*
+    --animation-duration
+        - указывает стандартное время анимации, задаётся в родителе
+*/
+
+.animationZoomInOut {
+    animation-duration: var(--animation-duration);
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+    animation-name: zoomInOut;
+}
+
+@keyframes zoomInOut {
+    100% {
+        scale: 1;
+        opacity: 1;
+    }
+}
