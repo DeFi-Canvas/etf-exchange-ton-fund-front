@@ -5,6 +5,11 @@
     inset: 0;
     z-index: var(--z-index-max);
     padding-block: 16px;
+    transition: 0.3s;
+}
+
+.pageSlideUp {
+    transform: translateY(-100%);
 }
 
 .step {
