@@ -10,7 +10,7 @@ import { SkeletonCardSection } from '@/components/skeletons/skeleton-card/skelet
 import { formatNumberToUI } from '@/utils/number';
 import { Link } from 'react-router-dom';
 
-const emptyText = `You don't have any investments in funds right now. Get started by browsing through funds to discover opportunities.`;
+const emptyText = `A fund is a passive investment tool composed of multiple assets. Review the presented funds`;
 
 interface FundsProps {
     funds: E.Either<string, Array<FundsData>>;
