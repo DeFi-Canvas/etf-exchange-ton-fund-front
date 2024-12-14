@@ -1,6 +1,6 @@
 import { Line } from 'react-chartjs-2';
-import css from './chart.module.css';
-import { ChartControl } from './control/control.component';
+// import css from './chart.module.css';
+// import { ChartControl } from './control/control.component';
 
 import {
     Chart as ChartJS,
@@ -96,11 +96,12 @@ export const Chart = ({ data, dateRange, controlOnClick }: ChartProps) => {
     return (
         <>
             <Line data={currentData} options={DEFAULT_OPTIONS} />
-            <div className={css.dateRange}>
-                <span>{dateRange.from}</span>
-                <span>{dateRange.to}</span>
-            </div>
-            <ChartControl controlOnClick={controlOnClick} />
+            {/* TODO: Временно скрываем из-за не рабочего состояния */}
+            {/*<div className={css.dateRange}>*/}
+            {/*    <span>{dateRange.from}</span>*/}
+            {/*    <span>{dateRange.to}</span>*/}
+            {/*</div>*/}
+            {/*<ChartControl controlOnClick={controlOnClick} />*/}
         </>
     );
 };

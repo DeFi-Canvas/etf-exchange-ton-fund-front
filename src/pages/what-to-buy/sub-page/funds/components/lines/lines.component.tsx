@@ -11,21 +11,22 @@ interface ChartLinesProps {
 const ChartLines = ({ tvlValue }: ChartLinesProps) => {
     return (
         <div className={css.chartWrapper}>
-            <div className={css.chartTabs}>
-                <div
-                    className={cn(css.chartTab, { [css.chartTabActive]: true })}
-                >
-                    TVL
-                </div>
-                <div
-                    className={cn(css.chartTab, {
-                        [css.chartTabActive]: false,
-                    })}
-                >
-                    Value
-                </div>
-            </div>
-            <CardPrice className={css.cardPrice} value={tvlValue} />
+            {/* TODO: Временно скрываем из-за нерабочего состояния */}
+            {/*<div className={css.chartTabs}>*/}
+            {/*    <div*/}
+            {/*        className={cn(css.chartTab, { [css.chartTabActive]: true })}*/}
+            {/*    >*/}
+            {/*        TVL*/}
+            {/*    </div>*/}
+            {/*    <div*/}
+            {/*        className={cn(css.chartTab, {*/}
+            {/*            [css.chartTabActive]: false,*/}
+            {/*        })}*/}
+            {/*    >*/}
+            {/*        Value*/}
+            {/*    </div>*/}
+            {/*</div>*/}
+            <CardPrice value={tvlValue} />
             <div className={css.chartLines}>
                 <Chart
                     data={[1, 3, 2, 6, 5, 8]}
