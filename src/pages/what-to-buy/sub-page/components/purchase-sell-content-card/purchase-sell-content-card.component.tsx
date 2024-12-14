@@ -11,6 +11,7 @@ import { pipe } from 'fp-ts/lib/function';
 import { injectable } from '@injectable-ts/core';
 import { PurchaseSellFieldCounterContainer } from '../purchase-sell-field-counter/purchase-sell-field-counter.container';
 import { Asset } from '@/pages/whalet/whalet.model';
+import { WalletIcon } from '@/components/Icons/Icons.tsx';
 
 interface PurchaseSellContentCardProps {
     assetCardData: InterfacePurchaseSellAssetCardData;
@@ -52,12 +53,19 @@ const PurchaseSellContentCard = injectable(
                         <div className={css.section}>
                             <header className={css.cardTitle}>
                                 <span>Amount ($)</span>
-                                <span
-                                    className={css.cardTitleMaxValue}
-                                    onClick={onMaxAvailableClick}
-                                >
-                                    MAX {maxAvailable?.toFixed(2)}
-                                </span>
+
+                                <div className={css.availablePrice}>
+                                    <div className={css.maxAvailable}>
+                                        <WalletIcon />
+                                        {`$ ${maxAvailable?.toFixed(2)}`}
+                                    </div>
+                                    <div
+                                        className={css.cardTitleMaxValue}
+                                        onClick={onMaxAvailableClick}
+                                    >
+                                        MAX
+                                    </div>
+                                </div>
                             </header>
                             <PurchaseSellFieldCounterContainer />
                             <div className={css.currentTotalAmount}>
