@@ -26,6 +26,7 @@ export const mapFunds = (data: FundsRespnce): FundsData => ({
         allocationPercentage: allocation_percentage,
     })),
     tvlValue: data.value,
+    createdAt: data.created_at,
 });
 
 export const mapAssetToUICard = (
