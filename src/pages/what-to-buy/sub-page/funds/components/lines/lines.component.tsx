@@ -1,7 +1,6 @@
 import { Chart } from '@/components/chart/chart.component';
 import { constVoid } from 'fp-ts/lib/function';
 import css from './lines.module.css';
-import cn from 'classnames';
 import { CardPrice } from '../price/price.components';
 
 interface ChartLinesProps {

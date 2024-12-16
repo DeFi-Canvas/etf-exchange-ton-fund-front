@@ -21,7 +21,7 @@ export const MoreInfoContainer = injectable(
                 E.map(({ createdAt }) => ({
                     id: 4,
                     title: 'Created at',
-                    value: createdAt,
+                    value: createdAt.split('T')[0],
                 }))
             ),
         ];

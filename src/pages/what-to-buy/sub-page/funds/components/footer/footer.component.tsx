@@ -7,9 +7,13 @@ import css from './footer.module.css';
 
 interface FooterProps {
     fundsAvailableSale: E.Either<string, Array<FundsData>>;
+    fundAvailablebuy: E.Either<string, boolean>;
 }
 
-export const Footer = ({ fundsAvailableSale }: FooterProps) => {
+export const Footer = ({
+    fundsAvailableSale,
+    fundAvailablebuy,
+}: FooterProps) => {
     const { id } = useParams();
     const navigate = useNavigate();
     return (
@@ -25,9 +29,17 @@ export const Footer = ({ fundsAvailableSale }: FooterProps) => {
                     />
                 )}
             />
-            <AppButton
-                label="Buy"
-                onClick={() => navigate(`/what-to-buy/purchase/${id}`)}
+
+            <RenderResult
+                data={fundAvailablebuy}
+                failure={() => null}
+                success={(isDisabled) => (
+                    <AppButton
+                        label="Buy"
+                        onClick={() => navigate(`/what-to-buy/sell/${id}`)}
+                        isDisabled={isDisabled}
+                    />
+                )}
             />
         </footer>
     );

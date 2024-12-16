@@ -14,7 +14,6 @@ export const ChartLinesContainer = injectable(
             useProperty(store.fundData),
             E.getOrElse(() => ({}) as FundsData)
         );
-        console.log(fund);
 
         return React.createElement(ChartLines, {
             tvlValue: fund.tvlValue,

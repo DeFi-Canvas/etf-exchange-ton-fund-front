@@ -11,7 +11,7 @@ export const CardPrice = ({ className, value }: CardPriceProps) => {
     return (
         <div className={cn(css.priceInfo, className)}>
             <div className={css.price}>
-                <span>$ {value}</span>
+                <span>TVL: $ {value}</span>
                 {/* <span className={css.priceRemains}>,89</span> */}
             </div>
             {/* <div className={css.priceProgress}>
