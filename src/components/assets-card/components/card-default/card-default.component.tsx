@@ -12,7 +12,9 @@ const CardDefault = (props: CardDefaultProps) => {
             <div className={css.infoWrapper}>
                 <div className={cn(css.cardColumn, css.cardInfo)}>
                     <span className={css.title}>{props.title}</span>
-                    <span className={css.subtitle}>{props.subTitle}</span>
+                    <span className={cn(css.subtitle, 'trim-lines-1')}>
+                        {props.subTitle}
+                    </span>
                 </div>
                 {props.price && (
                     <div className={cn(css.cardColumn, css.cardPrice)}>
