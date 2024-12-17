@@ -39,6 +39,7 @@ export const newDepositEndPointViewModel = injectable(
                 tap(details.set)
             );
 
+            // TODO: TypeCast
             const imgEffect = pipe(
                 service.getDepositAssets(),
                 tap(

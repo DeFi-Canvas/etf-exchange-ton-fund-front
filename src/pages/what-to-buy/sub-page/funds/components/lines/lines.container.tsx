@@ -10,6 +10,7 @@ import ChartLines from './lines.component';
 export const ChartLinesContainer = injectable(
     token('purchaseStore')<PurchaseSellStore>(),
     (store) => () => {
+        //TODO TypeCast
         const fund = pipe(
             useProperty(store.fundData),
             E.getOrElse(() => ({}) as FundsData)

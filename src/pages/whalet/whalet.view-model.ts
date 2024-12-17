@@ -53,6 +53,7 @@ export const newWhatToBuyViewModel = injectable(
                 )
             );
 
+            //TODO: TypeCast
             const isTransactionAvailibleEffect = pipe(
                 waletRestService.getTransactions(),
                 tap((x) => {

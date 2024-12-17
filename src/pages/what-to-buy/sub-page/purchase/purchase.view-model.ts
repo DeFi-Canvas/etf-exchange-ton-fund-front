@@ -143,6 +143,7 @@ export const newPurchaseSellStore = injectable(
                 tap((x) =>
                     pipe(
                         assets.get(),
+                        //TODO TypeCast
                         E.map(
                             (assets) =>
                                 assets.find((asset) => asset.name === x) ??
@@ -159,10 +160,12 @@ export const newPurchaseSellStore = injectable(
                 tap((x) => {
                     const currentFund = pipe(
                         fundData.get(),
+                        //TODO TypeCast
                         E.getOrElse(() => ({}) as FundsData)
                     );
                     const currentAsset = pipe(
                         selectedAssets.get(),
+                        //TODO TypeCast
                         E.getOrElse(() => ({}) as Asset)
                     );
                     const currency = x * currentFund.cost;
@@ -179,11 +182,15 @@ export const newPurchaseSellStore = injectable(
                 chain(() => {
                     const currentFund = pipe(
                         fundData.get(),
+                        //TODO TypeCast
+
                         E.getOrElse(() => ({}) as FundsData)
                     );
 
                     const currentAsset = pipe(
                         selectedAssets.get(),
+                        //TODO TypeCast
+
                         E.getOrElse(() => ({}) as Asset)
                     );
                     return service.buyFund({
@@ -205,11 +212,15 @@ export const newPurchaseSellStore = injectable(
                 chain(() => {
                     const currentFund = pipe(
                         fundData.get(),
+                        //TODO TypeCast
+
                         E.getOrElse(() => ({}) as FundsData)
                     );
 
                     const currentAsset = pipe(
                         selectedAssets.get(),
+                        //TODO TypeCast
+
                         E.getOrElse(() => ({}) as Asset)
                     );
                     return service.sellFund({
@@ -265,6 +276,8 @@ export const newPurchaseSellStore = injectable(
                 tap((selectedAssets) => {
                     const currentAsset = pipe(
                         selectedAssets,
+                        //TODO TypeCast
+
                         E.getOrElse(() => ({}) as Asset)
                     );
                     maxAvailableBuy.set(currentAsset.value);

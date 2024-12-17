@@ -20,6 +20,7 @@ export const FundPageContainer = injectable(
             []
         );
 
+        //TODO TypeCast
         const fund = pipe(
             useProperty(purchaseStore.fundData),
             E.getOrElse(() => ({}) as FundsData)

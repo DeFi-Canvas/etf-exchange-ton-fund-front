@@ -17,6 +17,7 @@ export const PurchaseSellFinishBoodySheetContainer = injectable(
     token('purchaseStore')<PurchaseSellStore>(),
     (store) =>
         ({ type: typePage }: PurchaseSellFinishBoodySheetContainerProps) => {
+            //TODO TypeCast
             const fundData = pipe(
                 useProperty(store.fundData),
                 E.getOrElse(() => ({}) as FundsData)

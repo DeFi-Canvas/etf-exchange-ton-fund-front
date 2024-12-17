@@ -10,6 +10,7 @@ import { FundsData } from '@/pages/whalet/whalet.model';
 export const AboutContainer = injectable(
     token('purchaseStore')<PurchaseSellStore>(),
     (store) => () => {
+        //TODO TypeCast
         const fund = pipe(
             useProperty(store.fundData),
             E.getOrElse(() => ({}) as FundsData)
