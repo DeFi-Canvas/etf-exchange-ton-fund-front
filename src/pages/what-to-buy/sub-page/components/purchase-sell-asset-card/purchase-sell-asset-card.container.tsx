@@ -1,6 +1,4 @@
 import { injectable, token } from '@injectable-ts/core';
-import React from 'react';
-import * as E from 'fp-ts/Either';
 import { useProperty } from '@frp-ts/react';
 import {
     isAssetAvailible,
@@ -9,7 +7,8 @@ import {
 } from '@/pages/what-to-buy/what-to-buy.model';
 import { PurchaseSellStore } from '../../purchase/purchase.view-model';
 import PurchaseSellAssetCard from './purchase-sell-asset-card.component';
-import { FundsData } from '@/pages/whalet/whalet.model';
+import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
+import SkeletonCard from '@/components/skeletons/skeleton-card/skeleton-card.component';
 
 interface PurchaseSellAssetCardContainerProps {
     type: PageType;
@@ -19,17 +18,30 @@ export const PurchaseSellAssetCardContainer = injectable(
     token('purchaseStore')<PurchaseSellStore>(),
     (store) =>
         ({ type }: PurchaseSellAssetCardContainerProps) => {
-            const funds = useProperty(store.fundData);
-            // TODO: переписать на RenderEither
-            const fundsAssets: FundsData = E.isRight(funds)
-                ? funds.right
-                : ({} as FundsData);
-            const data = mapFundToUICard(fundsAssets, !isAssetAvailible(type));
+            const fund = useProperty(store.fundData);
 
-            return React.createElement(PurchaseSellAssetCard, {
-                ...data,
-                onClick: () => store.setIsBottomPanel(!isAssetAvailible(type)),
-                isBackgroundWhite: true,
-            });
+            return (
+                <RenderResult
+                    data={fund}
+                    loading={() => <SkeletonCard type={'small'} />}
+                    success={(fund) => {
+                        const props = mapFundToUICard(
+                            fund,
+                            !isAssetAvailible(type)
+                        );
+                        return (
+                            <PurchaseSellAssetCard
+                                {...props}
+                                isBackgroundWhite={true}
+                                onClick={() =>
+                                    store.setIsBottomPanel(
+                                        !isAssetAvailible(type)
+                                    )
+                                }
+                            />
+                        );
+                    }}
+                />
+            );
         }
 );
