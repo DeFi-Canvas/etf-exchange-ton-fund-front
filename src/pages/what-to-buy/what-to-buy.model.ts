@@ -54,14 +54,3 @@ export const mapFundToUICard = (
     allowedOpen: allowedOpen ?? true,
     isBackgroundWhite: isBackgroundWhite ?? false,
 });
-
-export const mapFundToUICardC =
-    (allowedOpen?: boolean, isBackgroundWhite?: boolean) =>
-    (date: FundsData): InterfacePurchaseSellAssetCardData => ({
-        imageSrc: date.logo,
-        title: date.name,
-        subTitle: date.description,
-        price: `$ ${date.cost}`,
-        allowedOpen: allowedOpen ?? true,
-        isBackgroundWhite: isBackgroundWhite ?? false,
-    });
