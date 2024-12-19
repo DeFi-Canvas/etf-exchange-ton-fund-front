@@ -5,19 +5,17 @@ import { useProperty } from '@frp-ts/react';
 import { PurchaseSellStore } from '../../../purchase/purchase.view-model';
 import { pipe } from 'fp-ts/lib/function';
 import WhatInside from './what-inside.component';
-import { FundsData } from '@/pages/whalet/whalet.model';
 
 export const WhatInsideContainer = injectable(
     token('purchaseStore')<PurchaseSellStore>(),
     (store) => () => {
-        //TODO TypeCast
-        const fund = pipe(
+        const assets = pipe(
             useProperty(store.fundData),
-            E.getOrElse(() => ({}) as FundsData)
+            E.map(({ assets }) => assets)
         );
 
         return React.createElement(WhatInside, {
-            assets: fund,
+            assets,
         });
     }
 );

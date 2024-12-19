@@ -4,7 +4,8 @@ import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { newLensedAtom } from '@frp-ts/lens';
 import * as E from 'fp-ts/Either';
 import * as O from 'fp-ts/Option';
-import { constVoid, pipe } from 'fp-ts/lib/function';
+import * as R from 'fp-ts/Record';
+import { constant, constVoid, pipe } from 'fp-ts/lib/function';
 import { chain, combine, take, tap } from '@most/core';
 import { newWTBRestService } from '@/API/wtb.service';
 import { newWaletRestService } from '@/API/whalet.service';
@@ -143,12 +144,16 @@ export const newPurchaseSellStore = injectable(
                 tap((x) =>
                     pipe(
                         assets.get(),
-                        //TODO TypeCast
-                        E.map(
-                            (assets) =>
-                                assets.find((asset) => asset.name === x) ??
-                                ({} as Asset)
-                        ),
+                        E.chain((assets) => {
+                            const asset = assets.find(
+                                (asset) => asset.name === x
+                            );
+                            if (asset) {
+                                return E.right(asset);
+                            } else {
+                                return E.left('pending');
+                            }
+                        }),
                         selectedAssets.set
                     )
                 )
@@ -157,21 +162,27 @@ export const newPurchaseSellStore = injectable(
             const quantityEffect = pipe(
                 quantity,
                 fromProperty,
-                tap((x) => {
-                    const currentFund = pipe(
+                tap((quantity) => {
+                    const cost = pipe(
                         fundData.get(),
-                        //TODO TypeCast
-                        E.getOrElse(() => ({}) as FundsData)
+                        E.map(({ cost }) => cost)
                     );
-                    const currentAsset = pipe(
+                    const price = pipe(
                         selectedAssets.get(),
-                        //TODO TypeCast
-                        E.getOrElse(() => ({}) as Asset)
+                        E.map(({ price }) => price)
                     );
-                    const currency = x * currentFund.cost;
-                    const coin = currency / currentAsset.price;
-                    if (!Number.isNaN(coin))
-                        totalAmount.set(O.of({ currency, coin }));
+
+                    const fieldData = pipe(
+                        { cost, price },
+                        R.sequence(E.Applicative),
+                        E.map(({ cost, price }) => {
+                            const currency = quantity * cost;
+                            const coin = currency / price;
+                            return { currency, coin };
+                        }),
+                        O.fromEither
+                    );
+                    totalAmount.set(fieldData);
                 })
             );
 
@@ -180,22 +191,24 @@ export const newPurchaseSellStore = injectable(
                 take(1),
                 tap(() => isLoading.set(true)),
                 chain(() => {
-                    const currentFund = pipe(
+                    const fundId = pipe(
                         fundData.get(),
-                        //TODO TypeCast
-
-                        E.getOrElse(() => ({}) as FundsData)
+                        E.map(({ id }) => id)
                     );
 
-                    const currentAsset = pipe(
+                    const assetId = pipe(
                         selectedAssets.get(),
-                        //TODO TypeCast
-
-                        E.getOrElse(() => ({}) as Asset)
+                        E.map(({ id }) => id)
                     );
+
+                    const serviceArgs = pipe(
+                        { fundId, assetId },
+                        R.sequence(E.Applicative),
+                        E.getOrElse(constant({ fundId: '', assetId: '' }))
+                    );
+
                     return service.buyFund({
-                        fundId: currentFund.id,
-                        assetId: currentAsset.id,
+                        ...serviceArgs,
                         amount: quantity.get(),
                     });
                 }),
@@ -210,24 +223,23 @@ export const newPurchaseSellStore = injectable(
                 take(1),
                 tap(() => isLoading.set(true)),
                 chain(() => {
-                    const currentFund = pipe(
+                    const fundId = pipe(
                         fundData.get(),
-                        //TODO TypeCast
-
-                        E.getOrElse(() => ({}) as FundsData)
+                        E.map(({ id }) => id),
+                        E.getOrElse(constant(''))
                     );
 
-                    const currentAsset = pipe(
+                    const price = pipe(
                         selectedAssets.get(),
-                        //TODO TypeCast
-
-                        E.getOrElse(() => ({}) as Asset)
+                        E.map(({ price }) => price),
+                        E.getOrElse(constant(0))
                     );
+
                     return service.sellFund({
-                        fundId: currentFund.id,
+                        fundId,
                         amount:
-                            maxAvailableSell.get() > 0
-                                ? quantity.get() - currentAsset.price / 2
+                            maxAvailableSell.get() === quantity.get()
+                                ? quantity.get() - price / 2
                                 : quantity.get(),
                     });
                 }),
@@ -274,13 +286,12 @@ export const newPurchaseSellStore = injectable(
                 selectedAssets,
                 fromProperty,
                 tap((selectedAssets) => {
-                    const currentAsset = pipe(
+                    const value = pipe(
                         selectedAssets,
-                        //TODO TypeCast
-
-                        E.getOrElse(() => ({}) as Asset)
+                        E.map(({ value }) => value),
+                        E.getOrElse(() => 0)
                     );
-                    maxAvailableBuy.set(currentAsset.value);
+                    maxAvailableBuy.set(value);
                 })
             );
             return valueWithEffect.new(
