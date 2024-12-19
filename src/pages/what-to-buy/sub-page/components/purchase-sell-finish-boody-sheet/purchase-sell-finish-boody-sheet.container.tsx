@@ -1,6 +1,6 @@
 import { injectable, token } from '@injectable-ts/core';
 import { useProperty } from '@frp-ts/react';
-import { PurchaseSellStore } from '../../purchase/purchase.view-model';
+import { PurchaseSellStore } from '../../purchase/purchase.store';
 import { PurchaseSellFinishBoodySheet } from './purchase-sell-finish-boody-sheet.component';
 import * as O from 'fp-ts/Option';
 import { PageType } from '@/pages/what-to-buy/what-to-buy.model';

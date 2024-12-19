@@ -5,7 +5,7 @@ import {
     mapFundToUICard,
     PageType,
 } from '@/pages/what-to-buy/what-to-buy.model';
-import { PurchaseSellStore } from '../../purchase/purchase.view-model';
+import { PurchaseSellStore } from '../../purchase/purchase.store';
 import PurchaseSellAssetCard from './purchase-sell-asset-card.component';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import SkeletonCard from '@/components/skeletons/skeleton-card/skeleton-card.component';

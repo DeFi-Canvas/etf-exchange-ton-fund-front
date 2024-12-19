@@ -4,7 +4,7 @@ import { InterfacePurchaseSellAssetCardData } from '../../types';
 import css from './purchase-sell-content-card.module.css';
 import * as O from 'fp-ts/Option';
 import * as E from 'fp-ts/Either';
-import { TotalAmount } from '../../purchase/purchase.view-model';
+import { TotalAmount } from '../../purchase/purchase.store';
 import { pipe } from 'fp-ts/lib/function';
 import { injectable } from '@injectable-ts/core';
 import { PurchaseSellFieldCounterContainer } from '../purchase-sell-field-counter/purchase-sell-field-counter.container';

@@ -2,7 +2,7 @@ import { injectable, provide } from '@injectable-ts/core';
 import React from 'react';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { FundPage } from './fund.page';
-import { newPurchaseSellStore } from '../purchase/purchase.view-model';
+import { newPurchaseSellStore } from '../purchase/purchase.store';
 import { useProperty } from '@frp-ts/react';
 import { useParams } from 'react-router-dom';
 
