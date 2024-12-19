@@ -2,7 +2,7 @@ import { Stream } from '@most/types';
 import { Either } from 'fp-ts/lib/Either';
 import { UserStoreService } from '@/store/user.store';
 import { injectable, token } from '@injectable-ts/core';
-import { DepositDetails as DepositDetailsReturnType } from '@/pages/deposit-end-point/deposit-end-point.view-model';
+import { DepositDetails } from '@/pages/deposit-end-point/deposit-end-point.view-model';
 import { getRequestGenerated } from './request.utils';
 import {
     DepositAssets,
@@ -22,7 +22,7 @@ const depositApi = new DepositApi({
 
 export interface DepositRestService {
     getDepositAssets: () => Stream<Either<string, Array<DepositAssets>>>;
-    getDepositDetails: () => Stream<Either<string, DepositDetailsReturnType>>;
+    getDepositDetails: () => Stream<Either<string, DepositDetails>>;
 }
 
 export const newDepositRestService = injectable(

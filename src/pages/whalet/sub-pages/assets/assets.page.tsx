@@ -34,7 +34,6 @@ const formattedData = (assets: CoinCardData) => {
 export const Assets = ({ assets }: AssetsProps) => {
     const footerSlot = () => (
         <div className={css.footerButtons}>
-            {/* TODO:  на страницу фондов */}
             <AppButton
                 label="Choose a fund"
                 type="secondary"

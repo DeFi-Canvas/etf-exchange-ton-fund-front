@@ -1,5 +1,5 @@
 import { injectable, token } from '@injectable-ts/core';
-import { PurchaseSellStore } from '../../purchase/purchase.view-model';
+import { PurchaseSellStore } from '../../purchase/purchase.store';
 import React from 'react';
 import PurchaseSellFieldCounter from './purchase-sell-field-counter.component';
 import { useProperty } from '@frp-ts/react';

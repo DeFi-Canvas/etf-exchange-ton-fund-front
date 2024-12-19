@@ -82,7 +82,7 @@ interface ChartProps {
     };
     controlOnClick: (id: number) => void;
 }
-export const Chart = ({ data, dateRange, controlOnClick }: ChartProps) => {
+export const Chart = ({ data }: ChartProps) => {
     const currentData = {
         labels: data.map(() => ''),
         datasets: [

@@ -1,8 +1,6 @@
 import { either } from 'fp-ts';
 import * as t from 'io-ts';
 
-// TODO: -> Asset, Funds, Transactions
-
 //#region RESPONCE
 export interface WaletResponce {
     total: number;

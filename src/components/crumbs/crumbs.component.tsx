@@ -6,7 +6,6 @@ interface CrumbsProps {
     to: string;
 }
 
-//TODO: будет ссылкой
 export const Crumbs = ({ title, to }: CrumbsProps) => {
     return (
         <Link className={css.crumbCard} to={to}>

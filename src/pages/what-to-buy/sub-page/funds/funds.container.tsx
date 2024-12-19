@@ -3,7 +3,7 @@ import React from 'react';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { UserStoreService } from '@/store/user.store';
 import { Funds } from './funds.component';
-import { newPurchaseSellStore } from '../purchase/purchase.view-model';
+import { newPurchaseSellStore } from '../purchase/purchase.store';
 
 export const FundsPageContainer = injectable(
     token('userStore')<UserStoreService>(),

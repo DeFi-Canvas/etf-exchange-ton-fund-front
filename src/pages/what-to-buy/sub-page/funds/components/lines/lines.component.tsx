@@ -2,9 +2,11 @@ import { Chart } from '@/components/chart/chart.component';
 import { constVoid } from 'fp-ts/lib/function';
 import css from './lines.module.css';
 import { CardPrice } from '../price/price.components';
+import * as E from 'fp-ts/Either';
+import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 
 interface ChartLinesProps {
-    tvlValue: number;
+    tvlValue: E.Either<string, number>;
 }
 
 const ChartLines = ({ tvlValue }: ChartLinesProps) => {
@@ -25,7 +27,10 @@ const ChartLines = ({ tvlValue }: ChartLinesProps) => {
             {/*        Value*/}
             {/*    </div>*/}
             {/*</div>*/}
-            <CardPrice value={tvlValue} />
+            <RenderResult
+                data={tvlValue}
+                success={(tvlValue) => <CardPrice value={tvlValue} />}
+            />
             <div className={css.chartLines}>
                 <Chart
                     data={[1, 3, 2, 6, 5, 8]}
