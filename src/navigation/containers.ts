@@ -1,11 +1,6 @@
 import { newAssetsRestService } from '@/API/assets.service';
 import { AssetsSingleContainer } from '@/pages/assets-single/assets-single.container';
 import { ProfileContainer } from '@/pages/profile/profile.page';
-// import { FundPageContainer } from '@/pages/what-to-buy/sub-page/funds/fund.container';
-// import { FundsPageContainer } from '@/pages/what-to-buy/sub-page/funds/funds.container';
-// import { PurchaseContainer } from '@/pages/what-to-buy/sub-page/purchase/purchase.container';
-// import { SellContainer } from '@/pages/what-to-buy/sub-page/sell/sell.container';
-// import { WhatToBuyPageContainer } from '@/pages/what-to-buy/what-to-buy.container';
 import { UserStoreService } from '@/store/user.store';
 import { MemoExoticComponent, FC } from 'react';
 import {
