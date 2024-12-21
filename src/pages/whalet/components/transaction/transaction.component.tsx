@@ -2,7 +2,7 @@ import getFormattedDate from '@/libs/date-format';
 import css from './transaction.module.css';
 import TransactionCard from './components/transaction-card/transaction-card.component';
 import { ITransaction } from './types';
-import { v7 as uuid } from 'uuid';
+import { getUuid } from '@/utils/uuid';
 
 export interface TransactionGroup {
     date: Date;
@@ -17,7 +17,7 @@ export const TransactionGroup = ({ date, transactions }: TransactionGroup) => {
             </span>
             <div className={css.transactionCardWrapper}>
                 {transactions.map((transaction) => (
-                    <TransactionCard key={uuid()} {...transaction} />
+                    <TransactionCard key={getUuid()} {...transaction} />
                 ))}
             </div>
         </div>

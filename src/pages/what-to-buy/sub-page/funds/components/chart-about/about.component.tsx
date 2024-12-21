@@ -4,8 +4,8 @@ import { FundsData } from '@/pages/whalet/whalet.model';
 import * as E from 'fp-ts/Either';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import SkeletonLine from '@/components/skeletons/components/skeleton-line/skeleton-line.component';
-import { v7 as uuid } from 'uuid';
 import SkeletonCard from '@/components/skeletons/skeleton-card/skeleton-card.component';
+import { getUuid } from '@/utils/uuid';
 
 interface ChartAboutProps {
     fund: E.Either<string, FundsData>;
@@ -20,7 +20,7 @@ const About = ({ fund }: ChartAboutProps) => {
                 loading={() => (
                     <div className={css.cardContentLoading}>
                         {new Array(6).fill(null).map(() => (
-                            <SkeletonLine key={uuid()} />
+                            <SkeletonLine key={getUuid()} />
                         ))}
                         <SkeletonCard type={'small'} />
                         <SkeletonCard type={'small'} />

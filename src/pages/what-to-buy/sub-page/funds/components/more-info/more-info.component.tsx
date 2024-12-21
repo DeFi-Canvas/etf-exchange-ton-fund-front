@@ -1,7 +1,7 @@
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import css from './more-info.module.css';
 import * as E from 'fp-ts/Either';
-import { v7 as uuid } from 'uuid';
+import { getUuid } from '@/utils/uuid';
 
 export interface ChartMoreInfoCardInterface {
     id: number;
@@ -20,7 +20,7 @@ const MoreInfo = ({ cards }: MoreInfoProps) => {
             <div className={css.cardContent}>
                 {cards.map((card) => (
                     <RenderResult
-                        key={uuid()}
+                        key={getUuid()}
                         data={card}
                         success={(card) => (
                             <div className={css.cardContentItem} key={card.id}>

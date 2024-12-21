@@ -25,7 +25,7 @@ export const PurchaseSellContentCardContainer = injectable(
             const maxAvailableBuy = useProperty(store.maxAvailableBuy);
             const maxAvailableSell = useProperty(store.maxAvailableSell);
 
-            //По хорошому вынести в локальную вьюху но мне лень
+            //TODO: По хорошому вынести в локальную вьюху но мне лень
             const assetCardData = pipe(
                 asset,
                 E.map((asset) =>

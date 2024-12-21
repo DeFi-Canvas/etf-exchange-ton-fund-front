@@ -33,6 +33,7 @@ const PurchaseSellContentCard = injectable(
             onMaxAvailableClick,
         }: PurchaseSellContentCardProps) => {
             // TODO: Какая то шляпа
+            // возможно стоит расщипить на 2 значения и использовать напрямую
             const currentTotalAmount = pipe(
                 totalAmount,
                 O.getOrElse(() => ({
