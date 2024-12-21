@@ -1,23 +1,23 @@
 import cn from 'classnames';
-// Templates
 import PurchaseSellAssetCard from '../purchase-sell-asset-card/purchase-sell-asset-card.component';
-// Types
 import { InterfacePurchaseSellAssetCardData } from '../../types';
-// Style
 import css from './purchase-sell-content-card.module.css';
 import * as O from 'fp-ts/Option';
-import { TotalAmount } from '../../purchase/purchase.view-model';
+import * as E from 'fp-ts/Either';
+import { TotalAmount } from '../../purchase/purchase.store';
 import { pipe } from 'fp-ts/lib/function';
 import { injectable } from '@injectable-ts/core';
 import { PurchaseSellFieldCounterContainer } from '../purchase-sell-field-counter/purchase-sell-field-counter.container';
 import { Asset } from '@/pages/whalet/whalet.model';
 import { WalletIcon } from '@/components/Icons/Icons.tsx';
+import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
+import SkeletonCard from '@/components/skeletons/skeleton-card/skeleton-card.component';
 
 interface PurchaseSellContentCardProps {
-    assetCardData: InterfacePurchaseSellAssetCardData;
+    assetCardData: E.Either<string, InterfacePurchaseSellAssetCardData>;
     totalAmount: O.Option<TotalAmount>;
     onClick: () => void;
-    asset: Asset;
+    asset: E.Either<string, Asset>;
     maxAvailable: number;
     onMaxAvailableClick: () => void;
 }
@@ -32,6 +32,8 @@ const PurchaseSellContentCard = injectable(
             maxAvailable,
             onMaxAvailableClick,
         }: PurchaseSellContentCardProps) => {
+            // TODO: Какая то шляпа
+            // возможно стоит расщипить на 2 значения и использовать напрямую
             const currentTotalAmount = pipe(
                 totalAmount,
                 O.getOrElse(() => ({
@@ -45,9 +47,15 @@ const PurchaseSellContentCard = injectable(
                     <div className={cn('app-container', css.cardContainer)}>
                         <div className={css.section}>
                             <div className={css.cardTitle}>Asset</div>
-                            <PurchaseSellAssetCard
-                                {...assetCardData}
-                                onClick={onClick}
+                            <RenderResult
+                                data={assetCardData}
+                                loading={() => <SkeletonCard type={'small'} />}
+                                success={(assetCardData) => (
+                                    <PurchaseSellAssetCard
+                                        {...assetCardData}
+                                        onClick={onClick}
+                                    />
+                                )}
                             />
                         </div>
                         <div className={css.section}>
@@ -68,10 +76,15 @@ const PurchaseSellContentCard = injectable(
                                 </div>
                             </header>
                             <PurchaseSellFieldCounterContainer />
-                            <div className={css.currentTotalAmount}>
-                                ≈ {currentTotalAmount.coin.toFixed(2)}{' '}
-                                {asset.name}
-                            </div>
+                            <RenderResult
+                                data={asset}
+                                success={({ name }) => (
+                                    <div className={css.currentTotalAmount}>
+                                        ≈ {currentTotalAmount.coin.toFixed(2)}{' '}
+                                        {name}
+                                    </div>
+                                )}
+                            />
                         </div>
                     </div>
                 </div>

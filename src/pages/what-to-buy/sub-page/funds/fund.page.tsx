@@ -10,10 +10,13 @@ import TermsAndConditions from '@/components/terms-and-conditions/terms-and-cond
 import { FooterContainer } from './components/footer/footer.container';
 import { ChartLinesContainer } from './components/lines/lines.container';
 import { MoreInfoContainer } from './components/more-info/more-info.componentcontainer';
+import * as E from 'fp-ts/Either';
+import { FundsData } from '@/pages/whalet/whalet.model';
+import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
+import SkeletonCard from '@/components/skeletons/skeleton-card/skeleton-card.component';
 
 interface FundPageProps {
-    name: string;
-    logo: string;
+    fund: E.Either<string, FundsData>;
 }
 
 export const FundPage = injectable(
@@ -29,13 +32,22 @@ export const FundPage = injectable(
         ChartLinesContainer,
         MoreInfoContainer
     ) =>
-        ({ name, logo }: FundPageProps) => {
+        ({ fund }: FundPageProps) => {
             return (
                 <div className={cn('app-container', css.page)}>
-                    <div className={css.foundCard}>
-                        <img src={logo} className={css.foundCardImage} />
-                        {name}
-                    </div>
+                    <RenderResult
+                        data={fund}
+                        loading={() => <SkeletonCard type={'small'} />}
+                        success={({ logo, name }) => (
+                            <div className={css.foundCard}>
+                                <img
+                                    src={logo}
+                                    className={css.foundCardImage}
+                                />
+                                {name}
+                            </div>
+                        )}
+                    />
                     <ChartLinesContainer />
                     {/* <ChartInvestedCard /> */}
                     <AboutContainer />

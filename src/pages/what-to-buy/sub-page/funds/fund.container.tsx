@@ -2,12 +2,9 @@ import { injectable, provide } from '@injectable-ts/core';
 import React from 'react';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { FundPage } from './fund.page';
-import { newPurchaseSellStore } from '../purchase/purchase.view-model';
-import { pipe } from 'fp-ts/lib/function';
+import { newPurchaseSellStore } from '../purchase/purchase.store';
 import { useProperty } from '@frp-ts/react';
-import * as E from 'fp-ts/Either';
 import { useParams } from 'react-router-dom';
-import { FundsData } from '@/pages/whalet/whalet.model';
 
 export const FundPageContainer = injectable(
     provide(FundPage)<'purchaseStore'>(),
@@ -20,17 +17,12 @@ export const FundPageContainer = injectable(
             []
         );
 
-        const fund = pipe(
-            useProperty(purchaseStore.fundData),
-            E.getOrElse(() => ({}) as FundsData)
-        );
-
+        const fund = useProperty(purchaseStore.fundData);
         const FundPageResolve = FundPage({
             purchaseStore,
         });
         return React.createElement(FundPageResolve, {
-            name: fund.name,
-            logo: fund.logo,
+            fund,
         });
     }
 );

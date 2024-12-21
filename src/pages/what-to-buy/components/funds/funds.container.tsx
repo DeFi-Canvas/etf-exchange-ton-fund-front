@@ -2,7 +2,7 @@ import { injectable, token } from '@injectable-ts/core';
 import * as E from 'fp-ts/Either';
 import React, { memo } from 'react';
 import { useProperty } from '@frp-ts/react';
-import { PurchaseSellStore } from '../../sub-page/purchase/purchase.view-model';
+import { PurchaseSellStore } from '../../sub-page/purchase/purchase.store';
 import { FondCardProps } from '@/components/fond-card/fond-card.component';
 import { useNavigate } from 'react-router-dom';
 import { pipe } from 'fp-ts/lib/function';
