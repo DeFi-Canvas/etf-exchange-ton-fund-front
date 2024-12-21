@@ -46,6 +46,10 @@ export const AppRoutes = () => {
             path: 'profile',
             page: containers.Profile,
         },
+        {
+            path: '/assets/:assetId',
+            page: containers.AssetPage,
+        },
         // не рабочие стр
         {
             path: '/swap',
@@ -54,11 +58,6 @@ export const AppRoutes = () => {
                 { path: '', page: SwapPage, isIndex: true },
                 { path: 'multi-swap', page: MultiSwapPage },
             ],
-        },
-        // TODO: Пока что оставлю роут в таком виде
-        {
-            path: '/assets/:assetId',
-            page: containers.AssetPage,
         },
     ];
 

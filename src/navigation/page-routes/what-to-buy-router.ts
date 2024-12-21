@@ -1,6 +1,8 @@
 import { Containers } from '../containers';
 
-export const whatToBuyRouter = (containers: Containers) => [
+export const whatToBuyRouter = ({
+    whatToBuy: containers,
+}: Pick<Containers, 'whatToBuy'>) => [
     // {
     //     path: '/what-to-buy',
     //     page: containers.WhatToBuyPage,
