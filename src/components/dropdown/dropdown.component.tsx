@@ -2,7 +2,7 @@ import css from './dropdown.module.css';
 import cn from 'classnames';
 import { ChevronDownIcon } from '@/components/Icons/Icons.tsx';
 import { CSSProperties, useState } from 'react';
-import { v7 as uuid } from 'uuid';
+import { getUuid } from '@/utils/uuid';
 
 type CustomCSSProperties = CSSProperties & {
     '--height'?: string;
@@ -58,7 +58,7 @@ export const Dropdown = ({ title, options, className = '' }: DropdownProps) => {
                     style={styleList}
                 >
                     {options.map((option) => (
-                        <div key={uuid()} className={css.optionItem}>
+                        <div key={getUuid()} className={css.optionItem}>
                             <span className={css.optionItemName}>
                                 {option.name}
                             </span>
