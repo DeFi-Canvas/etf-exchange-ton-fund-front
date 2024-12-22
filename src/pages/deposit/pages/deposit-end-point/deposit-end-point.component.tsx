@@ -8,10 +8,11 @@ import { ErrorResult } from '@/components/error-result/error-result.component';
 import InfoCard from './components/info-card/info-card.component';
 import AppFooter from '@/components/app-footer/app-footer.components.tsx';
 import AppButton from '@/components/app-button/app-button.component.tsx';
+import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 
 interface DepositEndPointProps {
     readonly details: E.Either<string, DepositDetails>;
-    readonly coinLogo: string;
+    readonly coinLogo: E.Either<string, string>;
 }
 
 export const DepositEndPoint = ({
@@ -51,16 +52,22 @@ export const DepositEndPoint = ({
                                 />
                             </div>
                         </div>
-                        <div className={css.overlayWrapper}>
-                            <img
-                                src={coinLogo}
-                                className={css.coinLogoImage1}
-                            />
-                            <img
-                                src={coinLogo}
-                                className={css.coinLogoImage2}
-                            />
-                        </div>
+                        <RenderResult
+                            data={coinLogo}
+                            success={(coinLogo) => (
+                                <div className={css.overlayWrapper}>
+                                    <img
+                                        src={coinLogo}
+                                        className={css.coinLogoImage1}
+                                    />
+                                    <img
+                                        src={coinLogo}
+                                        className={css.coinLogoImage2}
+                                    />
+                                </div>
+                            )}
+                        />
+
                         <AppFooter>
                             <AppButton label="Finish" to={'/'} />
                         </AppFooter>

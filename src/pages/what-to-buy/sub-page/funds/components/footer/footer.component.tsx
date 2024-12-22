@@ -36,7 +36,7 @@ export const Footer = ({
                 success={(isDisabled) => (
                     <AppButton
                         label="Buy"
-                        onClick={() => navigate(`/what-to-buy/sell/${id}`)}
+                        onClick={() => navigate(`/what-to-buy/purchase/${id}`)}
                         isDisabled={isDisabled}
                     />
                 )}

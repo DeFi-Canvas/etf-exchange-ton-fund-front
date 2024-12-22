@@ -3,7 +3,7 @@ import React from 'react';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useProperty } from '@frp-ts/react';
 import PurchasePage from './purchase.page';
-import { newPurchaseSellStore } from './purchase.view-model';
+import { newPurchaseSellStore } from './purchase.store';
 import { useParams } from 'react-router-dom';
 import { UserStoreService } from '@/store/user.store';
 

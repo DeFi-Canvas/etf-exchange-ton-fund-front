@@ -44,15 +44,14 @@ export const AppRoutes = () => {
             path: 'profile',
             page: containers.Profile,
         },
+        {
+            path: '/assets/:assetId',
+            page: containers.AssetPage,
+        },
         // не рабочие стр
         {
             path: '/swap',
             page: SwapPage,
-        },
-        // TODO: Пока что оставлю роут в таком виде
-        {
-            path: '/assets/:assetId',
-            page: containers.AssetPage,
         },
     ];
 
