@@ -84,7 +84,7 @@ export const UpIcon = ({ className = '' }: { className?: string }) => (
     <Up className={className} />
 );
 
-export const ChevronDown = ({ className = '' }: { className?: string }) => (
+export const ChevronDownIcon = ({ className = '' }: { className?: string }) => (
     <Chevron className={className} />
 );
 export const RightIcon = ({ className = '' }: { className?: string }) => (

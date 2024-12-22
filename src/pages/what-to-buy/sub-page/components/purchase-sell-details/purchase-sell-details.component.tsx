@@ -2,7 +2,7 @@ import cn from 'classnames';
 import { useState, CSSProperties } from 'react';
 // Style
 import css from './purchase-sell-details.module.css';
-import { ChevronDown } from '@/components/Icons/Icons';
+import { ChevronDownIcon } from '@/components/Icons/Icons';
 
 type CustomCSSProperties = CSSProperties & {
     '--height'?: string;
@@ -43,7 +43,7 @@ const PurchaseSellDetails = (props: PurchaseSellDetailsProps) => {
                         [css.iconChevronActive]: isOpen,
                     })}
                 >
-                    <ChevronDown />
+                    <ChevronDownIcon />
                 </div>
             </div>
             {props.details.length && (
