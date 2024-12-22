@@ -4,6 +4,7 @@ import {
     initNavigator,
     useViewport,
     initMiniApp,
+    useBackButton,
 } from '@telegram-apps/sdk-react';
 import { type FC, useEffect, useMemo } from 'react';
 import { Router } from 'react-router-dom';
@@ -20,6 +21,7 @@ const PAGE_URLS = [
 
 export const App: FC = () => {
     const [miniApp] = initMiniApp();
+    const backButton = useBackButton();
 
     // Красим фон шапки приложения. TODO По хорошему бы сформировать константы js на основе css переменных
     miniApp.setHeaderColor('#F9F8FF');
@@ -42,6 +44,14 @@ export const App: FC = () => {
     }, [navigator]);
 
     const isVisibleTabBar = PAGE_URLS.includes(location.pathname);
+
+    useEffect(() => {
+        if (PAGE_URLS.some((pathname) => pathname === location.pathname)) {
+            backButton.hide();
+        } else {
+            backButton.show();
+        }
+    });
 
     return (
         <Router location={location} navigator={reactNavigator}>
