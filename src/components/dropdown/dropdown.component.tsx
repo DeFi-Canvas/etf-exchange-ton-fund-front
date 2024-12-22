@@ -1,6 +1,6 @@
 import css from './dropdown.module.css';
 import cn from 'classnames';
-import { ChevronDown } from '@/components/Icons/Icons.tsx';
+import { ChevronDownIcon } from '@/components/Icons/Icons.tsx';
 import { CSSProperties, useState } from 'react';
 import { v7 as uuid } from 'uuid';
 
@@ -47,7 +47,7 @@ export const Dropdown = ({ title, options, className = '' }: DropdownProps) => {
                         [css.iconChevronDownActive]: isOpen,
                     })}
                 >
-                    <ChevronDown />
+                    <ChevronDownIcon />
                 </div>
             </div>
             {options.length && (
