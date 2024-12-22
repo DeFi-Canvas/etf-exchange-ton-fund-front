@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { ChevronDown } from '@/components/Icons/Icons';
+import { ChevronDownIcon } from '@/components/Icons/Icons';
 import { InterfacePurchaseSellAssetCardData } from '../../types';
 import css from './purchase-sell-asset-card.module.css';
 
@@ -36,7 +36,7 @@ const PurchaseSellAssetCard = (props: PurchaseSellAssetCardProps) => {
                 <div className={css.cardAdditional}>
                     {props.allowedOpen && (
                         <div className={cn(css.icon, css.iconChevrone)}>
-                            <ChevronDown />
+                            <ChevronDownIcon />
                         </div>
                     )}
                 </div>
