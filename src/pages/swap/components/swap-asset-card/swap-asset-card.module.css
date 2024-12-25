@@ -1,0 +1,117 @@
+.swapAssetCard {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.headerTitle {
+    color: var(--color-text-dark-70);
+}
+
+.headerInfo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.headerPrice {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.headerPriceButtonMax {
+    text-decoration-line: underline;
+    cursor: pointer;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.coinInfo,
+.fieldWrapper {
+    width: 50%;
+}
+
+.coinInfo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.coinInfoImage {
+    --size: 40px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+}
+
+.coinInfoSelect {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.coinInfoName {
+    font-weight: 510;
+    font-size: 20px;
+    line-height: 1.3;
+}
+
+.coinInfoIcon {
+    --size: 24px;
+    width: var(--size);
+    height: var(--size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.coinInfoIcon svg {
+    width: var(--size);
+    height: var(--size);
+}
+
+.fieldWrapper {
+    position: relative;
+}
+
+.fieldWrapper::before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-background-white), transparent 20%);
+    pointer-events: none;
+}
+
+.field {
+    width: 100%;
+    margin: unset;
+    padding: unset;
+    border: unset;
+    text-align: right;
+    font-weight: 590;
+    font-size: 32px;
+    line-height: 1.3;
+}
+
+.approximateCurrency {
+    margin-top: 4px;
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: right;
+    color: var(--color-text-dark-70);
+}
