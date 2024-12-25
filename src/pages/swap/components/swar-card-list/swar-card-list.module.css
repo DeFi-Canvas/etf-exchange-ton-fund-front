@@ -1,0 +1,104 @@
+.swapCard {
+    --card-height: 133px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.card {
+    background-color: var(--color-background-white);
+    height: var(--card-height);
+}
+
+.cardBordered {
+    border-radius: 16px;
+}
+
+.card:first-child {
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+.card:last-child {
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
+.cardList {
+    margin-top: 8px;
+}
+
+.cardSeparator {
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-background-white);
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.cardSeparator::before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 90%;
+    height: 1px;
+    background-color: var(--color-main-purple-10);
+}
+
+.swapButton {
+    --size: 40px;
+    width: var(--size);
+    height: var(--size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-main-purple-20);
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: var(--color-background-white);
+    position: absolute;
+    top: 113px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.swapButtonSlide {
+    position: absolute;
+    top: -30px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: top 0.3s ease-out;
+}
+.swapButtonSlideMulti {
+    top: 10px;
+    cursor: auto;
+}
+
+.icon {
+    --size: 20px;
+    width: var(--size);
+    height: var(--size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.swapCard .buttonAddAsset {
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.3s;
+    padding: 0;
+    margin: 0;
+}
+
+.swapCard .buttonAddAssetShow {
+    height: 50px;
+    opacity: 1;
+    padding: 14px 24px;
+    margin-top: 16px;
+}
