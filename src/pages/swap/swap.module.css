@@ -24,6 +24,15 @@
     margin-inline-start: auto;
 }
 
+.buttonIcon svg {
+    width: var(--size);
+    height: var(--size);
+}
+
 .tabs {
+    margin-top: 16px;
+}
+
+.swapCard {
     margin-top: 16px;
 }
