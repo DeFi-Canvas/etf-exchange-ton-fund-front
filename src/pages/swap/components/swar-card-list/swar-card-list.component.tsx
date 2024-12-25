@@ -1,5 +1,5 @@
 import React from 'react';
-import css from './swar-card.module.css';
+import css from './swar-card-list.module.css';
 import { SwapAsset } from '@pages/swap/swap.model.ts';
 import cn from 'classnames';
 import { getUuid } from '@/utils/uuid.ts';
