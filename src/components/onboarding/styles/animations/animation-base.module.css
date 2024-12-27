@@ -20,8 +20,12 @@
 */
 
 .imageBlock {
-    --position-top-percent: calc((var(--position-top) * 100) / var(--max-height-for-canvas) * 1%);
-    --animation-bottom: calc(100% - var(--position-top-percent) - var(--height));
+    --position-top-percent: calc(
+        (var(--position-top) * 100) / var(--max-height-for-canvas) * 1%
+    );
+    --animation-bottom: calc(
+        100% - var(--position-top-percent) - var(--height)
+    );
     width: var(--width);
     height: var(--height);
     position: absolute;

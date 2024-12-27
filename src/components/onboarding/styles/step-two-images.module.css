@@ -1,6 +1,6 @@
 /* Запуск анимации как только пропадает .stepHidden */
 .stepTwo.stepHidden > img {
-    animation-play-state: paused
+    animation-play-state: paused;
 }
 .stepTwo > img {
     animation-play-state: running;
