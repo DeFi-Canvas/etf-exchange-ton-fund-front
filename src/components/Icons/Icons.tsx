@@ -39,6 +39,9 @@ import Fee from '@/assets/icons/fee-icon.svg?react';
 import Risk from '@/assets/icons/risk.svg?react';
 import AIBubble from '@/assets/icons/ai-bubble.svg?react';
 import Wallet from '@/assets/icons/wallet.svg?react';
+import Reload from '@/assets/icons/reload.svg?react';
+import ArrowDown from '@/assets/icons/arrow-down.svg?react';
+import ArrowSwap from '@/assets/icons/arrow-swap.svg?react';
 
 import { TTransactionStatus } from '@/pages/whalet/components/transaction/types';
 
@@ -227,4 +230,16 @@ export const AIBubbleIcon = ({ className = '' }: { className?: string }) => (
 
 export const WalletIcon = ({ className = '' }: { className?: string }) => (
     <Wallet className={className} />
+);
+
+export const ReloadIcon = ({ className = '' }: { className?: string }) => (
+    <Reload className={className} />
+);
+
+export const ArrowDownIcon = ({ className = '' }: { className?: string }) => (
+    <ArrowDown className={className} />
+);
+
+export const ArrowSwapIcon = ({ className = '' }: { className?: string }) => (
+    <ArrowSwap className={className} />
 );

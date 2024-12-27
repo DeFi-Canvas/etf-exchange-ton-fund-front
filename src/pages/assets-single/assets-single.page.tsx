@@ -72,7 +72,7 @@ const AssetsSinglePage = (props: AssetsSinglePageProps) => {
                     </div>
                     <TermsAndConditions />
                     <AppFooter>
-                        <AppButton label="Swap" />
+                        <AppButton label="Swap" to={'/swap'} />
                     </AppFooter>
                 </div>
             )}

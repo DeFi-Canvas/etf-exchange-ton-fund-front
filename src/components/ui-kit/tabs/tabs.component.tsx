@@ -3,14 +3,21 @@ import css from './tabs.module.css';
 import { TabSlider } from './components/tab-slider/tab-slider.component';
 import { TabItem } from './components/tab-item/tab-item.component.tsx';
 import { TabItemInterface } from './tabs.model.ts';
+import cn from 'classnames';
 
 interface TabsProps {
     tabs: TabItemInterface[];
     onChangeTab: (currentTab: TabItemInterface) => void;
     activeTabName?: string;
+    className?: string;
 }
 
-export const Tabs = ({ tabs, onChangeTab, activeTabName = '' }: TabsProps) => {
+export const Tabs = ({
+    tabs,
+    onChangeTab,
+    activeTabName = '',
+    className = '',
+}: TabsProps) => {
     const [activeTab, setActiveTab] = useState(0);
 
     useEffect(() => {
@@ -30,7 +37,7 @@ export const Tabs = ({ tabs, onChangeTab, activeTabName = '' }: TabsProps) => {
     };
 
     return (
-        <div className={css.tabList}>
+        <div className={cn(css.tabList, className)}>
             {tabs.map((tab, index) => (
                 <TabItem
                     key={`${tab.name}-${index}`}

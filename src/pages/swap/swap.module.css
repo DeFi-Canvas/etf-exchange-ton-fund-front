@@ -1,0 +1,38 @@
+.page {
+    padding-block: 32px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.headerChip {
+    margin-top: 4px;
+}
+
+.buttonIcon {
+    --size: 24px;
+    width: var(--size);
+    height: var(--size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    padding: 0;
+    margin-inline-start: auto;
+}
+
+.buttonIcon svg {
+    width: var(--size);
+    height: var(--size);
+}
+
+.tabs {
+    margin-top: 16px;
+}
+
+.swapCard {
+    margin-top: 16px;
+}
