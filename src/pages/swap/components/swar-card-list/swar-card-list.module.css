@@ -65,17 +65,18 @@
 
 .swapButtonSlide {
     position: absolute;
-    top: -30px;
+    top: 10px;
     height: 60px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    cursor: pointer;
+    cursor: auto;
     transition: top 0.3s ease-out;
 }
-.swapButtonSlideMulti {
-    top: 10px;
-    cursor: auto;
+
+.swapButtonSlideSingle {
+    top: -30px;
+    cursor: pointer;
 }
 
 .icon {
@@ -88,17 +89,17 @@
 }
 
 .swapCard .buttonAddAsset {
-    height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: all 0.3s;
-    padding: 0;
-    margin: 0;
-}
-
-.swapCard .buttonAddAssetShow {
     height: 50px;
     opacity: 1;
     padding: 14px 24px;
     margin-top: 16px;
+    transition: all 0.3s;
+}
+
+.swapCard .buttonAddAssetHide {
+    height: 0;
+    opacity: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
 }

@@ -33,7 +33,7 @@ export const SwapCardList = ({
             <div className={css.swapButton}>
                 <div
                     className={cn(css.swapButtonSlide, {
-                        [css.swapButtonSlideMulti]: !isSingle,
+                        [css.swapButtonSlideSingle]: isSingle,
                     })}
                 >
                     <ArrowDownIcon className={css.icon} />
@@ -54,7 +54,7 @@ export const SwapCardList = ({
                 label="+ Add asset"
                 type="secondary"
                 className={cn(css.buttonAddAsset, {
-                    [css.buttonAddAssetShow]: !isSingle,
+                    [css.buttonAddAssetHide]: isSingle,
                 })}
                 onClick={onAddAsset}
             />

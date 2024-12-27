@@ -2,7 +2,7 @@ import css from './swap-asset-card.module.css';
 import { SwapAsset } from '@pages/swap/swap.model.ts';
 import cn from 'classnames';
 import { ChevronRightIcon, WalletIcon } from '@/components/Icons/Icons.tsx';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface SwapAssetCardProps {
     card: SwapAsset;
@@ -15,15 +15,21 @@ export const SwapAssetCard = ({
     isFirstCard = false,
     className = '',
 }: SwapAssetCardProps) => {
-    const [approximateCurrency, setApproximateCurrency] = useState(0);
     const textSwapCard = isFirstCard ? 'You send' : 'You receive';
     const price = `${card.availablePrice} ${card.assetName}`;
-    const approximateCurrencyText = `≈ $ ${approximateCurrency.toFixed(2)}`;
+
+    const [swapResult, setSwapResult] = useState(0);
+    const [swapResultText, setSwapResultText] = useState('≈ $ 0');
+
+    useEffect(() => {
+        setSwapResultText(`≈ $ ${swapResult.toFixed(2)}`);
+    }, [swapResult]);
 
     const onChangeField = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
         const valueNumber = Number(value);
-        setApproximateCurrency(valueNumber / 2);
+        // TODO: Тут должен быть примерное отображение в долларах для текущей введённой суммы ассета
+        setSwapResult(valueNumber / 2);
     };
 
     return (
@@ -61,9 +67,7 @@ export const SwapAssetCard = ({
                     />
                 </div>
             </div>
-            <div className={css.approximateCurrency}>
-                {approximateCurrencyText}
-            </div>
+            <div className={css.approximateCurrency}>{swapResultText}</div>
         </div>
     );
 };

@@ -36,7 +36,7 @@ const SWAP_CARDS_DEFAULT: SwapAsset[] = [
 
 export const SwapPage = () => {
     const [currentTab, setCurrentTab] = useState('singleSwap');
-    const [isSingle, setIsSingle] = useState(false);
+    const [isSingle, setIsSingle] = useState(true);
     const [swapCards, setSwapCards] = useState<SwapAsset[]>(SWAP_CARDS_DEFAULT);
 
     const onChangeTab = (selectedTab: TabItemInterface) => {
