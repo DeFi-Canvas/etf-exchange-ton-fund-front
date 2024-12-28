@@ -16,7 +16,7 @@ interface PurchaseSellContentCardProps {
     assetCardData: E.Either<string, InterfacePurchaseSellAssetCardData>;
     totalAmount: O.Option<TotalAmount>;
     onClick: () => void;
-    assetName: string;
+    assetName: E.Either<string, string>;
     maxAvailable: number;
     onMaxAvailableClick: () => void;
 }
@@ -77,7 +77,10 @@ const PurchaseSellContentCard = injectable(
                             <PurchaseSellFieldCounterContainer />
                             <div className={css.currentTotalAmount}>
                                 ≈ {currentTotalAmount.coin.toFixed(2)}{' '}
-                                {assetName}
+                                <RenderResult
+                                    data={assetName}
+                                    success={(assetName) => <>{assetName}</>}
+                                />
                             </div>
                         </div>
                     </div>

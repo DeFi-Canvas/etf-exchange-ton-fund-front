@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "@frp-ts/core": "^1.0.0-beta.5",
+        "@frp-ts/fp-ts": "^1.0.0-beta.6",
         "@frp-ts/lens": "^1.0.0-beta.5",
         "@frp-ts/react": "^1.0.0-beta.5",
         "@injectable-ts/core": "^1.0.0-beta.1",

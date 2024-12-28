@@ -5,7 +5,8 @@ import { newLensedAtom } from '@frp-ts/lens';
 import * as E from 'fp-ts/Either';
 import * as O from 'fp-ts/Option';
 import * as R from 'fp-ts/Record';
-import { constant, constVoid, pipe } from 'fp-ts/lib/function';
+import * as A from 'fp-ts/Array';
+import { constant, constVoid, flow, pipe } from 'fp-ts/lib/function';
 import { chain, combine, take, tap } from '@most/core';
 import { newWTBRestService } from '@/API/wtb.service';
 import { newWaletRestService } from '@/API/whalet.service';
@@ -101,7 +102,7 @@ export const newPurchaseSellStore = injectable(
                     pipe(
                         assetsResponce,
                         E.fold(constVoid, (x) => {
-                            selectedAssetsId.set(x[0].name);
+                            selectedAssetsId.set(x[0].id);
                         })
                     );
                 })
@@ -146,7 +147,7 @@ export const newPurchaseSellStore = injectable(
                         assets.get(),
                         E.chain((assets) => {
                             const asset = assets.find(
-                                (asset) => asset.name === x
+                                (asset) => asset.id === x
                             );
                             if (asset) {
                                 return E.right(asset);
@@ -261,23 +262,23 @@ export const newPurchaseSellStore = injectable(
                 tap((fundsData) => {
                     const maxAvailableSize = pipe(
                         fundData.get(),
-                        E.chain((fundData) => {
-                            return pipe(
+                        E.chain((fundData) =>
+                            pipe(
                                 fundsData,
                                 E.map(
-                                    (fundsData) =>
-                                        fundsData.filter(
-                                            ({ id }) => id === fundData.id
-                                        )[0]
+                                    A.findFirst(({ id }) => id === fundData.id)
                                 )
-                            );
-                        }),
-                        E.fold(
-                            () => 0,
-                            ({ cost }) => cost
-                        )
+                            )
+                        ),
+                        E.map((option) =>
+                            pipe(
+                                option,
+                                O.map(({ cost }) => cost),
+                                O.getOrElse(() => 0)
+                            )
+                        ),
+                        E.getOrElse(() => 0)
                     );
-
                     maxAvailableSell.set(maxAvailableSize);
                 })
             );
