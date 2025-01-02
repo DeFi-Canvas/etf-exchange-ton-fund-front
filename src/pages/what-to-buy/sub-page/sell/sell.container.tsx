@@ -13,13 +13,15 @@ export const SellContainer = injectable(
         const { id } = useParams();
         const store = newPurchaseSellStore({ userStore });
 
-        const vm = useValueWithEffect(() => store(id), []);
-        const showBottomSheet = useProperty(vm.isShowBottomSheetFinishBoody);
-        const isLoading = useProperty(vm.isLoading);
-        const SellPageResolve = SellPage({ purchaseStore: vm });
+        const purchaseStore = useValueWithEffect(() => store(id), []);
+        const showBottomSheet = useProperty(
+            purchaseStore.isShowBottomSheetFinishBoody
+        );
+        const isLoading = useProperty(purchaseStore.isLoading);
+        const SellPageResolve = SellPage({ purchaseStore });
 
         return React.createElement(SellPageResolve, {
-            ...vm,
+            ...purchaseStore,
             showBottomSheet,
             isLoading,
         });

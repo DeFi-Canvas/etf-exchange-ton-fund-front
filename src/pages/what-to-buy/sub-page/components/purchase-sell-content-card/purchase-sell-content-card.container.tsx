@@ -1,15 +1,11 @@
 import { injectable, token } from '@injectable-ts/core';
 import { PurchaseSellStore } from '../../purchase/purchase.store';
 import React from 'react';
-import { useProperty } from '@frp-ts/react';
+import { useProperties } from '@frp-ts/react';
 import PurchaseSellContentCard from './purchase-sell-content-card.component';
-import * as E from 'fp-ts/Either';
-import {
-    isAssetAvailible,
-    mapAssetToUICard,
-    PageType,
-} from '@/pages/what-to-buy/what-to-buy.model';
-import { pipe } from 'fp-ts/lib/function';
+import { PageType } from '@/pages/what-to-buy/what-to-buy.model';
+import { newPurchaseSellContentCardViewModel } from './purchase-sell-content-card.view-model';
+import { useValueWithEffect } from '@/utils/run-view-model.utils';
 
 interface PurchaseSellContentCardContainerProps {
     type: PageType;
@@ -18,32 +14,29 @@ interface PurchaseSellContentCardContainerProps {
 export const PurchaseSellContentCardContainer = injectable(
     token('purchaseStore')<PurchaseSellStore>(),
     PurchaseSellContentCard,
-    (store, PurchaseSellContentCard) =>
+    newPurchaseSellContentCardViewModel,
+    (store, PurchaseSellContentCard, newPurchaseSellContentCardViewModel) =>
         ({ type }: PurchaseSellContentCardContainerProps) => {
-            const totalAmount = useProperty(store.totalAmount);
-            const asset = useProperty(store.selectedAssets);
-            const maxAvailableBuy = useProperty(store.maxAvailableBuy);
-            const maxAvailableSell = useProperty(store.maxAvailableSell);
-
-            //TODO: По хорошому вынести в локальную вьюху но мне лень
-            const assetCardData = pipe(
-                asset,
-                E.map((asset) =>
-                    mapAssetToUICard(asset, isAssetAvailible(type))
-                )
+            const vm = useValueWithEffect(
+                () => newPurchaseSellContentCardViewModel(type),
+                []
             );
 
-            const maxAvailable =
-                type === 'BUY' ? maxAvailableBuy : maxAvailableSell;
+            const [totalAmount] = useProperties(store.totalAmount);
+
+            const [maxAvailable, assetCardData, assetName] = useProperties(
+                vm.maxAvailable,
+                vm.assetCardData,
+                vm.assetName
+            );
 
             return React.createElement(PurchaseSellContentCard, {
                 ...store,
+                ...vm,
                 totalAmount,
                 maxAvailable,
-                asset,
+                assetName,
                 assetCardData,
-                onClick: () => store.setIsBottomPanel(isAssetAvailible(type)),
-                onMaxAvailableClick: store.onMaxAvailableClick(type),
             });
         }
 );
