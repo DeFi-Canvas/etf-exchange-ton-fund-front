@@ -14,6 +14,7 @@ import { Asset, FundsData } from '@/pages/whalet/whalet.model';
 import { fromProperty } from '@/utils/property.utils';
 import { createAdapter } from '@most/adapter';
 import { PageType } from '../../what-to-buy.model';
+import { getKeyO } from '@/utils/object-utils';
 
 export interface TotalAmount {
     currency: number;
@@ -119,7 +120,7 @@ export const newPurchaseSellStore = injectable(
                 tap(({ fundData, fundsAvailableSale: fundsAvailableSaleS }) => {
                     const fundDataId = pipe(
                         fundData,
-                        E.map(({ id }) => id),
+                        E.map(getKeyO('id')),
                         E.getOrElse(() => '')
                     );
                     const newFundsAvailableSale = pipe(
@@ -164,13 +165,10 @@ export const newPurchaseSellStore = injectable(
                 quantity,
                 fromProperty,
                 tap((quantity) => {
-                    const cost = pipe(
-                        fundData.get(),
-                        E.map(({ cost }) => cost)
-                    );
+                    const cost = pipe(fundData.get(), E.map(getKeyO('cost')));
                     const price = pipe(
                         selectedAssets.get(),
-                        E.map(({ price }) => price)
+                        E.map(getKeyO('price'))
                     );
 
                     const fieldData = pipe(
@@ -192,14 +190,11 @@ export const newPurchaseSellStore = injectable(
                 take(1),
                 tap(() => isLoading.set(true)),
                 chain(() => {
-                    const fundId = pipe(
-                        fundData.get(),
-                        E.map(({ id }) => id)
-                    );
+                    const fundId = pipe(fundData.get(), E.map(getKeyO('id')));
 
                     const assetId = pipe(
                         selectedAssets.get(),
-                        E.map(({ id }) => id)
+                        E.map(getKeyO('id'))
                     );
 
                     const serviceArgs = pipe(
@@ -226,13 +221,13 @@ export const newPurchaseSellStore = injectable(
                 chain(() => {
                     const fundId = pipe(
                         fundData.get(),
-                        E.map(({ id }) => id),
+                        E.map(getKeyO('id')),
                         E.getOrElse(constant(''))
                     );
 
                     const price = pipe(
                         selectedAssets.get(),
-                        E.map(({ price }) => price),
+                        E.map(getKeyO('price')),
                         E.getOrElse(constant(0))
                     );
 
