@@ -1,15 +1,11 @@
 import { injectable, token } from '@injectable-ts/core';
-import { PurchaseSellStore } from '../../purchase/purchase.view-model';
+import { PurchaseSellStore } from '../../purchase/purchase.store';
 import React from 'react';
-import { useProperty } from '@frp-ts/react';
+import { useProperties } from '@frp-ts/react';
 import PurchaseSellContentCard from './purchase-sell-content-card.component';
-import * as E from 'fp-ts/Either';
-import { Asset } from '@/pages/whalet/whalet.model';
-import {
-    isAssetAvailible,
-    mapAssetToUICard,
-    PageType,
-} from '@/pages/what-to-buy/what-to-buy.model';
+import { PageType } from '@/pages/what-to-buy/what-to-buy.model';
+import { newPurchaseSellContentCardViewModel } from './purchase-sell-content-card.view-model';
+import { useValueWithEffect } from '@/utils/run-view-model.utils';
 
 interface PurchaseSellContentCardContainerProps {
     type: PageType;
@@ -18,33 +14,29 @@ interface PurchaseSellContentCardContainerProps {
 export const PurchaseSellContentCardContainer = injectable(
     token('purchaseStore')<PurchaseSellStore>(),
     PurchaseSellContentCard,
-    (store, PurchaseSellContentCard) =>
+    newPurchaseSellContentCardViewModel,
+    (store, PurchaseSellContentCard, newPurchaseSellContentCardViewModel) =>
         ({ type }: PurchaseSellContentCardContainerProps) => {
-            const totalAmount = useProperty(store.totalAmount);
-            const selectedAssets = useProperty(store.selectedAssets);
-            const maxAvailableBuy = useProperty(store.maxAvailableBuy);
-            const maxAvailableSell = useProperty(store.maxAvailableSell);
-
-            // TODO: переписать на RenderEither
-            const currentSelectedAssets = E.isRight(selectedAssets)
-                ? selectedAssets.right
-                : ({} as Asset);
-            const assetCardDataContentCard = mapAssetToUICard(
-                currentSelectedAssets,
-                isAssetAvailible(type)
+            const vm = useValueWithEffect(
+                () => newPurchaseSellContentCardViewModel(type),
+                []
             );
 
-            const maxAvailable =
-                type === 'BUY' ? maxAvailableBuy : maxAvailableSell;
+            const [totalAmount] = useProperties(store.totalAmount);
+
+            const [maxAvailable, assetCardData, assetName] = useProperties(
+                vm.maxAvailable,
+                vm.assetCardData,
+                vm.assetName
+            );
 
             return React.createElement(PurchaseSellContentCard, {
                 ...store,
+                ...vm,
                 totalAmount,
-                asset: currentSelectedAssets,
-                assetCardData: assetCardDataContentCard,
-                onClick: () => store.setIsBottomPanel(isAssetAvailible(type)),
                 maxAvailable,
-                onMaxAvailableClick: store.onMaxAvailableClick(type),
+                assetName,
+                assetCardData,
             });
         }
 );

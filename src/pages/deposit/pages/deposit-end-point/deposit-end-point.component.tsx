@@ -1,0 +1,81 @@
+import css from './deposit-end-point.module.css';
+import cn from 'classnames';
+import * as E from 'fp-ts/Either';
+import { DepositDetails } from './deposit-end-point.view-model';
+import { pipe } from 'fp-ts/lib/function';
+import { useParams } from 'react-router-dom';
+import { ErrorResult } from '@/components/error-result/error-result.component';
+import InfoCard from './components/info-card/info-card.component';
+import AppFooter from '@/components/app-footer/app-footer.components.tsx';
+import AppButton from '@/components/app-button/app-button.component.tsx';
+import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
+
+interface DepositEndPointProps {
+    readonly details: E.Either<string, DepositDetails>;
+    readonly coinLogo: E.Either<string, string>;
+}
+
+export const DepositEndPoint = ({
+    details,
+    coinLogo,
+}: DepositEndPointProps) => {
+    const { ticker } = useParams();
+
+    const renderDepositEndPoint = pipe(
+        details,
+        E.fold(
+            (e) => <ErrorResult error={e} />,
+            (details) => {
+                return (
+                    <>
+                        <div className={cn('app-container', css.content)}>
+                            <div className={css.titleWrap}>
+                                Send only&nbsp;
+                                <span className={css.bold}>{ticker}</span>
+                                &nbsp;via&nbsp;
+                                <span className={css.bold}>TON</span>&nbsp;to
+                                this address. Other coins, jettons and NFTs will
+                                be permanently lost.
+                                <span className={css.bold}>
+                                    Memo is mandatory to make a deposit!
+                                </span>
+                            </div>
+                            <img src={details.qrCode} className={css.qrCode} />
+                            <div className={css.infoWrapper}>
+                                <InfoCard
+                                    title={'Deposit address'}
+                                    node={details.address}
+                                />
+                                <InfoCard
+                                    title={'Tag/Memo (Comment/Note)'}
+                                    node={details.memo}
+                                />
+                            </div>
+                        </div>
+                        <RenderResult
+                            data={coinLogo}
+                            success={(coinLogo) => (
+                                <div className={css.overlayWrapper}>
+                                    <img
+                                        src={coinLogo}
+                                        className={css.coinLogoImage1}
+                                    />
+                                    <img
+                                        src={coinLogo}
+                                        className={css.coinLogoImage2}
+                                    />
+                                </div>
+                            )}
+                        />
+
+                        <AppFooter>
+                            <AppButton label="Finish" to={'/'} />
+                        </AppFooter>
+                    </>
+                );
+            }
+        )
+    );
+
+    return <div>{renderDepositEndPoint}</div>;
+};

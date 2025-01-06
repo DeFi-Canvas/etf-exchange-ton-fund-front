@@ -1,0 +1,9 @@
+.tabList {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 36px;
+    padding: 2px;
+    background-color: var(--color-main-purple-10);
+    border-radius: 12px;
+}

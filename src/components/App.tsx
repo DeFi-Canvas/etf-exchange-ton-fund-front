@@ -4,6 +4,7 @@ import {
     initNavigator,
     useViewport,
     initMiniApp,
+    useBackButton,
 } from '@telegram-apps/sdk-react';
 import { type FC, useEffect, useMemo } from 'react';
 import { Router } from 'react-router-dom';
@@ -20,62 +21,15 @@ const PAGE_URLS = [
 
 export const App: FC = () => {
     const [miniApp] = initMiniApp();
+    const backButton = useBackButton();
 
     // Красим фон шапки приложения. TODO По хорошему бы сформировать константы js на основе css переменных
     miniApp.setHeaderColor('#F9F8FF');
 
     const viewport = useViewport();
-    // const wallet = useTonWallet();
-    // const dispatch = useAppDispatch();
-    // const { wallet_info, appStatus, userData } = useAppSelector(
-    //     (state) => state.appSlice
-    // );
-
     useEffect(() => {
         return viewport && bindViewportCSSVars(viewport) && viewport.expand();
     }, [viewport]);
-
-    // useEffect(() => {
-    //     if (wallet?.account.address && !wallet_info) {
-    //         const address = toUserFriendlyAddress(wallet.account.address);
-    //         Promise.all([
-    //             dispatch(setWalletAddress(address)),
-    //             dispatch(fetchWalletInfoTC({ address })),
-    //         ]);
-    //     }
-    //     !wallet?.account &&
-    //         dispatch(setWalletAddress('')) &&
-    //         dispatch(refreshWalletInfo());
-    // }, [wallet?.account.address]);
-
-    // useEffect(() => {
-    //     if (!userData && initData && initData.user) {
-    //         const userData = {
-    //             id: initData.user.id,
-    //             userName: initData.user.username || 'unknown',
-    //         };
-    //         dispatch(sendUserDataTC(userData));
-    //     }
-    // }, []);
-
-    // if (wallet?.account.address && wallet?.account.chain !== '-3')
-    //     return (
-    //         <div className={'container'}>
-    //             <h2>Please connect to test network.</h2>
-    //             <TonConnectButton className="ton-connect__button" />
-    //         </div>
-    //     );
-
-    // if (appStatus === 'loading')
-    //     return (
-    //         <div className={'container items-center'}>
-    //             {userData && userData?.created_at === userData?.updated_at ? (
-    //                 <OnbardScreen />
-    //             ) : (
-    //                 // <Fragment />
-    //             )}
-    //         </div>
-    //     );
 
     // Create a new application navigator and attach it to the browser history, so it could modify
     // it and listen to its changes.
@@ -90,6 +44,14 @@ export const App: FC = () => {
     }, [navigator]);
 
     const isVisibleTabBar = PAGE_URLS.includes(location.pathname);
+
+    useEffect(() => {
+        if (PAGE_URLS.some((pathname) => pathname === location.pathname)) {
+            backButton.hide();
+        } else {
+            backButton.show();
+        }
+    });
 
     return (
         <Router location={location} navigator={reactNavigator}>

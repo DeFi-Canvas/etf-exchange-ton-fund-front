@@ -1,0 +1,26 @@
+.tabLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    cursor: pointer;
+    padding: 7px 10px;
+    font-size: 13px;
+    line-height: 1.38;
+    letter-spacing: -0.08px;
+    text-align: center;
+    z-index: 1;
+    transition: all 0.3s ease-in-out;
+}
+
+.tabLinkActive {
+    font-weight: 590;
+}
+
+.separator {
+    width: 1px;
+    height: 12px;
+    background-color: var(--color-main-purple);
+    opacity: 0.3;
+    border-radius: 0.5px;
+}

@@ -1,0 +1,14 @@
+.slider {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: left 0.3s ease-in-out;
+    height: 32px;
+    padding: 3px 10px;
+    background-color: var(--color-background-white);
+    border: 0.5px solid rgba(191, 71, 71, 0.04);
+    box-shadow: 0 3px 1px rgba(0, 0, 0, 0.04);
+    border-radius: 10px;
+    width: var(--width);
+    left: var(--left);
+}

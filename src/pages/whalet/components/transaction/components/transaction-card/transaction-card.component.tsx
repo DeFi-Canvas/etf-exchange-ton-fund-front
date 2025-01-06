@@ -13,6 +13,7 @@ type CustomCSSProperties = CSSProperties & {
     '--color-status'?: string;
 };
 
+//TODO чет какая то шляпа
 const styleListForStatus = (
     modificatorUI: O.Option<string>
 ): CustomCSSProperties => {

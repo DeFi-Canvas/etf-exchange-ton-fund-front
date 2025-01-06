@@ -35,7 +35,11 @@
     display: flex;
     flex-direction: column;
     z-index: var(--z-index-3);
-    background: linear-gradient(180deg, transparent 10%, rgb(var(--color-main-purple)));
+    background: linear-gradient(
+        180deg,
+        transparent 10%,
+        rgb(var(--color-main-purple))
+    );
     color: var(--color-text-white);
     text-align: center;
     opacity: 1;
