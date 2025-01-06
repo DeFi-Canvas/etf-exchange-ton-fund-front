@@ -30,6 +30,7 @@
         "@openapitools/openapi-generator-cli": "^2.15.3",
         "@rollup/plugin-inject": "^5.0.5",
         "@telegram-apps/react-router-integration": "^1.0.0",
+        "@telegram-apps/sdk": "^2.11.2",
         "@telegram-apps/sdk-react": "^1.0.0",
         "@telegram-apps/telegram-ui": "^2.1.8",
         "@ton/ton": "^15.1.0",
