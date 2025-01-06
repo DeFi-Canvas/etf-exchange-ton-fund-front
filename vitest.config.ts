@@ -1,7 +1,11 @@
+import path from 'path';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
     test: {
+        alias: {
+            '@': path.resolve(__dirname, './src'),
+        },
         include: ['src/**/*.{test,spec}.ts'],
         coverage: {
             exclude: [
@@ -13,6 +17,7 @@ export default defineConfig({
                 'vite.config.ts',
                 '.eslintrc.cjs',
                 'src/*.ts',
+                'dist/assets',
             ],
         },
     },

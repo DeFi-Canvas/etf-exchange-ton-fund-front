@@ -4,8 +4,8 @@ import { newDefaultScheduler } from '@most/scheduler';
 import { right, left } from 'fp-ts/lib/Either';
 import * as t from 'io-ts';
 import axios from 'axios';
-import { getRequestGenerated } from './request.utils';
 import { Stream } from '@most/types';
+import { getRequestGenerated } from '../request.utils';
 
 vi.mock('axios');
 
