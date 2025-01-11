@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { defaultScheduler, voidSink } from '@/utils/run-view-model.utils';
 import * as E from 'fp-ts/Either';
 import { newAssetsSingleViewModel } from '../assets-single.view-model';
-import { NEW_ASETSS_REST_SERVICE } from '@/API/assets.mock.service';
+import { NEW_ASETSS_REST_SERVICE } from '@/API/mock/assets.mock.service';
 
 describe('newNewUserStoreService', () => {
     it('should return empty asset', () => {

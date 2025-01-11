@@ -5,9 +5,9 @@ import { empty, tap } from '@most/core';
 import { Property } from '@frp-ts/core';
 import * as E from 'fp-ts/Either';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
-import { newWaletRestService } from '@/API/whalet.service';
+import { WaletRestService } from '@/API/whalet.service';
 import { newLensedAtom } from '@frp-ts/lens';
-import { newDepositRestService } from '@/API/deposit.service';
+import { DepositRestService } from '@/API/deposit.service';
 import { DepositAssets } from '../deposit.model';
 import { Asset, AssetCodec } from '@/pages/whalet/whalet.model';
 import { WithdrowStore } from '@/pages/withdrow/withdrow.store';
@@ -27,8 +27,8 @@ export interface NewAssetsViewModel {
 // TODO: зря объеденил в одну сущность надо разводить по разным
 // или норм?
 export const newAssetsViewModel = injectable(
-    newWaletRestService,
-    newDepositRestService,
+    token('waletRestService')<WaletRestService>(),
+    token('depositRestService')<DepositRestService>(),
     token('withdrowStore')<WithdrowStore>(),
     (waletRestService, newDepositRestService, store): NewAssetsViewModel =>
         (type) => {
@@ -42,9 +42,6 @@ export const newAssetsViewModel = injectable(
                         return waletRestService.getAssets();
                     case 'deposit': {
                         return newDepositRestService.getDepositAssets();
-                    }
-                    default: {
-                        return empty();
                     }
                 }
             })();
