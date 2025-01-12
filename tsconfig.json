@@ -11,7 +11,12 @@
         "noUnusedLocals": false,
         "noUnusedParameters": false,
         "paths": {
-            "@/*": ["./src/*"]
+            "@/*": ["./src/*"],
+            "@pages/*": ["./src/pages/*"],
+            "@deposit/*": ["./src/pages/deposit/*"],
+            "@whalet/*": ["./src/pages/whalet/*"],
+            "@withdrow/*": ["./src/pages/withdrow/*"],
+            "@what-to-buy/*": ["./src/pages/what-to-buy/*"]
         },
         "resolveJsonModule": true,
         "skipLibCheck": true,
@@ -19,7 +24,7 @@
         "target": "ES2020",
         "useDefineForClassFields": true
     },
-    "include": ["src"],
+    "include": ["src", "vitest.config.ts"],
     "references": [
         {
             "path": "./tsconfig.node.json"

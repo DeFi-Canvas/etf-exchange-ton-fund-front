@@ -4,7 +4,9 @@ import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { newLensedAtom } from '@frp-ts/lens';
 import * as E from 'fp-ts/Either';
 import * as O from 'fp-ts/Option';
-import { constVoid, pipe } from 'fp-ts/lib/function';
+import * as R from 'fp-ts/Record';
+import * as A from 'fp-ts/Array';
+import { constant, constVoid, flow, pipe } from 'fp-ts/lib/function';
 import { chain, combine, take, tap } from '@most/core';
 import { newWTBRestService } from '@/API/wtb.service';
 import { newWaletRestService } from '@/API/whalet.service';
@@ -12,6 +14,7 @@ import { Asset, FundsData } from '@/pages/whalet/whalet.model';
 import { fromProperty } from '@/utils/property.utils';
 import { createAdapter } from '@most/adapter';
 import { PageType } from '../../what-to-buy.model';
+import { getKeyO } from '@/utils/object-utils';
 
 export interface TotalAmount {
     currency: number;
@@ -100,7 +103,7 @@ export const newPurchaseSellStore = injectable(
                     pipe(
                         assetsResponce,
                         E.fold(constVoid, (x) => {
-                            selectedAssetsId.set(x[0].name);
+                            selectedAssetsId.set(x[0].id);
                         })
                     );
                 })
@@ -117,7 +120,7 @@ export const newPurchaseSellStore = injectable(
                 tap(({ fundData, fundsAvailableSale: fundsAvailableSaleS }) => {
                     const fundDataId = pipe(
                         fundData,
-                        E.map(({ id }) => id),
+                        E.map(getKeyO('id')),
                         E.getOrElse(() => '')
                     );
                     const newFundsAvailableSale = pipe(
@@ -143,11 +146,16 @@ export const newPurchaseSellStore = injectable(
                 tap((x) =>
                     pipe(
                         assets.get(),
-                        E.map(
-                            (assets) =>
-                                assets.find((asset) => asset.name === x) ??
-                                ({} as Asset)
-                        ),
+                        E.chain((assets) => {
+                            const asset = assets.find(
+                                (asset) => asset.id === x
+                            );
+                            if (asset) {
+                                return E.right(asset);
+                            } else {
+                                return E.left('pending');
+                            }
+                        }),
                         selectedAssets.set
                     )
                 )
@@ -156,19 +164,24 @@ export const newPurchaseSellStore = injectable(
             const quantityEffect = pipe(
                 quantity,
                 fromProperty,
-                tap((x) => {
-                    const currentFund = pipe(
-                        fundData.get(),
-                        E.getOrElse(() => ({}) as FundsData)
-                    );
-                    const currentAsset = pipe(
+                tap((quantity) => {
+                    const cost = pipe(fundData.get(), E.map(getKeyO('cost')));
+                    const price = pipe(
                         selectedAssets.get(),
-                        E.getOrElse(() => ({}) as Asset)
+                        E.map(getKeyO('price'))
                     );
-                    const currency = x * currentFund.cost;
-                    const coin = currency / currentAsset.price;
-                    if (!Number.isNaN(coin))
-                        totalAmount.set(O.of({ currency, coin }));
+
+                    const fieldData = pipe(
+                        { cost, price },
+                        R.sequence(E.Applicative),
+                        E.map(({ cost, price }) => {
+                            const currency = quantity * cost;
+                            const coin = currency / price;
+                            return { currency, coin };
+                        }),
+                        O.fromEither
+                    );
+                    totalAmount.set(fieldData);
                 })
             );
 
@@ -177,18 +190,21 @@ export const newPurchaseSellStore = injectable(
                 take(1),
                 tap(() => isLoading.set(true)),
                 chain(() => {
-                    const currentFund = pipe(
-                        fundData.get(),
-                        E.getOrElse(() => ({}) as FundsData)
+                    const fundId = pipe(fundData.get(), E.map(getKeyO('id')));
+
+                    const assetId = pipe(
+                        selectedAssets.get(),
+                        E.map(getKeyO('id'))
                     );
 
-                    const currentAsset = pipe(
-                        selectedAssets.get(),
-                        E.getOrElse(() => ({}) as Asset)
+                    const serviceArgs = pipe(
+                        { fundId, assetId },
+                        R.sequence(E.Applicative),
+                        E.getOrElse(constant({ fundId: '', assetId: '' }))
                     );
+
                     return service.buyFund({
-                        fundId: currentFund.id,
-                        assetId: currentAsset.id,
+                        ...serviceArgs,
                         amount: quantity.get(),
                     });
                 }),
@@ -203,20 +219,23 @@ export const newPurchaseSellStore = injectable(
                 take(1),
                 tap(() => isLoading.set(true)),
                 chain(() => {
-                    const currentFund = pipe(
+                    const fundId = pipe(
                         fundData.get(),
-                        E.getOrElse(() => ({}) as FundsData)
+                        E.map(getKeyO('id')),
+                        E.getOrElse(constant(''))
                     );
 
-                    const currentAsset = pipe(
+                    const price = pipe(
                         selectedAssets.get(),
-                        E.getOrElse(() => ({}) as Asset)
+                        E.map(getKeyO('price')),
+                        E.getOrElse(constant(0))
                     );
+
                     return service.sellFund({
-                        fundId: currentFund.id,
+                        fundId,
                         amount:
-                            maxAvailableSell.get() > 0
-                                ? quantity.get() - currentAsset.price / 2
+                            maxAvailableSell.get() === quantity.get()
+                                ? quantity.get() - price / 2
                                 : quantity.get(),
                     });
                 }),
@@ -238,23 +257,23 @@ export const newPurchaseSellStore = injectable(
                 tap((fundsData) => {
                     const maxAvailableSize = pipe(
                         fundData.get(),
-                        E.chain((fundData) => {
-                            return pipe(
+                        E.chain((fundData) =>
+                            pipe(
                                 fundsData,
                                 E.map(
-                                    (fundsData) =>
-                                        fundsData.filter(
-                                            ({ id }) => id === fundData.id
-                                        )[0]
+                                    A.findFirst(({ id }) => id === fundData.id)
                                 )
-                            );
-                        }),
-                        E.fold(
-                            () => 0,
-                            ({ cost }) => cost
-                        )
+                            )
+                        ),
+                        E.map((option) =>
+                            pipe(
+                                option,
+                                O.map(({ cost }) => cost),
+                                O.getOrElse(() => 0)
+                            )
+                        ),
+                        E.getOrElse(() => 0)
                     );
-
                     maxAvailableSell.set(maxAvailableSize);
                 })
             );
@@ -263,11 +282,12 @@ export const newPurchaseSellStore = injectable(
                 selectedAssets,
                 fromProperty,
                 tap((selectedAssets) => {
-                    const currentAsset = pipe(
+                    const value = pipe(
                         selectedAssets,
-                        E.getOrElse(() => ({}) as Asset)
+                        E.map(({ value }) => value),
+                        E.getOrElse(() => 0)
                     );
-                    maxAvailableBuy.set(currentAsset.value);
+                    maxAvailableBuy.set(value);
                 })
             );
             return valueWithEffect.new(

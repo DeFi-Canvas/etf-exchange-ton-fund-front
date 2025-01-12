@@ -6,7 +6,7 @@ import { useProperty } from '@frp-ts/react';
 import PurchaseSellDetails, {
     PurchaseSellDetailsProps,
 } from './purchase-sell-details.component';
-import { PurchaseSellStore } from '../../purchase/purchase.view-model';
+import { PurchaseSellStore } from '../../purchase/purchase.store';
 import { pipe } from 'fp-ts/lib/function';
 
 interface PurchaseSellDetailsContainerProps

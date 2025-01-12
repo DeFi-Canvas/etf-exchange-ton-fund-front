@@ -1,10 +1,6 @@
 import cn from 'classnames';
-// Templates
-import { ChevronDown } from '@/components/Icons/Icons';
-// Types
+import { ChevronDownIcon } from '@/components/Icons/Icons';
 import { InterfacePurchaseSellAssetCardData } from '../../types';
-//TODO:V мб вынесем это в глобальные стили чтоб мозга ебать не пришлось каждый раз это импортить?
-// Style
 import css from './purchase-sell-asset-card.module.css';
 
 interface PurchaseSellAssetCardProps
@@ -40,7 +36,7 @@ const PurchaseSellAssetCard = (props: PurchaseSellAssetCardProps) => {
                 <div className={css.cardAdditional}>
                     {props.allowedOpen && (
                         <div className={cn(css.icon, css.iconChevrone)}>
-                            <ChevronDown />
+                            <ChevronDownIcon />
                         </div>
                     )}
                 </div>

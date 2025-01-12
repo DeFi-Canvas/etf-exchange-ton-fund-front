@@ -1,6 +1,8 @@
 import { Containers } from '../containers';
 
-export const withdrawRouter = (containers: Containers) => [
+export const withdrawRouter = ({
+    withdrow: containers,
+}: Pick<Containers, 'withdrow'>) => [
     {
         path: 'withdraw',
         page: containers.Withdrow,

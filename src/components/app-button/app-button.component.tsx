@@ -24,13 +24,15 @@ const AppButton = (props: AppButtonProps) => {
         [css.buttonDisabled]: isDisabled,
     });
 
+    const buttonInner = props.isLoading ? (
+        <SpinIcon className={css.spinLoading} type="light" />
+    ) : (
+        props.label
+    );
+
     return props.to && !isDisabled ? (
         <Link to={props.to} className={classList}>
-            {props.isLoading ? (
-                <SpinIcon className={css.spinLoading} type="light" />
-            ) : (
-                props.label
-            )}
+            {buttonInner}
         </Link>
     ) : (
         <button
@@ -39,11 +41,7 @@ const AppButton = (props: AppButtonProps) => {
             disabled={props.isDisabled}
             onClick={props.onClick}
         >
-            {props.isLoading ? (
-                <SpinIcon className={css.spinLoading} type="light" />
-            ) : (
-                props.label
-            )}
+            {buttonInner}
         </button>
     );
 };

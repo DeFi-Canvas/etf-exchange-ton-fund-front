@@ -4,9 +4,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { newNewUserStoreService } from '@/store/user.store';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useInitData } from '@telegram-apps/sdk-react';
-import { Swap } from '@/pages/swap/swap.page';
-import { SwapPage } from '@/pages/swap/sub-pages/swap/swap.component';
-import { MultiSwapPage } from '@/pages/swap/sub-pages/multi-swap/multi-swap.component';
+import { SwapPage } from '@/pages/swap/swap.page';
 import { getContainers } from './containers';
 import { indexRouter } from './page-routes/index-router';
 import { depositRouter } from './page-routes/deposit-router';
@@ -46,19 +44,14 @@ export const AppRoutes = () => {
             path: 'profile',
             page: containers.Profile,
         },
-        // не рабочие стр
-        {
-            path: '/swap',
-            page: Swap,
-            parent: [
-                { path: '', page: SwapPage, isIndex: true },
-                { path: 'multi-swap', page: MultiSwapPage },
-            ],
-        },
-        // TODO: Пока что оставлю роут в таком виде
         {
             path: '/assets/:assetId',
             page: containers.AssetPage,
+        },
+        // не рабочие стр
+        {
+            path: '/swap',
+            page: SwapPage,
         },
     ];
 

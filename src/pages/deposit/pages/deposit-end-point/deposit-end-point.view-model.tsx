@@ -1,14 +1,12 @@
 import { injectable } from '@injectable-ts/core';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
-import * as O from 'fp-ts/Option';
 import { Property } from '@frp-ts/core';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { newLensedAtom } from '@frp-ts/lens';
 import { flow, pipe } from 'fp-ts/lib/function';
 import { tap } from '@most/core';
 import { newDepositRestService } from '@/API/deposit.service';
-import { DepositAssets } from '../deposit/deposit.model';
 
 export interface DepositDetails {
     readonly address: string;
@@ -18,7 +16,7 @@ export interface DepositDetails {
 
 export interface DepositEndPointViewModel {
     readonly details: Property<E.Either<string, DepositDetails>>;
-    readonly img: Property<string>;
+    readonly img: Property<E.Either<string, string>>;
 }
 
 export interface NewDepositEndPointViewModel {
@@ -32,7 +30,9 @@ export const newDepositEndPointViewModel = injectable(
             const details = newLensedAtom<E.Either<string, DepositDetails>>(
                 E.left('Loading')
             );
-            const img = newLensedAtom('');
+            const img = newLensedAtom<E.Either<string, string>>(
+                E.left('empty')
+            );
 
             const getDetails = pipe(
                 service.getDepositDetails(),
@@ -43,12 +43,14 @@ export const newDepositEndPointViewModel = injectable(
                 service.getDepositAssets(),
                 tap(
                     flow(
-                        E.getOrElse(() => [] as DepositAssets[]),
-                        A.findFirst((x) => x.ticker === ticker),
-                        O.fold(
-                            () => '',
-                            (x) => x.img
-                        ),
+                        E.chain((depositAssets) => {
+                            return pipe(
+                                depositAssets,
+                                A.findFirst((x) => x.ticker === ticker),
+                                E.fromOption(() => 'empty'),
+                                E.map(({ img }) => img)
+                            );
+                        }),
                         img.set
                     )
                 )

@@ -19,7 +19,6 @@ export interface UserStoreService {
     setUser: (data: Partial<UserData> | undefined) => void;
     assets: Property<E.Either<string, Array<CoinCardData>>>;
     setAssets: (data: E.Either<string, Array<CoinCardData>>) => void;
-    transactions: Property<Array<unknown>>;
 }
 
 export type NewUserStoreService = ValueWithEffect<UserStoreService>;
@@ -31,13 +30,11 @@ export const newNewUserStoreService = (
     const assets = newLensedAtom<E.Either<string, Array<CoinCardData>>>(
         E.left('pending')
     );
-    const transactions = newLensedAtom([]);
 
     return valueWithEffect.new({
         user,
         setUser: (data) => user.modify((user) => ({ ...user, ...data })),
         assets,
         setAssets: (data) => assets.set(data),
-        transactions,
     });
 };
