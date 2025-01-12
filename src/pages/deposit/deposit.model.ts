@@ -16,7 +16,8 @@ export interface DepositDetails {
 }
 
 export const mapDepositDetails = (data: DepositDetails) => ({
-    ...data,
+    address: data.address,
+    memo: data.memo,
     qrCode: data.qrimgsrc,
 });
 

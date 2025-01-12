@@ -8,6 +8,8 @@ import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { newNewWithdrowStore } from './withdrow.store';
 import { memo } from 'react';
 import React from 'react';
+import { newDepositRestService } from '@/API/deposit.service';
+import { newWaletRestService } from '@/API/whalet.service';
 
 const WithdrowPage = injectable(AssetsContainer, (AssetsContainer) =>
     memo(() => {
@@ -34,10 +36,15 @@ export const Withdrow = injectable(
                 [userStore]
             );
 
+            const depositRestService = newDepositRestService({ userStore });
+            const waletRestService = newWaletRestService({ userStore });
+
             return React.createElement(
                 WithdrowPage({
                     withdrowStore,
-                    userStore,
+                    // userStore,
+                    waletRestService,
+                    depositRestService,
                 })
             );
         })
