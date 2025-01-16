@@ -7,6 +7,7 @@ import { FondCardProps } from '@/components/fond-card/fond-card.component';
 import { useNavigate } from 'react-router-dom';
 import { pipe } from 'fp-ts/lib/function';
 import { FondsWrap } from './funds.component';
+import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
 
 export const FondsWrapContainer = injectable(
     token('purchaseStore')<PurchaseSellStore>(),
@@ -34,6 +35,11 @@ export const FondsWrapContainer = injectable(
                 funds,
                 onClick: (id) => {
                     navigate(`/what-to-buy/fund/${id}`);
+                    trackMixpanel(
+                        'WHAT_TO_BUY_PAGE: Fund mowe',
+                        { id: id },
+                        true
+                    );
                 },
             });
         })

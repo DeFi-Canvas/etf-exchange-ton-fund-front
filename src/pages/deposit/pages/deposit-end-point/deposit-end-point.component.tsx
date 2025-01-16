@@ -9,6 +9,7 @@ import InfoCard from './components/info-card/info-card.component';
 import AppFooter from '@/components/app-footer/app-footer.components.tsx';
 import AppButton from '@/components/app-button/app-button.component.tsx';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
+import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
 
 interface DepositEndPointProps {
     readonly details: E.Either<string, DepositDetails>;
@@ -45,10 +46,20 @@ export const DepositEndPoint = ({
                                 <InfoCard
                                     title={'Deposit address'}
                                     node={details.address}
+                                    onClcik={() => {
+                                        trackMixpanel(
+                                            'DEPOSIT_PAGE: deposit address copy click'
+                                        );
+                                    }}
                                 />
                                 <InfoCard
                                     title={'Tag/Memo (Comment/Note)'}
                                     node={details.memo}
+                                    onClcik={() => {
+                                        trackMixpanel(
+                                            'DEPOSIT_PAGE: Tag/Memo (Comment/Note) copy click'
+                                        );
+                                    }}
                                 />
                             </div>
                         </div>
@@ -69,7 +80,13 @@ export const DepositEndPoint = ({
                         />
 
                         <AppFooter>
-                            <AppButton label="Finish" to={'/'} />
+                            <AppButton
+                                label="Finish"
+                                to={'/'}
+                                onClick={() => {
+                                    trackMixpanel('DEPOSIT_PAGE: finish click');
+                                }}
+                            />
                         </AppFooter>
                     </>
                 );

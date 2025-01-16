@@ -7,18 +7,26 @@ import { injectable } from '@injectable-ts/core';
 
 interface AssetsContainerProps {
     type: AssetsViewModelInit;
+    onClick?: () => void;
 }
 
 export const AssetsContainer = injectable(
     newAssetsViewModel,
     (newAssetsViewModel) =>
-        ({ type }: AssetsContainerProps) => {
+        ({ type, onClick }: AssetsContainerProps) => {
             const vm = useValueWithEffect(
                 () => newAssetsViewModel(type),
                 [type]
             );
             const assets = useProperty(vm.assets);
             const handleClick = vm.handleClick;
-            return React.createElement(Assets, { assets, type, handleClick });
+            return React.createElement(Assets, {
+                assets,
+                type,
+                handleClick: (asset) => {
+                    onClick && onClick();
+                    handleClick(asset);
+                },
+            });
         }
 );

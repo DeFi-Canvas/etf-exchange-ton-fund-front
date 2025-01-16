@@ -9,6 +9,7 @@ import React, { memo } from 'react';
 import { newNewWithdrowStore } from '../withdrow/withdrow.store';
 import { newDepositRestService } from '@/API/deposit.service';
 import { newWaletRestService } from '@/API/whalet.service';
+import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
 
 export const DepositPageContainer = injectable(
     AssetsContainer,
@@ -17,10 +18,21 @@ export const DepositPageContainer = injectable(
             <div className={css.page}>
                 <div className={cn('app-container', css.pageHeader)}>
                     <h2 className={css.pageTitle}>Deposit</h2>
-                    <SerchInput placeholder="Search" />
+                    <SerchInput
+                        placeholder="Search"
+                        onClick={() =>
+                            trackMixpanel('DEPOSIT_PAGE: serch click')
+                        }
+                        trackEvent="DEPOSIT_PAGE: serch event"
+                    />
                 </div>
                 <div className={css.assetsWrapper}>
-                    <AssetsContainer type="deposit" />
+                    <AssetsContainer
+                        type="deposit"
+                        onClick={() => {
+                            trackMixpanel('DEPOSIT_PAGE: asset click');
+                        }}
+                    />
                 </div>
             </div>
         );

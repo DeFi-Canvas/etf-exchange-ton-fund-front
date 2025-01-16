@@ -9,6 +9,7 @@ import { FundsData } from '../../whalet.model';
 import { SkeletonCardSection } from '@/components/skeletons/skeleton-card/skeleton-card-section.component';
 import { formatNumberToUI } from '@/utils/number';
 import { Link } from 'react-router-dom';
+import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
 
 const emptyText = `A fund is a passive investment tool composed of multiple assets. Review the presented funds`;
 
@@ -49,6 +50,13 @@ export const Funds = ({ funds }: FundsProps) => {
                             <Link
                                 to={`/what-to-buy/fund/${fund.id}`}
                                 key={fund.id}
+                                onClick={() => {
+                                    trackMixpanel(
+                                        'WALLET_PAGE_FUNDS: specific fund  click',
+                                        { ...fund },
+                                        true
+                                    );
+                                }}
                             >
                                 <AssetsCard {...formattedData(fund)} />
                             </Link>

@@ -16,13 +16,13 @@ export interface WhatToBuyContainers {
 export const getWhatToBuyContainers = ({
     userStore,
 }: getContainersArgs): WhatToBuyContainers => ({
+    WhatToBuyPage: WhatToBuyPageContainer({
+        userStore,
+    }),
     PurchaseContainer: PurchaseContainer({
         userStore,
     }),
     SellContainer: SellContainer({
-        userStore,
-    }),
-    WhatToBuyPage: WhatToBuyPageContainer({
         userStore,
     }),
     FundPage: FundPageContainer({ userStore }),

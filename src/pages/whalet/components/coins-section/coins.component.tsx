@@ -7,6 +7,7 @@ import { useProperty } from '@frp-ts/react';
 import { injectable } from '@injectable-ts/core';
 import React from 'react';
 import { newWhatToBuyViewModel } from '../../whalet.view-model';
+import { trackMixpanel, TrackMixpanelEvents } from '@/mixpanel/mixpanel-entry';
 
 const routesInit = [
     {
@@ -56,6 +57,9 @@ export const OperationsNav = ({
                             to={route.to}
                             key={route.id}
                             onClick={() => {
+                                trackMixpanel(
+                                    `WALLET_PAGE_${route.title.toUpperCase()}: ${route.title} button click` as TrackMixpanelEvents
+                                );
                                 setRoutes((r) =>
                                     r
                                         .map((t) => ({ ...t, isActive: false }))

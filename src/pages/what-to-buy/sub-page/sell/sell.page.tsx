@@ -10,6 +10,7 @@ import BottomSheet from '@/components/ui-kit/bottom-sheet/bottom-sheet.component
 import { PurchaseSellAssetCardContainer } from '../components/purchase-sell-asset-card/purchase-sell-asset-card.container';
 import { PurchaseSellFinishBoodySheetContainer } from '../components/purchase-sell-finish-boody-sheet/purchase-sell-finish-boody-sheet.container';
 import { useNavigate } from 'react-router-dom';
+import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
 
 interface SellPageProps {
     showBottomSheet: boolean;
@@ -38,7 +39,10 @@ const SellPage = injectable(
                     <div className="app-container">
                         <PurchaseSellTitle title="Selling" />
                         <div className={css.assetCard}>
-                            <PurchaseSellAssetCardContainer type={'BUY'} />
+                            <PurchaseSellAssetCardContainer
+                                type={'BUY'}
+                                eventType="BUY_SELL_PAGE: fund click"
+                            />
                         </div>
                     </div>
                     <PurchaseSellContentCardContainer type={'SELL'} />
@@ -48,7 +52,10 @@ const SellPage = injectable(
                     />
                     <PurchaseSellFooter
                         title="Sell"
-                        onClick={onSell}
+                        onClick={() => {
+                            onSell();
+                            trackMixpanel('BUY_SELL_PAGE: buy/sell click');
+                        }}
                         isLoading={isLoading}
                         isDisabled={false}
                     />

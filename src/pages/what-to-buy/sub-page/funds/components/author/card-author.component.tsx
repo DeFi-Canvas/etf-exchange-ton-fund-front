@@ -1,10 +1,16 @@
+import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
 import css from './card-author.module.css';
 
 const CardAuthor = () => {
     return (
         <div className={css.card}>
             <div className={css.cardTitle}>Author</div>
-            <div className={css.cardContent}>
+            <div
+                className={css.cardContent}
+                onClick={() => {
+                    trackMixpanel('WHAT_TO_BUY_PAGE: author click');
+                }}
+            >
                 <div className={css.authorCard}>
                     <img src="temp-avatar.png" className={css.authorImage} />
                     <div className={css.authorContent}>

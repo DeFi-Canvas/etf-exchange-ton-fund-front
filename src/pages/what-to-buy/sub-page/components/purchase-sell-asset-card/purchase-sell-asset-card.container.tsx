@@ -9,15 +9,17 @@ import { PurchaseSellStore } from '../../purchase/purchase.store';
 import PurchaseSellAssetCard from './purchase-sell-asset-card.component';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import SkeletonCard from '@/components/skeletons/skeleton-card/skeleton-card.component';
+import { trackMixpanel, TrackMixpanelEvents } from '@/mixpanel/mixpanel-entry';
 
 interface PurchaseSellAssetCardContainerProps {
     type: PageType;
+    eventType: TrackMixpanelEvents;
 }
 
 export const PurchaseSellAssetCardContainer = injectable(
     token('purchaseStore')<PurchaseSellStore>(),
     (store) =>
-        ({ type }: PurchaseSellAssetCardContainerProps) => {
+        ({ type, eventType }: PurchaseSellAssetCardContainerProps) => {
             const fund = useProperty(store.fundData);
 
             return (
@@ -33,11 +35,12 @@ export const PurchaseSellAssetCardContainer = injectable(
                             <PurchaseSellAssetCard
                                 {...props}
                                 isBackgroundWhite={true}
-                                onClick={() =>
+                                onClick={() => {
                                     store.setIsBottomPanel(
                                         !isAssetAvailible(type)
-                                    )
-                                }
+                                    );
+                                    trackMixpanel(eventType);
+                                }}
                             />
                         );
                     }}
