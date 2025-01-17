@@ -40,7 +40,12 @@ export type ProfilePageEvent =
 export type WithdrawPageEvent =
     | 'WITHDRAW_PAGE: serch click'
     | 'WITHDRAW_PAGE: serch event'
-    | 'WITHDRAW_PAGE: asset click';
+    | 'WITHDRAW_PAGE: asset click'
+    | 'WITHDRAW_PAGE_ENTER_AMOUNT: continue click'
+    | 'WITHDRAW_PAGE_ENTER_ADDRESS: continue click'
+    | 'WITHDRAW_PAGE_CHECK: submit and withdraw click'
+    | 'WITHDRAW_PAGE_FINISH: finish click'
+    | 'WITHDRAW_PAGE_FINISH: view transactions click';
 
 //DONE
 export type DepositPageEvent =

@@ -5,6 +5,7 @@ import cn from 'classnames';
 import AmountField from './amount-field/amount-field.component';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import AppButton from '@/components/app-button/app-button.component.tsx';
+import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
 
 export type AmountErrors = 'too small' | 'too big';
 
@@ -97,6 +98,13 @@ export const Amount = ({
                 type={isNextButtonAvailable ? 'default' : 'secondary'}
                 to={isNextButtonAvailable ? '/withdraw/:ticker/address' : ''}
                 className={css.button}
+                onClick={() => {
+                    trackMixpanel(
+                        'WITHDRAW_PAGE_ENTER_AMOUNT: continue click',
+                        {},
+                        true
+                    );
+                }}
             />
         </div>
     );
