@@ -95,6 +95,14 @@ export const SwapPage = () => {
         closeBottomSheet();
     };
 
+    const onDeleteAsset = (cardId: number) => {
+        const newSwapCards = swapCards.filter((card) => {
+            return card.id !== cardId;
+        });
+
+        setSwapCards(newSwapCards);
+    };
+
     return (
         <div className={cn('app-container', css.page)}>
             <button onClick={openBottomSheet}>OPEN</button>
@@ -105,6 +113,7 @@ export const SwapPage = () => {
                 isSingle={isSingle}
                 className={css.swapCard}
                 onAddAsset={onAddAsset}
+                onDelete={onDeleteAsset}
             />
             <SwapDropdown options={options} />
             <AppFooter>

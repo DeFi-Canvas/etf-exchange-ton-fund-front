@@ -6,12 +6,14 @@ import { getUuid } from '@/utils/uuid.ts';
 import { ArrowDownIcon, ArrowSwapIcon } from '@/components/Icons/Icons.tsx';
 import AppButton from '@/components/app-button/app-button.component.tsx';
 import { SwapAssetCard } from '@pages/swap/components/swap-asset-card/swap-asset-card.component.tsx';
+import { SwipeDelete } from '@/components/swipe-delete/swipe-delete.component.tsx';
 
 interface SwapCardListProps {
     cards: SwapAsset[];
     isSingle: boolean;
     onAddAsset: () => void;
     className?: string;
+    onDelete: (cardId: number) => void;
 }
 
 export const SwapCardList = ({
@@ -19,6 +21,7 @@ export const SwapCardList = ({
     isSingle,
     onAddAsset,
     className = '',
+    onDelete,
 }: SwapCardListProps) => {
     const firstCard = cards[0];
     const otherCard = cards.slice(1);
@@ -46,7 +49,17 @@ export const SwapCardList = ({
                         {index !== 0 && (
                             <div className={css.cardSeparator}></div>
                         )}
-                        <SwapAssetCard card={card} className={css.card} />
+                        {/* Если вторая и более карточек - то все они являются удаляемыми */}
+                        {index > 0 ? (
+                            <SwipeDelete id={card.id} onDelete={onDelete}>
+                                <SwapAssetCard
+                                    card={card}
+                                    className={css.card}
+                                />
+                            </SwipeDelete>
+                        ) : (
+                            <SwapAssetCard card={card} className={css.card} />
+                        )}
                     </React.Fragment>
                 ))}
             </div>
