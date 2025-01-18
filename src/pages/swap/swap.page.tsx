@@ -69,7 +69,7 @@ export const SwapPage = () => {
         }
     }, [isSingle]);
 
-    const memoTabs = useMemo(
+    const SwapTabsMemo = useMemo(
         () => (
             <Tabs tabs={tabs} className={css.tabs} onChangeTab={onChangeTab} />
         ),
@@ -97,14 +97,9 @@ export const SwapPage = () => {
 
     return (
         <div className={cn('app-container', css.page)}>
-            <header className={css.header}>
-                <h2 className="h2">Swap</h2>
-                <Chip text="0% fee" className={css.headerChip} />
-                <button className={css.buttonIcon}>
-                    <ReloadIcon />
-                </button>
-            </header>
-            {memoTabs}
+            <button onClick={openBottomSheet}>OPEN</button>
+            <SwapHeader />
+            {SwapTabsMemo}
             <SwapCardList
                 cards={swapCards}
                 isSingle={isSingle}
