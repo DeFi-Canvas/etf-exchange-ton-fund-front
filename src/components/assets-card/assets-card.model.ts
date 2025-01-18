@@ -7,6 +7,7 @@ export interface Assets {
     subTitle: string;
     price?: string;
     priceText?: string;
+    onClick?: (assetId: string) => void;
 }
 
 export const assetsCodec = t.type({

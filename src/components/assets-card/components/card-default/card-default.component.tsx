@@ -6,7 +6,7 @@ interface CardDefaultProps extends Assets {}
 
 const CardDefault = (props: CardDefaultProps) => {
     return (
-        <div className={css.card}>
+        <div className={css.card} onClick={() => props.onClick?.(props.id)}>
             <img className={css.image} src={props.img} alt="" />
 
             <div className={css.infoWrapper}>
