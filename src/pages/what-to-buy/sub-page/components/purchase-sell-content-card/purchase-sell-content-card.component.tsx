@@ -8,16 +8,16 @@ import { TotalAmount } from '../../purchase/purchase.store';
 import { pipe } from 'fp-ts/lib/function';
 import { injectable } from '@injectable-ts/core';
 import { PurchaseSellFieldCounterContainer } from '../purchase-sell-field-counter/purchase-sell-field-counter.container';
-import { Asset } from '@/pages/whalet/whalet.model';
 import { WalletIcon } from '@/components/Icons/Icons.tsx';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import SkeletonCard from '@/components/skeletons/skeleton-card/skeleton-card.component';
+import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
 
 interface PurchaseSellContentCardProps {
     assetCardData: E.Either<string, InterfacePurchaseSellAssetCardData>;
     totalAmount: O.Option<TotalAmount>;
     onClick: () => void;
-    asset: E.Either<string, Asset>;
+    assetName: E.Either<string, string>;
     maxAvailable: number;
     onMaxAvailableClick: () => void;
 }
@@ -28,7 +28,7 @@ const PurchaseSellContentCard = injectable(
             assetCardData,
             totalAmount,
             onClick,
-            asset,
+            assetName,
             maxAvailable,
             onMaxAvailableClick,
         }: PurchaseSellContentCardProps) => {
@@ -53,7 +53,12 @@ const PurchaseSellContentCard = injectable(
                                 success={(assetCardData) => (
                                     <PurchaseSellAssetCard
                                         {...assetCardData}
-                                        onClick={onClick}
+                                        onClick={() => {
+                                            onClick();
+                                            trackMixpanel(
+                                                'BUY_SELL_PAGE: assetOprions click'
+                                            );
+                                        }}
                                     />
                                 )}
                             />
@@ -76,15 +81,13 @@ const PurchaseSellContentCard = injectable(
                                 </div>
                             </header>
                             <PurchaseSellFieldCounterContainer />
-                            <RenderResult
-                                data={asset}
-                                success={({ name }) => (
-                                    <div className={css.currentTotalAmount}>
-                                        ≈ {currentTotalAmount.coin.toFixed(2)}{' '}
-                                        {name}
-                                    </div>
-                                )}
-                            />
+                            <div className={css.currentTotalAmount}>
+                                ≈ {currentTotalAmount.coin.toFixed(2)}{' '}
+                                <RenderResult
+                                    data={assetName}
+                                    success={(assetName) => <>{assetName}</>}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

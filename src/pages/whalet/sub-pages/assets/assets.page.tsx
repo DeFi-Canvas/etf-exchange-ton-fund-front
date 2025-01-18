@@ -7,7 +7,8 @@ import { AssetsCard } from '@/components/assets-card/assets-card.component.tsx';
 import { CoinCardData } from '@/components/assets-card/assets-card.model';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import { SkeletonCardSection } from '@/components/skeletons/skeleton-card/skeleton-card-section.component';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
 
 export interface AssetsProps {
     assets: E.Either<string, Array<CoinCardData>>;
@@ -32,6 +33,8 @@ const formattedData = (assets: CoinCardData) => {
 };
 
 export const Assets = ({ assets }: AssetsProps) => {
+    const navigate = useNavigate();
+
     const footerSlot = () => (
         <div className={css.footerButtons}>
             <AppButton
@@ -65,12 +68,27 @@ export const Assets = ({ assets }: AssetsProps) => {
                         )}
                         {assets.length &&
                             assets.map((assets) => (
-                                <Link
-                                    to={`/assets/${assets.id}`}
-                                    key={assets.ticker}
-                                >
-                                    <AssetsCard {...formattedData(assets)} />
-                                </Link>
+                                <div>
+                                    <Link
+                                        to={`/assets/${assets.id}`}
+                                        key={assets.ticker}
+                                        className="track-link"
+                                        onClick={() => {
+                                            trackMixpanel(
+                                                'WALLET_PAGE_ASSETS: specific asset  click',
+                                                {
+                                                    name: assets.name,
+                                                    id: assets.id,
+                                                },
+                                                true
+                                            );
+                                        }}
+                                    >
+                                        <AssetsCard
+                                            {...formattedData(assets)}
+                                        />
+                                    </Link>
+                                </div>
                             ))}
                     </>
                 )}

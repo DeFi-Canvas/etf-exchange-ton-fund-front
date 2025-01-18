@@ -8,6 +8,9 @@ import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { newNewWithdrowStore } from './withdrow.store';
 import { memo } from 'react';
 import React from 'react';
+import { newDepositRestService } from '@/API/deposit.service';
+import { newWaletRestService } from '@/API/whalet.service';
+import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
 
 const WithdrowPage = injectable(AssetsContainer, (AssetsContainer) =>
     memo(() => {
@@ -15,10 +18,21 @@ const WithdrowPage = injectable(AssetsContainer, (AssetsContainer) =>
             <div className={css.page}>
                 <div className={cn('app-container', css.pageHeader)}>
                     <h2 className={css.pageTitle}>Withdraw</h2>
-                    <SerchInput placeholder="Search" />
+                    <SerchInput
+                        placeholder="Search"
+                        onClick={() => {
+                            trackMixpanel('WITHDRAW_PAGE: serch click');
+                        }}
+                        trackEvent="WITHDRAW_PAGE: serch event"
+                    />
                 </div>
                 <div className={css.assetsWrapper}>
-                    <AssetsContainer type="withdrow" />
+                    <AssetsContainer
+                        type="withdrow"
+                        onClick={() => {
+                            trackMixpanel('WITHDRAW_PAGE: asset click');
+                        }}
+                    />
                 </div>
             </div>
         );
@@ -34,10 +48,14 @@ export const Withdrow = injectable(
                 [userStore]
             );
 
+            const depositRestService = newDepositRestService({ userStore });
+            const waletRestService = newWaletRestService({ userStore });
+
             return React.createElement(
                 WithdrowPage({
                     withdrowStore,
-                    userStore,
+                    waletRestService,
+                    depositRestService,
                 })
             );
         })

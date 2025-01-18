@@ -1,3 +1,4 @@
+import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
 import css from './settings.module.css';
 
 export const Settings = () => {
@@ -7,11 +8,25 @@ export const Settings = () => {
                 <div className={css.cardTitle}>Settings</div>
 
                 <div className={css.cardContent}>
-                    <div className={css.cardItem}>
+                    <div
+                        className={css.cardItem}
+                        onClick={() => {
+                            trackMixpanel('PROFILE_PAGE: settings event', {
+                                name: 'Language',
+                            });
+                        }}
+                    >
                         <span>Language</span>
                         <span className={css.cardItemLabel}>English</span>
                     </div>
-                    <div className={css.cardItem}>
+                    <div
+                        className={css.cardItem}
+                        onClick={() => {
+                            trackMixpanel('PROFILE_PAGE: settings event', {
+                                name: 'Local currency',
+                            });
+                        }}
+                    >
                         <span>Local currency</span>
                         <span className={css.cardItemLabel}>USD</span>
                     </div>

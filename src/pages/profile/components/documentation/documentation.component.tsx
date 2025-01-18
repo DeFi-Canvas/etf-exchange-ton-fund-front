@@ -1,3 +1,4 @@
+import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
 import css from './documentation.module.css';
 import { Link } from 'react-router-dom';
 
@@ -8,7 +9,18 @@ export const Documentation = () => {
     return (
         <div className={css.cardWrapper}>
             <div className="app-container">
-                <Link to={documentationLink} target="_blank" rel="noreferrer">
+                <Link
+                    to={documentationLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => {
+                        trackMixpanel(
+                            'PROFILE_PAGE: documentation click',
+                            {},
+                            true
+                        );
+                    }}
+                >
                     Documentation
                 </Link>
             </div>

@@ -1,5 +1,6 @@
 import { FC, CSSProperties } from 'react';
 import css from './user-avatar.module.css';
+import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
 
 type CustomCSSProperties = CSSProperties & {
     '--size'?: string;
@@ -18,7 +19,13 @@ const UserAvatar: FC<UserAvatarProps> = (props) => {
     };
 
     return (
-        <div className={css.userAvatar} style={styleListUserAvatar}>
+        <div
+            className={css.userAvatar}
+            style={styleListUserAvatar}
+            onClick={() => {
+                trackMixpanel('PROFILE_PAGE: user click');
+            }}
+        >
             <span className={css.userAvatarLetter}>{props.userNameLetter}</span>
         </div>
     );

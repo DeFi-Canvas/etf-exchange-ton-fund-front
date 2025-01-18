@@ -5,11 +5,12 @@ type PropsType = {
     children: React.ReactNode;
     to: string;
     text: string;
+    onClick?: () => void;
 };
 
-const TabBarItem = ({ children, to, text }: PropsType) => {
+const TabBarItem = ({ children, to, text, onClick }: PropsType) => {
     return (
-        <Link className={css.item} to={to}>
+        <Link className={css.item} to={to} onClick={onClick}>
             {children}
             <span>{text}</span>
         </Link>

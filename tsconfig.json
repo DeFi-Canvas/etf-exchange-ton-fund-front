@@ -24,7 +24,7 @@
         "target": "ES2020",
         "useDefineForClassFields": true
     },
-    "include": ["src"],
+    "include": ["src", "vitest.config.ts"],
     "references": [
         {
             "path": "./tsconfig.node.json"

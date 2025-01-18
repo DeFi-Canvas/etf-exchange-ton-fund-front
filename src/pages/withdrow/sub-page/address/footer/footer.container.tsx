@@ -14,12 +14,16 @@ export const FooterContainer = injectable(
             );
             const balanceAfter = useProperty(store.balanceAfter);
             const symbolLogo = useProperty(store.symbolLogo);
+            const address = useProperty(store.address);
+            const memo = useProperty(store.memo);
 
             return React.createElement(Footer, {
                 balanceAfter,
                 isGoToCheckAvailable,
                 currency,
                 symbolLogo,
+                address,
+                memo,
             });
         })
 );

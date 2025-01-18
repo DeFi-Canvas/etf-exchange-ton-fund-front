@@ -12,16 +12,20 @@ export const PurchaseContainer = injectable(
     (userStore) => () => {
         const { id } = useParams();
 
-        const store = newPurchaseSellStore({ userStore });
+        const purchaseStore = useValueWithEffect(
+            () => newPurchaseSellStore({ userStore })(id),
+            []
+        );
 
-        const purchaseStore = useValueWithEffect(() => store(id), []);
         const showBottomSheet = useProperty(purchaseStore.isBottomPanel);
         const isShowBottomSheetFinishBoody = useProperty(
             purchaseStore.isShowBottomSheetFinishBoody
         );
         const isLoading = useProperty(purchaseStore.isLoading);
 
-        const PurchasePageResolve = PurchasePage({ purchaseStore });
+        const PurchasePageResolve = PurchasePage({
+            purchaseStore,
+        });
 
         return React.createElement(PurchasePageResolve, {
             ...purchaseStore,

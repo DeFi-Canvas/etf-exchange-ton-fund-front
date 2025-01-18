@@ -4,23 +4,32 @@ import { useProperty } from '@frp-ts/react';
 import { PurchaseSellStore } from '../../purchase.store';
 import { mapAssetToUICard } from '@/pages/what-to-buy/what-to-buy.model';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
+import { trackMixpanel, TrackMixpanelEvents } from '@/mixpanel/mixpanel-entry';
+
+export interface BottomSheetPurchaseBodyContainerProps {
+    eventType: TrackMixpanelEvents;
+}
 
 export const BottomSheetPurchaseBodyContainer = injectable(
     token('purchaseStore')<PurchaseSellStore>(),
-    (store) => () => {
-        const assets = useProperty(store.assets);
+    (store) =>
+        ({ eventType }: BottomSheetPurchaseBodyContainerProps) => {
+            const assets = useProperty(store.assets);
 
-        return (
-            <RenderResult
-                data={assets}
-                success={(assets) => (
-                    <BottomSheetBody
-                        data={assets.map((asset) =>
-                            mapAssetToUICard(asset, false)
-                        )}
-                    />
-                )}
-            />
-        );
-    }
+            return (
+                <RenderResult
+                    data={assets}
+                    success={(assets) => (
+                        <BottomSheetBody
+                            data={assets.map((asset) =>
+                                mapAssetToUICard(asset, false)
+                            )}
+                            onClick={() => {
+                                trackMixpanel(eventType);
+                            }}
+                        />
+                    )}
+                />
+            );
+        }
 );
