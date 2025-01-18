@@ -1,5 +1,11 @@
+.inputField {
+    margin-top: 16px;
+}
+
 .assetsList {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    margin-top: 16px;
+    height: 75vh;
 }
