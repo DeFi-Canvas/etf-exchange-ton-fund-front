@@ -7,6 +7,13 @@ import { Chip } from '@/components/chip/chip.component.tsx';
 import { ReloadIcon } from '@/components/Icons/Icons.tsx';
 import { SwapAsset } from '@pages/swap/swap.model.ts';
 import { SwapCardList } from '@pages/swap/components/swar-card-list/swar-card-list.component.tsx';
+import AppFooter from '@/components/app-footer/app-footer.components.tsx';
+import AppButton from '@/components/app-button/app-button.component.tsx';
+import { SwapDropdown } from '@pages/swap/components/swap-dropdown/swap-dropdown.component.tsx';
+import { DropdownOptions } from '@/components/dropdown/dropdown.component.tsx';
+import { SwapHeader } from '@pages/swap/components/swap-header/swap-header.component.tsx';
+import BottomSheet from '@/components/ui-kit/bottom-sheet/bottom-sheet.component.tsx';
+import { SwapSelectAsset } from '@pages/swap/components/swap-select-asset/swap-select-asset.component.tsx';
 
 const tabs: TabItemInterface[] = [
     {
@@ -37,6 +44,7 @@ const SWAP_CARDS_DEFAULT: SwapAsset[] = [
 export const SwapPage = () => {
     const [currentTab, setCurrentTab] = useState('singleSwap');
     const [isSingle, setIsSingle] = useState(true);
+    const [isDisabledSwap, setIsDisabledSwap] = useState(true);
     const [swapCards, setSwapCards] = useState<SwapAsset[]>(SWAP_CARDS_DEFAULT);
 
     const onChangeTab = (selectedTab: TabItemInterface) => {
@@ -68,6 +76,25 @@ export const SwapPage = () => {
         []
     );
 
+    // TODO: MOCK
+    const options: DropdownOptions[] = [
+        {
+            name: 'Exchange rate',
+            value: ['1 TON ≈ 5,485 USD₮'],
+        },
+        { name: 'Minimum received', value: ['11,88 USD₮'] },
+        { name: 'TON balance after swap', value: ['98,64 TON'] },
+        { name: 'USD₮ balance after swap', value: ['5,482 USD₮'] },
+    ];
+
+    const [isOpenBottomSheet, setIsOpenBottomSheet] = useState(false);
+    const closeBottomSheet = () => setIsOpenBottomSheet(false);
+    const openBottomSheet = () => setIsOpenBottomSheet(true);
+    const onSelectAsset = (assetId: string) => {
+        console.log(assetId);
+        closeBottomSheet();
+    };
+
     return (
         <div className={cn('app-container', css.page)}>
             <header className={css.header}>
@@ -83,6 +110,19 @@ export const SwapPage = () => {
                 isSingle={isSingle}
                 className={css.swapCard}
                 onAddAsset={onAddAsset}
+            />
+            <SwapDropdown options={options} />
+            <AppFooter>
+                <AppButton
+                    label="Swap"
+                    to={'/swap'}
+                    isDisabled={isDisabledSwap}
+                />
+            </AppFooter>
+            <SwapSelectAsset
+                isOpen={isOpenBottomSheet}
+                closeBottomSheet={closeBottomSheet}
+                onSelectAsset={onSelectAsset}
             />
         </div>
     );
