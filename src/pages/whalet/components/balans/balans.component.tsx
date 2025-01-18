@@ -8,6 +8,7 @@ import { OptionSpan } from '@/components/ui-kit/fpts-components-utils/options.co
 import { pipe } from 'fp-ts/lib/function';
 import { Balance } from '../../whalet.view-model';
 import cn from 'classnames';
+import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
 
 export interface BalansProps {
     balance: O.Option<Balance>;
@@ -18,7 +19,12 @@ export const Balans = ({ balance }: BalansProps) => {
         <div className={cn('app-container', css.wrap)}>
             <div className={css.labelWrap}>
                 <span className={css.label}>Current balance</span>
-                <div className={css.alert}>
+                <div
+                    className={css.alert}
+                    onClick={() => {
+                        trackMixpanel('WALLET_PAGE: notification button click');
+                    }}
+                >
                     {/* TODO: по какому принципу появляется оранжевый кружок */}
                     <AlertIcon />
                 </div>

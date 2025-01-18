@@ -3,10 +3,16 @@ import coinSmallBlurImage from './assets/coin-small-blur.png';
 import coinBigImage from './assets/coin-big.png';
 import { ChevronRightIcon } from '@/components/Icons/Icons';
 import { Link } from 'react-router-dom';
+import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
 
 export const NewsEarn = () => {
     return (
-        <div className={css.card}>
+        <div
+            className={css.card}
+            onClick={() => {
+                trackMixpanel('WALLET_PAGE: "earn slide" click');
+            }}
+        >
             <div className={css.content}>
                 <span className={css.contentTitle}>
                     Earn some TON for simple tasks

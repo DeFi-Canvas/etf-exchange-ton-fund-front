@@ -7,6 +7,8 @@ import css from './nav-bar.module.css';
 import { NavLink } from 'react-router-dom';
 import cn from 'classnames';
 import { ReactNode } from 'react';
+import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
+import { WalletPageEvent } from '@/mixpanel/track-events';
 
 interface NavItem {
     href: string;
@@ -47,6 +49,11 @@ export const NavBar = () => {
                             className={cn(css.navItemCard, {
                                 [css.navItemCardDisabled]: navItem.isDisabled,
                             })}
+                            onClick={() => {
+                                trackMixpanel(
+                                    `WALLET_PAGE: ${navItem.title.toUpperCase()} click` as WalletPageEvent
+                                );
+                            }}
                         >
                             <div>{navItem.icon}</div>
                             <span className={css.navItemTitle}>
@@ -61,6 +68,13 @@ export const NavBar = () => {
                         to={navItem.href}
                         className={css.navItemCard}
                         key={index}
+                        onClick={() => {
+                            trackMixpanel(
+                                `WALLET_PAGE: ${navItem.title.toUpperCase()} click` as WalletPageEvent,
+                                {},
+                                true
+                            );
+                        }}
                     >
                         <div>{navItem.icon}</div>
                         <span className={css.navItemTitle}>

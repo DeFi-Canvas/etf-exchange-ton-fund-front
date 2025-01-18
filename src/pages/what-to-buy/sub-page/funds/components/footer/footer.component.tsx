@@ -4,6 +4,7 @@ import { FundsData } from '@/pages/whalet/whalet.model';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import AppButton from '@/components/app-button/app-button.component';
 import css from './footer.module.css';
+import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
 
 interface FooterProps {
     fundsAvailableSale: E.Either<string, Array<FundsData>>;
@@ -25,7 +26,10 @@ export const Footer = ({
                     <AppButton
                         label="Sell"
                         type="secondary"
-                        onClick={() => navigate(`/what-to-buy/sell/${id}`)}
+                        onClick={() => {
+                            trackMixpanel('WHAT_TO_BUY_PAGE: sell click');
+                            navigate(`/what-to-buy/sell/${id}`);
+                        }}
                     />
                 )}
             />
@@ -36,7 +40,10 @@ export const Footer = ({
                 success={(isDisabled) => (
                     <AppButton
                         label="Buy"
-                        onClick={() => navigate(`/what-to-buy/purchase/${id}`)}
+                        onClick={() => {
+                            trackMixpanel('WHAT_TO_BUY_PAGE: buy click');
+                            navigate(`/what-to-buy/purchase/${id}`);
+                        }}
                         isDisabled={isDisabled}
                     />
                 )}

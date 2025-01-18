@@ -5,6 +5,7 @@ import cn from 'classnames';
 import { SuccessWhiteSolidIcon } from '@/components/Icons/Icons.tsx';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import SkeletonSmallCard from '@/components/skeletons/components/skeleton-small-card/skeleton-smal-card.component';
+import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
 
 export interface EranProps {
     readonly steps: E.Either<string, Array<EranStep>>;
@@ -77,7 +78,14 @@ const Step = ({
             ) : (
                 <div
                     className={cn(css.stepButton)}
-                    onClick={() => checkStep(id)}
+                    onClick={() => {
+                        checkStep(id);
+                        trackMixpanel(
+                            'PROFILE_PAGE: earn event',
+                            { name: title },
+                            true
+                        );
+                    }}
                 >
                     <a
                         href={externalLink}

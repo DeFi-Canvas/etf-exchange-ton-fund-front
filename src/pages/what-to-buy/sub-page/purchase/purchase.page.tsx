@@ -12,6 +12,7 @@ import { PurchaseSellAssetCardContainer } from '../components/purchase-sell-asse
 import { PurchaseSellFinishBoodySheetContainer } from '../components/purchase-sell-finish-boody-sheet/purchase-sell-finish-boody-sheet.container';
 import { useNavigate } from 'react-router-dom';
 import { PurchaseSellFooterContainer } from '../components/purchase-sell-footer/purchase-sell-footer.container';
+import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
 
 interface PurchasePageProps {
     onBuy: () => void;
@@ -52,7 +53,10 @@ const PurchasePage = injectable(
                     <div className="app-container">
                         <PurchaseSellTitle title="Purchase" />
                         <div className={css.assetCard}>
-                            <PurchaseSellAssetCardContainer type={'BUY'} />
+                            <PurchaseSellAssetCardContainer
+                                type={'BUY'}
+                                eventType="BUY_SELL_PAGE: fund click"
+                            />
                         </div>
                         <PurchaseSellAttention />
                     </div>
@@ -66,7 +70,10 @@ const PurchasePage = injectable(
 
                     <PurchaseSellFooterContainer
                         title="Buy"
-                        onClick={onBuy}
+                        onClick={() => {
+                            onBuy();
+                            trackMixpanel('BUY_SELL_PAGE: buy/sell click');
+                        }}
                         isLoading={isLoading}
                     />
 
@@ -77,7 +84,7 @@ const PurchasePage = injectable(
                     >
                         <div className={css.bottomSheetTitle}>Select asset</div>
                         <div className={css.assetList}>
-                            <BottomSheetBodyContainer />
+                            <BottomSheetBodyContainer eventType="BUY_SELL_PAGE: asset click" />
                         </div>
                     </BottomSheet>
 

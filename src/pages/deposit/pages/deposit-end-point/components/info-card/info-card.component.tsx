@@ -6,6 +6,7 @@ import css from './info-card.module.css';
 interface InfoCardProps {
     title: string;
     node: string;
+    onClcik?: () => void;
 }
 
 const InfoCard = (props: InfoCardProps) => {
@@ -13,6 +14,7 @@ const InfoCard = (props: InfoCardProps) => {
     const onClick = () => {
         navigator.clipboard.writeText(props.node);
         setIsActive(true);
+        props.onClcik && props.onClcik();
 
         setTimeout(() => {
             setIsActive(false);

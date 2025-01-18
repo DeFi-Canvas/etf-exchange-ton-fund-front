@@ -4,6 +4,7 @@ import * as E from 'fp-ts/Either';
 import img from '../../../../assets/images/joyful_duck.gif';
 import cn from 'classnames';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
+import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
 
 interface FinalProps {
     amount: E.Either<string, number>;
@@ -42,6 +43,11 @@ export const Final = ({ amount, currency, address, onClick }: FinalProps) => {
                 <button
                     className={css.transactions}
                     onClick={() => {
+                        trackMixpanel(
+                            'WITHDRAW_PAGE_FINISH: view transactions click',
+                            {},
+                            true
+                        );
                         navigate('/#transactions');
                         onClick();
                     }}
@@ -51,6 +57,11 @@ export const Final = ({ amount, currency, address, onClick }: FinalProps) => {
                 <button
                     className={css.finish}
                     onClick={() => {
+                        trackMixpanel(
+                            'WITHDRAW_PAGE_FINISH: finish click',
+                            {},
+                            true
+                        );
                         navigate('/');
                         onClick();
                     }}

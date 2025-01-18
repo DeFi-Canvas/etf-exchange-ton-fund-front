@@ -11,6 +11,7 @@ import { PurchaseSellFieldCounterContainer } from '../purchase-sell-field-counte
 import { WalletIcon } from '@/components/Icons/Icons.tsx';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import SkeletonCard from '@/components/skeletons/skeleton-card/skeleton-card.component';
+import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
 
 interface PurchaseSellContentCardProps {
     assetCardData: E.Either<string, InterfacePurchaseSellAssetCardData>;
@@ -52,7 +53,12 @@ const PurchaseSellContentCard = injectable(
                                 success={(assetCardData) => (
                                     <PurchaseSellAssetCard
                                         {...assetCardData}
-                                        onClick={onClick}
+                                        onClick={() => {
+                                            onClick();
+                                            trackMixpanel(
+                                                'BUY_SELL_PAGE: assetOprions click'
+                                            );
+                                        }}
                                     />
                                 )}
                             />
