@@ -11,6 +11,7 @@ interface SwapSelectAssetProps {
     onSelectAsset: (assetId: string) => void;
 }
 
+// MOCK
 const defaultAssetList = [
     {
         id: getUuid(),
@@ -73,7 +74,7 @@ export const SwapSelectAsset = ({
                     */}
                     {assetsList.map((asset) => (
                         <AssetsCard
-                            key={getUuid()}
+                            key={asset.id}
                             id={asset.id}
                             img={asset.img}
                             title={asset.title}

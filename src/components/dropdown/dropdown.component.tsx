@@ -75,7 +75,7 @@ export const Dropdown = ({ title, options, className = '' }: DropdownProps) => {
                         ));
 
                         return (
-                            <div key={getUuid()} className={css.optionItem}>
+                            <div key={option.name} className={css.optionItem}>
                                 <span className={css.optionItemName}>
                                     {option.name}
                                 </span>
