@@ -42,6 +42,7 @@ import Wallet from '@/assets/icons/wallet.svg?react';
 import Reload from '@/assets/icons/reload.svg?react';
 import ArrowDown from '@/assets/icons/arrow-down.svg?react';
 import ArrowSwap from '@/assets/icons/arrow-swap.svg?react';
+import Gift from '@/assets/icons/gift.svg?react';
 
 import { TTransactionStatus } from '@/pages/whalet/components/transaction/types';
 
@@ -191,6 +192,8 @@ export const TransactionStatusIcon = ({
             return <TransaactionError className={className} />;
         case 'PROCESSING':
             return <Processing className={className} />;
+        case 'GIFT':
+            return <Gift className={className} />;
     }
 };
 
