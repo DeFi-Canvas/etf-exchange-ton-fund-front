@@ -24,13 +24,17 @@ export type TrackMixpanelEvents =
     | WhatToBuyPageEvent
     | BuySellPageEvent;
 
+const MIXPANEL_TOKEN = import.meta.env.VITE_MIXPANEL_KEY;
+
 export const trackMixpanel = (
     event: TrackMixpanelEvents,
     args?: Record<string, unknown>,
     isLink?: boolean
 ) => {
-    if (isLink) {
-        mixpanel.track_links('a.track-link', event, { ...args });
+    if (MIXPANEL_TOKEN !== '' && MIXPANEL_TOKEN !== undefined) {
+        if (isLink) {
+            mixpanel.track_links('a.track-link', event, { ...args });
+        }
+        mixpanel.track(event, { ...args });
     }
-    mixpanel.track(event, { ...args });
 };
