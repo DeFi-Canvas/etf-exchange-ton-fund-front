@@ -17,22 +17,28 @@ export const SwipeDelete = ({ id, children, onDelete }: SwipeDeleteProps) => {
     const [showButton, setShowButton] = useState(false);
     const [animationDelete, setAnimationDelete] = useState(false);
 
-    const handleMouseDown = (event: MouseEvent) => {
+    const handleMouseDown = (event: PointerEvent) => {
         event.preventDefault();
         setIsSwiping(true);
-        setPosition({ x: event.clientX, y: event.clientY });
+        setPosition({
+            x: event.clientX,
+            y: event.clientY,
+        });
     };
 
-    const handleMouseMove = (event: MouseEvent) => {
+    const handleMouseMove = (event: PointerEvent) => {
         if (!isSwiping) return;
 
-        const newPosition = { x: event.clientX, y: event.clientY };
+        const newPosition = {
+            x: event.clientX,
+            y: event.clientY,
+        };
         const deltaX = Math.abs(newPosition.x - position.x);
 
-        if (deltaX >= 10) {
+        if (deltaX >= 5) {
             setShowButton(true);
         }
-        if (deltaX >= 15) {
+        if (deltaX >= 8) {
             setAnimationDelete(true);
             setTimeout(() => {
                 onDelete(id);
@@ -51,14 +57,14 @@ export const SwipeDelete = ({ id, children, onDelete }: SwipeDeleteProps) => {
     useEffect(() => {
         const element = ref.current;
         if (element) {
-            element.addEventListener('mousedown', handleMouseDown);
-            element.addEventListener('mousemove', handleMouseMove);
-            document.addEventListener('mouseup', handleMouseUp);
+            element.addEventListener('pointerdown', handleMouseDown);
+            element.addEventListener('pointermove', handleMouseMove);
+            document.addEventListener('pointerup', handleMouseUp);
 
             return () => {
-                element.removeEventListener('mousedown', handleMouseDown);
-                element.removeEventListener('mousemove', handleMouseMove);
-                document.removeEventListener('mouseup', handleMouseUp);
+                element.removeEventListener('pointerdown', handleMouseDown);
+                element.removeEventListener('pointermove', handleMouseMove);
+                document.removeEventListener('pointerup', handleMouseUp);
             };
         }
     }, [handleMouseDown, handleMouseMove, handleMouseUp]);
