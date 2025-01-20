@@ -19,6 +19,7 @@ import {
     getWhatToBuyContainers,
     WhatToBuyContainers,
 } from './page-containers.ts/what-to-buy-containers';
+import { SwipePageContainer } from '@/pages/swap/swap.container';
 
 export interface getContainersArgs {
     userStore: UserStoreService;
@@ -34,6 +35,7 @@ export interface Containers {
     whatToBuy: WhatToBuyContainers;
     Profile: Component;
     AssetPage: Component;
+    SwipePage: Component;
 }
 
 export const getContainers = ({
@@ -49,5 +51,8 @@ export const getContainers = ({
     }),
     AssetPage: AssetsSingleContainer({
         assetRestService: newAssetsRestService(),
+    }),
+    SwipePage: SwipePageContainer({
+        userStore,
     }),
 });
