@@ -28,11 +28,12 @@ export interface SwipeStore {
     onOpenselectAssetBottomSheetIsOpen: () => void;
     onCloseselectAssetBottomSheetIsOpen: () => void;
 
-    // addAssetBottomSheetIsOpen: Property<boolean>;
-    // onOpenaddAssetBottomSheetIsOpen: () => void;
-    // onCloseaddAssetBottomSheetIsOpen: () => void;
+    addAssetBottomSheetIsOpen: Property<boolean>;
+    onOpenaAddAssetBottomSheetIsOpen: () => void;
+    onCloseAddAssetBottomSheetIsOpen: () => void;
 
     setCurrentVariableAsset: (id: string) => void;
+    setAddCurrentVariableAsset: (id: string) => void;
     setCurrentVariableSwapAsset: (id: string) => void;
     swapTokenOrder: () => void;
     updAssetCurrentValue: (id: string, value: number) => void;
@@ -59,9 +60,13 @@ export const newSwipeStore = injectable(
         );
 
         const selectAssetBottomSheetIsOpen = newLensedAtom(false);
+        const addAssetBottomSheetIsOpen = newLensedAtom(false);
 
         const currentVariableSwapAsset = newLensedAtom('');
         const [setCurrentVariableAsset, currentVariableAsset] =
+            createAdapter<string>();
+
+        const [setAddCurrentVariableAsset, addCurrentVariableAsset] =
             createAdapter<string>();
 
         const [onReset, onResetEvent] = createAdapter<void>();
@@ -72,6 +77,11 @@ export const newSwipeStore = injectable(
 
         const onCloseselectAssetBottomSheetIsOpen = () =>
             selectAssetBottomSheetIsOpen.set(false);
+
+        const onOpenaAddAssetBottomSheetIsOpen = () =>
+            addAssetBottomSheetIsOpen.set(true);
+        const onCloseAddAssetBottomSheetIsOpen = () =>
+            addAssetBottomSheetIsOpen.set(false);
 
         const setCurrentVariableSwapAsset = currentVariableSwapAsset.set;
 
@@ -289,6 +299,77 @@ export const newSwipeStore = injectable(
             })
         );
 
+        const onAssetAddEvent = pipe(
+            addCurrentVariableAsset,
+            tap((id) => {
+                const currentAllAssets = allAssets.get();
+                const currentWaletAssets = waletAssets.get();
+                const currentSwapAssets = swapAssets.get();
+
+                const currentWaletAsset = pipe(
+                    currentWaletAssets,
+                    E.chain(
+                        flow(
+                            A.findFirst((x) => x.id === id),
+                            E.fromOption(constant('error'))
+                        )
+                    ),
+                    E.fold(() => undefined, identity)
+                );
+
+                const isIdExistOnSwapAssets = !pipe(
+                    currentSwapAssets,
+                    E.chain(
+                        flow(
+                            A.filterMap((asset) =>
+                                asset.id === id ? O.some(id) : O.none
+                            ),
+                            A.head,
+                            E.fromOption(constant('error'))
+                        )
+                    ),
+                    E.fold(() => undefined, identity)
+                );
+
+                const currentSelectedAsset = pipe(
+                    currentAllAssets,
+                    E.chain(
+                        flow(
+                            A.filterMap((asset) =>
+                                asset.id === id ? O.some(asset) : O.none
+                            ),
+                            A.head,
+                            E.fromOption(constant('error')),
+                            E.map(mapAssetToSwapAsset)
+                        )
+                    ),
+                    E.fold(() => undefined, identity)
+                );
+
+                if (isIdExistOnSwapAssets) {
+                    onCloseAddAssetBottomSheetIsOpen();
+                    console.log(currentWaletAsset, 'currentWaletAsset');
+
+                    pipe(
+                        currentSwapAssets,
+                        E.map((assets) => {
+                            if (currentWaletAsset) {
+                                return [
+                                    ...assets,
+                                    mapAssetToSwapAsset(currentWaletAsset),
+                                ];
+                            } else if (currentSelectedAsset) {
+                                return [...assets, currentSelectedAsset];
+                            } else {
+                                return assets;
+                            }
+                        }),
+                        swapAssets.set
+                    );
+                }
+            })
+        );
+
         // TODO - будет рабоать иначе (переполучать стоимость ассетов и обновлять стоимость)
         const resetEffect = pipe(
             onResetEvent,
@@ -321,8 +402,12 @@ export const newSwipeStore = injectable(
                 selectAssetBottomSheetIsOpen,
                 onOpenselectAssetBottomSheetIsOpen,
                 onCloseselectAssetBottomSheetIsOpen,
+                addAssetBottomSheetIsOpen,
+                onOpenaAddAssetBottomSheetIsOpen,
+                onCloseAddAssetBottomSheetIsOpen,
                 allAssets,
                 setCurrentVariableAsset,
+                setAddCurrentVariableAsset,
                 setCurrentVariableSwapAsset,
                 swapTokenOrder,
                 updAssetCurrentValue,
@@ -332,7 +417,8 @@ export const newSwipeStore = injectable(
             testEvent,
             getAssetsEffect,
             onAssetSelectEvent,
-            resetEffect
+            resetEffect,
+            onAssetAddEvent
         );
     }
 );

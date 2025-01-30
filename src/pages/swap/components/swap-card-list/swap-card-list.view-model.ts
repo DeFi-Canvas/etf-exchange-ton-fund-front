@@ -23,7 +23,7 @@ export const newSwarCardList = injectable(
         () => {
             return valueWithEffect.new({
                 swapButtonClick: store.swapTokenOrder,
-                onAddAsset: store.onOpenselectAssetBottomSheetIsOpen,
+                onAddAsset: store.onOpenaAddAssetBottomSheetIsOpen,
             });
         }
 );

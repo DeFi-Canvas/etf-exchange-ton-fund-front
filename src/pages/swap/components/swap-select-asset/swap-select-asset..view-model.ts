@@ -10,7 +10,7 @@ import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
 import { fromProperty } from '@/utils/property.utils';
 import { newLensedAtom } from '@frp-ts/lens';
-import { tap } from '@most/core';
+import { combine, map, tap } from '@most/core';
 
 export interface SwapSelectAsset {
     avlailibleAssets: Property<E.Either<string, Assets[]>>;
@@ -30,6 +30,7 @@ export const newSwapSelectAsset = injectable(
             const avlailibleAssets = newLensedAtom<E.Either<string, Assets[]>>(
                 E.left('pending')
             );
+            const isOpen = newLensedAtom(false);
 
             const avlailibleAssetsEffect = pipe(
                 store.allAssets,
@@ -42,14 +43,33 @@ export const newSwapSelectAsset = injectable(
                 )
             );
 
+            const isOpenEffect = pipe(
+                combine(
+                    (selectState, addState) => ({ selectState, addState }),
+                    pipe(store.selectAssetBottomSheetIsOpen, fromProperty),
+                    pipe(store.addAssetBottomSheetIsOpen, fromProperty)
+                ),
+                map(({ selectState, addState }) => selectState || addState),
+                tap(isOpen.set)
+            );
+
+            const onSelectAsset = (id: string) => {
+                if (store.addAssetBottomSheetIsOpen.get()) {
+                    store.setAddCurrentVariableAsset(id);
+                } else {
+                    store.setCurrentVariableAsset(id);
+                }
+            };
+
             return valueWithEffect.new(
                 {
                     avlailibleAssets,
-                    isOpen: store.selectAssetBottomSheetIsOpen,
-                    onSelectAsset: store.setCurrentVariableAsset,
+                    isOpen,
+                    onSelectAsset,
                     closeBottomSheet: store.onCloseselectAssetBottomSheetIsOpen,
                 },
-                avlailibleAssetsEffect
+                avlailibleAssetsEffect,
+                isOpenEffect
             );
         }
 );
