@@ -35,8 +35,10 @@ export interface SwipeStore {
     setCurrentVariableAsset: (id: string) => void;
     setAddCurrentVariableAsset: (id: string) => void;
     setCurrentVariableSwapAsset: (id: string) => void;
-    swapTokenOrder: () => void;
+    onRemoveAsset: (id: string) => void;
     updAssetCurrentValue: (id: string, value: number) => void;
+
+    swapTokenOrder: () => void;
     onReset: () => void;
     onMaxClick: () => void;
 }
@@ -68,6 +70,8 @@ export const newSwipeStore = injectable(
 
         const [setAddCurrentVariableAsset, addCurrentVariableAsset] =
             createAdapter<string>();
+
+        const [onRemoveAsset, removeAssetEvent] = createAdapter<string>();
 
         const [onReset, onResetEvent] = createAdapter<void>();
 
@@ -370,6 +374,18 @@ export const newSwipeStore = injectable(
             })
         );
 
+        const removeAssetEffect = pipe(
+            removeAssetEvent,
+            tap((id) => {
+                const currentSwapAssets = swapAssets.get();
+                pipe(
+                    currentSwapAssets,
+                    E.map(A.filter(({ id: assetId }) => assetId !== id)),
+                    swapAssets.set
+                );
+            })
+        );
+
         // TODO - будет рабоать иначе (переполучать стоимость ассетов и обновлять стоимость)
         const resetEffect = pipe(
             onResetEvent,
@@ -413,12 +429,14 @@ export const newSwipeStore = injectable(
                 updAssetCurrentValue,
                 onReset,
                 onMaxClick,
+                onRemoveAsset,
             },
             testEvent,
             getAssetsEffect,
             onAssetSelectEvent,
             resetEffect,
-            onAssetAddEvent
+            onAssetAddEvent,
+            removeAssetEffect
         );
     }
 );

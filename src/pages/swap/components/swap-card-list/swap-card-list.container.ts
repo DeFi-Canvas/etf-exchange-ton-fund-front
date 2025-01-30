@@ -5,7 +5,10 @@ import { newSwarCardList } from './swap-card-list.view-model';
 import { SwapCardList, SwapCardListProps } from './swap-card-list.component';
 
 interface SwarCardListContainer
-    extends Omit<SwapCardListProps, 'swapButtonClick' | 'onAddAsset'> {}
+    extends Omit<
+        SwapCardListProps,
+        'swapButtonClick' | 'onAddAsset' | 'onDelete'
+    > {}
 
 export const SwarCardListContainer = injectable(
     newSwarCardList,

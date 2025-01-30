@@ -11,6 +11,7 @@ export interface Balance {
 export interface SwarCardList {
     swapButtonClick: () => void;
     onAddAsset: () => void;
+    onDelete: (id: string) => void;
 }
 
 export interface NewSwarCardList {
@@ -24,6 +25,7 @@ export const newSwarCardList = injectable(
             return valueWithEffect.new({
                 swapButtonClick: store.swapTokenOrder,
                 onAddAsset: store.onOpenaAddAssetBottomSheetIsOpen,
+                onDelete: store.onRemoveAsset,
             });
         }
 );

@@ -50,9 +50,9 @@ export const SwapPage = injectable(
         ({ emmitSwap, swapAssets }: SwapPageProps) => {
             const [currentTab, setCurrentTab] = useState('singleSwap');
             const [isSingle, setIsSingle] = useState(true);
-            const [swapCards, setSwapCards] = useState<SwapAsset[]>([]);
-            const [isOpenBottomSheet, setIsOpenBottomSheet] = useState(false);
-            const closeBottomSheet = () => setIsOpenBottomSheet(false);
+            // const [swapCards, setSwapCards] = useState<SwapAsset[]>([]);
+            // const [isOpenBottomSheet, setIsOpenBottomSheet] = useState(false);
+            // const closeBottomSheet = () => setIsOpenBottomSheet(false);
 
             const onChangeTab = (selectedTab: TabItemInterface) => {
                 setCurrentTab(selectedTab.name);
@@ -73,19 +73,19 @@ export const SwapPage = injectable(
                 setIsSingle(currentTab === 'singleSwap');
             }, [currentTab]);
 
-            useEffect(() => {
-                if (isSingle) {
-                    setSwapCards([]);
-                }
-            }, [isSingle]);
+            // useEffect(() => {
+            //     if (isSingle) {
+            //         setSwapCards([]);
+            //     }
+            // }, [isSingle]);
 
-            const onDeleteAsset = (cardId: string) => {
-                const newSwapCards = swapCards.filter((card) => {
-                    return card.id !== cardId;
-                });
+            // const onDeleteAsset = (cardId: string) => {
+            //     const newSwapCards = swapCards.filter((card) => {
+            //         return card.id !== cardId;
+            //     });
 
-                setSwapCards(newSwapCards);
-            };
+            //     setSwapCards(newSwapCards);
+            // };
 
             return (
                 <div className={cn('app-container', css.page)}>
@@ -99,7 +99,7 @@ export const SwapPage = injectable(
                                 cards={swapAssets}
                                 isSingle={isSingle}
                                 className={css.swapCard}
-                                onDelete={onDeleteAsset}
+                                // onDelete={onDeleteAsset}
                             />
                         )}
                     />
