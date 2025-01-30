@@ -50,11 +50,11 @@ export const newSwipeRestService = injectable(
                 //TODO: КАК закрывать соединение пока хз
                 return pipe(messege, fromProperty);
             },
-            initiate: () =>
+            initiate: ({ amount, tokens }) =>
                 getRequestGenerated(
                     swapApi.swapInitiatePost({
-                        amount: 1,
-                        tokens: ['TON', 'ETH'],
+                        amount,
+                        tokens,
                         telegram_id: `${telegram_id ?? 0}`,
                     }),
                     swapInitiateCodec
