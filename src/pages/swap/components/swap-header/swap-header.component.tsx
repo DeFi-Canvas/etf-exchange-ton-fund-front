@@ -4,10 +4,15 @@ import css from './swap-header.module.css';
 import { useState } from 'react';
 import cn from 'classnames';
 
-export const SwapHeader = () => {
+export interface SwapHeaderProps {
+    onClick: () => void;
+}
+
+export const SwapHeader = ({ onClick }: SwapHeaderProps) => {
     const [isRotating, setIsRotating] = useState(false);
     const handleClick = () => {
         setIsRotating(true);
+        onClick();
 
         setTimeout(() => {
             setIsRotating(false);

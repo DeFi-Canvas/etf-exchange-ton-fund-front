@@ -111,6 +111,47 @@
                 }
             }
         },
+        "/assets/user/{user_id}": {
+            "get": {
+                "description": "Получить список активов, принадлежащих пользователю",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["assets"],
+                "summary": "Get user assets",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Идентификатор пользователя",
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список активов пользователя",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.UserAsset"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Активы не найдены",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
         "/assets/{assetName}/networks": {
             "get": {
                 "description": "Получить список сетей для указанного актива",
@@ -147,6 +188,90 @@
                         "description": "Ошибка сервера",
                         "schema": {
                             "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/dedust/liquidity/deposit": {
+            "post": {
+                "description": "Deposit native and jetton tokens into DeDust liquidity pool",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["DeDust"],
+                "summary": "Deposit liquidity on DeDust",
+                "parameters": [
+                    {
+                        "description": "Deposit request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/server.DepositRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deposit initiated successfully",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/dedust/liquidity/withdraw": {
+            "post": {
+                "description": "Withdraw liquidity from DeDust liquidity pool",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["DeDust"],
+                "summary": "Withdraw liquidity from DeDust",
+                "parameters": [
+                    {
+                        "type": "number",
+                        "description": "Amount for deposit",
+                        "name": "amount",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Withdraw initiated successfully",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
                         }
                     }
                 }
@@ -306,6 +431,60 @@
                         "description": "Ошибка сервера",
                         "schema": {
                             "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/stream/{user_id}": {
+            "get": {
+                "description": "Open a server-sent events (SSE) stream for a user",
+                "produces": ["text/event-stream"],
+                "tags": ["Stream"],
+                "summary": "Open a stream",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Stream opened successfully",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/swap/initiate": {
+            "post": {
+                "description": "Perform a token swap for a user",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Swap"],
+                "summary": "Initiate a swap",
+                "parameters": [
+                    {
+                        "description": "Swap request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/server.SwapRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Swap initiated successfully",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
                         }
                     }
                 }
@@ -712,6 +891,9 @@
                 },
                 "telegram_id": {
                     "type": "integer"
+                },
+                "undo": {
+                    "type": "boolean"
                 }
             }
         },
@@ -811,6 +993,12 @@
         "models.Asset": {
             "type": "object",
             "properties": {
+                "address0": {
+                    "type": "string"
+                },
+                "address1": {
+                    "type": "string"
+                },
                 "category": {
                     "type": "string"
                 },
@@ -823,6 +1011,9 @@
                 "image_url": {
                     "type": "string"
                 },
+                "market_cap": {
+                    "type": "number"
+                },
                 "name": {
                     "type": "string"
                 },
@@ -831,6 +1022,9 @@
                 },
                 "ticker": {
                     "type": "string"
+                },
+                "volume_24h": {
+                    "type": "number"
                 },
                 "withdrawal_fee": {
                     "type": "number"
@@ -872,6 +1066,12 @@
                         "$ref": "#/definitions/models.FundAsset"
                     }
                 },
+                "author": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
                 "description": {
                     "type": "string"
                 },
@@ -892,6 +1092,9 @@
                 },
                 "name": {
                     "type": "string"
+                },
+                "priority_number": {
+                    "type": "integer"
                 },
                 "risk_score": {
                     "type": "string"
@@ -1018,6 +1221,12 @@
                 "timestamp": {
                     "type": "string"
                 },
+                "transaction_status": {
+                    "type": "string"
+                },
+                "transaction_type": {
+                    "type": "string"
+                },
                 "tx": {
                     "type": "string"
                 },
@@ -1046,6 +1255,21 @@
                 },
                 "username": {
                     "type": "string"
+                }
+            }
+        },
+        "models.UserAsset": {
+            "type": "object",
+            "properties": {
+                "quantity": {
+                    "description": "количество на балансе",
+                    "type": "number"
+                },
+                "ticker": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "number"
                 }
             }
         },
@@ -1080,6 +1304,34 @@
                 },
                 "total": {
                     "type": "number"
+                }
+            }
+        },
+        "server.DepositRequest": {
+            "type": "object",
+            "properties": {
+                "amount0": {
+                    "type": "number"
+                },
+                "amount1": {
+                    "type": "number"
+                }
+            }
+        },
+        "server.SwapRequest": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number"
+                },
+                "telegram_id": {
+                    "type": "string"
+                },
+                "tokens": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         }

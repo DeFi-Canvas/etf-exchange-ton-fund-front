@@ -2,34 +2,33 @@ import css from './swap-asset-card.module.css';
 import { SwapAsset } from '@pages/swap/swap.model.ts';
 import cn from 'classnames';
 import { ChevronRightIcon, WalletIcon } from '@/components/Icons/Icons.tsx';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { formatNumberToUI } from '@/utils/number';
 
-interface SwapAssetCardProps {
+export interface SwapAssetCardProps {
     card: SwapAsset;
     isFirstCard?: boolean;
     className?: string;
+    onArrowClick: (id: string) => void;
+    onChangeField: (id: string, value: number) => void;
+    onMaxClick: () => void;
 }
 
 export const SwapAssetCard = ({
     card,
     isFirstCard = false,
     className = '',
+    onArrowClick,
+    onChangeField,
+    onMaxClick,
 }: SwapAssetCardProps) => {
     const textSwapCard = isFirstCard ? 'You send' : 'You receive';
-    const price = `${card.availablePrice} ${card.assetName}`;
+    const price = `${formatNumberToUI(card.availablePrice)} ${card.assetName}`;
 
-    const [swapResult, setSwapResult] = useState(0);
-    const [swapResultText, setSwapResultText] = useState('≈ $ 0');
-
-    useEffect(() => {
-        setSwapResultText(`≈ $ ${swapResult.toFixed(2)}`);
-    }, [swapResult]);
-
-    const onChangeField = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onChangeFieldEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
         const valueNumber = Number(value);
-        // TODO: Тут должен быть примерное отображение в долларах для текущей введённой суммы ассета
-        setSwapResult(valueNumber / 2);
+        onChangeField(card.id, valueNumber);
     };
 
     return (
@@ -41,11 +40,21 @@ export const SwapAssetCard = ({
                         <WalletIcon />
                         {price}
                     </div>
-                    <div className={css.headerPriceButtonMax}>MAX</div>
+                    {isFirstCard && (
+                        <div
+                            className={css.headerPriceButtonMax}
+                            onClick={onMaxClick}
+                        >
+                            MAX
+                        </div>
+                    )}
                 </div>
             </header>
             <div className={css.content}>
-                <div className={css.coinInfo}>
+                <div
+                    className={css.coinInfo}
+                    onClick={() => onArrowClick(card.id)}
+                >
                     <img
                         className={css.coinInfoImage}
                         src={card.imageSrc}
@@ -63,11 +72,18 @@ export const SwapAssetCard = ({
                         type="number"
                         className={css.field}
                         placeholder="0"
-                        onChange={onChangeField}
+                        onChange={onChangeFieldEvent}
+                        value={
+                            card.currentValue && card.currentValue > 0
+                                ? card.currentValue
+                                : ''
+                        }
                     />
                 </div>
             </div>
-            <div className={css.approximateCurrency}>{swapResultText}</div>
+            <div className={css.approximateCurrency}>
+                {card.valueInStableCoin}
+            </div>
         </div>
     );
 };

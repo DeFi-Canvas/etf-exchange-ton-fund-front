@@ -6,12 +6,14 @@ interface AppInputFieldProps {
     value: string;
     onChange: (value: string) => void;
     className?: string;
+    placeholder?: string;
 }
 
 export const AppInputField = ({
     value,
     onChange,
     className,
+    placeholder,
 }: AppInputFieldProps) => {
     return (
         <div className={cn(css.inputFieldWrapepr, className)}>
@@ -21,6 +23,7 @@ export const AppInputField = ({
                 type="text"
                 value={value}
                 onChange={(event) => onChange(event.target.value)}
+                placeholder={placeholder}
             />
         </div>
     );

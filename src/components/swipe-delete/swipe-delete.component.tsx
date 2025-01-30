@@ -5,9 +5,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import cn from 'classnames';
 
 interface SwipeDeleteProps {
-    id: number;
+    id: string;
     children: React.ReactNode;
-    onDelete: (id: number) => void;
+    onDelete: (id: string) => void;
 }
 
 export const SwipeDelete = ({ id, children, onDelete }: SwipeDeleteProps) => {

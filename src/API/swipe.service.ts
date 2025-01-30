@@ -1,17 +1,30 @@
 import { Stream } from '@most/types';
 import { UserStoreService } from '@/store/user.store';
 import { injectable, token } from '@injectable-ts/core';
-import { fromPromise } from '@most/core';
 import axios from 'axios';
 import { DOMAIN_API_URL } from './API';
 import { newLensedAtom } from '@frp-ts/lens';
 import { pipe } from 'fp-ts/lib/function';
 import { fromProperty } from '@/utils/property.utils';
+import { AssetsApi, Configuration, SwapApi } from './scheme/rest-genereted';
+import { Either } from 'fp-ts/lib/Either';
+import { Asset } from '@/pages/whalet/whalet.model';
+import { getRequestGenerated } from './request.utils';
+import { assetsCodec } from './contracts/assets.contract';
+import { swapInitiateCodec } from './contracts/swap.contract';
 
 export interface SwipeRestService {
     getConnection: () => Stream<unknown>;
-    initiate: () => void;
+    initiate: (args: { amount: number; tokens: Array<string> }) => void;
+    getAssets: () => Stream<Either<string, Array<Asset>>>;
 }
+
+const assetsApi = new AssetsApi({
+    basePath: DOMAIN_API_URL,
+} as Configuration);
+const swapApi = new SwapApi({
+    basePath: DOMAIN_API_URL,
+} as Configuration);
 
 export const newSwipeRestService = injectable(
     token('userStore')<UserStoreService>(),
@@ -37,14 +50,21 @@ export const newSwipeRestService = injectable(
                 //TODO: КАК закрывать соединение пока хз
                 return pipe(messege, fromProperty);
             },
-            initiate: () => {
-                axios.post(DOMAIN_API_URL + '/swap/initiate', {
-                    amount: 0,
-                    ticker_from_token: 'BTC',
-                    ticker_to_token: 'ETH',
-                    user_id: `${telegram_id ?? 0}`,
-                });
-            },
+            initiate: () =>
+                getRequestGenerated(
+                    swapApi.swapInitiatePost({
+                        amount: 1,
+                        tokens: ['TON', 'ETH'],
+                        telegram_id: `${telegram_id ?? 0}`,
+                    }),
+                    swapInitiateCodec
+                ),
+
+            getAssets: getRequestGenerated(
+                assetsApi.assetsGet(),
+                assetsCodec,
+                (x) => ({ ...x, logo: x.image_url })
+            ),
         };
     }
 );
