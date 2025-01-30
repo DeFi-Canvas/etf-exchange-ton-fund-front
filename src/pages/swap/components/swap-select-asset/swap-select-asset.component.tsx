@@ -56,6 +56,7 @@ export const SwapSelectAsset = ({
                             <>
                                 {assetsList.map((asset) => (
                                     <AssetsCard
+                                        key={asset.id}
                                         {...asset}
                                         onClick={() => onSelectAsset(asset.id)}
                                     />

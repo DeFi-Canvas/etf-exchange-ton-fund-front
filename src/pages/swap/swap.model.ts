@@ -18,6 +18,14 @@ export interface SwapAsset {
 export type InitialAssetName = 'TON';
 export const INITIAL_ASSET_NAME: InitialAssetName = 'TON';
 
+export const SWAP_LIST_INFO_INIT = [
+    // {
+    //     name: 'Exchange rate:',
+    //     value: [],
+    // },
+    // { name: 'Minimum received:', value: [] },
+];
+
 export const formatValueInStableCoin = (price: number) =>
     `≈ $ ${price.toFixed(2)}`;
 

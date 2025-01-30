@@ -1,10 +1,17 @@
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { Property } from '@frp-ts/core';
 import { newLensedAtom } from '@frp-ts/lens';
-import { chain, combine, combineArray, mergeArray, tap } from '@most/core';
+import { chain, combine, tap } from '@most/core';
 import * as E from 'fp-ts/Either';
 import * as O from 'fp-ts/Option';
-import { constant, flow, identity, pipe } from 'fp-ts/lib/function';
+import * as t from 'io-ts';
+import {
+    constant,
+    constUndefined,
+    flow,
+    identity,
+    pipe,
+} from 'fp-ts/lib/function';
 import * as A from 'fp-ts/Array';
 import { injectable } from '@injectable-ts/core';
 import { newWaletRestService } from '@/API/whalet.service';
@@ -14,9 +21,12 @@ import {
     formatValueInStableCoin,
     getAssetsEffectMapping,
     mapAssetToSwapAsset,
+    SWAP_LIST_INFO_INIT,
     SwapAsset,
 } from './swap.model';
 import { createAdapter } from '@most/adapter';
+import { DropdownOptions } from '@/components/dropdown/dropdown.component';
+import { fromProperty } from '@/utils/property.utils';
 
 export interface SwipeStore {
     swapAssets: Property<E.Either<string, Array<SwapAsset>>>;
@@ -31,6 +41,8 @@ export interface SwipeStore {
     addAssetBottomSheetIsOpen: Property<boolean>;
     onOpenaAddAssetBottomSheetIsOpen: () => void;
     onCloseAddAssetBottomSheetIsOpen: () => void;
+
+    swapListInfo: Property<DropdownOptions[]>;
 
     setCurrentVariableAsset: (id: string) => void;
     setAddCurrentVariableAsset: (id: string) => void;
@@ -60,6 +72,9 @@ export const newSwipeStore = injectable(
         const swapAssets = newLensedAtom<E.Either<string, Array<SwapAsset>>>(
             E.left('pending')
         );
+
+        const swapListInfo =
+            newLensedAtom<DropdownOptions[]>(SWAP_LIST_INFO_INIT);
 
         const selectAssetBottomSheetIsOpen = newLensedAtom(false);
         const addAssetBottomSheetIsOpen = newLensedAtom(false);
@@ -386,6 +401,163 @@ export const newSwipeStore = injectable(
             })
         );
 
+        const swapListInfoChangeEffect = pipe(
+            swapAssets,
+            fromProperty,
+            tap((assets) => {
+                const currentWaletAsset = waletAssets.get();
+
+                const exchangeRate = pipe(
+                    assets,
+                    E.map((assets) => ({
+                        head: pipe(assets, A.head),
+                        tail: pipe(assets, A.tail),
+                    })),
+                    E.chain(({ head, tail }) => {
+                        const headAsset = pipe(
+                            head,
+                            O.getOrElseW(constUndefined)
+                        );
+
+                        return pipe(
+                            tail,
+                            O.map(
+                                A.map((tail) => {
+                                    if (headAsset) {
+                                        return `1 ${headAsset.assetName} ≈ ${(headAsset.price / tail.price).toFixed(3)} ${tail.assetName}`;
+                                    }
+                                    return '';
+                                })
+                            ),
+                            E.fromOption(constant('error'))
+                        );
+                    }),
+                    E.getOrElseW(() => [])
+                );
+
+                const minimumReceived = pipe(
+                    assets,
+                    E.map((assets) => ({
+                        head: pipe(assets, A.head),
+                        last: pipe(assets, A.last),
+                    })),
+                    E.chain(({ head, last }) => {
+                        const headAsset = pipe(
+                            head,
+                            O.getOrElseW(constUndefined)
+                        );
+
+                        return pipe(
+                            last,
+                            O.map((last) => {
+                                if (headAsset) {
+                                    const received =
+                                        (headAsset.currentValue ??
+                                            0 * headAsset.price) / last.price;
+                                    return [
+                                        `${Number.isNaN(received) ? 0 : received.toFixed(2)} ${last.assetName}`,
+                                    ];
+                                }
+                                return [''];
+                            }),
+                            E.fromOption(constant('error'))
+                        );
+                    }),
+                    E.getOrElseW(() => [])
+                );
+
+                const baseAssetAfterSwap = pipe(
+                    assets,
+                    E.chain(flow(A.head, E.fromOption(constant('error')))),
+                    E.chain((asset) =>
+                        pipe(
+                            currentWaletAsset,
+                            E.chain(
+                                flow(
+                                    A.findFirst(
+                                        (waletAsset) =>
+                                            waletAsset.id === asset.id
+                                    ),
+                                    E.fromOption(constant('error')),
+                                    E.map((waletAsset) => ({
+                                        ticker: asset.assetName,
+                                        balance: `${(
+                                            waletAsset.balance -
+                                            (asset.currentValue ?? 0)
+                                        ).toFixed(2)}`,
+                                    }))
+                                )
+                            )
+                        )
+                    ),
+                    E.fold(
+                        () => null,
+                        (data) => ({
+                            name: `${data.ticker} balance after swap`,
+                            value: [data.balance],
+                        })
+                    )
+                );
+
+                const lastAssetAfterSwap = pipe(
+                    assets,
+                    E.chain(flow(A.last, E.fromOption(constant('error')))),
+                    E.chain((asset) =>
+                        pipe(
+                            currentWaletAsset,
+                            E.chainW(
+                                flow(
+                                    A.findFirst(
+                                        (waletAsset) =>
+                                            waletAsset.id === asset.id
+                                    ),
+                                    E.fromOption(constant('error')),
+                                    E.map((waletAsset) => ({
+                                        ticker: asset.assetName,
+                                        balance: `${(
+                                            waletAsset.balance +
+                                            (asset.currentValue ?? 0)
+                                        ).toFixed(2)}`,
+                                    })),
+                                    E.mapLeft(() => ({
+                                        ticker: asset.assetName,
+                                        balance: `${(
+                                            asset.currentValue ?? 0
+                                        ).toFixed(2)}`,
+                                    }))
+                                )
+                            )
+                        )
+                    ),
+                    E.fold(
+                        (data) =>
+                            t.string.is(data)
+                                ? null
+                                : {
+                                      name: `${data.ticker} balance after swap`,
+                                      value: [data.balance],
+                                  },
+                        (data) => ({
+                            name: `${data.ticker} balance after swap`,
+                            value: [data.balance],
+                        })
+                    )
+                );
+
+                const newSwapListInfo: DropdownOptions[] = [
+                    {
+                        name: 'Exchange rate',
+                        value: exchangeRate,
+                    },
+                    { name: 'Minimum received', value: minimumReceived },
+                    baseAssetAfterSwap,
+                    lastAssetAfterSwap,
+                ].filter((x) => x !== null);
+
+                swapListInfo.set(newSwapListInfo);
+            })
+        );
+
         // TODO - будет рабоать иначе (переполучать стоимость ассетов и обновлять стоимость)
         const resetEffect = pipe(
             onResetEvent,
@@ -422,6 +594,7 @@ export const newSwipeStore = injectable(
                 onOpenaAddAssetBottomSheetIsOpen,
                 onCloseAddAssetBottomSheetIsOpen,
                 allAssets,
+                swapListInfo,
                 setCurrentVariableAsset,
                 setAddCurrentVariableAsset,
                 setCurrentVariableSwapAsset,
@@ -436,7 +609,8 @@ export const newSwipeStore = injectable(
             onAssetSelectEvent,
             resetEffect,
             onAssetAddEvent,
-            removeAssetEffect
+            removeAssetEffect,
+            swapListInfoChangeEffect
         );
     }
 );
