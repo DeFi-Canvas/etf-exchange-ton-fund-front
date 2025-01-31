@@ -3,10 +3,8 @@ import { AssetsCard } from '@/components/assets-card/assets-card.component.tsx';
 import css from './swap-select-asset.module.css';
 import { AppInputField } from '@/components/app-input-field/app-input-field.component.tsx';
 import { useState } from 'react';
-import { AssetsUI } from '@/components/assets-card/assets-card.model';
 import * as E from 'fp-ts/Either';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
-import { constVoid } from 'fp-ts/lib/function';
 import { AssetsUIFiltreble } from '../../swap.model';
 
 export interface SwapSelectAssetProps {

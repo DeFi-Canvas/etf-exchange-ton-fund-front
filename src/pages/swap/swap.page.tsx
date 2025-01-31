@@ -13,6 +13,7 @@ import { SwapCardListContainer } from './components/swap-card-list/swap-card-lis
 import { SwapSelectAssetContainer } from './components/swap-select-asset/swap-select-asset.container';
 import { SwapHeaderContainer } from './components/swap-header/swap-header.container';
 import { SwapDropdownContainer } from './components/swap-dropdown/swap-dropdown.container';
+import { SwapResultContainer } from './components/swap-result/swap-result.container';
 
 const tabs: TabItemInterface[] = [
     {
@@ -35,11 +36,13 @@ export const SwapPage = injectable(
     SwapSelectAssetContainer,
     SwapHeaderContainer,
     SwapDropdownContainer,
+    SwapResultContainer,
     (
         SwapCardListContainer,
         SwapSelectAssetContainer,
         SwapHeaderContainer,
-        SwapDropdownContainer
+        SwapDropdownContainer,
+        SwapResultContainer
     ) =>
         ({ emmitSwap, swapAssets }: SwapPageProps) => {
             // const [currentTab, setCurrentTab] = useState('singleSwap');
@@ -89,6 +92,7 @@ export const SwapPage = injectable(
                         />
                     </AppFooter>
                     <SwapSelectAssetContainer />
+                    <SwapResultContainer />
                 </div>
             );
         }

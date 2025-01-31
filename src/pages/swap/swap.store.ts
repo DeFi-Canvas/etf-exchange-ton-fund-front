@@ -25,6 +25,7 @@ import {
     mapAssetToSwapAsset,
     SWAP_LIST_INFO_INIT,
     SwapAsset,
+    SwapResultStatus,
 } from './swap.model';
 import { createAdapter } from '@most/adapter';
 import { DropdownOptions } from '@/components/dropdown/dropdown.component';
@@ -43,6 +44,10 @@ export interface SwapStore {
     addAssetBottomSheetIsOpen: Property<boolean>;
     onOpenaAddAssetBottomSheetIsOpen: () => void;
     onCloseAddAssetBottomSheetIsOpen: () => void;
+
+    resultBottomSheetIsOpen: Property<boolean>;
+    closeResultBottomSheet: () => void;
+    resultStatus: Property<SwapResultStatus>;
 
     swapListInfo: Property<DropdownOptions[]>;
 
@@ -82,6 +87,9 @@ export const newSwapStore = injectable(
         const selectAssetBottomSheetIsOpen = newLensedAtom(false);
         const addAssetBottomSheetIsOpen = newLensedAtom(false);
 
+        const resultBottomSheetIsOpen = newLensedAtom(false);
+        const resultStatus = newLensedAtom<SwapResultStatus>('PROGRESS');
+
         const currentVariableSwapAsset = newLensedAtom('');
         const [setCurrentVariableAsset, currentVariableAsset] =
             createAdapter<string>();
@@ -95,6 +103,8 @@ export const newSwapStore = injectable(
         const [onReset, onResetEvent] = createAdapter<void>();
 
         //#region Functions
+        const closeResultBottomSheet = () => resultBottomSheetIsOpen.set(false);
+
         const onOpenselectAssetBottomSheetIsOpen = () =>
             selectAssetBottomSheetIsOpen.set(true);
 
@@ -179,7 +189,9 @@ export const newSwapStore = injectable(
                 E.map(flow(A.map((asset) => asset.assetName))),
                 E.fold(() => [], identity)
             );
+
             swapRestService.initiate({ amount, tokens });
+            resultBottomSheetIsOpen.set(true);
         };
 
         const onMaxClick = () => {
@@ -217,7 +229,14 @@ export const newSwapStore = injectable(
         };
 
         //#region Event
-        const testEvent = swapRestService.getConnection();
+        const EVSEvent = pipe(
+            swapRestService.getConnection().evs,
+            tap((x) => {
+                if (x) {
+                    resultStatus.set('SUCCESS');
+                }
+            })
+        );
 
         const getAssetsEffect = pipe(
             combine(
@@ -636,8 +655,11 @@ export const newSwapStore = injectable(
                 onMaxClick,
                 onRemoveAsset,
                 onSearchAssets,
+                resultBottomSheetIsOpen,
+                resultStatus,
+                closeResultBottomSheet,
             },
-            testEvent,
+            EVSEvent,
             getAssetsEffect,
             onAssetSelectEvent,
             resetEffect,

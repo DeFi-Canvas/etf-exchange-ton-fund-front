@@ -14,7 +14,7 @@ import { assetsCodec } from './contracts/assets.contract';
 import { swapInitiateCodec } from './contracts/swap.contract';
 
 export interface SwapRestService {
-    getConnection: () => Stream<unknown>;
+    getConnection: () => { evs: Stream<unknown>; unsubscription: () => void };
     initiate: (args: { amount: number; tokens: Array<string> }) => void;
     getAssets: () => Stream<Either<string, Array<Asset>>>;
 }
@@ -44,11 +44,16 @@ export const newSwapRestService = injectable(
                 };
 
                 eventSource.onerror = (error) => {
-                    console.error(error);
+                    console.log('ALARM');
+
+                    messege.set('ERROR');
                 };
 
                 //TODO: КАК закрывать соединение пока хз
-                return pipe(messege, fromProperty);
+                return {
+                    evs: pipe(messege, fromProperty),
+                    unsubscription: () => eventSource.close(),
+                };
             },
             initiate: ({ amount, tokens }) =>
                 getRequestGenerated(
