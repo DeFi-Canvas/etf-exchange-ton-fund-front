@@ -3,16 +3,18 @@ import { AssetsCard } from '@/components/assets-card/assets-card.component.tsx';
 import css from './swap-select-asset.module.css';
 import { AppInputField } from '@/components/app-input-field/app-input-field.component.tsx';
 import { useState } from 'react';
-import { Assets } from '@/components/assets-card/assets-card.model';
+import { AssetsUI } from '@/components/assets-card/assets-card.model';
 import * as E from 'fp-ts/Either';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import { constVoid } from 'fp-ts/lib/function';
+import { AssetsUIFiltreble } from '../../swap.model';
 
 export interface SwapSelectAssetProps {
     isOpen: boolean;
     closeBottomSheet: () => void;
     onSelectAsset: (assetId: string) => void;
-    avlailibleAssets: E.Either<string, Assets[]>;
+    onSearchAssets: (ticker: string) => void;
+    avlailibleAssets: E.Either<string, AssetsUIFiltreble[]>;
 }
 
 export const SwapSelectAsset = ({
@@ -20,19 +22,14 @@ export const SwapSelectAsset = ({
     closeBottomSheet,
     onSelectAsset,
     avlailibleAssets,
+    onSearchAssets,
 }: SwapSelectAssetProps) => {
     const [searchValue, setSearchValue] = useState('');
 
-    // onChange из поля ввода
-    // const onSearchAssets = (value: string) => {
-    //     setSearchValue(value);
-
-    //     // Фильтруем изначальный список по вхождению строки из поля поиска
-    //     const newAssetList = defaultAssetList.filter((asset) => {
-    //         return asset.subTitle.toLowerCase().includes(value);
-    //     });
-    //     setAssetsList(newAssetList);
-    // };
+    const onSearchAssetsEvent = (value: string) => {
+        setSearchValue(value);
+        onSearchAssets(value);
+    };
 
     return (
         <div>
@@ -41,8 +38,7 @@ export const SwapSelectAsset = ({
                 <AppInputField
                     value={searchValue}
                     className={css.inputField}
-                    // onChange={onSearchAssets}
-                    onChange={constVoid}
+                    onChange={onSearchAssetsEvent}
                     placeholder="Serch"
                 />
                 <div className={css.assetsList}>
@@ -54,13 +50,18 @@ export const SwapSelectAsset = ({
                         data={avlailibleAssets}
                         success={(assetsList) => (
                             <>
-                                {assetsList.map((asset) => (
-                                    <AssetsCard
-                                        key={asset.id}
-                                        {...asset}
-                                        onClick={() => onSelectAsset(asset.id)}
-                                    />
-                                ))}
+                                {assetsList.map(
+                                    ({ isVisible, ...asset }) =>
+                                        isVisible && (
+                                            <AssetsCard
+                                                key={asset.id}
+                                                {...asset}
+                                                onClick={() =>
+                                                    onSelectAsset(asset.id)
+                                                }
+                                            />
+                                        )
+                                )}
                             </>
                         )}
                     />

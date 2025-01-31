@@ -1,5 +1,5 @@
 import {
-    Assets,
+    AssetsUI,
     assetsCodec,
     AssetsPnl,
     assetsPnlCodec,
@@ -10,7 +10,7 @@ import CardPnl from './components/card-pnl/card-pnl.component.tsx';
 
 type AssetsCardType = 'pnl' | 'default';
 
-type AssetsCard = (Assets | AssetsPnl) & { type?: AssetsCardType };
+type AssetsCard = (AssetsUI | AssetsPnl) & { type?: AssetsCardType };
 
 export const AssetsCard = ({
     type = 'default',

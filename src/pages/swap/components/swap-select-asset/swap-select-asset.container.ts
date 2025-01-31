@@ -11,7 +11,11 @@ import { useProperties } from '@frp-ts/react';
 interface SwarCardListContainer
     extends Omit<
         SwapSelectAssetProps,
-        'avlailibleAssets' | 'isOpen' | 'onSelectAsset' | 'closeBottomSheet'
+        | 'avlailibleAssets'
+        | 'isOpen'
+        | 'onSelectAsset'
+        | 'closeBottomSheet'
+        | 'onSearchAssets'
     > {}
 
 export const SwapSelectAssetContainer = injectable(

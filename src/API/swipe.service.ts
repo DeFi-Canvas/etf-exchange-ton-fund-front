@@ -40,7 +40,7 @@ export const newSwapRestService = injectable(
 
                 eventSource.onmessage = (event) => {
                     console.log('event', event);
-                    messege.set(event);
+                    messege.set(event.data);
                 };
 
                 eventSource.onerror = (error) => {

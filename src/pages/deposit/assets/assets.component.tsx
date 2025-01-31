@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import css from './assets.module.css';
 import { AssetsCard } from '@/components/assets-card/assets-card.component.tsx';
-import { Assets as AssetsCardBaseProps } from '@/components/assets-card/assets-card.model';
+import { AssetsUI as AssetsCardBaseProps } from '@/components/assets-card/assets-card.model';
 import * as E from 'fp-ts/Either';
 import { AssetsViewModelInit } from './assets.view-model';
 import { DepositAssets, DepositAssetsCodec } from '../deposit.model';

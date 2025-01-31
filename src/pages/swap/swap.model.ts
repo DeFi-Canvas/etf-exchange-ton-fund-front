@@ -1,4 +1,4 @@
-import { Assets } from '@/components/assets-card/assets-card.model';
+import { AssetsUI } from '@/components/assets-card/assets-card.model';
 import { Asset } from '../whalet/whalet.model';
 import { pipe } from 'fp-ts/lib/function';
 import * as E from 'fp-ts/Either';
@@ -14,6 +14,14 @@ export interface SwapAsset {
     currentValue?: number;
     valueInStableCoin?: string;
 }
+
+export interface FiltrebleSwapAsset extends Asset {
+    isVisible: boolean;
+}
+
+export const mapAssetToFiltrebleSwapAsset = (
+    asset: Asset
+): FiltrebleSwapAsset => ({ ...asset, isVisible: true });
 
 export type InitialAssetName = 'TON';
 export const INITIAL_ASSET_NAME: InitialAssetName = 'TON';
@@ -32,13 +40,20 @@ export const mapAssetToSwapAsset = (asset: Asset): SwapAsset => ({
     valueInStableCoin: `≈ $ 0`,
 });
 
-export const mapAssetsWaletToCard = (asset: Asset): Assets => ({
+export interface AssetsUIFiltreble
+    extends AssetsUI,
+        Pick<FiltrebleSwapAsset, 'isVisible'> {}
+
+export const mapAssetsWaletToCard = (
+    asset: FiltrebleSwapAsset
+): AssetsUIFiltreble => ({
     id: asset.id,
     img: asset.logo,
     title: ` ${asset.name}`,
     subTitle: asset.symbol ?? '',
     price: ``,
     priceText: '',
+    isVisible: asset.isVisible,
 });
 
 export const getAssetsEffectMapping = (

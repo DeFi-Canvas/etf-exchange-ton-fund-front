@@ -18,8 +18,10 @@ import { newWaletRestService } from '@/API/whalet.service';
 import { newSwapRestService } from '@/API/swipe.service';
 import { Asset } from '../whalet/whalet.model';
 import {
+    FiltrebleSwapAsset,
     formatValueInStableCoin,
     getAssetsEffectMapping,
+    mapAssetToFiltrebleSwapAsset,
     mapAssetToSwapAsset,
     SWAP_LIST_INFO_INIT,
     SwapAsset,
@@ -30,7 +32,7 @@ import { fromProperty } from '@/utils/property.utils';
 
 export interface SwapStore {
     swapAssets: Property<E.Either<string, Array<SwapAsset>>>;
-    allAssets: Property<E.Either<string, Array<Asset>>>;
+    allAssets: Property<E.Either<string, Array<FiltrebleSwapAsset>>>;
 
     emmitSwap: () => void;
 
@@ -48,6 +50,7 @@ export interface SwapStore {
     setAddCurrentVariableAsset: (id: string) => void;
     setCurrentVariableSwapAsset: (id: string) => void;
     onRemoveAsset: (id: string) => void;
+    onSearchAssets: (ticker: string) => void;
     updAssetCurrentValue: (id: string, value: number) => void;
 
     swapTokenOrder: () => void;
@@ -62,9 +65,9 @@ export const newSwapStore = injectable(
     newSwapRestService,
     (walletService, swapRestService) => (): NewSwapStore => {
         //#region Atoms
-        const allAssets = newLensedAtom<E.Either<string, Array<Asset>>>(
-            E.left('pending')
-        );
+        const allAssets = newLensedAtom<
+            E.Either<string, Array<FiltrebleSwapAsset>>
+        >(E.left('pending'));
         const waletAssets = newLensedAtom<E.Either<string, Array<Asset>>>(
             E.left('pending')
         );
@@ -87,6 +90,7 @@ export const newSwapStore = injectable(
             createAdapter<string>();
 
         const [onRemoveAsset, removeAssetEvent] = createAdapter<string>();
+        const [onSearchAssets, onSearchAssetsEvent] = createAdapter<string>();
 
         const [onReset, onResetEvent] = createAdapter<void>();
 
@@ -225,9 +229,12 @@ export const newSwapStore = injectable(
                 walletService.getAssets()
             ),
             tap(({ assets, walletAssets: waletAssetsResp }) => {
-                allAssets.set(assets);
+                pipe(
+                    assets,
+                    E.map(A.map(mapAssetToFiltrebleSwapAsset)),
+                    allAssets.set
+                );
                 waletAssets.set(waletAssetsResp);
-                console.log(assets, 'assets');
 
                 getAssetsEffectMapping(
                     assets,
@@ -367,8 +374,6 @@ export const newSwapStore = injectable(
 
                 if (isIdExistOnSwapAssets) {
                     onCloseAddAssetBottomSheetIsOpen();
-                    console.log(currentWaletAsset, 'currentWaletAsset');
-
                     pipe(
                         currentSwapAssets,
                         E.map((assets) => {
@@ -572,13 +577,40 @@ export const newSwapStore = injectable(
                 )
             ),
             tap(({ assets, walletAssets: waletAssetsResp }) => {
-                allAssets.set(assets);
+                pipe(
+                    assets,
+                    E.map(A.map(mapAssetToFiltrebleSwapAsset)),
+                    allAssets.set
+                );
                 waletAssets.set(waletAssetsResp);
 
                 getAssetsEffectMapping(
                     assets,
                     waletAssets.get(),
                     swapAssets.set
+                );
+            })
+        );
+
+        const onSearchAssetsEffetc = pipe(
+            onSearchAssetsEvent,
+            tap((tickerName) => {
+                pipe(
+                    allAssets.get(),
+                    E.map(
+                        A.map((asset) => {
+                            if (
+                                !asset.ticker
+                                    .toLowerCase()
+                                    .includes(tickerName.toLowerCase())
+                            ) {
+                                return { ...asset, isVisible: false };
+                            } else {
+                                return { ...asset, isVisible: true };
+                            }
+                        })
+                    ),
+                    allAssets.set
                 );
             })
         );
@@ -603,6 +635,7 @@ export const newSwapStore = injectable(
                 onReset,
                 onMaxClick,
                 onRemoveAsset,
+                onSearchAssets,
             },
             testEvent,
             getAssetsEffect,
@@ -610,7 +643,8 @@ export const newSwapStore = injectable(
             resetEffect,
             onAssetAddEvent,
             removeAssetEffect,
-            swapListInfoChangeEffect
+            swapListInfoChangeEffect,
+            onSearchAssetsEffetc
         );
     }
 );
