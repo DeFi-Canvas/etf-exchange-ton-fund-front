@@ -13,7 +13,7 @@ import { getRequestGenerated } from './request.utils';
 import { assetsCodec } from './contracts/assets.contract';
 import { swapInitiateCodec } from './contracts/swap.contract';
 
-export interface SwipeRestService {
+export interface SwapRestService {
     getConnection: () => Stream<unknown>;
     initiate: (args: { amount: number; tokens: Array<string> }) => void;
     getAssets: () => Stream<Either<string, Array<Asset>>>;
@@ -26,9 +26,9 @@ const swapApi = new SwapApi({
     basePath: DOMAIN_API_URL,
 } as Configuration);
 
-export const newSwipeRestService = injectable(
+export const newSwapRestService = injectable(
     token('userStore')<UserStoreService>(),
-    (userStore): SwipeRestService => {
+    (userStore): SwapRestService => {
         const { id: telegram_id } = userStore.user.get();
 
         return {

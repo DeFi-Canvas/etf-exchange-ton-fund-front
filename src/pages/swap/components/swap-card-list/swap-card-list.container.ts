@@ -1,20 +1,20 @@
 import { injectable } from '@injectable-ts/core';
 import React from 'react';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
-import { newSwarCardList } from './swap-card-list.view-model';
+import { newSwapCardList } from './swap-card-list.view-model';
 import { SwapCardList, SwapCardListProps } from './swap-card-list.component';
 
-interface SwarCardListContainer
+interface SwapCardListContainer
     extends Omit<
         SwapCardListProps,
         'swapButtonClick' | 'onAddAsset' | 'onDelete'
     > {}
 
-export const SwarCardListContainer = injectable(
-    newSwarCardList,
+export const SwapCardListContainer = injectable(
+    newSwapCardList,
     SwapCardList,
-    (newSwarCardList, SwapCardList) => (props: SwarCardListContainer) => {
-        const vm = useValueWithEffect(() => newSwarCardList(), []);
+    (newSwapCardList, SwapCardList) => (props: SwapCardListContainer) => {
+        const vm = useValueWithEffect(() => newSwapCardList(), []);
         return React.createElement(SwapCardList, { ...props, ...vm });
     }
 );

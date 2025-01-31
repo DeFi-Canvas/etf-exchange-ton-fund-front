@@ -15,7 +15,7 @@ import {
 import * as A from 'fp-ts/Array';
 import { injectable } from '@injectable-ts/core';
 import { newWaletRestService } from '@/API/whalet.service';
-import { newSwipeRestService } from '@/API/swipe.service';
+import { newSwapRestService } from '@/API/swipe.service';
 import { Asset } from '../whalet/whalet.model';
 import {
     formatValueInStableCoin,
@@ -28,7 +28,7 @@ import { createAdapter } from '@most/adapter';
 import { DropdownOptions } from '@/components/dropdown/dropdown.component';
 import { fromProperty } from '@/utils/property.utils';
 
-export interface SwipeStore {
+export interface SwapStore {
     swapAssets: Property<E.Either<string, Array<SwapAsset>>>;
     allAssets: Property<E.Either<string, Array<Asset>>>;
 
@@ -55,12 +55,12 @@ export interface SwipeStore {
     onMaxClick: () => void;
 }
 
-export type NewSwipeStore = ValueWithEffect<SwipeStore>;
+export type NewSwapStore = ValueWithEffect<SwapStore>;
 
-export const newSwipeStore = injectable(
+export const newSwapStore = injectable(
     newWaletRestService,
-    newSwipeRestService,
-    (walletService, swipeRestService) => (): NewSwipeStore => {
+    newSwapRestService,
+    (walletService, swapRestService) => (): NewSwapStore => {
         //#region Atoms
         const allAssets = newLensedAtom<E.Either<string, Array<Asset>>>(
             E.left('pending')
@@ -175,7 +175,7 @@ export const newSwipeStore = injectable(
                 E.map(flow(A.map((asset) => asset.assetName))),
                 E.fold(() => [], identity)
             );
-            swipeRestService.initiate({ amount, tokens });
+            swapRestService.initiate({ amount, tokens });
         };
 
         const onMaxClick = () => {
@@ -213,7 +213,7 @@ export const newSwipeStore = injectable(
         };
 
         //#region Event
-        const testEvent = swipeRestService.getConnection();
+        const testEvent = swapRestService.getConnection();
 
         const getAssetsEffect = pipe(
             combine(
@@ -221,7 +221,7 @@ export const newSwipeStore = injectable(
                     assets,
                     walletAssets,
                 }),
-                swipeRestService.getAssets(),
+                swapRestService.getAssets(),
                 walletService.getAssets()
             ),
             tap(({ assets, walletAssets: waletAssetsResp }) => {
@@ -567,7 +567,7 @@ export const newSwipeStore = injectable(
                         assets,
                         walletAssets,
                     }),
-                    swipeRestService.getAssets(),
+                    swapRestService.getAssets(),
                     walletService.getAssets()
                 )
             ),

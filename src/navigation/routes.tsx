@@ -51,7 +51,7 @@ export const AppRoutes = () => {
         // не рабочие стр
         {
             path: '/swap',
-            page: containers.SwipePage,
+            page: containers.SwapePage,
         },
     ];
 

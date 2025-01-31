@@ -9,7 +9,7 @@ import AppButton from '@/components/app-button/app-button.component.tsx';
 import * as E from 'fp-ts/Either';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import { injectable } from '@injectable-ts/core';
-import { SwarCardListContainer } from './components/swap-card-list/swap-card-list.container';
+import { SwapCardListContainer } from './components/swap-card-list/swap-card-list.container';
 import { SwapSelectAssetContainer } from './components/swap-select-asset/swap-select-asset.container';
 import { SwapHeaderContainer } from './components/swap-header/swap-header.container';
 import { SwapDropdownContainer } from './components/swap-dropdown/swap-dropdown.container';
@@ -31,12 +31,12 @@ interface SwapPageProps {
 }
 
 export const SwapPage = injectable(
-    SwarCardListContainer,
+    SwapCardListContainer,
     SwapSelectAssetContainer,
     SwapHeaderContainer,
     SwapDropdownContainer,
     (
-        SwarCardListContainer,
+        SwapCardListContainer,
         SwapSelectAssetContainer,
         SwapHeaderContainer,
         SwapDropdownContainer
@@ -73,7 +73,7 @@ export const SwapPage = injectable(
                     <RenderResult
                         data={swapAssets}
                         success={(swapAssets) => (
-                            <SwarCardListContainer
+                            <SwapCardListContainer
                                 cards={swapAssets}
                                 isSingle={isSingle}
                                 className={css.swapCard}

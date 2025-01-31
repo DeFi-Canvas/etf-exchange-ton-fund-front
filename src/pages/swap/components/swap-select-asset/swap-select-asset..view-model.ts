@@ -1,7 +1,7 @@
 import { injectable, token } from '@injectable-ts/core';
 
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
-import { SwipeStore } from '../../swap.store';
+import { SwapStore } from '../../swap.store';
 import { Property } from '@frp-ts/core';
 import { Assets } from '@/components/assets-card/assets-card.model';
 import { flow, pipe } from 'fp-ts/lib/function';
@@ -24,7 +24,7 @@ export interface NewSwapSelectAsset {
 }
 
 export const newSwapSelectAsset = injectable(
-    token('store')<SwipeStore>(),
+    token('store')<SwapStore>(),
     (store): NewSwapSelectAsset =>
         () => {
             const avlailibleAssets = newLensedAtom<E.Either<string, Assets[]>>(

@@ -1,7 +1,7 @@
 import { injectable, token } from '@injectable-ts/core';
 
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
-import { SwipeStore } from '../../swap.store';
+import { SwapStore } from '../../swap.store';
 import { DropdownOptions } from '@/components/dropdown/dropdown.component';
 import { Property } from '@frp-ts/core';
 
@@ -14,7 +14,7 @@ export interface NewSwapDropdown {
 }
 
 export const newSwapDropdown = injectable(
-    token('store')<SwipeStore>(),
+    token('store')<SwapStore>(),
     (store): NewSwapDropdown =>
         () => {
             return valueWithEffect.new({

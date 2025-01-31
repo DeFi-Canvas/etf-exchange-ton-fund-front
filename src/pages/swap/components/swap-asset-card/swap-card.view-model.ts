@@ -1,7 +1,7 @@
 import { injectable, token } from '@injectable-ts/core';
 
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
-import { SwipeStore } from '../../swap.store';
+import { SwapStore } from '../../swap.store';
 
 export interface SwarCard {
     onArrowClick: (id: string) => void;
@@ -14,7 +14,7 @@ export interface NewSwarCard {
 }
 
 export const newSwarCard = injectable(
-    token('store')<SwipeStore>(),
+    token('store')<SwapStore>(),
     (store): NewSwarCard =>
         () => {
             const onArrowClick = (id: string) => {
