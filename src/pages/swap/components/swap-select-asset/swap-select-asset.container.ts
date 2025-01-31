@@ -5,7 +5,7 @@ import {
     SwapSelectAsset,
     SwapSelectAssetProps,
 } from './swap-select-asset.component';
-import { newSwapSelectAsset } from './swap-select-asset..view-model';
+import { newSwapSelectAsset } from './swap-select-asset.view-model';
 import { useProperties } from '@frp-ts/react';
 
 interface SwarCardListContainer
