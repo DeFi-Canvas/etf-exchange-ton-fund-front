@@ -10,6 +10,7 @@ import { indexRouter } from './page-routes/index-router';
 import { depositRouter } from './page-routes/deposit-router';
 import { withdrawRouter } from './page-routes/withdraw-router';
 import { whatToBuyRouter } from './page-routes/what-to-buy-router';
+import { newToastifyStoreService } from '@/store/toaster.store';
 
 interface Route {
     path: string;
@@ -30,6 +31,10 @@ export const AppRoutes = () => {
         () => newNewUserStoreService(initData?.user),
         []
     );
+    const toastStore = useValueWithEffect(() => newToastifyStoreService(), []);
+    // TEMP
+    // @ts-ignore
+    window.toastStore = toastStore;
 
     //#region containers
     const containers = getContainers({ userStore });

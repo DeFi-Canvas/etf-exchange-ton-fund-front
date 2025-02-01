@@ -10,6 +10,7 @@ import { type FC, useEffect, useMemo } from 'react';
 import { Router } from 'react-router-dom';
 import { AppRoutes } from '@/navigation/routes.tsx';
 import TabBar from '@/components/TabBar/TabBar.tsx';
+import { ToastContainer } from 'react-toastify';
 
 const PAGE_URLS = [
     '/',
@@ -57,6 +58,7 @@ export const App: FC = () => {
         <Router location={location} navigator={reactNavigator}>
             <main>
                 <AppRoutes />
+                <ToastContainer />
             </main>
             {isVisibleTabBar ? <TabBar /> : null}
         </Router>

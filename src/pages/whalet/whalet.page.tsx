@@ -1,4 +1,4 @@
-import { injectable } from '@injectable-ts/core';
+import { injectable, token } from '@injectable-ts/core';
 import { BalanceContainer } from './components/balans/balans.container';
 import { OperationsNavContainer } from './components/coins-section/coins.component';
 import { NavBar } from './components/nav-bar/nav-bar.component';
@@ -11,6 +11,7 @@ import { LernMore } from './components/news/lern-more.component';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { Onboarding } from '@/components/onboarding/onboarding.component.tsx';
+import { ToastifyStoreService } from '@/store/toaster.store';
 
 export interface WhatToBuyPageProps {
     balance: O.Option<number>;
