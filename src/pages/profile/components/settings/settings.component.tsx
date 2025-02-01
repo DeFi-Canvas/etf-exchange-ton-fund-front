@@ -15,6 +15,11 @@ export const Settings = () => {
                                 name: 'Language',
                             });
                         }}
+                        onTouchStart={() => {
+                            trackMixpanel('PROFILE_PAGE: settings event', {
+                                name: 'Local currency',
+                            });
+                        }}
                     >
                         <span>Language</span>
                         <span className={css.cardItemLabel}>English</span>
@@ -22,6 +27,11 @@ export const Settings = () => {
                     <div
                         className={css.cardItem}
                         onClick={() => {
+                            trackMixpanel('PROFILE_PAGE: settings event', {
+                                name: 'Local currency',
+                            });
+                        }}
+                        onTouchStart={() => {
                             trackMixpanel('PROFILE_PAGE: settings event', {
                                 name: 'Local currency',
                             });

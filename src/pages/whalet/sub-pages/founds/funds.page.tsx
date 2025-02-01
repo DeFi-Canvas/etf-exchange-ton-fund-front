@@ -57,6 +57,13 @@ export const Funds = ({ funds }: FundsProps) => {
                                         true
                                     );
                                 }}
+                                onTouchStart={() => {
+                                    trackMixpanel(
+                                        'WALLET_PAGE_FUNDS: specific fund  click',
+                                        { ...fund },
+                                        true
+                                    );
+                                }}
                             >
                                 <AssetsCard {...formattedData(fund)} />
                             </Link>

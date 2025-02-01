@@ -1,7 +1,4 @@
-import {
-    AlertIcon,
-    // PnlArrowUpIcon
-} from '@/components/Icons/Icons';
+import { AlertIcon } from '@/components/Icons/Icons';
 import * as O from 'fp-ts/Option';
 import css from './balans.module.css';
 import { OptionSpan } from '@/components/ui-kit/fpts-components-utils/options.component';
@@ -22,6 +19,9 @@ export const Balans = ({ balance }: BalansProps) => {
                 <div
                     className={css.alert}
                     onClick={() => {
+                        trackMixpanel('WALLET_PAGE: notification button click');
+                    }}
+                    onTouchStart={() => {
                         trackMixpanel('WALLET_PAGE: notification button click');
                     }}
                 >

@@ -33,7 +33,11 @@ export const FondCard = ({
         onClick(id);
     };
     return (
-        <div className={css.wrap} onClick={heandleClick}>
+        <div
+            className={css.wrap}
+            onClick={heandleClick}
+            onTouchStart={heandleClick}
+        >
             <div className={css.statisticInfo} style={style}>
                 <div className={cn(css.riskInfo, css.isolateOverlay)}>
                     <div className={css.risk}>

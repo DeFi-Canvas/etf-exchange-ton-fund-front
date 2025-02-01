@@ -12,6 +12,9 @@ export const NewsEarn = () => {
             onClick={() => {
                 trackMixpanel('WALLET_PAGE: "earn slide" click');
             }}
+            onTouchStart={() => {
+                trackMixpanel('WALLET_PAGE: "earn slide" click');
+            }}
         >
             <div className={css.content}>
                 <span className={css.contentTitle}>

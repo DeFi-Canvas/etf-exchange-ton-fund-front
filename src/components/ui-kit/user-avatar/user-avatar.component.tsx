@@ -25,6 +25,9 @@ const UserAvatar: FC<UserAvatarProps> = (props) => {
             onClick={() => {
                 trackMixpanel('PROFILE_PAGE: user click');
             }}
+            onTouchStart={() => {
+                trackMixpanel('PROFILE_PAGE: user click');
+            }}
         >
             <span className={css.userAvatarLetter}>{props.userNameLetter}</span>
         </div>

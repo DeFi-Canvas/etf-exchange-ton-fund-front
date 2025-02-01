@@ -54,6 +54,11 @@ export const NavBar = () => {
                                     `WALLET_PAGE: ${navItem.title.toUpperCase()} click` as WalletPageEvent
                                 );
                             }}
+                            onTouchStart={() => {
+                                trackMixpanel(
+                                    `WALLET_PAGE: ${navItem.title.toUpperCase()} click` as WalletPageEvent
+                                );
+                            }}
                         >
                             <div>{navItem.icon}</div>
                             <span className={css.navItemTitle}>
@@ -73,6 +78,11 @@ export const NavBar = () => {
                                 `WALLET_PAGE: ${navItem.title.toUpperCase()} click` as WalletPageEvent,
                                 {},
                                 true
+                            );
+                        }}
+                        onTouchStart={() => {
+                            trackMixpanel(
+                                `WALLET_PAGE: ${navItem.title.toUpperCase()} click` as WalletPageEvent
                             );
                         }}
                     >

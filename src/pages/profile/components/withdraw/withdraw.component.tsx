@@ -14,6 +14,9 @@ export const Withdraw = () => {
                     onClick={() => {
                         trackMixpanel('PROFILE_PAGE: withdraw mowe', {}, true);
                     }}
+                    onTouchStart={() => {
+                        trackMixpanel('PROFILE_PAGE: withdraw mowe', {}, true);
+                    }}
                 >
                     <span className={css.cardLinkText}>
                         Withdraw cryptocurrency

@@ -11,6 +11,9 @@ export const LernMore = () => {
             onClick={() => {
                 trackMixpanel('WALLET_PAGE: "lern more" slide click');
             }}
+            onTouchStart={() => {
+                trackMixpanel('WALLET_PAGE: "lern more" slide click');
+            }}
         >
             <div className={css.content}>
                 <span className={css.contentTitle}>
