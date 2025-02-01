@@ -20,6 +20,13 @@ export const Documentation = () => {
                             true
                         );
                     }}
+                    onTouchStart={() => {
+                        trackMixpanel(
+                            'PROFILE_PAGE: documentation click',
+                            {},
+                            true
+                        );
+                    }}
                 >
                     Documentation
                 </Link>

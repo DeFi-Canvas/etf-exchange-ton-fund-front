@@ -65,6 +65,15 @@ export const Final = ({ amount, currency, address, onClick }: FinalProps) => {
                         navigate('/');
                         onClick();
                     }}
+                    onTouchStart={() => {
+                        trackMixpanel(
+                            'WITHDRAW_PAGE_FINISH: finish click',
+                            {},
+                            true
+                        );
+                        navigate('/');
+                        onClick();
+                    }}
                 >
                     Finish
                 </button>

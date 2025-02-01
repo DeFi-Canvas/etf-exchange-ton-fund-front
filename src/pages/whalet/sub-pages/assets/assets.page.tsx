@@ -83,6 +83,16 @@ export const Assets = ({ assets }: AssetsProps) => {
                                                 true
                                             );
                                         }}
+                                        onTouchStart={() => {
+                                            trackMixpanel(
+                                                'WALLET_PAGE_ASSETS: specific asset  click',
+                                                {
+                                                    name: assets.name,
+                                                    id: assets.id,
+                                                },
+                                                true
+                                            );
+                                        }}
                                     >
                                         <AssetsCard
                                             {...formattedData(assets)}

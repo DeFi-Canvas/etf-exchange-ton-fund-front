@@ -86,6 +86,14 @@ const Step = ({
                             true
                         );
                     }}
+                    onTouchStart={() => {
+                        checkStep(id);
+                        trackMixpanel(
+                            'PROFILE_PAGE: earn event',
+                            { name: title },
+                            true
+                        );
+                    }}
                 >
                     <a
                         href={externalLink}

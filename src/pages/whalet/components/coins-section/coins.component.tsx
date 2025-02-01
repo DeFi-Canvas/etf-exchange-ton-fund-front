@@ -56,6 +56,11 @@ export const OperationsNav = ({
                             })}
                             to={route.to}
                             key={route.id}
+                            onTouchStart={() => {
+                                trackMixpanel(
+                                    `WALLET_PAGE_${route.title.toUpperCase()}: ${route.title} button click` as TrackMixpanelEvents
+                                );
+                            }}
                             onClick={() => {
                                 trackMixpanel(
                                     `WALLET_PAGE_${route.title.toUpperCase()}: ${route.title} button click` as TrackMixpanelEvents
