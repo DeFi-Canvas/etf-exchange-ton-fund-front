@@ -10,6 +10,7 @@ import { indexRouter } from './page-routes/index-router';
 import { depositRouter } from './page-routes/deposit-router';
 import { withdrawRouter } from './page-routes/withdraw-router';
 import { whatToBuyRouter } from './page-routes/what-to-buy-router';
+import { TransactionView } from '@pages/transaction-view/transaction-view.page.tsx';
 
 interface Route {
     path: string;
@@ -52,6 +53,10 @@ export const AppRoutes = () => {
         {
             path: '/swap',
             page: containers.SwapePage,
+        },
+        {
+            path: '/transaction-view',
+            page: TransactionView,
         },
     ];
 
