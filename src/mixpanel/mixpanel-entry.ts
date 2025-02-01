@@ -31,6 +31,8 @@ export const trackMixpanel = (
     args?: Record<string, unknown>,
     isLink?: boolean
 ) => {
+    console.log('trackMixpanel calll', MIXPANEL_TOKEN);
+
     if (MIXPANEL_TOKEN !== '' && MIXPANEL_TOKEN !== undefined) {
         if (isLink) {
             mixpanel.track_links('a.track-link', event, { ...args });
