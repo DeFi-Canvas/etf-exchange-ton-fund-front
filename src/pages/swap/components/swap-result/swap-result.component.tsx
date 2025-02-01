@@ -1,8 +1,14 @@
 import BottomSheet from '@/components/ui-kit/bottom-sheet/bottom-sheet.component.tsx';
-import css from './swap-select-asset.module.css';
+import css from './swap-result.module.css';
 import { constVoid } from 'fp-ts/lib/function';
 import { SwapResultStatus } from '../../swap.model';
 import AppButton from '@/components/app-button/app-button.component';
+import {
+    SuccessIcon,
+    ErrorSolidIcon,
+    SwapSolidIcon,
+} from '@/components/Icons/Icons.tsx';
+import cn from 'classnames';
 
 export interface SwapResultProps {
     isOpen: boolean;
@@ -19,15 +25,79 @@ export const SwapResult = ({
     logos,
     onClose,
 }: SwapResultProps) => {
+    const swapStatusWrapper = () => {
+        switch (status) {
+            case 'SUCCESS':
+                return {
+                    text: 'Swap in successful',
+                    icon: <SuccessIcon />,
+                    className: css.colorSuccess,
+                };
+            case 'ERROR':
+                return {
+                    text: 'Swap failed',
+                    icon: <ErrorSolidIcon />,
+                    className: css.colorFailed,
+                };
+            case 'PROGRESS':
+                return {
+                    text: 'Swap in progress',
+                    icon: <SwapSolidIcon />,
+                    className: css.colorProgress,
+                };
+        }
+        // 'SUCCESS' | 'ERROR' | 'PROGRESS'
+    };
+
+    const infoList = [
+        { id: 0, name: 'Total amount in TON', value: '98,64 TON' },
+        { id: 1, name: 'Total amount in USD₮', value: '0 USD₮' },
+    ];
+
     return (
         <div>
             <BottomSheet open={isOpen} onClose={constVoid}>
-                <h1>{status}</h1>
-                {logos.map((src) => (
-                    <img src={src} />
-                ))}
-                <span>{subTitle}</span>
-                <AppButton label="Close" onClick={onClose} />
+                <div className={css.logoList}>
+                    {logos.map((src) => (
+                        <img
+                            src={src}
+                            className={css.logoImage}
+                            key={src}
+                            alt={'Asset logo'}
+                        />
+                    ))}
+                </div>
+                <div className={css.status}>
+                    <div
+                        className={cn(
+                            css.statusIcon,
+                            swapStatusWrapper().className
+                        )}
+                    >
+                        {swapStatusWrapper().icon}
+                    </div>
+                    <div className={css.statusText}>
+                        {swapStatusWrapper().text}
+                    </div>
+                </div>
+                <div className={css.subtitle}>{subTitle}</div>
+                <ul className={css.infoList}>
+                    {infoList.map((info) => (
+                        <li key={info.id} className={css.infoItem}>
+                            <span className={css.infoItemName}>
+                                {info.name}
+                            </span>
+                            <span className={css.infoItemValue}>
+                                {info.value}
+                            </span>
+                        </li>
+                    ))}
+                </ul>
+                <AppButton
+                    label="Close"
+                    className={css.buttonClose}
+                    onClick={onClose}
+                />
             </BottomSheet>
         </div>
     );

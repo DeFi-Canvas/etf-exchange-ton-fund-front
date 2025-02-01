@@ -34,8 +34,12 @@ const BottomSheet = (props: BottomSheetProps) => {
                     ref={sheetRef}
                     className={css.bottomSheet}
                     style={{ ...slideAnimation }}
+                    onClick={props.onClose}
                 >
-                    <div className={css.bottomSheetContent}>
+                    <div
+                        className={css.bottomSheetContent}
+                        onClick={(event) => event.stopPropagation()}
+                    >
                         <div className="app-container">
                             {props.children}
                             {props.hasButtonClose && (

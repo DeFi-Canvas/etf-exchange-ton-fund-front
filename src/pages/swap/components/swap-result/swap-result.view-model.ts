@@ -9,7 +9,6 @@ import { fromProperty } from '@/utils/property.utils';
 import { tap } from '@most/core';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
-import * as O from 'fp-ts/Option';
 
 export interface SwapResult {
     isOpen: Property<boolean>;

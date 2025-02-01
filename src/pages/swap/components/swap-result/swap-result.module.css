@@ -1,11 +1,101 @@
-.inputField {
-    margin-top: 16px;
+.logoList {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.assetsList {
+.logoImage:first-child {
+    --size: 48px;
+}
+
+.logoImage {
+    --size: 56px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    border: 2px solid var(--color-background-white)
+}
+
+.logoImage:not(:first-child) {
+    margin-left: -8px;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.statusIcon {
+    --size: 20px;
+    width: var(--size);
+    height: var(--size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.statusIcon svg     {
+    width: var(--size);
+    height: var(--size);
+}
+
+.statusText {
+    font-weight: 510;
+    font-size: 20px;
+    line-height: 1.3;    
+}
+
+.colorSuccess {
+    color: var(--color-system-green);
+}
+
+.colorFailed {
+    color: var(--color-system-red);
+}
+
+.colorProgress {
+    color: var(--color-main-purple);
+}
+
+.subtitle {
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+    color: var(--color-text-dark-70);
+    margin-top: 8px;
+}
+
+.infoList {
+    margin: 16px 0 0 0;
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    margin-top: 16px;
-    height: 75vh;
+    gap: 16px;
+    padding: 0;
+    list-style: none;
+}
+
+.infoItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.infoItemName {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-text-dark-70);
+}
+
+.infoItemValue {
+    font-weight: 510;
+    line-height: 1.35;
+}
+
+.buttonClose {
+    margin-top: 24px;
 }
