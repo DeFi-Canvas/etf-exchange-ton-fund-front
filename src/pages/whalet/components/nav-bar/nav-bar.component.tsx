@@ -2,6 +2,8 @@ import {
     DepositAnaliticsIcon,
     DepositDepositIcon,
     AIBubbleIcon,
+    ArrowSwapIcon,
+    DepositSwapIcon,
 } from '@/components/Icons/Icons';
 import css from './nav-bar.module.css';
 import { NavLink } from 'react-router-dom';
@@ -23,6 +25,12 @@ const navMenu: NavItem[] = [
         isDisabled: false,
         title: 'Deposit',
         icon: <DepositDepositIcon />,
+    },
+    {
+        href: 'swap',
+        isDisabled: false,
+        title: 'Swap',
+        icon: <DepositSwapIcon />,
     },
     {
         href: '',

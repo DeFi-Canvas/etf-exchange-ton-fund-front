@@ -15,6 +15,7 @@ export type AssetResponce = {
     price: number;
     image_url: string;
     value: number;
+    ticker: string;
 };
 
 export interface FundsRespnce {
@@ -76,6 +77,7 @@ export type Asset = {
     price: number;
     logo: string;
     value: number;
+    ticker: string;
 };
 
 export interface FundsData {

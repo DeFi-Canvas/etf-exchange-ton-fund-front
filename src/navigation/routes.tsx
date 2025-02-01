@@ -52,7 +52,7 @@ export const AppRoutes = () => {
         // не рабочие стр
         {
             path: '/swap',
-            page: SwapPage,
+            page: containers.SwapePage,
         },
         {
             path: '/transaction-view',

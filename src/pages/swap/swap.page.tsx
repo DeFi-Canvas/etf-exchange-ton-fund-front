@@ -3,10 +3,17 @@ import css from './swap.module.css';
 import { Tabs } from '@/components/ui-kit/tabs/tabs.component.tsx';
 import { TabItemInterface } from '@/components/ui-kit/tabs/tabs.model.ts';
 import { useEffect, useMemo, useState } from 'react';
-import { Chip } from '@/components/chip/chip.component.tsx';
-import { ReloadIcon } from '@/components/Icons/Icons.tsx';
 import { SwapAsset } from '@pages/swap/swap.model.ts';
-import { SwapCardList } from '@pages/swap/components/swar-card-list/swar-card-list.component.tsx';
+import AppFooter from '@/components/app-footer/app-footer.components.tsx';
+import AppButton from '@/components/app-button/app-button.component.tsx';
+import * as E from 'fp-ts/Either';
+import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
+import { injectable } from '@injectable-ts/core';
+import { SwapCardListContainer } from './components/swap-card-list/swap-card-list.container';
+import { SwapSelectAssetContainer } from './components/swap-select-asset/swap-select-asset.container';
+import { SwapHeaderContainer } from './components/swap-header/swap-header.container';
+import { SwapDropdownContainer } from './components/swap-dropdown/swap-dropdown.container';
+import { SwapResultContainer } from './components/swap-result/swap-result.container';
 
 const tabs: TabItemInterface[] = [
     {
@@ -19,71 +26,74 @@ const tabs: TabItemInterface[] = [
     },
 ];
 
-const SWAP_CARDS_DEFAULT: SwapAsset[] = [
-    {
-        id: 1,
-        imageSrc: 'temp-ton.png',
-        assetName: 'TON',
-        availablePrice: 93.92,
-    },
-    {
-        id: 2,
-        imageSrc: 'temp-usdt-coin.png',
-        assetName: 'USD₮',
-        availablePrice: 1545.95,
-    },
-];
+interface SwapPageProps {
+    swapAssets: E.Either<string, Array<SwapAsset>>;
+    emmitSwap: () => void;
+}
 
-export const SwapPage = () => {
-    const [currentTab, setCurrentTab] = useState('singleSwap');
-    const [isSingle, setIsSingle] = useState(true);
-    const [swapCards, setSwapCards] = useState<SwapAsset[]>(SWAP_CARDS_DEFAULT);
+export const SwapPage = injectable(
+    SwapCardListContainer,
+    SwapSelectAssetContainer,
+    SwapHeaderContainer,
+    SwapDropdownContainer,
+    SwapResultContainer,
+    (
+        SwapCardListContainer,
+        SwapSelectAssetContainer,
+        SwapHeaderContainer,
+        SwapDropdownContainer,
+        SwapResultContainer
+    ) =>
+        ({ emmitSwap, swapAssets }: SwapPageProps) => {
+            // const [currentTab, setCurrentTab] = useState('singleSwap');
+            const [isSingle, setIsSingle] = useState(true);
 
-    const onChangeTab = (selectedTab: TabItemInterface) => {
-        setCurrentTab(selectedTab.name);
-    };
-    const onAddAsset = () => {
-        const newSwapCard: SwapAsset = {
-            id: 3,
-            imageSrc: 'temp-btc-coin.png',
-            assetName: 'BTC',
-            availablePrice: 193.92,
-        };
-        setSwapCards((cards) => [...cards, newSwapCard]);
-    };
+            // const onChangeTab = (selectedTab: TabItemInterface) => {
+            //     setCurrentTab(selectedTab.name);
+            // };
 
-    useEffect(() => {
-        setIsSingle(currentTab === 'singleSwap');
-    }, [currentTab]);
-    useEffect(() => {
-        if (isSingle) {
-            setSwapCards(SWAP_CARDS_DEFAULT);
+            // const SwapTabsMemo = useMemo(
+            //     () => (
+            //         <Tabs
+            //             tabs={tabs}
+            //             className={css.tabs}
+            //             onChangeTab={onChangeTab}
+            //         />
+            //     ),
+            //     []
+            // );
+
+            // useEffect(() => {
+            //     setIsSingle(currentTab === 'singleSwap');
+            // }, [currentTab]);
+
+            return (
+                <div className={cn('app-container', css.page)}>
+                    <SwapHeaderContainer />
+                    {/* TODO: соленье на будующее */}
+                    {/* {SwapTabsMemo} */}
+                    {/* TODO: скелетон */}
+                    <RenderResult
+                        data={swapAssets}
+                        success={(swapAssets) => (
+                            <SwapCardListContainer
+                                cards={swapAssets}
+                                isSingle={isSingle}
+                                className={css.swapCard}
+                            />
+                        )}
+                    />
+                    <SwapDropdownContainer />
+                    <AppFooter>
+                        <AppButton
+                            label="Swap"
+                            isDisabled={false}
+                            onClick={emmitSwap}
+                        />
+                    </AppFooter>
+                    <SwapSelectAssetContainer />
+                    <SwapResultContainer />
+                </div>
+            );
         }
-    }, [isSingle]);
-
-    const memoTabs = useMemo(
-        () => (
-            <Tabs tabs={tabs} className={css.tabs} onChangeTab={onChangeTab} />
-        ),
-        []
-    );
-
-    return (
-        <div className={cn('app-container', css.page)}>
-            <header className={css.header}>
-                <h2 className="h2">Swap</h2>
-                <Chip text="0% fee" className={css.headerChip} />
-                <button className={css.buttonIcon}>
-                    <ReloadIcon />
-                </button>
-            </header>
-            {memoTabs}
-            <SwapCardList
-                cards={swapCards}
-                isSingle={isSingle}
-                className={css.swapCard}
-                onAddAsset={onAddAsset}
-            />
-        </div>
-    );
-};
+);
