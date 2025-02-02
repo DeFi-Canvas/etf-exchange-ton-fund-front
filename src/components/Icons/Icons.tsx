@@ -44,6 +44,7 @@ import ArrowDown from '@/assets/icons/arrow-down.svg?react';
 import ArrowSwap from '@/assets/icons/arrow-swap.svg?react';
 import Gift from '@/assets/icons/gift.svg?react';
 import Trash from '@/assets/icons/trash.svg?react';
+import ErrorSolid from '@/assets/icons/error-solid.svg?react';
 
 import { TTransactionStatus } from '@/pages/whalet/components/transaction/types';
 
@@ -250,4 +251,12 @@ export const ArrowSwapIcon = ({ className = '' }: { className?: string }) => (
 
 export const TrashIcon = ({ className = '' }: { className?: string }) => (
     <Trash className={className} />
+);
+
+export const ErrorSolidIcon = ({ className = '' }: { className?: string }) => (
+    <ErrorSolid className={className} />
+);
+
+export const SwapSolidIcon = ({ className = '' }: { className?: string }) => (
+    <Swap className={className} />
 );
