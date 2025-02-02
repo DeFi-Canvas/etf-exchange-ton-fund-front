@@ -8,6 +8,7 @@ import { injectable } from '@injectable-ts/core';
 import React from 'react';
 import { newWhatToBuyViewModel } from '../../whalet.view-model';
 import { trackMixpanel, TrackMixpanelEvents } from '@/mixpanel/mixpanel-entry';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 const routesInit = [
     {
@@ -38,6 +39,14 @@ export const OperationsNav = ({
 }: OperationsNavProps) => {
     //TODO: занести это в сервис сетингс
     const [routes, setRoutes] = useState(routesInit);
+    const eventBuilder = useTWAEvent();
+
+    const handleButtonClick = () => {
+        eventBuilder.track('Button Clicked', {
+            label: 'Subscribe Button', // Additional info about the button
+            category: 'User Engagement', // Categorize the event
+        });
+    };
     return (
         <div className={css.wrap}>
             <div className={css.navLinks}>
@@ -56,15 +65,17 @@ export const OperationsNav = ({
                             })}
                             to={route.to}
                             key={route.id}
-                            onTouchStart={() => {
-                                trackMixpanel(
-                                    `WALLET_PAGE_${route.title.toUpperCase()}: ${route.title} button click` as TrackMixpanelEvents
-                                );
-                            }}
+                            // onTouchStart={() => {
+                            //     trackMixpanel(
+                            //         `WALLET_PAGE_${route.title.toUpperCase()}: ${route.title} button click` as TrackMixpanelEvents
+                            //     );
+                            //     // handleButtonClick();
+                            // }}
                             onClick={() => {
-                                trackMixpanel(
-                                    `WALLET_PAGE_${route.title.toUpperCase()}: ${route.title} button click` as TrackMixpanelEvents
-                                );
+                                // trackMixpanel(
+                                //     `WALLET_PAGE_${route.title.toUpperCase()}: ${route.title} button click` as TrackMixpanelEvents
+                                // );
+                                handleButtonClick();
                                 setRoutes((r) =>
                                     r
                                         .map((t) => ({ ...t, isActive: false }))
