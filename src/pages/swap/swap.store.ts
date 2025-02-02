@@ -211,7 +211,7 @@ export const newSwapStore = injectable(
                             return {
                                 ...asset,
                                 currentValue: Number(
-                                    asset.availablePrice.toFixed(2)
+                                    asset.balanceInWalet.toFixed(2)
                                 ),
                             };
                         } else {
@@ -224,7 +224,7 @@ export const newSwapStore = injectable(
             firstEl &&
                 updAssetCurrentValue(
                     firstEl.id,
-                    Number(firstEl.availablePrice.toFixed(2))
+                    Number(firstEl.balanceInWalet.toFixed(2))
                 );
         };
 
@@ -332,10 +332,13 @@ export const newSwapStore = injectable(
                                                         return {
                                                             ...asset,
                                                             currentValue:
-                                                                (currentHeadSwapAsset.currentValue ??
-                                                                    0 *
-                                                                        currentHeadSwapAsset.price) /
-                                                                asset.price,
+                                                                Number(
+                                                                    (
+                                                                        (currentHeadSwapAsset.currentValue *
+                                                                            currentHeadSwapAsset.price) /
+                                                                        asset.price
+                                                                    ).toFixed(2)
+                                                                ),
                                                             valueInStableCoin:
                                                                 currentHeadSwapAsset.valueInStableCoin,
                                                         };
@@ -496,8 +499,9 @@ export const newSwapStore = injectable(
                             O.map((last) => {
                                 if (headAsset) {
                                     const received =
-                                        (headAsset.currentValue ??
-                                            0 * headAsset.price) / last.price;
+                                        (headAsset.currentValue *
+                                            headAsset.price) /
+                                        last.price;
                                     return [
                                         `${Number.isNaN(received) ? 0 : received.toFixed(2)} ${last.assetName}`,
                                     ];

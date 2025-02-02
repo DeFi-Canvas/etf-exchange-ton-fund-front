@@ -23,7 +23,7 @@ export const SwapAssetCard = ({
     onMaxClick,
 }: SwapAssetCardProps) => {
     const textSwapCard = isFirstCard ? 'You send' : 'You receive';
-    const price = `${formatNumberToUI(card.availablePrice)} ${card.assetName}`;
+    const price = `${formatNumberToUI(card.balanceInWalet)} ${card.assetName}`;
 
     const onChangeFieldEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;

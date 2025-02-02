@@ -11,9 +11,9 @@ export interface SwapAsset {
     id: string;
     imageSrc: string;
     assetName: string;
-    availablePrice: number;
     price: number;
-    currentValue?: number;
+    currentValue: number;
+    balanceInWalet: number;
     valueInStableCoin?: string;
 }
 
@@ -38,7 +38,8 @@ export const mapAssetToSwapAsset = (asset: Asset): SwapAsset => ({
     imageSrc: asset.logo,
     assetName: asset.ticker,
     price: asset.price,
-    availablePrice: asset.balance ?? 0,
+    balanceInWalet: asset.balance ?? 0,
+    currentValue: 0,
     valueInStableCoin: `≈ $ 0`,
 });
 
@@ -102,7 +103,7 @@ export const getAssetsEffectMapping = (
                                 () => x,
                                 (dataEl) => ({
                                     ...x,
-                                    availablePrice: dataEl.value,
+                                    balanceInWalet: dataEl.balance,
                                 })
                             )
                         );
