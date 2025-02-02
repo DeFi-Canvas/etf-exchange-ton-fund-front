@@ -18,6 +18,34 @@ export interface SwapResultProps {
     onClose: () => void;
 }
 
+const swapStatusWrapper = (status: SwapResultStatus) => {
+    switch (status) {
+        case 'SUCCESS':
+            return {
+                text: 'Swap in successful',
+                icon: <SuccessIcon />,
+                className: css.colorSuccess,
+            };
+        case 'ERROR':
+            return {
+                text: 'Swap failed',
+                icon: <ErrorSolidIcon />,
+                className: css.colorFailed,
+            };
+        case 'PROGRESS':
+            return {
+                text: 'Swap in progress',
+                icon: <SwapSolidIcon />,
+                className: css.colorProgress,
+            };
+    }
+};
+
+const MOCK_INFO_LIST = [
+    { id: 0, name: 'Total amount in TON', value: '98,64 TON' },
+    { id: 1, name: 'Total amount in USD₮', value: '0 USD₮' },
+];
+
 export const SwapResult = ({
     isOpen,
     status,
@@ -25,34 +53,7 @@ export const SwapResult = ({
     logos,
     onClose,
 }: SwapResultProps) => {
-    const swapStatusWrapper = () => {
-        switch (status) {
-            case 'SUCCESS':
-                return {
-                    text: 'Swap in successful',
-                    icon: <SuccessIcon />,
-                    className: css.colorSuccess,
-                };
-            case 'ERROR':
-                return {
-                    text: 'Swap failed',
-                    icon: <ErrorSolidIcon />,
-                    className: css.colorFailed,
-                };
-            case 'PROGRESS':
-                return {
-                    text: 'Swap in progress',
-                    icon: <SwapSolidIcon />,
-                    className: css.colorProgress,
-                };
-        }
-        // 'SUCCESS' | 'ERROR' | 'PROGRESS'
-    };
-
-    const infoList = [
-        { id: 0, name: 'Total amount in TON', value: '98,64 TON' },
-        { id: 1, name: 'Total amount in USD₮', value: '0 USD₮' },
-    ];
+    const { className: iconClassName, icon, text } = swapStatusWrapper(status);
 
     return (
         <div>
@@ -68,21 +69,14 @@ export const SwapResult = ({
                     ))}
                 </div>
                 <div className={css.status}>
-                    <div
-                        className={cn(
-                            css.statusIcon,
-                            swapStatusWrapper().className
-                        )}
-                    >
-                        {swapStatusWrapper().icon}
+                    <div className={cn(css.statusIcon, iconClassName)}>
+                        {icon}
                     </div>
-                    <div className={css.statusText}>
-                        {swapStatusWrapper().text}
-                    </div>
+                    <div className={css.statusText}>{text}</div>
                 </div>
                 <div className={css.subtitle}>{subTitle}</div>
                 <ul className={css.infoList}>
-                    {infoList.map((info) => (
+                    {MOCK_INFO_LIST.map((info) => (
                         <li key={info.id} className={css.infoItem}>
                             <span className={css.infoItemName}>
                                 {info.name}
