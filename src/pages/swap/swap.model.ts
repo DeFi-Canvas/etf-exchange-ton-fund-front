@@ -52,9 +52,9 @@ export const mapAssetsWaletToCard = (
 ): AssetsUIFiltreble => ({
     id: asset.id,
     img: asset.logo,
-    title: ` ${asset.name}`,
-    subTitle: asset.symbol ?? '',
-    price: ``,
+    title: `${asset.ticker}`,
+    subTitle: `${asset.name}`,
+    price: `$ ${asset.price}`,
     priceText: '',
     isVisible: asset.isVisible,
 });
