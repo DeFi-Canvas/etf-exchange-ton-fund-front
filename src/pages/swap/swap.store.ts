@@ -270,6 +270,12 @@ export const newSwapStore = injectable(
                 const currentWaletAssets = waletAssets.get();
                 const currentSwapAssets = swapAssets.get();
 
+                const currentHeadSwapAsset = pipe(
+                    currentSwapAssets,
+                    E.chain(flow(A.head, E.fromOption(constant('error')))),
+                    E.fold(constUndefined, identity)
+                );
+
                 const currentWaletAsset = pipe(
                     currentWaletAssets,
                     E.chain(
@@ -320,7 +326,21 @@ export const newSwapStore = injectable(
                                                     }
                                                     return asset;
                                                 }),
-                                                E.map(mapAssetToSwapAsset)
+                                                E.map(mapAssetToSwapAsset),
+                                                E.map((asset) => {
+                                                    if (currentHeadSwapAsset) {
+                                                        return {
+                                                            ...asset,
+                                                            currentValue:
+                                                                (currentHeadSwapAsset.currentValue ??
+                                                                    0 *
+                                                                        currentHeadSwapAsset.price) /
+                                                                asset.price,
+                                                            valueInStableCoin:
+                                                                currentHeadSwapAsset.valueInStableCoin,
+                                                        };
+                                                    } else return asset;
+                                                })
                                             )
                                         )
                                     );
