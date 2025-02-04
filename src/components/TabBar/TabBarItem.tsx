@@ -10,12 +10,7 @@ type PropsType = {
 
 const TabBarItem = ({ children, to, text, onClick }: PropsType) => {
     return (
-        <Link
-            className={css.item}
-            to={to}
-            onClick={onClick}
-            onTouchStart={onClick}
-        >
+        <Link className={css.item} to={to} onClick={onClick}>
             {children}
             <span>{text}</span>
         </Link>

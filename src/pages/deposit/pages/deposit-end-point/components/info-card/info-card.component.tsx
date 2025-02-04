@@ -30,7 +30,6 @@ const InfoCard = (props: InfoCardProps) => {
                 <button
                     className={cn(css.button, { [css.buttonActive]: isActive })}
                     onClick={onClick}
-                    onTouchStart={onClick}
                 >
                     {copyText}
                     {copyIcon}

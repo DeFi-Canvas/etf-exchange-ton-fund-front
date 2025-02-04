@@ -22,15 +22,6 @@ export const Settings = () => {
                                 }
                             );
                         }}
-                        onTouchStart={() => {
-                            trackTelemetree(
-                                eventBuilder,
-                                'PROFILE_PAGE: settings event',
-                                {
-                                    name: 'Local currency',
-                                }
-                            );
-                        }}
                     >
                         <span>Language</span>
                         <span className={css.cardItemLabel}>English</span>
@@ -38,15 +29,6 @@ export const Settings = () => {
                     <div
                         className={css.cardItem}
                         onClick={() => {
-                            trackTelemetree(
-                                eventBuilder,
-                                'PROFILE_PAGE: settings event',
-                                {
-                                    name: 'Local currency',
-                                }
-                            );
-                        }}
-                        onTouchStart={() => {
                             trackTelemetree(
                                 eventBuilder,
                                 'PROFILE_PAGE: settings event',

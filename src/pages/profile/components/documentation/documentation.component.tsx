@@ -21,12 +21,6 @@ export const Documentation = () => {
                             'PROFILE_PAGE: documentation click'
                         );
                     }}
-                    onTouchStart={() => {
-                        trackTelemetree(
-                            eventBuilder,
-                            'PROFILE_PAGE: documentation click'
-                        );
-                    }}
                 >
                     Documentation
                 </Link>

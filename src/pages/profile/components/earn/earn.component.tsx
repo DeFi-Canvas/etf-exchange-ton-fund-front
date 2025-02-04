@@ -88,13 +88,6 @@ const Step = ({
                             'PROFILE_PAGE: earn event'
                         );
                     }}
-                    onTouchStart={() => {
-                        checkStep(id);
-                        trackTelemetree(
-                            eventBuilder,
-                            'PROFILE_PAGE: earn event'
-                        );
-                    }}
                 >
                     <a
                         href={externalLink}

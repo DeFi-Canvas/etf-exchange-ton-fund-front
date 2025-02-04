@@ -66,14 +66,6 @@ export const Final = ({ amount, currency, address, onClick }: FinalProps) => {
                         navigate('/');
                         onClick();
                     }}
-                    onTouchStart={() => {
-                        trackTelemetree(
-                            eventBuilder,
-                            'WITHDRAW_PAGE_FINISH: finish click'
-                        );
-                        navigate('/');
-                        onClick();
-                    }}
                 >
                     Finish
                 </button>

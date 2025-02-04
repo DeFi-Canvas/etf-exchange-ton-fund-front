@@ -20,12 +20,6 @@ export const Withdraw = () => {
                             'PROFILE_PAGE: withdraw mowe'
                         );
                     }}
-                    onTouchStart={() => {
-                        trackTelemetree(
-                            eventBuilder,
-                            'PROFILE_PAGE: withdraw mowe'
-                        );
-                    }}
                 >
                     <span className={css.cardLinkText}>
                         Withdraw cryptocurrency

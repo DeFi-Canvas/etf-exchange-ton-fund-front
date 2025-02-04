@@ -27,12 +27,6 @@ export const Balans = ({ balance }: BalansProps) => {
                             'WALLET_PAGE: notification button click'
                         );
                     }}
-                    onTouchStart={() => {
-                        trackTelemetree(
-                            eventBuilder,
-                            'WALLET_PAGE: notification button click'
-                        );
-                    }}
                 >
                     {/* TODO: по какому принципу появляется оранжевый кружок */}
                     <AlertIcon />
