@@ -157,9 +157,7 @@ export const newSwapStore = injectable(
                                 return {
                                     ...asset,
                                     currentValue: Number(
-                                        (
-                                            currentAssetPrice / asset.price
-                                        ).toFixed(2)
+                                        currentAssetPrice / asset.price
                                     ),
                                     valueInStableCoin:
                                         formatValueInStableCoin(
@@ -210,9 +208,7 @@ export const newSwapStore = injectable(
                         if (i === 0) {
                             return {
                                 ...asset,
-                                currentValue: Number(
-                                    asset.balanceInWalet.toFixed(2)
-                                ),
+                                currentValue: Number(asset.balanceInWalet),
                             };
                         } else {
                             return asset;
@@ -224,7 +220,7 @@ export const newSwapStore = injectable(
             firstEl &&
                 updAssetCurrentValue(
                     firstEl.id,
-                    Number(firstEl.balanceInWalet.toFixed(2))
+                    Number(firstEl.balanceInWalet)
                 );
         };
 
@@ -333,11 +329,9 @@ export const newSwapStore = injectable(
                                                             ...asset,
                                                             currentValue:
                                                                 Number(
-                                                                    (
-                                                                        (currentHeadSwapAsset.currentValue *
-                                                                            currentHeadSwapAsset.price) /
+                                                                    (currentHeadSwapAsset.currentValue *
+                                                                        currentHeadSwapAsset.price) /
                                                                         asset.price
-                                                                    ).toFixed(2)
                                                                 ),
                                                             valueInStableCoin:
                                                                 currentHeadSwapAsset.valueInStableCoin,
@@ -503,7 +497,7 @@ export const newSwapStore = injectable(
                                             headAsset.price) /
                                         last.price;
                                     return [
-                                        `${Number.isNaN(received) ? 0 : received.toFixed(2)} ${last.assetName}`,
+                                        `${Number.isNaN(received) ? 0 : received} ${last.assetName}`,
                                     ];
                                 }
                                 return [''];
@@ -529,10 +523,10 @@ export const newSwapStore = injectable(
                                     E.fromOption(constant('error')),
                                     E.map((waletAsset) => ({
                                         ticker: asset.assetName,
-                                        balance: `${(
+                                        balance: `${
                                             waletAsset.balance -
                                             (asset.currentValue ?? 0)
-                                        ).toFixed(2)}`,
+                                        }`,
                                     }))
                                 )
                             )
@@ -562,16 +556,14 @@ export const newSwapStore = injectable(
                                     E.fromOption(constant('error')),
                                     E.map((waletAsset) => ({
                                         ticker: asset.assetName,
-                                        balance: `${(
+                                        balance: `${
                                             waletAsset.balance +
                                             (asset.currentValue ?? 0)
-                                        ).toFixed(2)}`,
+                                        }`,
                                     })),
                                     E.mapLeft(() => ({
                                         ticker: asset.assetName,
-                                        balance: `${(
-                                            asset.currentValue ?? 0
-                                        ).toFixed(2)}`,
+                                        balance: `${asset.currentValue ?? 0}`,
                                     }))
                                 )
                             )

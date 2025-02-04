@@ -44,7 +44,7 @@ export const newSwapRestService = injectable(
                 };
 
                 eventSource.onerror = (error) => {
-                    console.log('ALARM');
+                    console.log('ALARM', error);
 
                     messege.set('ERROR');
                 };
