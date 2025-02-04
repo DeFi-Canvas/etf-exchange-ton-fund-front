@@ -42,10 +42,11 @@ export const OperationsNav = ({
     const eventBuilder = useTWAEvent();
 
     const handleButtonClick = () => {
-        eventBuilder.track('Button Clicked', {
+        eventBuilder.track('Button Clicked TEST', {
             label: 'Subscribe Button', // Additional info about the button
             category: 'User Engagement', // Categorize the event
         });
+        console.log(123);
     };
     return (
         <div className={css.wrap}>

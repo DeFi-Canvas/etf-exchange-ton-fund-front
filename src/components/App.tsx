@@ -10,7 +10,10 @@ import { type FC, useEffect, useMemo } from 'react';
 import { Router } from 'react-router-dom';
 import { AppRoutes } from '@/navigation/routes.tsx';
 import TabBar from '@/components/TabBar/TabBar.tsx';
-import { TwaAnalyticsProvider } from '@tonsolutions/telemetree-react';
+import {
+    TwaAnalyticsProvider,
+    TrackGroups,
+} from '@tonsolutions/telemetree-react';
 
 const PAGE_URLS = [
     '/',
@@ -56,7 +59,8 @@ export const App: FC = () => {
     return (
         <TwaAnalyticsProvider
             projectId="97b7f373-97d9-44b1-b1fc-2f36aa620e81"
-            apiKey="e0228fbf-1276-4f83-afc3-c61a527684eb"
+            apiKey="393a9e38-9be5-4dfe-ad36-77286e6388c9"
+            trackGroup={TrackGroups.MEDIUM}
         >
             <Router location={location} navigator={reactNavigator}>
                 <main>
