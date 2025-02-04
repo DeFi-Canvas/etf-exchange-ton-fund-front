@@ -9,7 +9,8 @@ import { FundsData } from '../../whalet.model';
 import { SkeletonCardSection } from '@/components/skeletons/skeleton-card/skeleton-card-section.component';
 import { formatNumberToUI } from '@/utils/number';
 import { Link } from 'react-router-dom';
-import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
+import { trackTelemetree } from '@/telemetree/telemetree-entry';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 const emptyText = `A fund is a passive investment tool composed of multiple assets. Review the presented funds`;
 
@@ -33,6 +34,8 @@ const formattedData = (assets: FundsData) => {
 };
 
 export const Funds = ({ funds }: FundsProps) => {
+    const eventBuilder = useTWAEvent();
+
     const footerSlot = () => (
         <div className={css.footerButtons}>
             <AppButton to={'/deposit'} label="Deposit" type="secondary" />
@@ -51,17 +54,10 @@ export const Funds = ({ funds }: FundsProps) => {
                                 to={`/what-to-buy/fund/${fund.id}`}
                                 key={fund.id}
                                 onClick={() => {
-                                    trackMixpanel(
+                                    trackTelemetree(
+                                        eventBuilder,
                                         'WALLET_PAGE_FUNDS: specific fund  click',
-                                        { ...fund },
-                                        true
-                                    );
-                                }}
-                                onTouchStart={() => {
-                                    trackMixpanel(
-                                        'WALLET_PAGE_FUNDS: specific fund  click',
-                                        { ...fund },
-                                        true
+                                        { ...fund }
                                     );
                                 }}
                             >

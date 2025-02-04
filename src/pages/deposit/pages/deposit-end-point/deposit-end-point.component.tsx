@@ -9,7 +9,8 @@ import InfoCard from './components/info-card/info-card.component';
 import AppFooter from '@/components/app-footer/app-footer.components.tsx';
 import AppButton from '@/components/app-button/app-button.component.tsx';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
-import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
+import { trackTelemetree } from '@/telemetree/telemetree-entry';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 interface DepositEndPointProps {
     readonly details: E.Either<string, DepositDetails>;
@@ -21,6 +22,7 @@ export const DepositEndPoint = ({
     coinLogo,
 }: DepositEndPointProps) => {
     const { ticker } = useParams();
+    const eventBuilder = useTWAEvent();
 
     const renderDepositEndPoint = pipe(
         details,
@@ -47,7 +49,8 @@ export const DepositEndPoint = ({
                                     title={'Deposit address'}
                                     node={details.address}
                                     onClcik={() => {
-                                        trackMixpanel(
+                                        trackTelemetree(
+                                            eventBuilder,
                                             'DEPOSIT_PAGE: deposit address copy click'
                                         );
                                     }}
@@ -56,7 +59,8 @@ export const DepositEndPoint = ({
                                     title={'Tag/Memo (Comment/Note)'}
                                     node={details.memo}
                                     onClcik={() => {
-                                        trackMixpanel(
+                                        trackTelemetree(
+                                            eventBuilder,
                                             'DEPOSIT_PAGE: Tag/Memo (Comment/Note) copy click'
                                         );
                                     }}
@@ -84,7 +88,10 @@ export const DepositEndPoint = ({
                                 label="Finish"
                                 to={'/'}
                                 onClick={() => {
-                                    trackMixpanel('DEPOSIT_PAGE: finish click');
+                                    trackTelemetree(
+                                        eventBuilder,
+                                        'DEPOSIT_PAGE: finish click'
+                                    );
                                 }}
                             />
                         </AppFooter>

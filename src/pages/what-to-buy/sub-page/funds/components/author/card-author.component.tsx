@@ -1,14 +1,20 @@
-import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
+import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import css from './card-author.module.css';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 const CardAuthor = () => {
+    const eventBuilder = useTWAEvent();
+
     return (
         <div className={css.card}>
             <div className={css.cardTitle}>Author</div>
             <div
                 className={css.cardContent}
                 onClick={() => {
-                    trackMixpanel('WHAT_TO_BUY_PAGE: author click');
+                    trackTelemetree(
+                        eventBuilder,
+                        'WHAT_TO_BUY_PAGE: author click'
+                    );
                 }}
             >
                 <div className={css.authorCard}>

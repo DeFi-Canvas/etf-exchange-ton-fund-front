@@ -1,7 +1,10 @@
-import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
+import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import css from './settings.module.css';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 export const Settings = () => {
+    const eventBuilder = useTWAEvent();
+
     return (
         <div className={css.cardWrapper}>
             <div className="app-container">
@@ -11,14 +14,13 @@ export const Settings = () => {
                     <div
                         className={css.cardItem}
                         onClick={() => {
-                            trackMixpanel('PROFILE_PAGE: settings event', {
-                                name: 'Language',
-                            });
-                        }}
-                        onTouchStart={() => {
-                            trackMixpanel('PROFILE_PAGE: settings event', {
-                                name: 'Local currency',
-                            });
+                            trackTelemetree(
+                                eventBuilder,
+                                'PROFILE_PAGE: settings event',
+                                {
+                                    name: 'Language',
+                                }
+                            );
                         }}
                     >
                         <span>Language</span>
@@ -27,14 +29,13 @@ export const Settings = () => {
                     <div
                         className={css.cardItem}
                         onClick={() => {
-                            trackMixpanel('PROFILE_PAGE: settings event', {
-                                name: 'Local currency',
-                            });
-                        }}
-                        onTouchStart={() => {
-                            trackMixpanel('PROFILE_PAGE: settings event', {
-                                name: 'Local currency',
-                            });
+                            trackTelemetree(
+                                eventBuilder,
+                                'PROFILE_PAGE: settings event',
+                                {
+                                    name: 'Local currency',
+                                }
+                            );
                         }}
                     >
                         <span>Local currency</span>

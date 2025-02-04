@@ -70,7 +70,6 @@ export const Assets = ({ assets, type, handleClick }: AssetsProps) => {
                                     key={asset.name}
                                     className={css.assetCardWrapper}
                                     onClick={() => onClick(asset)}
-                                    onTouchStart={() => onClick(asset)}
                                 >
                                     <AssetsCard {...formattedData(asset)} />
                                 </div>

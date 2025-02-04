@@ -7,10 +7,12 @@ import {
 import { useLocation } from 'react-router-dom';
 import css from './tab-bar.module.css';
 import cn from 'classnames';
-import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
+import { trackTelemetree } from '@/telemetree/telemetree-entry';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 const TabBar = () => {
     const { pathname } = useLocation();
+    const eventBuilder = useTWAEvent();
 
     const renderTabBar = () => {
         return (
@@ -19,7 +21,10 @@ const TabBar = () => {
                     text={'Home'}
                     to={'/'}
                     onClick={() => {
-                        trackMixpanel('MAIN_NAV_BAR: move home page', {}, true);
+                        trackTelemetree(
+                            eventBuilder,
+                            'MAIN_NAV_BAR: move home page'
+                        );
                     }}
                 >
                     <HomeIcon
@@ -30,7 +35,10 @@ const TabBar = () => {
                     text={'What to buy'}
                     to={'/what-to-buy'}
                     onClick={() => {
-                        trackMixpanel('MAIN_NAV_BAR: move wtb page', {}, true);
+                        trackTelemetree(
+                            eventBuilder,
+                            'MAIN_NAV_BAR: move wtb page'
+                        );
                     }}
                 >
                     <WhatToBuyIcon isActive={pathname === '/what-to-buy'} />
@@ -39,10 +47,9 @@ const TabBar = () => {
                     text={'Profile'}
                     to={'/profile'}
                     onClick={() => {
-                        trackMixpanel(
-                            'MAIN_NAV_BAR: move profile page',
-                            {},
-                            true
+                        trackTelemetree(
+                            eventBuilder,
+                            'MAIN_NAV_BAR: move profile page'
                         );
                     }}
                 >

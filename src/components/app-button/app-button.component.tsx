@@ -40,7 +40,6 @@ const AppButton = (props: AppButtonProps) => {
             className={classList}
             disabled={props.isDisabled}
             onClick={props.onClick}
-            onTouchStart={props.onClick}
         >
             {buttonInner}
         </button>

@@ -15,7 +15,6 @@ const PurchaseSellAssetCard = (props: PurchaseSellAssetCardProps) => {
                 [css.cardWhite]: props.isBackgroundWhite,
             })}
             onClick={props.onClick}
-            onTouchStart={props.onClick}
         >
             <img src={props.imageSrc} className={css.cardImage} />
             <div className={css.cardContent}>
