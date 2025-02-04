@@ -4,10 +4,11 @@ import { useProperty } from '@frp-ts/react';
 import { PurchaseSellStore } from '../../purchase.store';
 import { mapAssetToUICard } from '@/pages/what-to-buy/what-to-buy.model';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
-import { trackMixpanel, TrackMixpanelEvents } from '@/mixpanel/mixpanel-entry';
+import { trackTelemetree, TrackedEvents } from '@/telemetree/telemetree-entry';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 export interface BottomSheetPurchaseBodyContainerProps {
-    eventType: TrackMixpanelEvents;
+    eventType: TrackedEvents;
 }
 
 export const BottomSheetPurchaseBodyContainer = injectable(
@@ -15,6 +16,7 @@ export const BottomSheetPurchaseBodyContainer = injectable(
     (store) =>
         ({ eventType }: BottomSheetPurchaseBodyContainerProps) => {
             const assets = useProperty(store.assets);
+            const eventBuilder = useTWAEvent();
 
             return (
                 <RenderResult
@@ -25,7 +27,7 @@ export const BottomSheetPurchaseBodyContainer = injectable(
                                 mapAssetToUICard(asset, false)
                             )}
                             onClick={() => {
-                                trackMixpanel(eventType);
+                                trackTelemetree(eventBuilder, eventType);
                             }}
                         />
                     )}

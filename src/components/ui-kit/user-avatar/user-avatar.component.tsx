@@ -1,6 +1,7 @@
 import { FC, CSSProperties } from 'react';
 import css from './user-avatar.module.css';
-import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
+import { trackTelemetree } from '@/telemetree/telemetree-entry';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 type CustomCSSProperties = CSSProperties & {
     '--size'?: string;
@@ -17,16 +18,14 @@ const UserAvatar: FC<UserAvatarProps> = (props) => {
     const styleListUserAvatar: CustomCSSProperties = {
         '--size': `${props?.size ?? DEFAULT_SIZE}px`,
     };
+    const eventBuilder = useTWAEvent();
 
     return (
         <div
             className={css.userAvatar}
             style={styleListUserAvatar}
             onClick={() => {
-                trackMixpanel('PROFILE_PAGE: user click');
-            }}
-            onTouchStart={() => {
-                trackMixpanel('PROFILE_PAGE: user click');
+                trackTelemetree(eventBuilder, 'PROFILE_PAGE: user click');
             }}
         >
             <span className={css.userAvatarLetter}>{props.userNameLetter}</span>

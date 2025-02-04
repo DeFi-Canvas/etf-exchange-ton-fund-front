@@ -9,11 +9,14 @@ import React, { memo } from 'react';
 import { newNewWithdrowStore } from '../withdrow/withdrow.store';
 import { newDepositRestService } from '@/API/deposit.service';
 import { newWaletRestService } from '@/API/whalet.service';
-import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
+import { trackTelemetree } from '@/telemetree/telemetree-entry';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 export const DepositPageContainer = injectable(
     AssetsContainer,
     (AssetsContainer) => () => {
+        const eventBuilder = useTWAEvent();
+
         return (
             <div className={css.page}>
                 <div className={cn('app-container', css.pageHeader)}>
@@ -21,7 +24,10 @@ export const DepositPageContainer = injectable(
                     <SerchInput
                         placeholder="Search"
                         onClick={() =>
-                            trackMixpanel('DEPOSIT_PAGE: serch click')
+                            trackTelemetree(
+                                eventBuilder,
+                                'DEPOSIT_PAGE: serch click'
+                            )
                         }
                         trackEvent="DEPOSIT_PAGE: serch event"
                     />
@@ -30,7 +36,10 @@ export const DepositPageContainer = injectable(
                     <AssetsContainer
                         type="deposit"
                         onClick={() => {
-                            trackMixpanel('DEPOSIT_PAGE: asset click');
+                            trackTelemetree(
+                                eventBuilder,
+                                'DEPOSIT_PAGE: asset click'
+                            );
                         }}
                     />
                 </div>

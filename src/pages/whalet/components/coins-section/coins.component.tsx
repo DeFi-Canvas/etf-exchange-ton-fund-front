@@ -7,7 +7,7 @@ import { useProperty } from '@frp-ts/react';
 import { injectable } from '@injectable-ts/core';
 import React from 'react';
 import { newWhatToBuyViewModel } from '../../whalet.view-model';
-import { trackMixpanel, TrackMixpanelEvents } from '@/mixpanel/mixpanel-entry';
+import { TrackedEvents, trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 const routesInit = [
@@ -37,17 +37,10 @@ interface OperationsNavProps {
 export const OperationsNav = ({
     isTransactionAvailible,
 }: OperationsNavProps) => {
+    const eventBuilder = useTWAEvent();
     //TODO: занести это в сервис сетингс
     const [routes, setRoutes] = useState(routesInit);
-    const eventBuilder = useTWAEvent();
 
-    const handleButtonClick = () => {
-        eventBuilder.track('Button Clicked TEST', {
-            label: 'Subscribe Button', // Additional info about the button
-            category: 'User Engagement', // Categorize the event
-        });
-        console.log(123);
-    };
     return (
         <div className={css.wrap}>
             <div className={css.navLinks}>
@@ -66,17 +59,11 @@ export const OperationsNav = ({
                             })}
                             to={route.to}
                             key={route.id}
-                            // onTouchStart={() => {
-                            //     trackMixpanel(
-                            //         `WALLET_PAGE_${route.title.toUpperCase()}: ${route.title} button click` as TrackMixpanelEvents
-                            //     );
-                            //     // handleButtonClick();
-                            // }}
                             onClick={() => {
-                                // trackMixpanel(
-                                //     `WALLET_PAGE_${route.title.toUpperCase()}: ${route.title} button click` as TrackMixpanelEvents
-                                // );
-                                handleButtonClick();
+                                trackTelemetree(
+                                    eventBuilder,
+                                    `WALLET_PAGE_${route.title.toUpperCase()}: ${route.title} button click` as TrackedEvents
+                                );
                                 setRoutes((r) =>
                                     r
                                         .map((t) => ({ ...t, isActive: false }))

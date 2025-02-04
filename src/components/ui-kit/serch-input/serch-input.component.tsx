@@ -3,13 +3,14 @@ import { useCallback, useRef, useState } from 'react';
 import css from './serch-input.module.css';
 import cn from 'classnames';
 import { debounce } from '@/utils/debounce';
-import { trackMixpanel, TrackMixpanelEvents } from '@/mixpanel/mixpanel-entry';
+import { trackTelemetree, TrackedEvents } from '@/telemetree/telemetree-entry';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 export interface SerchInputProps {
     placeholder: string;
     theme?: string;
     onClick?: () => void;
-    trackEvent?: TrackMixpanelEvents;
+    trackEvent?: TrackedEvents;
 }
 
 export const SerchInput = ({
@@ -19,6 +20,7 @@ export const SerchInput = ({
 }: SerchInputProps) => {
     const [value, setValue] = useState('');
     const inputRef = useRef(null);
+    const eventBuilder = useTWAEvent();
 
     const handleClick = (e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation();
@@ -31,7 +33,7 @@ export const SerchInput = ({
     const handleDebouncedChange = useCallback(
         debounce((newValue: string) => {
             trackEvent &&
-                trackMixpanel(trackEvent, {
+                trackTelemetree(eventBuilder, trackEvent, {
                     serchInput: newValue,
                 });
         }, 400),

@@ -1,4 +1,3 @@
-import mixpanel from 'mixpanel-browser';
 import {
     BuySellPageEvent,
     DepositPageEvent,
@@ -12,7 +11,7 @@ import {
     WithdrawPageEvent,
 } from './track-events';
 
-export type TrackMixpanelEvents =
+export type TrackedEvents =
     | WalletPageEvent
     | WalletPageAssetsEvent
     | WalletPageFundsEvent
@@ -24,17 +23,17 @@ export type TrackMixpanelEvents =
     | WhatToBuyPageEvent
     | BuySellPageEvent;
 
-const MIXPANEL_TOKEN = import.meta.env.VITE_MIXPANEL_KEY;
+export interface EventBuilder {
+    track: (
+        eventName: string,
+        eventProperties: Record<string, any>
+    ) => Promise<void>;
+}
 
-export const trackMixpanel = (
-    event: TrackMixpanelEvents,
-    args?: Record<string, unknown>,
-    isLink?: boolean
+export const trackTelemetree = (
+    eventBuilder: EventBuilder,
+    event: TrackedEvents,
+    args?: Record<string, unknown>
 ) => {
-    if (MIXPANEL_TOKEN !== '' && MIXPANEL_TOKEN !== undefined) {
-        if (isLink) {
-            mixpanel.track_links('a.track-link', event, { ...args });
-        }
-        mixpanel.track(event, { ...args });
-    }
+    eventBuilder.track(event, { ...args });
 };

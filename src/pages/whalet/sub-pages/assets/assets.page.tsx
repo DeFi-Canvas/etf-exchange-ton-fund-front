@@ -7,8 +7,9 @@ import { AssetsCard } from '@/components/assets-card/assets-card.component.tsx';
 import { CoinCardData } from '@/components/assets-card/assets-card.model';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import { SkeletonCardSection } from '@/components/skeletons/skeleton-card/skeleton-card-section.component';
-import { Link, useNavigate } from 'react-router-dom';
-import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
+import { Link } from 'react-router-dom';
+import { trackTelemetree } from '@/telemetree/telemetree-entry';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 export interface AssetsProps {
     assets: E.Either<string, Array<CoinCardData>>;
@@ -33,7 +34,7 @@ const formattedData = (assets: CoinCardData) => {
 };
 
 export const Assets = ({ assets }: AssetsProps) => {
-    const navigate = useNavigate();
+    const eventBuilder = useTWAEvent();
 
     const footerSlot = () => (
         <div className={css.footerButtons}>
@@ -74,23 +75,13 @@ export const Assets = ({ assets }: AssetsProps) => {
                                         key={assets.ticker}
                                         className="track-link"
                                         onClick={() => {
-                                            trackMixpanel(
+                                            trackTelemetree(
+                                                eventBuilder,
                                                 'WALLET_PAGE_ASSETS: specific asset  click',
                                                 {
                                                     name: assets.name,
                                                     id: assets.id,
-                                                },
-                                                true
-                                            );
-                                        }}
-                                        onTouchStart={() => {
-                                            trackMixpanel(
-                                                'WALLET_PAGE_ASSETS: specific asset  click',
-                                                {
-                                                    name: assets.name,
-                                                    id: assets.id,
-                                                },
-                                                true
+                                                }
                                             );
                                         }}
                                     >

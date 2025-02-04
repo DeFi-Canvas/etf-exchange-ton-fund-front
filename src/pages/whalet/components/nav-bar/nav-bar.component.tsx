@@ -7,8 +7,9 @@ import css from './nav-bar.module.css';
 import { NavLink } from 'react-router-dom';
 import cn from 'classnames';
 import { ReactNode } from 'react';
-import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
-import { WalletPageEvent } from '@/mixpanel/track-events';
+import { trackTelemetree } from '@/telemetree/telemetree-entry';
+import { WalletPageEvent } from '@/telemetree/track-events';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 interface NavItem {
     href: string;
@@ -39,6 +40,8 @@ const navMenu: NavItem[] = [
 ];
 // TODO  доделать на ссылки
 export const NavBar = () => {
+    const eventBuilder = useTWAEvent();
+
     return (
         <div className={cn('app-container', css.navBar)}>
             {navMenu.map((navItem, index) => {
@@ -50,12 +53,8 @@ export const NavBar = () => {
                                 [css.navItemCardDisabled]: navItem.isDisabled,
                             })}
                             onClick={() => {
-                                trackMixpanel(
-                                    `WALLET_PAGE: ${navItem.title.toUpperCase()} click` as WalletPageEvent
-                                );
-                            }}
-                            onTouchStart={() => {
-                                trackMixpanel(
+                                trackTelemetree(
+                                    eventBuilder,
                                     `WALLET_PAGE: ${navItem.title.toUpperCase()} click` as WalletPageEvent
                                 );
                             }}
@@ -74,14 +73,8 @@ export const NavBar = () => {
                         className={css.navItemCard}
                         key={index}
                         onClick={() => {
-                            trackMixpanel(
-                                `WALLET_PAGE: ${navItem.title.toUpperCase()} click` as WalletPageEvent,
-                                {},
-                                true
-                            );
-                        }}
-                        onTouchStart={() => {
-                            trackMixpanel(
+                            trackTelemetree(
+                                eventBuilder,
                                 `WALLET_PAGE: ${navItem.title.toUpperCase()} click` as WalletPageEvent
                             );
                         }}
