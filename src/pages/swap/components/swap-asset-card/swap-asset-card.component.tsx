@@ -2,7 +2,7 @@ import css from './swap-asset-card.module.css';
 import { SwapAsset } from '@pages/swap/swap.model.ts';
 import cn from 'classnames';
 import { ChevronRightIcon, WalletIcon } from '@/components/Icons/Icons.tsx';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { formatNumberToUI } from '@/utils/number';
 
 export interface SwapAssetCardProps {
@@ -24,12 +24,20 @@ export const SwapAssetCard = ({
 }: SwapAssetCardProps) => {
     const textSwapCard = isFirstCard ? 'You send' : 'You receive';
     const price = `${formatNumberToUI(card.balanceInWalet)} ${card.assetName}`;
+    const [inputValue, setInputValue] = useState(() =>
+        card.currentValue > 0 ? `${card.currentValue}` : ''
+    );
 
     const onChangeFieldEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
+        setInputValue(value);
         const valueNumber = Number(value);
         onChangeField(card.id, valueNumber);
     };
+
+    useEffect(() => {
+        setInputValue(`${card.currentValue}`);
+    }, [card.currentValue]);
 
     return (
         <div className={cn(css.swapAssetCard, className)}>
@@ -73,11 +81,8 @@ export const SwapAssetCard = ({
                         className={css.field}
                         placeholder="0"
                         onChange={onChangeFieldEvent}
-                        value={
-                            card.currentValue && card.currentValue > 0
-                                ? card.currentValue
-                                : ''
-                        }
+                        value={inputValue}
+                        // value={card.currentValue > 0 ? card.currentValue : ''}
                     />
                 </div>
             </div>
