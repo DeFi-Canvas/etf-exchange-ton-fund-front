@@ -36,7 +36,11 @@ export const SwapAssetCard = ({
     };
 
     useEffect(() => {
-        setInputValue(`${card.currentValue}`);
+        if (card.currentValue > 0) {
+            setInputValue(`${card.currentValue}`);
+        } else {
+            setInputValue('');
+        }
     }, [card.currentValue]);
 
     return (
@@ -82,7 +86,6 @@ export const SwapAssetCard = ({
                         placeholder="0"
                         onChange={onChangeFieldEvent}
                         value={inputValue}
-                        // value={card.currentValue > 0 ? card.currentValue : ''}
                     />
                 </div>
             </div>
