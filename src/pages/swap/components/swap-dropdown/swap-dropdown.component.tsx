@@ -11,7 +11,7 @@ interface SwapDropdownProps {
 export const SwapDropdown = ({ options }: SwapDropdownProps) => {
     return (
         <div className={css.swapDropdown}>
-            <Dropdown title="Swap list" options={options} />
+            <Dropdown title="Swap details" options={options} />
         </div>
     );
 };

@@ -38,7 +38,13 @@ export const newSwapResult = injectable(
                         E.map(
                             flow(
                                 A.map((asset) => asset.assetName),
-                                A.reduce('', (acc, curr) => `${acc} to ${curr}`)
+                                A.reduceWithIndex('', (i, acc, curr) => {
+                                    if (i === 0) {
+                                        return `${curr}`;
+                                    } else {
+                                        return `${acc} to ${curr}`;
+                                    }
+                                })
                             )
                         ),
                         E.fold(constant(''), identity),
