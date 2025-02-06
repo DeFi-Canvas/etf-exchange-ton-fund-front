@@ -25,6 +25,7 @@ export interface SwapAsset {
     currentValue: number;
     balanceInWalet: number;
     valueInStableCoin?: string;
+    hasError: boolean;
 }
 
 export interface FiltrebleSwapAsset extends Asset {
@@ -51,6 +52,7 @@ export const mapAssetToSwapAsset = (asset: Asset): SwapAsset => ({
     balanceInWalet: asset.balance ?? 0,
     currentValue: 0,
     valueInStableCoin: `≈ $ 0`,
+    hasError: false,
 });
 
 export interface AssetsUIFiltreble

@@ -148,7 +148,7 @@ export const newSwapStore = injectable(
                 E.map((assets) => {
                     return pipe(
                         assets,
-                        A.map((asset) => {
+                        A.mapWithIndex((i, asset) => {
                             if (asset.id === id) {
                                 const newAsset = {
                                     ...asset,
@@ -159,6 +159,10 @@ export const newSwapStore = injectable(
                                     valueInStableCoin: formatValueInStableCoin(
                                         value * asset.price
                                     ),
+                                    hasError:
+                                        i === 0
+                                            ? newAsset.balanceInWalet < value
+                                            : false,
                                 };
                             } else {
                                 return {

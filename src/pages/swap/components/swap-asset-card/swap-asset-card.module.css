@@ -101,6 +101,9 @@
     );
     pointer-events: none;
 }
+.fieldWrapperError {
+    color: var(--color-system-red);
+}
 
 .field {
     width: 100%;

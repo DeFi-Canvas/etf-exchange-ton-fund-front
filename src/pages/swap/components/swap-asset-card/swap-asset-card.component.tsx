@@ -82,7 +82,9 @@ export const SwapAssetCard = ({
                 <div className={css.fieldWrapper}>
                     <input
                         type="number"
-                        className={css.field}
+                        className={cn(css.field, {
+                            [css.fieldWrapperError]: card.hasError,
+                        })}
                         placeholder="0"
                         onChange={onChangeFieldEvent}
                         value={inputValue}
