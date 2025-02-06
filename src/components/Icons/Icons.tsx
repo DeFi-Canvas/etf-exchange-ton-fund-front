@@ -45,6 +45,11 @@ import ArrowSwap from '@/assets/icons/arrow-swap.svg?react';
 import Gift from '@/assets/icons/gift.svg?react';
 import Trash from '@/assets/icons/trash.svg?react';
 import ErrorSolid from '@/assets/icons/error-solid.svg?react';
+import Document from '@/assets/icons/strategy/document.svg?react';
+import CoinsDollar from '@/assets/icons/strategy/coins-dollar.svg?react';
+import Percent from '@/assets/icons/strategy/percent.svg?react';
+import CheckList from '@/assets/icons/strategy/check-list.svg?react';
+import DepositDollar from '@/assets/icons/strategy/deposit-dollar.svg?react';
 
 import { TTransactionStatus } from '@/pages/whalet/components/transaction/types';
 
@@ -260,3 +265,25 @@ export const ErrorSolidIcon = ({ className = '' }: { className?: string }) => (
 export const SwapSolidIcon = ({ className = '' }: { className?: string }) => (
     <Swap className={className} />
 );
+
+export const DocumentIcon = ({ className = '' }: { className?: string }) => (
+    <Document className={className} />
+);
+
+export const CoinsDollarIcon = ({ className = '' }: { className?: string }) => (
+    <CoinsDollar className={className} />
+);
+
+export const PercentIcon = ({ className = '' }: { className?: string }) => (
+    <Percent className={className} />
+);
+
+export const CheckListIcon = ({ className = '' }: { className?: string }) => (
+    <CheckList className={className} />
+);
+
+export const DepositDollarIcon = ({
+    className = '',
+}: {
+    className?: string;
+}) => <DepositDollar className={className} />;

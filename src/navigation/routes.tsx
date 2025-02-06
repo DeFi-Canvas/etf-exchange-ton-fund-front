@@ -4,13 +4,13 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { newNewUserStoreService } from '@/store/user.store';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useInitData } from '@telegram-apps/sdk-react';
-import { SwapPage } from '@/pages/swap/swap.page';
 import { getContainers } from './containers';
 import { indexRouter } from './page-routes/index-router';
 import { depositRouter } from './page-routes/deposit-router';
 import { withdrawRouter } from './page-routes/withdraw-router';
 import { whatToBuyRouter } from './page-routes/what-to-buy-router';
 import { TransactionView } from '@pages/transaction-view/transaction-view.page.tsx';
+import { strategyRouter } from '@/navigation/page-routes/strategy-router.ts';
 
 interface Route {
     path: string;
@@ -58,6 +58,7 @@ export const AppRoutes = () => {
             path: '/transaction-view',
             page: TransactionView,
         },
+        ...strategyRouter(),
     ];
 
     return (
