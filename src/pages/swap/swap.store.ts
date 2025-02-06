@@ -25,6 +25,7 @@ import {
     mapAssetToSwapAsset,
     SWAP_LIST_INFO_INIT,
     SwapAsset,
+    SwapBtnError,
     SwapResultStatus,
 } from './swap.model';
 import { createAdapter } from '@most/adapter';
@@ -61,6 +62,8 @@ export interface SwapStore {
     swapTokenOrder: () => void;
     onReset: () => void;
     onMaxClick: () => void;
+
+    swapBtnError: Property<O.Option<SwapBtnError>>;
 }
 
 export type NewSwapStore = ValueWithEffect<SwapStore>;
@@ -101,6 +104,10 @@ export const newSwapStore = injectable(
         const [onSearchAssets, onSearchAssetsEvent] = createAdapter<string>();
 
         const [onReset, onResetEvent] = createAdapter<void>();
+
+        const swapBtnError = newLensedAtom<O.Option<SwapBtnError>>(
+            O.some('EMPTY_FIELD')
+        );
 
         //#region Functions
         const closeResultBottomSheet = () => resultBottomSheetIsOpen.set(false);
@@ -650,6 +657,32 @@ export const newSwapStore = injectable(
             })
         );
 
+        const swapBtnErrorEffect = pipe(
+            swapAssets,
+            fromProperty,
+            tap((swapAssets) => {
+                pipe(
+                    swapAssets,
+                    E.chain(flow(A.head, E.fromOption(constant('error')))),
+                    E.chain((asset) => {
+                        if (asset.balanceInWalet < asset.currentValue) {
+                            return E.right('INSUFFICIENT_BALANCE');
+                        }
+                        if (asset.currentValue === 0) {
+                            return E.right('EMPTY_FIELD');
+                        }
+                        return E.left('');
+                    }),
+                    E.fold(
+                        (_) => {
+                            swapBtnError.set(O.none);
+                        },
+                        (err) => swapBtnError.set(O.some(err as SwapBtnError))
+                    )
+                );
+            })
+        );
+
         return valueWithEffect.new(
             {
                 swapAssets,
@@ -674,6 +707,7 @@ export const newSwapStore = injectable(
                 resultBottomSheetIsOpen,
                 resultStatus,
                 closeResultBottomSheet,
+                swapBtnError,
             },
             EVSEvent,
             getAssetsEffect,
@@ -682,7 +716,8 @@ export const newSwapStore = injectable(
             onAssetAddEvent,
             removeAssetEffect,
             swapListInfoChangeEffect,
-            onSearchAssetsEffetc
+            onSearchAssetsEffetc,
+            swapBtnErrorEffect
         );
     }
 );

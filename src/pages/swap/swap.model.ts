@@ -6,6 +6,16 @@ import * as A from 'fp-ts/Array';
 import * as O from 'fp-ts/Option';
 
 export type SwapResultStatus = 'SUCCESS' | 'ERROR' | 'PROGRESS';
+export type SwapBtnError = 'INSUFFICIENT_BALANCE' | 'EMPTY_FIELD';
+
+export const swapBtnErrorMap = (err: SwapBtnError) => {
+    switch (err) {
+        case 'INSUFFICIENT_BALANCE':
+            return 'Insufficient balance';
+        case 'EMPTY_FIELD':
+            return 'Swap';
+    }
+};
 
 export interface SwapAsset {
     id: string;

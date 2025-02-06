@@ -14,6 +14,7 @@ import { SwapSelectAssetContainer } from './components/swap-select-asset/swap-se
 import { SwapHeaderContainer } from './components/swap-header/swap-header.container';
 import { SwapDropdownContainer } from './components/swap-dropdown/swap-dropdown.container';
 import { SwapResultContainer } from './components/swap-result/swap-result.container';
+import { SwapFooterContainer } from './components/footer/swap-footer.container';
 
 const tabs: TabItemInterface[] = [
     {
@@ -37,12 +38,14 @@ export const SwapPage = injectable(
     SwapHeaderContainer,
     SwapDropdownContainer,
     SwapResultContainer,
+    SwapFooterContainer,
     (
         SwapCardListContainer,
         SwapSelectAssetContainer,
         SwapHeaderContainer,
         SwapDropdownContainer,
-        SwapResultContainer
+        SwapResultContainer,
+        SwapFooterContainer
     ) =>
         ({ emmitSwap, swapAssets }: SwapPageProps) => {
             // const [currentTab, setCurrentTab] = useState('singleSwap');
@@ -83,16 +86,10 @@ export const SwapPage = injectable(
                             />
                         )}
                     />
+                    <SwapFooterContainer />
                     <SwapDropdownContainer />
-                    <AppFooter>
-                        <AppButton
-                            label="Swap"
-                            isDisabled={false}
-                            onClick={emmitSwap}
-                        />
-                    </AppFooter>
-                    <SwapSelectAssetContainer />
                     <SwapResultContainer />
+                    <SwapSelectAssetContainer />
                 </div>
             );
         }
