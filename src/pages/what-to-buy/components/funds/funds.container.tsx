@@ -7,7 +7,8 @@ import { FondCardProps } from '@/components/fond-card/fond-card.component';
 import { useNavigate } from 'react-router-dom';
 import { pipe } from 'fp-ts/lib/function';
 import { FondsWrap } from './funds.component';
-import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
+import { trackTelemetree } from '@/telemetree/telemetree-entry';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 export const FondsWrapContainer = injectable(
     token('purchaseStore')<PurchaseSellStore>(),
@@ -30,15 +31,16 @@ export const FondsWrapContainer = injectable(
             );
 
             const navigate = useNavigate();
+            const eventBuilder = useTWAEvent();
 
             return React.createElement(FondsWrap, {
                 funds,
                 onClick: (id) => {
                     navigate(`/what-to-buy/fund/${id}`);
-                    trackMixpanel(
+                    trackTelemetree(
+                        eventBuilder,
                         'WHAT_TO_BUY_PAGE: Fund mowe',
-                        { id: id },
-                        true
+                        { id: id }
                     );
                 },
             });

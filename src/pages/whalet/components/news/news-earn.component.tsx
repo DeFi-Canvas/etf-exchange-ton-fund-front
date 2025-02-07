@@ -3,14 +3,20 @@ import coinSmallBlurImage from './assets/coin-small-blur.png';
 import coinBigImage from './assets/coin-big.png';
 import { ChevronRightIcon } from '@/components/Icons/Icons';
 import { Link } from 'react-router-dom';
-import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
+import { trackTelemetree } from '@/telemetree/telemetree-entry';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 export const NewsEarn = () => {
+    const eventBuilder = useTWAEvent();
+
     return (
         <div
             className={css.card}
             onClick={() => {
-                trackMixpanel('WALLET_PAGE: "earn slide" click');
+                trackTelemetree(
+                    eventBuilder,
+                    'WALLET_PAGE: "earn slide" click'
+                );
             }}
         >
             <div className={css.content}>

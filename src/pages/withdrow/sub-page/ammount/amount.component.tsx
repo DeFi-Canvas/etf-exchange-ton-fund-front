@@ -5,7 +5,8 @@ import cn from 'classnames';
 import AmountField from './amount-field/amount-field.component';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import AppButton from '@/components/app-button/app-button.component.tsx';
-import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
+import { trackTelemetree } from '@/telemetree/telemetree-entry';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 export type AmountErrors = 'too small' | 'too big';
 
@@ -38,6 +39,7 @@ export const Amount = ({
     symbolLogo,
 }: AmountProps) => {
     const [amountValue, setAmountValue] = useState<string>('');
+    const eventBuilder = useTWAEvent();
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = event.target.value;
@@ -99,10 +101,9 @@ export const Amount = ({
                 to={isNextButtonAvailable ? '/withdraw/:ticker/address' : ''}
                 className={css.button}
                 onClick={() => {
-                    trackMixpanel(
-                        'WITHDRAW_PAGE_ENTER_AMOUNT: continue click',
-                        {},
-                        true
+                    trackTelemetree(
+                        eventBuilder,
+                        'WITHDRAW_PAGE_ENTER_AMOUNT: continue click'
                     );
                 }}
             />

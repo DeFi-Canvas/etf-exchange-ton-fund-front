@@ -12,7 +12,8 @@ import { PurchaseSellAssetCardContainer } from '../components/purchase-sell-asse
 import { PurchaseSellFinishBoodySheetContainer } from '../components/purchase-sell-finish-boody-sheet/purchase-sell-finish-boody-sheet.container';
 import { useNavigate } from 'react-router-dom';
 import { PurchaseSellFooterContainer } from '../components/purchase-sell-footer/purchase-sell-footer.container';
-import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
+import { trackTelemetree } from '@/telemetree/telemetree-entry';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 interface PurchasePageProps {
     onBuy: () => void;
@@ -48,6 +49,8 @@ const PurchasePage = injectable(
             const handleToggleBottomSheet = () => {
                 setShowBottomSheet(!showBottomSheet);
             };
+            const eventBuilder = useTWAEvent();
+
             return (
                 <div className={css.page}>
                     <div className="app-container">
@@ -72,7 +75,10 @@ const PurchasePage = injectable(
                         title="Buy"
                         onClick={() => {
                             onBuy();
-                            trackMixpanel('BUY_SELL_PAGE: buy/sell click');
+                            trackTelemetree(
+                                eventBuilder,
+                                'BUY_SELL_PAGE: buy/sell click'
+                            );
                         }}
                         isLoading={isLoading}
                     />
