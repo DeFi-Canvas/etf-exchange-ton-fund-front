@@ -1,0 +1,16 @@
+/** Classes for the displayed toast **/
+.Toastify__toast {
+    width: 358px;
+    border-radius: 16px;
+    padding: 12px;
+}
+
+/** Classes for the close button. Better use your own closeButton **/
+.Toastify__close-button {
+    width: 24px;
+    height: 24px;
+    top: 12px;
+    right: 12px;
+    border: 1px solid black;
+    border-radius: 50%;
+}

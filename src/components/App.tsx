@@ -11,6 +11,7 @@ import { Router } from 'react-router-dom';
 import { AppRoutes } from '@/navigation/routes.tsx';
 import TabBar from '@/components/TabBar/TabBar.tsx';
 import { ToastContainer } from 'react-toastify';
+import { CloseReactToastify } from './toastify-components/close-button.ts/close-button.component';
 
 const PAGE_URLS = [
     '/',
@@ -58,7 +59,12 @@ export const App: FC = () => {
         <Router location={location} navigator={reactNavigator}>
             <main>
                 <AppRoutes />
-                <ToastContainer />
+                <ToastContainer
+                    position={'top-center'}
+                    hideProgressBar
+                    autoClose={1_000_000}
+                    closeButton={CloseReactToastify}
+                />
             </main>
             {isVisibleTabBar ? <TabBar /> : null}
         </Router>

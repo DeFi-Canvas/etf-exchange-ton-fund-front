@@ -1,7 +1,7 @@
-import { TTransactionStatus } from './index';
+import { TransactionStatus } from './index';
 import * as O from 'fp-ts/Option';
 
-export interface ITransaction {
+export interface Transaction {
     type: O.Option<
         | 'DEPOSIT'
         | 'WITHDRAW'
@@ -11,7 +11,7 @@ export interface ITransaction {
         | 'BUY'
         | 'SELL'
     >;
-    status: O.Option<TTransactionStatus>;
+    status: O.Option<TransactionStatus>;
     description: O.Option<string>;
     fullDate: O.Option<Date>;
     amount: O.Option<number>;

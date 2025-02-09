@@ -1,0 +1,8 @@
+.button {
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    position: absolute;
+    right: 12px;
+    top: 12px;
+}

@@ -42,8 +42,9 @@ import Wallet from '@/assets/icons/wallet.svg?react';
 import Reload from '@/assets/icons/reload.svg?react';
 import ArrowDown from '@/assets/icons/arrow-down.svg?react';
 import ArrowSwap from '@/assets/icons/arrow-swap.svg?react';
+import ToasterClose from '@/assets/icons/toaster-close.svg?react';
 
-import { TTransactionStatus } from '@/pages/whalet/components/transaction/types';
+import { TransactionStatus } from '@/pages/whalet/components/transaction/types';
 
 export const HomeIcon = ({
     className = '',
@@ -172,7 +173,7 @@ export const TransactionStatusIcon = ({
     className = '',
 }: {
     className?: string;
-    status: TTransactionStatus;
+    status: TransactionStatus;
 }) => {
     switch (status) {
         case 'BUY':
@@ -243,3 +244,9 @@ export const ArrowDownIcon = ({ className = '' }: { className?: string }) => (
 export const ArrowSwapIcon = ({ className = '' }: { className?: string }) => (
     <ArrowSwap className={className} />
 );
+
+export const ToasterCloseIcon = ({
+    className = '',
+}: {
+    className?: string;
+}) => <ToasterClose className={className} />;
