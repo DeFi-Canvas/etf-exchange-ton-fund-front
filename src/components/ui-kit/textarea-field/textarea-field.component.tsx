@@ -44,7 +44,17 @@ export const TextareaField = ({
             />
             {limitWordMin && limitWordMax && (
                 <div className="ms-auto">
-                    {currentCountWord} / {limitWordMin}-{limitWordMax}
+                    <span
+                        className={cn({
+                            ['color-system-green']:
+                                currentCountWord > 0 &&
+                                currentCountWord >= limitWordMin &&
+                                currentCountWord <= limitWordMax,
+                        })}
+                    >
+                        {currentCountWord}
+                    </span>
+                    / {limitWordMin}-{limitWordMax}
                 </div>
             )}
         </div>

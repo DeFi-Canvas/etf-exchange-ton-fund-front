@@ -5,3 +5,7 @@
 .color-main-purple {
     color: var(--color-main-purple);
 }
+
+.color-system-green {
+    color: var(--color-system-green);
+}

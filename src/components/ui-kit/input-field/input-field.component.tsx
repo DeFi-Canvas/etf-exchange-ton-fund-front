@@ -40,7 +40,16 @@ export const InputField = ({
             />
             {limitWord > 0 && (
                 <div className="ms-auto">
-                    {currentCountWord} / {limitWord}
+                    <span
+                        className={cn({
+                            ['color-system-green']:
+                                currentCountWord > 0 &&
+                                currentCountWord <= limitWord,
+                        })}
+                    >
+                        {currentCountWord}
+                    </span>
+                    / {limitWord}
                 </div>
             )}
         </div>
