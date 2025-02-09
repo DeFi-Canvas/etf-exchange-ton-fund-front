@@ -34,7 +34,7 @@ export const StrategyStepsPage = () => {
             id: 1,
             name: 'Strategy basics',
             icon: <DocumentIcon />,
-            isCompleted: false,
+            isCompleted: true,
             isAllowed: true,
             path: '/strategy/basics',
         },
@@ -43,7 +43,7 @@ export const StrategyStepsPage = () => {
             name: 'Assets inside',
             icon: <CoinsDollarIcon />,
             isCompleted: false,
-            isAllowed: false,
+            isAllowed: true,
             path: '/strategy/assets-inside',
         },
         {
