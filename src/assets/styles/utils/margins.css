@@ -30,3 +30,9 @@
 .ms-3 { margin-inline-start: calc(var(--ds-step) * 3); }
 .ms-4 { margin-inline-start: calc(var(--ds-step) * 4); }
 .ms-5 { margin-inline-start: calc(var(--ds-step) * 5); }
+
+/* margin-* auto */
+.mt-auto { margin-top: auto; }
+.me-auto { margin-inline-end: auto }
+.mb-auto { margin-bottom: auto }
+.ms-auto { margin-inline-start: auto }
