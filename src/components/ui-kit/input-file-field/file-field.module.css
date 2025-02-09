@@ -1,0 +1,67 @@
+.wrapper {
+    position: relative;
+    padding-bottom: 24px;
+}
+
+.imageWrapper {
+    --size: 160px;
+    width: 100%;
+    height: var(--size);
+    border-radius: calc(var(--size) / 10);
+    overflow: hidden;
+    margin-inline: auto;
+}
+
+.imageWrapper.rounded {
+    width: var(--size);
+    border-radius: 50%;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.imageEmpty {
+    background-color: var(--color-main-purple-10);
+    border: 1px dashed var(--color-main-purple);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    text-align: center;
+    height: 100%;
+    border-radius: inherit;
+}
+
+.labelFileField {
+    cursor: pointer;
+}
+
+.originFileField {
+    display: none;
+}
+
+.buttonFileField {
+    --size: 48px;
+    width: var(--size);
+    height: var(--size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-background-white);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.08);
+    border-radius: 50%;
+    position: absolute;
+    left: calc(50% - var(--size) / 2);
+    bottom: 24px;
+    transform: translateY(50%);
+}
+
+.buttonFileField svg {
+    --size: 24px;
+    width: var(--size);
+    height: var(--size);
+}

@@ -2,7 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import css from './footer.module.css';
 import cn from 'classnames';
 import AppButton from '@/components/app-button/app-button.component.tsx';
-import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
+import { trackTelemetree } from '@/telemetree/telemetree-entry';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 interface FooterProps {
     balanceAfter: number;
@@ -18,9 +19,14 @@ export const Footer = ({
     onWithdrow,
 }: FooterProps) => {
     const navigate = useNavigate();
+    const eventBuilder = useTWAEvent();
+
     const onClick = () => {
         onWithdrow();
-        trackMixpanel('WITHDRAW_PAGE_CHECK: submit and withdraw click');
+        trackTelemetree(
+            eventBuilder,
+            'WITHDRAW_PAGE_CHECK: submit and withdraw click'
+        );
         navigate('/withdraw/:ticker/address/final');
     };
 

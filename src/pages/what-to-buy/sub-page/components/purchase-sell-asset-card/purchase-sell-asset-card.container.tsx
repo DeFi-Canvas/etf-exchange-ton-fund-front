@@ -9,11 +9,12 @@ import { PurchaseSellStore } from '../../purchase/purchase.store';
 import PurchaseSellAssetCard from './purchase-sell-asset-card.component';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import SkeletonCard from '@/components/skeletons/skeleton-card/skeleton-card.component';
-import { trackMixpanel, TrackMixpanelEvents } from '@/mixpanel/mixpanel-entry';
+import { trackTelemetree, TrackedEvents } from '@/telemetree/telemetree-entry';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 interface PurchaseSellAssetCardContainerProps {
     type: PageType;
-    eventType: TrackMixpanelEvents;
+    eventType: TrackedEvents;
 }
 
 export const PurchaseSellAssetCardContainer = injectable(
@@ -21,6 +22,7 @@ export const PurchaseSellAssetCardContainer = injectable(
     (store) =>
         ({ type, eventType }: PurchaseSellAssetCardContainerProps) => {
             const fund = useProperty(store.fundData);
+            const eventBuilder = useTWAEvent();
 
             return (
                 <RenderResult
@@ -39,7 +41,7 @@ export const PurchaseSellAssetCardContainer = injectable(
                                     store.setIsBottomPanel(
                                         !isAssetAvailible(type)
                                     );
-                                    trackMixpanel(eventType);
+                                    trackTelemetree(eventBuilder, eventType);
                                 }}
                             />
                         );
