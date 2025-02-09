@@ -3,8 +3,12 @@ import cn from 'classnames';
 import { FileField } from '@/components/ui-kit/file-field/file-field.component.tsx';
 import { InputField } from '@/components/ui-kit/input-field/input-field.component.tsx';
 import { TextareaField } from '@/components/ui-kit/textarea-field/textarea-field.component.tsx';
+import AppFooter from '@/components/app-footer/app-footer.components.tsx';
+import AppButton from '@/components/app-button/app-button.component.tsx';
 
 export const StrategyBasics = () => {
+    const saveIsDisabled = true;
+
     return (
         <div className={css.page}>
             <header className={'app-container'}>
@@ -29,7 +33,19 @@ export const StrategyBasics = () => {
                     limitWordMin={180}
                     limitWordMax={400}
                 />
+                <InputField
+                    className="mt-5"
+                    label="Strategy ticker *"
+                    placeholder="TONSTRATEGY"
+                />
             </div>
+            <AppFooter>
+                <AppButton
+                    label="Save"
+                    isDisabled={saveIsDisabled}
+                    to={'/strategy'}
+                />
+            </AppFooter>
         </div>
     );
 };
