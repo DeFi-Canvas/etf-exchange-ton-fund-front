@@ -1,0 +1,64 @@
+.page {
+    padding-block: 32px;
+}
+
+.body {
+    margin-top: 32px;
+    padding: 32px 16px;
+    border-radius: 24px;
+    background-color: var(--color-background-white);
+}
+
+.assetsList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+    height: 75vh;
+    overflow: auto;
+}
+
+.selectedAssetCard {
+    position: relative;
+}
+
+.buttonCancelSelectedAsset {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+}
+
+.assetFilledWrapper {
+    height: 184px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.keyboard {
+    display: grid;
+    grid-template-columns: repeat(3, 48px);
+    row-gap: 4px;
+    column-gap: 65px;
+    margin-inline: auto;
+    width: fit-content;
+}
+
+.keyboardButton {
+    --size: 48px;
+    width: var(--size);
+    height: var(--size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background-color: transparent;
+    font-weight: 590;
+    font-size: 24px;
+    line-height: 1.3;
+    text-align: center;
+}

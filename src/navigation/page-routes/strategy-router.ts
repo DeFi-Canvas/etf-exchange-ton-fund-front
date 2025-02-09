@@ -1,6 +1,6 @@
 import { StrategyStepsPage } from '@pages/strategy/steps/steps.page.tsx';
 import { StrategyBasics } from '@pages/strategy/strategy-basics/strategy-basics.page.tsx';
-import { StrategyAssetsInside } from '@pages/strategy/strategy-assets-inside.page.tsx';
+import { StrategyAssetsInside } from '@pages/strategy/strategy-assets-inside/strategy-assets-inside.page.tsx';
 import { StrategyFees } from '@pages/strategy/strategy-fees.page.tsx';
 import { StrategyPreview } from '@pages/strategy/strategy-preview.page.tsx';
 import { StrategyFirstInvestment } from '@pages/strategy/strategy-first-investment.page.tsx';
