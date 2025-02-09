@@ -51,6 +51,7 @@ import Percent from '@/assets/icons/strategy/percent.svg?react';
 import CheckList from '@/assets/icons/strategy/check-list.svg?react';
 import DepositDollar from '@/assets/icons/strategy/deposit-dollar.svg?react';
 import AddImage from '@/assets/icons/add-image.svg?react';
+import Delete from '@/assets/icons/delete.svg?react';
 
 import { TTransactionStatus } from '@/pages/whalet/components/transaction/types';
 
@@ -291,4 +292,8 @@ export const DepositDollarIcon = ({
 
 export const AddImageIcon = ({ className = '' }: { className?: string }) => (
     <AddImage className={className} />
+);
+
+export const DeleteIcon = ({ className = '' }: { className?: string }) => (
+    <Delete className={className} />
 );
