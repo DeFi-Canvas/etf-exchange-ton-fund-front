@@ -2,6 +2,7 @@ import css from './strategy-basics.module.css';
 import cn from 'classnames';
 import { FileField } from '@/components/ui-kit/file-field/file-field.component.tsx';
 import { InputField } from '@/components/ui-kit/input-field/input-field.component.tsx';
+import { TextareaField } from '@/components/ui-kit/textarea-field/textarea-field.component.tsx';
 
 export const StrategyBasics = () => {
     return (
@@ -20,6 +21,13 @@ export const StrategyBasics = () => {
                     label="Strategy name *"
                     placeholder="Best of the best"
                     limitWord={40}
+                />
+                <TextareaField
+                    className="mt-5"
+                    label="Strategy description *"
+                    placeholder="Best of the best"
+                    limitWordMin={180}
+                    limitWordMax={400}
                 />
             </div>
         </div>
