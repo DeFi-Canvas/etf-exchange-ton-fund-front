@@ -8,7 +8,6 @@ import { Tabs } from '@/components/ui-kit/tabs/tabs.component.tsx';
 import { TabItemInterface } from '@/components/ui-kit/tabs/tabs.model.ts';
 import { AssetsCard } from '@/components/assets-card/assets-card.component.tsx';
 import { Chip } from '@/components/chip/chip.component.tsx';
-import AmountFieldComponent from '@withdrow/sub-page/ammount/amount-field/amount-field.component.tsx';
 import { DeleteIcon } from '@/components/Icons/Icons.tsx';
 
 // MOCK
@@ -141,12 +140,10 @@ export const StrategyAssetsInside = () => {
                     />
                 </div>
                 <div className={css.assetFilledWrapper}>
-                    <AmountFieldComponent
-                        value={amountValue}
-                        handleChange={() => {}}
-                        currency={'%'}
-                        isError={false}
-                    />
+                    <div className={cn('h1', css.amountValue)}>
+                        {amountValue}
+                        <span className={css.amountPercent}>%</span>
+                    </div>
                     <div>{100 - Number(amountValue)}% left</div>
                 </div>
                 <div className={css.keyboard}>
