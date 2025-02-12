@@ -60,7 +60,7 @@ export const newSwapRestService = injectable(
                     swapApi.swapInitiatePost({
                         amount,
                         tokens,
-                        telegram_id: `${telegram_id ?? 0}`,
+                        telegram_id: telegram_id ?? 0,
                     }),
                     swapInitiateCodec
                 ),

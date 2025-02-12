@@ -878,21 +878,65 @@ export interface ModelsWalletBalance {
 /**
  * 
  * @export
- * @interface ServerDepositRequest
+ * @interface ServerDedustDepositRequest
  */
-export interface ServerDepositRequest {
+export interface ServerDedustDepositRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof ServerDedustDepositRequest
+     */
+    'amount0'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ServerDedustDepositRequest
+     */
+    'amount1'?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof ServerDedustDepositRequest
+     */
+    'tokens'?: Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface ServerDedustWithdrawRequest
+ */
+export interface ServerDedustWithdrawRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof ServerDedustWithdrawRequest
+     */
+    'amount'?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof ServerDedustWithdrawRequest
+     */
+    'tokens'?: Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface ServerStormDepositRequest
+ */
+export interface ServerStormDepositRequest {
     /**
      * 
      * @type {number}
-     * @memberof ServerDepositRequest
+     * @memberof ServerStormDepositRequest
      */
-    'amount0'?: number;
+    'amount'?: number;
     /**
      * 
-     * @type {number}
-     * @memberof ServerDepositRequest
+     * @type {string}
+     * @memberof ServerStormDepositRequest
      */
-    'amount1'?: number;
+    'ticker'?: string;
 }
 /**
  * 
@@ -908,10 +952,10 @@ export interface ServerSwapRequest {
     'amount'?: number;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof ServerSwapRequest
      */
-    'telegram_id'?: string;
+    'telegram_id'?: number;
     /**
      * 
      * @type {Array<string>}
@@ -1166,9 +1210,9 @@ export class AssetsApi extends BaseAPI {
 export const AssetssApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Получить информацию об активе по его идентификатору
+         * Получить информацию об активе по его идентификатору или тикеру
          * @summary Get asset by ID
-         * @param {string} assetId Идентификатор актива
+         * @param {string} assetId Идентификатор актива или тикер
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1210,9 +1254,9 @@ export const AssetssApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = AssetssApiAxiosParamCreator(configuration)
     return {
         /**
-         * Получить информацию об активе по его идентификатору
+         * Получить информацию об активе по его идентификатору или тикеру
          * @summary Get asset by ID
-         * @param {string} assetId Идентификатор актива
+         * @param {string} assetId Идентификатор актива или тикер
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1233,9 +1277,9 @@ export const AssetssApiFactory = function (configuration?: Configuration, basePa
     const localVarFp = AssetssApiFp(configuration)
     return {
         /**
-         * Получить информацию об активе по его идентификатору
+         * Получить информацию об активе по его идентификатору или тикеру
          * @summary Get asset by ID
-         * @param {string} assetId Идентификатор актива
+         * @param {string} assetId Идентификатор актива или тикер
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1253,9 +1297,9 @@ export const AssetssApiFactory = function (configuration?: Configuration, basePa
  */
 export class AssetssApi extends BaseAPI {
     /**
-     * Получить информацию об активе по его идентификатору
+     * Получить информацию об активе по его идентификатору или тикеру
      * @summary Get asset by ID
-     * @param {string} assetId Идентификатор актива
+     * @param {string} assetId Идентификатор актива или тикер
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AssetssApi
@@ -1276,11 +1320,11 @@ export const DeDustApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * Deposit native and jetton tokens into DeDust liquidity pool
          * @summary Deposit liquidity on DeDust
-         * @param {ServerDepositRequest} request Deposit request body
+         * @param {ServerDedustDepositRequest} request Deposit request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        dedustLiquidityDepositPost: async (request: ServerDepositRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        dedustLiquidityDepositPost: async (request: ServerDedustDepositRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'request' is not null or undefined
             assertParamExists('dedustLiquidityDepositPost', 'request', request)
             const localVarPath = `/dedust/liquidity/deposit`;
@@ -1312,13 +1356,13 @@ export const DeDustApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * Withdraw liquidity from DeDust liquidity pool
          * @summary Withdraw liquidity from DeDust
-         * @param {number} amount Amount for deposit
+         * @param {ServerDedustWithdrawRequest} request Withdraw Request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        dedustLiquidityWithdrawPost: async (amount: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'amount' is not null or undefined
-            assertParamExists('dedustLiquidityWithdrawPost', 'amount', amount)
+        dedustLiquidityWithdrawPost: async (request: ServerDedustWithdrawRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('dedustLiquidityWithdrawPost', 'request', request)
             const localVarPath = `/dedust/liquidity/withdraw`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1331,15 +1375,14 @@ export const DeDustApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (amount !== undefined) {
-                localVarQueryParameter['amount'] = amount;
-            }
-
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1359,11 +1402,11 @@ export const DeDustApiFp = function(configuration?: Configuration) {
         /**
          * Deposit native and jetton tokens into DeDust liquidity pool
          * @summary Deposit liquidity on DeDust
-         * @param {ServerDepositRequest} request Deposit request body
+         * @param {ServerDedustDepositRequest} request Deposit request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async dedustLiquidityDepositPost(request: ServerDepositRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
+        async dedustLiquidityDepositPost(request: ServerDedustDepositRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.dedustLiquidityDepositPost(request, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DeDustApi.dedustLiquidityDepositPost']?.[localVarOperationServerIndex]?.url;
@@ -1372,12 +1415,12 @@ export const DeDustApiFp = function(configuration?: Configuration) {
         /**
          * Withdraw liquidity from DeDust liquidity pool
          * @summary Withdraw liquidity from DeDust
-         * @param {number} amount Amount for deposit
+         * @param {ServerDedustWithdrawRequest} request Withdraw Request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async dedustLiquidityWithdrawPost(amount: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.dedustLiquidityWithdrawPost(amount, options);
+        async dedustLiquidityWithdrawPost(request: ServerDedustWithdrawRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.dedustLiquidityWithdrawPost(request, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DeDustApi.dedustLiquidityWithdrawPost']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -1395,22 +1438,22 @@ export const DeDustApiFactory = function (configuration?: Configuration, basePat
         /**
          * Deposit native and jetton tokens into DeDust liquidity pool
          * @summary Deposit liquidity on DeDust
-         * @param {ServerDepositRequest} request Deposit request body
+         * @param {ServerDedustDepositRequest} request Deposit request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        dedustLiquidityDepositPost(request: ServerDepositRequest, options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any; }> {
+        dedustLiquidityDepositPost(request: ServerDedustDepositRequest, options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any; }> {
             return localVarFp.dedustLiquidityDepositPost(request, options).then((request) => request(axios, basePath));
         },
         /**
          * Withdraw liquidity from DeDust liquidity pool
          * @summary Withdraw liquidity from DeDust
-         * @param {number} amount Amount for deposit
+         * @param {ServerDedustWithdrawRequest} request Withdraw Request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        dedustLiquidityWithdrawPost(amount: number, options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any; }> {
-            return localVarFp.dedustLiquidityWithdrawPost(amount, options).then((request) => request(axios, basePath));
+        dedustLiquidityWithdrawPost(request: ServerDedustWithdrawRequest, options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any; }> {
+            return localVarFp.dedustLiquidityWithdrawPost(request, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1425,25 +1468,25 @@ export class DeDustApi extends BaseAPI {
     /**
      * Deposit native and jetton tokens into DeDust liquidity pool
      * @summary Deposit liquidity on DeDust
-     * @param {ServerDepositRequest} request Deposit request body
+     * @param {ServerDedustDepositRequest} request Deposit request body
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DeDustApi
      */
-    public dedustLiquidityDepositPost(request: ServerDepositRequest, options?: RawAxiosRequestConfig) {
+    public dedustLiquidityDepositPost(request: ServerDedustDepositRequest, options?: RawAxiosRequestConfig) {
         return DeDustApiFp(this.configuration).dedustLiquidityDepositPost(request, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Withdraw liquidity from DeDust liquidity pool
      * @summary Withdraw liquidity from DeDust
-     * @param {number} amount Amount for deposit
+     * @param {ServerDedustWithdrawRequest} request Withdraw Request body
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DeDustApi
      */
-    public dedustLiquidityWithdrawPost(amount: number, options?: RawAxiosRequestConfig) {
-        return DeDustApiFp(this.configuration).dedustLiquidityWithdrawPost(amount, options).then((request) => request(this.axios, this.basePath));
+    public dedustLiquidityWithdrawPost(request: ServerDedustWithdrawRequest, options?: RawAxiosRequestConfig) {
+        return DeDustApiFp(this.configuration).dedustLiquidityWithdrawPost(request, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -1941,6 +1984,259 @@ export class NewsApi extends BaseAPI {
 
 
 /**
+ * StormApi - axios parameter creator
+ * @export
+ */
+export const StormApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Calculate APR based on deposited tokens and LP token supply
+         * @summary Get current APR for Storm deposit
+         * @param {string} ticker Token symbol (e.g., \&#39;USDT\&#39;, \&#39;TON\&#39;, etc.)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        stormAprGet: async (ticker: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'ticker' is not null or undefined
+            assertParamExists('stormAprGet', 'ticker', ticker)
+            const localVarPath = `/storm/apr`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (ticker !== undefined) {
+                localVarQueryParameter['ticker'] = ticker;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Deposit native or jetton tokens into Storm liquidity pool
+         * @summary Deposit liquidity on Storm
+         * @param {ServerStormDepositRequest} request Deposit request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        stormLiquidityDepositPost: async (request: ServerStormDepositRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('stormLiquidityDepositPost', 'request', request)
+            const localVarPath = `/storm/liquidity/deposit`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Withdraw LP tokens from Storm liquidity pool
+         * @summary Withdraw liquidity from Storm
+         * @param {ServerStormDepositRequest} request Deposit request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        stormLiquidityWithdrawPost: async (request: ServerStormDepositRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('stormLiquidityWithdrawPost', 'request', request)
+            const localVarPath = `/storm/liquidity/withdraw`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * StormApi - functional programming interface
+ * @export
+ */
+export const StormApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = StormApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Calculate APR based on deposited tokens and LP token supply
+         * @summary Get current APR for Storm deposit
+         * @param {string} ticker Token symbol (e.g., \&#39;USDT\&#39;, \&#39;TON\&#39;, etc.)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async stormAprGet(ticker: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.stormAprGet(ticker, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['StormApi.stormAprGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Deposit native or jetton tokens into Storm liquidity pool
+         * @summary Deposit liquidity on Storm
+         * @param {ServerStormDepositRequest} request Deposit request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async stormLiquidityDepositPost(request: ServerStormDepositRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.stormLiquidityDepositPost(request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['StormApi.stormLiquidityDepositPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Withdraw LP tokens from Storm liquidity pool
+         * @summary Withdraw liquidity from Storm
+         * @param {ServerStormDepositRequest} request Deposit request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async stormLiquidityWithdrawPost(request: ServerStormDepositRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.stormLiquidityWithdrawPost(request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['StormApi.stormLiquidityWithdrawPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * StormApi - factory interface
+ * @export
+ */
+export const StormApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = StormApiFp(configuration)
+    return {
+        /**
+         * Calculate APR based on deposited tokens and LP token supply
+         * @summary Get current APR for Storm deposit
+         * @param {string} ticker Token symbol (e.g., \&#39;USDT\&#39;, \&#39;TON\&#39;, etc.)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        stormAprGet(ticker: string, options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any; }> {
+            return localVarFp.stormAprGet(ticker, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Deposit native or jetton tokens into Storm liquidity pool
+         * @summary Deposit liquidity on Storm
+         * @param {ServerStormDepositRequest} request Deposit request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        stormLiquidityDepositPost(request: ServerStormDepositRequest, options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any; }> {
+            return localVarFp.stormLiquidityDepositPost(request, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Withdraw LP tokens from Storm liquidity pool
+         * @summary Withdraw liquidity from Storm
+         * @param {ServerStormDepositRequest} request Deposit request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        stormLiquidityWithdrawPost(request: ServerStormDepositRequest, options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any; }> {
+            return localVarFp.stormLiquidityWithdrawPost(request, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * StormApi - object-oriented interface
+ * @export
+ * @class StormApi
+ * @extends {BaseAPI}
+ */
+export class StormApi extends BaseAPI {
+    /**
+     * Calculate APR based on deposited tokens and LP token supply
+     * @summary Get current APR for Storm deposit
+     * @param {string} ticker Token symbol (e.g., \&#39;USDT\&#39;, \&#39;TON\&#39;, etc.)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StormApi
+     */
+    public stormAprGet(ticker: string, options?: RawAxiosRequestConfig) {
+        return StormApiFp(this.configuration).stormAprGet(ticker, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Deposit native or jetton tokens into Storm liquidity pool
+     * @summary Deposit liquidity on Storm
+     * @param {ServerStormDepositRequest} request Deposit request body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StormApi
+     */
+    public stormLiquidityDepositPost(request: ServerStormDepositRequest, options?: RawAxiosRequestConfig) {
+        return StormApiFp(this.configuration).stormLiquidityDepositPost(request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Withdraw LP tokens from Storm liquidity pool
+     * @summary Withdraw liquidity from Storm
+     * @param {ServerStormDepositRequest} request Deposit request body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StormApi
+     */
+    public stormLiquidityWithdrawPost(request: ServerStormDepositRequest, options?: RawAxiosRequestConfig) {
+        return StormApiFp(this.configuration).stormLiquidityWithdrawPost(request, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
  * StreamApi - axios parameter creator
  * @export
  */
@@ -1949,15 +2245,15 @@ export const StreamApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * Open a server-sent events (SSE) stream for a user
          * @summary Open a stream
-         * @param {string} userId User ID
+         * @param {string} telegramId User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        streamUserIdGet: async (userId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'userId' is not null or undefined
-            assertParamExists('streamUserIdGet', 'userId', userId)
-            const localVarPath = `/stream/{user_id}`
-                .replace(`{${"user_id"}}`, encodeURIComponent(String(userId)));
+        streamTelegramIdGet: async (telegramId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'telegramId' is not null or undefined
+            assertParamExists('streamTelegramIdGet', 'telegramId', telegramId)
+            const localVarPath = `/stream/{telegram_id}`
+                .replace(`{${"telegram_id"}}`, encodeURIComponent(String(telegramId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1993,14 +2289,14 @@ export const StreamApiFp = function(configuration?: Configuration) {
         /**
          * Open a server-sent events (SSE) stream for a user
          * @summary Open a stream
-         * @param {string} userId User ID
+         * @param {string} telegramId User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async streamUserIdGet(userId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.streamUserIdGet(userId, options);
+        async streamTelegramIdGet(telegramId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.streamTelegramIdGet(telegramId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['StreamApi.streamUserIdGet']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['StreamApi.streamTelegramIdGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -2016,12 +2312,12 @@ export const StreamApiFactory = function (configuration?: Configuration, basePat
         /**
          * Open a server-sent events (SSE) stream for a user
          * @summary Open a stream
-         * @param {string} userId User ID
+         * @param {string} telegramId User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        streamUserIdGet(userId: string, options?: RawAxiosRequestConfig): AxiosPromise<string> {
-            return localVarFp.streamUserIdGet(userId, options).then((request) => request(axios, basePath));
+        streamTelegramIdGet(telegramId: string, options?: RawAxiosRequestConfig): AxiosPromise<string> {
+            return localVarFp.streamTelegramIdGet(telegramId, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -2036,13 +2332,13 @@ export class StreamApi extends BaseAPI {
     /**
      * Open a server-sent events (SSE) stream for a user
      * @summary Open a stream
-     * @param {string} userId User ID
+     * @param {string} telegramId User ID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StreamApi
      */
-    public streamUserIdGet(userId: string, options?: RawAxiosRequestConfig) {
-        return StreamApiFp(this.configuration).streamUserIdGet(userId, options).then((request) => request(this.axios, this.basePath));
+    public streamTelegramIdGet(telegramId: string, options?: RawAxiosRequestConfig) {
+        return StreamApiFp(this.configuration).streamTelegramIdGet(telegramId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
