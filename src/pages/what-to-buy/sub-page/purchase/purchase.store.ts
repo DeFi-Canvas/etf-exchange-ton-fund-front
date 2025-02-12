@@ -102,8 +102,14 @@ export const newPurchaseSellStore = injectable(
                     assets.set(assetsResponce);
                     pipe(
                         assetsResponce,
+                        E.chain(
+                            flow(
+                                A.findFirst((x) => x.name === 'TON'),
+                                E.fromOption(constant('ERROR'))
+                            )
+                        ),
                         E.fold(constVoid, (x) => {
-                            selectedAssetsId.set(x[0].id);
+                            selectedAssetsId.set(x.id);
                         })
                     );
                 })
