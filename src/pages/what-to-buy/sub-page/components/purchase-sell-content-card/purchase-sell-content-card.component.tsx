@@ -56,6 +56,7 @@ const PurchaseSellContentCard = injectable(
                                 success={(assetCardData) => (
                                     <PurchaseSellAssetCard
                                         {...assetCardData}
+                                        allowedOpen={false}
                                         onClick={() => {
                                             onClick();
                                             trackTelemetree(
