@@ -4,3 +4,18 @@
     font-size: 32px;
     line-height: 1.3;
 }
+
+.body-m-regular {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-text-dark-70)
+}
+
+.body-m-medium {
+    font-style: normal;
+    font-weight: 510;
+    font-size: 14px;
+    line-height: 1.5;
+}

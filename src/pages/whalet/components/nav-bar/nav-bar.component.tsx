@@ -6,17 +6,19 @@ import {
     DepositSwapIcon,
 } from '@/components/Icons/Icons';
 import css from './nav-bar.module.css';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import cn from 'classnames';
 import { ReactNode } from 'react';
-import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
-import { WalletPageEvent } from '@/mixpanel/track-events';
+import { trackTelemetree } from '@/telemetree/telemetree-entry';
+import { WalletPageEvent } from '@/telemetree/track-events';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 interface NavItem {
     href: string;
     isDisabled: boolean;
     title: string;
     icon: ReactNode;
+    isExternal: boolean;
 }
 
 const navMenu: NavItem[] = [
@@ -25,28 +27,34 @@ const navMenu: NavItem[] = [
         isDisabled: false,
         title: 'Deposit',
         icon: <DepositDepositIcon />,
+        isExternal: false,
     },
     {
         href: 'swap',
         isDisabled: false,
         title: 'Swap',
         icon: <DepositSwapIcon />,
+        isExternal: false,
+    },
+    {
+        href: 'https://t.me/deficanvastest_bot',
+        isDisabled: false,
+        title: 'Assistant',
+        icon: <AIBubbleIcon />,
+        isExternal: true,
     },
     {
         href: '',
         isDisabled: true,
         title: 'Portfolio',
         icon: <DepositAnaliticsIcon />,
-    },
-    {
-        href: '',
-        isDisabled: true,
-        title: 'Assistant',
-        icon: <AIBubbleIcon />,
+        isExternal: false,
     },
 ];
 // TODO  доделать на ссылки
 export const NavBar = () => {
+    const eventBuilder = useTWAEvent();
+
     return (
         <div className={cn('app-container', css.navBar)}>
             {navMenu.map((navItem, index) => {
@@ -58,12 +66,8 @@ export const NavBar = () => {
                                 [css.navItemCardDisabled]: navItem.isDisabled,
                             })}
                             onClick={() => {
-                                trackMixpanel(
-                                    `WALLET_PAGE: ${navItem.title.toUpperCase()} click` as WalletPageEvent
-                                );
-                            }}
-                            onTouchStart={() => {
-                                trackMixpanel(
+                                trackTelemetree(
+                                    eventBuilder,
                                     `WALLET_PAGE: ${navItem.title.toUpperCase()} click` as WalletPageEvent
                                 );
                             }}
@@ -76,16 +80,37 @@ export const NavBar = () => {
                     );
                 }
 
+                if (navItem.isExternal) {
+                    return (
+                        <Link
+                            to={navItem.href}
+                            className={css.navItemCard}
+                            key={index}
+                            target="_blank"
+                            onClick={() => {
+                                trackTelemetree(
+                                    eventBuilder,
+                                    `WALLET_PAGE: ${navItem.title.toUpperCase()} click` as WalletPageEvent
+                                );
+                            }}
+                        >
+                            <div>{navItem.icon}</div>
+                            <span className={css.navItemTitle}>
+                                {navItem.title}
+                            </span>
+                        </Link>
+                    );
+                }
+
                 return (
                     <NavLink
                         to={navItem.href}
                         className={css.navItemCard}
                         key={index}
                         onClick={() => {
-                            trackMixpanel(
-                                `WALLET_PAGE: ${navItem.title.toUpperCase()} click` as WalletPageEvent,
-                                {},
-                                true
+                            trackTelemetree(
+                                eventBuilder,
+                                `WALLET_PAGE: ${navItem.title.toUpperCase()} click` as WalletPageEvent
                             );
                         }}
                     >

@@ -4,7 +4,8 @@ import { FundsData } from '@/pages/whalet/whalet.model';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import AppButton from '@/components/app-button/app-button.component';
 import css from './footer.module.css';
-import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
+import { trackTelemetree } from '@/telemetree/telemetree-entry';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 interface FooterProps {
     fundsAvailableSale: E.Either<string, Array<FundsData>>;
@@ -17,6 +18,8 @@ export const Footer = ({
 }: FooterProps) => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const eventBuilder = useTWAEvent();
+
     return (
         <footer className={css.footer}>
             <RenderResult
@@ -27,7 +30,10 @@ export const Footer = ({
                         label="Sell"
                         type="secondary"
                         onClick={() => {
-                            trackMixpanel('WHAT_TO_BUY_PAGE: sell click');
+                            trackTelemetree(
+                                eventBuilder,
+                                'WHAT_TO_BUY_PAGE: sell click'
+                            );
                             navigate(`/what-to-buy/sell/${id}`);
                         }}
                     />
@@ -41,7 +47,10 @@ export const Footer = ({
                     <AppButton
                         label="Buy"
                         onClick={() => {
-                            trackMixpanel('WHAT_TO_BUY_PAGE: buy click');
+                            trackTelemetree(
+                                eventBuilder,
+                                'WHAT_TO_BUY_PAGE: buy click'
+                            );
                             navigate(`/what-to-buy/purchase/${id}`);
                         }}
                         isDisabled={isDisabled}

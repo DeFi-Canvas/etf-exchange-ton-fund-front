@@ -2,7 +2,8 @@ import css from './footer.module.css';
 import cn from 'classnames';
 import AppButton from '@/components/app-button/app-button.component.tsx';
 import * as E from 'fp-ts/Either';
-import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
+import { trackTelemetree } from '@/telemetree/telemetree-entry';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 interface FooterProps {
     balanceAfter: number;
@@ -21,6 +22,8 @@ export const Footer = ({
     address,
     memo,
 }: FooterProps) => {
+    const eventBuilder = useTWAEvent();
+
     return (
         // TODO: Или поднять наверх или завязать на AppFooter
         <div className={cn(css.footerWrap)}>
@@ -43,13 +46,13 @@ export const Footer = ({
                     to={'/withdraw/:ticker/address/check'}
                     isDisabled={!isGoToCheckAvailable}
                     onClick={() => {
-                        trackMixpanel(
+                        trackTelemetree(
+                            eventBuilder,
                             'WITHDRAW_PAGE_ENTER_ADDRESS: continue click',
                             {
                                 address,
                                 memo,
-                            },
-                            true
+                            }
                         );
                     }}
                 />

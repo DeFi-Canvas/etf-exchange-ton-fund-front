@@ -10,10 +10,13 @@ import { memo } from 'react';
 import React from 'react';
 import { newDepositRestService } from '@/API/deposit.service';
 import { newWaletRestService } from '@/API/whalet.service';
-import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
+import { trackTelemetree } from '@/telemetree/telemetree-entry';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 const WithdrowPage = injectable(AssetsContainer, (AssetsContainer) =>
     memo(() => {
+        const eventBuilder = useTWAEvent();
+
         return (
             <div className={css.page}>
                 <div className={cn('app-container', css.pageHeader)}>
@@ -21,7 +24,10 @@ const WithdrowPage = injectable(AssetsContainer, (AssetsContainer) =>
                     <SerchInput
                         placeholder="Search"
                         onClick={() => {
-                            trackMixpanel('WITHDRAW_PAGE: serch click');
+                            trackTelemetree(
+                                eventBuilder,
+                                'WITHDRAW_PAGE: serch click'
+                            );
                         }}
                         trackEvent="WITHDRAW_PAGE: serch event"
                     />
@@ -30,7 +36,10 @@ const WithdrowPage = injectable(AssetsContainer, (AssetsContainer) =>
                     <AssetsContainer
                         type="withdrow"
                         onClick={() => {
-                            trackMixpanel('WITHDRAW_PAGE: asset click');
+                            trackTelemetree(
+                                eventBuilder,
+                                'WITHDRAW_PAGE: asset click'
+                            );
                         }}
                     />
                 </div>
