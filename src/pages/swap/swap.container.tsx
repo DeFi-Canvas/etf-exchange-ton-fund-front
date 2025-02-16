@@ -15,19 +15,26 @@ export const SwapPageContainer = injectable(
             []
         );
 
-        // const swapService = useMemo(
-        //     () =>
-        //         newSwapRestService({
-        //             userStore,
-        //         }),
-        //     [userStore]
-        // );
+        const swapService = useMemo(
+            () =>
+                newSwapRestService({
+                    userStore,
+                }),
+            [userStore]
+        );
 
         const [swapAssets] = useProperties(store.swapAssets);
-        // return React.createElement(SwapPage({ store, swapService }), {
-        return React.createElement(SwapPage({ store, userStore }), {
-            ...store,
-            swapAssets,
-        });
+
+        return React.createElement(
+            SwapPage({
+                store,
+                userStore,
+                swapService,
+            }),
+            {
+                ...store,
+                swapAssets,
+            }
+        );
     }
 );

@@ -25,8 +25,7 @@ export interface NewSwapResult {
 
 export const newSwapResult = injectable(
     token('store')<SwapStore>(),
-    newSwapRestService,
-    // token('swapService')<SwapRestService>(),
+    token('swapService')<SwapRestService>(),
     (store, swapService): NewSwapResult =>
         () => {
             const subTitle = newLensedAtom('');
