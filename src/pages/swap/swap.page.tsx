@@ -1,11 +1,9 @@
 import cn from 'classnames';
 import css from './swap.module.css';
-import { Tabs } from '@/components/ui-kit/tabs/tabs.component.tsx';
-import { TabItemInterface } from '@/components/ui-kit/tabs/tabs.model.ts';
-import { useEffect, useMemo, useState } from 'react';
+// import { Tabs } from '@/components/ui-kit/tabs/tabs.component.tsx';
+// import { TabItemInterface } from '@/components/ui-kit/tabs/tabs.model.ts';
+import { useState } from 'react';
 import { SwapAsset } from '@pages/swap/swap.model.ts';
-import AppFooter from '@/components/app-footer/app-footer.components.tsx';
-import AppButton from '@/components/app-button/app-button.component.tsx';
 import * as E from 'fp-ts/Either';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import { injectable } from '@injectable-ts/core';
@@ -15,21 +13,21 @@ import { SwapHeaderContainer } from './components/swap-header/swap-header.contai
 import { SwapDropdownContainer } from './components/swap-dropdown/swap-dropdown.container';
 import { SwapResultContainer } from './components/swap-result/swap-result.container';
 import { SwapFooterContainer } from './components/footer/swap-footer.container';
+import { SkeletonCardSection } from '@/components/skeletons/skeleton-card/skeleton-card-section.component';
 
-const tabs: TabItemInterface[] = [
-    {
-        title: 'Single Swap',
-        name: 'singleSwap',
-    },
-    {
-        title: 'Multi Swap',
-        name: 'multiSwap',
-    },
-];
+// const tabs: TabItemInterface[] = [
+//     {
+//         title: 'Single Swap',
+//         name: 'singleSwap',
+//     },
+//     {
+//         title: 'Multi Swap',
+//         name: 'multiSwap',
+//     },
+// ];
 
 interface SwapPageProps {
     swapAssets: E.Either<string, Array<SwapAsset>>;
-    emmitSwap: () => void;
 }
 
 export const SwapPage = injectable(
@@ -47,7 +45,7 @@ export const SwapPage = injectable(
         SwapResultContainer,
         SwapFooterContainer
     ) =>
-        ({ emmitSwap, swapAssets }: SwapPageProps) => {
+        ({ swapAssets }: SwapPageProps) => {
             // const [currentTab, setCurrentTab] = useState('singleSwap');
             const [isSingle, setIsSingle] = useState(true);
 
@@ -75,9 +73,12 @@ export const SwapPage = injectable(
                     <SwapHeaderContainer />
                     {/* TODO: соленье на будующее */}
                     {/* {SwapTabsMemo} */}
-                    {/* TODO: скелетон */}
                     <RenderResult
                         data={swapAssets}
+                        loading={() => (
+                            // TODO: сделать подходящий скелетон
+                            <SkeletonCardSection count={2} type={'medium'} />
+                        )}
                         success={(swapAssets) => (
                             <SwapCardListContainer
                                 cards={swapAssets}

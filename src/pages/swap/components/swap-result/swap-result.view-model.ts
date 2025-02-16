@@ -9,6 +9,7 @@ import { fromProperty } from '@/utils/property.utils';
 import { tap } from '@most/core';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
+import { newSwapRestService, SwapRestService } from '@/API/swipe.service';
 
 export interface SwapResult {
     isOpen: Property<boolean>;
@@ -24,10 +25,18 @@ export interface NewSwapResult {
 
 export const newSwapResult = injectable(
     token('store')<SwapStore>(),
-    (store): NewSwapResult =>
+    newSwapRestService,
+    // token('swapService')<SwapRestService>(),
+    (store, swapService): NewSwapResult =>
         () => {
             const subTitle = newLensedAtom('');
             const logos = newLensedAtom<Array<string>>([]);
+
+            const { evs, unsubscription } = swapService.getConnection();
+
+            const onClose = () => {
+                store.closeResultBottomSheet(), unsubscription();
+            };
 
             const viewEffect = pipe(
                 store.swapAssets,
@@ -59,15 +68,26 @@ export const newSwapResult = injectable(
                 })
             );
 
+            const EVSEvent = pipe(
+                evs,
+                tap((x) => {
+                    console.log(x, 'EVSEvent');
+                    // if (x) {
+                    //     resultStatus.set('SUCCESS');
+                    // }
+                })
+            );
+
             return valueWithEffect.new(
                 {
                     subTitle,
                     logos,
+                    onClose,
                     isOpen: store.resultBottomSheetIsOpen,
                     status: store.resultStatus,
-                    onClose: store.closeResultBottomSheet,
                 },
-                viewEffect
+                viewEffect,
+                EVSEvent
             );
         }
 );

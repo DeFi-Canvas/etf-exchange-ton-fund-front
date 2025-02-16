@@ -67,7 +67,8 @@ export const newSwapSelectAsset = injectable(
                     avlailibleAssets,
                     isOpen,
                     onSelectAsset,
-                    closeBottomSheet: store.onCloseselectAssetBottomSheetIsOpen,
+                    closeBottomSheet: () =>
+                        store.setSelectAssetBottomSheetIsOpen(false),
                     onSearchAssets: store.onSearchAssets,
                 },
                 avlailibleAssetsEffect,

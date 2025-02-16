@@ -1,35 +1,33 @@
-import { injectable, provide, token } from '@injectable-ts/core';
-import React from 'react';
+import { injectable, token } from '@injectable-ts/core';
+import React, { useMemo } from 'react';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
-import { useProperties, useProperty } from '@frp-ts/react';
+import { useProperties } from '@frp-ts/react';
 import { newSwapStore } from './swap.store';
 import { SwapPage } from './swap.page';
-// import { UserStoreService } from '@/store/user.store';
+import { UserStoreService } from '@/store/user.store';
+import { newSwapRestService } from '@/API/swipe.service';
 
 export const SwapPageContainer = injectable(
-    newSwapStore,
-    (newSwapStore) => () => {
-        const store = useValueWithEffect(() => newSwapStore(), []);
+    token('userStore')<UserStoreService>(),
+    (userStore) => () => {
+        const store = useValueWithEffect(
+            () => newSwapStore({ userStore })(),
+            []
+        );
+
+        // const swapService = useMemo(
+        //     () =>
+        //         newSwapRestService({
+        //             userStore,
+        //         }),
+        //     [userStore]
+        // );
+
         const [swapAssets] = useProperties(store.swapAssets);
-        return React.createElement(SwapPage({ store }), {
+        // return React.createElement(SwapPage({ store, swapService }), {
+        return React.createElement(SwapPage({ store, userStore }), {
             ...store,
             swapAssets,
         });
     }
 );
-
-//TODO: Разкоментировать если инпут не починится
-// export const SwapPageContainer = injectable(
-//     token('userStore')<UserStoreService>(),
-//     (userStore) => () => {
-//         const store = useValueWithEffect(
-//             () => newSwapStore({ userStore })(),
-//             []
-//         );
-//         const [swapAssets] = useProperties(store.swapAssets);
-//         return React.createElement(SwapPage({ store }), {
-//             ...store,
-//             swapAssets,
-//         });
-//     }
-// );

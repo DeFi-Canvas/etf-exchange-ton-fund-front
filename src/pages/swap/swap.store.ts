@@ -1,7 +1,7 @@
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { Property } from '@frp-ts/core';
 import { newLensedAtom } from '@frp-ts/lens';
-import { chain, combine, tap } from '@most/core';
+import { combine, tap } from '@most/core';
 import * as E from 'fp-ts/Either';
 import * as O from 'fp-ts/Option';
 import * as t from 'io-ts';
@@ -19,7 +19,6 @@ import { newSwapRestService } from '@/API/swipe.service';
 import { Asset } from '../whalet/whalet.model';
 import {
     FiltrebleSwapAsset,
-    formatValueInStableCoin,
     getAssetsEffectMapping,
     mapAssetToFiltrebleSwapAsset,
     mapAssetToSwapAsset,
@@ -30,40 +29,41 @@ import {
 } from './swap.model';
 import { createAdapter } from '@most/adapter';
 import { DropdownOptions } from '@/components/dropdown/dropdown.component';
-import { fromProperty } from '@/utils/property.utils';
+import { fromProperty, newAtomState } from '@/utils/property.utils';
 
 export interface SwapStore {
+    //#region state
     swapAssets: Property<E.Either<string, Array<SwapAsset>>>;
     allAssets: Property<E.Either<string, Array<FiltrebleSwapAsset>>>;
-
-    emmitSwap: () => void;
-
     selectAssetBottomSheetIsOpen: Property<boolean>;
-    onOpenselectAssetBottomSheetIsOpen: () => void;
-    onCloseselectAssetBottomSheetIsOpen: () => void;
-
     addAssetBottomSheetIsOpen: Property<boolean>;
+    resultBottomSheetIsOpen: Property<boolean>;
+    resultStatus: Property<SwapResultStatus>;
+    swapListInfo: Property<DropdownOptions[]>;
+    swapBtnError: Property<O.Option<SwapBtnError>>;
+
+    //#region mutations
     onOpenaAddAssetBottomSheetIsOpen: () => void;
     onCloseAddAssetBottomSheetIsOpen: () => void;
-
-    resultBottomSheetIsOpen: Property<boolean>;
     closeResultBottomSheet: () => void;
-    resultStatus: Property<SwapResultStatus>;
+    onRemoveAsset: (id: string) => void;
+    onSearchAssets: (ticker: string) => void;
+    swapTokenOrder: () => void;
 
-    swapListInfo: Property<DropdownOptions[]>;
+    //#region get
+    getWaletAssets: () => E.Either<string, Array<Asset>>;
+    getSwapAssets: () => E.Either<string, SwapAsset[]>;
 
+    //#region set
+    setSwapAssets: (assets: E.Either<string, Array<SwapAsset>>) => void;
+    setAllAssets: (assets: E.Either<string, Array<FiltrebleSwapAsset>>) => void;
+    setWaletAssets: (asset: E.Either<string, Array<Asset>>) => void;
     setCurrentVariableAsset: (id: string) => void;
     setAddCurrentVariableAsset: (id: string) => void;
     setCurrentVariableSwapAsset: (id: string) => void;
-    onRemoveAsset: (id: string) => void;
-    onSearchAssets: (ticker: string) => void;
-    updAssetCurrentValue: (id: string, value: number) => void;
-
-    swapTokenOrder: () => void;
-    onReset: () => void;
-    onMaxClick: () => void;
-
-    swapBtnError: Property<O.Option<SwapBtnError>>;
+    setSwapBtnError: (err: O.Option<SwapBtnError>) => void;
+    setResultBottomSheetIsOpen: (isOpen: boolean) => void;
+    setSelectAssetBottomSheetIsOpen: (isOpen: boolean) => void;
 }
 
 export type NewSwapStore = ValueWithEffect<SwapStore>;
@@ -73,24 +73,39 @@ export const newSwapStore = injectable(
     newSwapRestService,
     (walletService, swapRestService) => (): NewSwapStore => {
         //#region Atoms
-        const allAssets = newLensedAtom<
-            E.Either<string, Array<FiltrebleSwapAsset>>
-        >(E.left('pending'));
-        const waletAssets = newLensedAtom<E.Either<string, Array<Asset>>>(
+        const {
+            state: allAssets,
+            set: setAllAssets,
+            get: geyAllAssets,
+        } = newAtomState<E.Either<string, Array<FiltrebleSwapAsset>>>(
             E.left('pending')
         );
 
-        const swapAssets = newLensedAtom<E.Either<string, Array<SwapAsset>>>(
-            E.left('pending')
-        );
+        const {
+            state: waletAssets,
+            set: setWaletAssets,
+            get: getWaletAssets,
+        } = newAtomState<E.Either<string, Array<Asset>>>(E.left('pending'));
+
+        const {
+            state: swapAssets,
+            set: setSwapAssets,
+            get: getSwapAssets,
+        } = newAtomState<E.Either<string, Array<SwapAsset>>>(E.left('pending'));
 
         const swapListInfo =
             newLensedAtom<DropdownOptions[]>(SWAP_LIST_INFO_INIT);
 
-        const selectAssetBottomSheetIsOpen = newLensedAtom(false);
+        const {
+            state: selectAssetBottomSheetIsOpen,
+            set: setSelectAssetBottomSheetIsOpen,
+        } = newAtomState(false);
         const addAssetBottomSheetIsOpen = newLensedAtom(false);
 
-        const resultBottomSheetIsOpen = newLensedAtom(false);
+        const {
+            state: resultBottomSheetIsOpen,
+            set: setResultBottomSheetIsOpen,
+        } = newAtomState(false);
         const resultStatus = newLensedAtom<SwapResultStatus>('PROGRESS');
 
         const currentVariableSwapAsset = newLensedAtom('');
@@ -103,20 +118,12 @@ export const newSwapStore = injectable(
         const [onRemoveAsset, removeAssetEvent] = createAdapter<string>();
         const [onSearchAssets, onSearchAssetsEvent] = createAdapter<string>();
 
-        const [onReset, onResetEvent] = createAdapter<void>();
-
-        const swapBtnError = newLensedAtom<O.Option<SwapBtnError>>(
-            O.some('EMPTY_FIELD')
-        );
+        const { state: swapBtnError, set: setSwapBtnError } = newAtomState<
+            O.Option<SwapBtnError>
+        >(O.some('EMPTY_FIELD'));
 
         //#region Functions
         const closeResultBottomSheet = () => resultBottomSheetIsOpen.set(false);
-
-        const onOpenselectAssetBottomSheetIsOpen = () =>
-            selectAssetBottomSheetIsOpen.set(true);
-
-        const onCloseselectAssetBottomSheetIsOpen = () =>
-            selectAssetBottomSheetIsOpen.set(false);
 
         const onOpenaAddAssetBottomSheetIsOpen = () =>
             addAssetBottomSheetIsOpen.set(true);
@@ -126,124 +133,7 @@ export const newSwapStore = injectable(
         const setCurrentVariableSwapAsset = currentVariableSwapAsset.set;
 
         const swapTokenOrder = () =>
-            pipe(swapAssets.get(), E.map(A.reverse), swapAssets.set);
-
-        const updAssetCurrentValue = (id: string, value: number) => {
-            const currentAssetPrice = pipe(
-                swapAssets.get(),
-                E.chain(
-                    flow(
-                        A.findFirst((asset) => asset.id === id),
-                        E.fromOption(() => 'error')
-                    )
-                ),
-                E.fold(
-                    () => 0,
-                    (asset) => asset.price * value
-                )
-            );
-
-            pipe(
-                swapAssets.get(),
-                E.map((assets) => {
-                    return pipe(
-                        assets,
-                        A.mapWithIndex((i, asset) => {
-                            if (asset.id === id) {
-                                const newAsset = {
-                                    ...asset,
-                                    currentValue: value,
-                                };
-                                return {
-                                    ...newAsset,
-                                    valueInStableCoin: formatValueInStableCoin(
-                                        value * asset.price
-                                    ),
-                                    hasError:
-                                        i === 0
-                                            ? newAsset.balanceInWalet < value
-                                            : false,
-                                };
-                            } else {
-                                return {
-                                    ...asset,
-                                    currentValue: Number(
-                                        currentAssetPrice / asset.price
-                                    ),
-                                    valueInStableCoin:
-                                        formatValueInStableCoin(
-                                            currentAssetPrice
-                                        ),
-                                };
-                            }
-                        })
-                    );
-                }),
-                swapAssets.set
-            );
-        };
-
-        const emmitSwap = () => {
-            const currentSwapAssets = swapAssets.get();
-
-            const amount = pipe(
-                currentSwapAssets,
-                E.chain(flow(A.head, E.fromOption(constant('error')))),
-                E.chain((asset) => E.fromNullable('error')(asset.currentValue)),
-                E.fold(() => 0, identity)
-            );
-
-            const tokens = pipe(
-                currentSwapAssets,
-                E.map(flow(A.map((asset) => asset.assetName))),
-                E.fold(() => [], identity)
-            );
-
-            swapRestService.initiate({ amount, tokens });
-            resultBottomSheetIsOpen.set(true);
-        };
-
-        const onMaxClick = () => {
-            const currentSwapAssets = swapAssets.get();
-
-            const firstEl = pipe(
-                currentSwapAssets,
-                E.chain(flow(A.head, E.fromOption(constant('error')))),
-                E.fold(constant(undefined), identity)
-            );
-
-            pipe(
-                currentSwapAssets,
-                E.map(
-                    A.mapWithIndex((i, asset) => {
-                        if (i === 0) {
-                            return {
-                                ...asset,
-                                currentValue: Number(asset.balanceInWalet),
-                            };
-                        } else {
-                            return asset;
-                        }
-                    })
-                ),
-                swapAssets.set
-            );
-            firstEl &&
-                updAssetCurrentValue(
-                    firstEl.id,
-                    Number(firstEl.balanceInWalet)
-                );
-        };
-
-        //#region Event
-        const EVSEvent = pipe(
-            swapRestService.getConnection().evs,
-            tap((x) => {
-                if (x) {
-                    resultStatus.set('SUCCESS');
-                }
-            })
-        );
+            pipe(getSwapAssets(), E.map(A.reverse), setSwapAssets);
 
         const getAssetsEffect = pipe(
             combine(
@@ -258,24 +148,20 @@ export const newSwapStore = injectable(
                 pipe(
                     assets,
                     E.map(A.map(mapAssetToFiltrebleSwapAsset)),
-                    allAssets.set
+                    setAllAssets
                 );
-                waletAssets.set(waletAssetsResp);
+                setWaletAssets(waletAssetsResp);
 
-                getAssetsEffectMapping(
-                    assets,
-                    waletAssets.get(),
-                    swapAssets.set
-                );
+                getAssetsEffectMapping(assets, getWaletAssets(), setSwapAssets);
             })
         );
 
         const onAssetSelectEvent = pipe(
             currentVariableAsset,
             tap((id) => {
-                const currentAllAssets = allAssets.get();
-                const currentWaletAssets = waletAssets.get();
-                const currentSwapAssets = swapAssets.get();
+                const currentAllAssets = geyAllAssets();
+                const currentWaletAssets = getWaletAssets();
+                const currentSwapAssets = getSwapAssets();
 
                 const currentHeadSwapAsset = pipe(
                     currentSwapAssets,
@@ -308,10 +194,10 @@ export const newSwapStore = injectable(
                     E.fold(() => undefined, identity)
                 );
                 if (isIdExistOnSwapAssets) {
-                    selectAssetBottomSheetIsOpen.set(false);
+                    setSelectAssetBottomSheetIsOpen(false);
 
                     pipe(
-                        swapAssets.get(),
+                        getSwapAssets(),
                         E.map(
                             A.map((asset) => {
                                 if (
@@ -366,7 +252,7 @@ export const newSwapStore = injectable(
                                 )
                             )
                         ),
-                        swapAssets.set
+                        setSwapAssets
                     );
                 }
             })
@@ -375,9 +261,9 @@ export const newSwapStore = injectable(
         const onAssetAddEvent = pipe(
             addCurrentVariableAsset,
             tap((id) => {
-                const currentAllAssets = allAssets.get();
-                const currentWaletAssets = waletAssets.get();
-                const currentSwapAssets = swapAssets.get();
+                const currentAllAssets = geyAllAssets();
+                const currentWaletAssets = getWaletAssets();
+                const currentSwapAssets = getSwapAssets();
 
                 const currentWaletAsset = pipe(
                     currentWaletAssets,
@@ -435,7 +321,7 @@ export const newSwapStore = injectable(
                                 return assets;
                             }
                         }),
-                        swapAssets.set
+                        setSwapAssets
                     );
                 }
             })
@@ -444,11 +330,11 @@ export const newSwapStore = injectable(
         const removeAssetEffect = pipe(
             removeAssetEvent,
             tap((id) => {
-                const currentSwapAssets = swapAssets.get();
+                const currentSwapAssets = getSwapAssets();
                 pipe(
                     currentSwapAssets,
                     E.map(A.filter(({ id: assetId }) => assetId !== id)),
-                    swapAssets.set
+                    setSwapAssets
                 );
             })
         );
@@ -609,40 +495,11 @@ export const newSwapStore = injectable(
             })
         );
 
-        // TODO - будет рабоать иначе (переполучать стоимость ассетов и обновлять стоимость)
-        const resetEffect = pipe(
-            onResetEvent,
-            chain(() =>
-                combine(
-                    (assets, walletAssets) => ({
-                        assets,
-                        walletAssets,
-                    }),
-                    swapRestService.getAssets(),
-                    walletService.getAssets()
-                )
-            ),
-            tap(({ assets, walletAssets: waletAssetsResp }) => {
-                pipe(
-                    assets,
-                    E.map(A.map(mapAssetToFiltrebleSwapAsset)),
-                    allAssets.set
-                );
-                waletAssets.set(waletAssetsResp);
-
-                getAssetsEffectMapping(
-                    assets,
-                    waletAssets.get(),
-                    swapAssets.set
-                );
-            })
-        );
-
-        const onSearchAssetsEffetc = pipe(
+        const onSearchAssetsEffect = pipe(
             onSearchAssetsEvent,
             tap((tickerName) => {
                 pipe(
-                    allAssets.get(),
+                    geyAllAssets(),
                     E.map(
                         A.map((asset) => {
                             if (
@@ -656,33 +513,7 @@ export const newSwapStore = injectable(
                             }
                         })
                     ),
-                    allAssets.set
-                );
-            })
-        );
-
-        const swapBtnErrorEffect = pipe(
-            swapAssets,
-            fromProperty,
-            tap((swapAssets) => {
-                pipe(
-                    swapAssets,
-                    E.chain(flow(A.head, E.fromOption(constant('error')))),
-                    E.chain((asset) => {
-                        if (asset.balanceInWalet < asset.currentValue) {
-                            return E.right('INSUFFICIENT_BALANCE');
-                        }
-                        if (asset.currentValue === 0) {
-                            return E.right('EMPTY_FIELD');
-                        }
-                        return E.left('');
-                    }),
-                    E.fold(
-                        (_) => {
-                            swapBtnError.set(O.none);
-                        },
-                        (err) => swapBtnError.set(O.some(err as SwapBtnError))
-                    )
+                    setAllAssets
                 );
             })
         );
@@ -690,38 +521,40 @@ export const newSwapStore = injectable(
         return valueWithEffect.new(
             {
                 swapAssets,
-                emmitSwap,
                 selectAssetBottomSheetIsOpen,
-                onOpenselectAssetBottomSheetIsOpen,
-                onCloseselectAssetBottomSheetIsOpen,
                 addAssetBottomSheetIsOpen,
-                onOpenaAddAssetBottomSheetIsOpen,
-                onCloseAddAssetBottomSheetIsOpen,
                 allAssets,
                 swapListInfo,
+                resultBottomSheetIsOpen,
+                resultStatus,
+                swapBtnError,
+
+                onOpenaAddAssetBottomSheetIsOpen,
+                onCloseAddAssetBottomSheetIsOpen,
+                swapTokenOrder,
+                onRemoveAsset,
+                onSearchAssets,
+                closeResultBottomSheet,
+
+                getWaletAssets,
+                getSwapAssets,
+
+                setWaletAssets,
                 setCurrentVariableAsset,
                 setAddCurrentVariableAsset,
                 setCurrentVariableSwapAsset,
-                swapTokenOrder,
-                updAssetCurrentValue,
-                onReset,
-                onMaxClick,
-                onRemoveAsset,
-                onSearchAssets,
-                resultBottomSheetIsOpen,
-                resultStatus,
-                closeResultBottomSheet,
-                swapBtnError,
+                setAllAssets,
+                setSwapAssets,
+                setSwapBtnError,
+                setResultBottomSheetIsOpen,
+                setSelectAssetBottomSheetIsOpen,
             },
-            EVSEvent,
             getAssetsEffect,
             onAssetSelectEvent,
-            resetEffect,
             onAssetAddEvent,
             removeAssetEffect,
             swapListInfoChangeEffect,
-            onSearchAssetsEffetc,
-            swapBtnErrorEffect
+            onSearchAssetsEffect
         );
     }
 );

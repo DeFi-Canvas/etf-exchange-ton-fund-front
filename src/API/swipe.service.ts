@@ -1,10 +1,9 @@
 import { Stream } from '@most/types';
 import { UserStoreService } from '@/store/user.store';
 import { injectable, token } from '@injectable-ts/core';
-import axios from 'axios';
 import { DOMAIN_API_URL } from './API';
 import { newLensedAtom } from '@frp-ts/lens';
-import { pipe } from 'fp-ts/lib/function';
+import { constVoid, pipe } from 'fp-ts/lib/function';
 import { fromProperty } from '@/utils/property.utils';
 import { AssetsApi, Configuration, SwapApi } from './scheme/rest-genereted';
 import { Either } from 'fp-ts/lib/Either';
@@ -39,19 +38,19 @@ export const newSwapRestService = injectable(
                 );
 
                 eventSource.onmessage = (event) => {
-                    console.log('event', event);
+                    console.log('event 1', event);
                     messege.set(event.data);
                 };
 
-                eventSource.onerror = (error) => {
-                    console.log('ALARM', error);
+                // eventSource.onerror = (error) => {
+                //     console.log('ALARM', error);
 
-                    messege.set('ERROR');
-                };
+                //     messege.set('ERROR');
+                // };
 
-                //TODO: КАК закрывать соединение пока хз
                 return {
                     evs: pipe(messege, fromProperty),
+                    // unsubscription: constVoid,
                     unsubscription: () => eventSource.close(),
                 };
             },
