@@ -19,7 +19,7 @@ export const InputField = ({
     const [inputValue, setInputValue] = useState('');
 
     const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.value.length > limitWord) {
+        if (limitWord && event.target.value.length > limitWord) {
             return;
         }
 
