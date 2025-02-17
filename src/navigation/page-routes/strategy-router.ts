@@ -3,7 +3,7 @@ import { StrategyBasics } from '@pages/strategy/strategy-basics/strategy-basics.
 import { StrategyAssetsInside } from '@pages/strategy/strategy-assets-inside/strategy-assets-inside.page.tsx';
 import { StrategyFees } from '@pages/strategy/strategy-fees/strategy-fees.page.tsx';
 import { StrategyPreview } from '@pages/strategy/strategy-preview/strategy-preview.page.tsx';
-import { StrategyFirstInvestment } from '@pages/strategy/strategy-first-investment.page.tsx';
+import { StrategyFirstInvestment } from '@pages/strategy/strategy-first-investment/strategy-first-investment.page.tsx';
 
 export const strategyRouter = () => [
     {
