@@ -13,7 +13,7 @@ export const StrategyBasics = () => {
         <div className={css.page}>
             <header className={'app-container'}>
                 <h2 className="h2">Strategy basics</h2>
-                <p className={cn('body-m-regular', 'mt-1')}>
+                <p className="body-m-regular color-text-dark-70 mt-1">
                     Add a thumbnail, name, description, and unique ticker for
                     the new strategy.
                 </p>
