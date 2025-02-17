@@ -9,6 +9,7 @@ import { TabItemInterface } from '@/components/ui-kit/tabs/tabs.model.ts';
 import { AssetsCard } from '@/components/assets-card/assets-card.component.tsx';
 import { Chip } from '@/components/chip/chip.component.tsx';
 import { DeleteIcon } from '@/components/Icons/Icons.tsx';
+import { ChartCircle } from '@/components/chart-circle/chart-circle.component.tsx';
 
 // MOCK
 const defaultAssetList = [
@@ -86,18 +87,24 @@ export const StrategyAssetsInside = () => {
         }
     };
 
+    const chartInfoFilled = 70;
+    const chartInfoRemain = 100 - chartInfoFilled;
+
     return (
         <div className={css.page}>
             <header className="app-container">
                 <h2 className="h2">Assets inside</h2>
-                <p className={cn('body-m-regular', 'mt-1')}>
+                <p className="body-m-regular color-text-dark-70 mt-1">
                     Fill the Strategy with assettes so that the total volume of
                     assettes is 100%
                 </p>
             </header>
             <div className={css.body}>
-                {/* TODO: Добавить диаграмму */}
-                <p>Круговая диаграмма</p>
+                <ChartCircle className={css.chart} />
+                <div className={css.chartInfo}>
+                    <div className="h1">{`${chartInfoFilled}%`}</div>
+                    <div className="body-m-medium color-text-dark-50">{`${chartInfoRemain}% left`}</div>
+                </div>
             </div>
             <BottomSheet open={assetsIsShown} onClose={closeAddAssets}>
                 <p className="subhead-s">Add asset</p>
@@ -145,6 +152,12 @@ export const StrategyAssetsInside = () => {
                         <span className={css.amountPercent}>%</span>
                     </div>
                     <div>{100 - Number(amountValue)}% left</div>
+                </div>
+                <div className={css.actions}>
+                    <AppButton
+                        label="Save"
+                        onClick={() => closeSelectAssetIsShown()}
+                    />
                 </div>
                 <div className={css.keyboard}>
                     <button
