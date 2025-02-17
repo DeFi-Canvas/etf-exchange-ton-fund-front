@@ -9,3 +9,11 @@
 .color-system-green {
     color: var(--color-system-green);
 }
+
+.color-text-dark-70 {
+    color: var(--color-text-dark-70);
+}
+
+.color-text-dark-50 {
+    color: var(--color-text-dark-50);
+}
