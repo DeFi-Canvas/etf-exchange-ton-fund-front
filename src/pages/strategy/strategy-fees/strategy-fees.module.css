@@ -1,0 +1,43 @@
+.page {
+    padding-block: 32px;
+}
+
+.body {
+    margin-top: 32px;
+    padding: 32px 16px;
+    border-radius: 24px;
+    background-color: var(--color-background-white);
+}
+
+.ratioFieldWrapper {
+    position: relative;
+}
+
+.ratioFieldButton {
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    right: 0;
+    top: 0;
+    position: absolute;
+    text-decoration: underline;
+}
+
+.details {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.detailsList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.detailsItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
