@@ -42,7 +42,7 @@ export const StrategyStepsPage = () => {
             id: 2,
             name: 'Assets inside',
             icon: <CoinsDollarIcon />,
-            isCompleted: false,
+            isCompleted: true,
             isAllowed: true,
             path: '/strategy/assets-inside',
         },
@@ -51,7 +51,7 @@ export const StrategyStepsPage = () => {
             name: 'Fees',
             icon: <PercentIcon />,
             isCompleted: false,
-            isAllowed: false,
+            isAllowed: true,
             path: '/strategy/fees',
         },
         {

@@ -39,6 +39,12 @@ const defaultAssetList = [
     },
 ];
 
+const enum assetCategoryName {
+    COINS = 'Coins',
+    POOLS = 'Pools',
+    STAKING = 'Staking',
+}
+
 export const StrategyAssetsInside = () => {
     const [assetsIsShown, setAssetsIsShown] = useState(false);
     const [currentTab, setCurrentTab] = useState('coins');
@@ -48,9 +54,9 @@ export const StrategyAssetsInside = () => {
     const [amountValue, setAmountValue] = useState('0');
 
     const assetTabs = [
-        { title: 'Coins', name: 'coins' },
-        { title: 'Pools', name: 'pools' },
-        { title: 'Staking', name: 'staking' },
+        { title: assetCategoryName.COINS, name: 'coins' },
+        { title: assetCategoryName.POOLS, name: 'pools' },
+        { title: assetCategoryName.STAKING, name: 'staking' },
     ];
 
     const openAddAssets = () => setAssetsIsShown(true);
@@ -90,6 +96,30 @@ export const StrategyAssetsInside = () => {
     const chartInfoFilled = 70;
     const chartInfoRemain = 100 - chartInfoFilled;
 
+    const assetInsideList = [
+        {
+            id: 0,
+            title: assetCategoryName.COINS,
+            className: css.pointCoins,
+            value: '54%',
+            assetList: defaultAssetList,
+        },
+        {
+            id: 1,
+            title: assetCategoryName.POOLS,
+            className: css.pointPools,
+            value: '22%',
+            assetList: defaultAssetList,
+        },
+        {
+            id: 2,
+            title: assetCategoryName.STAKING,
+            className: css.pointStalking,
+            value: '24%',
+            assetList: defaultAssetList,
+        },
+    ];
+
     return (
         <div className={css.page}>
             <header className="app-container">
@@ -106,6 +136,40 @@ export const StrategyAssetsInside = () => {
                     <div className="body-m-medium color-text-dark-50">{`${chartInfoRemain}% left`}</div>
                 </div>
             </div>
+            <div className={css.wrapperAssetList}>
+                {assetInsideList.map((insideItem) => {
+                    return (
+                        <div key={insideItem.id} className={css.insideItem}>
+                            <header className={css.insideItemHeader}>
+                                <div className={css.insideItemHeaderTitle}>
+                                    <div
+                                        className={cn(
+                                            css.point,
+                                            insideItem.className
+                                        )}
+                                    ></div>
+                                    <div>{insideItem.title}</div>
+                                </div>
+                                <div>{insideItem.value}</div>
+                            </header>
+                            {insideItem.assetList.map((assetItem) => {
+                                return (
+                                    <AssetsCard
+                                        key={assetItem.id}
+                                        id={assetItem.id}
+                                        img={assetItem.img}
+                                        title={assetItem.title}
+                                        subTitle={assetItem.subTitle}
+                                        price={assetItem.price}
+                                        priceText={assetItem.priceText}
+                                    />
+                                );
+                            })}
+                        </div>
+                    );
+                })}
+            </div>
+
             <BottomSheet open={assetsIsShown} onClose={closeAddAssets}>
                 <p className="subhead-s">Add asset</p>
                 <Tabs

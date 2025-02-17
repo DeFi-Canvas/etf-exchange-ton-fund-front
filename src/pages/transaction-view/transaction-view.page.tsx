@@ -8,7 +8,7 @@ import { TransactionResponse } from '@pages/transaction-view/transaction-view.mo
 
 const classNameByStatus = {
     SUCCESS: css.colorGreen,
-    PROCESSING: css.colorYellow,
+    PROCESSING: css.colorOrange,
     ERROR: css.colorRed,
     GIFT: css.colorPurple,
 };

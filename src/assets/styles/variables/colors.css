@@ -7,7 +7,8 @@
     --base-color-purple-light: 151 127 255;
     --base-color-green: 97 198 108;
     --base-color-red: 255 88 78;
-    --base-color-yellow: 247 147 26;
+    --base-color-orange: 247 147 26;
+    --base-color-cyan: 17, 213, 182;
 
     /* Color text white */
     --color-text-white: rgb(var(--base-color-white));
@@ -27,7 +28,9 @@
     --color-system-green: rgb(var(--base-color-green));
     --color-system-red: rgb(var(--base-color-red));
     --color-system-red-50: rgb(var(--base-color-red) / 50%);
-    --color-system-yellow: rgb(var(--base-color-yellow));
+    --color-system-orange: rgb(var(--base-color-orange));
+    --color-system-cyan: rgb(var(--base-color-cyan));
+
 
     /* Color pallete */
     --color-pallete-grey: rgb(var(--base-color-grey));
