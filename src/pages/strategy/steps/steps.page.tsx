@@ -50,7 +50,7 @@ export const StrategyStepsPage = () => {
             id: 3,
             name: 'Fees',
             icon: <PercentIcon />,
-            isCompleted: false,
+            isCompleted: true,
             isAllowed: true,
             path: '/strategy/fees',
         },
@@ -59,7 +59,7 @@ export const StrategyStepsPage = () => {
             name: 'Strategy preview',
             icon: <CheckListIcon />,
             isCompleted: false,
-            isAllowed: false,
+            isAllowed: true,
             path: '/strategy/preview',
         },
         {
