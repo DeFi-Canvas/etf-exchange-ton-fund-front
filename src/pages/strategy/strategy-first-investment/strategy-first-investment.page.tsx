@@ -41,10 +41,10 @@ export const StrategyFirstInvestment = () => {
     return (
         <div className={css.page}>
             <header className={'app-container'}>
-                <h2 className="h2">Strategy preview</h2>
+                <h2 className="h2">First investment</h2>
                 <p className="body-m-regular color-text-dark-70 mt-1">
-                    Look at the strategy preview, check all items and edit them
-                    if necessary.
+                    Become the first investor in your strategy to publish it.
+                    Minimum investment amount 50$.
                 </p>
             </header>
             <div className="app-container">

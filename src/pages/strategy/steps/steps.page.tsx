@@ -80,6 +80,7 @@ export const StrategyStepsPage = () => {
         ...(currentStep !== 0 && { '--width': `${currentStep * 20}%` }),
     };
 
+    console.log(currentStep);
     const nextStep =
         steps.find((step) => step.id === currentStep + 1) ?? steps[0];
 
