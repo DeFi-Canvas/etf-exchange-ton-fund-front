@@ -1,19 +1,151 @@
+/* Common */
 .page {
     padding-block: 32px;
 }
-
 .cardList {
     margin-top: 32px;
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
-
 .card {
-    padding: 32px 16px;
+    padding: 20px;
     border-radius: 24px;
     background-color: var(--color-background-white);
 }
+
+/* Info */
+.cardImageName {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.fundImage {
+    --size: 40px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+}
+
+/* Chart */
+.fundChart {
+    position: relative;
+}
+.chart {
+    --size: 256px;
+    width: var(--size);
+    height: var(--size);
+    margin-inline: auto;
+}
+.chartInfo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.wrapperAssetList {
+    margin-top: 16px;
+    border-radius: 24px;
+    background-color: var(--color-background-white);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.insideItem {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.insideItemHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.insideItemHeaderTitle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.point {
+    --size: 12px;
+    width: var(--size);
+    height: var(--size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+.pointCoins {
+    background-color: var(--color-main-purple);
+}
+.pointPools {
+    background-color: var(--color-system-orange);
+}
+.pointStalking {
+    background-color: var(--color-system-cyan);
+}
+.fundChartInfoRisk {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.fundChartInfoRiskIcon {
+    --size: 40px;
+    width: var(--size);
+    height: var(--size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-system-red);
+    border-radius: 50%;
+}
+.fundChartInfoRiskIcon svg {
+    --size: 24px;
+    width: var(--size);
+    height: var(--size);
+}
+.fundChartInfoRiskText {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Fees */
+.fundFeesList {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.fundFeesItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Author */
+.fundAuthorCard {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 12px;
+    background-color: var(--color-background-light);
+    border-radius: 12px;
+}
+.fundAuthorCardImage {
+    --size: 32px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+}
+
+/* Footer */
 
 .footer {
     display: flex;
