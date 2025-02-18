@@ -199,7 +199,6 @@ export const StrategyPreview = () => {
                 </div>
                 <div className={css.card}>
                     <h3 className="subhead-m">Author</h3>
-
                     <div className={css.fundAuthorCard}>
                         <img
                             src="temp-author.png"

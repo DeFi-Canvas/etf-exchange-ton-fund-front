@@ -58,7 +58,7 @@ export const StrategyStepsPage = () => {
             id: 4,
             name: 'Strategy preview',
             icon: <CheckListIcon />,
-            isCompleted: false,
+            isCompleted: true,
             isAllowed: true,
             path: '/strategy/preview',
         },
@@ -67,7 +67,7 @@ export const StrategyStepsPage = () => {
             name: 'First investment',
             icon: <DepositDollarIcon />,
             isCompleted: false,
-            isAllowed: false,
+            isAllowed: true,
             path: '/strategy/investment',
         },
     ];
