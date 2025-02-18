@@ -1,3 +1,10 @@
+.h1 {
+    font-style: normal;
+    font-weight: 590;
+    font-size: 44px;
+    line-height: 1.3;
+}
+
 .h2 {
     font-style: normal;
     font-weight: 590;
@@ -5,12 +12,18 @@
     line-height: 1.3;
 }
 
+.body-s-regular {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
 .body-m-regular {
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 1.5;
-    color: var(--color-text-dark-70)
 }
 
 .body-m-medium {
@@ -18,4 +31,32 @@
     font-weight: 510;
     font-size: 14px;
     line-height: 1.5;
+}
+
+.body-l-regular {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.body-l-medium {
+    font-style: normal;
+    font-weight: 510;
+    font-size: 16px;
+    line-height: 1.35;
+}
+
+.subhead-s {
+    font-style: normal;
+    font-weight: 510;
+    font-size: 20px;
+    line-height: 1.3;
+}
+
+.subhead-m {
+    font-style: normal;
+    font-weight: 510;
+    font-size: 22px;
+    line-height: 1.3;
 }

@@ -14,6 +14,7 @@ export const FileField = ({
     label,
 }: FileFieldProps) => {
     const imageIsLoaded = false;
+    const isLoading = false;
 
     return (
         <div className={css.wrapper}>
@@ -23,8 +24,20 @@ export const FileField = ({
                     [css.rounded]: type === 'round',
                 })}
             >
+                {isLoading && (
+                    <div
+                        className={cn(
+                            css.imageLoading,
+                            css.loadingStartAnimation
+                        )}
+                    >
+                        <span className={css.imageLoadingText}>
+                            Uploading...
+                        </span>
+                    </div>
+                )}
                 {/* Показываем загруженнное изображение */}
-                {imageIsLoaded && (
+                {imageIsLoaded && !isLoading && (
                     <img
                         className={css.image}
                         src="temp-strategy-cover.png"
@@ -32,7 +45,7 @@ export const FileField = ({
                     />
                 )}
                 {/* Если изображение ещё не загружено */}
-                {!imageIsLoaded && (
+                {!imageIsLoaded && !isLoading && (
                     <div className={css.imageEmpty}>
                         {type === 'default' && (
                             <p className="body-m-medium">

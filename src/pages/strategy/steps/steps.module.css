@@ -1,0 +1,87 @@
+.page {
+    padding-block: 32px;
+}
+
+.title {
+    font-style: normal;
+    font-weight: 590;
+    font-size: 32px;
+    line-height: 1.3;
+}
+
+.subtitle {
+    margin-top: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-text-dark-70);
+}
+
+.stepBarWrapper {
+    margin-top: 32px;
+}
+
+.stepBarLabel {
+    font-weight: 510;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.stepBar {
+    margin-top: 8px;
+    width: 100%;
+    height: 4px;
+    border-radius: 50px;
+    background-color: var(--color-main-purple-20);
+}
+
+.stepBarFilledLine {
+    width: var(--width, 5%);
+    height: inherit;
+    border-radius: inherit;
+    background-color: var(--color-main-purple);
+}
+
+.stepList {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.stepCard {
+    padding: 12px;
+    border-radius: 12px;
+    background-color: var(--color-background-white);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.stepCardIcon {
+    --size: 40px;
+    width: var(--size);
+    height: var(--size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-main-purple-10);
+    border-radius: 50%;
+}
+
+.stepCardIcon svg {
+    --size: 24px;
+    width: var(--size);
+    height: var(--size);
+    opacity: 20%;
+    color: var(--color-main-purple);
+}
+
+.stepCardIconActive svg {
+    opacity: 100%;
+}
+
+.footerActions {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+}

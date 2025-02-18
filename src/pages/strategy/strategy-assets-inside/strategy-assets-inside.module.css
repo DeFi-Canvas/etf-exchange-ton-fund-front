@@ -1,0 +1,156 @@
+.page {
+    padding-block: 32px;
+}
+
+.body {
+    margin-top: 32px;
+    padding: 32px 16px;
+    border-radius: 24px;
+    background-color: var(--color-background-white);
+    position: relative;
+}
+
+.assetsList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+    height: 75vh;
+    overflow: auto;
+}
+
+.selectedAssetCard {
+    position: relative;
+}
+
+.buttonCancelSelectedAsset {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+}
+
+.assetFilledWrapper {
+    height: 184px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.amountValue {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.amountPercent {
+    font-style: normal;
+    font-weight: 590;
+    font-size: 32px;
+    line-height: 1.3;
+    color: var(--color-text-dark-50);
+    padding-bottom: 4px;
+}
+
+.actions {
+    padding: 8px 16px;
+    margin-inline: -16px;
+    border-top: 1px solid #3C3C435C;
+}
+
+.keyboard {
+    display: grid;
+    grid-template-columns: repeat(3, 48px);
+    row-gap: 4px;
+    column-gap: 65px;
+    margin-inline: auto;
+    width: fit-content;
+    margin-top: 24px;
+}
+
+.keyboardButton {
+    --size: 48px;
+    width: var(--size);
+    height: var(--size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background-color: transparent;
+    font-weight: 590;
+    font-size: 24px;
+    line-height: 1.3;
+    text-align: center;
+}
+
+.chart {
+    --size: 256px;
+    width: var(--size);
+    height: var(--size);
+    margin-inline: auto;
+}
+
+.chartInfo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrapperAssetList {
+    margin-top: 8px;
+    padding: 32px 16px;
+    border-radius: 24px;
+    background-color: var(--color-background-white);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.insideItem {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.insideItemHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.insideItemHeaderTitle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.point {
+    --size: 12px;
+    width: var(--size);
+    height: var(--size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.pointCoins {
+    background-color: var(--color-main-purple);
+}
+
+.pointPools {
+    background-color: var(--color-system-orange);
+}
+
+.pointStalking {
+    background-color: var(--color-system-cyan);
+}

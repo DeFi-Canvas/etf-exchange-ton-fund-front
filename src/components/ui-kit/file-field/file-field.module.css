@@ -10,6 +10,7 @@
     border-radius: calc(var(--size) / 10);
     overflow: hidden;
     margin-inline: auto;
+    position: relative;
 }
 
 .imageWrapper.rounded {
@@ -34,6 +35,39 @@
     text-align: center;
     height: 100%;
     border-radius: inherit;
+}
+
+.imageLoading {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-main-purple-10);
+}
+
+.imageLoading::before {
+    content: '';
+    display: none;
+    width: 0;
+    height: 100%;
+    background-color: var(--color-main-purple-20);
+    transition: width 0.3s;
+}
+
+/* TODO: Позже прикрутить либу, которая будет загружать или же добавлять класс loadingStartAnimation, который будет анимировать загрузку */
+.imageLoading.loadingStartAnimation::before {
+    display: block;
+    animation: uploadingAnimation 1s ease-in;
+}
+
+@keyframes uploadingAnimation {
+    100% { width: 100% }
+}
+
+.imageLoadingText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .labelFileField {
