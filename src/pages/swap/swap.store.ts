@@ -145,12 +145,27 @@ export const newSwapStore = injectable(
                 walletService.getAssets()
             ),
             tap(({ assets, walletAssets: waletAssetsResp }) => {
+                setWaletAssets(waletAssetsResp);
                 pipe(
-                    assets,
+                    E.Do,
+                    E.bind('waletAssetsResp', constant(waletAssetsResp)),
+                    E.bind('assets', constant(assets)),
+                    E.map(({ assets, waletAssetsResp }) => {
+                        const waletAssetsRespSet = new Set(
+                            waletAssetsResp.map((el) => el.id)
+                        );
+                        const { left, right } = pipe(
+                            assets,
+                            A.partition((asset) =>
+                                waletAssetsRespSet.has(asset.id)
+                            )
+                        );
+
+                        return [...right, ...left];
+                    }),
                     E.map(A.map(mapAssetToFiltrebleSwapAsset)),
                     setAllAssets
                 );
-                setWaletAssets(waletAssetsResp);
 
                 getAssetsEffectMapping(assets, getWaletAssets(), setSwapAssets);
             })
@@ -193,6 +208,7 @@ export const newSwapStore = injectable(
                     ),
                     E.fold(() => undefined, identity)
                 );
+
                 if (isIdExistOnSwapAssets) {
                     setSelectAssetBottomSheetIsOpen(false);
 
