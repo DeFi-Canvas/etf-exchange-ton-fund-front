@@ -30,6 +30,10 @@ import {
 import { createAdapter } from '@most/adapter';
 import { DropdownOptions } from '@/components/dropdown/dropdown.component';
 import { fromProperty, newAtomState } from '@/utils/property.utils';
+import {
+    getCurrentWaletAsset,
+    getIsIdExistOnSwapAssets,
+} from './swap.store.utils';
 
 export interface SwapStore {
     //#region state
@@ -135,6 +139,7 @@ export const newSwapStore = injectable(
         const swapTokenOrder = () =>
             pipe(getSwapAssets(), E.map(A.reverse), setSwapAssets);
 
+        //#region EFFECTS
         const getAssetsEffect = pipe(
             combine(
                 (assets, walletAssets) => ({
@@ -184,29 +189,14 @@ export const newSwapStore = injectable(
                     E.fold(constUndefined, identity)
                 );
 
-                const currentWaletAsset = pipe(
+                const currentWaletAsset = getCurrentWaletAsset(
                     currentWaletAssets,
-                    E.chain(
-                        flow(
-                            A.findFirst((x) => x.id === id),
-                            E.fromOption(constant('error'))
-                        )
-                    ),
-                    E.fold(() => undefined, identity)
+                    id
                 );
 
-                const isIdExistOnSwapAssets = !pipe(
+                const isIdExistOnSwapAssets = !getIsIdExistOnSwapAssets(
                     currentSwapAssets,
-                    E.chain(
-                        flow(
-                            A.filterMap((asset) =>
-                                asset.id === id ? O.some(id) : O.none
-                            ),
-                            A.head,
-                            E.fromOption(constant('error'))
-                        )
-                    ),
-                    E.fold(() => undefined, identity)
+                    id
                 );
 
                 if (isIdExistOnSwapAssets) {
@@ -281,29 +271,14 @@ export const newSwapStore = injectable(
                 const currentWaletAssets = getWaletAssets();
                 const currentSwapAssets = getSwapAssets();
 
-                const currentWaletAsset = pipe(
+                const currentWaletAsset = getCurrentWaletAsset(
                     currentWaletAssets,
-                    E.chain(
-                        flow(
-                            A.findFirst((x) => x.id === id),
-                            E.fromOption(constant('error'))
-                        )
-                    ),
-                    E.fold(() => undefined, identity)
+                    id
                 );
 
-                const isIdExistOnSwapAssets = !pipe(
+                const isIdExistOnSwapAssets = !getIsIdExistOnSwapAssets(
                     currentSwapAssets,
-                    E.chain(
-                        flow(
-                            A.filterMap((asset) =>
-                                asset.id === id ? O.some(id) : O.none
-                            ),
-                            A.head,
-                            E.fromOption(constant('error'))
-                        )
-                    ),
-                    E.fold(() => undefined, identity)
+                    id
                 );
 
                 const currentSelectedAsset = pipe(
