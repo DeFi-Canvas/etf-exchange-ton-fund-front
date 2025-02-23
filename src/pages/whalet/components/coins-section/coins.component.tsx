@@ -1,7 +1,7 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import cn from 'classnames';
 import css from './coins.module.css';
-import { useState } from 'react';
+import { startTransition, Suspense, useState } from 'react';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useProperty } from '@frp-ts/react';
 import { injectable } from '@injectable-ts/core';
@@ -9,6 +9,7 @@ import React from 'react';
 import { newWhatToBuyViewModel } from '../../whalet.view-model';
 import { TrackedEvents, trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
+import { Loader } from '@/components/loader/loader.component';
 
 const routesInit = [
     {
@@ -66,10 +67,16 @@ export const OperationsNav = ({
                                 );
                                 setRoutes((r) =>
                                     r
-                                        .map((t) => ({ ...t, isActive: false }))
+                                        .map((t) => ({
+                                            ...t,
+                                            isActive: false,
+                                        }))
                                         .map((t) => {
                                             if (t.id === route.id) {
-                                                return { ...t, isActive: true };
+                                                return {
+                                                    ...t,
+                                                    isActive: true,
+                                                };
                                             } else return t;
                                         })
                                 );
@@ -79,7 +86,9 @@ export const OperationsNav = ({
                         </NavLink>
                     ))}
             </div>
-            <Outlet />
+            <Suspense fallback={<Loader size={'small'} />}>
+                <Outlet />
+            </Suspense>
         </div>
     );
 };
