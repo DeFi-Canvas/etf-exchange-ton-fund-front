@@ -1,5 +1,5 @@
 import { injectable, token } from '@injectable-ts/core';
-import React from 'react';
+import React, { memo } from 'react';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useProperty } from '@frp-ts/react';
 import { newPurchaseSellStore } from '../purchase/purchase.store';
@@ -9,21 +9,22 @@ import { UserStoreService } from '@/store/user.store';
 
 export const SellContainer = injectable(
     token('userStore')<UserStoreService>(),
-    (userStore) => () => {
-        const { id } = useParams();
-        const store = newPurchaseSellStore({ userStore });
+    (userStore) =>
+        memo(() => {
+            const { id } = useParams();
+            const store = newPurchaseSellStore({ userStore });
 
-        const purchaseStore = useValueWithEffect(() => store(id), []);
-        const showBottomSheet = useProperty(
-            purchaseStore.isShowBottomSheetFinishBoody
-        );
-        const isLoading = useProperty(purchaseStore.isLoading);
-        const SellPageResolve = SellPage({ purchaseStore });
+            const purchaseStore = useValueWithEffect(() => store(id), []);
+            const showBottomSheet = useProperty(
+                purchaseStore.isShowBottomSheetFinishBoody
+            );
+            const isLoading = useProperty(purchaseStore.isLoading);
+            const SellPageResolve = SellPage({ purchaseStore });
 
-        return React.createElement(SellPageResolve, {
-            ...purchaseStore,
-            showBottomSheet,
-            isLoading,
-        });
-    }
+            return React.createElement(SellPageResolve, {
+                ...purchaseStore,
+                showBottomSheet,
+                isLoading,
+            });
+        })
 );

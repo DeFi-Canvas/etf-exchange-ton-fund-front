@@ -23,6 +23,64 @@
     </head>
     <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
+        <style>
+            #global-loading {
+                height: 90vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-shrink: 0;
+                svg {
+                    width: 48px;
+                    height: 48px;
+                    transition: all 0.5s ease;
+                    animation: rotate 1s linear infinite;
+                }
+            }
+            @keyframes rotate {
+                from {
+                    transform: rotate(-360deg);
+                }
+            }
+        </style>
+        <div id="global-loading">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="48"
+                height="48"
+                viewBox="0 0 48 48"
+                fill="none"
+            >
+                <g clip-path="url(#clip0_5571_9097)">
+                    <path
+                        d="M23.9993 45.3337C35.7814 45.3337 45.3327 35.7824 45.3327 24.0003C45.3327 12.2183 35.7814 2.66699 23.9993 2.66699C12.2173 2.66699 2.66602 12.2183 2.66602 24.0003C2.66602 35.7824 12.2173 45.3337 23.9993 45.3337Z"
+                        stroke="url(#paint0_radial_5571_9097)"
+                        stroke-width="5.33333"
+                        stroke-linecap="round"
+                    />
+                </g>
+                <defs>
+                    <radialGradient
+                        id="paint0_radial_5571_9097"
+                        cx="0"
+                        cy="0"
+                        r="1"
+                        gradientUnits="userSpaceOnUse"
+                        gradientTransform="translate(16 -0.999758) rotate(105.781) scale(47.8017 26.7325)"
+                    >
+                        <stop stop-color="#5B39F4" />
+                        <stop
+                            offset="1"
+                            stop-color="#5B39F4"
+                            stop-opacity="0"
+                        />
+                    </radialGradient>
+                    <clipPath id="clip0_5571_9097">
+                        <rect width="48" height="48" fill="white" />
+                    </clipPath>
+                </defs>
+            </svg>
+        </div>
         <div id="root"></div>
 
         <script src="/src/index.tsx" type="module"></script>

@@ -1,6 +1,5 @@
-import { Deposit } from '@deposit/deposit.page';
+import { lazy } from 'react';
 import { Component, getContainersArgs } from '../containers';
-import { DepositEndPointContainer } from '@deposit/pages/deposit-end-point/deposit-end-point.container';
 
 export interface DepositContainers {
     DepositPage: Component;
@@ -10,10 +9,18 @@ export interface DepositContainers {
 export const getDepositContainers = ({
     userStore,
 }: getContainersArgs): DepositContainers => ({
-    DepositPage: Deposit({
-        userStore,
-    }),
-    DepositEndPoint: DepositEndPointContainer({
-        userStore,
-    }),
+    DepositPage: lazy(() =>
+        import('@deposit/deposit.page').then((c) => {
+            const component = c.Deposit({ userStore });
+            return { default: component };
+        })
+    ),
+    DepositEndPoint: lazy(() =>
+        import(
+            '@deposit/pages/deposit-end-point/deposit-end-point.container'
+        ).then((c) => {
+            const component = c.DepositEndPointContainer({ userStore });
+            return { default: component };
+        })
+    ),
 });
