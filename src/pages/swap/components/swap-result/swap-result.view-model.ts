@@ -9,6 +9,7 @@ import { fromProperty } from '@/utils/property.utils';
 import { tap } from '@most/core';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
+import { ResultOptions } from './swap-result.component';
 
 export interface SwapResult {
     isOpen: Property<boolean>;
@@ -16,6 +17,7 @@ export interface SwapResult {
     subTitle: Property<string>;
     logos: Property<Array<string>>;
     onClose: () => void;
+    resultOptions: Property<Array<ResultOptions>>;
 }
 
 export interface NewSwapResult {
@@ -24,10 +26,18 @@ export interface NewSwapResult {
 
 export const newSwapResult = injectable(
     token('store')<SwapStore>(),
-    (store): NewSwapResult =>
+    // token('swapService')<SwapRestService>(),
+    (
+        store
+        //  swapService
+    ): NewSwapResult =>
         () => {
             const subTitle = newLensedAtom('');
             const logos = newLensedAtom<Array<string>>([]);
+
+            const onClose = () => {
+                store.closeResultBottomSheet();
+            };
 
             const viewEffect = pipe(
                 store.swapAssets,
@@ -38,7 +48,13 @@ export const newSwapResult = injectable(
                         E.map(
                             flow(
                                 A.map((asset) => asset.assetName),
-                                A.reduce('', (acc, curr) => `${acc} to ${curr}`)
+                                A.reduceWithIndex('', (i, acc, curr) => {
+                                    if (i === 0) {
+                                        return `${curr}`;
+                                    } else {
+                                        return `${acc} to ${curr}`;
+                                    }
+                                })
                             )
                         ),
                         E.fold(constant(''), identity),
@@ -57,9 +73,10 @@ export const newSwapResult = injectable(
                 {
                     subTitle,
                     logos,
+                    onClose,
+                    resultOptions: store.resultSwapListInfo,
                     isOpen: store.resultBottomSheetIsOpen,
                     status: store.resultStatus,
-                    onClose: store.closeResultBottomSheet,
                 },
                 viewEffect
             );

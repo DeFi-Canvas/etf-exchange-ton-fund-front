@@ -6,15 +6,28 @@ import * as A from 'fp-ts/Array';
 import * as O from 'fp-ts/Option';
 
 export type SwapResultStatus = 'SUCCESS' | 'ERROR' | 'PROGRESS';
+export type SwapBtnError = 'INSUFFICIENT_BALANCE' | 'EMPTY_FIELD';
+
+export const SHODOW_SWAP = 0.99;
+
+export const swapBtnErrorMap = (err: SwapBtnError) => {
+    switch (err) {
+        case 'INSUFFICIENT_BALANCE':
+            return 'Insufficient balance';
+        case 'EMPTY_FIELD':
+            return 'Swap';
+    }
+};
 
 export interface SwapAsset {
     id: string;
     imageSrc: string;
     assetName: string;
-    availablePrice: number;
     price: number;
-    currentValue?: number;
+    currentValue: number;
+    balanceInWalet: number;
     valueInStableCoin?: string;
+    hasError: boolean;
 }
 
 export interface FiltrebleSwapAsset extends Asset {
@@ -38,8 +51,10 @@ export const mapAssetToSwapAsset = (asset: Asset): SwapAsset => ({
     imageSrc: asset.logo,
     assetName: asset.ticker,
     price: asset.price,
-    availablePrice: asset.balance ?? 0,
+    balanceInWalet: asset.balance ?? 0,
+    currentValue: 0,
     valueInStableCoin: `≈ $ 0`,
+    hasError: false,
 });
 
 export interface AssetsUIFiltreble
@@ -51,9 +66,9 @@ export const mapAssetsWaletToCard = (
 ): AssetsUIFiltreble => ({
     id: asset.id,
     img: asset.logo,
-    title: ` ${asset.name}`,
-    subTitle: asset.symbol ?? '',
-    price: ``,
+    title: `${asset.ticker}`,
+    subTitle: `${asset.name}`,
+    price: `$ ${asset.price}`,
     priceText: '',
     isVisible: asset.isVisible,
 });
@@ -102,7 +117,7 @@ export const getAssetsEffectMapping = (
                                 () => x,
                                 (dataEl) => ({
                                     ...x,
-                                    availablePrice: dataEl.value,
+                                    balanceInWalet: dataEl.balance,
                                 })
                             )
                         );

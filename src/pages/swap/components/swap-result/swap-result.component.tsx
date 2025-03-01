@@ -9,6 +9,12 @@ import {
     SwapSolidIcon,
 } from '@/components/Icons/Icons.tsx';
 import cn from 'classnames';
+import { useNavigate } from 'react-router-dom';
+
+export interface ResultOptions {
+    name: string;
+    value: string;
+}
 
 export interface SwapResultProps {
     isOpen: boolean;
@@ -16,13 +22,14 @@ export interface SwapResultProps {
     subTitle: string;
     logos: Array<string>;
     onClose: () => void;
+    resultOptions: ResultOptions[];
 }
 
 const swapStatusWrapper = (status: SwapResultStatus) => {
     switch (status) {
         case 'SUCCESS':
             return {
-                text: 'Swap in successful',
+                text: 'Swap in network',
                 icon: <SuccessIcon />,
                 className: css.colorSuccess,
             };
@@ -41,23 +48,21 @@ const swapStatusWrapper = (status: SwapResultStatus) => {
     }
 };
 
-const MOCK_INFO_LIST = [
-    { id: 0, name: 'Total amount in TON', value: '98,64 TON' },
-    { id: 1, name: 'Total amount in USD₮', value: '0 USD₮' },
-];
-
 export const SwapResult = ({
     isOpen,
     status,
     subTitle,
     logos,
     onClose,
+    resultOptions,
 }: SwapResultProps) => {
+    const navigate = useNavigate();
+
     const { className: iconClassName, icon, text } = swapStatusWrapper(status);
 
     return (
         <div>
-            <BottomSheet open={isOpen} onClose={constVoid}>
+            <BottomSheet open={isOpen} onClose={onClose}>
                 <div className={css.logoList}>
                     {logos.map((src) => (
                         <img
@@ -76,8 +81,8 @@ export const SwapResult = ({
                 </div>
                 <div className={css.subtitle}>{subTitle}</div>
                 <ul className={css.infoList}>
-                    {MOCK_INFO_LIST.map((info) => (
-                        <li key={info.id} className={css.infoItem}>
+                    {resultOptions.map((info) => (
+                        <li key={info.value} className={css.infoItem}>
                             <span className={css.infoItemName}>
                                 {info.name}
                             </span>
@@ -90,7 +95,10 @@ export const SwapResult = ({
                 <AppButton
                     label="Close"
                     className={css.buttonClose}
-                    onClick={onClose}
+                    onClick={() => {
+                        onClose();
+                        navigate('/');
+                    }}
                 />
             </BottomSheet>
         </div>

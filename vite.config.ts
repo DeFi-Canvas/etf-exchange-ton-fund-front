@@ -5,34 +5,45 @@ import svgr from 'vite-plugin-svgr';
 
 import basicSsl from '@vitejs/plugin-basic-ssl';
 
-// https://vitejs.dev/config/
 export default defineConfig({
     base: '/',
     resolve: {
         alias: {
-            util: 'rollup-plugin-node-polyfills/polyfills/util',
-            stream: 'rollup-plugin-node-polyfills/polyfills/stream',
-            process: 'rollup-plugin-node-polyfills/polyfills/process-es6',
+            // util: 'rollup-plugin-node-polyfills/polyfills/util',
+            // stream: 'rollup-plugin-node-polyfills/polyfills/stream',
+            // process: 'rollup-plugin-node-polyfills/polyfills/process-es6',
             // 'vue-i18n': 'vue-i18n/dist/vue-i18n.runtime.esm-bundler.js',
         },
     },
     plugins: [
-        // Allows using React dev server along with building a React application with Vite.
-        // https://npmjs.com/package/@vitejs/plugin-react-swc
         react(),
-        // Allows using the compilerOptions.paths property in tsconfig.json.
-        // https://www.npmjs.com/package/vite-tsconfig-paths
         tsconfigPaths(),
-
+        svgr(),
         // Allows using self-signed certificates to run the dev server using HTTPS.
         // https://www.npmjs.com/package/@vitejs/plugin-basic-ssl
         basicSsl(),
-        svgr(),
     ],
     publicDir: './public',
     server: {
         // Exposes your dev server and makes it accessible for the devices in the same network.
         host: true,
+    },
+    build: {
+        minify: 'terser',
+        rollupOptions: {
+            output: {
+                manualChunks(id) {
+                    if (id.includes('node_modules')) {
+                        return id
+                            .toString()
+                            .split('node_modules/')[1]
+                            .split('/')[0]
+                            .toString();
+                    }
+                },
+            },
+            cache: true,
+        },
     },
     css: {
         preprocessorOptions: {

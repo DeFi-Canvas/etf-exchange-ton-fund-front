@@ -49,7 +49,7 @@
         },
         "/asset/{asset_id}": {
             "get": {
-                "description": "Получить информацию об активе по его идентификатору",
+                "description": "Получить информацию об активе по его идентификатору или тикеру",
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "tags": ["assetss"],
@@ -57,7 +57,7 @@
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Идентификатор актива",
+                        "description": "Идентификатор актива или тикер",
                         "name": "asset_id",
                         "in": "path",
                         "required": true
@@ -207,7 +207,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/server.DepositRequest"
+                            "$ref": "#/definitions/server.DedustDepositRequest"
                         }
                     }
                 ],
@@ -245,11 +245,13 @@
                 "summary": "Withdraw liquidity from DeDust",
                 "parameters": [
                     {
-                        "type": "number",
-                        "description": "Amount for deposit",
-                        "name": "amount",
-                        "in": "query",
-                        "required": true
+                        "description": "Withdraw Request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/server.DedustWithdrawRequest"
+                        }
                     }
                 ],
                 "responses": {
@@ -436,7 +438,134 @@
                 }
             }
         },
-        "/stream/{user_id}": {
+        "/storm/apr": {
+            "get": {
+                "description": "Calculate APR based on deposited tokens and LP token supply",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Storm"],
+                "summary": "Get current APR for Storm deposit",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token symbol (e.g., 'USDT', 'TON', etc.)",
+                        "name": "ticker",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "APR retrieved successfully",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/storm/liquidity/deposit": {
+            "post": {
+                "description": "Deposit native or jetton tokens into Storm liquidity pool",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Storm"],
+                "summary": "Deposit liquidity on Storm",
+                "parameters": [
+                    {
+                        "description": "Deposit request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/server.StormDepositRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deposit initiated successfully",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/storm/liquidity/withdraw": {
+            "post": {
+                "description": "Withdraw LP tokens from Storm liquidity pool",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Storm"],
+                "summary": "Withdraw liquidity from Storm",
+                "parameters": [
+                    {
+                        "description": "Deposit request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/server.StormDepositRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Withdrawal initiated successfully",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/stream/{telegram_id}": {
             "get": {
                 "description": "Open a server-sent events (SSE) stream for a user",
                 "produces": ["text/event-stream"],
@@ -446,7 +575,7 @@
                     {
                         "type": "string",
                         "description": "User ID",
-                        "name": "user_id",
+                        "name": "telegram_id",
                         "in": "path",
                         "required": true
                     }
@@ -1307,14 +1436,45 @@
                 }
             }
         },
-        "server.DepositRequest": {
+        "server.DedustDepositRequest": {
             "type": "object",
             "properties": {
                 "amount0": {
-                    "type": "number"
+                    "type": "string"
                 },
                 "amount1": {
+                    "type": "string"
+                },
+                "tokens": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "server.DedustWithdrawRequest": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "string"
+                },
+                "tokens": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "server.StormDepositRequest": {
+            "type": "object",
+            "properties": {
+                "amount": {
                     "type": "number"
+                },
+                "ticker": {
+                    "type": "string"
                 }
             }
         },
@@ -1325,7 +1485,7 @@
                     "type": "number"
                 },
                 "telegram_id": {
-                    "type": "string"
+                    "type": "integer"
                 },
                 "tokens": {
                     "type": "array",

@@ -37,7 +37,7 @@ export const SwapSelectAsset = ({
                     value={searchValue}
                     className={css.inputField}
                     onChange={onSearchAssetsEvent}
-                    placeholder="Serch"
+                    placeholder="Search"
                 />
                 <div className={css.assetsList}>
                     {/*

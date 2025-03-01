@@ -2,7 +2,7 @@ import css from './swap-asset-card.module.css';
 import { SwapAsset } from '@pages/swap/swap.model.ts';
 import cn from 'classnames';
 import { ChevronRightIcon, WalletIcon } from '@/components/Icons/Icons.tsx';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { formatNumberToUI } from '@/utils/number';
 
 export interface SwapAssetCardProps {
@@ -23,13 +23,25 @@ export const SwapAssetCard = ({
     onMaxClick,
 }: SwapAssetCardProps) => {
     const textSwapCard = isFirstCard ? 'You send' : 'You receive';
-    const price = `${formatNumberToUI(card.availablePrice)} ${card.assetName}`;
+    const price = `${formatNumberToUI(card.balanceInWalet)} ${card.assetName}`;
+    const [inputValue, setInputValue] = useState(() =>
+        card.currentValue > 0 ? `${card.currentValue}` : ''
+    );
 
     const onChangeFieldEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
+        setInputValue(value);
         const valueNumber = Number(value);
         onChangeField(card.id, valueNumber);
     };
+
+    useEffect(() => {
+        if (card.currentValue > 0) {
+            setInputValue(`${card.currentValue}`);
+        } else {
+            setInputValue('');
+        }
+    }, [card.currentValue]);
 
     return (
         <div className={cn(css.swapAssetCard, className)}>
@@ -70,14 +82,12 @@ export const SwapAssetCard = ({
                 <div className={css.fieldWrapper}>
                     <input
                         type="number"
-                        className={css.field}
+                        className={cn(css.field, {
+                            [css.fieldWrapperError]: card.hasError,
+                        })}
                         placeholder="0"
                         onChange={onChangeFieldEvent}
-                        value={
-                            card.currentValue && card.currentValue > 0
-                                ? card.currentValue
-                                : ''
-                        }
+                        value={inputValue}
                     />
                 </div>
             </div>
