@@ -6,12 +6,13 @@ import { Property } from '@frp-ts/core';
 import { newLensedAtom } from '@frp-ts/lens';
 import { constant, flow, identity, pipe } from 'fp-ts/lib/function';
 import { fromProperty } from '@/utils/property.utils';
-import { tap } from '@most/core';
+import { chain, map, tap } from '@most/core';
 import * as O from 'fp-ts/Option';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
 import { SwapBtnError, swapBtnErrorMap } from '../../swap.model';
 import { newSwapRestService } from '@/API/swipe.service';
+import { createAdapter } from '@most/adapter';
 
 export interface SwapFooter {
     isDisabled: Property<boolean>;
@@ -31,27 +32,7 @@ export const newSwapFooter = injectable(
             const isDisabled = newLensedAtom(true);
             const btnText = newLensedAtom('');
 
-            const emmitSwap = () => {
-                const currentSwapAssets = store.getSwapAssets();
-
-                const amount = pipe(
-                    currentSwapAssets,
-                    E.chain(flow(A.head, E.fromOption(constant('error')))),
-                    E.chain((asset) =>
-                        E.fromNullable('error')(asset.currentValue)
-                    ),
-                    E.fold(() => 0, identity)
-                );
-
-                const tokens = pipe(
-                    currentSwapAssets,
-                    E.map(flow(A.map((asset) => asset.assetName))),
-                    E.fold(() => [], identity)
-                );
-
-                swapRestService.initiate({ amount, tokens });
-                store.setResultBottomSheetIsOpen(true);
-            };
+            const [emmitSwap, emmitSwapEvent] = createAdapter<void>();
 
             const swapBtnErrorEffect = pipe(
                 store.swapAssets,
@@ -70,7 +51,7 @@ export const newSwapFooter = injectable(
                             return E.left('');
                         }),
                         E.fold(
-                            (_) => {
+                            () => {
                                 store.setSwapBtnError(O.none);
                             },
                             (err) =>
@@ -78,6 +59,36 @@ export const newSwapFooter = injectable(
                                     O.some(err as SwapBtnError)
                                 )
                         )
+                    );
+                })
+            );
+            const emmitSwapEffect = pipe(
+                emmitSwapEvent,
+                map(() => {
+                    const currentSwapAssets = store.getSwapAssets();
+
+                    const amount = pipe(
+                        currentSwapAssets,
+                        E.chain(flow(A.head, E.fromOption(constant('error')))),
+                        E.chain((asset) =>
+                            E.fromNullable('error')(asset.currentValue)
+                        ),
+                        E.fold(() => 0, identity)
+                    );
+
+                    const tokens = pipe(
+                        currentSwapAssets,
+                        E.map(flow(A.map((asset) => asset.assetName))),
+                        E.fold(() => [], identity)
+                    );
+                    store.setResultStatus('PROGRESS');
+                    store.setResultBottomSheetIsOpen(true);
+                    return { amount, tokens };
+                }),
+                chain(swapRestService.initiate),
+                tap((data) => {
+                    store.setResultStatus(
+                        E.isRight(data) ? 'SUCCESS' : 'ERROR'
                     );
                 })
             );
@@ -102,7 +113,8 @@ export const newSwapFooter = injectable(
                     onClick: emmitSwap,
                 },
                 swapBtnErrorEffect,
-                errorEffect
+                errorEffect,
+                emmitSwapEffect
             );
         }
 );

@@ -9,11 +9,12 @@ export const SwapResultContainer = injectable(
     newSwapResult,
     (newSwapResult) => () => {
         const vm = useValueWithEffect(() => newSwapResult(), []);
-        const [isOpen, status, subTitle, logos] = useProperties(
+        const [isOpen, status, subTitle, logos, resultOptions] = useProperties(
             vm.isOpen,
             vm.status,
             vm.subTitle,
-            vm.logos
+            vm.logos,
+            vm.resultOptions
         );
         return React.createElement(SwapResult, {
             ...vm,
@@ -21,6 +22,7 @@ export const SwapResultContainer = injectable(
             status,
             subTitle,
             logos,
+            resultOptions,
         });
     }
 );

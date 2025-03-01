@@ -9,7 +9,7 @@ import { fromProperty } from '@/utils/property.utils';
 import { tap } from '@most/core';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
-import { newSwapRestService, SwapRestService } from '@/API/swipe.service';
+import { ResultOptions } from './swap-result.component';
 
 export interface SwapResult {
     isOpen: Property<boolean>;
@@ -17,6 +17,7 @@ export interface SwapResult {
     subTitle: Property<string>;
     logos: Property<Array<string>>;
     onClose: () => void;
+    resultOptions: Property<Array<ResultOptions>>;
 }
 
 export interface NewSwapResult {
@@ -25,16 +26,17 @@ export interface NewSwapResult {
 
 export const newSwapResult = injectable(
     token('store')<SwapStore>(),
-    token('swapService')<SwapRestService>(),
-    (store, swapService): NewSwapResult =>
+    // token('swapService')<SwapRestService>(),
+    (
+        store
+        //  swapService
+    ): NewSwapResult =>
         () => {
             const subTitle = newLensedAtom('');
             const logos = newLensedAtom<Array<string>>([]);
 
-            const { evs, unsubscription } = swapService.getConnection();
-
             const onClose = () => {
-                store.closeResultBottomSheet(), unsubscription();
+                store.closeResultBottomSheet();
             };
 
             const viewEffect = pipe(
@@ -67,26 +69,16 @@ export const newSwapResult = injectable(
                 })
             );
 
-            const EVSEvent = pipe(
-                evs,
-                tap((x) => {
-                    console.log(x, 'EVSEvent');
-                    // if (x) {
-                    //     resultStatus.set('SUCCESS');
-                    // }
-                })
-            );
-
             return valueWithEffect.new(
                 {
                     subTitle,
                     logos,
                     onClose,
+                    resultOptions: store.resultSwapListInfo,
                     isOpen: store.resultBottomSheetIsOpen,
                     status: store.resultStatus,
                 },
-                viewEffect,
-                EVSEvent
+                viewEffect
             );
         }
 );

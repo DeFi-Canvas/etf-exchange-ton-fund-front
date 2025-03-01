@@ -35,6 +35,7 @@ import {
     getCurrentWaletAsset,
     getIsIdExistOnSwapAssets,
 } from './swap.store.utils';
+import { ResultOptions } from './components/swap-result/swap-result.component';
 
 export interface SwapStore {
     //#region state
@@ -45,6 +46,7 @@ export interface SwapStore {
     resultBottomSheetIsOpen: Property<boolean>;
     resultStatus: Property<SwapResultStatus>;
     swapListInfo: Property<DropdownOptions[]>;
+    resultSwapListInfo: Property<ResultOptions[]>;
     swapBtnError: Property<O.Option<SwapBtnError>>;
 
     //#region mutations
@@ -69,6 +71,7 @@ export interface SwapStore {
     setSwapBtnError: (err: O.Option<SwapBtnError>) => void;
     setResultBottomSheetIsOpen: (isOpen: boolean) => void;
     setSelectAssetBottomSheetIsOpen: (isOpen: boolean) => void;
+    setResultStatus: (status: SwapResultStatus) => void;
 }
 
 export type NewSwapStore = ValueWithEffect<SwapStore>;
@@ -101,6 +104,8 @@ export const newSwapStore = injectable(
         const swapListInfo =
             newLensedAtom<DropdownOptions[]>(SWAP_LIST_INFO_INIT);
 
+        const resultSwapListInfo = newLensedAtom<ResultOptions[]>([]);
+
         const {
             state: selectAssetBottomSheetIsOpen,
             set: setSelectAssetBottomSheetIsOpen,
@@ -111,7 +116,8 @@ export const newSwapStore = injectable(
             state: resultBottomSheetIsOpen,
             set: setResultBottomSheetIsOpen,
         } = newAtomState(false);
-        const resultStatus = newLensedAtom<SwapResultStatus>('PROGRESS');
+        const { state: resultStatus, set: setResultStatus } =
+            newAtomState<SwapResultStatus>('PROGRESS');
 
         const currentVariableSwapAsset = newLensedAtom('');
         const [setCurrentVariableAsset, currentVariableAsset] =
@@ -382,11 +388,12 @@ export const newSwapStore = injectable(
                             O.map((last) => {
                                 if (headAsset) {
                                     const received =
-                                        (headAsset.currentValue *
+                                        ((headAsset.currentValue *
                                             headAsset.price) /
-                                        last.price;
+                                            last.price) *
+                                        SHODOW_SWAP;
                                     return [
-                                        `${Number.isNaN(received) ? 0 : received * SHODOW_SWAP} ${last.assetName}`,
+                                        `${Number.isNaN(received) ? 0 : received} ${last.assetName}`,
                                     ];
                                 }
                                 return [''];
@@ -424,8 +431,14 @@ export const newSwapStore = injectable(
                     E.fold(
                         () => null,
                         (data) => ({
-                            name: `${data.ticker} balance after swap`,
-                            value: [data.balance],
+                            result: {
+                                name: `Total amount in ${data.ticker}`,
+                                value: data.balance,
+                            },
+                            details: {
+                                name: `${data.ticker} balance after swap`,
+                                value: [data.balance],
+                            },
                         })
                     )
                 );
@@ -463,12 +476,24 @@ export const newSwapStore = injectable(
                             t.string.is(data)
                                 ? null
                                 : {
-                                      name: `${data.ticker} balance after swap`,
-                                      value: [data.balance],
+                                      result: {
+                                          name: `Total amount in ${data.ticker}`,
+                                          value: data.balance,
+                                      },
+                                      details: {
+                                          name: `${data.ticker} balance after swap`,
+                                          value: [data.balance],
+                                      },
                                   },
                         (data) => ({
-                            name: `${data.ticker} balance after swap`,
-                            value: [data.balance],
+                            result: {
+                                name: `Total amount in ${data.ticker}`,
+                                value: data.balance,
+                            },
+                            details: {
+                                name: `${data.ticker} balance after swap`,
+                                value: [data.balance],
+                            },
                         })
                     )
                 );
@@ -479,11 +504,17 @@ export const newSwapStore = injectable(
                         value: exchangeRate,
                     },
                     { name: 'Minimum received', value: minimumReceived },
-                    baseAssetAfterSwap,
-                    lastAssetAfterSwap,
-                ].filter((x) => x !== null);
+                    baseAssetAfterSwap?.details,
+                    lastAssetAfterSwap?.details,
+                ].filter((x) => x !== null && x !== undefined);
+
+                const newSwapResultListInfo: ResultOptions[] = [
+                    baseAssetAfterSwap?.result,
+                    lastAssetAfterSwap?.result,
+                ].filter((x) => x !== null && x !== undefined);
 
                 swapListInfo.set(newSwapListInfo);
+                resultSwapListInfo.set(newSwapResultListInfo);
             })
         );
 
@@ -520,6 +551,7 @@ export const newSwapStore = injectable(
                 resultBottomSheetIsOpen,
                 resultStatus,
                 swapBtnError,
+                resultSwapListInfo,
 
                 onOpenaAddAssetBottomSheetIsOpen,
                 onCloseAddAssetBottomSheetIsOpen,
@@ -540,6 +572,7 @@ export const newSwapStore = injectable(
                 setSwapBtnError,
                 setResultBottomSheetIsOpen,
                 setSelectAssetBottomSheetIsOpen,
+                setResultStatus,
             },
             getAssetsEffect,
             onAssetSelectEvent,

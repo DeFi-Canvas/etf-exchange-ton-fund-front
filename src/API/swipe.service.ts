@@ -14,7 +14,11 @@ import { swapInitiateCodec } from './contracts/swap.contract';
 
 export interface SwapRestService {
     getConnection: () => { evs: Stream<unknown>; unsubscription: () => void };
-    initiate: (args: { amount: number; tokens: Array<string> }) => void;
+    // initiate: (args: { amount: number; tokens: Array<string> }) => void;
+    initiate: (args: {
+        amount: number;
+        tokens: Array<string>;
+    }) => Stream<Either<string, unknown>>;
     getAssets: () => Stream<Either<string, Array<Asset>>>;
 }
 
@@ -50,7 +54,6 @@ export const newSwapRestService = injectable(
 
                 return {
                     evs: pipe(messege, fromProperty),
-                    // unsubscription: constVoid,
                     unsubscription: () => eventSource.close(),
                 };
             },
@@ -62,7 +65,7 @@ export const newSwapRestService = injectable(
                         telegram_id: telegram_id ?? 0,
                     }),
                     swapInitiateCodec
-                ),
+                )(),
 
             getAssets: getRequestGenerated(
                 assetsApi.assetsGet(),
