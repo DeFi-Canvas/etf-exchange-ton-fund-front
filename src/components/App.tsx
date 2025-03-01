@@ -6,7 +6,7 @@ import {
     initMiniApp,
     useBackButton,
 } from '@telegram-apps/sdk-react';
-import { type FC, useEffect, useMemo } from 'react';
+import { type FC, Suspense, useEffect, useMemo } from 'react';
 import { Router } from 'react-router-dom';
 import { AppRoutes } from '@/navigation/routes.tsx';
 import TabBar from '@/components/TabBar/TabBar.tsx';

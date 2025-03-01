@@ -1,8 +1,7 @@
 import { Component, getContainersArgs } from '../containers';
 import { WaletPageContainer } from '@whalet/whalet.container';
 import { AssetsContainer } from '@whalet/sub-pages/assets/assets.container';
-import { TransactionsContainer } from '@whalet/sub-pages/transactions/transactions.container';
-import { FundsContainer } from '@whalet/sub-pages/founds/funds.container';
+import { lazy } from 'react';
 
 export interface WhaletContainers {
     WaletPage: Component;
@@ -20,10 +19,18 @@ export const getWhaletContainers = ({
     Assets: AssetsContainer({
         userStore,
     }),
-    Transactions: TransactionsContainer({
-        userStore,
-    }),
-    Funds: FundsContainer({
-        userStore,
-    }),
+    Transactions: lazy(() =>
+        import('@whalet/sub-pages/transactions/transactions.container').then(
+            (c) => {
+                const component = c.TransactionsContainer({ userStore });
+                return { default: component };
+            }
+        )
+    ),
+    Funds: lazy(() =>
+        import('@whalet/sub-pages/founds/funds.container').then((c) => {
+            const component = c.FundsContainer({ userStore });
+            return { default: component };
+        })
+    ),
 });
