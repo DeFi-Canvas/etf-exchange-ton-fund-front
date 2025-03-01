@@ -22,6 +22,7 @@ import {
     getAssetsEffectMapping,
     mapAssetToFiltrebleSwapAsset,
     mapAssetToSwapAsset,
+    SHODOW_SWAP,
     SWAP_LIST_INFO_INIT,
     SwapAsset,
     SwapBtnError,
@@ -385,7 +386,7 @@ export const newSwapStore = injectable(
                                             headAsset.price) /
                                         last.price;
                                     return [
-                                        `${Number.isNaN(received) ? 0 : received} ${last.assetName}`,
+                                        `${Number.isNaN(received) ? 0 : received * SHODOW_SWAP} ${last.assetName}`,
                                     ];
                                 }
                                 return [''];
