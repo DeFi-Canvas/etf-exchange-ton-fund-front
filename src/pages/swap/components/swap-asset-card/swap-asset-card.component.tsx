@@ -80,7 +80,7 @@ export const SwapAssetCard = ({
                     </div>
                 </div>
                 <div className={css.fieldWrapper}>
-                    <input
+                    {/* <input
                         type="number"
                         className={cn(css.field, {
                             [css.fieldWrapperError]: card.hasError,
@@ -88,7 +88,7 @@ export const SwapAssetCard = ({
                         placeholder="0"
                         onChange={onChangeFieldEvent}
                         value={inputValue}
-                    />
+                    /> */}
                 </div>
             </div>
             <div className={css.approximateCurrency}>
