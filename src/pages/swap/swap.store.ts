@@ -21,6 +21,7 @@ import {
     getAssetsEffectMapping,
     mapAssetToFiltrebleSwapAsset,
     mapAssetToSwapAsset,
+    prepareMapSwapAfterSwap,
     SHODOW_SWAP,
     SWAP_LIST_INFO_INIT,
     SwapAsset,
@@ -375,25 +376,25 @@ export const newSwapStore = injectable(
                     assets,
                     E.map((assets) => ({
                         head: pipe(assets, A.head),
-                        last: pipe(assets, A.last),
+                        tail: pipe(assets, A.last),
                     })),
-                    E.chain(({ head, last }) => {
+                    E.chain(({ head, tail }) => {
                         const headAsset = pipe(
                             head,
                             O.getOrElseW(constUndefined)
                         );
 
                         return pipe(
-                            last,
-                            O.map((last) => {
+                            tail,
+                            O.map((tail) => {
                                 if (headAsset) {
                                     const received =
                                         ((headAsset.currentValue *
                                             headAsset.price) /
-                                            last.price) *
+                                            tail.price) *
                                         SHODOW_SWAP;
                                     return [
-                                        `${Number.isNaN(received) ? 0 : received} ${last.assetName}`,
+                                        `${Number.isNaN(received) ? 0 : received} ${tail.assetName}`,
                                     ];
                                 }
                                 return [''];
@@ -410,22 +411,7 @@ export const newSwapStore = injectable(
                     E.chain((asset) =>
                         pipe(
                             currentWaletAsset,
-                            E.chain(
-                                flow(
-                                    A.findFirst(
-                                        (waletAsset) =>
-                                            waletAsset.id === asset.id
-                                    ),
-                                    E.fromOption(constant('error')),
-                                    E.map((waletAsset) => ({
-                                        ticker: asset.assetName,
-                                        balance: `${
-                                            waletAsset.balance -
-                                            (asset.currentValue ?? 0)
-                                        }`,
-                                    }))
-                                )
-                            )
+                            E.chain(prepareMapSwapAfterSwap(asset, 'minus'))
                         )
                     ),
                     E.fold(
@@ -451,18 +437,7 @@ export const newSwapStore = injectable(
                             currentWaletAsset,
                             E.chainW(
                                 flow(
-                                    A.findFirst(
-                                        (waletAsset) =>
-                                            waletAsset.id === asset.id
-                                    ),
-                                    E.fromOption(constant('error')),
-                                    E.map((waletAsset) => ({
-                                        ticker: asset.assetName,
-                                        balance: `${
-                                            waletAsset.balance +
-                                            (asset.currentValue ?? 0)
-                                        }`,
-                                    })),
+                                    prepareMapSwapAfterSwap(asset, 'plus'),
                                     E.mapLeft(() => ({
                                         ticker: asset.assetName,
                                         balance: `${asset.currentValue ?? 0}`,

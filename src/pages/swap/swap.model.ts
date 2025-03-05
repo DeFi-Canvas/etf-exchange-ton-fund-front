@@ -1,5 +1,5 @@
 import { AssetsUI } from '@/components/assets-card/assets-card.model';
-import { pipe } from 'fp-ts/lib/function';
+import { constant, flow, pipe } from 'fp-ts/lib/function';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
 import * as O from 'fp-ts/Option';
@@ -131,4 +131,20 @@ export const getAssetsEffectMapping = (
                 swapAssetsSet
             )
         )
+    );
+
+export const prepareMapSwapAfterSwap = (
+    asset: SwapAsset,
+    action: 'plus' | 'minus'
+) =>
+    flow(
+        A.findFirst((waletAsset: Asset) => waletAsset.id === asset.id),
+        E.fromOption(constant('error')),
+        E.map((waletAsset) => ({
+            ticker: asset.assetName,
+            balance:
+                action === 'plus'
+                    ? `${waletAsset.balance + (asset.currentValue ?? 0)}`
+                    : `${waletAsset.balance - (asset.currentValue ?? 0)}`,
+        }))
     );
