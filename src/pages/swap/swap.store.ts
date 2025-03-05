@@ -15,8 +15,7 @@ import {
 import * as A from 'fp-ts/Array';
 import { injectable } from '@injectable-ts/core';
 import { newWaletRestService } from '@/API/whalet.service';
-import { newSwapRestService } from '@/API/swipe.service';
-import { Asset } from '../whalet/whalet.model';
+import { newSwapRestService } from '@/API/swape.service';
 import {
     FiltrebleSwapAsset,
     getAssetsEffectMapping,
@@ -36,6 +35,7 @@ import {
     getIsIdExistOnSwapAssets,
 } from './swap.store.utils';
 import { ResultOptions } from './components/swap-result/swap-result.component';
+import { Asset } from '@/instance/asset/asset.model';
 
 export interface SwapStore {
     //#region state

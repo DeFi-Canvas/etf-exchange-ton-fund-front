@@ -1,22 +1,18 @@
+import { Asset, AssetResponce } from '@/instance/asset/asset.model';
 import { either } from 'fp-ts';
 import * as t from 'io-ts';
 
 //#region RESPONCE
 export interface WaletResponce {
     total: number;
-    assets: Array<AssetResponce>;
+    assets: Array<WalletAssetResponce>;
 }
 
-export type AssetResponce = {
-    id: string;
-    name: string;
+export interface WalletAssetResponce extends AssetResponce {
     symbol: string;
     balance: number;
-    price: number;
-    image_url: string;
     value: number;
-    ticker: string;
-};
+}
 
 export interface FundsRespnce {
     id: string;
@@ -24,22 +20,12 @@ export interface FundsRespnce {
     description: string;
     management_fee: number;
     image_url: string;
-    is_dao: boolean;
     risk_score: string;
     updated_event: string;
     is_avaiable: boolean;
     value: number;
     assets: Array<{
-        asset: {
-            id: string;
-            name: string;
-            ticker: string;
-            category: string;
-            description: string;
-            image_url: string;
-            price: number;
-            withdrawal_fee: number;
-        };
+        asset: AssetResponce;
         allocation_percentage: number;
     }>;
     created_at: string;
@@ -69,24 +55,12 @@ interface WhaletFundsResponce {
 }
 
 //#region UI
-export type Asset = {
-    id: string;
-    name: string;
-    symbol: string;
-    balance: number;
-    price: number;
-    logo: string;
-    value: number;
-    ticker: string;
-};
-
 export interface FundsData {
     id: string;
     name: string;
     description: string;
     managementFee: number;
     logo: string;
-    isDao: boolean;
     riskScore: string;
     updatedEvent: string;
     isAvaiable: boolean;
@@ -109,7 +83,7 @@ export const mapAssetsFromBalance = (data: WaletResponce): Array<Asset> =>
     data.assets.map((asset) => ({ ...asset, logo: asset.image_url }));
 
 // #region getAssetsValidations
-export const mapAssetsFromBalanceValidation = (data: WaletResponce) => {
+export const assetsFromBalanceValidation = (data: WaletResponce) => {
     if (data.total === 0) {
         // переименовать в пустое состояние
         return either.left('error');
@@ -124,7 +98,6 @@ export const mapWhaletFunds = (data: WhaletFundsResponce): Array<FundsData> => {
         description: fundData.description,
         managementFee: fundData.management_fee,
         logo: fundData.image_url,
-        isDao: fundData.is_dao,
         riskScore: fundData.risk_score,
         updatedEvent: fundData.updated_event,
         isAvaiable: fundData.is_avaiable,
@@ -147,7 +120,6 @@ export const mapFunds = (data: FundsRespnce): FundsData => ({
     description: data.description,
     managementFee: data.management_fee,
     logo: data.image_url,
-    isDao: data.is_dao,
     riskScore: data.risk_score,
     updatedEvent: data.updated_event,
     isAvaiable: data.is_avaiable,
@@ -160,15 +132,7 @@ export const mapFunds = (data: FundsRespnce): FundsData => ({
 //TODO : тип будет расширен (я надеюсь)
 export interface TransactionsResponce {
     timestamp: string; // ISO_DATETIME
-    asset: {
-        name: string;
-        ticker: string;
-        category: string;
-        description: string;
-        image_url: string;
-        price: number;
-        withdrawal_fee: number;
-    };
+    asset: AssetResponce;
     address: string;
     amount: number;
     value: number;

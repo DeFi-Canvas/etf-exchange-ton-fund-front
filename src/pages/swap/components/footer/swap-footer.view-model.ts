@@ -11,7 +11,7 @@ import * as O from 'fp-ts/Option';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
 import { SwapBtnError, swapBtnErrorMap } from '../../swap.model';
-import { newSwapRestService } from '@/API/swipe.service';
+import { newSwapRestService } from '@/API/swape.service';
 import { createAdapter } from '@most/adapter';
 
 export interface SwapFooter {

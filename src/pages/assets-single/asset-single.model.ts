@@ -1,21 +1,23 @@
-export interface AssetResponse {
+import { AssetResponce } from '@/instance/asset/asset.model';
+
+export interface AssetResponseMapping {
     id: string;
     name: string;
     ticker: string;
     category: string;
     description: string;
-    image_url: string;
     price: number;
-    withdrawal_fee: number;
-}
-
-export interface AssetResponseMapping extends AssetResponse {
     imageUrl: string;
     withdrawalFee: number;
 }
-export const assetMapping = (asset: AssetResponse): AssetResponseMapping => {
+export const assetsMapping = (asset: AssetResponce): AssetResponseMapping => {
     return {
-        ...asset,
+        id: asset.id,
+        name: asset.name,
+        ticker: asset.ticker,
+        category: asset.category,
+        description: asset.description,
+        price: asset.price,
         imageUrl: asset.image_url,
         withdrawalFee: asset.withdrawal_fee,
     };

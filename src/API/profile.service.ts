@@ -11,7 +11,6 @@ import { API, DOMAIN_API_URL } from './API';
 import { TasksApi } from './scheme/rest-genereted/api';
 import { Configuration } from './scheme/rest-genereted';
 import { taskListCodec } from './contracts/task.contract';
-// import { taskCompleteResponseCodec } from './contracts/taskComplete.contract';
 
 const tasksApi = new TasksApi({
     basePath: DOMAIN_API_URL,

@@ -7,10 +7,10 @@ import { constVoid, pipe } from 'fp-ts/lib/function';
 import { fromProperty } from '@/utils/property.utils';
 import { AssetsApi, Configuration, SwapApi } from './scheme/rest-genereted';
 import { Either } from 'fp-ts/lib/Either';
-import { Asset } from '@/pages/whalet/whalet.model';
 import { getRequestGenerated } from './request.utils';
 import { assetsCodec } from './contracts/assets.contract';
 import { swapInitiateCodec } from './contracts/swap.contract';
+import { Asset } from '@/instance/asset/asset.model';
 
 export interface SwapRestService {
     getConnection: () => { evs: Stream<unknown>; unsubscription: () => void };
