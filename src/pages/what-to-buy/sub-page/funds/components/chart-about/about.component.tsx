@@ -1,11 +1,11 @@
 import { FeeIcon, RiskLowIcon } from '@/components/Icons/Icons';
 import css from './about.module.css';
-import { FundsData } from '@/pages/whalet/whalet.model';
 import * as E from 'fp-ts/Either';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import SkeletonLine from '@/components/skeletons/components/skeleton-line/skeleton-line.component';
 import SkeletonCard from '@/components/skeletons/skeleton-card/skeleton-card.component';
 import { getUuid } from '@/utils/uuid';
+import { FundsData } from '@/instance/fund/fund.model';
 
 interface ChartAboutProps {
     fund: E.Either<string, FundsData>;

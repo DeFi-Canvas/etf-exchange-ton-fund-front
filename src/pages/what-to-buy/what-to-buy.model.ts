@@ -1,18 +1,18 @@
 import { Asset } from '@/instance/asset/asset.model';
-import { FundsData, FundsRespnce } from '../whalet/whalet.model';
+import { WalletFundsRespnce } from '../whalet/whalet.model';
 import { InterfacePurchaseSellAssetCardData } from './sub-page/types';
+import { FundsData } from '@/instance/fund/fund.model';
 
 export type PageType = 'BUY' | 'SELL';
 export const isAssetAvailible = (type: PageType) => type === 'BUY';
 
-export const mapFunds = (data: FundsRespnce): FundsData => ({
+export const mapFunds = (data: WalletFundsRespnce): FundsData => ({
     id: data.id,
     name: data.name,
     description: data.description,
     managementFee: data.management_fee,
     logo: data.image_url,
     riskScore: data.risk_score,
-    updatedEvent: data.updated_event,
     isAvaiable: data.is_avaiable,
     cost: 1,
     assets: data.assets.map(({ asset, allocation_percentage }) => ({

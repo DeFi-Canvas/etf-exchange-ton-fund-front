@@ -5,12 +5,12 @@ import { injectable, token } from '@injectable-ts/core';
 import { DOMAIN_API_URL } from './API';
 import { mapFunds } from '@/pages/what-to-buy/what-to-buy.model';
 import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
-import { FundsData } from '@/pages/whalet/whalet.model';
 import { getRequestGenerated } from './request.utils';
 import { FundsApi, WalletsApi } from './scheme/rest-genereted/api';
 import { Configuration } from './scheme/rest-genereted';
 import { fundByIdResponseCodec } from './contracts/fundById.contract';
 import { buyIndexResponseCodec } from './contracts/buyIndex.contract';
+import { FundsData } from '@/instance/fund/fund.model';
 
 interface BuyFundArgs {
     fundId: string;

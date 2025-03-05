@@ -1,7 +1,7 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import cn from 'classnames';
 import css from './coins.module.css';
-import { startTransition, Suspense, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useProperty } from '@frp-ts/react';
 import { injectable } from '@injectable-ts/core';
@@ -39,8 +39,14 @@ export const OperationsNav = ({
     isTransactionAvailible,
 }: OperationsNavProps) => {
     const eventBuilder = useTWAEvent();
-    //TODO: занести это в сервис сетингс
+
     const [routes, setRoutes] = useState(routesInit);
+    useEffect(() => {
+        const activeRoute = window.location.href.split('#')[1];
+        setRoutes((route) =>
+            route.map((r) => ({ ...r, isActive: r.to === activeRoute }))
+        );
+    }, []);
 
     return (
         <div className={css.wrap}>

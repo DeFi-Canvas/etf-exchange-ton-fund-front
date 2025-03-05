@@ -10,12 +10,12 @@ import { constant, constVoid, flow, pipe } from 'fp-ts/lib/function';
 import { chain, combine, take, tap } from '@most/core';
 import { newWTBRestService } from '@/API/wtb.service';
 import { newWaletRestService } from '@/API/whalet.service';
-import { FundsData } from '@/pages/whalet/whalet.model';
 import { fromProperty } from '@/utils/property.utils';
 import { createAdapter } from '@most/adapter';
 import { PageType } from '../../what-to-buy.model';
 import { getKeyO } from '@/utils/object-utils';
 import { Asset } from '@/instance/asset/asset.model';
+import { FundsData } from '@/instance/fund/fund.model';
 
 export interface TotalAmount {
     currency: number;
