@@ -148,3 +148,17 @@ export const prepareMapSwapAfterSwap = (
                     : `${waletAsset.balance - (asset.currentValue ?? 0)}`,
         }))
     );
+
+export const mapOptionsToShow = (data: {
+    ticker: string;
+    balance: string;
+}) => ({
+    result: {
+        name: `Total amount in ${data.ticker}`,
+        value: data.balance,
+    },
+    details: {
+        name: `${data.ticker} balance after swap`,
+        value: [data.balance],
+    },
+});
