@@ -34,6 +34,8 @@ export const newSwapFooter = injectable(
 
             const [emmitSwap, emmitSwapEvent] = createAdapter<void>();
 
+            const { evs } = swapRestService.getConnection();
+
             const swapBtnErrorEffect = pipe(
                 store.swapAssets,
                 fromProperty,
@@ -87,9 +89,14 @@ export const newSwapFooter = injectable(
                 }),
                 chain(swapRestService.initiate),
                 tap((data) => {
-                    store.setResultStatus(
-                        E.isRight(data) ? 'SUCCESS' : 'ERROR'
-                    );
+                    // store.setResultStatus(
+                    //     E.isRight(data) ? 'SUCCESS' : 'ERROR'
+                    // );
+                    E.isLeft(data) && store.setResultStatus('ERROR');
+                }),
+                chain(constant(evs)),
+                tap((x) => {
+                    console.log(x, 'evs');
                 })
             );
 
