@@ -1,9 +1,5 @@
-import { AddressContainer } from '@withdrow/sub-page/address/address.container';
-import { AmountContainer } from '@withdrow/sub-page/ammount/amount.container';
-import { CheckContainer } from '@withdrow/sub-page/check/check.container';
-import { FinalContainer } from '@withdrow/sub-page/final/final.container';
-import { Withdrow } from '@withdrow/withdrow.page';
 import { Component, getContainersArgs } from '../containers';
+import { lazy } from 'react';
 
 export interface WithdrowContainers {
     Withdrow: Component;
@@ -16,19 +12,34 @@ export interface WithdrowContainers {
 export const getWithdrowContainers = ({
     userStore,
 }: getContainersArgs): WithdrowContainers => ({
-    Withdrow: Withdrow({
-        userStore,
-    }),
-    Amount: AmountContainer({
-        userStore,
-    }),
-    Address: AddressContainer({
-        userStore,
-    }),
-    Check: CheckContainer({
-        userStore,
-    }),
-    Final: FinalContainer({
-        userStore,
-    }),
+    Withdrow: lazy(() =>
+        import('@withdrow/withdrow.page').then((c) => {
+            const component = c.Withdrow({ userStore });
+            return { default: component };
+        })
+    ),
+    Amount: lazy(() =>
+        import('@withdrow/sub-page/ammount/amount.container').then((c) => {
+            const component = c.AmountContainer({ userStore });
+            return { default: component };
+        })
+    ),
+    Address: lazy(() =>
+        import('@withdrow/sub-page/address/address.container').then((c) => {
+            const component = c.AddressContainer({ userStore });
+            return { default: component };
+        })
+    ),
+    Check: lazy(() =>
+        import('@withdrow/sub-page/check/check.container').then((c) => {
+            const component = c.CheckContainer({ userStore });
+            return { default: component };
+        })
+    ),
+    Final: lazy(() =>
+        import('@withdrow/sub-page/final/final.container').then((c) => {
+            const component = c.FinalContainer({ userStore });
+            return { default: component };
+        })
+    ),
 });

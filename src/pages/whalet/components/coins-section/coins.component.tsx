@@ -1,13 +1,15 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import cn from 'classnames';
 import css from './coins.module.css';
-import { useState } from 'react';
+import { startTransition, Suspense, useState } from 'react';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useProperty } from '@frp-ts/react';
 import { injectable } from '@injectable-ts/core';
 import React from 'react';
 import { newWhatToBuyViewModel } from '../../whalet.view-model';
-import { trackMixpanel, TrackMixpanelEvents } from '@/mixpanel/mixpanel-entry';
+import { TrackedEvents, trackTelemetree } from '@/telemetree/telemetree-entry';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
+import { Loader } from '@/components/loader/loader.component';
 
 const routesInit = [
     {
@@ -36,8 +38,10 @@ interface OperationsNavProps {
 export const OperationsNav = ({
     isTransactionAvailible,
 }: OperationsNavProps) => {
+    const eventBuilder = useTWAEvent();
     //TODO: занести это в сервис сетингс
     const [routes, setRoutes] = useState(routesInit);
+
     return (
         <div className={css.wrap}>
             <div className={css.navLinks}>
@@ -57,15 +61,22 @@ export const OperationsNav = ({
                             to={route.to}
                             key={route.id}
                             onClick={() => {
-                                trackMixpanel(
-                                    `WALLET_PAGE_${route.title.toUpperCase()}: ${route.title} button click` as TrackMixpanelEvents
+                                trackTelemetree(
+                                    eventBuilder,
+                                    `WALLET_PAGE_${route.title.toUpperCase()}: ${route.title} button click` as TrackedEvents
                                 );
                                 setRoutes((r) =>
                                     r
-                                        .map((t) => ({ ...t, isActive: false }))
+                                        .map((t) => ({
+                                            ...t,
+                                            isActive: false,
+                                        }))
                                         .map((t) => {
                                             if (t.id === route.id) {
-                                                return { ...t, isActive: true };
+                                                return {
+                                                    ...t,
+                                                    isActive: true,
+                                                };
                                             } else return t;
                                         })
                                 );
@@ -75,7 +86,9 @@ export const OperationsNav = ({
                         </NavLink>
                     ))}
             </div>
-            <Outlet />
+            <Suspense fallback={<Loader size={'small'} />}>
+                <Outlet />
+            </Suspense>
         </div>
     );
 };

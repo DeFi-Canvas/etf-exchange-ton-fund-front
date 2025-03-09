@@ -1,20 +1,20 @@
-import {
-    AlertIcon,
-    // PnlArrowUpIcon
-} from '@/components/Icons/Icons';
+import { AlertIcon } from '@/components/Icons/Icons';
 import * as O from 'fp-ts/Option';
 import css from './balans.module.css';
 import { OptionSpan } from '@/components/ui-kit/fpts-components-utils/options.component';
 import { pipe } from 'fp-ts/lib/function';
 import { Balance } from '../../whalet.view-model';
 import cn from 'classnames';
-import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
+import { trackTelemetree } from '@/telemetree/telemetree-entry';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 export interface BalansProps {
     balance: O.Option<Balance>;
 }
 
 export const Balans = ({ balance }: BalansProps) => {
+    const eventBuilder = useTWAEvent();
+
     return (
         <div className={cn('app-container', css.wrap)}>
             <div className={css.labelWrap}>
@@ -22,7 +22,10 @@ export const Balans = ({ balance }: BalansProps) => {
                 <div
                     className={css.alert}
                     onClick={() => {
-                        trackMixpanel('WALLET_PAGE: notification button click');
+                        trackTelemetree(
+                            eventBuilder,
+                            'WALLET_PAGE: notification button click'
+                        );
                     }}
                 >
                     {/* TODO: по какому принципу появляется оранжевый кружок */}

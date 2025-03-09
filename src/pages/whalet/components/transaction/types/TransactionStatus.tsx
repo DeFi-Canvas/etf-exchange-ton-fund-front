@@ -3,8 +3,8 @@ export type TransactionStatus =
     | 'WITHDRAW'
     | 'SWAP'
     | 'MULTI-SWAP'
-    | 'DEPOSIT'
     | 'BUY'
     | 'SELL'
     | 'PROCESSING'
-    | 'ERROR';
+    | 'ERROR'
+    | 'GIFT';

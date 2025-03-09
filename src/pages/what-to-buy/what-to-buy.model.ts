@@ -24,6 +24,7 @@ export const mapFunds = (data: FundsRespnce): FundsData => ({
         logo: asset.image_url,
         value: 0,
         allocationPercentage: allocation_percentage,
+        ticker: asset.ticker,
     })),
     tvlValue: data.value,
     createdAt: data.created_at,

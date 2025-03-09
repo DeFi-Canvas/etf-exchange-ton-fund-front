@@ -6,10 +6,14 @@ import {
     initMiniApp,
     useBackButton,
 } from '@telegram-apps/sdk-react';
-import { type FC, useEffect, useMemo } from 'react';
+import { type FC, Suspense, useEffect, useMemo } from 'react';
 import { Router } from 'react-router-dom';
 import { AppRoutes } from '@/navigation/routes.tsx';
 import TabBar from '@/components/TabBar/TabBar.tsx';
+import {
+    TwaAnalyticsProvider,
+    TrackGroups,
+} from '@tonsolutions/telemetree-react';
 import { ToastContainer } from 'react-toastify';
 import { CloseReactToastify } from './toastify-components/close-button.ts/close-button.component';
 
@@ -54,19 +58,24 @@ export const App: FC = () => {
             backButton.show();
         }
     });
-
     return (
-        <Router location={location} navigator={reactNavigator}>
-            <main>
-                <AppRoutes />
-                <ToastContainer
-                    position={'top-center'}
-                    hideProgressBar
-                    autoClose={1_000_000}
-                    closeButton={CloseReactToastify}
-                />
-            </main>
-            {isVisibleTabBar ? <TabBar /> : null}
-        </Router>
+        <TwaAnalyticsProvider
+            projectId="97b7f373-97d9-44b1-b1fc-2f36aa620e81"
+            apiKey="393a9e38-9be5-4dfe-ad36-77286e6388c9"
+            trackGroup={TrackGroups.MEDIUM}
+        >
+            <Router location={location} navigator={reactNavigator}>
+                <main>
+                    <AppRoutes />
+                    <ToastContainer
+                        position={'top-center'}
+                        hideProgressBar
+                        autoClose={1_000_000}
+                        closeButton={CloseReactToastify}
+                    />
+                </main>
+                {isVisibleTabBar ? <TabBar /> : null}
+            </Router>
+        </TwaAnalyticsProvider>
     );
 };

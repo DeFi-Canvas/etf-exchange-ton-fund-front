@@ -8,9 +8,9 @@ type CustomCSSProperties = CSSProperties & {
     '--height'?: string;
 };
 
-interface DropdownOptions {
+export interface DropdownOptions {
     name: string;
-    value: string;
+    value: string[];
 }
 
 interface DropdownProps {
@@ -19,19 +19,31 @@ interface DropdownProps {
     className?: string;
 }
 
-const STYLES_OPTIONS = {
-    heightItem: 21,
-    gapBetweenItems: 12,
+const STYLES_CONFIG = {
+    heightOptionItem: 21,
+    gapBetweenOptions: 12,
+    gapBetweenItemValue: 8,
 };
 
 export const Dropdown = ({ title, options, className = '' }: DropdownProps) => {
     const [isOpen, setIsOpen] = useState(true);
 
-    const heightItem = options.length * STYLES_OPTIONS.heightItem;
-    const gap = (options.length - 1) * STYLES_OPTIONS.gapBetweenItems;
+    // Расчёт высоты каждого айтема в дропдауне, нужен для анимации
+    const heightOptionItemValueWithGap = options.reduce((acc, option) => {
+        const countOptions = option.value.length;
+        const heightOptionName = STYLES_CONFIG.heightOptionItem;
+        const heightOptionValue = countOptions * STYLES_CONFIG.heightOptionItem;
+        const gap = countOptions * STYLES_CONFIG.gapBetweenItemValue;
+
+        // Высота заголовка + отступ между элементами + высота опшена
+        acc += heightOptionName + gap + heightOptionValue;
+
+        return acc;
+    }, 0);
+    const gap = (options.length - 1) * STYLES_CONFIG.gapBetweenOptions;
 
     const styleList: CustomCSSProperties = {
-        '--height': `${heightItem + gap}px`,
+        '--height': `${heightOptionItemValueWithGap + gap}px`,
     };
 
     const toggleDropdown = () => {
@@ -57,14 +69,20 @@ export const Dropdown = ({ title, options, className = '' }: DropdownProps) => {
                     })}
                     style={styleList}
                 >
-                    {options.map((option) => (
-                        <div key={getUuid()} className={css.optionItem}>
-                            <span className={css.optionItemName}>
-                                {option.name}
-                            </span>
-                            <span>{option.value}</span>
-                        </div>
-                    ))}
+                    {options.map((option) => {
+                        const itemsValue = option.value.map((value) => (
+                            <span key={getUuid()}>{value}</span>
+                        ));
+
+                        return (
+                            <div key={option.name} className={css.optionItem}>
+                                <span className={css.optionItemName}>
+                                    {option.name}
+                                </span>
+                                {itemsValue}
+                            </div>
+                        );
+                    })}
                 </div>
             )}
         </div>

@@ -42,6 +42,10 @@ import Wallet from '@/assets/icons/wallet.svg?react';
 import Reload from '@/assets/icons/reload.svg?react';
 import ArrowDown from '@/assets/icons/arrow-down.svg?react';
 import ArrowSwap from '@/assets/icons/arrow-swap.svg?react';
+import Gift from '@/assets/icons/gift.svg?react';
+import Trash from '@/assets/icons/trash.svg?react';
+import ErrorSolid from '@/assets/icons/error-solid.svg?react';
+import AddImage from '@/assets/icons/add-image.svg?react';
 import ToasterClose from '@/assets/icons/toaster-close.svg?react';
 
 import { TransactionStatus } from '@/pages/whalet/components/transaction/types';
@@ -192,6 +196,8 @@ export const TransactionStatusIcon = ({
             return <TransaactionError className={className} />;
         case 'PROCESSING':
             return <Processing className={className} />;
+        case 'GIFT':
+            return <Gift className={className} />;
     }
 };
 
@@ -243,6 +249,22 @@ export const ArrowDownIcon = ({ className = '' }: { className?: string }) => (
 
 export const ArrowSwapIcon = ({ className = '' }: { className?: string }) => (
     <ArrowSwap className={className} />
+);
+
+export const TrashIcon = ({ className = '' }: { className?: string }) => (
+    <Trash className={className} />
+);
+
+export const ErrorSolidIcon = ({ className = '' }: { className?: string }) => (
+    <ErrorSolid className={className} />
+);
+
+export const SwapSolidIcon = ({ className = '' }: { className?: string }) => (
+    <Swap className={className} />
+);
+
+export const AddImageIcon = ({ className = '' }: { className?: string }) => (
+    <AddImage className={className} />
 );
 
 export const ToasterCloseIcon = ({

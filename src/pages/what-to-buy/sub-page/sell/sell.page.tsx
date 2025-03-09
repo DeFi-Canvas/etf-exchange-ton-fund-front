@@ -10,7 +10,8 @@ import BottomSheet from '@/components/ui-kit/bottom-sheet/bottom-sheet.component
 import { PurchaseSellAssetCardContainer } from '../components/purchase-sell-asset-card/purchase-sell-asset-card.container';
 import { PurchaseSellFinishBoodySheetContainer } from '../components/purchase-sell-finish-boody-sheet/purchase-sell-finish-boody-sheet.container';
 import { useNavigate } from 'react-router-dom';
-import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
+import { trackTelemetree } from '@/telemetree/telemetree-entry';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 interface SellPageProps {
     showBottomSheet: boolean;
@@ -34,6 +35,8 @@ const SellPage = injectable(
             const handleToggleBottomSheet = () => {
                 navigation('/');
             };
+            const eventBuilder = useTWAEvent();
+
             return (
                 <div className={css.page}>
                     <div className="app-container">
@@ -54,7 +57,10 @@ const SellPage = injectable(
                         title="Sell"
                         onClick={() => {
                             onSell();
-                            trackMixpanel('BUY_SELL_PAGE: buy/sell click');
+                            trackTelemetree(
+                                eventBuilder,
+                                'BUY_SELL_PAGE: buy/sell click'
+                            );
                         }}
                         isLoading={isLoading}
                         isDisabled={false}

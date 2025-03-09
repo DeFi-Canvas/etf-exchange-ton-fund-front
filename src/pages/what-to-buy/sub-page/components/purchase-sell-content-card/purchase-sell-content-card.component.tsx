@@ -11,7 +11,8 @@ import { PurchaseSellFieldCounterContainer } from '../purchase-sell-field-counte
 import { WalletIcon } from '@/components/Icons/Icons.tsx';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import SkeletonCard from '@/components/skeletons/skeleton-card/skeleton-card.component';
-import { trackMixpanel } from '@/mixpanel/mixpanel-entry';
+import { trackTelemetree } from '@/telemetree/telemetree-entry';
+import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 interface PurchaseSellContentCardProps {
     assetCardData: E.Either<string, InterfacePurchaseSellAssetCardData>;
@@ -32,6 +33,8 @@ const PurchaseSellContentCard = injectable(
             maxAvailable,
             onMaxAvailableClick,
         }: PurchaseSellContentCardProps) => {
+            const eventBuilder = useTWAEvent();
+
             // TODO: Какая то шляпа
             // возможно стоит расщипить на 2 значения и использовать напрямую
             const currentTotalAmount = pipe(
@@ -55,7 +58,8 @@ const PurchaseSellContentCard = injectable(
                                         {...assetCardData}
                                         onClick={() => {
                                             onClick();
-                                            trackMixpanel(
+                                            trackTelemetree(
+                                                eventBuilder,
                                                 'BUY_SELL_PAGE: assetOprions click'
                                             );
                                         }}

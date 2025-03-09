@@ -1,6 +1,6 @@
-import type { ComponentType, JSX } from 'react';
+import { lazy, Suspense, type ComponentType, type JSX } from 'react';
 
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { newNewUserStoreService } from '@/store/user.store';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useInitData } from '@telegram-apps/sdk-react';
@@ -10,6 +10,8 @@ import { indexRouter } from './page-routes/index-router';
 import { depositRouter } from './page-routes/deposit-router';
 import { withdrawRouter } from './page-routes/withdraw-router';
 import { whatToBuyRouter } from './page-routes/what-to-buy-router';
+import { TransactionView } from '@pages/transaction-view/transaction-view.page.tsx';
+import { Loader } from '@/components/loader/loader.component';
 import { newToastifyStoreService } from '@/store/toaster.store';
 
 interface Route {
@@ -35,7 +37,6 @@ export const AppRoutes = () => {
     // TEMP
     // @ts-ignore
     window.toastStore = toastStore;
-
     //#region containers
     const containers = getContainers({ userStore });
 
@@ -53,58 +54,66 @@ export const AppRoutes = () => {
             path: '/assets/:assetId',
             page: containers.AssetPage,
         },
-        // не рабочие стр
         {
             path: '/swap',
-            page: SwapPage,
+            page: containers.SwapePage,
+        },
+        // не рабочие стр
+        {
+            path: '/transaction-view',
+            page: TransactionView,
         },
     ];
 
     return (
         <>
-            <Routes>
-                {/* will not work with deeper nesting. recursion? */}
-                {routes.map((route) => {
-                    if (!route.parent?.length) {
-                        return (
-                            <Route
-                                key={route.path}
-                                Component={route.page}
-                                path={route.path}
-                            />
-                        );
-                    } else {
-                        return (
-                            <Route
-                                key={route.path}
-                                Component={route.page}
-                                path={route.path}
-                            >
-                                {route.parent.map((subRoute) => (
-                                    <Route
-                                        key={subRoute.path}
-                                        path={subRoute.path}
-                                        Component={subRoute.page}
-                                        index={subRoute.isIndex}
-                                    />
-                                ))}
-                                {route.parent
-                                    .filter((el) => el.isIndex)
-                                    .map((subRoute) => (
+            <Suspense fallback={<Loader />}>
+                <Routes>
+                    {/* will not work with deeper nesting. recursion? */}
+                    {routes.map((route) => {
+                        if (!route.parent?.length) {
+                            return (
+                                <Route
+                                    key={route.path}
+                                    Component={route.page}
+                                    path={route.path}
+                                />
+                            );
+                        } else {
+                            return (
+                                <Route
+                                    key={route.path}
+                                    Component={route.page}
+                                    path={route.path}
+                                >
+                                    {route.parent.map((subRoute) => (
                                         <Route
                                             key={subRoute.path}
                                             path={subRoute.path}
-                                            element={
-                                                <Navigate to={subRoute.path} />
-                                            }
+                                            Component={subRoute.page}
+                                            index={subRoute.isIndex}
                                         />
                                     ))}
-                            </Route>
-                        );
-                    }
-                })}
-                <Route path="/" element={<Navigate to="/" />} />
-            </Routes>
+                                    {route.parent
+                                        .filter((el) => el.isIndex)
+                                        .map((subRoute) => (
+                                            <Route
+                                                key={subRoute.path}
+                                                path={subRoute.path}
+                                                element={
+                                                    <Navigate
+                                                        to={subRoute.path}
+                                                    />
+                                                }
+                                            />
+                                        ))}
+                                </Route>
+                            );
+                        }
+                    })}
+                    <Route path="/" element={<Navigate to="/" />} />
+                </Routes>
+            </Suspense>
         </>
     );
 };

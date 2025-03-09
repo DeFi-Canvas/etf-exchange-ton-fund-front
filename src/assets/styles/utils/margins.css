@@ -1,0 +1,32 @@
+/*
+    NOTICE
+    Если нужно добавить новые шаг, то добавлять к каждой из четырёх групп!
+ */
+
+/* margin-top */
+.mt-1 { margin-top: var(--ds-step); }
+.mt-2 { margin-top: calc(var(--ds-step) * 2); }
+.mt-3 { margin-top: calc(var(--ds-step) * 3); }
+.mt-4 { margin-top: calc(var(--ds-step) * 4); }
+.mt-5 { margin-top: calc(var(--ds-step) * 5); }
+
+/* margin-inline-end */
+.me-1 { margin-inline-end: var(--ds-step); }
+.me-2 { margin-inline-end: calc(var(--ds-step) * 2); }
+.me-3 { margin-inline-end: calc(var(--ds-step) * 3); }
+.me-4 { margin-inline-end: calc(var(--ds-step) * 4); }
+.me-5 { margin-inline-end: calc(var(--ds-step) * 5); }
+
+/* margin-bottom */
+.mb-1 { margin-bottom: var(--ds-step); }
+.mb-2 { margin-bottom: calc(var(--ds-step) * 2); }
+.mb-3 { margin-bottom: calc(var(--ds-step) * 3); }
+.mb-4 { margin-bottom: calc(var(--ds-step) * 4); }
+.mb-5 { margin-bottom: calc(var(--ds-step) * 5); }
+
+/* margin-inline-start */
+.ms-1 { margin-inline-start: var(--ds-step); }
+.ms-2 { margin-inline-start: calc(var(--ds-step) * 2); }
+.ms-3 { margin-inline-start: calc(var(--ds-step) * 3); }
+.ms-4 { margin-inline-start: calc(var(--ds-step) * 4); }
+.ms-5 { margin-inline-start: calc(var(--ds-step) * 5); }
