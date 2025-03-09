@@ -1,12 +1,17 @@
 import { TransactionStatusIcon } from '@/components/Icons/Icons';
 import { NewToastdata } from '@/store/toaster.store';
+import css from './toast-body.module.css';
 
 export const ToastBody = ({ status, title, subTitle }: NewToastdata) => {
     return (
-        <div>
-            <TransactionStatusIcon status={status} />
-            <span>{title}</span>
-            <span>{subTitle}</span>
+        <div className={css.wrap}>
+            <div className={css.icon}>
+                <TransactionStatusIcon status={status} />
+            </div>
+            <div className={css.textWrap}>
+                <span className={css.title}>{title}</span>
+                <span className={css.text}>{subTitle}</span>
+            </div>
         </div>
     );
 };
