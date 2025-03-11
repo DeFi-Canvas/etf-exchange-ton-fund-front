@@ -9,9 +9,9 @@ export default defineConfig({
     base: '/',
     resolve: {
         alias: {
-            // util: 'rollup-plugin-node-polyfills/polyfills/util',
-            // stream: 'rollup-plugin-node-polyfills/polyfills/stream',
-            // process: 'rollup-plugin-node-polyfills/polyfills/process-es6',
+            util: 'rollup-plugin-node-polyfills/polyfills/util',
+            stream: 'rollup-plugin-node-polyfills/polyfills/stream',
+            process: 'rollup-plugin-node-polyfills/polyfills/process-es6',
             // 'vue-i18n': 'vue-i18n/dist/vue-i18n.runtime.esm-bundler.js',
         },
     },
