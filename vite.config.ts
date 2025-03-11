@@ -29,21 +29,21 @@ export default defineConfig({
         host: true,
     },
     build: {
-        minify: 'terser',
-        rollupOptions: {
-            output: {
-                manualChunks(id) {
-                    if (id.includes('node_modules')) {
-                        return id
-                            .toString()
-                            .split('node_modules/')[1]
-                            .split('/')[0]
-                            .toString();
-                    }
-                },
-            },
-            cache: true,
-        },
+        // minify: 'terser',
+        // rollupOptions: {
+        //     output: {
+        //         manualChunks(id) {
+        //             if (id.includes('node_modules')) {
+        //                 return id
+        //                     .toString()
+        //                     .split('node_modules/')[1]
+        //                     .split('/')[0]
+        //                     .toString();
+        //             }
+        //         },
+        //     },
+        //     cache: true,
+        // },
     },
     css: {
         preprocessorOptions: {
