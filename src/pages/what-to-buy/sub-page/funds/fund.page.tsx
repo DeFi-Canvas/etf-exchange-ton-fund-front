@@ -11,9 +11,9 @@ import { FooterContainer } from './components/footer/footer.container';
 import { ChartLinesContainer } from './components/lines/lines.container';
 import { MoreInfoContainer } from './components/more-info/more-info.componentcontainer';
 import * as E from 'fp-ts/Either';
-import { FundsData } from '@/pages/whalet/whalet.model';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import SkeletonCard from '@/components/skeletons/skeleton-card/skeleton-card.component';
+import { FundsData } from '@/instance/fund/fund.model';
 
 interface FundPageProps {
     fund: E.Either<string, FundsData>;

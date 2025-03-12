@@ -4,6 +4,7 @@ import { newLensedAtom } from '@frp-ts/lens';
 import { combine, tap } from '@most/core';
 import * as E from 'fp-ts/Either';
 import * as O from 'fp-ts/Option';
+import * as S from 'fp-ts/string';
 import * as t from 'io-ts';
 import {
     constant,
@@ -15,13 +16,14 @@ import {
 import * as A from 'fp-ts/Array';
 import { injectable } from '@injectable-ts/core';
 import { newWaletRestService } from '@/API/whalet.service';
-import { newSwapRestService } from '@/API/swipe.service';
-import { Asset } from '../whalet/whalet.model';
+import { newSwapRestService } from '@/API/swape.service';
 import {
     FiltrebleSwapAsset,
     getAssetsEffectMapping,
     mapAssetToFiltrebleSwapAsset,
     mapAssetToSwapAsset,
+    mapOptionsToShow,
+    prepareMapSwapAfterSwap,
     SHODOW_SWAP,
     SWAP_LIST_INFO_INIT,
     SwapAsset,
@@ -36,6 +38,7 @@ import {
     getIsIdExistOnSwapAssets,
 } from './swap.store.utils';
 import { ResultOptions } from './components/swap-result/swap-result.component';
+import { Asset } from '@/instance/asset/asset.model';
 
 export interface SwapStore {
     //#region state
@@ -163,13 +166,15 @@ export const newSwapStore = injectable(
                     E.bind('waletAssetsResp', constant(waletAssetsResp)),
                     E.bind('assets', constant(assets)),
                     E.map(({ assets, waletAssetsResp }) => {
-                        const waletAssetsRespSet = new Set(
-                            waletAssetsResp.map((el) => el.id)
+                        const waletAssetsRespSet = pipe(
+                            waletAssetsResp,
+                            A.map((x) => x.id),
+                            A.uniq(S.Eq)
                         );
                         const { left, right } = pipe(
                             assets,
                             A.partition((asset) =>
-                                waletAssetsRespSet.has(asset.id)
+                                waletAssetsRespSet.includes(asset.id)
                             )
                         );
 
@@ -375,25 +380,25 @@ export const newSwapStore = injectable(
                     assets,
                     E.map((assets) => ({
                         head: pipe(assets, A.head),
-                        last: pipe(assets, A.last),
+                        tail: pipe(assets, A.last),
                     })),
-                    E.chain(({ head, last }) => {
+                    E.chain(({ head, tail }) => {
                         const headAsset = pipe(
                             head,
                             O.getOrElseW(constUndefined)
                         );
 
                         return pipe(
-                            last,
-                            O.map((last) => {
+                            tail,
+                            O.map((tail) => {
                                 if (headAsset) {
                                     const received =
                                         ((headAsset.currentValue *
                                             headAsset.price) /
-                                            last.price) *
+                                            tail.price) *
                                         SHODOW_SWAP;
                                     return [
-                                        `${Number.isNaN(received) ? 0 : received} ${last.assetName}`,
+                                        `${Number.isNaN(received) ? 0 : received} ${tail.assetName}`,
                                     ];
                                 }
                                 return [''];
@@ -410,37 +415,10 @@ export const newSwapStore = injectable(
                     E.chain((asset) =>
                         pipe(
                             currentWaletAsset,
-                            E.chain(
-                                flow(
-                                    A.findFirst(
-                                        (waletAsset) =>
-                                            waletAsset.id === asset.id
-                                    ),
-                                    E.fromOption(constant('error')),
-                                    E.map((waletAsset) => ({
-                                        ticker: asset.assetName,
-                                        balance: `${
-                                            waletAsset.balance -
-                                            (asset.currentValue ?? 0)
-                                        }`,
-                                    }))
-                                )
-                            )
+                            E.chain(prepareMapSwapAfterSwap(asset, 'minus'))
                         )
                     ),
-                    E.fold(
-                        () => null,
-                        (data) => ({
-                            result: {
-                                name: `Total amount in ${data.ticker}`,
-                                value: data.balance,
-                            },
-                            details: {
-                                name: `${data.ticker} balance after swap`,
-                                value: [data.balance],
-                            },
-                        })
-                    )
+                    E.fold(() => null, mapOptionsToShow)
                 );
 
                 const lastAssetAfterSwap = pipe(
@@ -451,18 +429,7 @@ export const newSwapStore = injectable(
                             currentWaletAsset,
                             E.chainW(
                                 flow(
-                                    A.findFirst(
-                                        (waletAsset) =>
-                                            waletAsset.id === asset.id
-                                    ),
-                                    E.fromOption(constant('error')),
-                                    E.map((waletAsset) => ({
-                                        ticker: asset.assetName,
-                                        balance: `${
-                                            waletAsset.balance +
-                                            (asset.currentValue ?? 0)
-                                        }`,
-                                    })),
+                                    prepareMapSwapAfterSwap(asset, 'plus'),
                                     E.mapLeft(() => ({
                                         ticker: asset.assetName,
                                         balance: `${asset.currentValue ?? 0}`,
@@ -473,28 +440,8 @@ export const newSwapStore = injectable(
                     ),
                     E.fold(
                         (data) =>
-                            t.string.is(data)
-                                ? null
-                                : {
-                                      result: {
-                                          name: `Total amount in ${data.ticker}`,
-                                          value: data.balance,
-                                      },
-                                      details: {
-                                          name: `${data.ticker} balance after swap`,
-                                          value: [data.balance],
-                                      },
-                                  },
-                        (data) => ({
-                            result: {
-                                name: `Total amount in ${data.ticker}`,
-                                value: data.balance,
-                            },
-                            details: {
-                                name: `${data.ticker} balance after swap`,
-                                value: [data.balance],
-                            },
-                        })
+                            t.string.is(data) ? null : mapOptionsToShow(data),
+                        mapOptionsToShow
                     )
                 );
 
@@ -524,17 +471,12 @@ export const newSwapStore = injectable(
                 pipe(
                     geyAllAssets(),
                     E.map(
-                        A.map((asset) => {
-                            if (
-                                !asset.ticker
-                                    .toLowerCase()
-                                    .includes(tickerName.toLowerCase())
-                            ) {
-                                return { ...asset, isVisible: false };
-                            } else {
-                                return { ...asset, isVisible: true };
-                            }
-                        })
+                        A.map((asset) => ({
+                            ...asset,
+                            isVisible: asset.ticker
+                                .toLowerCase()
+                                .includes(tickerName.toLowerCase()),
+                        }))
                     ),
                     setAllAssets
                 );

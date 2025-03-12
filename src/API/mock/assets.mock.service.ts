@@ -10,9 +10,9 @@ export const NEW_ASETSS_REST_SERVICE = () => ({
                 ticker: '',
                 category: '',
                 description: '',
-                image_url: '',
+                imageUrl: '',
                 price: 1,
-                withdrawal_fee: 1,
+                withdrawalFee: 1,
             })
         ),
 });

@@ -11,7 +11,7 @@ import * as O from 'fp-ts/Option';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
 import { SwapBtnError, swapBtnErrorMap } from '../../swap.model';
-import { newSwapRestService } from '@/API/swipe.service';
+import { newSwapRestService } from '@/API/swape.service';
 import { createAdapter } from '@most/adapter';
 
 export interface SwapFooter {
@@ -33,6 +33,8 @@ export const newSwapFooter = injectable(
             const btnText = newLensedAtom('');
 
             const [emmitSwap, emmitSwapEvent] = createAdapter<void>();
+
+            const { evs } = swapRestService.getConnection();
 
             const swapBtnErrorEffect = pipe(
                 store.swapAssets,
@@ -87,9 +89,14 @@ export const newSwapFooter = injectable(
                 }),
                 chain(swapRestService.initiate),
                 tap((data) => {
-                    store.setResultStatus(
-                        E.isRight(data) ? 'SUCCESS' : 'ERROR'
-                    );
+                    // store.setResultStatus(
+                    //     E.isRight(data) ? 'SUCCESS' : 'ERROR'
+                    // );
+                    E.isLeft(data) && store.setResultStatus('ERROR');
+                }),
+                chain(constant(evs)),
+                tap((x) => {
+                    console.log(x, 'evs');
                 })
             );
 

@@ -3,18 +3,17 @@ import { UserStoreService } from '@/store/user.store';
 import { injectable, token } from '@injectable-ts/core';
 import { DOMAIN_API_URL } from './API';
 import { newLensedAtom } from '@frp-ts/lens';
-import { constVoid, pipe } from 'fp-ts/lib/function';
+import { pipe } from 'fp-ts/lib/function';
 import { fromProperty } from '@/utils/property.utils';
 import { AssetsApi, Configuration, SwapApi } from './scheme/rest-genereted';
 import { Either } from 'fp-ts/lib/Either';
-import { Asset } from '@/pages/whalet/whalet.model';
 import { getRequestGenerated } from './request.utils';
 import { assetsCodec } from './contracts/assets.contract';
 import { swapInitiateCodec } from './contracts/swap.contract';
+import { Asset } from '@/instance/asset/asset.model';
 
 export interface SwapRestService {
     getConnection: () => { evs: Stream<unknown>; unsubscription: () => void };
-    // initiate: (args: { amount: number; tokens: Array<string> }) => void;
     initiate: (args: {
         amount: number;
         tokens: Array<string>;
@@ -46,11 +45,11 @@ export const newSwapRestService = injectable(
                     messege.set(event.data);
                 };
 
-                // eventSource.onerror = (error) => {
-                //     console.log('ALARM', error);
+                eventSource.onerror = (error) => {
+                    console.log('ALARM', error);
 
-                //     messege.set('ERROR');
-                // };
+                    messege.set('ERROR');
+                };
 
                 return {
                     evs: pipe(messege, fromProperty),

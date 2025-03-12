@@ -49,7 +49,8 @@ export const newPurchaseSellContentCardViewModel = injectable(
                         ? store.maxAvailableBuy
                         : store.maxAvailableSell,
                 assetName,
-                onClick: () => store.setIsBottomPanel(isAssetAvailible(type)),
+                // onClick: () => store.setIsBottomPanel(isAssetAvailible(type)),
+                onClick: () => store.setIsBottomPanel(isAssetAvailible('SELL')),
                 onMaxAvailableClick: store.onMaxAvailableClick(type),
             });
         }

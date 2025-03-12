@@ -1,9 +1,9 @@
 import { AssetsUI } from '@/components/assets-card/assets-card.model';
-import { Asset } from '../whalet/whalet.model';
-import { pipe } from 'fp-ts/lib/function';
+import { constant, flow, pipe } from 'fp-ts/lib/function';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
 import * as O from 'fp-ts/Option';
+import { Asset } from '@/instance/asset/asset.model';
 
 export type SwapResultStatus = 'SUCCESS' | 'ERROR' | 'PROGRESS';
 export type SwapBtnError = 'INSUFFICIENT_BALANCE' | 'EMPTY_FIELD';
@@ -132,3 +132,33 @@ export const getAssetsEffectMapping = (
             )
         )
     );
+
+export const prepareMapSwapAfterSwap = (
+    asset: SwapAsset,
+    action: 'plus' | 'minus'
+) =>
+    flow(
+        A.findFirst((waletAsset: Asset) => waletAsset.id === asset.id),
+        E.fromOption(constant('error')),
+        E.map((waletAsset) => ({
+            ticker: asset.assetName,
+            balance:
+                action === 'plus'
+                    ? `${waletAsset.balance + (asset.currentValue ?? 0)}`
+                    : `${waletAsset.balance - (asset.currentValue ?? 0)}`,
+        }))
+    );
+
+export const mapOptionsToShow = (data: {
+    ticker: string;
+    balance: string;
+}) => ({
+    result: {
+        name: `Total amount in ${data.ticker}`,
+        value: data.balance,
+    },
+    details: {
+        name: `${data.ticker} balance after swap`,
+        value: [data.balance],
+    },
+});
