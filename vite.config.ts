@@ -9,9 +9,9 @@ export default defineConfig({
     base: '/',
     resolve: {
         alias: {
-            // util: 'rollup-plugin-node-polyfills/polyfills/util',
-            // stream: 'rollup-plugin-node-polyfills/polyfills/stream',
-            // process: 'rollup-plugin-node-polyfills/polyfills/process-es6',
+            util: 'rollup-plugin-node-polyfills/polyfills/util',
+            stream: 'rollup-plugin-node-polyfills/polyfills/stream',
+            process: 'rollup-plugin-node-polyfills/polyfills/process-es6',
             // 'vue-i18n': 'vue-i18n/dist/vue-i18n.runtime.esm-bundler.js',
         },
     },
@@ -29,21 +29,21 @@ export default defineConfig({
         host: true,
     },
     build: {
-        minify: 'terser',
-        rollupOptions: {
-            output: {
-                manualChunks(id) {
-                    if (id.includes('node_modules')) {
-                        return id
-                            .toString()
-                            .split('node_modules/')[1]
-                            .split('/')[0]
-                            .toString();
-                    }
-                },
-            },
-            cache: true,
-        },
+        // minify: 'terser',
+        // rollupOptions: {
+        //     output: {
+        //         manualChunks(id) {
+        //             if (id.includes('node_modules')) {
+        //                 return id
+        //                     .toString()
+        //                     .split('node_modules/')[1]
+        //                     .split('/')[0]
+        //                     .toString();
+        //             }
+        //         },
+        //     },
+        //     cache: true,
+        // },
     },
     css: {
         preprocessorOptions: {
