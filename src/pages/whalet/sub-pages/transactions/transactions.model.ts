@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { TransactionGroup } from '../../components/transaction/transaction.component';
 import { ITransaction } from '../../components/transaction/types';
-import { WalletTransactions } from '../../whalet.model';
+import { WalletTransactions } from '../../wallet.model';
 import * as O from 'fp-ts/Option';
 
 export function transformTransactions(

@@ -1,5 +1,5 @@
 import { Component, getContainersArgs } from '../containers';
-import { WaletPageContainer } from '@whalet/whalet.container';
+import { WaletPageContainer } from '@/pages/whalet/wallet.container';
 import { AssetsContainer } from '@whalet/sub-pages/assets/assets.container';
 import { FundsContainer } from '@/pages/whalet/sub-pages/founds/funds.container';
 import { TransactionsContainer } from '@/pages/whalet/sub-pages/transactions/transactions.container';
@@ -13,9 +13,11 @@ export interface WhaletContainers {
 
 export const getWhaletContainers = ({
     userStore,
+    i18n,
 }: getContainersArgs): WhaletContainers => ({
     WaletPage: WaletPageContainer({
         userStore,
+        i18n,
     }),
     Assets: AssetsContainer({
         userStore,

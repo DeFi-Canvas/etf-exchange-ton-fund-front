@@ -11,6 +11,7 @@ import { withdrawRouter } from './page-routes/withdraw-router';
 import { whatToBuyRouter } from './page-routes/what-to-buy-router';
 import { TransactionView } from '@pages/transaction-view/transaction-view.page.tsx';
 import { Loader } from '@/components/loader/loader.component';
+import { newNewI18NService } from '@/store/i18n/i18.store';
 
 interface Route {
     path: string;
@@ -31,8 +32,10 @@ export const AppRoutes = () => {
         () => newNewUserStoreService(initData?.user),
         []
     );
+
+    const i18n = useValueWithEffect(() => newNewI18NService(), []);
     //#region containers
-    const containers = getContainers({ userStore });
+    const containers = getContainers({ userStore, i18n });
 
     //#region routes
     const routes: Route[] = [

@@ -20,9 +20,11 @@ import {
 import { ProfileContainer } from '@/pages/profile/profile.page';
 import { AssetsSingleContainer } from '@/pages/assets-single/assets-single.container';
 import { SwapPageContainer } from '@/pages/swap/swap.container';
+import { I18NService } from '@/store/i18n/i18.store';
 
 export interface getContainersArgs {
     userStore: UserStoreService;
+    i18n: I18NService;
 }
 
 type ReactComponent = () => JSX.Element;
@@ -42,14 +44,16 @@ export interface Containers {
 
 export const getContainers = ({
     userStore,
+    i18n,
 }: getContainersArgs): Containers => ({
-    deposit: getDepositContainers({ userStore }),
-    whalet: getWhaletContainers({ userStore }),
-    withdrow: getWithdrowContainers({ userStore }),
-    whatToBuy: getWhatToBuyContainers({ userStore }),
+    deposit: getDepositContainers({ userStore, i18n }),
+    whalet: getWhaletContainers({ userStore, i18n }),
+    withdrow: getWithdrowContainers({ userStore, i18n }),
+    whatToBuy: getWhatToBuyContainers({ userStore, i18n }),
 
     Profile: ProfileContainer({
         userStore,
+        i18n,
     }),
     AssetPage: AssetsSingleContainer({
         assetRestService: newAssetsRestService(),
@@ -57,29 +61,4 @@ export const getContainers = ({
     SwapePage: SwapPageContainer({
         userStore,
     }),
-    // whalet: getWhaletContainers({ userStore }),
-    // deposit: getDepositContainers({ userStore }),
-    // withdrow: getWithdrowContainers({ userStore }),
-    // whatToBuy: getWhatToBuyContainers({ userStore }),
-
-    // Profile: lazy(() =>
-    //     import('@/pages/profile/profile.page').then((c) => {
-    //         const component = c.ProfileContainer({ userStore });
-    //         return { default: component };
-    //     })
-    // ),
-    // AssetPage: lazy(() =>
-    //     import('@/pages/assets-single/assets-single.container').then((c) => {
-    //         const component = c.AssetsSingleContainer({
-    //             assetRestService: newAssetsRestService(),
-    //         });
-    //         return { default: component };
-    //     })
-    // ),
-    // SwapePage: lazy(() =>
-    //     import('@/pages/swap/swap.container').then((c) => {
-    //         const component = c.SwapPageContainer({ userStore });
-    //         return { default: component };
-    //     })
-    // ),
 });
