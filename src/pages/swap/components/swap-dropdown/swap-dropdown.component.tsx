@@ -6,6 +6,7 @@ import {
 
 interface SwapDropdownProps {
     options: DropdownOptions[];
+    title: string;
 }
 
 export const SwapDropdown = ({ options }: SwapDropdownProps) => {

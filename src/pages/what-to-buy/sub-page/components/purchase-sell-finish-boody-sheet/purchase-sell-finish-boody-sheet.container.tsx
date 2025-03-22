@@ -1,7 +1,10 @@
 import { injectable, token } from '@injectable-ts/core';
 import { useProperty } from '@frp-ts/react';
 import { PurchaseSellStore } from '../../purchase/purchase.store';
-import { PurchaseSellFinishBoodySheet } from './purchase-sell-finish-boody-sheet.component';
+import {
+    PurchaseSellFinishBoodySheet,
+    PurchaseSellFinishBoodySheetProps,
+} from './purchase-sell-finish-boody-sheet.component';
 import * as O from 'fp-ts/Option';
 import { PageType } from '@/pages/what-to-buy/what-to-buy.model';
 import { pipe } from 'fp-ts/lib/function';
@@ -9,12 +12,16 @@ import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/e
 
 interface PurchaseSellFinishBoodySheetContainerProps {
     type?: PageType;
+    texts: PurchaseSellFinishBoodySheetProps['texts'];
 }
 
 export const PurchaseSellFinishBoodySheetContainer = injectable(
     token('purchaseStore')<PurchaseSellStore>(),
     (store) =>
-        ({ type: typePage }: PurchaseSellFinishBoodySheetContainerProps) => {
+        ({
+            type: typePage,
+            texts,
+        }: PurchaseSellFinishBoodySheetContainerProps) => {
             const fundData = useProperty(store.fundData);
 
             const totalAmount = pipe(
@@ -35,6 +42,7 @@ export const PurchaseSellFinishBoodySheetContainer = injectable(
                             totalAmount={totalAmount.currency}
                             quantity={quantity}
                             type={type}
+                            texts={texts}
                         />
                     )}
                 />

@@ -15,11 +15,21 @@ import { useTWAEvent } from '@tonsolutions/telemetree-react';
 interface DepositEndPointProps {
     readonly details: E.Either<string, DepositDetails>;
     readonly coinLogo: E.Either<string, string>;
+    readonly texts: {
+        title: (
+            ticker: string | undefined,
+            css: CSSModuleClasses
+        ) => JSX.Element;
+        address: string;
+        tag: string;
+        button: string;
+    };
 }
 
 export const DepositEndPoint = ({
     details,
     coinLogo,
+    texts,
 }: DepositEndPointProps) => {
     const { ticker } = useParams();
     const eventBuilder = useTWAEvent();
@@ -33,20 +43,12 @@ export const DepositEndPoint = ({
                     <>
                         <div className={cn('app-container', css.content)}>
                             <div className={css.titleWrap}>
-                                Send only&nbsp;
-                                <span className={css.bold}>{ticker}</span>
-                                &nbsp;via&nbsp;
-                                <span className={css.bold}>TON</span>&nbsp;to
-                                this address. Other coins, jettons and NFTs will
-                                be permanently lost.
-                                <span className={css.bold}>
-                                    Memo is mandatory to make a deposit!
-                                </span>
+                                {texts.title(ticker, css)}
                             </div>
                             <img src={details.qrCode} className={css.qrCode} />
                             <div className={css.infoWrapper}>
                                 <InfoCard
-                                    title={'Deposit address'}
+                                    title={texts.address}
                                     node={details.address}
                                     onClcik={() => {
                                         trackTelemetree(
@@ -56,7 +58,7 @@ export const DepositEndPoint = ({
                                     }}
                                 />
                                 <InfoCard
-                                    title={'Tag/Memo (Comment/Note)'}
+                                    title={texts.tag}
                                     node={details.memo}
                                     onClcik={() => {
                                         trackTelemetree(
@@ -85,7 +87,7 @@ export const DepositEndPoint = ({
 
                         <AppFooter>
                             <AppButton
-                                label="Finish"
+                                label={texts.button}
                                 to={'/'}
                                 onClick={() => {
                                     trackTelemetree(

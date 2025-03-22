@@ -17,19 +17,28 @@ interface MoreInfoItem {
 
 interface AssetsSinglePageProps {
     asset: Either<string, AssetResponseMapping>;
+    texts: {
+        tvl: string;
+        about: string;
+        marketCap: string;
+        volume: string;
+        supply: string;
+        ath: string;
+        button: string;
+    };
 }
 
-const AssetsSinglePage = (props: AssetsSinglePageProps) => {
+const AssetsSinglePage = ({ asset, texts }: AssetsSinglePageProps) => {
     const moreInfoListMock: MoreInfoItem[] = [
-        { title: 'Market cap', value: '$13.8B' },
-        { title: 'Volume (24h)', value: '$563.7M' },
-        { title: 'Circulating supply', value: '2.5B TON' },
-        { title: 'All time high', value: '$8.23' },
+        { title: texts.marketCap, value: '$13.8B' },
+        { title: texts.volume, value: '$563.7M' },
+        { title: texts.supply, value: '2.5B TON' },
+        { title: texts.ath, value: '$8.23' },
     ];
 
     return (
         <RenderResult
-            data={props.asset}
+            data={asset}
             success={(asset) => (
                 <div className={cn('app-container', css.page)}>
                     <div className={cn(css.card, css.assetCard)}>
@@ -46,7 +55,7 @@ const AssetsSinglePage = (props: AssetsSinglePageProps) => {
                             css.chartWrapper
                         )}
                     >
-                        <CardPrice />
+                        <CardPrice text={{ tvlTitle: texts.tvl }} />
                         <Chart
                             data={[1, 3, 2, 6, 5, 8]}
                             dateRange={{ from: '4 AUG', to: '4 OCT' }}
@@ -72,7 +81,7 @@ const AssetsSinglePage = (props: AssetsSinglePageProps) => {
                     </div>
                     <TermsAndConditions />
                     <AppFooter>
-                        <AppButton label="Swap" to={'/swap'} />
+                        <AppButton label={texts.button} to={'/swap'} />
                     </AppFooter>
                 </div>
             )}

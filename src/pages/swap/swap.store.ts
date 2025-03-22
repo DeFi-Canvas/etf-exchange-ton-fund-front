@@ -14,7 +14,7 @@ import {
     pipe,
 } from 'fp-ts/lib/function';
 import * as A from 'fp-ts/Array';
-import { injectable } from '@injectable-ts/core';
+import { injectable, token } from '@injectable-ts/core';
 import { newWaletRestService } from '@/API/whalet.service';
 import { newSwapRestService } from '@/API/swape.service';
 import {
@@ -39,6 +39,7 @@ import {
 } from './swap.store.utils';
 import { ResultOptions } from './components/swap-result/swap-result.component';
 import { Asset } from '@/instance/asset/asset.model';
+import { I18NService } from '@/store/i18n/i18.store';
 
 export interface SwapStore {
     //#region state
@@ -82,7 +83,9 @@ export type NewSwapStore = ValueWithEffect<SwapStore>;
 export const newSwapStore = injectable(
     newWaletRestService,
     newSwapRestService,
-    (walletService, swapRestService) => (): NewSwapStore => {
+    token('i18n')<I18NService>(),
+    (walletService, swapRestService, i18n) => (): NewSwapStore => {
+        const { details: i18nDetails, result: i18nResult } = i18n.Swap.get();
         //#region Atoms
         const {
             state: allAssets,
@@ -418,7 +421,13 @@ export const newSwapStore = injectable(
                             E.chain(prepareMapSwapAfterSwap(asset, 'minus'))
                         )
                     ),
-                    E.fold(() => null, mapOptionsToShow)
+                    E.fold(
+                        () => null,
+                        mapOptionsToShow({
+                            detailsName: i18nDetails.afterSwap,
+                            resultName: i18nResult.totalAmount,
+                        })
+                    )
                 );
 
                 const lastAssetAfterSwap = pipe(
@@ -440,17 +449,25 @@ export const newSwapStore = injectable(
                     ),
                     E.fold(
                         (data) =>
-                            t.string.is(data) ? null : mapOptionsToShow(data),
-                        mapOptionsToShow
+                            t.string.is(data)
+                                ? null
+                                : mapOptionsToShow({
+                                      detailsName: i18nDetails.afterSwap,
+                                      resultName: i18nResult.totalAmount,
+                                  })(data),
+                        mapOptionsToShow({
+                            detailsName: i18nDetails.afterSwap,
+                            resultName: i18nResult.totalAmount,
+                        })
                     )
                 );
 
                 const newSwapListInfo: DropdownOptions[] = [
                     {
-                        name: 'Exchange rate',
+                        name: i18nDetails.rate,
                         value: exchangeRate,
                     },
-                    { name: 'Minimum received', value: minimumReceived },
+                    { name: i18nDetails.minimum, value: minimumReceived },
                     baseAssetAfterSwap?.details,
                     lastAssetAfterSwap?.details,
                 ].filter((x) => x !== null && x !== undefined);

@@ -3,10 +3,12 @@ import { Footer } from './footer.component';
 import { WithdrowStore } from '@/pages/withdrow/withdrow.store';
 import { useProperty } from '@frp-ts/react';
 import { injectable, token } from '@injectable-ts/core';
+import { I18NService } from '@/store/i18n/i18.store';
 
 export const FooterContainer = injectable(
     token('withdrowStore')<WithdrowStore>(),
-    (store) =>
+    token('i18n')<I18NService>(),
+    (store, i18n) =>
         memo(() => {
             const currency = useProperty(store.currency);
             const isGoToCheckAvailable = useProperty(
@@ -16,6 +18,7 @@ export const FooterContainer = injectable(
             const symbolLogo = useProperty(store.symbolLogo);
             const address = useProperty(store.address);
             const memo = useProperty(store.memo);
+            const { Address: texts } = useProperty(i18n.Withdraw);
 
             return React.createElement(Footer, {
                 balanceAfter,
@@ -24,6 +27,7 @@ export const FooterContainer = injectable(
                 symbolLogo,
                 address,
                 memo,
+                texts: texts.footer,
             });
         })
 );

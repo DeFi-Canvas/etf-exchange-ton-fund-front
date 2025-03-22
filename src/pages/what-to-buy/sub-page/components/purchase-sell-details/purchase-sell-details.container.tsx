@@ -10,33 +10,44 @@ import { PurchaseSellStore } from '../../purchase/purchase.store';
 import { pipe } from 'fp-ts/lib/function';
 
 interface PurchaseSellDetailsContainerProps
-    extends Omit<PurchaseSellDetailsProps, 'details'> {}
+    extends Omit<PurchaseSellDetailsProps, 'details'> {
+    commission: string;
+    total: string;
+}
 
 export const PurchaseSellDetailsContainer = injectable(
     token('purchaseStore')<PurchaseSellStore>(),
-    (store) => (props: PurchaseSellDetailsContainerProps) => {
-        const totalValue = pipe(
-            useProperty(store.totalAmount),
-            O.getOrElse(() => ({
-                currency: 0,
-                coin: 0,
-            }))
-        );
+    (store) =>
+        ({
+            commission,
+            total,
+            ...props
+        }: PurchaseSellDetailsContainerProps) => {
+            const totalValue = pipe(
+                useProperty(store.totalAmount),
+                O.getOrElse(() => ({
+                    currency: 0,
+                    coin: 0,
+                }))
+            );
 
-        const fundFee = pipe(
-            useProperty(store.fundData),
-            E.map((x) => x.managementFee),
-            E.getOrElse(() => 0)
-        );
+            const fundFee = pipe(
+                useProperty(store.fundData),
+                E.map((x) => x.managementFee),
+                E.getOrElse(() => 0)
+            );
 
-        const details = [
-            { title: 'Commission', value: `$ ${fundFee}` },
-            {
-                title: 'Total in USD',
-                value: `$ ${totalValue.currency + fundFee}`,
-            },
-            { title: 'Total in TON', value: `${totalValue.coin}` },
-        ];
-        return React.createElement(PurchaseSellDetails, { ...props, details });
-    }
+            const details = [
+                { title: commission, value: `$ ${fundFee}` },
+                {
+                    title: total + ' in USD',
+                    value: `$ ${totalValue.currency + fundFee}`,
+                },
+                { title: total + ' in TON', value: `${totalValue.coin}` },
+            ];
+            return React.createElement(PurchaseSellDetails, {
+                ...props,
+                details,
+            });
+        }
 );

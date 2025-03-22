@@ -62,10 +62,15 @@ export const OperationsNav = memo(
 
         const [routes, setRoutes] = useState(() => routesInit);
         useEffect(() => {
-            const activeRoute = window.location.href.split('#')[1] ?? '';
+            const activeRoute = window.location.href.split('#')[1] ?? '/';
 
             setRoutes((route) =>
-                route.map((r) => ({ ...r, isActive: r.to === activeRoute }))
+                route.map((r) => ({
+                    ...r,
+                    isActive:
+                        r.to === activeRoute ||
+                        (activeRoute === '' && r.id === 0),
+                }))
             );
         }, []);
 

@@ -1,14 +1,17 @@
-import { injectable } from '@injectable-ts/core';
+import { injectable, token } from '@injectable-ts/core';
 import React, { memo } from 'react';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useProperty } from '@frp-ts/react';
 import { newDepositEndPointViewModel } from './deposit-end-point.view-model';
 import { DepositEndPoint } from './deposit-end-point.component';
 import { useParams } from 'react-router-dom';
+import { I18NService } from '@/store/i18n/i18.store';
 
 export const DepositEndPointContainer = injectable(
     newDepositEndPointViewModel,
-    (newDepositEndPointViewModel) =>
+    token('i18n')<I18NService>(),
+
+    (newDepositEndPointViewModel, i18n) =>
         memo(() => {
             const { ticker } = useParams();
 
@@ -18,6 +21,11 @@ export const DepositEndPointContainer = injectable(
             );
             const details = useProperty(vm.details);
             const coinLogo = useProperty(vm.img);
-            return React.createElement(DepositEndPoint, { details, coinLogo });
+            const { EndPoint: texts } = useProperty(i18n.Deposit);
+            return React.createElement(DepositEndPoint, {
+                details,
+                coinLogo,
+                texts,
+            });
         })
 );

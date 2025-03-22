@@ -1,13 +1,18 @@
 import { PageType } from '@/pages/what-to-buy/what-to-buy.model';
 import css from './purchase-sell-finish-boody-sheet.module.css';
 
-interface PurchaseSellFinishBoodySheetProps {
+export interface PurchaseSellFinishBoodySheetProps {
     value: number; // стоимость 1 куска
     quantity: number;
     totalAmount: number;
     name: string;
     logo: string;
     type: PageType;
+    texts: {
+        operation: (operation: string) => string;
+        fund: string;
+        total: string;
+    };
 }
 
 export const PurchaseSellFinishBoodySheet = ({
@@ -15,6 +20,7 @@ export const PurchaseSellFinishBoodySheet = ({
     name,
     logo,
     type,
+    texts,
 }: PurchaseSellFinishBoodySheetProps) => {
     const operation = type === 'BUY' ? 'purchase' : 'sale';
     return (
@@ -22,16 +28,16 @@ export const PurchaseSellFinishBoodySheet = ({
             <header className={css.bottomSheetHeader}>
                 <img className={css.bottomSheetImage} src={logo} />
                 <div className={css.bottomSheetTitle}>
-                    The {operation} is successful
+                    {texts.operation(operation)}
                 </div>
                 <div className={css.bottomSheetSubTitle}>
-                    «{name}» fund {operation}
+                    «{name}» {texts.fund} {operation}
                 </div>
             </header>
             <div className={css.bottomSheetInfoList}>
                 <div className={css.bottomSheetInfoItem}>
                     <span className={css.bottomSheetInfoItemTitle}>
-                        Total amount
+                        {texts.total}
                     </span>
                     <span>$ {totalAmount}</span>
                 </div>

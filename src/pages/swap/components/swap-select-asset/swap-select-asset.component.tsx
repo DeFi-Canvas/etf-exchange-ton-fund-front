@@ -13,6 +13,7 @@ export interface SwapSelectAssetProps {
     onSelectAsset: (assetId: string) => void;
     onSearchAssets: (ticker: string) => void;
     avlailibleAssets: E.Either<string, AssetsUIFiltreble[]>;
+    title: string;
 }
 
 export const SwapSelectAsset = ({
@@ -21,6 +22,7 @@ export const SwapSelectAsset = ({
     onSelectAsset,
     avlailibleAssets,
     onSearchAssets,
+    title,
 }: SwapSelectAssetProps) => {
     const [searchValue, setSearchValue] = useState('');
 
@@ -32,7 +34,7 @@ export const SwapSelectAsset = ({
     return (
         <div>
             <BottomSheet open={isOpen} onClose={closeBottomSheet}>
-                <h2>Select asset</h2>
+                <h2>{title}</h2>
                 <AppInputField
                     value={searchValue}
                     className={css.inputField}

@@ -9,25 +9,14 @@ export interface DepositContainers {
 
 export const getDepositContainers = ({
     userStore,
+    i18n,
 }: getContainersArgs): DepositContainers => ({
     DepositPage: Deposit({
         userStore,
+        i18n,
     }),
     DepositEndPoint: DepositEndPointContainer({
         userStore,
+        i18n,
     }),
-    // DepositPage: lazy(() =>
-    //     import('@deposit/deposit.page').then((c) => {
-    //         const component = c.Deposit({ userStore });
-    //         return { default: component };
-    //     })
-    // ),
-    // DepositEndPoint: lazy(() =>
-    //     import(
-    //         '@deposit/pages/deposit-end-point/deposit-end-point.container'
-    //     ).then((c) => {
-    //         const component = c.DepositEndPointContainer({ userStore });
-    //         return { default: component };
-    //     })
-    // ),
 });

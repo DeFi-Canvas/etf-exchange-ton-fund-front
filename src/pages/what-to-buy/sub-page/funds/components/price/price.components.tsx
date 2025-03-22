@@ -5,13 +5,18 @@ interface CardPriceProps {
     className?: string;
     //TODO: сделать обязательным
     value?: number;
+    text: {
+        tvlTitle: string;
+    };
 }
 
-export const CardPrice = ({ className, value }: CardPriceProps) => {
+export const CardPrice = ({ className, value, text }: CardPriceProps) => {
     return (
         <div className={cn(css.priceInfo, className)}>
             <div className={css.price}>
-                <span>TVL: $ {value}</span>
+                <span>
+                    {text.tvlTitle}: $ {value}
+                </span>
                 {/* <span className={css.priceRemains}>,89</span> */}
             </div>
             {/* <div className={css.priceProgress}>

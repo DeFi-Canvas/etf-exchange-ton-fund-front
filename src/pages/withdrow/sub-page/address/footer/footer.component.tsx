@@ -12,6 +12,10 @@ interface FooterProps {
     symbolLogo: string;
     address: E.Either<string, string>;
     memo: E.Either<string, string>;
+    texts: {
+        balance: string;
+        button: string;
+    };
 }
 
 export const Footer = ({
@@ -21,6 +25,7 @@ export const Footer = ({
     symbolLogo,
     address,
     memo,
+    texts,
 }: FooterProps) => {
     const eventBuilder = useTWAEvent();
 
@@ -28,7 +33,7 @@ export const Footer = ({
         // TODO: Или поднять наверх или завязать на AppFooter
         <div className={cn(css.footerWrap)}>
             <div className={css.availableBalance}>
-                <span className={css.title}>Balance after withdraw</span>
+                <span className={css.title}>{texts.balance}</span>
                 <div className={css.infoWrap}>
                     <img
                         src={symbolLogo}
@@ -42,7 +47,7 @@ export const Footer = ({
             </div>
             <div className={css.footer}>
                 <AppButton
-                    label="Continue"
+                    label={texts.button}
                     to={'/withdraw/:ticker/address/check'}
                     isDisabled={!isGoToCheckAvailable}
                     onClick={() => {

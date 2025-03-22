@@ -50,15 +50,16 @@ export const getContainers = ({
     whalet: getWhaletContainers({ userStore, i18n }),
     withdrow: getWithdrowContainers({ userStore, i18n }),
     whatToBuy: getWhatToBuyContainers({ userStore, i18n }),
-
     Profile: ProfileContainer({
         userStore,
         i18n,
     }),
     AssetPage: AssetsSingleContainer({
         assetRestService: newAssetsRestService(),
+        i18n,
     }),
     SwapePage: SwapPageContainer({
         userStore,
+        i18n,
     }),
 });
