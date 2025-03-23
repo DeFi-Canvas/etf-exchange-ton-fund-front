@@ -1,10 +1,9 @@
-import { lazy, Suspense, type ComponentType, type JSX } from 'react';
+import { Suspense, type ComponentType, type JSX } from 'react';
 
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { newNewUserStoreService } from '@/store/user.store';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useInitData } from '@telegram-apps/sdk-react';
-import { SwapPage } from '@/pages/swap/swap.page';
 import { getContainers } from './containers';
 import { indexRouter } from './page-routes/index-router';
 import { depositRouter } from './page-routes/deposit-router';

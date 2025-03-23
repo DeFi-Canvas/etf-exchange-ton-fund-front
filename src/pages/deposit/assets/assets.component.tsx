@@ -5,10 +5,11 @@ import { AssetsUI as AssetsCardBaseProps } from '@/components/assets-card/assets
 import * as E from 'fp-ts/Either';
 import { AssetsViewModelInit } from './assets.view-model';
 import { DepositAssets, DepositAssetsCodec } from '../deposit.model';
-import { Asset, AssetCodec } from '@/pages/whalet/whalet.model';
+import { AssetCodec } from '@/pages/whalet/whalet.model';
 import cn from 'classnames';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import { SkeletonCardSection } from '@/components/skeletons/skeleton-card/skeleton-card-section.component';
+import { Asset } from '@/instance/asset/asset.model';
 
 interface AssetsProps {
     assets: E.Either<string, Array<DepositAssets | Asset>>;

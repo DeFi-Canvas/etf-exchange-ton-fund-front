@@ -9,8 +9,6 @@ export const assetCodec = t.type({
     image_url: t.string,
     price: t.number,
     withdrawal_fee: t.number,
-    market_cap: t.number,
-    volume_24h: t.number,
 });
 
 // /assets

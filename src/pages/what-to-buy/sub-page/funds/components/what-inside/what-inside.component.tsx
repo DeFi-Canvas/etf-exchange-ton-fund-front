@@ -1,9 +1,9 @@
-import { FundsData } from '@/pages/whalet/whalet.model';
 import css from './what-inside.module.css';
 import * as E from 'fp-ts/Either';
 import { Link } from 'react-router-dom';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import SkeletonCard from '@/components/skeletons/skeleton-card/skeleton-card.component';
+import { FundsData } from '@/instance/fund/fund.model';
 
 interface WhatInsideProps {
     assets: E.Either<string, FundsData['assets']>;

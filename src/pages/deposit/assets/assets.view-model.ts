@@ -9,8 +9,9 @@ import { WaletRestService } from '@/API/whalet.service';
 import { newLensedAtom } from '@frp-ts/lens';
 import { DepositRestService } from '@/API/deposit.service';
 import { DepositAssets } from '../deposit.model';
-import { Asset, AssetCodec } from '@/pages/whalet/whalet.model';
+import { AssetCodec } from '@/pages/whalet/whalet.model';
 import { WithdrowStore } from '@/pages/withdrow/withdrow.store';
+import { Asset } from '@/instance/asset/asset.model';
 
 export type AssetsViewModelInit = 'deposit' | 'withdrow';
 export interface AssetsViewModel {

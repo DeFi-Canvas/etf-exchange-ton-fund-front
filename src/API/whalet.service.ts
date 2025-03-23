@@ -4,15 +4,13 @@ import { UserStoreService } from '@/store/user.store';
 import { injectable, token } from '@injectable-ts/core';
 import { getRequestGenerated } from './request.utils';
 import {
-    Asset,
-    FundsData,
     getWhaletFundsValidation,
     mapAssetsFromBalance,
-    mapAssetsFromBalanceValidation,
+    assetsFromBalanceValidation,
     mapFunds,
     mapWhaletFunds,
     normolizeTransactionKey,
-    Transactions,
+    WalletTransactions,
     WaletResponce,
 } from '@/pages/whalet/whalet.model';
 import { DOMAIN_API_URL } from './API';
@@ -22,13 +20,15 @@ import { Configuration } from './scheme/rest-genereted';
 import { walletFundsCodec } from './contracts/walletFunds.contract';
 import { transactionListCodec } from './contracts/walletTransaction.contract';
 import { allFundsCodec } from './contracts/funds.contract';
+import { Asset } from '@/instance/asset/asset.model';
+import { FundsData } from '@/instance/fund/fund.model';
 
 export interface WaletRestService {
     getBalance: () => Stream<Either<string, WaletResponce>>;
     getAssets: () => Stream<Either<string, Array<Asset>>>;
     getFunds: () => Stream<Either<string, Array<FundsData>>>;
     getWhaletFunds: () => Stream<Either<string, Array<FundsData>>>;
-    getTransactions: () => Stream<Either<string, Array<Transactions>>>;
+    getTransactions: () => Stream<Either<string, Array<WalletTransactions>>>;
 }
 
 const walletsApi = new WalletsApi({
@@ -53,7 +53,7 @@ export const newWaletRestService = injectable(
                 walletsApi.walletBalanceGet(telegram_id ?? 0),
                 walletBalanceCodec,
                 mapAssetsFromBalance,
-                mapAssetsFromBalanceValidation
+                assetsFromBalanceValidation
             ),
             getFunds: getRequestGenerated(
                 fundsApi.fundsGet(),
