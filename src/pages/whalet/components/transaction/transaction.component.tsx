@@ -1,12 +1,12 @@
 import getFormattedDate from '@/libs/date-format';
 import css from './transaction.module.css';
 import TransactionCard from './components/transaction-card/transaction-card.component';
-import { ITransaction } from './types';
+import { Transaction } from './types';
 import { getUuid } from '@/utils/uuid';
 
 export interface TransactionGroup {
     date: Date;
-    transactions: Array<ITransaction>;
+    transactions: Array<Transaction>;
 }
 
 export const TransactionGroup = ({ date, transactions }: TransactionGroup) => {

@@ -49,6 +49,7 @@ import AddImage from '@/assets/icons/add-image.svg?react';
 import ToasterClose from '@/assets/icons/toaster-close.svg?react';
 
 import { TransactionStatus } from '@/pages/whalet/components/transaction/types';
+import { NotificationStatus } from '@/pages/notifications/notifications.model';
 
 export const HomeIcon = ({
     className = '',
@@ -197,6 +198,38 @@ export const TransactionStatusIcon = ({
         case 'PROCESSING':
             return <Processing className={className} />;
         case 'GIFT':
+            return <Gift className={className} />;
+    }
+};
+
+export const NotificationStatusIcon = ({
+    status,
+    className = '',
+}: {
+    className?: string;
+    status: NotificationStatus;
+}) => {
+    switch (status) {
+        case 'BUY':
+            return <Buy className={className} />;
+        case 'DEPOSIT':
+            return <Deposit className={className} />;
+        case 'WITHDRAW':
+            return <Withdraw className={className} />;
+        case 'SWAP':
+            return <Swap className={className} />;
+        case 'MULTI-SWAP':
+            return <MultiSwap className={className} />;
+        case 'SELL':
+            return <Sell className={className} />;
+        case 'ERROR':
+            return <TransaactionError className={className} />;
+        case 'PROCESSING':
+            return <Processing className={className} />;
+        case 'GIFT':
+            return <Gift className={className} />;
+        // TODO INFO icon
+        case 'INFO':
             return <Gift className={className} />;
     }
 };

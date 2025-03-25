@@ -2,7 +2,7 @@ import * as O from 'fp-ts/Option';
 import { pipe } from 'fp-ts/lib/function';
 import { formatCapsToSepareteCamel, formatDateToStr } from '@/utils/string';
 import { OptionSpan } from '@/components/ui-kit/fpts-components-utils/options.component';
-import { ITransaction } from '../../types';
+import { Transaction } from '../../types';
 import { TransactionStatusIcon } from '@/components/Icons/Icons';
 import cn from 'classnames';
 import css from './transaction-card.module.css';
@@ -31,7 +31,7 @@ const styleListForStatus = (
     return { '--color-status': colorStatus };
 };
 
-const TransactionCard = (props: ITransaction) => {
+const TransactionCard = (props: Transaction) => {
     const typeUI = pipe(props.type, O.map(formatCapsToSepareteCamel));
     const modificatorUI = pipe(
         props.modificator,

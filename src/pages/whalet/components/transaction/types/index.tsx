@@ -1,7 +1,4 @@
-import type { TransactionStatus } from './TransactionStatus';
-import type { Transaction } from './Transaction';
+import type { TransactionStatus } from './transactionStatus';
+import type { Transaction } from './transaction';
 
-export type {
-    TransactionStatus as TransactionStatus,
-    Transaction as Transaction,
-};
+export type { TransactionStatus, Transaction };

@@ -1,11 +1,11 @@
 import { ToastBody } from '@/components/toastify-components/toast-body/toast-body.component';
-import { TransactionStatus } from '@/pages/whalet/components/transaction/types';
+import { NotificationStatus } from '@/pages/notifications/notifications.model';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 
 import { toast } from 'react-toastify';
 
 export interface NewToastdata {
-    status: TransactionStatus;
+    status: NotificationStatus;
     title: string;
     subTitle: string;
 }

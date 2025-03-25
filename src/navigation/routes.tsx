@@ -12,6 +12,7 @@ import { whatToBuyRouter } from './page-routes/what-to-buy-router';
 import { TransactionView } from '@pages/transaction-view/transaction-view.page.tsx';
 import { Loader } from '@/components/loader/loader.component';
 import { newToastifyStoreService } from '@/store/toaster.store';
+import { NotificationsPageContainer } from '@/pages/notifications/notifications.container.page';
 
 interface Route {
     path: string;
@@ -56,6 +57,10 @@ export const AppRoutes = () => {
         {
             path: '/swap',
             page: containers.SwapePage,
+        },
+        {
+            path: '/notifications',
+            page: NotificationsPageContainer,
         },
         // не рабочие стр
         {
