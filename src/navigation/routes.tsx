@@ -60,7 +60,7 @@ export const AppRoutes = () => {
         },
         {
             path: '/notifications',
-            page: NotificationsPageContainer,
+            page: NotificationsPageContainer({ userStore }),
         },
         // не рабочие стр
         {

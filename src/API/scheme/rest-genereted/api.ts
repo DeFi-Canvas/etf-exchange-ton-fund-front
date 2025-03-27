@@ -922,15 +922,46 @@ export interface ServerDedustWithdrawRequest {
 /**
  * 
  * @export
+ * @interface ServerNotification
+ */
+export interface ServerNotification {
+    /**
+     * 
+     * @type {string}
+     * @memberof ServerNotification
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ServerNotification
+     */
+    'status'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ServerNotification
+     */
+    'telegram_id'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ServerNotification
+     */
+    'timestamp'?: number;
+}
+/**
+ * 
+ * @export
  * @interface ServerStormDepositRequest
  */
 export interface ServerStormDepositRequest {
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof ServerStormDepositRequest
      */
-    'amount'?: number;
+    'amount'?: string;
     /**
      * 
      * @type {string}
@@ -1984,6 +2015,114 @@ export class NewsApi extends BaseAPI {
 
 
 /**
+ * NotificationsApi - axios parameter creator
+ * @export
+ */
+export const NotificationsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Get all notifications for a user in the last 5 days
+         * @summary Get notifications for a user
+         * @param {string} telegramId User ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        notificationsTelegramIdGet: async (telegramId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'telegramId' is not null or undefined
+            assertParamExists('notificationsTelegramIdGet', 'telegramId', telegramId)
+            const localVarPath = `/notifications/{telegram_id}`
+                .replace(`{${"telegram_id"}}`, encodeURIComponent(String(telegramId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * NotificationsApi - functional programming interface
+ * @export
+ */
+export const NotificationsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = NotificationsApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Get all notifications for a user in the last 5 days
+         * @summary Get notifications for a user
+         * @param {string} telegramId User ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async notificationsTelegramIdGet(telegramId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ServerNotification>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.notificationsTelegramIdGet(telegramId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NotificationsApi.notificationsTelegramIdGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * NotificationsApi - factory interface
+ * @export
+ */
+export const NotificationsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = NotificationsApiFp(configuration)
+    return {
+        /**
+         * Get all notifications for a user in the last 5 days
+         * @summary Get notifications for a user
+         * @param {string} telegramId User ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        notificationsTelegramIdGet(telegramId: string, options?: RawAxiosRequestConfig): AxiosPromise<Array<ServerNotification>> {
+            return localVarFp.notificationsTelegramIdGet(telegramId, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * NotificationsApi - object-oriented interface
+ * @export
+ * @class NotificationsApi
+ * @extends {BaseAPI}
+ */
+export class NotificationsApi extends BaseAPI {
+    /**
+     * Get all notifications for a user in the last 5 days
+     * @summary Get notifications for a user
+     * @param {string} telegramId User ID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NotificationsApi
+     */
+    public notificationsTelegramIdGet(telegramId: string, options?: RawAxiosRequestConfig) {
+        return NotificationsApiFp(this.configuration).notificationsTelegramIdGet(telegramId, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
  * StormApi - axios parameter creator
  * @export
  */
@@ -2243,6 +2382,40 @@ export class StormApi extends BaseAPI {
 export const StreamApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
+         * Open a server-sent events (SSE) stream to send notifications for a user
+         * @summary Open a stream
+         * @param {string} telegramId User ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        notificationsStreamTelegramIdGet: async (telegramId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'telegramId' is not null or undefined
+            assertParamExists('notificationsStreamTelegramIdGet', 'telegramId', telegramId)
+            const localVarPath = `/notifications/stream/{telegram_id}`
+                .replace(`{${"telegram_id"}}`, encodeURIComponent(String(telegramId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Open a server-sent events (SSE) stream for a user
          * @summary Open a stream
          * @param {string} telegramId User ID
@@ -2287,6 +2460,19 @@ export const StreamApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = StreamApiAxiosParamCreator(configuration)
     return {
         /**
+         * Open a server-sent events (SSE) stream to send notifications for a user
+         * @summary Open a stream
+         * @param {string} telegramId User ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async notificationsStreamTelegramIdGet(telegramId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.notificationsStreamTelegramIdGet(telegramId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['StreamApi.notificationsStreamTelegramIdGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Open a server-sent events (SSE) stream for a user
          * @summary Open a stream
          * @param {string} telegramId User ID
@@ -2310,6 +2496,16 @@ export const StreamApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = StreamApiFp(configuration)
     return {
         /**
+         * Open a server-sent events (SSE) stream to send notifications for a user
+         * @summary Open a stream
+         * @param {string} telegramId User ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        notificationsStreamTelegramIdGet(telegramId: string, options?: RawAxiosRequestConfig): AxiosPromise<string> {
+            return localVarFp.notificationsStreamTelegramIdGet(telegramId, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Open a server-sent events (SSE) stream for a user
          * @summary Open a stream
          * @param {string} telegramId User ID
@@ -2329,6 +2525,18 @@ export const StreamApiFactory = function (configuration?: Configuration, basePat
  * @extends {BaseAPI}
  */
 export class StreamApi extends BaseAPI {
+    /**
+     * Open a server-sent events (SSE) stream to send notifications for a user
+     * @summary Open a stream
+     * @param {string} telegramId User ID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StreamApi
+     */
+    public notificationsStreamTelegramIdGet(telegramId: string, options?: RawAxiosRequestConfig) {
+        return StreamApiFp(this.configuration).notificationsStreamTelegramIdGet(telegramId, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * Open a server-sent events (SSE) stream for a user
      * @summary Open a stream

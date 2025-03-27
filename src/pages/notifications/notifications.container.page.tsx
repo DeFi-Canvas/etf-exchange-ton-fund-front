@@ -1,4 +1,10 @@
+import { injectable, token } from '@injectable-ts/core';
 import { Notifications } from './notifications.page';
+import { newNewNotificationsStore } from './notifications.store';
+import { memo } from 'react';
+import { useValueWithEffect } from '@/utils/run-view-model.utils';
+import { UserStoreService } from '@/store/user.store';
+import { useProperty } from '@frp-ts/react';
 
 const NOTIFICATIONS_MOCK = [
     {
@@ -33,7 +39,17 @@ const NOTIFICATIONS_MOCK = [
     },
 ];
 
-export const NotificationsPageContainer = () => {
-    // @ts-ignore
-    return <Notifications notifications={NOTIFICATIONS_MOCK} />;
-};
+export const NotificationsPageContainer = injectable(
+    token('userStore')<UserStoreService>(),
+
+    (userStore) =>
+        memo(() => {
+            const store = useValueWithEffect(
+                () => newNewNotificationsStore({ userStore }),
+                []
+            );
+            const notifications = useProperty(store.notifications);
+
+            return <Notifications notifications={notifications} />;
+        })
+);

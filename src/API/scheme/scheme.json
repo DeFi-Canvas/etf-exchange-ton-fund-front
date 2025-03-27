@@ -438,6 +438,59 @@
                 }
             }
         },
+        "/notifications/stream/{telegram_id}": {
+            "get": {
+                "description": "Open a server-sent events (SSE) stream to send notifications for a user",
+                "produces": ["text/event-stream"],
+                "tags": ["Stream"],
+                "summary": "Open a stream",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "telegram_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Transaction Stream opened successfully",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/notifications/{telegram_id}": {
+            "get": {
+                "description": "Get all notifications for a user in the last 5 days",
+                "produces": ["application/json"],
+                "tags": ["Notifications"],
+                "summary": "Get notifications for a user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "telegram_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of notifications",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/server.Notification"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/storm/apr": {
             "get": {
                 "description": "Calculate APR based on deposited tokens and LP token supply",
@@ -1467,11 +1520,28 @@
                 }
             }
         },
+        "server.Notification": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "telegram_id": {
+                    "type": "integer"
+                },
+                "timestamp": {
+                    "type": "integer"
+                }
+            }
+        },
         "server.StormDepositRequest": {
             "type": "object",
             "properties": {
                 "amount": {
-                    "type": "number"
+                    "type": "string"
                 },
                 "ticker": {
                     "type": "string"

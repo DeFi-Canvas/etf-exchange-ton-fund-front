@@ -3,14 +3,16 @@ import { NewToastdata } from '@/store/toaster.store';
 import cn from 'classnames';
 import css from './notifications.module.css';
 import { NotificationStatusIcon } from '@/components/Icons/Icons';
+import * as E from 'fp-ts/Either';
+import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 
-interface NotificationUI {
+export interface NotificationUI {
     date: string;
     body: Array<NewToastdata>;
 }
 
 interface NotificationsProps {
-    notifications: Array<NotificationUI>;
+    notifications: E.Either<string, Array<NotificationUI>>;
 }
 
 export const Notifications = ({ notifications }: NotificationsProps) => {
@@ -18,14 +20,21 @@ export const Notifications = ({ notifications }: NotificationsProps) => {
         <div className={cn(css.wrap)}>
             <span className={css.title}>Notifications</span>
             <div className={css.notificationsWrap}>
-                {notifications.map(({ date, body }) => (
-                    <div>
-                        <span className={css.date}>{date}</span>
-                        <div className={css.notificationWrap}>
-                            {body.map(NotificationsBody)}
-                        </div>
-                    </div>
-                ))}
+                <RenderResult
+                    data={notifications}
+                    success={(notifications) => (
+                        <>
+                            {notifications.map(({ date, body }) => (
+                                <div>
+                                    <span className={css.date}>{date}</span>
+                                    <div className={css.notificationWrap}>
+                                        {body.map(NotificationsBody)}
+                                    </div>
+                                </div>
+                            ))}
+                        </>
+                    )}
+                />
             </div>
         </div>
     );
