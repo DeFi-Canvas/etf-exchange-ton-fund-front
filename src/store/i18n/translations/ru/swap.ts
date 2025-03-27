@@ -2,26 +2,26 @@ import { SwapI18n } from '@/pages/swap/swap.i18n';
 
 export const Swap: SwapI18n = {
     header: {
-        title: 'Swap',
-        fee: 'fee',
+        title: 'Обмен',
+        fee: 'комиссия',
     },
     cards: {
-        send: 'You send (ru)',
-        receive: 'You receive',
-        max: 'MAX',
+        send: 'Вы отправляете',
+        receive: 'Вы получите',
+        max: 'макс.',
     },
     footer: {
-        INSUFFICIENT_BALANCE: 'Insufficient balance',
-        EMPTY_FIELD: 'Swap (ru)',
+        INSUFFICIENT_BALANCE: 'Недостаточный баланс',
+        EMPTY_FIELD: 'Купить',
     },
     details: {
-        title: 'Swap details (ru)',
-        rate: 'Exchange rate (ru)',
-        minimum: 'Minimum received (ru)',
-        afterSwap: 'balance after swap (ru)',
+        title: 'Детали покупки',
+        rate: 'Обменный курс',
+        minimum: 'Минимальная покупка',
+        afterSwap: 'баланс после покупки',
     },
     result: {
-        totalAmount: '(ru) Total amount in',
+        totalAmount: 'Общее количество',
     },
-    select: 'Select asset',
+    select: 'Выберите актив',
 };

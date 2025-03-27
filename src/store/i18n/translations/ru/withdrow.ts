@@ -2,51 +2,50 @@ import { WithdrawI18n } from '@/pages/withdrow/withdeow.i18n.model';
 
 export const Withdraw: WithdrawI18n = {
     Withdraw: {
-        title: 'Withdraw (RU)',
+        title: 'Вывод',
     },
     Amount: {
-        title: 'Enter amount',
-        balance: 'Available balance',
+        title: 'Введите количество',
+        balance: 'Доступный баланс',
         button: {
-            empty: 'Enter the total amount',
-            normal: 'Continue',
+            empty: 'Введите количество',
+            normal: 'Продолжить',
         },
         errors: {
-            insufficientBalance: 'Insufficient balance',
-            minimumAmount: 'Minimum amount',
+            insufficientBalance: 'Недостаток баланса',
+            minimumAmount: 'Минимальное количество',
         },
     },
     Address: {
-        title: 'Enter address',
-        address: 'Withdraw address',
+        title: 'Введите количество',
+        address: 'Адрес вывода',
         placeholderAddress:
-            'Input or press and hold to paste the withdrawal address',
-        tag: 'Tag/Memo (Comment/Note/Remark)',
-        placeholderTag: 'Enter your tag',
-        commission: 'Commission',
+            'Введите или нажмите и удерживайте, чтобы вставить адрес для вывода средств.',
+        tag: 'Тег/Мемо',
+        placeholderTag: 'Введите Тег',
+        commission: 'Комиссия',
         footer: {
-            balance: 'Balance after withdraw',
-            button: 'Continue (ru)',
+            balance: 'Баланс после вывода',
+            button: 'Продолжить',
         },
     },
     Check: {
-        title: 'Check the data',
-        address: 'Withdraw address',
-        tag: 'Tag/Memo (Comment/Note/Remark)',
-        commission: 'Commission',
+        title: 'Проверьте данные',
+        address: 'Адрес вывода',
+        tag: 'Тег/Мемо',
+        commission: 'Комиссия',
         footer: {
-            balance: 'Balance after withdraw',
-            button: 'Submit and withdraw (ru)',
+            balance: 'Баланс после вывода',
+            button: 'Подтвердить и вывести',
         },
     },
     Final: {
-        title: 'is on the way',
+        title: 'Вывод совершается',
         description:
-            'Your transaction is being processed. You can follow the status in the “Transactions” section.',
-        ammount: (amount: number, currency: string) =>
-            `The amount of ${amount} ${currency} has been sent to:`,
-
-        view: 'View the transaction (RU)',
-        finish: 'Finish',
+            'Ваша транзакция обрабатывается. Вы можете отслеживать статус в разделе «Транзакции».',
+            ammount: (amount: number, currency: string) =>
+                `Сумма ${amount} ${currency} была отправлена на адрес:`,
+        view: 'Посмотреть транзакцию',
+        finish: 'Завершить',
     },
 };

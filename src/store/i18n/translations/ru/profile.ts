@@ -13,10 +13,10 @@ export const Profile: ProfileI18n = {
         },
     },
     earn: {
-        title: 'Earn Test TON (ru)',
+        title: 'Заработай TON ',
     },
     withdraw: {
-        title: 'Withdraw (ru)',
-        linkLabel: 'Withdraw cryptocurrency (ru)',
+        title: 'Вывод',
+        linkLabel: 'Вывод криптовалюты',
     },
 };

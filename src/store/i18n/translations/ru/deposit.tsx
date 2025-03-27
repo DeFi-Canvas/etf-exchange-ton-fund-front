@@ -2,7 +2,7 @@ import { DepositI18n } from '@/pages/deposit/deposit.i18n.model';
 
 export const Deposit: DepositI18n = {
     Deposit: {
-        title: 'Deposit',
+        title: 'Депозит',
     },
     EndPoint: {
         title: (ticker, css) => (
@@ -17,8 +17,8 @@ export const Deposit: DepositI18n = {
                 </span>
             </>
         ),
-        address: 'Deposit address',
-        tag: 'Tag/Memo (Comment/Note)',
-        button: 'Finish (ru)',
+        address: 'Адрес для депозита',
+        tag: 'Гет/Мемо',
+        button: 'Завершить',
     },
 };
