@@ -12,7 +12,7 @@ import {
     normolizeTransactionKey,
     WalletTransactions,
     WaletResponce,
-} from '@/pages/whalet/whalet.model';
+} from '@/pages/whalet/wallet.model';
 import { DOMAIN_API_URL } from './API';
 import { FundsApi, WalletsApi } from './scheme/rest-genereted/api';
 import { walletBalanceCodec } from './contracts/walletBalance.contract';

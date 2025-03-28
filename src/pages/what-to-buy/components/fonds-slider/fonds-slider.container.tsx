@@ -10,15 +10,19 @@ import {
 import { FondCardProps } from '@/components/fond-card/fond-card.component';
 import { useNavigate } from 'react-router-dom';
 import { pipe } from 'fp-ts/lib/function';
+import { I18NService } from '@/store/i18n/i18.store';
 
 interface FondsSliderContainerProps
     extends Omit<FondsSliderProps, 'slidesData' | 'onClick'> {}
 
 export const FondsSliderContainer = injectable(
     token('purchaseStore')<PurchaseSellStore>(),
-    (store) =>
+    token('i18n')<I18NService>(),
+
+    (store, i18n) =>
         memo((props: FondsSliderContainerProps) => {
             const funds = useProperty(store.funds);
+            const { Funds } = useProperty(i18n.WhatToBuy);
             //TODO: создать вм и перенести туда
             const slidesData: E.Either<
                 string,
@@ -30,6 +34,11 @@ export const FondsSliderContainer = injectable(
                         id: e.id,
                         title: e.name,
                         description: e.description,
+                        texts: {
+                            risk: Funds.card.risk,
+                            forecast: Funds.card.forecast,
+                            return: Funds.card.return,
+                        },
                     }))
                 )
             );

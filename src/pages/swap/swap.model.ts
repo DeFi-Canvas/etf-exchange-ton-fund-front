@@ -10,15 +10,6 @@ export type SwapBtnError = 'INSUFFICIENT_BALANCE' | 'EMPTY_FIELD';
 
 export const SHODOW_SWAP = 0.99;
 
-export const swapBtnErrorMap = (err: SwapBtnError) => {
-    switch (err) {
-        case 'INSUFFICIENT_BALANCE':
-            return 'Insufficient balance';
-        case 'EMPTY_FIELD':
-            return 'Swap';
-    }
-};
-
 export interface SwapAsset {
     id: string;
     imageSrc: string;
@@ -149,16 +140,15 @@ export const prepareMapSwapAfterSwap = (
         }))
     );
 
-export const mapOptionsToShow = (data: {
-    ticker: string;
-    balance: string;
-}) => ({
-    result: {
-        name: `Total amount in ${data.ticker}`,
-        value: data.balance,
-    },
-    details: {
-        name: `${data.ticker} balance after swap`,
-        value: [data.balance],
-    },
-});
+export const mapOptionsToShow =
+    (texts: { detailsName: string; resultName: string }) =>
+    (data: { ticker: string; balance: string }) => ({
+        result: {
+            name: `${texts.resultName} ${data.ticker}`,
+            value: data.balance,
+        },
+        details: {
+            name: `${data.ticker} ${texts.detailsName}`,
+            value: [data.balance],
+        },
+    });

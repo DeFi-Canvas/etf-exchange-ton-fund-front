@@ -6,13 +6,15 @@ import * as O from 'fp-ts/Option';
 import * as E from 'fp-ts/Either';
 import { TotalAmount } from '../../purchase/purchase.store';
 import { pipe } from 'fp-ts/lib/function';
-import { injectable } from '@injectable-ts/core';
+import { injectable, token } from '@injectable-ts/core';
 import { PurchaseSellFieldCounterContainer } from '../purchase-sell-field-counter/purchase-sell-field-counter.container';
 import { WalletIcon } from '@/components/Icons/Icons.tsx';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import SkeletonCard from '@/components/skeletons/skeleton-card/skeleton-card.component';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
+import { I18NService } from '@/store/i18n/i18.store';
+import { useProperty } from '@frp-ts/react';
 
 interface PurchaseSellContentCardProps {
     assetCardData: E.Either<string, InterfacePurchaseSellAssetCardData>;
@@ -24,7 +26,9 @@ interface PurchaseSellContentCardProps {
 }
 const PurchaseSellContentCard = injectable(
     PurchaseSellFieldCounterContainer,
-    (PurchaseSellFieldCounterContainer) =>
+    token('i18n')<I18NService>(),
+
+    (PurchaseSellFieldCounterContainer, i18n) =>
         ({
             assetCardData,
             totalAmount,
@@ -34,6 +38,7 @@ const PurchaseSellContentCard = injectable(
             onMaxAvailableClick,
         }: PurchaseSellContentCardProps) => {
             const eventBuilder = useTWAEvent();
+            const { utils: utilsText } = useProperty(i18n.WhatToBuy);
 
             // TODO: Какая то шляпа
             // возможно стоит расщипить на 2 значения и использовать напрямую
@@ -49,7 +54,9 @@ const PurchaseSellContentCard = injectable(
                 <div className={css.card}>
                     <div className={cn('app-container', css.cardContainer)}>
                         <div className={css.section}>
-                            <div className={css.cardTitle}>Asset</div>
+                            <div className={css.cardTitle}>
+                                {utilsText.asset}
+                            </div>
                             <RenderResult
                                 data={assetCardData}
                                 loading={() => <SkeletonCard type={'small'} />}
@@ -70,7 +77,7 @@ const PurchaseSellContentCard = injectable(
                         </div>
                         <div className={css.section}>
                             <header className={css.cardTitle}>
-                                <span>Amount ($)</span>
+                                <span>{utilsText.amount} ($)</span>
 
                                 <div className={css.availablePrice}>
                                     <div className={css.maxAvailable}>
@@ -81,7 +88,7 @@ const PurchaseSellContentCard = injectable(
                                         className={css.cardTitleMaxValue}
                                         onClick={onMaxAvailableClick}
                                     >
-                                        MAX
+                                        {utilsText.max}
                                     </div>
                                 </div>
                             </header>

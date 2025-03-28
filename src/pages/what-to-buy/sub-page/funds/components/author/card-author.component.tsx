@@ -2,12 +2,16 @@ import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import css from './card-author.module.css';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
-const CardAuthor = () => {
+interface CardAuthorProps {
+    authorTitle: string;
+}
+
+const CardAuthor = ({ authorTitle }: CardAuthorProps) => {
     const eventBuilder = useTWAEvent();
 
     return (
         <div className={css.card}>
-            <div className={css.cardTitle}>Author</div>
+            <div className={css.cardTitle}>{authorTitle}</div>
             <div
                 className={css.cardContent}
                 onClick={() => {

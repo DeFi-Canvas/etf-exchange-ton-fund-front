@@ -10,9 +10,10 @@ import { chain, map, tap } from '@most/core';
 import * as O from 'fp-ts/Option';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
-import { SwapBtnError, swapBtnErrorMap } from '../../swap.model';
+import { SwapBtnError } from '../../swap.model';
 import { newSwapRestService } from '@/API/swape.service';
 import { createAdapter } from '@most/adapter';
+import { I18NService } from '@/store/i18n/i18.store';
 
 export interface SwapFooter {
     isDisabled: Property<boolean>;
@@ -27,12 +28,22 @@ export interface NewSwapFooter {
 export const newSwapFooter = injectable(
     token('store')<SwapStore>(),
     newSwapRestService,
-    (store, swapRestService): NewSwapFooter =>
+    token('i18n')<I18NService>(),
+    (store, swapRestService, i18n): NewSwapFooter =>
         () => {
             const isDisabled = newLensedAtom(true);
             const btnText = newLensedAtom('');
 
             const [emmitSwap, emmitSwapEvent] = createAdapter<void>();
+
+            const swapBtnErrorMap = (err: SwapBtnError) => {
+                switch (err) {
+                    case 'INSUFFICIENT_BALANCE':
+                        return i18n.Swap.get().footer.INSUFFICIENT_BALANCE;
+                    case 'EMPTY_FIELD':
+                        return i18n.Swap.get().footer.EMPTY_FIELD;
+                }
+            };
 
             const { evs } = swapRestService.getConnection();
 

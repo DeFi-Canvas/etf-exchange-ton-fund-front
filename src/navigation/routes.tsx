@@ -13,6 +13,7 @@ import { TransactionView } from '@pages/transaction-view/transaction-view.page.t
 import { Loader } from '@/components/loader/loader.component';
 import { newToastifyStoreService } from '@/store/toaster.store';
 import { NotificationsPageContainer } from '@/pages/notifications/notifications.container.page';
+import { newNewI18NService } from '@/store/i18n/i18.store';
 
 interface Route {
     path: string;
@@ -37,8 +38,10 @@ export const AppRoutes = () => {
     // TEMP
     // @ts-ignore
     window.toastStore = toastStore;
+
+    const i18n = useValueWithEffect(() => newNewI18NService(), []);
     //#region containers
-    const containers = getContainers({ userStore });
+    const containers = getContainers({ userStore, i18n });
 
     //#region routes
     const routes: Route[] = [

@@ -10,11 +10,16 @@ import { FundsData } from '@/instance/fund/fund.model';
 interface FooterProps {
     fundsAvailableSale: E.Either<string, Array<FundsData>>;
     fundAvailablebuy: E.Either<string, boolean>;
+    texts: {
+        sell: string;
+        buy: string;
+    };
 }
 
 export const Footer = ({
     fundsAvailableSale,
     fundAvailablebuy,
+    texts,
 }: FooterProps) => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -27,7 +32,7 @@ export const Footer = ({
                 failure={() => null}
                 success={() => (
                     <AppButton
-                        label="Sell"
+                        label={texts.sell}
                         type="secondary"
                         onClick={() => {
                             trackTelemetree(
@@ -45,7 +50,7 @@ export const Footer = ({
                 failure={() => null}
                 success={(isDisabled) => (
                     <AppButton
-                        label="Buy"
+                        label={texts.buy}
                         onClick={() => {
                             trackTelemetree(
                                 eventBuilder,

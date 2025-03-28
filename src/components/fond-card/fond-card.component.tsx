@@ -17,6 +17,11 @@ export interface FondCardProps {
     title: string;
     description: string;
     onClick: (id: string) => void;
+    texts: {
+        risk: string;
+        forecast: string;
+        return: string;
+    };
 }
 
 export const FondCard = ({
@@ -24,6 +29,7 @@ export const FondCard = ({
     description,
     id,
     onClick,
+    texts,
 }: FondCardProps) => {
     const style: CustomCSSProperties = {
         '--background-url': `url(${img2})`,
@@ -37,7 +43,7 @@ export const FondCard = ({
             <div className={css.statisticInfo} style={style}>
                 <div className={cn(css.riskInfo, css.isolateOverlay)}>
                     <div className={css.risk}>
-                        Risk
+                        {texts.risk}
                         <RiskIcon />
                     </div>
                     <div className={css.coinWrap}>
@@ -46,8 +52,8 @@ export const FondCard = ({
                     </div>
                 </div>
                 <div className={cn(css.prediction, css.isolateOverlay)}>
-                    <span>Forecast</span>
-                    <span>5% Annual Return</span>
+                    <span>{texts.forecast}</span>
+                    <span>5% {texts.return}</span>
                 </div>
             </div>
             <div className={css.mainInfo}>

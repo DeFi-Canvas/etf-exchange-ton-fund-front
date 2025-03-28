@@ -12,6 +12,14 @@ interface AddressFormProps {
 
     setAddress: (d: string) => void;
     setMemo: (d: string) => void;
+
+    texts: {
+        address: string;
+        placeholderAddress: string;
+        tag: string;
+        placeholderTag: string;
+        commission: string;
+    };
 }
 
 export const AddressForm = ({
@@ -21,6 +29,7 @@ export const AddressForm = ({
     setAddress,
     setMemo,
     symbolLogo,
+    texts,
 }: AddressFormProps) => {
     const [currentAddress, setCurrentAddress] = useState('');
     const addressOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -46,28 +55,26 @@ export const AddressForm = ({
                     currency={currency}
                 />
                 <section className={cn(css.section)}>
-                    <div className={css.sectionTitle}>Withdraw address</div>
+                    <div className={css.sectionTitle}>{texts.address}</div>
                     <textarea
                         value={currentAddress}
                         onChange={addressOnChange}
                         className={css.textField}
-                        placeholder="Input or press and hold to paste the withdrawal address"
+                        placeholder={texts.placeholderAddress}
                         rows={2}
                     />
                 </section>
                 <section className={cn(css.section)}>
-                    <div className={css.sectionTitle}>
-                        Tag/Memo (Comment/Note/Remark)
-                    </div>
+                    <div className={css.sectionTitle}>{texts.tag}</div>
                     <input
                         className={css.textField}
-                        placeholder="Enter your tag"
+                        placeholder={texts.placeholderTag}
                         value={currentMemo}
                         onChange={memoOnChange}
                     />
                 </section>
                 <section className={cn(css.section)}>
-                    <div className={css.sectionTitle}>Commission</div>
+                    <div className={css.sectionTitle}>{texts.commission}</div>
                     <span className={css.cardCommission}>
                         0,5 TON ≈ 2,06 USD{' '}
                     </span>
