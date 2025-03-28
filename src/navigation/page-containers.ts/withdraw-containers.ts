@@ -15,21 +15,27 @@ export interface WithdrowContainers {
 
 export const getWithdrowContainers = ({
     userStore,
+    i18n,
 }: getContainersArgs): WithdrowContainers => ({
     Withdrow: Withdrow({
         userStore,
+        i18n,
     }),
     Amount: AmountContainer({
         userStore,
+        i18n,
     }),
     Address: AddressContainer({
         userStore,
+        i18n,
     }),
     Check: CheckContainer({
         userStore,
+        i18n,
     }),
     Final: FinalContainer({
         userStore,
+        i18n,
     }),
     // Withdrow: lazy(() =>
     //     import('@withdrow/withdrow.page').then((c) => {

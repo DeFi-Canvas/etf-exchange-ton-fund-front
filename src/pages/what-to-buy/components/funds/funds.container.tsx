@@ -9,11 +9,16 @@ import { pipe } from 'fp-ts/lib/function';
 import { FondsWrap } from './funds.component';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
+import { I18NService } from '@/store/i18n/i18.store';
 
 export const FondsWrapContainer = injectable(
     token('purchaseStore')<PurchaseSellStore>(),
-    (store) =>
+    token('i18n')<I18NService>(),
+
+    (store, i18n) =>
         memo(() => {
+            const { Funds } = useProperty(i18n.WhatToBuy);
+
             const fundsData = useProperty(store.funds);
             //TODO: создать вм и перенести туда
             const funds: E.Either<
@@ -26,6 +31,9 @@ export const FondsWrapContainer = injectable(
                         id: e.id,
                         title: e.name,
                         description: e.description,
+                        texts: {
+                            ...Funds.card,
+                        },
                     }))
                 )
             );

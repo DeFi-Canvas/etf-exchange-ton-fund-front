@@ -5,10 +5,12 @@ import { useProperty } from '@frp-ts/react';
 import { Check } from './check.component';
 import { UserStoreService } from '@/store/user.store';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
+import { I18NService } from '@/store/i18n/i18.store';
 
 export const CheckContainer = injectable(
     token('userStore')<UserStoreService>(),
     provide(Check)<'withdrowStore'>(),
+    token('i18n')<I18NService>(),
     (userStore, Check) =>
         memo(() => {
             const store = useValueWithEffect(

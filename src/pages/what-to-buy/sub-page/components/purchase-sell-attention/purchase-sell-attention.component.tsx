@@ -3,7 +3,12 @@ import { AttentionIcon } from '@/components/Icons/Icons';
 // Style
 import css from './purchase-sell-attention.module.css';
 
-const PurchaseSellAttention = () => {
+interface PurchaseSellAttentionProps {
+    title: string;
+    text: string;
+}
+
+const PurchaseSellAttention = ({ title, text }: PurchaseSellAttentionProps) => {
     return (
         <div className={css.card}>
             <div className={css.icon}>
@@ -11,11 +16,8 @@ const PurchaseSellAttention = () => {
             </div>
             <div className={css.divider}></div>
             <div>
-                <span className={css.cardTitle}>Attention</span>
-                <p className={css.cardText}>
-                    Investments in the funds are in the beta testing phase.
-                    Please consider the risks.
-                </p>
+                <span className={css.cardTitle}>{title}</span>
+                <p className={css.cardText}>{text}</p>
             </div>
         </div>
     );

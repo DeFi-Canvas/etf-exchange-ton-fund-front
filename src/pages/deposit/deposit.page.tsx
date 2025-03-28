@@ -11,16 +11,19 @@ import { newDepositRestService } from '@/API/deposit.service';
 import { newWaletRestService } from '@/API/whalet.service';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
+import { I18NService } from '@/store/i18n/i18.store';
+import { useProperty } from '@frp-ts/react';
 
 export const DepositPageContainer = injectable(
     AssetsContainer,
-    (AssetsContainer) => () => {
+    token('i18n')<I18NService>(),
+    (AssetsContainer, i18n) => () => {
         const eventBuilder = useTWAEvent();
-
+        const { Deposit } = useProperty(i18n.Deposit);
         return (
             <div className={css.page}>
                 <div className={cn('app-container', css.pageHeader)}>
-                    <h2 className={css.pageTitle}>Deposit</h2>
+                    <h2 className={css.pageTitle}>{Deposit.title}</h2>
                     <SerchInput
                         placeholder="Search"
                         onClick={() =>
@@ -50,7 +53,8 @@ export const DepositPageContainer = injectable(
 
 export const Deposit = injectable(
     token('userStore')<UserStoreService>(),
-    (userStore) =>
+    token('i18n')<I18NService>(),
+    (userStore, i18n) =>
         memo(() => {
             const withdrowStore = useValueWithEffect(
                 () => newNewWithdrowStore({ userStore }),
@@ -64,6 +68,7 @@ export const Deposit = injectable(
                     withdrowStore,
                     depositRestService,
                     waletRestService,
+                    i18n,
                 })
             );
         })

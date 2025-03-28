@@ -6,9 +6,13 @@ import cn from 'classnames';
 
 export interface SwapHeaderProps {
     onClick: () => void;
+    texts: {
+        title: string;
+        fee: string;
+    };
 }
 
-export const SwapHeader = ({ onClick }: SwapHeaderProps) => {
+export const SwapHeader = ({ onClick, texts }: SwapHeaderProps) => {
     const [isRotating, setIsRotating] = useState(false);
     const handleClick = () => {
         setIsRotating(true);
@@ -21,8 +25,8 @@ export const SwapHeader = ({ onClick }: SwapHeaderProps) => {
 
     return (
         <header className={css.header}>
-            <h2 className="h2">Swap</h2>
-            <Chip text="0% fee" className={css.headerChip} />
+            <h2 className="h2">{texts.title}</h2>
+            <Chip text={`0% ${texts.fee}`} className={css.headerChip} />
             <button
                 className={cn(css.headerButton, {
                     [css.rotate]: isRotating,

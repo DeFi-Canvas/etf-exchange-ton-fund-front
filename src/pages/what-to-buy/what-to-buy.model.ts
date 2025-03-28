@@ -1,5 +1,5 @@
 import { Asset } from '@/instance/asset/asset.model';
-import { WalletFundsRespnce } from '../whalet/whalet.model';
+import { WalletFundsRespnce } from '../whalet/wallet.model';
 import { InterfacePurchaseSellAssetCardData } from './sub-page/types';
 import { FundsData } from '@/instance/fund/fund.model';
 

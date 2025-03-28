@@ -8,7 +8,7 @@ import { either } from 'fp-ts';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { newWaletRestService } from '@/API/whalet.service';
 import { newLensedAtom } from '@frp-ts/lens';
-import { WalletTransactions } from './whalet.model';
+import { WalletTransactions } from './wallet.model';
 
 export interface Balance {
     int: string;

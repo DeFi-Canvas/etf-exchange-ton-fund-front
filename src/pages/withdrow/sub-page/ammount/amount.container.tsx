@@ -6,10 +6,12 @@ import React, { memo } from 'react';
 import { useParams } from 'react-router-dom';
 import { UserStoreService } from '@/store/user.store';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
+import { I18NService } from '@/store/i18n/i18.store';
 
 export const AmountContainer = injectable(
     token('userStore')<UserStoreService>(),
-    (userStore) =>
+    token('i18n')<I18NService>(),
+    (userStore, i18n) =>
         memo(() => {
             const { ticker } = useParams();
             const store = useValueWithEffect(
@@ -17,6 +19,8 @@ export const AmountContainer = injectable(
                 []
             );
             store.setCurrency(ticker ?? '');
+
+            const { Amount: texts } = useProperty(i18n.Withdraw);
 
             const currency = useProperty(store.currency);
             const ammount = useProperty(store.amount);
@@ -36,6 +40,7 @@ export const AmountContainer = injectable(
                 isNextButtonAvailable,
                 availableBalance,
                 symbolLogo,
+                texts,
             });
         })
 );

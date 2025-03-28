@@ -12,6 +12,11 @@ export interface SwapAssetCardProps {
     onArrowClick: (id: string) => void;
     onChangeField: (id: string, value: number) => void;
     onMaxClick: () => void;
+    texts: {
+        send: string;
+        receive: string;
+        max: string;
+    };
 }
 
 export const SwapAssetCard = ({
@@ -21,8 +26,9 @@ export const SwapAssetCard = ({
     onArrowClick,
     onChangeField,
     onMaxClick,
+    texts,
 }: SwapAssetCardProps) => {
-    const textSwapCard = isFirstCard ? 'You send' : 'You receive';
+    const textSwapCard = isFirstCard ? texts.send : texts.receive;
     const price = `${formatNumberToUI(card.balanceInWalet)} ${card.assetName}`;
     const [inputValue, setInputValue] = useState(() =>
         card.currentValue > 0 ? `${card.currentValue}` : ''
