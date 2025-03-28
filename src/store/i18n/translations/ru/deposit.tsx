@@ -7,13 +7,13 @@ export const Deposit: DepositI18n = {
     EndPoint: {
         title: (ticker, css) => (
             <>
-                Send only&nbsp;
+                Отправляйте только&nbsp;
                 <span className={css.bold}>{ticker}</span>
-                &nbsp;via&nbsp;
-                <span className={css.bold}>TON</span>&nbsp;to this address.
-                Other coins, jettons and NFTs will be permanently lost.
+                &nbsp;через&nbsp;
+                <span className={css.bold}>TON</span>&nbsp;по этому адресу.
+                Другие монеты, токены и NFTs будут безвозвратно утеряны.
                 <span className={css.bold}>
-                    Memo is mandatory to make a deposit!
+                    Memo обязателен для внесения депозита!
                 </span>
             </>
         ),
