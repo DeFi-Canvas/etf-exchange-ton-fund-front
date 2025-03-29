@@ -44,7 +44,7 @@ export interface I18NService {
 export type NewI18NService = ValueWithEffect<I18NService>;
 
 export const newNewI18NService = (): NewI18NService => {
-    const locale = newLensedAtom<Locale>('ru');
+    const locale = newLensedAtom<Locale>('en');
     const Profile = newLensedAtom<ProfileI18n>(ProfileEnLocalization);
     const Wallet = newLensedAtom<WalletI18n>(WalletEnLocalization);
     const WhatToBuy = newLensedAtom<WhatToBuyI18n>(WhatToBuyEnLocalization);

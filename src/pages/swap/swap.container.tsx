@@ -8,10 +8,9 @@ import { UserStoreService } from '@/store/user.store';
 import { I18NService } from '@/store/i18n/i18.store';
 
 export const SwapPageContainer = injectable(
-    provide(SwapPage)<'store' | 'userStore'>(),
     token('userStore')<UserStoreService>(),
     token('i18n')<I18NService>(),
-    (SwapPage, userStore, i18n) =>
+    (userStore, i18n) =>
         memo(() => {
             const store = useValueWithEffect(
                 () => newSwapStore({ userStore, i18n })(),
@@ -24,6 +23,7 @@ export const SwapPageContainer = injectable(
                 SwapPage({
                     store,
                     userStore,
+                    i18n,
                 }),
                 {
                     ...store,
