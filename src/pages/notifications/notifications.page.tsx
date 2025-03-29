@@ -5,23 +5,22 @@ import css from './notifications.module.css';
 import { NotificationStatusIcon } from '@/components/Icons/Icons';
 import * as E from 'fp-ts/Either';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
-
-export interface NotificationUI {
-    date: string;
-    body: Array<NewToastdata>;
-}
+import { NotificationUI } from './notifications.model';
 
 interface NotificationsProps {
     notifications: E.Either<string, Array<NotificationUI>>;
 }
 
 export const Notifications = ({ notifications }: NotificationsProps) => {
+    console.log(notifications);
+
     return (
         <div className={cn(css.wrap)}>
             <span className={css.title}>Notifications</span>
             <div className={css.notificationsWrap}>
                 <RenderResult
                     data={notifications}
+                    failure={(e) => <div>EMPTY</div>}
                     success={(notifications) => (
                         <>
                             {notifications.map(({ date, body }) => (
