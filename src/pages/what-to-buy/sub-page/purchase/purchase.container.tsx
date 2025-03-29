@@ -6,11 +6,12 @@ import PurchasePage from './purchase.page';
 import { newPurchaseSellStore } from './purchase.store';
 import { useParams } from 'react-router-dom';
 import { UserStoreService } from '@/store/user.store';
+import { I18NService } from '@/store/i18n/i18.store';
 
 export const PurchaseContainer = injectable(
-    provide(PurchasePage)<'purchaseStore'>(),
     token('userStore')<UserStoreService>(),
-    (PurchasePage, userStore) =>
+    token('i18n')<I18NService>(),
+    (userStore, i18n) =>
         memo(() => {
             const { id } = useParams();
 
@@ -27,6 +28,7 @@ export const PurchaseContainer = injectable(
 
             const PurchasePageResolve = PurchasePage({
                 purchaseStore,
+                i18n,
             });
 
             return React.createElement(PurchasePageResolve, {
