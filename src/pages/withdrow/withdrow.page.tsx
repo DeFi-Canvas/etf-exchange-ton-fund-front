@@ -55,11 +55,9 @@ const WithdrowPage = injectable(
 );
 
 export const Withdrow = injectable(
-    provide(WithdrowPage)<
-        'withdrowStore' | 'waletRestService' | 'depositRestService'
-    >(),
     token('userStore')<UserStoreService>(),
-    (WithdrowPage, userStore) =>
+    token('i18n')<I18NService>(),
+    (userStore, i18n) =>
         memo(() => {
             const withdrowStore = useValueWithEffect(
                 () => newNewWithdrowStore({ userStore }),
@@ -74,6 +72,7 @@ export const Withdrow = injectable(
                     withdrowStore,
                     waletRestService,
                     depositRestService,
+                    i18n,
                 })
             );
         })
