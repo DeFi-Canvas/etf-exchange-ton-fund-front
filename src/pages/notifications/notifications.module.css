@@ -64,3 +64,22 @@
         }
     }
 }
+
+.empty {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 20px;
+
+    img {
+        margin: 0 auto;
+        width: 132px;
+        height: 132px;
+    }
+
+    span {
+        text-align: center;
+        color: var(--colors-text-dark-70, rgba(36, 38, 46, 0.7));
+        text-align: center;
+    }
+}

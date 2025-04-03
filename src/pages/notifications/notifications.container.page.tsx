@@ -41,7 +41,6 @@ const NOTIFICATIONS_MOCK = [
 
 export const NotificationsPageContainer = injectable(
     token('userStore')<UserStoreService>(),
-
     (userStore) =>
         memo(() => {
             const store = useValueWithEffect(
