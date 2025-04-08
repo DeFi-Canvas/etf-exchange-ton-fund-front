@@ -35,7 +35,7 @@ export const AppRoutes = () => {
         []
     );
     const toastStore = useValueWithEffect(() => newToastifyStoreService(), []);
-    // TEMP
+    // TEMP - 08.04.2025
     // @ts-ignore
     window.toastStore = toastStore;
 
