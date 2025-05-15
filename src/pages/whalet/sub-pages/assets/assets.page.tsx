@@ -28,7 +28,7 @@ const formattedData = (assets: CoinCardData) => {
         img: assets.logo,
         title: `${assets.coinAmount?.toFixed(2)} ${assets.name}`,
         subTitle: assets.ticker,
-        price: `${$currency} ${assets.cost?.toFixed(2)}`,
+        price: `${$currency} ${(assets.cost * assets.coinAmount).toFixed(2)}`,
         priceText: '',
     };
 };

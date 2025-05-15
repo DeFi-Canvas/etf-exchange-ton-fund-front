@@ -28,7 +28,8 @@ export const getRequestGenerated =
                             () => {
                                 console.error(
                                     'ALAAAAAARM Errors:',
-                                    PathReporter.report(shema.decode(data))
+                                    `shema = ${shema.name}`
+                                    // PathReporter.report(shema.decode(data))
                                 );
                                 return either.left('error');
                             },
