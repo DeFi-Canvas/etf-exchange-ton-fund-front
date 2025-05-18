@@ -186,7 +186,6 @@ export const newSwapStore = injectable(
                     E.map(A.map(mapAssetToFiltrebleSwapAsset)),
                     setAllAssets
                 );
-
                 getAssetsEffectMapping(assets, getWaletAssets(), setSwapAssets);
             })
         );

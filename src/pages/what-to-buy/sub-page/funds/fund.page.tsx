@@ -38,6 +38,8 @@ export const FundPage = injectable(
     ) =>
         ({ fund }: FundPageProps) => {
             const { Fund } = useProperty(i18n.WhatToBuy);
+            console.log(fund, 'fund');
+
             return (
                 <div className={cn('app-container', css.page)}>
                     <RenderResult
