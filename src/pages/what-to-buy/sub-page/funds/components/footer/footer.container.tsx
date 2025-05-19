@@ -15,13 +15,8 @@ export const FooterContainer = injectable(
         const fundsAvailableSale = useProperty(store.fundsAvailableSale);
         const { Fund: texts } = useProperty(i18n.WhatToBuy);
 
-        const fundAvailablebuy = pipe(
-            useProperty(store.fundData),
-            E.map(({ isAvaiable }) => !isAvaiable)
-        );
         return React.createElement(Footer, {
             fundsAvailableSale,
-            fundAvailablebuy,
             texts,
         });
     }
