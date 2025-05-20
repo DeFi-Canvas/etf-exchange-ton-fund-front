@@ -164,28 +164,37 @@ export const newSwapStore = injectable(
             ),
             tap(({ assets, walletAssets: waletAssetsResp }) => {
                 setWaletAssets(waletAssetsResp);
-                pipe(
-                    E.Do,
-                    E.bind('waletAssetsResp', constant(waletAssetsResp)),
-                    E.bind('assets', constant(assets)),
-                    E.map(({ assets, waletAssetsResp }) => {
-                        const waletAssetsRespSet = pipe(
-                            waletAssetsResp,
-                            A.map((x) => x.id),
-                            A.uniq(S.Eq)
-                        );
-                        const { left, right } = pipe(
-                            assets,
-                            A.partition((asset) =>
-                                waletAssetsRespSet.includes(asset.id)
-                            )
-                        );
+                if (E.isRight(waletAssetsResp)) {
+                    pipe(
+                        E.Do,
+                        E.bind('waletAssetsResp', constant(waletAssetsResp)),
+                        E.bind('assets', constant(assets)),
+                        E.map(({ assets, waletAssetsResp }) => {
+                            const waletAssetsRespSet = pipe(
+                                waletAssetsResp,
+                                A.map((x) => x.id),
+                                A.uniq(S.Eq)
+                            );
 
-                        return [...right, ...left];
-                    }),
-                    E.map(A.map(mapAssetToFiltrebleSwapAsset)),
-                    setAllAssets
-                );
+                            const { left, right } = pipe(
+                                assets,
+                                A.partition((asset) =>
+                                    waletAssetsRespSet.includes(asset.id)
+                                )
+                            );
+                            return [...right, ...left];
+                        }),
+                        E.map(A.map(mapAssetToFiltrebleSwapAsset)),
+                        setAllAssets
+                    );
+                } else {
+                    pipe(
+                        assets,
+                        E.map(A.map(mapAssetToFiltrebleSwapAsset)),
+                        setAllAssets
+                    );
+                }
+
                 getAssetsEffectMapping(assets, getWaletAssets(), setSwapAssets);
             })
         );

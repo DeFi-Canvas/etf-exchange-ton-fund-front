@@ -57,7 +57,6 @@ export const Assets = ({ assets, type, handleClick }: AssetsProps) => {
         handleClick(asset);
         navigate(mapLink(asset));
     };
-    console.log(assets, DepositAssetsCodec.is(assets));
 
     return (
         <div className={cn('app-container', css.assetsWrapperContainer)}>

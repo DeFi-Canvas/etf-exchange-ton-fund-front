@@ -64,8 +64,8 @@ export const newWaletRestService = injectable(
             getWhaletFunds: getRequestGenerated(
                 walletsApi.walletStrategiesGet(telegram_id ?? 0),
                 walletFundsCodec,
-                mapWhaletFunds,
-                getWhaletFundsValidation
+                mapWhaletFunds
+                // getWhaletFundsValidation
             ),
             getTransactions: getRequestGenerated(
                 walletsApi.walletTransactionsGet(telegram_id ?? 0),
