@@ -11,7 +11,7 @@ import * as O from 'fp-ts/Option';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
 import { SwapBtnError } from '../../swap.model';
-import { newSwapRestService } from '@/API/swape.service';
+import { newSwapRestService } from '@/API/swap.service';
 import { createAdapter } from '@most/adapter';
 import { I18NService } from '@/store/i18n/i18.store';
 
