@@ -3,7 +3,7 @@ import * as t from 'io-ts';
 // wallet/funds
 
 const fundItem = t.type({
-    total: t.number,
+    // total: t.number,
     funds: t.union([
         t.array(
             t.type({

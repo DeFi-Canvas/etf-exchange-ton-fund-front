@@ -107,7 +107,7 @@ export const newSwapFooter = injectable(
                 }),
                 chain(constant(evs)),
                 tap((x) => {
-                    console.log(x, 'evs');
+                    console.log(x, 'evs', JSON.parse(x as string));
                 })
             );
 

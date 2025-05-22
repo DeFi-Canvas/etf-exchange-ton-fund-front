@@ -68,7 +68,6 @@ const PurchasePage = injectable(
                         </div>
                         <PurchaseSellAttention {...Purchase.attention} />
                     </div>
-
                     <PurchaseSellContentCardContainer type={'BUY'} />
 
                     <PurchaseSellDetailsContainer
