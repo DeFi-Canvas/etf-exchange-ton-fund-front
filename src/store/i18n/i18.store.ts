@@ -62,7 +62,7 @@ export const newNewI18NService = (): NewI18NService => {
                     Profile.set(ProfileEnLocalization);
                     Wallet.set(WalletEnLocalization);
                     WhatToBuy.set(WhatToBuyEnLocalization);
-                    Swap.set(SwapRuLocalization);
+                    Swap.set(SwapEnLocalization);
                     Withdraw.set(WithdrawEnLocalization);
                     Deposit.set(DepositEnLocalization);
                     Asset.set(AssetEnLocalization);

@@ -105,7 +105,7 @@ export const newPurchaseSellStore = injectable(
                         assetsResponce,
                         E.chain(
                             flow(
-                                A.findFirst((x) => x.name === 'TON'),
+                                A.findFirst((x) => x.symbol === 'TON'),
                                 E.fromOption(constant('ERROR'))
                             )
                         ),

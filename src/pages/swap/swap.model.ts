@@ -76,8 +76,8 @@ export const getAssetsEffectMapping = (
                 allAssets,
                 A.filter(
                     (x) =>
-                        x.name === INITIAL_ASSET_NAME ||
-                        x.name === 'USDT' ||
+                        x.ticker === INITIAL_ASSET_NAME ||
+                        x.ticker === 'USDT' ||
                         x.name === 'Tether'
                 ),
                 A.map(mapAssetToSwapAsset),
@@ -102,7 +102,7 @@ export const getAssetsEffectMapping = (
                         return pipe(
                             data,
                             A.findFirst(
-                                (dataEl) => x.assetName === dataEl.name
+                                (dataEl) => x.assetName === dataEl.symbol
                             ),
                             O.fold(
                                 () => x,

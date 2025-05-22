@@ -137,7 +137,6 @@ export const OperationsNavContainer = injectable(
         const vm = useValueWithEffect(() => newWhatToBuyViewModel(), []);
         const isTransactionAvailible = useProperty(vm.isTransactionAvailible);
         const texts = useProperty(i18n.Wallet);
-        console.log(texts);
 
         return React.createElement(OperationsNav, {
             isTransactionAvailible,

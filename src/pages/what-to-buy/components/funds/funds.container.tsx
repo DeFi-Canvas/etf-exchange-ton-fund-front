@@ -14,7 +14,6 @@ import { I18NService } from '@/store/i18n/i18.store';
 export const FondsWrapContainer = injectable(
     token('purchaseStore')<PurchaseSellStore>(),
     token('i18n')<I18NService>(),
-
     (store, i18n) =>
         memo(() => {
             const { Funds } = useProperty(i18n.WhatToBuy);

@@ -6,7 +6,7 @@ import { DOMAIN_API_URL } from './API';
 import { mapFunds } from '@/pages/what-to-buy/what-to-buy.model';
 import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
 import { getRequestGenerated } from './request.utils';
-import { FundsApi, WalletsApi } from './scheme/rest-genereted/api';
+import { StrategiesApi, WalletsApi } from './scheme/rest-genereted/api';
 import { Configuration } from './scheme/rest-genereted';
 import { fundByIdResponseCodec } from './contracts/fundById.contract';
 import { buyIndexResponseCodec } from './contracts/buyIndex.contract';
@@ -26,7 +26,9 @@ export interface WTBRestService {
     ) => Stream<Either<string, unknown>>;
 }
 
-const fundsApi = new FundsApi({ basePath: DOMAIN_API_URL } as Configuration);
+const strategiesApi = new StrategiesApi({
+    basePath: DOMAIN_API_URL,
+} as Configuration);
 
 const walletsApi = new WalletsApi({
     basePath: DOMAIN_API_URL,
@@ -41,7 +43,7 @@ export const newWTBRestService = injectable(
         return {
             getFund: (id) =>
                 getRequestGenerated(
-                    fundsApi.fundFundIdGet(id),
+                    strategiesApi.strategyStrategyIdGet(id),
                     fundByIdResponseCodec,
                     mapFunds
                 )(),
@@ -49,7 +51,7 @@ export const newWTBRestService = injectable(
                 getRequestGenerated(
                     walletsApi.walletBuyindexPost({
                         telegram_id,
-                        fund_id: args.fundId,
+                        strategy_id: args.fundId,
                         amount: args.amount,
                         asset_id: args.assetId,
                         init_data: initDataRaw,

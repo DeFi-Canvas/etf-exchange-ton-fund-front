@@ -14,7 +14,8 @@ import {
     WaletResponce,
 } from '@/pages/whalet/wallet.model';
 import { DOMAIN_API_URL } from './API';
-import { FundsApi, WalletsApi } from './scheme/rest-genereted/api';
+import { StrategiesApi, WalletsApi } from './scheme/rest-genereted/api';
+
 import { walletBalanceCodec } from './contracts/walletBalance.contract';
 import { Configuration } from './scheme/rest-genereted';
 import { walletFundsCodec } from './contracts/walletFunds.contract';
@@ -35,7 +36,7 @@ const walletsApi = new WalletsApi({
     basePath: DOMAIN_API_URL,
 } as Configuration);
 
-const fundsApi = new FundsApi({
+const strategiesApi = new StrategiesApi({
     basePath: DOMAIN_API_URL,
 } as Configuration);
 
@@ -56,15 +57,15 @@ export const newWaletRestService = injectable(
                 assetsFromBalanceValidation
             ),
             getFunds: getRequestGenerated(
-                fundsApi.fundsGet(),
+                strategiesApi.strategiesGet(),
                 allFundsCodec,
                 mapFunds
             ),
             getWhaletFunds: getRequestGenerated(
-                walletsApi.walletFundsGet(telegram_id ?? 0),
+                walletsApi.walletStrategiesGet(telegram_id ?? 0),
                 walletFundsCodec,
-                mapWhaletFunds,
-                getWhaletFundsValidation
+                mapWhaletFunds
+                // getWhaletFundsValidation
             ),
             getTransactions: getRequestGenerated(
                 walletsApi.walletTransactionsGet(telegram_id ?? 0),
