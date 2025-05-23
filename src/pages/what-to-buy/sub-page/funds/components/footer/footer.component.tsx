@@ -9,18 +9,13 @@ import { FundsData } from '@/instance/fund/fund.model';
 
 interface FooterProps {
     fundsAvailableSale: E.Either<string, Array<FundsData>>;
-    fundAvailablebuy: E.Either<string, boolean>;
     texts: {
         sell: string;
         buy: string;
     };
 }
 
-export const Footer = ({
-    fundsAvailableSale,
-    fundAvailablebuy,
-    texts,
-}: FooterProps) => {
+export const Footer = ({ fundsAvailableSale, texts }: FooterProps) => {
     const { id } = useParams();
     const navigate = useNavigate();
     const eventBuilder = useTWAEvent();
@@ -45,22 +40,15 @@ export const Footer = ({
                 )}
             />
 
-            <RenderResult
-                data={fundAvailablebuy}
-                failure={() => null}
-                success={(isDisabled) => (
-                    <AppButton
-                        label={texts.buy}
-                        onClick={() => {
-                            trackTelemetree(
-                                eventBuilder,
-                                'WHAT_TO_BUY_PAGE: buy click'
-                            );
-                            navigate(`/what-to-buy/purchase/${id}`);
-                        }}
-                        isDisabled={isDisabled}
-                    />
-                )}
+            <AppButton
+                label={texts.buy}
+                onClick={() => {
+                    trackTelemetree(
+                        eventBuilder,
+                        'WHAT_TO_BUY_PAGE: buy click'
+                    );
+                    navigate(`/what-to-buy/purchase/${id}`);
+                }}
             />
         </footer>
     );

@@ -26,6 +26,50 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
+ * @interface ControllerSwapInitiateRequest
+ */
+export interface ControllerSwapInitiateRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof ControllerSwapInitiateRequest
+     */
+    'amount'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ControllerSwapInitiateRequest
+     */
+    'telegramId'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerSwapInitiateRequest
+     */
+    'tickerFrom'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerSwapInitiateRequest
+     */
+    'tickerTo'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ControllerSwapInitiateResponse
+ */
+export interface ControllerSwapInitiateResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerSwapInitiateResponse
+     */
+    'transactionId'?: string;
+}
+/**
+ * 
+ * @export
  * @interface ControllersAppOpenedResponse
  */
 export interface ControllersAppOpenedResponse {
@@ -59,13 +103,13 @@ export interface ControllersBuyIndexData {
      * @type {string}
      * @memberof ControllersBuyIndexData
      */
-    'fund_id'?: string;
+    'init_data'?: string;
     /**
      * 
      * @type {string}
      * @memberof ControllersBuyIndexData
      */
-    'init_data'?: string;
+    'strategy_id'?: string;
     /**
      * 
      * @type {number}
@@ -320,7 +364,13 @@ export interface ModelsAsset {
      * @type {string}
      * @memberof ModelsAsset
      */
-    'category'?: string;
+    'contract_address'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ModelsAsset
+     */
+    'decimals'?: number;
     /**
      * 
      * @type {string}
@@ -351,6 +401,12 @@ export interface ModelsAsset {
      * @memberof ModelsAsset
      */
     'name'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsAsset
+     */
+    'network_id'?: string;
     /**
      * 
      * @type {number}
@@ -428,116 +484,6 @@ export interface ModelsAssetBalance {
 /**
  * 
  * @export
- * @interface ModelsFund
- */
-export interface ModelsFund {
-    /**
-     * 
-     * @type {Array<ModelsFundAsset>}
-     * @memberof ModelsFund
-     */
-    'assets'?: Array<ModelsFundAsset>;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsFund
-     */
-    'author'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsFund
-     */
-    'created_at'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsFund
-     */
-    'description'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsFund
-     */
-    'id'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsFund
-     */
-    'image_url'?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ModelsFund
-     */
-    'is_avaiable'?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ModelsFund
-     */
-    'is_dao'?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof ModelsFund
-     */
-    'management_fee'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsFund
-     */
-    'name'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ModelsFund
-     */
-    'priority_number'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsFund
-     */
-    'risk_score'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsFund
-     */
-    'updated_event'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ModelsFund
-     */
-    'value'?: number;
-}
-/**
- * 
- * @export
- * @interface ModelsFundAsset
- */
-export interface ModelsFundAsset {
-    /**
-     * 
-     * @type {number}
-     * @memberof ModelsFundAsset
-     */
-    'allocation_percentage'?: number;
-    /**
-     * 
-     * @type {ModelsAsset}
-     * @memberof ModelsFundAsset
-     */
-    'asset'?: ModelsAsset;
-}
-/**
- * 
- * @export
  * @interface ModelsFundStats
  */
 export interface ModelsFundStats {
@@ -562,16 +508,10 @@ export interface ModelsFundStats {
 export interface ModelsNetwork {
     /**
      * 
-     * @type {number}
-     * @memberof ModelsNetwork
-     */
-    'created_at'?: number;
-    /**
-     * 
      * @type {string}
      * @memberof ModelsNetwork
      */
-    'description'?: string;
+    'base_currency_id'?: string;
     /**
      * 
      * @type {string}
@@ -583,25 +523,19 @@ export interface ModelsNetwork {
      * @type {string}
      * @memberof ModelsNetwork
      */
-    'image_url'?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ModelsNetwork
-     */
-    'isTestnet'?: boolean;
+    'name'?: string;
     /**
      * 
      * @type {string}
      * @memberof ModelsNetwork
      */
-    'name'?: string;
+    'valid_from'?: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof ModelsNetwork
      */
-    'updated_at'?: number;
+    'valid_to'?: string;
 }
 /**
  * 
@@ -646,6 +580,122 @@ export interface ModelsResponseError {
      * @memberof ModelsResponseError
      */
     'message'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ModelsStrategy
+ */
+export interface ModelsStrategy {
+    /**
+     * 
+     * @type {Array<ModelsStrategyAsset>}
+     * @memberof ModelsStrategy
+     */
+    'assets'?: Array<ModelsStrategyAsset>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsStrategy
+     */
+    'author'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsStrategy
+     */
+    'created_at'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsStrategy
+     */
+    'description'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsStrategy
+     */
+    'id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsStrategy
+     */
+    'image_url'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ModelsStrategy
+     */
+    'is_available'?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ModelsStrategy
+     */
+    'is_dao'?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof ModelsStrategy
+     */
+    'management_fee'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsStrategy
+     */
+    'name'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ModelsStrategy
+     */
+    'priority_number'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsStrategy
+     */
+    'risk_score'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ModelsStrategy
+     */
+    'value'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface ModelsStrategyAsset
+ */
+export interface ModelsStrategyAsset {
+    /**
+     * 
+     * @type {number}
+     * @memberof ModelsStrategyAsset
+     */
+    'allocation_percentage'?: number;
+    /**
+     * 
+     * @type {ModelsAsset}
+     * @memberof ModelsStrategyAsset
+     */
+    'asset'?: ModelsAsset;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsStrategyAsset
+     */
+    'dex_token_address_0'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsStrategyAsset
+     */
+    'dex_token_address_1'?: string;
 }
 /**
  * 
@@ -777,10 +827,10 @@ export interface ModelsUser {
     'last_name'?: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof ModelsUser
      */
-    'memo'?: number;
+    'memo'?: string;
     /**
      * 
      * @type {number}
@@ -969,31 +1019,6 @@ export interface ServerStormDepositRequest {
      */
     'ticker'?: string;
 }
-/**
- * 
- * @export
- * @interface ServerSwapRequest
- */
-export interface ServerSwapRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof ServerSwapRequest
-     */
-    'amount'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof ServerSwapRequest
-     */
-    'telegram_id'?: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof ServerSwapRequest
-     */
-    'tokens'?: Array<string>;
-}
 
 /**
  * AssetsApi - axios parameter creator
@@ -1001,6 +1026,40 @@ export interface ServerSwapRequest {
  */
 export const AssetsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * Получить информацию об активе по его идентификатору или тикеру
+         * @summary Get asset by address
+         * @param {string} address Адрес актива или тикер
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        assetAddressGet: async (address: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'address' is not null or undefined
+            assertParamExists('assetAddressGet', 'address', address)
+            const localVarPath = `/asset/{address}`
+                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * Получить список сетей для указанного актива
          * @summary Get networks for an asset
@@ -1110,6 +1169,19 @@ export const AssetsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = AssetsApiAxiosParamCreator(configuration)
     return {
         /**
+         * Получить информацию об активе по его идентификатору или тикеру
+         * @summary Get asset by address
+         * @param {string} address Адрес актива или тикер
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async assetAddressGet(address: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ModelsAsset>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.assetAddressGet(address, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AssetsApi.assetAddressGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Получить список сетей для указанного актива
          * @summary Get networks for an asset
          * @param {string} assetName Название актива
@@ -1158,6 +1230,16 @@ export const AssetsApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = AssetsApiFp(configuration)
     return {
         /**
+         * Получить информацию об активе по его идентификатору или тикеру
+         * @summary Get asset by address
+         * @param {string} address Адрес актива или тикер
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        assetAddressGet(address: string, options?: RawAxiosRequestConfig): AxiosPromise<ModelsAsset> {
+            return localVarFp.assetAddressGet(address, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Получить список сетей для указанного актива
          * @summary Get networks for an asset
          * @param {string} assetName Название актива
@@ -1197,6 +1279,18 @@ export const AssetsApiFactory = function (configuration?: Configuration, basePat
  */
 export class AssetsApi extends BaseAPI {
     /**
+     * Получить информацию об активе по его идентификатору или тикеру
+     * @summary Get asset by address
+     * @param {string} address Адрес актива или тикер
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AssetsApi
+     */
+    public assetAddressGet(address: string, options?: RawAxiosRequestConfig) {
+        return AssetsApiFp(this.configuration).assetAddressGet(address, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Получить список сетей для указанного актива
      * @summary Get networks for an asset
      * @param {string} assetName Название актива
@@ -1229,114 +1323,6 @@ export class AssetsApi extends BaseAPI {
      */
     public assetsUserUserIdGet(userId: string, options?: RawAxiosRequestConfig) {
         return AssetsApiFp(this.configuration).assetsUserUserIdGet(userId, options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-
-
-/**
- * AssetssApi - axios parameter creator
- * @export
- */
-export const AssetssApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * Получить информацию об активе по его идентификатору или тикеру
-         * @summary Get asset by ID
-         * @param {string} assetId Идентификатор актива или тикер
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        assetAssetIdGet: async (assetId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('assetAssetIdGet', 'assetId', assetId)
-            const localVarPath = `/asset/{asset_id}`
-                .replace(`{${"asset_id"}}`, encodeURIComponent(String(assetId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * AssetssApi - functional programming interface
- * @export
- */
-export const AssetssApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = AssetssApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * Получить информацию об активе по его идентификатору или тикеру
-         * @summary Get asset by ID
-         * @param {string} assetId Идентификатор актива или тикер
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async assetAssetIdGet(assetId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ModelsAsset>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.assetAssetIdGet(assetId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AssetssApi.assetAssetIdGet']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-    }
-};
-
-/**
- * AssetssApi - factory interface
- * @export
- */
-export const AssetssApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = AssetssApiFp(configuration)
-    return {
-        /**
-         * Получить информацию об активе по его идентификатору или тикеру
-         * @summary Get asset by ID
-         * @param {string} assetId Идентификатор актива или тикер
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        assetAssetIdGet(assetId: string, options?: RawAxiosRequestConfig): AxiosPromise<ModelsAsset> {
-            return localVarFp.assetAssetIdGet(assetId, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * AssetssApi - object-oriented interface
- * @export
- * @class AssetssApi
- * @extends {BaseAPI}
- */
-export class AssetssApi extends BaseAPI {
-    /**
-     * Получить информацию об активе по его идентификатору или тикеру
-     * @summary Get asset by ID
-     * @param {string} assetId Идентификатор актива или тикер
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AssetssApi
-     */
-    public assetAssetIdGet(assetId: string, options?: RawAxiosRequestConfig) {
-        return AssetssApiFp(this.configuration).assetAssetIdGet(assetId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -1730,176 +1716,6 @@ export class FundStatsApi extends BaseAPI {
      */
     public fundinfoGet(options?: RawAxiosRequestConfig) {
         return FundStatsApiFp(this.configuration).fundinfoGet(options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-
-
-/**
- * FundsApi - axios parameter creator
- * @export
- */
-export const FundsApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * Получить информацию о фонде по его идентификатору
-         * @summary Get fund by ID
-         * @param {string} fundId Идентификатор фонда
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        fundFundIdGet: async (fundId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'fundId' is not null or undefined
-            assertParamExists('fundFundIdGet', 'fundId', fundId)
-            const localVarPath = `/fund/{fund_id}`
-                .replace(`{${"fund_id"}}`, encodeURIComponent(String(fundId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Получить список всех фондов
-         * @summary Get all funds
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        fundsGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/funds`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * FundsApi - functional programming interface
- * @export
- */
-export const FundsApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = FundsApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * Получить информацию о фонде по его идентификатору
-         * @summary Get fund by ID
-         * @param {string} fundId Идентификатор фонда
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async fundFundIdGet(fundId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ModelsFund>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.fundFundIdGet(fundId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['FundsApi.fundFundIdGet']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * Получить список всех фондов
-         * @summary Get all funds
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async fundsGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ModelsFund>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.fundsGet(options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['FundsApi.fundsGet']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-    }
-};
-
-/**
- * FundsApi - factory interface
- * @export
- */
-export const FundsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = FundsApiFp(configuration)
-    return {
-        /**
-         * Получить информацию о фонде по его идентификатору
-         * @summary Get fund by ID
-         * @param {string} fundId Идентификатор фонда
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        fundFundIdGet(fundId: string, options?: RawAxiosRequestConfig): AxiosPromise<ModelsFund> {
-            return localVarFp.fundFundIdGet(fundId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Получить список всех фондов
-         * @summary Get all funds
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        fundsGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<ModelsFund>> {
-            return localVarFp.fundsGet(options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * FundsApi - object-oriented interface
- * @export
- * @class FundsApi
- * @extends {BaseAPI}
- */
-export class FundsApi extends BaseAPI {
-    /**
-     * Получить информацию о фонде по его идентификатору
-     * @summary Get fund by ID
-     * @param {string} fundId Идентификатор фонда
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof FundsApi
-     */
-    public fundFundIdGet(fundId: string, options?: RawAxiosRequestConfig) {
-        return FundsApiFp(this.configuration).fundFundIdGet(fundId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Получить список всех фондов
-     * @summary Get all funds
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof FundsApi
-     */
-    public fundsGet(options?: RawAxiosRequestConfig) {
-        return FundsApiFp(this.configuration).fundsGet(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -2376,6 +2192,176 @@ export class StormApi extends BaseAPI {
 
 
 /**
+ * StrategiesApi - axios parameter creator
+ * @export
+ */
+export const StrategiesApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Получить список всех стратегий
+         * @summary Get all Strategies
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        strategiesGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/strategies`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Получить информацию о стратегии по ее идентификатору
+         * @summary Get Strategy by ID
+         * @param {string} strategyId Идентификатор стратегии
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        strategyStrategyIdGet: async (strategyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'strategyId' is not null or undefined
+            assertParamExists('strategyStrategyIdGet', 'strategyId', strategyId)
+            const localVarPath = `/strategy/{strategyId}`
+                .replace(`{${"strategyId"}}`, encodeURIComponent(String(strategyId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * StrategiesApi - functional programming interface
+ * @export
+ */
+export const StrategiesApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = StrategiesApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Получить список всех стратегий
+         * @summary Get all Strategies
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async strategiesGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ModelsStrategy>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.strategiesGet(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['StrategiesApi.strategiesGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Получить информацию о стратегии по ее идентификатору
+         * @summary Get Strategy by ID
+         * @param {string} strategyId Идентификатор стратегии
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async strategyStrategyIdGet(strategyId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ModelsStrategy>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.strategyStrategyIdGet(strategyId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['StrategiesApi.strategyStrategyIdGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * StrategiesApi - factory interface
+ * @export
+ */
+export const StrategiesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = StrategiesApiFp(configuration)
+    return {
+        /**
+         * Получить список всех стратегий
+         * @summary Get all Strategies
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        strategiesGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<ModelsStrategy>> {
+            return localVarFp.strategiesGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Получить информацию о стратегии по ее идентификатору
+         * @summary Get Strategy by ID
+         * @param {string} strategyId Идентификатор стратегии
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        strategyStrategyIdGet(strategyId: string, options?: RawAxiosRequestConfig): AxiosPromise<ModelsStrategy> {
+            return localVarFp.strategyStrategyIdGet(strategyId, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * StrategiesApi - object-oriented interface
+ * @export
+ * @class StrategiesApi
+ * @extends {BaseAPI}
+ */
+export class StrategiesApi extends BaseAPI {
+    /**
+     * Получить список всех стратегий
+     * @summary Get all Strategies
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StrategiesApi
+     */
+    public strategiesGet(options?: RawAxiosRequestConfig) {
+        return StrategiesApiFp(this.configuration).strategiesGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Получить информацию о стратегии по ее идентификатору
+     * @summary Get Strategy by ID
+     * @param {string} strategyId Идентификатор стратегии
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StrategiesApi
+     */
+    public strategyStrategyIdGet(strategyId: string, options?: RawAxiosRequestConfig) {
+        return StrategiesApiFp(this.configuration).strategyStrategyIdGet(strategyId, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
  * StreamApi - axios parameter creator
  * @export
  */
@@ -2561,11 +2547,11 @@ export const SwapApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * Perform a token swap for a user
          * @summary Initiate a swap
-         * @param {ServerSwapRequest} request Swap request body
+         * @param {ControllerSwapInitiateRequest} request SwapRoute request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        swapInitiatePost: async (request: ServerSwapRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        swapInitiatePost: async (request: ControllerSwapInitiateRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'request' is not null or undefined
             assertParamExists('swapInitiatePost', 'request', request)
             const localVarPath = `/swap/initiate`;
@@ -2607,11 +2593,11 @@ export const SwapApiFp = function(configuration?: Configuration) {
         /**
          * Perform a token swap for a user
          * @summary Initiate a swap
-         * @param {ServerSwapRequest} request Swap request body
+         * @param {ControllerSwapInitiateRequest} request SwapRoute request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async swapInitiatePost(request: ServerSwapRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
+        async swapInitiatePost(request: ControllerSwapInitiateRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ControllerSwapInitiateResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.swapInitiatePost(request, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SwapApi.swapInitiatePost']?.[localVarOperationServerIndex]?.url;
@@ -2630,11 +2616,11 @@ export const SwapApiFactory = function (configuration?: Configuration, basePath?
         /**
          * Perform a token swap for a user
          * @summary Initiate a swap
-         * @param {ServerSwapRequest} request Swap request body
+         * @param {ControllerSwapInitiateRequest} request SwapRoute request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        swapInitiatePost(request: ServerSwapRequest, options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any; }> {
+        swapInitiatePost(request: ControllerSwapInitiateRequest, options?: RawAxiosRequestConfig): AxiosPromise<ControllerSwapInitiateResponse> {
             return localVarFp.swapInitiatePost(request, options).then((request) => request(axios, basePath));
         },
     };
@@ -2650,12 +2636,12 @@ export class SwapApi extends BaseAPI {
     /**
      * Perform a token swap for a user
      * @summary Initiate a swap
-     * @param {ServerSwapRequest} request Swap request body
+     * @param {ControllerSwapInitiateRequest} request SwapRoute request body
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SwapApi
      */
-    public swapInitiatePost(request: ServerSwapRequest, options?: RawAxiosRequestConfig) {
+    public swapInitiatePost(request: ControllerSwapInitiateRequest, options?: RawAxiosRequestConfig) {
         return SwapApiFp(this.configuration).swapInitiatePost(request, options).then((request) => request(this.axios, this.basePath));
     }
 }
@@ -3096,43 +3082,6 @@ export const WalletsApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Получить средства пользователя из кошелька
-         * @summary Get wallet funds
-         * @param {number} telegramId Telegram ID пользователя
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        walletFundsGet: async (telegramId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'telegramId' is not null or undefined
-            assertParamExists('walletFundsGet', 'telegramId', telegramId)
-            const localVarPath = `/wallet/funds`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (telegramId !== undefined) {
-                localVarQueryParameter['telegram_id'] = telegramId;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * Продать индекс для пользователя
          * @summary Sell index
          * @param {ControllersSellIndexRequest} body Запрос на продажу индекса
@@ -3162,6 +3111,43 @@ export const WalletsApiAxiosParamCreator = function (configuration?: Configurati
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Получить средства пользователя из кошелька
+         * @summary Get wallet strategies
+         * @param {number} telegramId Telegram ID пользователя
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        walletStrategiesGet: async (telegramId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'telegramId' is not null or undefined
+            assertParamExists('walletStrategiesGet', 'telegramId', telegramId)
+            const localVarPath = `/wallet/strategies`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (telegramId !== undefined) {
+                localVarQueryParameter['telegram_id'] = telegramId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -3322,19 +3308,6 @@ export const WalletsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Получить средства пользователя из кошелька
-         * @summary Get wallet funds
-         * @param {number} telegramId Telegram ID пользователя
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async walletFundsGet(telegramId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ModelsFund>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.walletFundsGet(telegramId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['WalletsApi.walletFundsGet']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
          * Продать индекс для пользователя
          * @summary Sell index
          * @param {ControllersSellIndexRequest} body Запрос на продажу индекса
@@ -3345,6 +3318,19 @@ export const WalletsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.walletSellindexPost(body, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['WalletsApi.walletSellindexPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Получить средства пользователя из кошелька
+         * @summary Get wallet strategies
+         * @param {number} telegramId Telegram ID пользователя
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async walletStrategiesGet(telegramId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ModelsStrategy>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.walletStrategiesGet(telegramId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['WalletsApi.walletStrategiesGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -3419,16 +3405,6 @@ export const WalletsApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.walletBuyindexPost(body, options).then((request) => request(axios, basePath));
         },
         /**
-         * Получить средства пользователя из кошелька
-         * @summary Get wallet funds
-         * @param {number} telegramId Telegram ID пользователя
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        walletFundsGet(telegramId: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<ModelsFund>> {
-            return localVarFp.walletFundsGet(telegramId, options).then((request) => request(axios, basePath));
-        },
-        /**
          * Продать индекс для пользователя
          * @summary Sell index
          * @param {ControllersSellIndexRequest} body Запрос на продажу индекса
@@ -3437,6 +3413,16 @@ export const WalletsApiFactory = function (configuration?: Configuration, basePa
          */
         walletSellindexPost(body: ControllersSellIndexRequest, options?: RawAxiosRequestConfig): AxiosPromise<ControllersSellIndexResponse> {
             return localVarFp.walletSellindexPost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Получить средства пользователя из кошелька
+         * @summary Get wallet strategies
+         * @param {number} telegramId Telegram ID пользователя
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        walletStrategiesGet(telegramId: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<ModelsStrategy>> {
+            return localVarFp.walletStrategiesGet(telegramId, options).then((request) => request(axios, basePath));
         },
         /**
          * Получить транзакции пользователя
@@ -3505,18 +3491,6 @@ export class WalletsApi extends BaseAPI {
     }
 
     /**
-     * Получить средства пользователя из кошелька
-     * @summary Get wallet funds
-     * @param {number} telegramId Telegram ID пользователя
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof WalletsApi
-     */
-    public walletFundsGet(telegramId: number, options?: RawAxiosRequestConfig) {
-        return WalletsApiFp(this.configuration).walletFundsGet(telegramId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
      * Продать индекс для пользователя
      * @summary Sell index
      * @param {ControllersSellIndexRequest} body Запрос на продажу индекса
@@ -3526,6 +3500,18 @@ export class WalletsApi extends BaseAPI {
      */
     public walletSellindexPost(body: ControllersSellIndexRequest, options?: RawAxiosRequestConfig) {
         return WalletsApiFp(this.configuration).walletSellindexPost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Получить средства пользователя из кошелька
+     * @summary Get wallet strategies
+     * @param {number} telegramId Telegram ID пользователя
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WalletsApi
+     */
+    public walletStrategiesGet(telegramId: number, options?: RawAxiosRequestConfig) {
+        return WalletsApiFp(this.configuration).walletStrategiesGet(telegramId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

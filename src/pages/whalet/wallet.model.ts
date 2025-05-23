@@ -58,7 +58,7 @@ export interface WalletTransactions {
     asset: {
         name: string;
         ticker: string;
-        category: string;
+        // category: string;
         description: string;
         url: string;
         price: number;
@@ -79,7 +79,7 @@ export const normolizeTransactionKey = (
     asset: {
         name: data.asset.name,
         ticker: data.asset.ticker,
-        category: data.asset.category,
+        // category: data.asset.category,
         description: data.asset.description,
         price: data.asset.price,
         url: data.asset.image_url,

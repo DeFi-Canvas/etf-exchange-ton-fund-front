@@ -44,7 +44,6 @@ export interface DepositAssets {
 export const DepositAssetsCodec = t.type({
     name: t.string,
     ticker: t.string,
-    category: t.string,
     description: t.string,
     img: t.string,
 });

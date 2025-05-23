@@ -2,7 +2,7 @@ import * as t from 'io-ts';
 
 // /wallet/transactions
 const assetCodec = t.type({
-    category: t.string,
+    // category: t.string,
     description: t.string,
     image_url: t.string,
     name: t.string,
