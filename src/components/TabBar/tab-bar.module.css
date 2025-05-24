@@ -39,6 +39,10 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+.disabled {
+    filter: grayscale(100%);
+}
+
 .profile-icon {
     color: #5b39f4;
     opacity: 0.3;

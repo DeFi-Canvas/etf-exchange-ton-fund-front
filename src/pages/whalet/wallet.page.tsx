@@ -13,13 +13,14 @@ import 'swiper/css';
 import { Onboarding } from '@/components/onboarding/onboarding.component.tsx';
 import { I18NService } from '@/store/i18n/i18.store';
 import { useProperty } from '@frp-ts/react';
+import { AiAgent } from './components/news/ai-agent.component';
 
 export interface WhatToBuyPageProps {
     balance: O.Option<number>;
 }
 
 const swiperOptions = {
-    spaceBetween: 10,
+    spaceBetween: 20,
     slidesPerView: 1.05,
     className: css.swiperWrap,
 };
@@ -38,6 +39,9 @@ export const WaletPage = injectable(
                     <BalanceContainer />
                     <NavBar texts={texts} />
                     <Swiper {...swiperOptions}>
+                        <SwiperSlide>
+                            <AiAgent {...texts.swiper.lernMore} />
+                        </SwiperSlide>
                         <SwiperSlide>
                             <NewsEarn {...texts.swiper.news} />
                         </SwiperSlide>
