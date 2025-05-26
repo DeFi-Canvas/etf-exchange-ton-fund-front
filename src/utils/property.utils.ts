@@ -1,4 +1,5 @@
 import { Property } from '@frp-ts/core';
+import { newLensedAtom } from '@frp-ts/lens';
 import {
     multicast,
     newStream,
@@ -31,3 +32,13 @@ export const fromProperty = <A>(fa: Property<A>): Stream<A> =>
         skipRepeats,
         multicast
     );
+
+export const newAtomState = <A>(init: A) => {
+    const state = newLensedAtom(init);
+    return {
+        state,
+        get: state.get,
+        set: state.set,
+        modify: state.modify,
+    };
+};

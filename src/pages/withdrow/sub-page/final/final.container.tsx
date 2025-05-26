@@ -5,10 +5,13 @@ import { newNewWithdrowStore } from '../../withdrow.store';
 import { Final } from './final.component';
 import { UserStoreService } from '@/store/user.store';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
+import { I18NService } from '@/store/i18n/i18.store';
 
 export const FinalContainer = injectable(
     token('userStore')<UserStoreService>(),
-    (userStore) =>
+    token('i18n')<I18NService>(),
+
+    (userStore, i18n) =>
         memo(() => {
             const store = useValueWithEffect(
                 () => newNewWithdrowStore({ userStore }),
@@ -19,11 +22,14 @@ export const FinalContainer = injectable(
             const address = useProperty(store.address);
             const onClick = store.clearData;
 
+            const { Final: texts } = useProperty(i18n.Withdraw);
+
             return React.createElement(Final, {
                 currency,
                 amount,
                 address,
                 onClick,
+                texts,
             });
         })
 );

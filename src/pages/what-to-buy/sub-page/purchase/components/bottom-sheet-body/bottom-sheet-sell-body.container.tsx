@@ -6,7 +6,7 @@ import { InterfacePurchaseSellAssetCardData } from '../../../types';
 import { useProperty } from '@frp-ts/react';
 import { PurchaseSellStore } from '../../purchase.store';
 import { mapFundToUICard } from '@/pages/what-to-buy/what-to-buy.model';
-import { FundsData } from '@/pages/whalet/whalet.model';
+import { FundsData } from '@/instance/fund/fund.model';
 
 //нигде не используется но если можно будет продавать не только за тон то пригодиться но я скорее всего про это забуду
 export const BottomSheetSellBodyContainer = injectable(

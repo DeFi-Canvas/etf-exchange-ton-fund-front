@@ -1,14 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import css from './assets.module.css';
 import { AssetsCard } from '@/components/assets-card/assets-card.component.tsx';
-import { Assets as AssetsCardBaseProps } from '@/components/assets-card/assets-card.model';
+import { AssetsUI as AssetsCardBaseProps } from '@/components/assets-card/assets-card.model';
 import * as E from 'fp-ts/Either';
 import { AssetsViewModelInit } from './assets.view-model';
 import { DepositAssets, DepositAssetsCodec } from '../deposit.model';
-import { Asset, AssetCodec } from '@/pages/whalet/whalet.model';
+import { AssetCodec } from '@/pages/whalet/wallet.model';
 import cn from 'classnames';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import { SkeletonCardSection } from '@/components/skeletons/skeleton-card/skeleton-card-section.component';
+import { Asset } from '@/instance/asset/asset.model';
 
 interface AssetsProps {
     assets: E.Either<string, Array<DepositAssets | Asset>>;

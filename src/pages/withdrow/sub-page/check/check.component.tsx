@@ -1,9 +1,11 @@
 import * as E from 'fp-ts/Either';
 import { Amount } from '../../components/amount/amount.component';
 import css from './check.module.css';
-import { injectable } from '@injectable-ts/core';
+import { injectable, token } from '@injectable-ts/core';
 import { FooterContainer } from './footer/footer.container';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
+import { I18NService } from '@/store/i18n/i18.store';
+import { useProperty } from '@frp-ts/react';
 
 interface CheckProps {
     ammount: E.Either<string, number>;
@@ -16,7 +18,8 @@ interface CheckProps {
 
 export const Check = injectable(
     FooterContainer,
-    (FooterContainer) =>
+    token('i18n')<I18NService>(),
+    (FooterContainer, i18n) =>
         ({
             ammount,
             approximateCost,
@@ -25,9 +28,11 @@ export const Check = injectable(
             memo,
             symbolLogo,
         }: CheckProps) => {
+            const { Check: checkI18nTexts } = useProperty(i18n.Withdraw);
+
             return (
                 <div className={css.main}>
-                    <span>Check the data</span>
+                    <span>{checkI18nTexts.title}</span>
                     <div className={css.wrap}>
                         <Amount
                             symbolLogo={symbolLogo}
@@ -37,7 +42,9 @@ export const Check = injectable(
                         />
 
                         <div className={css.column}>
-                            <span className={css.title}>Withdraw address</span>
+                            <span className={css.title}>
+                                {checkI18nTexts.address}
+                            </span>
                             <RenderResult
                                 data={address}
                                 success={(address) => (
@@ -47,7 +54,7 @@ export const Check = injectable(
                         </div>
                         <div className={css.column}>
                             <span className={css.title}>
-                                Tag/Memo (Comment/Note/Remark)
+                                {checkI18nTexts.tag}
                             </span>
                             <RenderResult
                                 data={memo}
@@ -58,7 +65,9 @@ export const Check = injectable(
                         </div>
 
                         <div className={css.column}>
-                            <span className={css.title}>Commission</span>
+                            <span className={css.title}>
+                                {checkI18nTexts.commission}
+                            </span>
                             <span className={css.commission}>
                                 0,5 TON ≈ 2,06 USD{' '}
                             </span>

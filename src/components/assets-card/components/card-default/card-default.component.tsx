@@ -1,12 +1,15 @@
-import { Assets } from '@/components/assets-card/assets-card.model.ts';
+import { AssetsUI } from '@/components/assets-card/assets-card.model.ts';
 import cn from 'classnames';
 import css from '../common-card.module.css';
 
-interface CardDefaultProps extends Assets {}
+interface CardDefaultProps extends AssetsUI {}
 
 const CardDefault = (props: CardDefaultProps) => {
     return (
-        <div className={css.card}>
+        <div
+            className={css.card}
+            onClick={() => props.onClick && props.onClick(props.id)}
+        >
             <img className={css.image} src={props.img} alt="" />
 
             <div className={css.infoWrapper}>

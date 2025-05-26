@@ -12,25 +12,37 @@ interface FinalProps {
     currency: string;
     address: E.Either<string, string>;
     onClick: () => void;
+    texts: {
+        title: string;
+        description: string;
+        ammount: (amount: number, currency: string) => string;
+        view: string;
+        finish: string;
+    };
 }
 
-export const Final = ({ amount, currency, address, onClick }: FinalProps) => {
+export const Final = ({
+    amount,
+    currency,
+    address,
+    onClick,
+    texts,
+}: FinalProps) => {
     const navigate = useNavigate();
     const eventBuilder = useTWAEvent();
 
     return (
         <div className={css.wrap}>
-            <span className={css.currency}>{currency} is on the way</span>
-            <span className={css.normal}>
-                Your transaction is being processed. You can follow the status
-                in the “Transactions” section.
+            <span className={css.currency}>
+                {currency} {texts.title}
             </span>
+            <span className={css.normal}>{texts.description}</span>
             <img src={img} alt="" />
             <RenderResult
                 data={amount}
                 success={(amount) => (
                     <span className={css.amount}>
-                        The amount of {amount} {currency} has been sent to:
+                        {texts.ammount(amount, currency)}
                     </span>
                 )}
             />
@@ -54,7 +66,7 @@ export const Final = ({ amount, currency, address, onClick }: FinalProps) => {
                         onClick();
                     }}
                 >
-                    View the transaction
+                    {texts.view}
                 </button>
                 <button
                     className={css.finish}
@@ -67,7 +79,7 @@ export const Final = ({ amount, currency, address, onClick }: FinalProps) => {
                         onClick();
                     }}
                 >
-                    Finish
+                    {texts.finish}
                 </button>
             </div>
         </div>

@@ -33,11 +33,19 @@ export const newWithdrawRestService = injectable(
         return {
             withdraw: (data) =>
                 fromPromise(
-                    axios.post(API.withdraw, {
-                        ...data,
-                        telegram_id,
-                        init_data: initDataRaw,
-                    })
+                    axios.post(
+                        API.withdraw,
+                        {
+                            ...data,
+                            // telegram_id,
+                            // init_data: initDataRaw,
+                        },
+                        {
+                            headers: {
+                                Authorization: `tma ${initDataRaw}`,
+                            },
+                        }
+                    )
                 ),
         };
     }

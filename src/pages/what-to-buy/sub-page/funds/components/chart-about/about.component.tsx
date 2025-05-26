@@ -1,20 +1,26 @@
 import { FeeIcon, RiskLowIcon } from '@/components/Icons/Icons';
 import css from './about.module.css';
-import { FundsData } from '@/pages/whalet/whalet.model';
 import * as E from 'fp-ts/Either';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import SkeletonLine from '@/components/skeletons/components/skeleton-line/skeleton-line.component';
 import SkeletonCard from '@/components/skeletons/skeleton-card/skeleton-card.component';
 import { getUuid } from '@/utils/uuid';
+import { FundsData } from '@/instance/fund/fund.model';
 
 interface ChartAboutProps {
     fund: E.Either<string, FundsData>;
+    texts: {
+        about: string;
+        toMemeCoins: string;
+        commission: string;
+        coinsExchangeFee: string;
+    };
 }
 
-const About = ({ fund }: ChartAboutProps) => {
+const About = ({ fund, texts }: ChartAboutProps) => {
     return (
         <div className={css.card}>
-            <div className={css.cardTitle}>About</div>
+            <div className={css.cardTitle}>{texts.about}</div>
             <RenderResult
                 data={fund}
                 loading={() => (
@@ -37,7 +43,7 @@ const About = ({ fund }: ChartAboutProps) => {
                                         Low risk
                                     </div>
                                     <div className={css.cardInfoSubTitle}>
-                                        Compared to meme coins
+                                        {texts.toMemeCoins}
                                     </div>
                                 </div>
                             </div>
@@ -45,10 +51,10 @@ const About = ({ fund }: ChartAboutProps) => {
                                 <FeeIcon className={css.icon} />
                                 <div className={css.cardInfoItemContent}>
                                     <div className={css.cardInfoTitle}>
-                                        Commission {fee}%
+                                        {texts.commission} {fee}%
                                     </div>
                                     <div className={css.cardInfoSubTitle}>
-                                        Coins exchange fee
+                                        {texts.coinsExchangeFee}
                                     </div>
                                 </div>
                             </div>

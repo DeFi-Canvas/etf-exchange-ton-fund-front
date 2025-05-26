@@ -3,7 +3,7 @@ import PurchaseSellTitle from '../components/purchase-sell-title/purchase-sell-t
 import PurchaseSellAttention from '../components/purchase-sell-attention/purchase-sell-attention.component';
 // Style
 import css from './purchase.module.css';
-import { injectable } from '@injectable-ts/core';
+import { injectable, token } from '@injectable-ts/core';
 import { PurchaseSellContentCardContainer } from '../components/purchase-sell-content-card/purchase-sell-content-card.container';
 import BottomSheet from '@/components/ui-kit/bottom-sheet/bottom-sheet.component';
 import { BottomSheetPurchaseBodyContainer } from './components/bottom-sheet-body/bottom-sheet-purchase-body.container';
@@ -14,6 +14,8 @@ import { useNavigate } from 'react-router-dom';
 import { PurchaseSellFooterContainer } from '../components/purchase-sell-footer/purchase-sell-footer.container';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
+import { I18NService } from '@/store/i18n/i18.store';
+import { useProperty } from '@frp-ts/react';
 
 interface PurchasePageProps {
     onBuy: () => void;
@@ -30,13 +32,15 @@ const PurchasePage = injectable(
     PurchaseSellAssetCardContainer,
     PurchaseSellFinishBoodySheetContainer,
     PurchaseSellFooterContainer,
+    token('i18n')<I18NService>(),
     (
         PurchaseSellContentCardContainer,
         BottomSheetBodyContainer,
         PurchaseSellDetailsContainer,
         PurchaseSellAssetCardContainer,
         PurchaseSellFinishBoodySheetContainer,
-        PurchaseSellFooterContainer
+        PurchaseSellFooterContainer,
+        i18n
     ) =>
         ({
             showBottomSheet,
@@ -50,29 +54,29 @@ const PurchasePage = injectable(
                 setShowBottomSheet(!showBottomSheet);
             };
             const eventBuilder = useTWAEvent();
+            const { Purchase } = useProperty(i18n.WhatToBuy);
 
             return (
                 <div className={css.page}>
                     <div className="app-container">
-                        <PurchaseSellTitle title="Purchase" />
+                        <PurchaseSellTitle title={Purchase.title} />
                         <div className={css.assetCard}>
                             <PurchaseSellAssetCardContainer
                                 type={'BUY'}
                                 eventType="BUY_SELL_PAGE: fund click"
                             />
                         </div>
-                        <PurchaseSellAttention />
+                        <PurchaseSellAttention {...Purchase.attention} />
                     </div>
-
                     <PurchaseSellContentCardContainer type={'BUY'} />
 
                     <PurchaseSellDetailsContainer
                         className={css.details}
-                        title="Purchase Details"
+                        {...Purchase.details}
                     />
 
                     <PurchaseSellFooterContainer
-                        title="Buy"
+                        title={Purchase.buy}
                         onClick={() => {
                             onBuy();
                             trackTelemetree(
@@ -99,7 +103,10 @@ const PurchasePage = injectable(
                         hasButtonClose={true}
                         onClose={() => navigator('')}
                     >
-                        <PurchaseSellFinishBoodySheetContainer type={'BUY'} />
+                        <PurchaseSellFinishBoodySheetContainer
+                            type={'BUY'}
+                            texts={Purchase.finalBottomSheet}
+                        />
                     </BottomSheet>
                 </div>
             );

@@ -7,19 +7,21 @@ import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/e
 import SkeletonSmallCard from '@/components/skeletons/components/skeleton-small-card/skeleton-smal-card.component';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
+import { ProfileI18n } from '../../profile.i18n.model';
 
 export interface EranProps {
     readonly steps: E.Either<string, Array<EranStep>>;
     readonly checkStep: (id: string) => void;
+    readonly i18nText: Pick<ProfileI18n, 'earn'>;
 }
 
-export const Earn = ({ steps, checkStep }: EranProps) => {
+export const Earn = ({ steps, checkStep, i18nText }: EranProps) => {
     const stepLength = E.isRight(steps) ? steps.right.length : 0;
     return (
         <div className={css.cardWrapper}>
             <div className="app-container">
                 <div className={css.cardTitle}>
-                    <span>Earn Test TON</span>
+                    <span>{i18nText.earn.title}</span>
                     <div className={css.cardTitleCounter}>{stepLength}</div>
                 </div>
 

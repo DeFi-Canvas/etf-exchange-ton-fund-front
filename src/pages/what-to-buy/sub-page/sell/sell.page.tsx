@@ -4,7 +4,7 @@ import PurchaseSellFooter from '../components/purchase-sell-footer/purchase-sell
 // Style
 import css from './sell.module.css';
 import { PurchaseSellContentCardContainer } from '../components/purchase-sell-content-card/purchase-sell-content-card.container';
-import { injectable } from '@injectable-ts/core';
+import { injectable, token } from '@injectable-ts/core';
 import { PurchaseSellDetailsContainer } from '../components/purchase-sell-details/purchase-sell-details.container';
 import BottomSheet from '@/components/ui-kit/bottom-sheet/bottom-sheet.component';
 import { PurchaseSellAssetCardContainer } from '../components/purchase-sell-asset-card/purchase-sell-asset-card.container';
@@ -12,6 +12,8 @@ import { PurchaseSellFinishBoodySheetContainer } from '../components/purchase-se
 import { useNavigate } from 'react-router-dom';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
+import { I18NService } from '@/store/i18n/i18.store';
+import { useProperty } from '@frp-ts/react';
 
 interface SellPageProps {
     showBottomSheet: boolean;
@@ -24,11 +26,14 @@ const SellPage = injectable(
     PurchaseSellDetailsContainer,
     PurchaseSellAssetCardContainer,
     PurchaseSellFinishBoodySheetContainer,
+    token('i18n')<I18NService>(),
+
     (
         PurchaseSellContentCardContainer,
         PurchaseSellDetailsContainer,
         PurchaseSellAssetCardContainer,
-        PurchaseSellFinishBoodySheetContainer
+        PurchaseSellFinishBoodySheetContainer,
+        i18n
     ) =>
         ({ showBottomSheet, onSell, isLoading }: SellPageProps) => {
             const navigation = useNavigate();
@@ -36,11 +41,12 @@ const SellPage = injectable(
                 navigation('/');
             };
             const eventBuilder = useTWAEvent();
+            const { Sell } = useProperty(i18n.WhatToBuy);
 
             return (
                 <div className={css.page}>
                     <div className="app-container">
-                        <PurchaseSellTitle title="Selling" />
+                        <PurchaseSellTitle title={Sell.title} />
                         <div className={css.assetCard}>
                             <PurchaseSellAssetCardContainer
                                 type={'BUY'}
@@ -51,7 +57,7 @@ const SellPage = injectable(
                     <PurchaseSellContentCardContainer type={'SELL'} />
                     <PurchaseSellDetailsContainer
                         className={css.details}
-                        title="Sell Details"
+                        {...Sell.details}
                     />
                     <PurchaseSellFooter
                         title="Sell"
@@ -71,7 +77,9 @@ const SellPage = injectable(
                         hasButtonClose={true}
                         onClose={handleToggleBottomSheet}
                     >
-                        <PurchaseSellFinishBoodySheetContainer />
+                        <PurchaseSellFinishBoodySheetContainer
+                            texts={Sell.finalBottomSheet}
+                        />
                     </BottomSheet>
                 </div>
             );

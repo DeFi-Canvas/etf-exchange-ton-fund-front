@@ -6,7 +6,12 @@ import { Link } from 'react-router-dom';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
-export const NewsEarn = () => {
+interface NewsEarnProps {
+    title: string;
+    subTitle: string;
+}
+
+export const NewsEarn = ({ title, subTitle }: NewsEarnProps) => {
     const eventBuilder = useTWAEvent();
 
     return (
@@ -20,11 +25,9 @@ export const NewsEarn = () => {
             }}
         >
             <div className={css.content}>
-                <span className={css.contentTitle}>
-                    Earn some TON for simple tasks
-                </span>
+                <span className={css.contentTitle}>{title}</span>
                 <Link to={'/profile'} className={css.contentLink}>
-                    Learn more <ChevronRightIcon size={16} />
+                    {subTitle} <ChevronRightIcon size={16} />
                 </Link>
             </div>
             <div className={css.imageWrapper}>

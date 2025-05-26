@@ -1,25 +1,31 @@
-import { injectable } from '@injectable-ts/core';
+import { injectable, token } from '@injectable-ts/core';
 import { newAssetsSingleViewModel } from '@/pages/assets-single/assets-single.view-model.ts';
 import AssetsSinglePage from '@/pages/assets-single/assets-single.page.tsx';
-import React from 'react';
+import React, { memo } from 'react';
 import { useValueWithEffect } from '@/utils/run-view-model.utils.ts';
 import { useParams } from 'react-router-dom';
 import { useProperty } from '@frp-ts/react';
+import { I18NService } from '@/store/i18n/i18.store';
 
 export const AssetsSingleContainer = injectable(
     newAssetsSingleViewModel,
-    (newAssetsSingleViewModel) => () => {
-        const { assetId } = useParams();
+    token('i18n')<I18NService>(),
 
-        const viewModel = useValueWithEffect(
-            () => newAssetsSingleViewModel(assetId ?? ''),
-            []
-        );
+    (newAssetsSingleViewModel, i18n) =>
+        memo(() => {
+            const { assetId } = useParams();
 
-        const asset = useProperty(viewModel.asset);
+            const viewModel = useValueWithEffect(
+                () => newAssetsSingleViewModel(assetId ?? ''),
+                []
+            );
 
-        return React.createElement(AssetsSinglePage, {
-            asset,
-        });
-    }
+            const asset = useProperty(viewModel.asset);
+            const texts = useProperty(i18n.Asset);
+
+            return React.createElement(AssetsSinglePage, {
+                asset,
+                texts,
+            });
+        })
 );

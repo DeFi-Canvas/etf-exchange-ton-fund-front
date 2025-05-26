@@ -12,6 +12,7 @@ import { ReactNode } from 'react';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { WalletPageEvent } from '@/telemetree/track-events';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
+import { WalletI18n } from '../../wallet.i18n.model';
 
 interface NavItem {
     href: string;
@@ -21,38 +22,41 @@ interface NavItem {
     isExternal: boolean;
 }
 
-const navMenu: NavItem[] = [
-    {
-        href: 'deposit',
-        isDisabled: false,
-        title: 'Deposit',
-        icon: <DepositDepositIcon />,
-        isExternal: false,
-    },
-    {
-        href: 'swap',
-        isDisabled: false,
-        title: 'Swap',
-        icon: <DepositSwapIcon />,
-        isExternal: false,
-    },
-    {
-        href: 'https://t.me/deficanvastest_bot',
-        isDisabled: false,
-        title: 'Assistant',
-        icon: <AIBubbleIcon />,
-        isExternal: true,
-    },
-    {
-        href: '',
-        isDisabled: true,
-        title: 'Portfolio',
-        icon: <DepositAnaliticsIcon />,
-        isExternal: false,
-    },
-];
-// TODO  доделать на ссылки
-export const NavBar = () => {
+interface NavBarProps {
+    texts: WalletI18n;
+}
+
+export const NavBar = ({ texts }: NavBarProps) => {
+    const navMenu: NavItem[] = [
+        {
+            href: 'deposit',
+            isDisabled: false,
+            title: texts.navbar.deposit,
+            icon: <DepositDepositIcon />,
+            isExternal: false,
+        },
+        {
+            href: 'swap',
+            isDisabled: false,
+            title: texts.navbar.swap,
+            icon: <DepositSwapIcon />,
+            isExternal: false,
+        },
+        {
+            href: 'https://t.me/deficanvastest_bot',
+            isDisabled: false,
+            title: texts.navbar.asistent,
+            icon: <AIBubbleIcon />,
+            isExternal: true,
+        },
+        {
+            href: '',
+            isDisabled: true,
+            title: texts.navbar.portfolio,
+            icon: <DepositAnaliticsIcon />,
+            isExternal: false,
+        },
+    ];
     const eventBuilder = useTWAEvent();
 
     return (

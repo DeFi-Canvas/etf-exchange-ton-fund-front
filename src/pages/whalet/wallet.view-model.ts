@@ -8,7 +8,7 @@ import { either } from 'fp-ts';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { newWaletRestService } from '@/API/whalet.service';
 import { newLensedAtom } from '@frp-ts/lens';
-import { Transactions } from './whalet.model';
+import { WalletTransactions } from './wallet.model';
 
 export interface Balance {
     int: string;
@@ -58,7 +58,7 @@ export const newWhatToBuyViewModel = injectable(
                 tap((x) => {
                     const transactions = pipe(
                         x,
-                        either.getOrElse(constant([] as Transactions[]))
+                        either.getOrElse(constant([] as WalletTransactions[]))
                     );
                     isTransactionAvailible.set(!!transactions.length);
                 })

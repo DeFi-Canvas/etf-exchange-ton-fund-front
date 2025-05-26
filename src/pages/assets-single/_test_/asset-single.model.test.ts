@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { assetMapping } from '../asset-single.model';
+import { assetsMapping } from '../asset-single.model';
 
 describe('asset-single.model', () => {
     it('should return mapped data', () => {
@@ -14,7 +14,7 @@ describe('asset-single.model', () => {
             withdrawal_fee: 1,
         };
 
-        expect(assetMapping(data)).toStrictEqual({
+        expect(assetsMapping(data)).toStrictEqual({
             ...data,
             imageUrl: data.image_url,
             withdrawalFee: data.withdrawal_fee,

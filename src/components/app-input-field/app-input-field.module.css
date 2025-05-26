@@ -1,0 +1,25 @@
+.inputFieldWrapepr {
+    border-radius: 12px;
+    border: 1px solid var(--color-main-purple-10);
+    position: relative;
+}
+
+.inputField {
+    /* 1 значнеие - 12 - отступ слева от поля до иконки */
+    /* 2 значение - 24 - ширина иконки  */
+    /* 3 значение - 8 - отступ от иконки до самого поля ввода */
+    --padding-inline-start: calc(12px + 24px + 8px);
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+    border-radius: inherit;
+    border: none;
+    padding-inline-start: var(--padding-inline-start);
+}
+
+.inputFieldIcon {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+}

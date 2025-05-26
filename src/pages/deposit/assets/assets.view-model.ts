@@ -1,16 +1,18 @@
 import { injectable, token } from '@injectable-ts/core';
 
-import { pipe } from 'fp-ts/lib/function';
-import { empty, tap } from '@most/core';
+import { flow, pipe } from 'fp-ts/lib/function';
+import { tap, map } from '@most/core';
 import { Property } from '@frp-ts/core';
 import * as E from 'fp-ts/Either';
+import * as A from 'fp-ts/Array';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { WaletRestService } from '@/API/whalet.service';
 import { newLensedAtom } from '@frp-ts/lens';
 import { DepositRestService } from '@/API/deposit.service';
 import { DepositAssets } from '../deposit.model';
-import { Asset, AssetCodec } from '@/pages/whalet/whalet.model';
+import { AssetCodec } from '@/pages/whalet/wallet.model';
 import { WithdrowStore } from '@/pages/withdrow/withdrow.store';
+import { Asset } from '@/instance/asset/asset.model';
 
 export type AssetsViewModelInit = 'deposit' | 'withdrow';
 export interface AssetsViewModel {
@@ -39,7 +41,22 @@ export const newAssetsViewModel = injectable(
             const currentAssets = (() => {
                 switch (type) {
                     case 'withdrow':
-                        return waletRestService.getAssets();
+                        return pipe(
+                            waletRestService.getAssets(),
+                            map((x) =>
+                                pipe(
+                                    x,
+                                    E.map(
+                                        flow(
+                                            A.filter(
+                                                (asset) =>
+                                                    asset.symbol === 'TON'
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        );
                     case 'deposit': {
                         return newDepositRestService.getDepositAssets();
                     }

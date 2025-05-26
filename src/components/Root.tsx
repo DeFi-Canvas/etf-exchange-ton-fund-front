@@ -27,6 +27,9 @@ const Inner: FC = () => {
         ).toString();
     }, []);
 
+    const globalLoading = document.getElementById('global-loading');
+    globalLoading?.remove();
+
     return (
         <TonConnectUIProvider
             uiPreferences={{ theme: THEME.LIGHT }}

@@ -1,8 +1,8 @@
 import { Component, getContainersArgs } from '../containers';
-import { WaletPageContainer } from '@whalet/whalet.container';
+import { WaletPageContainer } from '@/pages/whalet/wallet.container';
 import { AssetsContainer } from '@whalet/sub-pages/assets/assets.container';
-import { TransactionsContainer } from '@whalet/sub-pages/transactions/transactions.container';
-import { FundsContainer } from '@whalet/sub-pages/founds/funds.container';
+import { FundsContainer } from '@/pages/whalet/sub-pages/founds/funds.container';
+import { TransactionsContainer } from '@/pages/whalet/sub-pages/transactions/transactions.container';
 
 export interface WhaletContainers {
     WaletPage: Component;
@@ -13,9 +13,11 @@ export interface WhaletContainers {
 
 export const getWhaletContainers = ({
     userStore,
+    i18n,
 }: getContainersArgs): WhaletContainers => ({
     WaletPage: WaletPageContainer({
         userStore,
+        i18n,
     }),
     Assets: AssetsContainer({
         userStore,
@@ -26,4 +28,22 @@ export const getWhaletContainers = ({
     Funds: FundsContainer({
         userStore,
     }),
+
+    // Assets: AssetsContainer({
+    //     userStore,
+    // }),
+    // Transactions: lazy(() =>
+    //     import('@whalet/sub-pages/transactions/transactions.container').then(
+    //         (c) => {
+    //             const component = c.TransactionsContainer({ userStore });
+    //             return { default: component };
+    //         }
+    //     )
+    // ),
+    // Funds: lazy(() =>
+    //     import('@whalet/sub-pages/founds/funds.container').then((c) => {
+    //         const component = c.FundsContainer({ userStore });
+    //         return { default: component };
+    //     })
+    // ),
 });

@@ -6,7 +6,7 @@ import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/lib/function';
 import { tap } from '@most/core';
 import { newWaletRestService } from '@/API/whalet.service';
-import { FundsData } from '../../whalet.model';
+import { FundsData } from '@/instance/fund/fund.model';
 
 export interface FundsViewModel {
     readonly funds: Property<E.Either<string, Array<FundsData>>>;

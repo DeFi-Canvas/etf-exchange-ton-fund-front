@@ -1,12 +1,13 @@
 import * as t from 'io-ts';
 
-export interface Assets {
+export interface AssetsUI {
     id: string;
     img: string;
     title: string;
     subTitle: string;
     price?: string;
     priceText?: string;
+    onClick?: (assetId: string) => void;
 }
 
 export const assetsCodec = t.type({
@@ -18,7 +19,7 @@ export const assetsCodec = t.type({
     priceText: t.string,
 });
 
-export interface AssetsPnl extends Assets {
+export interface AssetsPnl extends AssetsUI {
     pnl: {
         value: string;
         status: 'UP' | 'DOWN';

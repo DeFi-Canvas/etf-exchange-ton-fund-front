@@ -1,7 +1,8 @@
-import { Asset, AssetCodec } from '@/pages/whalet/whalet.model';
+import { AssetCodec } from '@/pages/whalet/wallet.model';
 import { AssetsViewModelInit } from '../assets/assets.view-model';
 import { DepositAssetsCodec, DepositAssets } from '../deposit.model';
 import css from './assets-card.module.css';
+import { Asset } from '@/instance/asset/asset.model';
 
 type AssetsCardProps = (DepositAssets | Asset) & {
     type: AssetsViewModelInit;
