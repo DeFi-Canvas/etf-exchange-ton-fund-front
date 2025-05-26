@@ -1,7 +1,8 @@
 .card {
     width: max(345px, 100%);
-    height: 110px;
-    background-color: #a18dfe;
+    /* height: 110px; */
+    height: 143px;
+    background-color: #8dbafe;
     border-radius: 16px;
     display: flex;
     position: relative;
@@ -23,7 +24,7 @@
     font-size: 16px;
     line-height: 135%;
     width: 140px;
-    max-width: 200px;
+    max-width: 204px;
 }
 
 .contentLink {
@@ -50,11 +51,13 @@
 .coinSmallBlur {
     position: absolute;
     right: 106px;
-    top: -50px;
+    /* top: -50px; */
+    top: -20px;
 }
 
 .coinBig {
     position: absolute;
     right: -30px;
-    top: -7px;
+    /* top: -7px; */
+    top: 13px;
 }

@@ -34,6 +34,7 @@ const TabBar = () => {
                 <TabBarItem
                     text={'What to buy'}
                     to={'/what-to-buy'}
+                    isAvailable={false}
                     onClick={() => {
                         trackTelemetree(
                             eventBuilder,

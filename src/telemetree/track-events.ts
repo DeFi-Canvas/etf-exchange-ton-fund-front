@@ -4,6 +4,7 @@ export type WalletPageEvent =
     | 'WALLET_PAGE: assistant button click'
     | 'WALLET_PAGE: "earn slide" click'
     | 'WALLET_PAGE: "lern more" slide click'
+    | 'WALLET_PAGE: "AI" slide click'
     | 'WALLET_PAGE: notification button click';
 
 export type WalletPageAssetsEvent =

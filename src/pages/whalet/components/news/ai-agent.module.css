@@ -2,7 +2,7 @@
     width: max(345px, 100%);
     /* height: 110px; */
     height: 143px;
-    background-color: #fe8da2;
+    background-color: #a18dfe;
     border-radius: 16px;
     display: flex;
     position: relative;
@@ -23,7 +23,7 @@
     font-weight: 510;
     font-size: 16px;
     line-height: 135%;
-    max-width: 200px;
+    max-width: 204px;
 }
 
 .contentLink {
@@ -49,6 +49,8 @@
 
 .image {
     position: absolute;
-    top: -4px;
-    right: 7px;
+    width: 181px;
+    height: 181px;
+    top: -18px;
+    right: -18px;
 }
