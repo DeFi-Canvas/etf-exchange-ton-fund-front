@@ -1,5 +1,5 @@
 import css from './ai-agent.module.css';
-import bookImage from './assets/book.png';
+import aiImage from './assets/ai.png';
 import { ChevronRightIcon } from '@/components/Icons/Icons';
 import { Link } from 'react-router-dom';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
@@ -21,7 +21,9 @@ export const AiAgent = ({ title, subTitle }: LernMore) => {
             }}
         >
             <div className={css.content}>
-                <span className={css.contentTitle}>AI {}</span>
+                <span className={css.contentTitle}>
+                    Try our AI assistant & turn your time into money! {}
+                </span>
                 <Link
                     to={'https://t.me/deficanvastest_bot'}
                     target="_blank"
@@ -32,7 +34,7 @@ export const AiAgent = ({ title, subTitle }: LernMore) => {
                 </Link>
             </div>
             <div className={css.imageWrapper}>
-                <img src={bookImage} className={css.image} />
+                <img src={aiImage} className={css.image} />
             </div>
         </div>
     );
