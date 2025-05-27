@@ -37,14 +37,14 @@ export const NavBar = ({ texts }: NavBarProps) => {
         },
         {
             href: 'swap',
-            isDisabled: false,
+            isDisabled: true,
             title: texts.navbar.swap,
             icon: <DepositSwapIcon />,
             isExternal: false,
         },
         {
             href: 'https://t.me/deficanvastest_bot',
-            isDisabled: false,
+            isDisabled: true,
             title: texts.navbar.asistent,
             icon: <AIBubbleIcon />,
             isExternal: true,

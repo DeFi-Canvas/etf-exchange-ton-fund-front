@@ -20,8 +20,8 @@ export interface WhatToBuyPageProps {
 }
 
 const swiperOptions = {
-    spaceBetween: 20,
-    slidesPerView: 1.05,
+    // spaceBetween: 20,
+    // slidesPerView: 1.05,
     className: css.swiperWrap,
 };
 
@@ -42,12 +42,12 @@ export const WaletPage = injectable(
                         <SwiperSlide>
                             <AiAgent {...texts.swiper.lernMore} />
                         </SwiperSlide>
-                        <SwiperSlide>
+                        {/* <SwiperSlide>
                             <NewsEarn {...texts.swiper.news} />
                         </SwiperSlide>
                         <SwiperSlide>
                             <LernMore {...texts.swiper.lernMore} />
-                        </SwiperSlide>
+                        </SwiperSlide> */}
                     </Swiper>
                 </header>
                 <div className={css.coinWrapper}>

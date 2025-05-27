@@ -26,6 +26,19 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
+ * @interface AuthenticationGetIncognitoAuthTokenResponse
+ */
+export interface AuthenticationGetIncognitoAuthTokenResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof AuthenticationGetIncognitoAuthTokenResponse
+     */
+    'token'?: string;
+}
+/**
+ * 
+ * @export
  * @interface ControllerSwapInitiateRequest
  */
 export interface ControllerSwapInitiateRequest {
@@ -66,6 +79,140 @@ export interface ControllerSwapInitiateResponse {
      * @memberof ControllerSwapInitiateResponse
      */
     'transactionId'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ControllerTwitterCreateTweetRequest
+ */
+export interface ControllerTwitterCreateTweetRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerTwitterCreateTweetRequest
+     */
+    'content'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerTwitterCreateTweetRequest
+     */
+    'timestamp'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerTwitterCreateTweetRequest
+     */
+    'twitterId'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ControllerTwitterCreateTweetResponse
+ */
+export interface ControllerTwitterCreateTweetResponse {
+    /**
+     * 
+     * @type {TwitterTwitterTweet}
+     * @memberof ControllerTwitterCreateTweetResponse
+     */
+    'tweet'?: TwitterTwitterTweet;
+}
+/**
+ * 
+ * @export
+ * @interface ControllerTwitterGetAccountsToProcessRequest
+ */
+export interface ControllerTwitterGetAccountsToProcessRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerTwitterGetAccountsToProcessRequest
+     */
+    'threshold'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ControllerTwitterGetAccountsToProcessResponse
+ */
+export interface ControllerTwitterGetAccountsToProcessResponse {
+    /**
+     * 
+     * @type {Array<TwitterTwitterAccount>}
+     * @memberof ControllerTwitterGetAccountsToProcessResponse
+     */
+    'accounts'?: Array<TwitterTwitterAccount>;
+}
+/**
+ * 
+ * @export
+ * @interface ControllerTwitterGetTweetsResponse
+ */
+export interface ControllerTwitterGetTweetsResponse {
+    /**
+     * 
+     * @type {Array<TwitterTwitterTweetAction>}
+     * @memberof ControllerTwitterGetTweetsResponse
+     */
+    'tweets'?: Array<TwitterTwitterTweetAction>;
+}
+/**
+ * 
+ * @export
+ * @interface ControllerTwitterSubscribeRequest
+ */
+export interface ControllerTwitterSubscribeRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerTwitterSubscribeRequest
+     */
+    'action'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerTwitterSubscribeRequest
+     */
+    'telegramId'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerTwitterSubscribeRequest
+     */
+    'twitterId'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ControllerTwitterSubscribeResponse
+ */
+export interface ControllerTwitterSubscribeResponse {
+    /**
+     * 
+     * @type {TwitterTwitterSubscription}
+     * @memberof ControllerTwitterSubscribeResponse
+     */
+    'subscription'?: TwitterTwitterSubscription;
+}
+/**
+ * 
+ * @export
+ * @interface ControllerTwitterUnsubscribeRequest
+ */
+export interface ControllerTwitterUnsubscribeRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerTwitterUnsubscribeRequest
+     */
+    'subscriptionId'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerTwitterUnsubscribeRequest
+     */
+    'telegramId'?: string;
 }
 /**
  * 
@@ -205,7 +352,7 @@ export interface ControllersDepositResponse {
      */
     'address'?: string;
     /**
-     * 
+     * It\'s serialized to `memo` for API back compatability
      * @type {string}
      * @memberof ControllersDepositResponse
      */
@@ -296,25 +443,7 @@ export interface ControllersWithdrawData {
      * @type {string}
      * @memberof ControllersWithdrawData
      */
-    'asset'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ControllersWithdrawData
-     */
-    'init_data'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ControllersWithdrawData
-     */
-    'memo'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ControllersWithdrawData
-     */
-    'telegram_id'?: number;
+    'ticker'?: string;
 }
 /**
  * 
@@ -536,37 +665,6 @@ export interface ModelsNetwork {
      * @memberof ModelsNetwork
      */
     'valid_to'?: string;
-}
-/**
- * 
- * @export
- * @interface ModelsNews
- */
-export interface ModelsNews {
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsNews
-     */
-    'content'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsNews
-     */
-    'published_at'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsNews
-     */
-    'source'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsNews
-     */
-    'title'?: string;
 }
 /**
  * 
@@ -827,12 +925,6 @@ export interface ModelsUser {
     'last_name'?: string;
     /**
      * 
-     * @type {string}
-     * @memberof ModelsUser
-     */
-    'memo'?: string;
-    /**
-     * 
      * @type {number}
      * @memberof ModelsUser
      */
@@ -1017,7 +1109,155 @@ export interface ServerStormDepositRequest {
      * @type {string}
      * @memberof ServerStormDepositRequest
      */
+    'telegramId'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ServerStormDepositRequest
+     */
     'ticker'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface TwitterTwitterAccount
+ */
+export interface TwitterTwitterAccount {
+    /**
+     * 
+     * @type {string}
+     * @memberof TwitterTwitterAccount
+     */
+    'createdAt'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TwitterTwitterAccount
+     */
+    'id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TwitterTwitterAccount
+     */
+    'twitterId'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface TwitterTwitterSubscription
+ */
+export interface TwitterTwitterSubscription {
+    /**
+     * 
+     * @type {string}
+     * @memberof TwitterTwitterSubscription
+     */
+    'action'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TwitterTwitterSubscription
+     */
+    'createdAt'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TwitterTwitterSubscription
+     */
+    'id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TwitterTwitterSubscription
+     */
+    'twitterAccountId'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TwitterTwitterSubscription
+     */
+    'updatedAt'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TwitterTwitterSubscription
+     */
+    'userId'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface TwitterTwitterTweet
+ */
+export interface TwitterTwitterTweet {
+    /**
+     * 
+     * @type {string}
+     * @memberof TwitterTwitterTweet
+     */
+    'content'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TwitterTwitterTweet
+     */
+    'id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TwitterTwitterTweet
+     */
+    'timestamp'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TwitterTwitterTweet
+     */
+    'twitterAccountId'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface TwitterTwitterTweetAction
+ */
+export interface TwitterTwitterTweetAction {
+    /**
+     * 
+     * @type {string}
+     * @memberof TwitterTwitterTweetAction
+     */
+    'action'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TwitterTwitterTweetAction
+     */
+    'content'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TwitterTwitterTweetAction
+     */
+    'subscriptionId'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TwitterTwitterTweetAction
+     */
+    'timestamp'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TwitterTwitterTweetAction
+     */
+    'tweetId'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TwitterTwitterTweetAction
+     */
+    'twitterId'?: string;
 }
 
 /**
@@ -1323,6 +1563,114 @@ export class AssetsApi extends BaseAPI {
      */
     public assetsUserUserIdGet(userId: string, options?: RawAxiosRequestConfig) {
         return AssetsApiFp(this.configuration).assetsUserUserIdGet(userId, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * AuthApi - axios parameter creator
+ * @export
+ */
+export const AuthApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Creates unsigned token with specified Telegram Id. It is used to get access to the local/test servers.
+         * @summary Incognito auth token
+         * @param {string} telegramId int64 number that would be saved in the token as Telegram Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiAuthTokenTelegramIdGet: async (telegramId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'telegramId' is not null or undefined
+            assertParamExists('apiAuthTokenTelegramIdGet', 'telegramId', telegramId)
+            const localVarPath = `/api/auth/token/{telegramId}`
+                .replace(`{${"telegramId"}}`, encodeURIComponent(String(telegramId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * AuthApi - functional programming interface
+ * @export
+ */
+export const AuthApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = AuthApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Creates unsigned token with specified Telegram Id. It is used to get access to the local/test servers.
+         * @summary Incognito auth token
+         * @param {string} telegramId int64 number that would be saved in the token as Telegram Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiAuthTokenTelegramIdGet(telegramId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AuthenticationGetIncognitoAuthTokenResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiAuthTokenTelegramIdGet(telegramId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthApi.apiAuthTokenTelegramIdGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * AuthApi - factory interface
+ * @export
+ */
+export const AuthApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = AuthApiFp(configuration)
+    return {
+        /**
+         * Creates unsigned token with specified Telegram Id. It is used to get access to the local/test servers.
+         * @summary Incognito auth token
+         * @param {string} telegramId int64 number that would be saved in the token as Telegram Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiAuthTokenTelegramIdGet(telegramId: string, options?: RawAxiosRequestConfig): AxiosPromise<AuthenticationGetIncognitoAuthTokenResponse> {
+            return localVarFp.apiAuthTokenTelegramIdGet(telegramId, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * AuthApi - object-oriented interface
+ * @export
+ * @class AuthApi
+ * @extends {BaseAPI}
+ */
+export class AuthApi extends BaseAPI {
+    /**
+     * Creates unsigned token with specified Telegram Id. It is used to get access to the local/test servers.
+     * @summary Incognito auth token
+     * @param {string} telegramId int64 number that would be saved in the token as Telegram Id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthApi
+     */
+    public apiAuthTokenTelegramIdGet(telegramId: string, options?: RawAxiosRequestConfig) {
+        return AuthApiFp(this.configuration).apiAuthTokenTelegramIdGet(telegramId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -1716,115 +2064,6 @@ export class FundStatsApi extends BaseAPI {
      */
     public fundinfoGet(options?: RawAxiosRequestConfig) {
         return FundStatsApiFp(this.configuration).fundinfoGet(options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-
-
-/**
- * NewsApi - axios parameter creator
- * @export
- */
-export const NewsApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * Получить список последних новостей
-         * @summary Get latest news
-         * @param {number} [count] Количество новостей (по умолчанию 10)
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        newsGet: async (count?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/news`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (count !== undefined) {
-                localVarQueryParameter['count'] = count;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * NewsApi - functional programming interface
- * @export
- */
-export const NewsApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = NewsApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * Получить список последних новостей
-         * @summary Get latest news
-         * @param {number} [count] Количество новостей (по умолчанию 10)
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async newsGet(count?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ModelsNews>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.newsGet(count, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['NewsApi.newsGet']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-    }
-};
-
-/**
- * NewsApi - factory interface
- * @export
- */
-export const NewsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = NewsApiFp(configuration)
-    return {
-        /**
-         * Получить список последних новостей
-         * @summary Get latest news
-         * @param {number} [count] Количество новостей (по умолчанию 10)
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        newsGet(count?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<ModelsNews>> {
-            return localVarFp.newsGet(count, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * NewsApi - object-oriented interface
- * @export
- * @class NewsApi
- * @extends {BaseAPI}
- */
-export class NewsApi extends BaseAPI {
-    /**
-     * Получить список последних новостей
-     * @summary Get latest news
-     * @param {number} [count] Количество новостей (по умолчанию 10)
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof NewsApi
-     */
-    public newsGet(count?: number, options?: RawAxiosRequestConfig) {
-        return NewsApiFp(this.configuration).newsGet(count, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -2831,6 +3070,411 @@ export class TasksApi extends BaseAPI {
 
 
 /**
+ * TwitterApi - axios parameter creator
+ * @export
+ */
+export const TwitterApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Get Twitter accounts that need to be processed
+         * @summary Get Twitter accounts to process
+         * @param {ControllerTwitterGetAccountsToProcessRequest} request Request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiTwitterAccountsToProcessPost: async (request: ControllerTwitterGetAccountsToProcessRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('apiTwitterAccountsToProcessPost', 'request', request)
+            const localVarPath = `/api/twitter/accounts-to-process`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * User can specify the twitter account and the action that should be performed for the messages of that account.
+         * @summary Create subscribtion to the twitter account
+         * @param {ControllerTwitterSubscribeRequest} request Request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiTwitterSubscriptionPost: async (request: ControllerTwitterSubscribeRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('apiTwitterSubscriptionPost', 'request', request)
+            const localVarPath = `/api/twitter/subscription`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * The tweet content with creation date will be stored in the system for future processing
+         * @summary Store Twitter tweet
+         * @param {ControllerTwitterCreateTweetRequest} request Request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiTwitterTweetPost: async (request: ControllerTwitterCreateTweetRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('apiTwitterTweetPost', 'request', request)
+            const localVarPath = `/api/twitter/tweet`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get tweets for a user that were created after the threshold time
+         * @summary Get tweets for user
+         * @param {string} telegramId Telegram Id
+         * @param {string} threshold Threshold time in RFC3339 format
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiTwitterTweetsGet: async (telegramId: string, threshold: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'telegramId' is not null or undefined
+            assertParamExists('apiTwitterTweetsGet', 'telegramId', telegramId)
+            // verify required parameter 'threshold' is not null or undefined
+            assertParamExists('apiTwitterTweetsGet', 'threshold', threshold)
+            const localVarPath = `/api/twitter/tweets`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (telegramId !== undefined) {
+                localVarQueryParameter['telegram_id'] = telegramId;
+            }
+
+            if (threshold !== undefined) {
+                localVarQueryParameter['threshold'] = threshold;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * User will be unsubscribed, and won\'t get new messages for processing
+         * @summary Unsubscribes user from particular subscription
+         * @param {ControllerTwitterUnsubscribeRequest} request Request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiTwitterUnsubscribePost: async (request: ControllerTwitterUnsubscribeRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('apiTwitterUnsubscribePost', 'request', request)
+            const localVarPath = `/api/twitter/unsubscribe`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * TwitterApi - functional programming interface
+ * @export
+ */
+export const TwitterApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = TwitterApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Get Twitter accounts that need to be processed
+         * @summary Get Twitter accounts to process
+         * @param {ControllerTwitterGetAccountsToProcessRequest} request Request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiTwitterAccountsToProcessPost(request: ControllerTwitterGetAccountsToProcessRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ControllerTwitterGetAccountsToProcessResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiTwitterAccountsToProcessPost(request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TwitterApi.apiTwitterAccountsToProcessPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * User can specify the twitter account and the action that should be performed for the messages of that account.
+         * @summary Create subscribtion to the twitter account
+         * @param {ControllerTwitterSubscribeRequest} request Request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiTwitterSubscriptionPost(request: ControllerTwitterSubscribeRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ControllerTwitterSubscribeResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiTwitterSubscriptionPost(request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TwitterApi.apiTwitterSubscriptionPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * The tweet content with creation date will be stored in the system for future processing
+         * @summary Store Twitter tweet
+         * @param {ControllerTwitterCreateTweetRequest} request Request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiTwitterTweetPost(request: ControllerTwitterCreateTweetRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ControllerTwitterCreateTweetResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiTwitterTweetPost(request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TwitterApi.apiTwitterTweetPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Get tweets for a user that were created after the threshold time
+         * @summary Get tweets for user
+         * @param {string} telegramId Telegram Id
+         * @param {string} threshold Threshold time in RFC3339 format
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiTwitterTweetsGet(telegramId: string, threshold: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ControllerTwitterGetTweetsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiTwitterTweetsGet(telegramId, threshold, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TwitterApi.apiTwitterTweetsGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * User will be unsubscribed, and won\'t get new messages for processing
+         * @summary Unsubscribes user from particular subscription
+         * @param {ControllerTwitterUnsubscribeRequest} request Request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiTwitterUnsubscribePost(request: ControllerTwitterUnsubscribeRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiTwitterUnsubscribePost(request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TwitterApi.apiTwitterUnsubscribePost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * TwitterApi - factory interface
+ * @export
+ */
+export const TwitterApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = TwitterApiFp(configuration)
+    return {
+        /**
+         * Get Twitter accounts that need to be processed
+         * @summary Get Twitter accounts to process
+         * @param {ControllerTwitterGetAccountsToProcessRequest} request Request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiTwitterAccountsToProcessPost(request: ControllerTwitterGetAccountsToProcessRequest, options?: RawAxiosRequestConfig): AxiosPromise<ControllerTwitterGetAccountsToProcessResponse> {
+            return localVarFp.apiTwitterAccountsToProcessPost(request, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * User can specify the twitter account and the action that should be performed for the messages of that account.
+         * @summary Create subscribtion to the twitter account
+         * @param {ControllerTwitterSubscribeRequest} request Request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiTwitterSubscriptionPost(request: ControllerTwitterSubscribeRequest, options?: RawAxiosRequestConfig): AxiosPromise<ControllerTwitterSubscribeResponse> {
+            return localVarFp.apiTwitterSubscriptionPost(request, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * The tweet content with creation date will be stored in the system for future processing
+         * @summary Store Twitter tweet
+         * @param {ControllerTwitterCreateTweetRequest} request Request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiTwitterTweetPost(request: ControllerTwitterCreateTweetRequest, options?: RawAxiosRequestConfig): AxiosPromise<ControllerTwitterCreateTweetResponse> {
+            return localVarFp.apiTwitterTweetPost(request, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get tweets for a user that were created after the threshold time
+         * @summary Get tweets for user
+         * @param {string} telegramId Telegram Id
+         * @param {string} threshold Threshold time in RFC3339 format
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiTwitterTweetsGet(telegramId: string, threshold: string, options?: RawAxiosRequestConfig): AxiosPromise<ControllerTwitterGetTweetsResponse> {
+            return localVarFp.apiTwitterTweetsGet(telegramId, threshold, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * User will be unsubscribed, and won\'t get new messages for processing
+         * @summary Unsubscribes user from particular subscription
+         * @param {ControllerTwitterUnsubscribeRequest} request Request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiTwitterUnsubscribePost(request: ControllerTwitterUnsubscribeRequest, options?: RawAxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.apiTwitterUnsubscribePost(request, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * TwitterApi - object-oriented interface
+ * @export
+ * @class TwitterApi
+ * @extends {BaseAPI}
+ */
+export class TwitterApi extends BaseAPI {
+    /**
+     * Get Twitter accounts that need to be processed
+     * @summary Get Twitter accounts to process
+     * @param {ControllerTwitterGetAccountsToProcessRequest} request Request body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TwitterApi
+     */
+    public apiTwitterAccountsToProcessPost(request: ControllerTwitterGetAccountsToProcessRequest, options?: RawAxiosRequestConfig) {
+        return TwitterApiFp(this.configuration).apiTwitterAccountsToProcessPost(request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * User can specify the twitter account and the action that should be performed for the messages of that account.
+     * @summary Create subscribtion to the twitter account
+     * @param {ControllerTwitterSubscribeRequest} request Request body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TwitterApi
+     */
+    public apiTwitterSubscriptionPost(request: ControllerTwitterSubscribeRequest, options?: RawAxiosRequestConfig) {
+        return TwitterApiFp(this.configuration).apiTwitterSubscriptionPost(request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * The tweet content with creation date will be stored in the system for future processing
+     * @summary Store Twitter tweet
+     * @param {ControllerTwitterCreateTweetRequest} request Request body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TwitterApi
+     */
+    public apiTwitterTweetPost(request: ControllerTwitterCreateTweetRequest, options?: RawAxiosRequestConfig) {
+        return TwitterApiFp(this.configuration).apiTwitterTweetPost(request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Get tweets for a user that were created after the threshold time
+     * @summary Get tweets for user
+     * @param {string} telegramId Telegram Id
+     * @param {string} threshold Threshold time in RFC3339 format
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TwitterApi
+     */
+    public apiTwitterTweetsGet(telegramId: string, threshold: string, options?: RawAxiosRequestConfig) {
+        return TwitterApiFp(this.configuration).apiTwitterTweetsGet(telegramId, threshold, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * User will be unsubscribed, and won\'t get new messages for processing
+     * @summary Unsubscribes user from particular subscription
+     * @param {ControllerTwitterUnsubscribeRequest} request Request body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TwitterApi
+     */
+    public apiTwitterUnsubscribePost(request: ControllerTwitterUnsubscribeRequest, options?: RawAxiosRequestConfig) {
+        return TwitterApiFp(this.configuration).apiTwitterUnsubscribePost(request, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
  * UsersApi - axios parameter creator
  * @export
  */
@@ -3256,6 +3900,9 @@ export const WalletsApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
 
     
