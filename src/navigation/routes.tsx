@@ -11,6 +11,8 @@ import { withdrawRouter } from './page-routes/withdraw-router';
 import { whatToBuyRouter } from './page-routes/what-to-buy-router';
 import { TransactionView } from '@pages/transaction-view/transaction-view.page.tsx';
 import { Loader } from '@/components/loader/loader.component';
+import { newToastifyStoreService } from '@/store/toaster.store';
+import { NotificationsPageContainer } from '@/pages/notifications/notifications.container.page';
 import { newNewI18NService } from '@/store/i18n/i18.store';
 
 interface Route {
@@ -32,6 +34,10 @@ export const AppRoutes = () => {
         () => newNewUserStoreService(initData?.user),
         []
     );
+    const toastStore = useValueWithEffect(() => newToastifyStoreService(), []);
+    // TEMP - 08.04.2025
+    // @ts-ignore
+    window.toastStore = toastStore;
 
     const i18n = useValueWithEffect(() => newNewI18NService(), []);
     //#region containers
@@ -54,6 +60,10 @@ export const AppRoutes = () => {
         {
             path: '/swap',
             page: containers.SwapePage,
+        },
+        {
+            path: '/notifications',
+            page: NotificationsPageContainer({ userStore }),
         },
         // не рабочие стр
         {

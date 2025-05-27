@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { TransactionGroup } from '../../components/transaction/transaction.component';
-import { ITransaction } from '../../components/transaction/types';
+import { Transaction } from '../../components/transaction/types/transaction';
 import { WalletTransactions } from '../../wallet.model';
 import * as O from 'fp-ts/Option';
 
@@ -25,7 +25,7 @@ export function transformTransactions(
 }
 
 // TODO нужно переделать весь компонент и всратые типы
-function transformTransaction(transaction: WalletTransactions): ITransaction {
+function transformTransaction(transaction: WalletTransactions): Transaction {
     return {
         //@ts-ignore
         type: O.some(transaction.transactionType.toUpperCase() ?? 'BUY'),

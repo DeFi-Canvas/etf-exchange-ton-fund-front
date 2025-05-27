@@ -1,4 +1,4 @@
-export type TTransactionStatus =
+export type TransactionStatus =
     | 'DEPOSIT'
     | 'WITHDRAW'
     | 'SWAP'

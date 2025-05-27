@@ -7,6 +7,7 @@ import { Balance } from '../../wallet.view-model';
 import cn from 'classnames';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
+import { useNavigate } from 'react-router-dom';
 import { WalletI18n } from '../../wallet.i18n.model';
 
 export interface BalansProps {
@@ -16,6 +17,7 @@ export interface BalansProps {
 
 export const Balans = ({ balance, texts }: BalansProps) => {
     const eventBuilder = useTWAEvent();
+    const navigate = useNavigate();
 
     return (
         <div className={cn('app-container', css.wrap)}>
@@ -31,7 +33,9 @@ export const Balans = ({ balance, texts }: BalansProps) => {
                     }}
                 >
                     {/* TODO: по какому принципу появляется оранжевый кружок */}
-                    <AlertIcon />
+                    <div onClick={() => navigate('notifications')}>
+                        <AlertIcon />
+                    </div>
                 </div>
             </div>
             <div className={css.balans}>

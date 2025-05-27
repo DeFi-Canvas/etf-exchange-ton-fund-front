@@ -1,4 +1,4 @@
-import type { TTransactionStatus } from './TTransactionStatus';
-import type { ITransaction } from './ITransaction';
+import type { TransactionStatus } from './transactionStatus';
+import type { Transaction } from './transaction';
 
-export type { TTransactionStatus, ITransaction };
+export type { TransactionStatus, Transaction };
