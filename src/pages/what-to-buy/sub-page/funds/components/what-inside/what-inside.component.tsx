@@ -41,7 +41,7 @@ const WhatInside = ({ assets, texts }: WhatInsideProps) => {
                                                     css.cardContentInfoTitle
                                                 }
                                             >
-                                                {asset.symbol}
+                                                {asset.ticker}
                                             </div>
                                             <div
                                                 className={

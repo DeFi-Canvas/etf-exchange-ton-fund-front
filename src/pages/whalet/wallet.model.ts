@@ -6,7 +6,7 @@ import * as t from 'io-ts';
 
 //#region RESPONCE
 export interface WalletAssetResponce extends AssetResponce {
-    symbol: string;
+    // symbol: string;
     balance: number;
     value: number;
 }
@@ -46,7 +46,7 @@ interface WhaletFundsResponce {
 //#region UI
 export const AssetCodec = t.type({
     name: t.string,
-    symbol: t.string,
+    // symbol: t.string,
     balance: t.number,
     price: t.number,
     logo: t.string,

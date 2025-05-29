@@ -69,7 +69,7 @@ export const Assets = ({ assets }: AssetsProps) => {
                         )}
                         {assets.length &&
                             assets.map((assets) => (
-                                <div>
+                                <div key={assets.id}>
                                     <Link
                                         to={`/assets/${assets.id}`}
                                         key={assets.ticker}

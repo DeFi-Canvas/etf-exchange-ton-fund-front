@@ -37,7 +37,7 @@ export const NavBar = ({ texts }: NavBarProps) => {
         },
         {
             href: 'swap',
-            isDisabled: true,
+            isDisabled: false,
             title: texts.navbar.swap,
             icon: <DepositSwapIcon />,
             isExternal: false,

@@ -21,7 +21,6 @@ export const NEW_WALET_REST_SERVICE = ({
                         {
                             id: 'id',
                             name: 'name',
-                            symbol: 'symbol',
                             balance: 0,
                             price: 1,
                             image_url: 'image_url',
@@ -36,7 +35,6 @@ export const NEW_WALET_REST_SERVICE = ({
                     {
                         id: 'id',
                         name: 'name',
-                        symbol: 'symbol',
                         balance: 0,
                         price: 1,
                         logo: 'logo',

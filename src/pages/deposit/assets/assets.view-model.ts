@@ -50,7 +50,7 @@ export const newAssetsViewModel = injectable(
                                         flow(
                                             A.filter(
                                                 (asset) =>
-                                                    asset.symbol === 'TON'
+                                                    asset.ticker === 'TON'
                                             )
                                         )
                                     )
