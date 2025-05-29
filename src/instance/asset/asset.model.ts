@@ -12,7 +12,7 @@ export interface Asset {
     id: string;
     name: string;
     ticker: string;
-    symbol: string;
+    // symbol: string;
     balance: number;
     price: number;
     logo: string;

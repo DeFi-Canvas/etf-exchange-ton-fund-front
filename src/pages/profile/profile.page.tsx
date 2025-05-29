@@ -20,7 +20,7 @@ export const ProfileContainer = injectable(
             return (
                 <div className={css.profile}>
                     <UserInfoContainer />
-                    <EranContainer />
+                    {/* <EranContainer /> */}
                     <Settings
                         i18nText={i18nText}
                         setLocale={i18n.setLocale}

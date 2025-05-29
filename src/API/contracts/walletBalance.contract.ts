@@ -7,7 +7,7 @@ const assetCodec = t.type({
     image_url: t.string,
     name: t.string,
     price: t.number,
-    symbol: t.string,
+    ticker: t.string,
     value: t.number,
 });
 

@@ -13,6 +13,243 @@
     "host": "",
     "basePath": "/",
     "paths": {
+        "/api/auth/token/{telegramId}": {
+            "get": {
+                "description": "Creates unsigned token with specified Telegram Id. It is used to get access to the local/test servers.",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Auth"],
+                "summary": "Incognito auth token",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "int64 number that would be saved in the token as Telegram Id",
+                        "name": "telegramId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/authentication.GetIncognitoAuthTokenResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/twitter/accounts-to-process": {
+            "post": {
+                "description": "Get Twitter accounts that need to be processed",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Twitter"],
+                "summary": "Get Twitter accounts to process",
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.TwitterGetAccountsToProcessRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Accounts retrieved successfully",
+                        "schema": {
+                            "$ref": "#/definitions/controller.TwitterGetAccountsToProcessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/twitter/subscription": {
+            "post": {
+                "description": "User can specify the twitter account and the action that should be performed for the messages of that account.",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Twitter"],
+                "summary": "Create subscribtion to the twitter account",
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.TwitterSubscribeRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The subscribtion created successfully",
+                        "schema": {
+                            "$ref": "#/definitions/controller.TwitterSubscribeResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server errror",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/twitter/tweet": {
+            "post": {
+                "description": "The tweet content with creation date will be stored in the system for future processing",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Twitter"],
+                "summary": "Store Twitter tweet",
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.TwitterCreateTweetRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Content saved successfully",
+                        "schema": {
+                            "$ref": "#/definitions/controller.TwitterCreateTweetResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server errror",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/twitter/tweets": {
+            "get": {
+                "description": "Get tweets for a user that were created after the threshold time",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Twitter"],
+                "summary": "Get tweets for user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Telegram Id",
+                        "name": "telegram_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Threshold time in RFC3339 format",
+                        "name": "threshold",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Tweets retrieved successfully",
+                        "schema": {
+                            "$ref": "#/definitions/controller.TwitterGetTweetsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/twitter/unsubscribe": {
+            "post": {
+                "description": "User will be unsubscribed, and won't get new messages for processing",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Twitter"],
+                "summary": "Unsubscribes user from particular subscription",
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.TwitterUnsubscribeRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Unsubscribed",
+                        "schema": {
+                            "$ref": "#/definitions/controller.TwitterUnsubscribeResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server errror",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
         "/appopened": {
             "post": {
                 "description": "Регистрирует или обновляет пользователя при открытии приложения",
@@ -329,40 +566,6 @@
                         "description": "Информация о фонде",
                         "schema": {
                             "$ref": "#/definitions/models.FundStats"
-                        }
-                    },
-                    "500": {
-                        "description": "Ошибка сервера",
-                        "schema": {
-                            "$ref": "#/definitions/models.ResponseError"
-                        }
-                    }
-                }
-            }
-        },
-        "/news": {
-            "get": {
-                "description": "Получить список последних новостей",
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "tags": ["news"],
-                "summary": "Get latest news",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Количество новостей (по умолчанию 10)",
-                        "name": "count",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Список новостей",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.News"
-                            }
                         }
                     },
                     "500": {
@@ -991,6 +1194,11 @@
         },
         "/withdraw": {
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Вывести средства с кошелька пользователя",
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
@@ -1025,6 +1233,14 @@
         }
     },
     "definitions": {
+        "authentication.GetIncognitoAuthTokenResponse": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
         "controller.SwapInitiateRequest": {
             "type": "object",
             "properties": {
@@ -1049,6 +1265,94 @@
                     "type": "string"
                 }
             }
+        },
+        "controller.TwitterCreateTweetRequest": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "string"
+                },
+                "twitterId": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.TwitterCreateTweetResponse": {
+            "type": "object",
+            "properties": {
+                "tweet": {
+                    "$ref": "#/definitions/twitter.TwitterTweet"
+                }
+            }
+        },
+        "controller.TwitterGetAccountsToProcessRequest": {
+            "type": "object",
+            "properties": {
+                "threshold": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.TwitterGetAccountsToProcessResponse": {
+            "type": "object",
+            "properties": {
+                "accounts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/twitter.TwitterAccount"
+                    }
+                }
+            }
+        },
+        "controller.TwitterGetTweetsResponse": {
+            "type": "object",
+            "properties": {
+                "tweets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/twitter.TwitterTweetAction"
+                    }
+                }
+            }
+        },
+        "controller.TwitterSubscribeRequest": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "telegramId": {
+                    "type": "string"
+                },
+                "twitterId": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.TwitterSubscribeResponse": {
+            "type": "object",
+            "properties": {
+                "subscription": {
+                    "$ref": "#/definitions/twitter.TwitterSubscription"
+                }
+            }
+        },
+        "controller.TwitterUnsubscribeRequest": {
+            "type": "object",
+            "properties": {
+                "subscriptionId": {
+                    "type": "string"
+                },
+                "telegramId": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.TwitterUnsubscribeResponse": {
+            "type": "object"
         },
         "controllers.AppOpenedResponse": {
             "type": "object",
@@ -1127,6 +1431,7 @@
                     "type": "string"
                 },
                 "memo": {
+                    "description": "It's serialized to `memo` for API back compatability",
                     "type": "string"
                 },
                 "qrimgsrc": {
@@ -1174,17 +1479,8 @@
                 "amount": {
                     "type": "number"
                 },
-                "asset": {
+                "ticker": {
                     "type": "string"
-                },
-                "init_data": {
-                    "type": "string"
-                },
-                "memo": {
-                    "type": "string"
-                },
-                "telegram_id": {
-                    "type": "integer"
                 }
             }
         },
@@ -1302,23 +1598,6 @@
                     "type": "string"
                 },
                 "valid_to": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.News": {
-            "type": "object",
-            "properties": {
-                "content": {
-                    "type": "string"
-                },
-                "published_at": {
-                    "type": "string"
-                },
-                "source": {
-                    "type": "string"
-                },
-                "title": {
                     "type": "string"
                 }
             }
@@ -1462,9 +1741,6 @@
                 "last_name": {
                     "type": "string"
                 },
-                "memo": {
-                    "type": "string"
-                },
                 "telegram_id": {
                     "type": "integer"
                 },
@@ -1576,10 +1852,97 @@
                 "amount": {
                     "type": "string"
                 },
+                "telegramId": {
+                    "type": "string"
+                },
                 "ticker": {
                     "type": "string"
                 }
             }
+        },
+        "twitter.TwitterAccount": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "twitterId": {
+                    "type": "string"
+                }
+            }
+        },
+        "twitter.TwitterSubscription": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "twitterAccountId": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "string"
+                }
+            }
+        },
+        "twitter.TwitterTweet": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "string"
+                },
+                "twitterAccountId": {
+                    "type": "string"
+                }
+            }
+        },
+        "twitter.TwitterTweetAction": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "content": {
+                    "type": "string"
+                },
+                "subscriptionId": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "string"
+                },
+                "tweetId": {
+                    "type": "string"
+                },
+                "twitterId": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
         }
     }
 }
