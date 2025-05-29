@@ -41,13 +41,10 @@ export const newSwapRestService = injectable(
                 );
 
                 eventSource.onmessage = (event) => {
-                    console.log('event 1', event);
-                    messege.set(event.data);
+                    messege.set(JSON.parse(event.data));
                 };
 
                 eventSource.onerror = (error) => {
-                    console.log('ALARM', error);
-
                     messege.set('ERROR');
                 };
 
@@ -60,7 +57,6 @@ export const newSwapRestService = injectable(
                 getRequestGenerated(
                     swapApi.swapInitiatePost({
                         amount,
-                        // tokens,
                         tickerFrom: tokens[0],
                         tickerTo: tokens[1],
                         telegramId: telegram_id ?? 0,

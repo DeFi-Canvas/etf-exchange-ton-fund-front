@@ -100,13 +100,22 @@ export const newSwapFooter = injectable(
                 }),
                 chain(swapRestService.initiate),
                 tap((data) => {
-                    // store.setResultStatus(
-                    //     E.isRight(data) ? 'SUCCESS' : 'ERROR'
-                    // );
                     E.isLeft(data) && store.setResultStatus('ERROR');
                 }),
                 chain(constant(evs)),
                 tap((x) => {
+                    //@ts-ignore
+                    console.log(x, 'x', x.Status);
+
+                    //@ts-ignore
+                    switch (x.Status) {
+                        case 'success':
+                            store.setResultStatus('SUCCESS');
+                            break;
+                        case 'error':
+                            store.setResultStatus('ERROR');
+                            break;
+                    }
                     console.log(x, 'evs', JSON.parse(x as string));
                 })
             );
