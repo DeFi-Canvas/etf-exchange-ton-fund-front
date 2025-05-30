@@ -36,7 +36,8 @@ export const OperationsNav = memo(
             {
                 id: 1,
                 to: 'funds',
-                title: 'Funds',
+                // title: 'Funds',
+                title: 'Triggers',
                 isActive: false,
             },
             {
@@ -47,12 +48,14 @@ export const OperationsNav = memo(
             },
         ];
 
+        // const mapTittle = (to: '/' | 'funds' | 'transactions') => {
         const mapTittle = (to: '/' | 'funds' | 'transactions') => {
             switch (to) {
                 case '/':
                     return assets;
                 case 'funds':
-                    return funds;
+                    // return funds;
+                    return 'Triggers';
                 case 'transactions':
                     return transactions;
             }
