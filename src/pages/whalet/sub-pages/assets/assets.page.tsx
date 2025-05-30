@@ -38,11 +38,11 @@ export const Assets = ({ assets }: AssetsProps) => {
 
     const footerSlot = () => (
         <div className={css.footerButtons}>
-            <AppButton
+            {/* <AppButton
                 label="Choose a fund"
                 type="secondary"
                 to="/what-to-buy"
-            />
+            /> */}
             <AppButton to={'/deposit'} label="Deposit" />
         </div>
     );
@@ -69,7 +69,7 @@ export const Assets = ({ assets }: AssetsProps) => {
                         )}
                         {assets.length &&
                             assets.map((assets) => (
-                                <div>
+                                <div key={assets.id}>
                                     <Link
                                         to={`/assets/${assets.id}`}
                                         key={assets.ticker}

@@ -46,6 +46,7 @@ import Gift from '@/assets/icons/gift.svg?react';
 import Trash from '@/assets/icons/trash.svg?react';
 import ErrorSolid from '@/assets/icons/error-solid.svg?react';
 import AddImage from '@/assets/icons/add-image.svg?react';
+import Earn from '@/assets/icons/earn.svg?react';
 
 import { TTransactionStatus } from '@/pages/whalet/components/transaction/types';
 
@@ -236,6 +237,10 @@ export const AIBubbleIcon = ({ className = '' }: { className?: string }) => (
 
 export const WalletIcon = ({ className = '' }: { className?: string }) => (
     <Wallet className={className} />
+);
+
+export const EarnIcon = ({ className = '' }: { className?: string }) => (
+    <Earn className={className} />
 );
 
 export const ReloadIcon = ({ className = '' }: { className?: string }) => (

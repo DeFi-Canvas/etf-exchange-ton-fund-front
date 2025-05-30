@@ -102,7 +102,7 @@ export const getAssetsEffectMapping = (
                         return pipe(
                             data,
                             A.findFirst(
-                                (dataEl) => x.assetName === dataEl.symbol
+                                (dataEl) => x.assetName === dataEl.ticker
                             ),
                             O.fold(
                                 () => x,

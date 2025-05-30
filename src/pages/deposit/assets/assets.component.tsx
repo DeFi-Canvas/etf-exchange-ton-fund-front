@@ -32,7 +32,7 @@ const formattedData = (asset: DepositAssets | Asset): AssetsCardBaseProps => {
             id: asset.id,
             img: asset.logo,
             title: asset.name,
-            subTitle: asset.symbol,
+            subTitle: asset.ticker,
             price: asset.value.toFixed(2),
             priceText: '',
         };
@@ -49,7 +49,7 @@ export const Assets = ({ assets, type, handleClick }: AssetsProps) => {
                     ? `/deposit/${asset.ticker}/deposit-end-point`
                     : '';
             case 'withdrow':
-                return AssetCodec.is(asset) ? `/withdraw/${asset.symbol}` : '';
+                return AssetCodec.is(asset) ? `/withdraw/${asset.ticker}` : '';
         }
     };
 

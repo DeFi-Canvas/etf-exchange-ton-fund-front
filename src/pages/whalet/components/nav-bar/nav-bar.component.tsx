@@ -4,6 +4,7 @@ import {
     AIBubbleIcon,
     ArrowSwapIcon,
     DepositSwapIcon,
+    EarnIcon,
 } from '@/components/Icons/Icons';
 import css from './nav-bar.module.css';
 import { Link, NavLink } from 'react-router-dom';
@@ -44,9 +45,11 @@ export const NavBar = ({ texts }: NavBarProps) => {
         },
         {
             href: 'https://t.me/deficanvastest_bot',
-            isDisabled: false,
-            title: texts.navbar.asistent,
-            icon: <AIBubbleIcon />,
+            isDisabled: true,
+            // title: texts.navbar.asistent,
+            title: 'Earn',
+            // icon: <AIBubbleIcon />,
+            icon: <EarnIcon />,
             isExternal: true,
         },
         {
