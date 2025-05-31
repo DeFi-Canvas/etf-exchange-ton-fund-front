@@ -1,38 +1,42 @@
-import { injectable, token } from '@injectable-ts/core';
-import React from 'react';
+import { injectable, provide, token } from '@injectable-ts/core';
+import React, { memo } from 'react';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useProperty } from '@frp-ts/react';
 import PurchasePage from './purchase.page';
 import { newPurchaseSellStore } from './purchase.store';
 import { useParams } from 'react-router-dom';
 import { UserStoreService } from '@/store/user.store';
+import { I18NService } from '@/store/i18n/i18.store';
 
 export const PurchaseContainer = injectable(
     token('userStore')<UserStoreService>(),
-    (userStore) => () => {
-        const { id } = useParams();
+    token('i18n')<I18NService>(),
+    (userStore, i18n) =>
+        memo(() => {
+            const { id } = useParams();
 
-        const purchaseStore = useValueWithEffect(
-            () => newPurchaseSellStore({ userStore })(id),
-            []
-        );
+            const purchaseStore = useValueWithEffect(
+                () => newPurchaseSellStore({ userStore })(id),
+                []
+            );
 
-        const showBottomSheet = useProperty(purchaseStore.isBottomPanel);
-        const isShowBottomSheetFinishBoody = useProperty(
-            purchaseStore.isShowBottomSheetFinishBoody
-        );
-        const isLoading = useProperty(purchaseStore.isLoading);
+            const showBottomSheet = useProperty(purchaseStore.isBottomPanel);
+            const isShowBottomSheetFinishBoody = useProperty(
+                purchaseStore.isShowBottomSheetFinishBoody
+            );
+            const isLoading = useProperty(purchaseStore.isLoading);
 
-        const PurchasePageResolve = PurchasePage({
-            purchaseStore,
-        });
+            const PurchasePageResolve = PurchasePage({
+                purchaseStore,
+                i18n,
+            });
 
-        return React.createElement(PurchasePageResolve, {
-            ...purchaseStore,
-            showBottomSheet,
-            setShowBottomSheet: purchaseStore.setIsBottomPanel,
-            isShowBottomSheetFinishBoody,
-            isLoading,
-        });
-    }
+            return React.createElement(PurchasePageResolve, {
+                ...purchaseStore,
+                showBottomSheet,
+                setShowBottomSheet: purchaseStore.setIsBottomPanel,
+                isShowBottomSheetFinishBoody,
+                isLoading,
+            });
+        })
 );

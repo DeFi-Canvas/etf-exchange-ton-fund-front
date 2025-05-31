@@ -10,15 +10,6 @@ import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 export type AmountErrors = 'too small' | 'too big';
 
-const getAmountErrorsText = (err: AmountErrors) => {
-    switch (err) {
-        case 'too small':
-            return 'Minimum amount: 1 TON';
-        case 'too big':
-            return 'Insufficient balance';
-    }
-};
-
 interface AmountProps {
     currency: string;
     updateAmount: (val: number) => void;
@@ -27,6 +18,18 @@ interface AmountProps {
     isNextButtonAvailable: boolean;
     availableBalance: number;
     symbolLogo: string;
+    texts: {
+        title: string;
+        balance: string;
+        button: {
+            empty: string;
+            normal: string;
+        };
+        errors: {
+            insufficientBalance: string;
+            minimumAmount: string;
+        };
+    };
 }
 
 export const Amount = ({
@@ -37,7 +40,17 @@ export const Amount = ({
     isNextButtonAvailable,
     availableBalance,
     symbolLogo,
+    texts,
 }: AmountProps) => {
+    const getAmountErrorsText = (err: AmountErrors) => {
+        switch (err) {
+            case 'too small':
+                return texts.errors.minimumAmount;
+            case 'too big':
+                return texts.errors.insufficientBalance;
+        }
+    };
+
     const [amountValue, setAmountValue] = useState<string>('');
     const eventBuilder = useTWAEvent();
 
@@ -52,7 +65,7 @@ export const Amount = ({
 
     return (
         <div className={cn('app-container', css.page)}>
-            <h2 className={css.title}>Enter amount</h2>
+            <h2 className={css.title}>{texts.title}</h2>
             <div className={css.cardFieldAmount}>
                 <AmountField
                     currency={currency}
@@ -83,9 +96,7 @@ export const Amount = ({
                     className={css.imageAsset}
                 />
                 <div className={css.balanceInfo}>
-                    <div className={css.balanceInfoTitle}>
-                        Available balance
-                    </div>
+                    <div className={css.balanceInfoTitle}>{texts.balance}</div>
                     <div className={css.balanceInfoValue}>
                         {availableBalance}
                     </div>
@@ -94,8 +105,8 @@ export const Amount = ({
             <AppButton
                 label={
                     isNextButtonAvailable
-                        ? 'Continue'
-                        : 'Enter the total amount'
+                        ? texts.button.normal
+                        : texts.button.empty
                 }
                 type={isNextButtonAvailable ? 'default' : 'secondary'}
                 to={isNextButtonAvailable ? '/withdraw/:ticker/address' : ''}

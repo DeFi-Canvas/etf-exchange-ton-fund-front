@@ -1,4 +1,7 @@
 :root {
     --container-padding-inline: 16px;
     --tab-bar-height: 83px;
+
+    /* Design system (ds) */
+    --ds-step: 4px;
 }

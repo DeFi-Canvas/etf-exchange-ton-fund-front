@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { TransactionGroup } from '../../components/transaction/transaction.component';
 import { ITransaction } from '../../components/transaction/types';
-import { Transactions } from '../../whalet.model';
+import { WalletTransactions } from '../../wallet.model';
 import * as O from 'fp-ts/Option';
 
 export function transformTransactions(
-    transactions: Transactions[]
+    transactions: WalletTransactions[]
 ): TransactionGroup[] {
-    const groupedByDate: Record<string, Transactions[]> = {};
+    const groupedByDate: Record<string, WalletTransactions[]> = {};
     for (const transaction of transactions) {
         const dateKey = new Date(transaction.timestamp)
             .toISOString()
@@ -25,7 +25,7 @@ export function transformTransactions(
 }
 
 // TODO нужно переделать весь компонент и всратые типы
-function transformTransaction(transaction: Transactions): ITransaction {
+function transformTransaction(transaction: WalletTransactions): ITransaction {
     return {
         //@ts-ignore
         type: O.some(transaction.transactionType.toUpperCase() ?? 'BUY'),

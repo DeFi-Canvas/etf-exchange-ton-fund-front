@@ -5,7 +5,12 @@ import { Link } from 'react-router-dom';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
-export const LernMore = () => {
+interface LernMore {
+    title: string;
+    subTitle: string;
+}
+
+export const LernMore = ({ title, subTitle }: LernMore) => {
     const eventBuilder = useTWAEvent();
 
     return (
@@ -19,9 +24,7 @@ export const LernMore = () => {
             }}
         >
             <div className={css.content}>
-                <span className={css.contentTitle}>
-                    Learn more about our application in GitPages
-                </span>
+                <span className={css.contentTitle}>{title}</span>
                 <Link
                     to={
                         'https://holstby.github.io/etf-exchange-ton-fund-gitbook/docs/introduction.html'
@@ -30,7 +33,7 @@ export const LernMore = () => {
                     rel="noreferrer"
                     className={css.contentLink}
                 >
-                    Learn more <ChevronRightIcon size={16} />
+                    {subTitle} <ChevronRightIcon size={16} />
                 </Link>
             </div>
             <div className={css.imageWrapper}>

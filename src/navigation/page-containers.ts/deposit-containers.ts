@@ -1,6 +1,6 @@
-import { Deposit } from '@deposit/deposit.page';
 import { Component, getContainersArgs } from '../containers';
-import { DepositEndPointContainer } from '@deposit/pages/deposit-end-point/deposit-end-point.container';
+import { Deposit } from '@/pages/deposit/deposit.page';
+import { DepositEndPointContainer } from '@/pages/deposit/pages/deposit-end-point/deposit-end-point.container';
 
 export interface DepositContainers {
     DepositPage: Component;
@@ -9,11 +9,14 @@ export interface DepositContainers {
 
 export const getDepositContainers = ({
     userStore,
+    i18n,
 }: getContainersArgs): DepositContainers => ({
     DepositPage: Deposit({
         userStore,
+        i18n,
     }),
     DepositEndPoint: DepositEndPointContainer({
         userStore,
+        i18n,
     }),
 });

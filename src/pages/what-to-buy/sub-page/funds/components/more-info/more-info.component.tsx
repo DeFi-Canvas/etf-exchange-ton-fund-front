@@ -11,12 +11,13 @@ export interface ChartMoreInfoCardInterface {
 
 interface MoreInfoProps {
     cards: Array<E.Either<string, ChartMoreInfoCardInterface>>;
+    title: string;
 }
 
-const MoreInfo = ({ cards }: MoreInfoProps) => {
+const MoreInfo = ({ cards, title }: MoreInfoProps) => {
     return (
         <div className={css.card}>
-            <div className={css.cardTitle}>More info</div>
+            <div className={css.cardTitle}>{title}</div>
             <div className={css.cardContent}>
                 {cards.map((card) => (
                     <RenderResult

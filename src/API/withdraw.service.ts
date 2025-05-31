@@ -2,10 +2,12 @@ import { Stream } from '@most/types';
 import { Either } from 'fp-ts/lib/Either';
 import { UserStoreService } from '@/store/user.store';
 import { injectable, token } from '@injectable-ts/core';
-import { fromPromise } from '@most/core';
-import axios from 'axios';
-import { API } from './API';
+import { DOMAIN_API_URL } from './API';
+import { WalletsApi } from './scheme/rest-genereted/api';
 import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
+import { Configuration } from './scheme/rest-genereted';
+import { getRequestGenerated } from './request.utils';
+import { withdrawResponseCodec } from './contracts/withdraw.contract';
 
 interface WithdrawResponce {
     status: boolean;
@@ -20,6 +22,10 @@ interface WithdrawArgs {
     memo: string;
 }
 
+const walletsApi = new WalletsApi({
+    basePath: DOMAIN_API_URL,
+} as Configuration);
+
 export interface WithdrawRestService {
     withdraw: (data: WithdrawArgs) => Stream<Either<string, WithdrawResponce>>;
 }
@@ -27,18 +33,30 @@ export interface WithdrawRestService {
 export const newWithdrawRestService = injectable(
     token('userStore')<UserStoreService>(),
     (userStore): WithdrawRestService => {
-        const { id: telegram_id } = userStore.user.get();
         const { initDataRaw } = retrieveLaunchParams();
 
         return {
             withdraw: (data) =>
-                fromPromise(
-                    axios.post(API.withdraw, {
-                        ...data,
-                        telegram_id,
-                        init_data: initDataRaw,
-                    })
-                ),
+                getRequestGenerated(
+                    walletsApi.withdrawPost(data, {
+                        headers: { Authorization: `tma ${initDataRaw}` },
+                    }),
+                    withdrawResponseCodec
+                )(),
+            // withdraw: (data) =>
+            //     fromPromise(
+            //         axios.post(
+            //             API.withdraw,
+            //             {
+            //                 ...data,
+            //             },
+            //             {
+            //                 headers: {
+            //                     Authorization: `tma ${initDataRaw}`,
+            //                 },
+            //             }
+            //         )
+            //     ),
         };
     }
 );

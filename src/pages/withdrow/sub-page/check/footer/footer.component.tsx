@@ -10,6 +10,10 @@ interface FooterProps {
     currency: string;
     symbolLogo: string;
     onWithdrow: () => void;
+    texts: {
+        balance: string;
+        button: string;
+    };
 }
 
 export const Footer = ({
@@ -17,6 +21,7 @@ export const Footer = ({
     currency,
     symbolLogo,
     onWithdrow,
+    texts,
 }: FooterProps) => {
     const navigate = useNavigate();
     const eventBuilder = useTWAEvent();
@@ -33,7 +38,7 @@ export const Footer = ({
     return (
         <div className={cn(css.footerWrap)}>
             <div className={css.availableBalance}>
-                <span className={css.title}>Balance after withdraw</span>
+                <span className={css.title}>{texts.balance}</span>
                 <div className={css.infoWrap}>
                     <img src={symbolLogo} alt="img" className={css.imgFooter} />
                     <span className={css.balance}>
@@ -42,7 +47,7 @@ export const Footer = ({
                 </div>
             </div>
             <div className={css.footer}>
-                <AppButton label="Submit and withdraw" onClick={onClick} />
+                <AppButton label={texts.button} onClick={onClick} />
             </div>
         </div>
     );

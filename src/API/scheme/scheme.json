@@ -13,6 +13,243 @@
     "host": "",
     "basePath": "/",
     "paths": {
+        "/api/auth/token/{telegramId}": {
+            "get": {
+                "description": "Creates unsigned token with specified Telegram Id. It is used to get access to the local/test servers.",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Auth"],
+                "summary": "Incognito auth token",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "int64 number that would be saved in the token as Telegram Id",
+                        "name": "telegramId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/authentication.GetIncognitoAuthTokenResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/twitter/accounts-to-process": {
+            "post": {
+                "description": "Get Twitter accounts that need to be processed",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Twitter"],
+                "summary": "Get Twitter accounts to process",
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.TwitterGetAccountsToProcessRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Accounts retrieved successfully",
+                        "schema": {
+                            "$ref": "#/definitions/controller.TwitterGetAccountsToProcessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/twitter/subscription": {
+            "post": {
+                "description": "User can specify the twitter account and the action that should be performed for the messages of that account.",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Twitter"],
+                "summary": "Create subscribtion to the twitter account",
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.TwitterSubscribeRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The subscribtion created successfully",
+                        "schema": {
+                            "$ref": "#/definitions/controller.TwitterSubscribeResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server errror",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/twitter/tweet": {
+            "post": {
+                "description": "The tweet content with creation date will be stored in the system for future processing",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Twitter"],
+                "summary": "Store Twitter tweet",
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.TwitterCreateTweetRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Content saved successfully",
+                        "schema": {
+                            "$ref": "#/definitions/controller.TwitterCreateTweetResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server errror",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/twitter/tweets": {
+            "get": {
+                "description": "Get tweets for a user that were created after the threshold time",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Twitter"],
+                "summary": "Get tweets for user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Telegram Id",
+                        "name": "telegram_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Threshold time in RFC3339 format",
+                        "name": "threshold",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Tweets retrieved successfully",
+                        "schema": {
+                            "$ref": "#/definitions/controller.TwitterGetTweetsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/twitter/unsubscribe": {
+            "post": {
+                "description": "User will be unsubscribed, and won't get new messages for processing",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Twitter"],
+                "summary": "Unsubscribes user from particular subscription",
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.TwitterUnsubscribeRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Unsubscribed",
+                        "schema": {
+                            "$ref": "#/definitions/controller.TwitterUnsubscribeResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server errror",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
         "/appopened": {
             "post": {
                 "description": "Регистрирует или обновляет пользователя при открытии приложения",
@@ -47,18 +284,18 @@
                 }
             }
         },
-        "/asset/{asset_id}": {
+        "/asset/{address}": {
             "get": {
-                "description": "Получить информацию об активе по его идентификатору",
+                "description": "Получить информацию об активе по его идентификатору или тикеру",
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
-                "tags": ["assetss"],
-                "summary": "Get asset by ID",
+                "tags": ["assets"],
+                "summary": "Get asset by address",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Идентификатор актива",
-                        "name": "asset_id",
+                        "description": "Адрес актива или тикер",
+                        "name": "address",
                         "in": "path",
                         "required": true
                     }
@@ -111,6 +348,47 @@
                 }
             }
         },
+        "/assets/user/{user_id}": {
+            "get": {
+                "description": "Получить список активов, принадлежащих пользователю",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["assets"],
+                "summary": "Get user assets",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Идентификатор пользователя",
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список активов пользователя",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.UserAsset"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Активы не найдены",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
         "/assets/{assetName}/networks": {
             "get": {
                 "description": "Получить список сетей для указанного актива",
@@ -147,6 +425,92 @@
                         "description": "Ошибка сервера",
                         "schema": {
                             "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/dedust/liquidity/deposit": {
+            "post": {
+                "description": "Deposit native and jetton tokens into DeDust liquidity pool",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["DeDust"],
+                "summary": "Deposit liquidity on DeDust",
+                "parameters": [
+                    {
+                        "description": "Deposit request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/server.DedustDepositRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deposit initiated successfully",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/dedust/liquidity/withdraw": {
+            "post": {
+                "description": "Withdraw liquidity from DeDust liquidity pool",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["DeDust"],
+                "summary": "Withdraw liquidity from DeDust",
+                "parameters": [
+                    {
+                        "description": "Withdraw Request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/server.DedustWithdrawRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Withdraw initiated successfully",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
                         }
                     }
                 }
@@ -190,44 +554,6 @@
                 }
             }
         },
-        "/fund/{fund_id}": {
-            "get": {
-                "description": "Получить информацию о фонде по его идентификатору",
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "tags": ["funds"],
-                "summary": "Get fund by ID",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Идентификатор фонда",
-                        "name": "fund_id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Информация о фонде",
-                        "schema": {
-                            "$ref": "#/definitions/models.Fund"
-                        }
-                    },
-                    "404": {
-                        "description": "Фонд не найден",
-                        "schema": {
-                            "$ref": "#/definitions/models.ResponseError"
-                        }
-                    },
-                    "500": {
-                        "description": "Ошибка сервера",
-                        "schema": {
-                            "$ref": "#/definitions/models.ResponseError"
-                        }
-                    }
-                }
-            }
-        },
         "/fundinfo": {
             "get": {
                 "description": "Получить общую информацию о фонде",
@@ -251,20 +577,200 @@
                 }
             }
         },
-        "/funds": {
+        "/notifications/stream/{telegram_id}": {
             "get": {
-                "description": "Получить список всех фондов",
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "tags": ["funds"],
-                "summary": "Get all funds",
+                "description": "Open a server-sent events (SSE) stream to send notifications for a user",
+                "produces": ["text/event-stream"],
+                "tags": ["Stream"],
+                "summary": "Open a stream",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "telegram_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Список фондов",
+                        "description": "Transaction Stream opened successfully",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/notifications/{telegram_id}": {
+            "get": {
+                "description": "Get all notifications for a user in the last 5 days",
+                "produces": ["application/json"],
+                "tags": ["Notifications"],
+                "summary": "Get notifications for a user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "telegram_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of notifications",
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/models.Fund"
+                                "$ref": "#/definitions/server.Notification"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/storm/apr": {
+            "get": {
+                "description": "Calculate APR based on deposited tokens and LP token supply",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Storm"],
+                "summary": "Get current APR for Storm deposit",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token symbol (e.g., 'USDT', 'TON', etc.)",
+                        "name": "ticker",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "APR retrieved successfully",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/storm/liquidity/deposit": {
+            "post": {
+                "description": "Deposit native or jetton tokens into Storm liquidity pool",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Storm"],
+                "summary": "Deposit liquidity on Storm",
+                "parameters": [
+                    {
+                        "description": "Deposit request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/server.StormDepositRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deposit initiated successfully",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/storm/liquidity/withdraw": {
+            "post": {
+                "description": "Withdraw LP tokens from Storm liquidity pool",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Storm"],
+                "summary": "Withdraw liquidity from Storm",
+                "parameters": [
+                    {
+                        "description": "Deposit request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/server.StormDepositRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Withdrawal initiated successfully",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/strategies": {
+            "get": {
+                "description": "Получить список всех стратегий",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["strategies"],
+                "summary": "Get all Strategies",
+                "responses": {
+                    "200": {
+                        "description": "Список стратегий",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Strategy"
                             }
                         }
                     },
@@ -277,29 +783,92 @@
                 }
             }
         },
-        "/news": {
+        "/strategy/{strategyId}": {
             "get": {
-                "description": "Получить список последних новостей",
+                "description": "Получить информацию о стратегии по ее идентификатору",
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
-                "tags": ["news"],
-                "summary": "Get latest news",
+                "tags": ["strategies"],
+                "summary": "Get Strategy by ID",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "Количество новостей (по умолчанию 10)",
-                        "name": "count",
-                        "in": "query"
+                        "type": "string",
+                        "description": "Идентификатор стратегии",
+                        "name": "strategyId",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Список новостей",
+                        "description": "Информация о стратегии",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.News"
-                            }
+                            "$ref": "#/definitions/models.Strategy"
+                        }
+                    },
+                    "404": {
+                        "description": "Стратегия не найдена",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/stream/{telegram_id}": {
+            "get": {
+                "description": "Open a server-sent events (SSE) stream for a user",
+                "produces": ["text/event-stream"],
+                "tags": ["Stream"],
+                "summary": "Open a stream",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "telegram_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Stream opened successfully",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/swap/initiate": {
+            "post": {
+                "description": "Perform a token swap for a user",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Swap"],
+                "summary": "Initiate a swap",
+                "parameters": [
+                    {
+                        "description": "SwapRoute request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.SwapInitiateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "initiated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/controller.SwapInitiateResponse"
                         }
                     },
                     "500": {
@@ -472,41 +1041,6 @@
                 }
             }
         },
-        "/wallet/funds": {
-            "get": {
-                "description": "Получить средства пользователя из кошелька",
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "tags": ["wallets"],
-                "summary": "Get wallet funds",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Telegram ID пользователя",
-                        "name": "telegram_id",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Список средств",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.Fund"
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Ошибка сервера",
-                        "schema": {
-                            "$ref": "#/definitions/models.ResponseError"
-                        }
-                    }
-                }
-            }
-        },
         "/wallet/sellindex": {
             "post": {
                 "description": "Продать индекс для пользователя",
@@ -530,6 +1064,41 @@
                         "description": "Успешная продажа индекса",
                         "schema": {
                             "$ref": "#/definitions/controllers.SellIndexResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/wallet/strategies": {
+            "get": {
+                "description": "Получить средства пользователя из кошелька",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["wallets"],
+                "summary": "Get wallet strategies",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Telegram ID пользователя",
+                        "name": "telegram_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список средств",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Strategy"
+                            }
                         }
                     },
                     "500": {
@@ -625,6 +1194,11 @@
         },
         "/withdraw": {
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Вывести средства с кошелька пользователя",
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
@@ -659,6 +1233,127 @@
         }
     },
     "definitions": {
+        "authentication.GetIncognitoAuthTokenResponse": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.SwapInitiateRequest": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number"
+                },
+                "telegramId": {
+                    "type": "integer"
+                },
+                "tickerFrom": {
+                    "type": "string"
+                },
+                "tickerTo": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.SwapInitiateResponse": {
+            "type": "object",
+            "properties": {
+                "transactionId": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.TwitterCreateTweetRequest": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "string"
+                },
+                "twitterId": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.TwitterCreateTweetResponse": {
+            "type": "object",
+            "properties": {
+                "tweet": {
+                    "$ref": "#/definitions/twitter.TwitterTweet"
+                }
+            }
+        },
+        "controller.TwitterGetAccountsToProcessRequest": {
+            "type": "object",
+            "properties": {
+                "threshold": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.TwitterGetAccountsToProcessResponse": {
+            "type": "object",
+            "properties": {
+                "accounts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/twitter.TwitterAccount"
+                    }
+                }
+            }
+        },
+        "controller.TwitterGetTweetsResponse": {
+            "type": "object",
+            "properties": {
+                "tweets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/twitter.TwitterTweetAction"
+                    }
+                }
+            }
+        },
+        "controller.TwitterSubscribeRequest": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "telegramId": {
+                    "type": "string"
+                },
+                "twitterId": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.TwitterSubscribeResponse": {
+            "type": "object",
+            "properties": {
+                "subscription": {
+                    "$ref": "#/definitions/twitter.TwitterSubscription"
+                }
+            }
+        },
+        "controller.TwitterUnsubscribeRequest": {
+            "type": "object",
+            "properties": {
+                "subscriptionId": {
+                    "type": "string"
+                },
+                "telegramId": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.TwitterUnsubscribeResponse": {
+            "type": "object"
+        },
         "controllers.AppOpenedResponse": {
             "type": "object",
             "properties": {
@@ -676,10 +1371,10 @@
                 "asset_id": {
                     "type": "string"
                 },
-                "fund_id": {
+                "init_data": {
                     "type": "string"
                 },
-                "init_data": {
+                "strategy_id": {
                     "type": "string"
                 },
                 "telegram_id": {
@@ -712,6 +1407,9 @@
                 },
                 "telegram_id": {
                     "type": "integer"
+                },
+                "undo": {
+                    "type": "boolean"
                 }
             }
         },
@@ -733,6 +1431,7 @@
                     "type": "string"
                 },
                 "memo": {
+                    "description": "It's serialized to `memo` for API back compatability",
                     "type": "string"
                 },
                 "qrimgsrc": {
@@ -780,17 +1479,8 @@
                 "amount": {
                     "type": "number"
                 },
-                "asset": {
+                "ticker": {
                     "type": "string"
-                },
-                "init_data": {
-                    "type": "string"
-                },
-                "memo": {
-                    "type": "string"
-                },
-                "telegram_id": {
-                    "type": "integer"
                 }
             }
         },
@@ -811,8 +1501,17 @@
         "models.Asset": {
             "type": "object",
             "properties": {
-                "category": {
+                "address0": {
                     "type": "string"
+                },
+                "address1": {
+                    "type": "string"
+                },
+                "contract_address": {
+                    "type": "string"
+                },
+                "decimals": {
+                    "type": "integer"
                 },
                 "description": {
                     "type": "string"
@@ -823,7 +1522,13 @@
                 "image_url": {
                     "type": "string"
                 },
+                "market_cap": {
+                    "type": "number"
+                },
                 "name": {
+                    "type": "string"
+                },
+                "network_id": {
                     "type": "string"
                 },
                 "price": {
@@ -831,6 +1536,9 @@
                 },
                 "ticker": {
                     "type": "string"
+                },
+                "volume_24h": {
+                    "type": "number"
                 },
                 "withdrawal_fee": {
                     "type": "number"
@@ -863,58 +1571,6 @@
                 }
             }
         },
-        "models.Fund": {
-            "type": "object",
-            "properties": {
-                "assets": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.FundAsset"
-                    }
-                },
-                "description": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "image_url": {
-                    "type": "string"
-                },
-                "is_avaiable": {
-                    "type": "boolean"
-                },
-                "is_dao": {
-                    "type": "boolean"
-                },
-                "management_fee": {
-                    "type": "number"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "risk_score": {
-                    "type": "string"
-                },
-                "updated_event": {
-                    "type": "string"
-                },
-                "value": {
-                    "type": "number"
-                }
-            }
-        },
-        "models.FundAsset": {
-            "type": "object",
-            "properties": {
-                "allocation_percentage": {
-                    "type": "number"
-                },
-                "asset": {
-                    "$ref": "#/definitions/models.Asset"
-                }
-            }
-        },
         "models.FundStats": {
             "type": "object",
             "properties": {
@@ -929,8 +1585,45 @@
         "models.Network": {
             "type": "object",
             "properties": {
+                "base_currency_id": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "valid_from": {
+                    "type": "string"
+                },
+                "valid_to": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.ResponseError": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Strategy": {
+            "type": "object",
+            "properties": {
+                "assets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.StrategyAsset"
+                    }
+                },
+                "author": {
+                    "type": "string"
+                },
                 "created_at": {
-                    "type": "integer"
+                    "type": "string"
                 },
                 "description": {
                     "type": "string"
@@ -941,38 +1634,42 @@
                 "image_url": {
                     "type": "string"
                 },
-                "isTestnet": {
+                "is_available": {
                     "type": "boolean"
+                },
+                "is_dao": {
+                    "type": "boolean"
+                },
+                "management_fee": {
+                    "type": "number"
                 },
                 "name": {
                     "type": "string"
                 },
-                "updated_at": {
+                "priority_number": {
                     "type": "integer"
+                },
+                "risk_score": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "number"
                 }
             }
         },
-        "models.News": {
+        "models.StrategyAsset": {
             "type": "object",
             "properties": {
-                "content": {
+                "allocation_percentage": {
+                    "type": "number"
+                },
+                "asset": {
+                    "$ref": "#/definitions/models.Asset"
+                },
+                "dex_token_address_0": {
                     "type": "string"
                 },
-                "published_at": {
-                    "type": "string"
-                },
-                "source": {
-                    "type": "string"
-                },
-                "title": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.ResponseError": {
-            "type": "object",
-            "properties": {
-                "message": {
+                "dex_token_address_1": {
                     "type": "string"
                 }
             }
@@ -1018,6 +1715,12 @@
                 "timestamp": {
                     "type": "string"
                 },
+                "transaction_status": {
+                    "type": "string"
+                },
+                "transaction_type": {
+                    "type": "string"
+                },
                 "tx": {
                     "type": "string"
                 },
@@ -1038,14 +1741,26 @@
                 "last_name": {
                     "type": "string"
                 },
-                "memo": {
-                    "type": "integer"
-                },
                 "telegram_id": {
                     "type": "integer"
                 },
                 "username": {
                     "type": "string"
+                }
+            }
+        },
+        "models.UserAsset": {
+            "type": "object",
+            "properties": {
+                "quantity": {
+                    "description": "количество на балансе",
+                    "type": "number"
+                },
+                "ticker": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "number"
                 }
             }
         },
@@ -1082,6 +1797,152 @@
                     "type": "number"
                 }
             }
+        },
+        "server.DedustDepositRequest": {
+            "type": "object",
+            "properties": {
+                "amount0": {
+                    "type": "string"
+                },
+                "amount1": {
+                    "type": "string"
+                },
+                "tokens": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "server.DedustWithdrawRequest": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "string"
+                },
+                "tokens": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "server.Notification": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "telegram_id": {
+                    "type": "integer"
+                },
+                "timestamp": {
+                    "type": "integer"
+                }
+            }
+        },
+        "server.StormDepositRequest": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "string"
+                },
+                "telegramId": {
+                    "type": "string"
+                },
+                "ticker": {
+                    "type": "string"
+                }
+            }
+        },
+        "twitter.TwitterAccount": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "twitterId": {
+                    "type": "string"
+                }
+            }
+        },
+        "twitter.TwitterSubscription": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "twitterAccountId": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "string"
+                }
+            }
+        },
+        "twitter.TwitterTweet": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "string"
+                },
+                "twitterAccountId": {
+                    "type": "string"
+                }
+            }
+        },
+        "twitter.TwitterTweetAction": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "content": {
+                    "type": "string"
+                },
+                "subscriptionId": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "string"
+                },
+                "tweetId": {
+                    "type": "string"
+                },
+                "twitterId": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
         }
     }
 }

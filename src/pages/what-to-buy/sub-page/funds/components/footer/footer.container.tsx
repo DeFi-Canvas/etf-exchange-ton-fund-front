@@ -5,18 +5,19 @@ import { PurchaseSellStore } from '@/pages/what-to-buy/sub-page/purchase/purchas
 import { Footer } from './footer.component';
 import { pipe } from 'fp-ts/lib/function';
 import * as E from 'fp-ts/Either';
+import { I18NService } from '@/store/i18n/i18.store';
 
 export const FooterContainer = injectable(
     token('purchaseStore')<PurchaseSellStore>(),
-    (store) => () => {
+    token('i18n')<I18NService>(),
+
+    (store, i18n) => () => {
         const fundsAvailableSale = useProperty(store.fundsAvailableSale);
-        const fundAvailablebuy = pipe(
-            useProperty(store.fundData),
-            E.map(({ isAvaiable }) => !isAvaiable)
-        );
+        const { Fund: texts } = useProperty(i18n.WhatToBuy);
+
         return React.createElement(Footer, {
             fundsAvailableSale,
-            fundAvailablebuy,
+            texts,
         });
     }
 );

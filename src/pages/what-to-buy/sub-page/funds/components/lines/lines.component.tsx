@@ -7,9 +7,12 @@ import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/e
 
 interface ChartLinesProps {
     tvlValue: E.Either<string, number>;
+    texts: {
+        tvlTitle: string;
+    };
 }
 
-const ChartLines = ({ tvlValue }: ChartLinesProps) => {
+const ChartLines = ({ tvlValue, texts }: ChartLinesProps) => {
     return (
         <div className={css.chartWrapper}>
             {/* TODO: Временно скрываем из-за нерабочего состояния */}
@@ -29,7 +32,9 @@ const ChartLines = ({ tvlValue }: ChartLinesProps) => {
             {/*</div>*/}
             <RenderResult
                 data={tvlValue}
-                success={(tvlValue) => <CardPrice value={tvlValue} />}
+                success={(tvlValue) => (
+                    <CardPrice value={tvlValue} text={texts} />
+                )}
             />
             <div className={css.chartLines}>
                 <Chart

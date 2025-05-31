@@ -2,7 +2,6 @@ import * as t from 'io-ts';
 
 // /fund/{fund_id}
 const assetCodec = t.type({
-    category: t.string,
     description: t.string,
     image_url: t.string,
     name: t.string,
@@ -22,11 +21,9 @@ export const fundByIdResponseCodec = t.type({
     description: t.string,
     id: t.string,
     image_url: t.string,
-    is_avaiable: t.boolean,
     is_dao: t.boolean,
     management_fee: t.number,
     name: t.string,
     risk_score: t.string,
-    updated_event: t.string,
     value: t.number,
 });
