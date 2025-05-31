@@ -29,6 +29,8 @@ interface AssetsSinglePageProps {
 }
 
 const AssetsSinglePage = ({ asset, texts }: AssetsSinglePageProps) => {
+    console.log(asset);
+
     const moreInfoListMock: MoreInfoItem[] = [
         { title: texts.marketCap, value: '$13.8B' },
         { title: texts.volume, value: '$563.7M' },
@@ -48,7 +50,7 @@ const AssetsSinglePage = ({ asset, texts }: AssetsSinglePageProps) => {
                         />
                         <div className={css.assetCardText}>{asset.name}</div>
                     </div>
-                    <div
+                    {/* <div
                         className={cn(
                             css.card,
                             css.assetSingleChartWrapper,
@@ -61,7 +63,7 @@ const AssetsSinglePage = ({ asset, texts }: AssetsSinglePageProps) => {
                             dateRange={{ from: '4 AUG', to: '4 OCT' }}
                             controlOnClick={constVoid}
                         />
-                    </div>
+                    </div> */}
                     <div className={cn(css.card, css.aboutCard)}>
                         <h2 className={css.aboutCardTitle}>About</h2>
                         <p className={css.aboutCardText}>{asset.description}</p>

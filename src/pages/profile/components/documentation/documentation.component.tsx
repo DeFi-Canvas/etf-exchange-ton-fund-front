@@ -5,7 +5,7 @@ import { useTWAEvent } from '@tonsolutions/telemetree-react';
 
 export const Documentation = () => {
     const documentationLink =
-        'https://holstby.github.io/etf-exchange-ton-fund-gitbook/docs/introduction.html';
+        'https://defi-canvas.github.io/etf-exchange-ton-fund-gitbook/';
     const eventBuilder = useTWAEvent();
 
     return (
