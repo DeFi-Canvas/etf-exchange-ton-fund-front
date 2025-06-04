@@ -1,22 +1,27 @@
-import { Asset, AssetResponce } from '@/instance/asset/asset.model';
+import { Asset } from '@/instance/asset/asset.model';
 import { FundRespnce, FundsData } from '@/instance/fund/fund.model';
 import { TransactionsResponce } from '@/instance/transactions/transactions.model';
 import { either } from 'fp-ts';
 import * as t from 'io-ts';
+import { AssetPayload } from '@/API/contracts/assets.contract.ts';
 
 //#region RESPONCE
-export interface WalletAssetResponce extends AssetResponce {
-    // symbol: string;
+export interface WalletAssetResponse {
+    id: string;
+    name: string;
+    ticker: string;
     balance: number;
+    price: number;
+    image_url: string;
     value: number;
 }
 
 export interface WaletResponce {
     total: number;
-    assets: Array<WalletAssetResponce>;
+    assets: Array<WalletAssetResponse>;
 }
 
-export interface WalletFundsRespnce {
+export interface WalletFundsResponse {
     id: string;
     name: string;
     description: string;
@@ -27,7 +32,7 @@ export interface WalletFundsRespnce {
     is_avaiable: boolean;
     value: number;
     assets: Array<{
-        asset: AssetResponce;
+        asset: AssetPayload;
         allocation_percentage: number;
     }>;
     created_at: string;
@@ -79,11 +84,10 @@ export const normolizeTransactionKey = (
     asset: {
         name: data.asset.name,
         ticker: data.asset.ticker,
-        // category: data.asset.category,
         description: data.asset.description,
         price: data.asset.price,
-        url: data.asset.image_url,
-        withdrawalFee: data.asset.withdrawal_fee,
+        url: data.asset.imageUrl,
+        withdrawalFee: data.asset.withdrawalFee,
     },
     transactionType: data.transaction_type,
     transactionStatus: data.transaction_status,
@@ -122,7 +126,7 @@ export const getWhaletFundsValidation = (data: WhaletFundsResponce) => {
     }
 };
 
-export const mapFunds = (data: WalletFundsRespnce): FundsData => ({
+export const mapFunds = (data: WalletFundsResponse): FundsData => ({
     id: data.id,
     name: data.name,
     description: data.description,

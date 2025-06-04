@@ -26,19 +26,6 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
- * @interface AuthenticationGetIncognitoAuthTokenResponse
- */
-export interface AuthenticationGetIncognitoAuthTokenResponse {
-    /**
-     * 
-     * @type {string}
-     * @memberof AuthenticationGetIncognitoAuthTokenResponse
-     */
-    'token'?: string;
-}
-/**
- * 
- * @export
  * @interface ControllerSwapInitiateRequest
  */
 export interface ControllerSwapInitiateRequest {
@@ -217,19 +204,6 @@ export interface ControllerTwitterUnsubscribeRequest {
 /**
  * 
  * @export
- * @interface ControllersAppOpenedResponse
- */
-export interface ControllersAppOpenedResponse {
-    /**
-     * 
-     * @type {string}
-     * @memberof ControllersAppOpenedResponse
-     */
-    'user_id'?: string;
-}
-/**
- * 
- * @export
  * @interface ControllersBuyIndexData
  */
 export interface ControllersBuyIndexData {
@@ -367,6 +341,32 @@ export interface ControllersDepositResponse {
 /**
  * 
  * @export
+ * @interface ControllersGetAssetResponse
+ */
+export interface ControllersGetAssetResponse {
+    /**
+     * 
+     * @type {ModelsAsset}
+     * @memberof ControllersGetAssetResponse
+     */
+    'payload'?: ModelsAsset;
+}
+/**
+ * 
+ * @export
+ * @interface ControllersGetAssetsResponse
+ */
+export interface ControllersGetAssetsResponse {
+    /**
+     * 
+     * @type {Array<ModelsAsset>}
+     * @memberof ControllersGetAssetsResponse
+     */
+    'payload'?: Array<ModelsAsset>;
+}
+/**
+ * 
+ * @export
  * @interface ControllersSellIndexRequest
  */
 export interface ControllersSellIndexRequest {
@@ -439,11 +439,11 @@ export interface ControllersWithdrawData {
      */
     'amount'?: number;
     /**
-     * 
+     * TODO now it\'s changed to `asset` to match UI
      * @type {string}
      * @memberof ControllersWithdrawData
      */
-    'ticker'?: string;
+    'asset'?: string;
 }
 /**
  * 
@@ -493,7 +493,7 @@ export interface ModelsAsset {
      * @type {string}
      * @memberof ModelsAsset
      */
-    'contract_address'?: string;
+    'contractAddress'?: string;
     /**
      * 
      * @type {number}
@@ -517,13 +517,13 @@ export interface ModelsAsset {
      * @type {string}
      * @memberof ModelsAsset
      */
-    'image_url'?: string;
+    'imageUrl'?: string;
     /**
      * 
      * @type {number}
      * @memberof ModelsAsset
      */
-    'market_cap'?: number;
+    'marketCap'?: number;
     /**
      * 
      * @type {string}
@@ -535,7 +535,7 @@ export interface ModelsAsset {
      * @type {string}
      * @memberof ModelsAsset
      */
-    'network_id'?: string;
+    'networkId'?: string;
     /**
      * 
      * @type {number}
@@ -553,13 +553,13 @@ export interface ModelsAsset {
      * @type {number}
      * @memberof ModelsAsset
      */
-    'volume_24h'?: number;
+    'volume24h'?: number;
     /**
      * 
      * @type {number}
      * @memberof ModelsAsset
      */
-    'withdrawal_fee'?: number;
+    'withdrawalFee'?: number;
 }
 /**
  * 
@@ -602,7 +602,7 @@ export interface ModelsAssetBalance {
      * @type {string}
      * @memberof ModelsAssetBalance
      */
-    'symbol'?: string;
+    'ticker'?: string;
     /**
      * 
      * @type {number}
@@ -1020,6 +1020,57 @@ export interface ModelsWalletBalance {
 /**
  * 
  * @export
+ * @interface ModelsWalletFund
+ */
+export interface ModelsWalletFund {
+    /**
+     * 
+     * @type {ModelsStrategy}
+     * @memberof ModelsWalletFund
+     */
+    'fund'?: ModelsStrategy;
+    /**
+     * 
+     * @type {number}
+     * @memberof ModelsWalletFund
+     */
+    'value'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface ModelsWalletFunds
+ */
+export interface ModelsWalletFunds {
+    /**
+     * 
+     * @type {Array<ModelsWalletFund>}
+     * @memberof ModelsWalletFunds
+     */
+    'funds'?: Array<ModelsWalletFund>;
+    /**
+     * 
+     * @type {number}
+     * @memberof ModelsWalletFunds
+     */
+    'total'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface RoutingGetIncognitoAuthTokenResponse
+ */
+export interface RoutingGetIncognitoAuthTokenResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof RoutingGetIncognitoAuthTokenResponse
+     */
+    'token'?: string;
+}
+/**
+ * 
+ * @export
  * @interface ServerDedustDepositRequest
  */
 export interface ServerDedustDepositRequest {
@@ -1261,6 +1312,182 @@ export interface TwitterTwitterTweetAction {
 }
 
 /**
+ * AssetApi - axios parameter creator
+ * @export
+ */
+export const AssetApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Получить информацию об активе по его идентификатору или тикеру
+         * @summary Get asset by address
+         * @param {string} address Адрес актива или тикер
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiAssetAddressGet: async (address: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'address' is not null or undefined
+            assertParamExists('apiAssetAddressGet', 'address', address)
+            const localVarPath = `/api/asset/{address}`
+                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the list of all assets in the system\\
+         * @summary All assets
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiAssetGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/asset`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * AssetApi - functional programming interface
+ * @export
+ */
+export const AssetApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = AssetApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Получить информацию об активе по его идентификатору или тикеру
+         * @summary Get asset by address
+         * @param {string} address Адрес актива или тикер
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiAssetAddressGet(address: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ControllersGetAssetResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiAssetAddressGet(address, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AssetApi.apiAssetAddressGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Returns the list of all assets in the system\\
+         * @summary All assets
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiAssetGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ControllersGetAssetsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiAssetGet(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AssetApi.apiAssetGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * AssetApi - factory interface
+ * @export
+ */
+export const AssetApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = AssetApiFp(configuration)
+    return {
+        /**
+         * Получить информацию об активе по его идентификатору или тикеру
+         * @summary Get asset by address
+         * @param {string} address Адрес актива или тикер
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiAssetAddressGet(address: string, options?: RawAxiosRequestConfig): AxiosPromise<ControllersGetAssetResponse> {
+            return localVarFp.apiAssetAddressGet(address, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the list of all assets in the system\\
+         * @summary All assets
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiAssetGet(options?: RawAxiosRequestConfig): AxiosPromise<ControllersGetAssetsResponse> {
+            return localVarFp.apiAssetGet(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * AssetApi - object-oriented interface
+ * @export
+ * @class AssetApi
+ * @extends {BaseAPI}
+ */
+export class AssetApi extends BaseAPI {
+    /**
+     * Получить информацию об активе по его идентификатору или тикеру
+     * @summary Get asset by address
+     * @param {string} address Адрес актива или тикер
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AssetApi
+     */
+    public apiAssetAddressGet(address: string, options?: RawAxiosRequestConfig) {
+        return AssetApiFp(this.configuration).apiAssetAddressGet(address, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns the list of all assets in the system\\
+     * @summary All assets
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AssetApi
+     */
+    public apiAssetGet(options?: RawAxiosRequestConfig) {
+        return AssetApiFp(this.configuration).apiAssetGet(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
  * AssetsApi - axios parameter creator
  * @export
  */
@@ -1268,7 +1495,7 @@ export const AssetsApiAxiosParamCreator = function (configuration?: Configuratio
     return {
         /**
          * Получить информацию об активе по его идентификатору или тикеру
-         * @summary Get asset by address
+         * @summary DEPRECATED. Get asset by address
          * @param {string} address Адрес актива или тикер
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1336,7 +1563,7 @@ export const AssetsApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * Получить список всех активов
-         * @summary Get all assets
+         * @summary DEPRECATED. Get all assets
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1366,7 +1593,7 @@ export const AssetsApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * Получить список активов, принадлежащих пользователю
-         * @summary Get user assets
+         * @summary DEPRECATED. Get user assets
          * @param {string} userId Идентификатор пользователя
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1410,7 +1637,7 @@ export const AssetsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * Получить информацию об активе по его идентификатору или тикеру
-         * @summary Get asset by address
+         * @summary DEPRECATED. Get asset by address
          * @param {string} address Адрес актива или тикер
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1436,7 +1663,7 @@ export const AssetsApiFp = function(configuration?: Configuration) {
         },
         /**
          * Получить список всех активов
-         * @summary Get all assets
+         * @summary DEPRECATED. Get all assets
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1448,7 +1675,7 @@ export const AssetsApiFp = function(configuration?: Configuration) {
         },
         /**
          * Получить список активов, принадлежащих пользователю
-         * @summary Get user assets
+         * @summary DEPRECATED. Get user assets
          * @param {string} userId Идентификатор пользователя
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1471,7 +1698,7 @@ export const AssetsApiFactory = function (configuration?: Configuration, basePat
     return {
         /**
          * Получить информацию об активе по его идентификатору или тикеру
-         * @summary Get asset by address
+         * @summary DEPRECATED. Get asset by address
          * @param {string} address Адрес актива или тикер
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1491,7 +1718,7 @@ export const AssetsApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * Получить список всех активов
-         * @summary Get all assets
+         * @summary DEPRECATED. Get all assets
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1500,7 +1727,7 @@ export const AssetsApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * Получить список активов, принадлежащих пользователю
-         * @summary Get user assets
+         * @summary DEPRECATED. Get user assets
          * @param {string} userId Идентификатор пользователя
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1520,7 +1747,7 @@ export const AssetsApiFactory = function (configuration?: Configuration, basePat
 export class AssetsApi extends BaseAPI {
     /**
      * Получить информацию об активе по его идентификатору или тикеру
-     * @summary Get asset by address
+     * @summary DEPRECATED. Get asset by address
      * @param {string} address Адрес актива или тикер
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1544,7 +1771,7 @@ export class AssetsApi extends BaseAPI {
 
     /**
      * Получить список всех активов
-     * @summary Get all assets
+     * @summary DEPRECATED. Get all assets
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AssetsApi
@@ -1555,7 +1782,7 @@ export class AssetsApi extends BaseAPI {
 
     /**
      * Получить список активов, принадлежащих пользователю
-     * @summary Get user assets
+     * @summary DEPRECATED. Get user assets
      * @param {string} userId Идентификатор пользователя
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1625,7 +1852,7 @@ export const AuthApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiAuthTokenTelegramIdGet(telegramId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AuthenticationGetIncognitoAuthTokenResponse>> {
+        async apiAuthTokenTelegramIdGet(telegramId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoutingGetIncognitoAuthTokenResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiAuthTokenTelegramIdGet(telegramId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AuthApi.apiAuthTokenTelegramIdGet']?.[localVarOperationServerIndex]?.url;
@@ -1648,7 +1875,7 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiAuthTokenTelegramIdGet(telegramId: string, options?: RawAxiosRequestConfig): AxiosPromise<AuthenticationGetIncognitoAuthTokenResponse> {
+        apiAuthTokenTelegramIdGet(telegramId: string, options?: RawAxiosRequestConfig): AxiosPromise<RoutingGetIncognitoAuthTokenResponse> {
             return localVarFp.apiAuthTokenTelegramIdGet(telegramId, options).then((request) => request(axios, basePath));
         },
     };
@@ -3481,42 +3708,6 @@ export class TwitterApi extends BaseAPI {
 export const UsersApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Регистрирует или обновляет пользователя при открытии приложения
-         * @summary App opened
-         * @param {ModelsUser} body Данные пользователя
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        appopenedPost: async (body: ModelsUser, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('appopenedPost', 'body', body)
-            const localVarPath = `/appopened`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * Получить список всех пользователей
          * @summary Get all users
          * @param {*} [options] Override http request option.
@@ -3557,19 +3748,6 @@ export const UsersApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = UsersApiAxiosParamCreator(configuration)
     return {
         /**
-         * Регистрирует или обновляет пользователя при открытии приложения
-         * @summary App opened
-         * @param {ModelsUser} body Данные пользователя
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async appopenedPost(body: ModelsUser, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ControllersAppOpenedResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.appopenedPost(body, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['UsersApi.appopenedPost']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
          * Получить список всех пользователей
          * @summary Get all users
          * @param {*} [options] Override http request option.
@@ -3592,16 +3770,6 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
     const localVarFp = UsersApiFp(configuration)
     return {
         /**
-         * Регистрирует или обновляет пользователя при открытии приложения
-         * @summary App opened
-         * @param {ModelsUser} body Данные пользователя
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        appopenedPost(body: ModelsUser, options?: RawAxiosRequestConfig): AxiosPromise<ControllersAppOpenedResponse> {
-            return localVarFp.appopenedPost(body, options).then((request) => request(axios, basePath));
-        },
-        /**
          * Получить список всех пользователей
          * @summary Get all users
          * @param {*} [options] Override http request option.
@@ -3620,18 +3788,6 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
  * @extends {BaseAPI}
  */
 export class UsersApi extends BaseAPI {
-    /**
-     * Регистрирует или обновляет пользователя при открытии приложения
-     * @summary App opened
-     * @param {ModelsUser} body Данные пользователя
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UsersApi
-     */
-    public appopenedPost(body: ModelsUser, options?: RawAxiosRequestConfig) {
-        return UsersApiFp(this.configuration).appopenedPost(body, options).then((request) => request(this.axios, this.basePath));
-    }
-
     /**
      * Получить список всех пользователей
      * @summary Get all users
@@ -3974,7 +4130,7 @@ export const WalletsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async walletStrategiesGet(telegramId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ModelsStrategy>>> {
+        async walletStrategiesGet(telegramId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ModelsWalletFunds>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.walletStrategiesGet(telegramId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['WalletsApi.walletStrategiesGet']?.[localVarOperationServerIndex]?.url;
@@ -4068,7 +4224,7 @@ export const WalletsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        walletStrategiesGet(telegramId: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<ModelsStrategy>> {
+        walletStrategiesGet(telegramId: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<ModelsWalletFunds>> {
             return localVarFp.walletStrategiesGet(telegramId, options).then((request) => request(axios, basePath));
         },
         /**

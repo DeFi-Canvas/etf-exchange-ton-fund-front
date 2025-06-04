@@ -1,10 +1,10 @@
 import { AssetCodec } from '@/pages/whalet/wallet.model';
 import { AssetsViewModelInit } from '../assets/assets.view-model';
-import { DepositAssetsCodec, DepositAssets } from '../deposit.model';
+import { DepositAssetsCodec, DepositAsset } from '../deposit.model';
 import css from './assets-card.module.css';
 import { Asset } from '@/instance/asset/asset.model';
 
-type AssetsCardProps = (DepositAssets | Asset) & {
+type AssetsCardProps = (DepositAsset | Asset) & {
     type: AssetsViewModelInit;
 };
 export const AssetsCard = ({ type, ...rest }: AssetsCardProps) => {
@@ -20,7 +20,7 @@ export const AssetsCard = ({ type, ...rest }: AssetsCardProps) => {
     }
 };
 
-export const AssetsCardDeposit = ({ name, ticker, img }: DepositAssets) => {
+export const AssetsCardDeposit = ({ name, ticker, img }: DepositAsset) => {
     return (
         <div className={css.wrap}>
             <img src={img} className={css.img} />

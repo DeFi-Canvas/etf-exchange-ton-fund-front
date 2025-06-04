@@ -5,10 +5,10 @@ import { DOMAIN_API_URL } from './API';
 import { newLensedAtom } from '@frp-ts/lens';
 import { pipe } from 'fp-ts/lib/function';
 import { fromProperty } from '@/utils/property.utils';
-import { AssetsApi, Configuration, SwapApi } from './scheme/rest-genereted';
+import { AssetApi, Configuration, SwapApi } from './scheme/rest-genereted';
 import { Either } from 'fp-ts/lib/Either';
-import { getRequestGenerated } from './request.utils';
-import { assetsCodec } from './contracts/assets.contract';
+import { authRequestOptions, getRequestGenerated } from './request.utils';
+import { assetsResponseCodec } from './contracts/assets.contract';
 import { swapInitiateCodec } from './contracts/swap.contract';
 import { Asset } from '@/instance/asset/asset.model';
 
@@ -21,7 +21,7 @@ export interface SwapRestService {
     getAssets: () => Stream<Either<string, Array<Asset>>>;
 }
 
-const assetsApi = new AssetsApi({
+const assetsApi = new AssetApi({
     basePath: DOMAIN_API_URL,
 } as Configuration);
 const swapApi = new SwapApi({
@@ -65,9 +65,14 @@ export const newSwapRestService = injectable(
                 )(),
 
             getAssets: getRequestGenerated(
-                assetsApi.assetsGet(),
-                assetsCodec,
-                (x) => ({ ...x, logo: x.image_url })
+                assetsApi.apiAssetGet(authRequestOptions()),
+                assetsResponseCodec,
+                (response) => {
+                    return response.payload.map((asset) => ({
+                        ...asset,
+                        logo: asset.imageUrl,
+                    }));
+                }
             ),
         };
     }

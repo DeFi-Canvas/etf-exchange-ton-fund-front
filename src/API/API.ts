@@ -10,7 +10,6 @@ export const API = {
     getFunds: `${DOMAIN_API_URL}/funds`,
     getWhaletFunds: (id?: number) =>
         `${DOMAIN_API_URL}/wallet/funds?telegram_id=${id}`,
-    depositAsserts: `${DOMAIN_API_URL}/assets`,
     depositDetails: (id?: number) =>
         `${DOMAIN_API_URL}/deposit?telegram_id=${id}`,
     getTask: (id: number | undefined) =>

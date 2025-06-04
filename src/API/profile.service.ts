@@ -15,6 +15,7 @@ import { taskListCodec } from './contracts/task.contract';
 const tasksApi = new TasksApi({
     basePath: DOMAIN_API_URL,
 } as Configuration);
+
 export interface Tasks {
     TelegramID: number;
     ID: string;
@@ -55,11 +56,13 @@ export const newProfileRestService = injectable(
             isLoading: false,
         });
 
+        const mapGetTasks = (d: Tasks[]): EranStep[] => d.map(mapGetTask);
+
         return {
             getTask: getRequestGenerated(
                 tasksApi.tasksGet(telegram_id ?? 0),
                 taskListCodec,
-                mapGetTask
+                mapGetTasks
             ),
             checkTask: (id) => {
                 return fromPromise(

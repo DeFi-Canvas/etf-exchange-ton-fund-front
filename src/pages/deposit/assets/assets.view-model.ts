@@ -9,17 +9,18 @@ import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { WaletRestService } from '@/API/whalet.service';
 import { newLensedAtom } from '@frp-ts/lens';
 import { DepositRestService } from '@/API/deposit.service';
-import { DepositAssets } from '../deposit.model';
+import { DepositAsset } from '../deposit.model';
 import { AssetCodec } from '@/pages/whalet/wallet.model';
 import { WithdrowStore } from '@/pages/withdrow/withdrow.store';
 import { Asset } from '@/instance/asset/asset.model';
 
 export type AssetsViewModelInit = 'deposit' | 'withdrow';
+
 export interface AssetsViewModel {
     assets: Property<
-        E.Either<string | 'pending', Array<DepositAssets | Asset>>
+        E.Either<string | 'pending', Array<DepositAsset | Asset>>
     >;
-    handleClick: (asset: DepositAssets | Asset) => void;
+    handleClick: (asset: DepositAsset | Asset) => void;
 }
 
 export interface NewAssetsViewModel {
@@ -35,7 +36,7 @@ export const newAssetsViewModel = injectable(
     (waletRestService, newDepositRestService, store): NewAssetsViewModel =>
         (type) => {
             const assets = newLensedAtom<
-                E.Either<string | 'pending', Array<DepositAssets | Asset>>
+                E.Either<string | 'pending', Array<DepositAsset | Asset>>
             >(E.left('pending'));
 
             const currentAssets = (() => {
@@ -63,7 +64,7 @@ export const newAssetsViewModel = injectable(
                 }
             })();
 
-            const handleClick = (asset: DepositAssets | Asset) => {
+            const handleClick = (asset: DepositAsset | Asset) => {
                 const currentAssets = assets.get();
                 if (AssetCodec.is(asset) && E.isRight(currentAssets)) {
                     const currentAsset = currentAssets.right.find(

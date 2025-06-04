@@ -59,18 +59,26 @@ export const newWaletRestService = injectable(
             getFunds: getRequestGenerated(
                 strategiesApi.strategiesGet(),
                 allFundsCodec,
+                // TODO fix it with real api data if it's used in the app, or remove it
+                //@ts-ignore
                 mapFunds
             ),
             getWhaletFunds: getRequestGenerated(
                 walletsApi.walletStrategiesGet(telegram_id ?? 0),
                 walletFundsCodec,
+                // TODO fix it with real api data if it's used in the app, or remove it
+                //@ts-ignore
                 mapWhaletFunds
                 // getWhaletFundsValidation
             ),
             getTransactions: getRequestGenerated(
                 walletsApi.walletTransactionsGet(telegram_id ?? 0),
                 transactionListCodec,
-                normolizeTransactionKey
+                // TODO fix it with real api data if it's used in the app, or remove it
+                // TODO this endpoint returns data from the old transactions structure
+                //  we should replace it with the new structure where every transaction groups entries
+                //@ts-ignore
+                (transactions) => transactions.map(normolizeTransactionKey)
             ),
         };
     }
