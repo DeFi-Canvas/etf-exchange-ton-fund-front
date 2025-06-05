@@ -1,8 +1,8 @@
-import { AssetPayload } from '@/API/contracts/assets.contract.ts';
+import { AssetDto } from '@/API/contracts/assets.contract.ts';
 
 export interface TransactionsResponce {
     timestamp: string; // ISO_DATETIME
-    asset: AssetPayload;
+    asset: AssetDto;
     address: string;
     amount: number;
     value: number;

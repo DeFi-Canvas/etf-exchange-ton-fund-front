@@ -12,15 +12,15 @@ import { DepositRestService } from '@/API/deposit.service';
 import { DepositAsset } from '../deposit.model';
 import { AssetCodec } from '@/pages/whalet/wallet.model';
 import { WithdrowStore } from '@/pages/withdrow/withdrow.store';
-import { Asset } from '@/instance/asset/asset.model';
+import { AssetBalance } from '@/instance/asset/asset.model';
 
 export type AssetsViewModelInit = 'deposit' | 'withdrow';
 
 export interface AssetsViewModel {
     assets: Property<
-        E.Either<string | 'pending', Array<DepositAsset | Asset>>
+        E.Either<string | 'pending', Array<DepositAsset | AssetBalance>>
     >;
-    handleClick: (asset: DepositAsset | Asset) => void;
+    handleClick: (asset: DepositAsset | AssetBalance) => void;
 }
 
 export interface NewAssetsViewModel {
@@ -36,7 +36,7 @@ export const newAssetsViewModel = injectable(
     (waletRestService, newDepositRestService, store): NewAssetsViewModel =>
         (type) => {
             const assets = newLensedAtom<
-                E.Either<string | 'pending', Array<DepositAsset | Asset>>
+                E.Either<string | 'pending', Array<DepositAsset | AssetBalance>>
             >(E.left('pending'));
 
             const currentAssets = (() => {
@@ -64,7 +64,7 @@ export const newAssetsViewModel = injectable(
                 }
             })();
 
-            const handleClick = (asset: DepositAsset | Asset) => {
+            const handleClick = (asset: DepositAsset | AssetBalance) => {
                 const currentAssets = assets.get();
                 if (AssetCodec.is(asset) && E.isRight(currentAssets)) {
                     const currentAsset = currentAssets.right.find(

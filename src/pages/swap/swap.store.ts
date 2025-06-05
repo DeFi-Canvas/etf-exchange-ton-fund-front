@@ -38,7 +38,7 @@ import {
     getIsIdExistOnSwapAssets,
 } from './swap.store.utils';
 import { ResultOptions } from './components/swap-result/swap-result.component';
-import { Asset } from '@/instance/asset/asset.model';
+import { AssetBalance } from '@/instance/asset/asset.model';
 import { I18NService } from '@/store/i18n/i18.store';
 
 export interface SwapStore {
@@ -62,13 +62,13 @@ export interface SwapStore {
     swapTokenOrder: () => void;
 
     //#region get
-    getWaletAssets: () => E.Either<string, Array<Asset>>;
+    getWaletAssets: () => E.Either<string, Array<AssetBalance>>;
     getSwapAssets: () => E.Either<string, SwapAsset[]>;
 
     //#region set
     setSwapAssets: (assets: E.Either<string, Array<SwapAsset>>) => void;
     setAllAssets: (assets: E.Either<string, Array<FiltrebleSwapAsset>>) => void;
-    setWaletAssets: (asset: E.Either<string, Array<Asset>>) => void;
+    setWaletAssets: (asset: E.Either<string, Array<AssetBalance>>) => void;
     setCurrentVariableAsset: (id: string) => void;
     setAddCurrentVariableAsset: (id: string) => void;
     setCurrentVariableSwapAsset: (id: string) => void;
@@ -99,7 +99,7 @@ export const newSwapStore = injectable(
             state: waletAssets,
             set: setWaletAssets,
             get: getWaletAssets,
-        } = newAtomState<E.Either<string, Array<Asset>>>(E.left('pending'));
+        } = newAtomState<E.Either<string, Array<AssetBalance>>>(E.left('pending'));
 
         const {
             state: swapAssets,

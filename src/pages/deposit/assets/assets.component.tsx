@@ -9,15 +9,15 @@ import { AssetCodec } from '@/pages/whalet/wallet.model';
 import cn from 'classnames';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import { SkeletonCardSection } from '@/components/skeletons/skeleton-card/skeleton-card-section.component';
-import { Asset } from '@/instance/asset/asset.model';
+import { AssetBalance } from '@/instance/asset/asset.model';
 
 interface AssetsProps {
-    assets: E.Either<string, Array<DepositAsset | Asset>>;
+    assets: E.Either<string, Array<DepositAsset | AssetBalance>>;
     type: AssetsViewModelInit;
-    handleClick: (asset: DepositAsset | Asset) => void;
+    handleClick: (asset: DepositAsset | AssetBalance) => void;
 }
 
-const formattedData = (asset: DepositAsset | Asset): AssetsCardBaseProps => {
+const formattedData = (asset: DepositAsset | AssetBalance): AssetsCardBaseProps => {
     if (DepositAssetsCodec.is(asset)) {
         return {
             id: asset.id,
@@ -42,7 +42,7 @@ const formattedData = (asset: DepositAsset | Asset): AssetsCardBaseProps => {
 export const Assets = ({ assets, type, handleClick }: AssetsProps) => {
     const navigate = useNavigate();
 
-    const mapLink = (asset: DepositAsset | Asset) => {
+    const mapLink = (asset: DepositAsset | AssetBalance) => {
         switch (type) {
             case 'deposit':
                 return DepositAssetsCodec.is(asset)
@@ -53,7 +53,7 @@ export const Assets = ({ assets, type, handleClick }: AssetsProps) => {
         }
     };
 
-    const onClick = (asset: DepositAsset | Asset) => {
+    const onClick = (asset: DepositAsset | AssetBalance) => {
         handleClick(asset);
         navigate(mapLink(asset));
     };

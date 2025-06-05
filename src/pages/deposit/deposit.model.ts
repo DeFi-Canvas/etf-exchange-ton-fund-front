@@ -27,7 +27,7 @@ export const mapDepositAssets = ({ payload }: AssetsResponse): DepositAsset[] =>
         name: assets.name,
         ticker: assets.ticker,
         description: assets.description,
-        img: assets.imageUrl,
+        img: assets.image_url,
     }));
 
 export interface DepositAsset {

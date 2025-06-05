@@ -3,10 +3,10 @@ import * as O from 'fp-ts/Option';
 import * as A from 'fp-ts/Array';
 import { constant, flow, identity, pipe } from 'fp-ts/lib/function';
 import { SwapAsset } from './swap.model';
-import { Asset } from '@/instance/asset/asset.model';
+import { AssetBalance } from '@/instance/asset/asset.model';
 
 export const getCurrentWaletAsset = (
-    currentWaletAssets: E.Either<string, Asset[]>,
+    currentWaletAssets: E.Either<string, AssetBalance[]>,
     id: string
 ) =>
     pipe(

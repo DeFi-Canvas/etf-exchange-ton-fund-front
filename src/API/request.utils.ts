@@ -7,6 +7,45 @@ import { Either, fold } from 'fp-ts/lib/Either';
 import * as t from 'io-ts';
 import { PathReporter } from 'io-ts/lib/PathReporter';
 import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
+import { Any } from 'io-ts';
+import { DeepRequired } from '@/utils/typing.ts';
+
+export const handleGetRequest =
+    <ResultData, Codec extends Any, ResponseData>(
+        req: Promise<AxiosResponse<ResponseData, unknown>>,
+        codec: Codec & t.Type<DeepRequired<ResponseData>>,
+        transform: (data: t.TypeOf<typeof codec>) => ResultData
+    ) =>
+    <T>(): Stream<Either<string, T>> => {
+        const stream: Stream<Either<string, T>> = fromPromise(
+            req
+                .then(({ data }) => {
+                    return pipe(
+                        data,
+                        codec.decode,
+                        fold(
+                            (error) => {
+                                console.error(
+                                    'Response was not decoded',
+                                    {error},
+                                    {data}
+                                );
+                                return either.left('error');
+                            },
+                            (decoded) => {
+                                return either.of(transform(decoded));
+                            }
+                        )
+                    );
+                })
+                .catch((error) => {
+                    console.error('API Request failed:', { error });
+                    return either.left('network err');
+                })
+        );
+
+        return stream;
+    };
 
 export const getRequestGenerated =
     <ReturnType, A, O = A, I = unknown>(

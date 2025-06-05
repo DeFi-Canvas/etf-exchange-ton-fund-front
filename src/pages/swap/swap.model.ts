@@ -3,7 +3,7 @@ import { constant, flow, pipe } from 'fp-ts/lib/function';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
 import * as O from 'fp-ts/Option';
-import { Asset } from '@/instance/asset/asset.model';
+import { AssetBalance } from '@/instance/asset/asset.model';
 
 export type SwapResultStatus = 'SUCCESS' | 'ERROR' | 'PROGRESS';
 export type SwapBtnError = 'INSUFFICIENT_BALANCE' | 'EMPTY_FIELD';
@@ -21,12 +21,12 @@ export interface SwapAsset {
     hasError: boolean;
 }
 
-export interface FiltrebleSwapAsset extends Asset {
+export interface FiltrebleSwapAsset extends AssetBalance {
     isVisible: boolean;
 }
 
 export const mapAssetToFiltrebleSwapAsset = (
-    asset: Asset
+    asset: AssetBalance
 ): FiltrebleSwapAsset => ({ ...asset, isVisible: true });
 
 export type InitialAssetName = 'TON';
@@ -37,7 +37,7 @@ export const SWAP_LIST_INFO_INIT = [];
 export const formatValueInStableCoin = (price: number) =>
     `≈ $ ${price.toFixed(2)}`;
 
-export const mapAssetToSwapAsset = (asset: Asset): SwapAsset => ({
+export const mapAssetToSwapAsset = (asset: AssetBalance): SwapAsset => ({
     id: asset.id,
     imageSrc: asset.logo,
     assetName: asset.ticker,
@@ -65,8 +65,8 @@ export const mapAssetsWaletToCard = (
 });
 
 export const getAssetsEffectMapping = (
-    assets: E.Either<string, Asset[]>,
-    waletAssets: E.Either<string, Asset[]>,
+    assets: E.Either<string, AssetBalance[]>,
+    waletAssets: E.Either<string, AssetBalance[]>,
     swapAssetsSet: (a: E.Either<string, SwapAsset[]>) => void
 ) =>
     pipe(
@@ -129,7 +129,7 @@ export const prepareMapSwapAfterSwap = (
     action: 'plus' | 'minus'
 ) =>
     flow(
-        A.findFirst((waletAsset: Asset) => waletAsset.id === asset.id),
+        A.findFirst((waletAsset: AssetBalance) => waletAsset.id === asset.id),
         E.fromOption(constant('error')),
         E.map((waletAsset) => ({
             ticker: asset.assetName,

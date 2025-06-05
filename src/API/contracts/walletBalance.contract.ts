@@ -1,7 +1,7 @@
 import * as t from 'io-ts';
 
 // /wallet/balance
-const assetCodec = t.type({
+const assetBalanceCodec = t.type({
     id: t.string,
     name: t.string,
     ticker: t.string,
@@ -12,6 +12,12 @@ const assetCodec = t.type({
 });
 
 export const walletBalanceCodec = t.type({
-    assets: t.array(assetCodec),
+    assets: t.array(assetBalanceCodec),
     total: t.number,
 });
+
+export const walletBalanceResponseCodec = t.type({
+    payload: walletBalanceCodec,
+});
+
+export type WalletBalanceResponse = t.TypeOf<typeof walletBalanceResponseCodec>;

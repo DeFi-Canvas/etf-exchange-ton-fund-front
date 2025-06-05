@@ -1,4 +1,4 @@
-import { Asset } from '@/instance/asset/asset.model';
+import { AssetBalance } from '@/instance/asset/asset.model';
 import { WalletFundsResponse } from '../whalet/wallet.model';
 import { InterfacePurchaseSellAssetCardData } from './sub-page/types';
 import { FundsData } from '@/instance/fund/fund.model';
@@ -20,7 +20,7 @@ export const mapFunds = (data: WalletFundsResponse): FundsData => ({
         name: asset.name,
         balance: asset.price,
         price: asset.price,
-        logo: asset.imageUrl,
+        logo: asset.image_url,
         value: 0,
         allocationPercentage: allocation_percentage,
         ticker: asset.ticker,
@@ -30,7 +30,7 @@ export const mapFunds = (data: WalletFundsResponse): FundsData => ({
 });
 
 export const mapAssetToUICard = (
-    asset: Asset,
+    asset: AssetBalance,
     allowedOpen?: boolean,
     isBackgroundWhite?: boolean
 ): InterfacePurchaseSellAssetCardData => ({

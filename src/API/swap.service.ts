@@ -7,10 +7,15 @@ import { pipe } from 'fp-ts/lib/function';
 import { fromProperty } from '@/utils/property.utils';
 import { AssetApi, Configuration, SwapApi } from './scheme/rest-genereted';
 import { Either } from 'fp-ts/lib/Either';
-import { authRequestOptions, getRequestGenerated } from './request.utils';
+import {
+    authRequestOptions,
+    getRequestGenerated,
+    handleGetRequest,
+} from './request.utils';
 import { assetsResponseCodec } from './contracts/assets.contract';
 import { swapInitiateCodec } from './contracts/swap.contract';
-import { Asset } from '@/instance/asset/asset.model';
+import { AssetBalance } from '@/instance/asset/asset.model';
+import { assetResponseMapping, assetsResponseMapping } from '@pages/assets-single/asset-single.model.ts';
 
 export interface SwapRestService {
     getConnection: () => { evs: Stream<unknown>; unsubscription: () => void };
@@ -18,7 +23,7 @@ export interface SwapRestService {
         amount: number;
         tokens: Array<string>;
     }) => Stream<Either<string, unknown>>;
-    getAssets: () => Stream<Either<string, Array<Asset>>>;
+    getAssets: () => Stream<Either<string, Array<AssetBalance>>>;
 }
 
 const assetsApi = new AssetApi({
@@ -64,15 +69,11 @@ export const newSwapRestService = injectable(
                     swapInitiateCodec
                 )(),
 
-            getAssets: getRequestGenerated(
+            // TODO it looks like we often copy same endpoints into different services. Should we instead inject different services if the different endpoints are needed?
+            getAssets: handleGetRequest(
                 assetsApi.apiAssetGet(authRequestOptions()),
                 assetsResponseCodec,
-                (response) => {
-                    return response.payload.map((asset) => ({
-                        ...asset,
-                        logo: asset.imageUrl,
-                    }));
-                }
+                assetsResponseMapping
             ),
         };
     }

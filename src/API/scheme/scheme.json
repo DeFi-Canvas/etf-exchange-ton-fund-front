@@ -20,7 +20,7 @@
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "Returns the list of all assets in the system\\",
+                "description": "Returns the list of all assets in the system",
                 "consumes": [
                     "application/json"
                 ],
@@ -369,6 +369,40 @@
                 }
             }
         },
+        "/api/wallet/balance": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get the user's balance per asset",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wallet"
+                ],
+                "summary": "Get wallet balance",
+                "responses": {
+                    "200": {
+                        "description": "Wallet balance",
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiResponse-models_WalletBalance"
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
         "/asset/{address}": {
             "get": {
                 "description": "Получить информацию об активе по его идентификатору или тикеру",
@@ -479,53 +513,6 @@
                     },
                     "404": {
                         "description": "Активы не найдены",
-                        "schema": {
-                            "$ref": "#/definitions/models.ResponseError"
-                        }
-                    },
-                    "500": {
-                        "description": "Ошибка сервера",
-                        "schema": {
-                            "$ref": "#/definitions/models.ResponseError"
-                        }
-                    }
-                }
-            }
-        },
-        "/assets/{assetName}/networks": {
-            "get": {
-                "description": "Получить список сетей для указанного актива",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "assets"
-                ],
-                "summary": "Get networks for an asset",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Название актива",
-                        "name": "assetName",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Список сетей",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.Network"
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Актив не найден",
                         "schema": {
                             "$ref": "#/definitions/models.ResponseError"
                         }
@@ -1186,7 +1173,7 @@
                 "tags": [
                     "wallets"
                 ],
-                "summary": "Get wallet balance",
+                "summary": "DEPRECATED Get wallet balance",
                 "parameters": [
                     {
                         "type": "integer",
@@ -1752,7 +1739,7 @@
                 "address1": {
                     "type": "string"
                 },
-                "contractAddress": {
+                "contract_address": {
                     "type": "string"
                 },
                 "decimals": {
@@ -1764,16 +1751,16 @@
                 "id": {
                     "type": "string"
                 },
-                "imageUrl": {
+                "image_url": {
                     "type": "string"
                 },
-                "marketCap": {
+                "market_cap": {
                     "type": "number"
                 },
                 "name": {
                     "type": "string"
                 },
-                "networkId": {
+                "network_id": {
                     "type": "string"
                 },
                 "price": {
@@ -1782,10 +1769,10 @@
                 "ticker": {
                     "type": "string"
                 },
-                "volume24h": {
+                "volume_24h": {
                     "type": "number"
                 },
-                "withdrawalFee": {
+                "withdrawal_fee": {
                     "type": "number"
                 }
             }
@@ -1824,26 +1811,6 @@
                 },
                 "tvl": {
                     "type": "number"
-                }
-            }
-        },
-        "models.Network": {
-            "type": "object",
-            "properties": {
-                "base_currency_id": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "valid_from": {
-                    "type": "string"
-                },
-                "valid_to": {
-                    "type": "string"
                 }
             }
         },
@@ -2065,6 +2032,14 @@
                 },
                 "total": {
                     "type": "number"
+                }
+            }
+        },
+        "routing.ApiResponse-models_WalletBalance": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/models.WalletBalance"
                 }
             }
         },

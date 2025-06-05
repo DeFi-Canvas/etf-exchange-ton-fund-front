@@ -10,10 +10,10 @@ import * as E from 'fp-ts/Either';
 import { injectable, token } from '@injectable-ts/core';
 import { pipe } from 'fp-ts/lib/function';
 import { tap } from '@most/core';
-import { AssetResponseMapping } from '@/pages/assets-single/asset-single.model.ts';
+import { Asset } from '@/instance/asset/asset.model.ts';
 
 export interface AssetsSingleViewModel {
-    asset: Property<Either<string, AssetResponseMapping>>;
+    asset: Property<Either<string, Asset>>;
 }
 
 export interface NewAssetsSingleViewModel {
@@ -24,7 +24,7 @@ export const newAssetsSingleViewModel = injectable(
     token('assetRestService')<AssetsRestService>(),
     (assetService): NewAssetsSingleViewModel =>
         (assetId) => {
-            const asset = newLensedAtom<Either<string, AssetResponseMapping>>(
+            const asset = newLensedAtom<Either<string, Asset>>(
                 E.left('pending')
             );
 

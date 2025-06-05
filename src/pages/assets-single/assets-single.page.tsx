@@ -1,6 +1,3 @@
-import { Chart } from '@/components/chart/chart.component.tsx';
-import { constVoid } from 'fp-ts/function';
-import { CardPrice } from '@/pages/what-to-buy/sub-page/funds/components/price/price.components.tsx';
 import css from './assets-single.module.css';
 import cn from 'classnames';
 import TermsAndConditions from '@/components/terms-and-conditions/terms-and-conditions.components.tsx';
@@ -8,7 +5,7 @@ import AppFooter from '@/components/app-footer/app-footer.components.tsx';
 import AppButton from '@/components/app-button/app-button.component.tsx';
 import { Either } from 'fp-ts/Either';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component.tsx';
-import { AssetResponseMapping } from '@/pages/assets-single/asset-single.model.ts';
+import { Asset } from '@/instance/asset/asset.model.ts';
 
 interface MoreInfoItem {
     title: string;
@@ -16,7 +13,7 @@ interface MoreInfoItem {
 }
 
 interface AssetsSinglePageProps {
-    asset: Either<string, AssetResponseMapping>;
+    asset: Either<string, Asset>;
     texts: {
         tvl: string;
         about: string;

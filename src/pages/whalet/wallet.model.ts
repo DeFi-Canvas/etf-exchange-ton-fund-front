@@ -1,9 +1,10 @@
-import { Asset } from '@/instance/asset/asset.model';
+import { AssetBalance } from '@/instance/asset/asset.model';
 import { FundRespnce, FundsData } from '@/instance/fund/fund.model';
 import { TransactionsResponce } from '@/instance/transactions/transactions.model';
 import { either } from 'fp-ts';
 import * as t from 'io-ts';
-import { AssetPayload } from '@/API/contracts/assets.contract.ts';
+import { AssetDto } from '@/API/contracts/assets.contract.ts';
+import { WalletBalanceResponse } from '@/API/contracts/walletBalance.contract.ts';
 
 //#region RESPONCE
 export interface WalletAssetResponse {
@@ -32,7 +33,7 @@ export interface WalletFundsResponse {
     is_avaiable: boolean;
     value: number;
     assets: Array<{
-        asset: AssetPayload;
+        asset: AssetDto;
         allocation_percentage: number;
     }>;
     created_at: string;
@@ -86,15 +87,17 @@ export const normolizeTransactionKey = (
         ticker: data.asset.ticker,
         description: data.asset.description,
         price: data.asset.price,
-        url: data.asset.imageUrl,
-        withdrawalFee: data.asset.withdrawalFee,
+        url: data.asset.image_url,
+        withdrawalFee: data.asset.withdrawal_fee,
     },
     transactionType: data.transaction_type,
     transactionStatus: data.transaction_status,
 });
 
-export const mapAssetsFromBalance = (data: WaletResponce): Array<Asset> =>
-    data.assets.map((asset) => ({ ...asset, logo: asset.image_url }));
+export const mapAssetsFromBalance = (
+    data: WalletBalanceResponse
+): Array<AssetBalance> =>
+    data.payload.assets.map((asset) => ({ ...asset, logo: asset.image_url }));
 
 export const assetsFromBalanceValidation = (data: WaletResponce) => {
     if (data.total === 0) {

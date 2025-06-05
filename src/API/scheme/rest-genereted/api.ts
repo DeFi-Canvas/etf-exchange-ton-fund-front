@@ -493,7 +493,7 @@ export interface ModelsAsset {
      * @type {string}
      * @memberof ModelsAsset
      */
-    'contractAddress'?: string;
+    'contract_address'?: string;
     /**
      * 
      * @type {number}
@@ -517,13 +517,13 @@ export interface ModelsAsset {
      * @type {string}
      * @memberof ModelsAsset
      */
-    'imageUrl'?: string;
+    'image_url'?: string;
     /**
      * 
      * @type {number}
      * @memberof ModelsAsset
      */
-    'marketCap'?: number;
+    'market_cap'?: number;
     /**
      * 
      * @type {string}
@@ -535,7 +535,7 @@ export interface ModelsAsset {
      * @type {string}
      * @memberof ModelsAsset
      */
-    'networkId'?: string;
+    'network_id'?: string;
     /**
      * 
      * @type {number}
@@ -553,13 +553,13 @@ export interface ModelsAsset {
      * @type {number}
      * @memberof ModelsAsset
      */
-    'volume24h'?: number;
+    'volume_24h'?: number;
     /**
      * 
      * @type {number}
      * @memberof ModelsAsset
      */
-    'withdrawalFee'?: number;
+    'withdrawal_fee'?: number;
 }
 /**
  * 
@@ -628,43 +628,6 @@ export interface ModelsFundStats {
      * @memberof ModelsFundStats
      */
     'tvl'?: number;
-}
-/**
- * 
- * @export
- * @interface ModelsNetwork
- */
-export interface ModelsNetwork {
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsNetwork
-     */
-    'base_currency_id'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsNetwork
-     */
-    'id'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsNetwork
-     */
-    'name'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsNetwork
-     */
-    'valid_from'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsNetwork
-     */
-    'valid_to'?: string;
 }
 /**
  * 
@@ -1058,6 +1021,19 @@ export interface ModelsWalletFunds {
 /**
  * 
  * @export
+ * @interface RoutingApiResponseModelsWalletBalance
+ */
+export interface RoutingApiResponseModelsWalletBalance {
+    /**
+     * 
+     * @type {ModelsWalletBalance}
+     * @memberof RoutingApiResponseModelsWalletBalance
+     */
+    'payload'?: ModelsWalletBalance;
+}
+/**
+ * 
+ * @export
  * @interface RoutingGetIncognitoAuthTokenResponse
  */
 export interface RoutingGetIncognitoAuthTokenResponse {
@@ -1355,7 +1331,7 @@ export const AssetApiAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * Returns the list of all assets in the system\\
+         * Returns the list of all assets in the system
          * @summary All assets
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1411,7 +1387,7 @@ export const AssetApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Returns the list of all assets in the system\\
+         * Returns the list of all assets in the system
          * @summary All assets
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1443,7 +1419,7 @@ export const AssetApiFactory = function (configuration?: Configuration, basePath
             return localVarFp.apiAssetAddressGet(address, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns the list of all assets in the system\\
+         * Returns the list of all assets in the system
          * @summary All assets
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1474,7 +1450,7 @@ export class AssetApi extends BaseAPI {
     }
 
     /**
-     * Returns the list of all assets in the system\\
+     * Returns the list of all assets in the system
      * @summary All assets
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1505,40 +1481,6 @@ export const AssetsApiAxiosParamCreator = function (configuration?: Configuratio
             assertParamExists('assetAddressGet', 'address', address)
             const localVarPath = `/asset/{address}`
                 .replace(`{${"address"}}`, encodeURIComponent(String(address)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Получить список сетей для указанного актива
-         * @summary Get networks for an asset
-         * @param {string} assetName Название актива
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        assetsAssetNameNetworksGet: async (assetName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'assetName' is not null or undefined
-            assertParamExists('assetsAssetNameNetworksGet', 'assetName', assetName)
-            const localVarPath = `/assets/{assetName}/networks`
-                .replace(`{${"assetName"}}`, encodeURIComponent(String(assetName)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1649,19 +1591,6 @@ export const AssetsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Получить список сетей для указанного актива
-         * @summary Get networks for an asset
-         * @param {string} assetName Название актива
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async assetsAssetNameNetworksGet(assetName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ModelsNetwork>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.assetsAssetNameNetworksGet(assetName, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AssetsApi.assetsAssetNameNetworksGet']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
          * Получить список всех активов
          * @summary DEPRECATED. Get all assets
          * @param {*} [options] Override http request option.
@@ -1707,16 +1636,6 @@ export const AssetsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.assetAddressGet(address, options).then((request) => request(axios, basePath));
         },
         /**
-         * Получить список сетей для указанного актива
-         * @summary Get networks for an asset
-         * @param {string} assetName Название актива
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        assetsAssetNameNetworksGet(assetName: string, options?: RawAxiosRequestConfig): AxiosPromise<Array<ModelsNetwork>> {
-            return localVarFp.assetsAssetNameNetworksGet(assetName, options).then((request) => request(axios, basePath));
-        },
-        /**
          * Получить список всех активов
          * @summary DEPRECATED. Get all assets
          * @param {*} [options] Override http request option.
@@ -1755,18 +1674,6 @@ export class AssetsApi extends BaseAPI {
      */
     public assetAddressGet(address: string, options?: RawAxiosRequestConfig) {
         return AssetsApiFp(this.configuration).assetAddressGet(address, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Получить список сетей для указанного актива
-     * @summary Get networks for an asset
-     * @param {string} assetName Название актива
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AssetsApi
-     */
-    public assetsAssetNameNetworksGet(assetName: string, options?: RawAxiosRequestConfig) {
-        return AssetsApiFp(this.configuration).assetsAssetNameNetworksGet(assetName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3803,6 +3710,110 @@ export class UsersApi extends BaseAPI {
 
 
 /**
+ * WalletApi - axios parameter creator
+ * @export
+ */
+export const WalletApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Get the user\'s balance per asset
+         * @summary Get wallet balance
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiWalletBalanceGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/wallet/balance`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * WalletApi - functional programming interface
+ * @export
+ */
+export const WalletApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = WalletApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Get the user\'s balance per asset
+         * @summary Get wallet balance
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiWalletBalanceGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoutingApiResponseModelsWalletBalance>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiWalletBalanceGet(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['WalletApi.apiWalletBalanceGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * WalletApi - factory interface
+ * @export
+ */
+export const WalletApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = WalletApiFp(configuration)
+    return {
+        /**
+         * Get the user\'s balance per asset
+         * @summary Get wallet balance
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiWalletBalanceGet(options?: RawAxiosRequestConfig): AxiosPromise<RoutingApiResponseModelsWalletBalance> {
+            return localVarFp.apiWalletBalanceGet(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * WalletApi - object-oriented interface
+ * @export
+ * @class WalletApi
+ * @extends {BaseAPI}
+ */
+export class WalletApi extends BaseAPI {
+    /**
+     * Get the user\'s balance per asset
+     * @summary Get wallet balance
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WalletApi
+     */
+    public apiWalletBalanceGet(options?: RawAxiosRequestConfig) {
+        return WalletApiFp(this.configuration).apiWalletBalanceGet(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
  * WalletsApi - axios parameter creator
  * @export
  */
@@ -3810,7 +3821,7 @@ export const WalletsApiAxiosParamCreator = function (configuration?: Configurati
     return {
         /**
          * Получить баланс кошелька пользователя
-         * @summary Get wallet balance
+         * @summary DEPRECATED Get wallet balance
          * @param {number} telegramId Telegram ID пользователя
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4086,7 +4097,7 @@ export const WalletsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * Получить баланс кошелька пользователя
-         * @summary Get wallet balance
+         * @summary DEPRECATED Get wallet balance
          * @param {number} telegramId Telegram ID пользователя
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4189,7 +4200,7 @@ export const WalletsApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * Получить баланс кошелька пользователя
-         * @summary Get wallet balance
+         * @summary DEPRECATED Get wallet balance
          * @param {number} telegramId Telegram ID пользователя
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4271,7 +4282,7 @@ export const WalletsApiFactory = function (configuration?: Configuration, basePa
 export class WalletsApi extends BaseAPI {
     /**
      * Получить баланс кошелька пользователя
-     * @summary Get wallet balance
+     * @summary DEPRECATED Get wallet balance
      * @param {number} telegramId Telegram ID пользователя
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

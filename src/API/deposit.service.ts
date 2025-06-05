@@ -3,7 +3,11 @@ import { Either } from 'fp-ts/lib/Either';
 import { UserStoreService } from '@/store/user.store';
 import { injectable, token } from '@injectable-ts/core';
 import { DepositDetails } from '@/pages/deposit/pages/deposit-end-point/deposit-end-point.view-model';
-import { authRequestOptions, getRequestGenerated } from './request.utils';
+import {
+    authRequestOptions,
+    getRequestGenerated,
+    handleGetRequest,
+} from './request.utils';
 import {
     DepositAsset,
     mapDepositAssets,
@@ -31,7 +35,7 @@ export const newDepositRestService = injectable(
         const { id: telegram_id } = userStore.user.get();
 
         return {
-            getDepositAssets: getRequestGenerated(
+            getDepositAssets: handleGetRequest(
                 assetsApi.apiAssetGet(authRequestOptions()),
                 assetsResponseCodec,
                 mapDepositAssets
