@@ -14,6 +14,7 @@ import { Onboarding } from '@/components/onboarding/onboarding.component.tsx';
 import { I18NService } from '@/store/i18n/i18.store';
 import { useProperty } from '@frp-ts/react';
 import { AiAgent } from './components/news/ai-agent.component';
+import { formatNumberExponent } from '@/utils/number';
 
 export interface WhatToBuyPageProps {
     balance: O.Option<number>;
@@ -32,6 +33,13 @@ export const WaletPage = injectable(
     (BalanceContainer, OperationsNavContainer, i18n) => () => {
         const isOnboardingShown = localStorage.getItem('isOnboardingShown');
         const texts = useProperty(i18n.Wallet);
+        // formatNumberExponent(123.0000000000000000000009);
+        console.log(
+            formatNumberExponent(0.0000000000000000000000000000000000000000009),
+            formatNumberExponent(
+                0.0000000000000000000000000000000000000000001239
+            )
+        );
 
         return (
             <div className={css.application}>

@@ -3,3 +3,15 @@ export const formatNumberToUI = (val: number) =>
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
     });
+
+export const formatNumberExponent = (x: number) => {
+    const exp = x.toExponential();
+    const bufferNumber = x.toFixed(2);
+    const isMoreThrnThero =
+        !!Number(bufferNumber.split('.')[0]) &&
+        bufferNumber.split('.').length > 1;
+
+    if (isMoreThrnThero) return bufferNumber;
+    const floatPart = exp.split('e')[0].split('.').join('');
+    return `0.000...${floatPart}`;
+};
