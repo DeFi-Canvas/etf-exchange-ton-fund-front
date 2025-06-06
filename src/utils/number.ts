@@ -12,6 +12,8 @@ export const formatNumberExponent = (x: number) => {
         bufferNumber.split('.').length > 1;
 
     if (isMoreThrnThero) return bufferNumber;
+
     const floatPart = exp.split('e')[0].split('.').join('');
-    return `0.000...${floatPart}`;
+    const thero = new Array(9 - floatPart.split('').length).fill('0').join('');
+    return `0.${thero}...${floatPart}`;
 };
