@@ -13,6 +13,7 @@ import { newSwapRestService } from '@/API/swap.service';
 import { newWaletRestService } from '@/API/whalet.service';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
+import { newAssetsRestService } from '@/API/assets.service.ts';
 
 export interface SwapHeader {
     onClick: () => void;
