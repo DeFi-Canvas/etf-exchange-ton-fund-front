@@ -99,7 +99,9 @@ export const newSwapStore = injectable(
             state: waletAssets,
             set: setWaletAssets,
             get: getWaletAssets,
-        } = newAtomState<E.Either<string, Array<AssetBalance>>>(E.left('pending'));
+        } = newAtomState<E.Either<string, Array<AssetBalance>>>(
+            E.left('pending')
+        );
 
         const {
             state: swapAssets,

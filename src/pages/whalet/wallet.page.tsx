@@ -33,13 +33,6 @@ export const WaletPage = injectable(
     (BalanceContainer, OperationsNavContainer, i18n) => () => {
         const isOnboardingShown = localStorage.getItem('isOnboardingShown');
         const texts = useProperty(i18n.Wallet);
-        // formatNumberExponent(123.0000000000000000000009);
-        console.log(
-            formatNumberExponent(0.0000000000000000000000000000000000000000009),
-            formatNumberExponent(
-                0.0000000000000000000000000000000000000000001239
-            )
-        );
 
         return (
             <div className={css.application}>

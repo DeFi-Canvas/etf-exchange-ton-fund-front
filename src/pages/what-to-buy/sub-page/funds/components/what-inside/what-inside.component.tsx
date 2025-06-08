@@ -32,7 +32,7 @@ const WhatInside = ({ assets, texts }: WhatInsideProps) => {
                                 <Link key={asset.id} to={`/assets/${asset.id}`}>
                                     <div className={css.cardItem}>
                                         <img
-                                            src={asset.logo}
+                                            src={asset.imageUrl}
                                             className={css.cardItemImage}
                                         />
                                         <div className={css.cardContentInfo}>

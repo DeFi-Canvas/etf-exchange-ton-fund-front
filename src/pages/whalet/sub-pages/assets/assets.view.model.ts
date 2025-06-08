@@ -39,6 +39,7 @@ export const newAssetsViewModel = injectable(
                         either.map((assets) =>
                             assets.map((asset) => ({
                                 ...asset,
+                                logo: asset.imageUrl,
                                 ticker: asset.ticker,
                                 coinAmount: asset.balance,
                                 cost: asset.price,

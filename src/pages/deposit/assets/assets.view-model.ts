@@ -48,11 +48,8 @@ export const newAssetsViewModel = injectable(
                                 pipe(
                                     x,
                                     E.map(
-                                        flow(
-                                            A.filter(
-                                                (asset) =>
-                                                    asset.ticker === 'TON'
-                                            )
+                                        A.filter(
+                                            (asset) => asset.ticker === 'TON'
                                         )
                                     )
                                 )
@@ -73,7 +70,7 @@ export const newAssetsViewModel = injectable(
                     if (AssetCodec.is(currentAsset)) {
                         store.setAvailableBalance(currentAsset.balance);
                         store.setTickerPrice(currentAsset.price);
-                        store.setSymbolLogo(currentAsset.logo);
+                        store.setSymbolLogo(currentAsset.imageUrl);
                     }
                 }
             };

@@ -26,8 +26,6 @@ interface AssetsSinglePageProps {
 }
 
 const AssetsSinglePage = ({ asset, texts }: AssetsSinglePageProps) => {
-    console.log(asset);
-
     const moreInfoListMock: MoreInfoItem[] = [
         { title: texts.marketCap, value: '$13.8B' },
         { title: texts.volume, value: '$563.7M' },
