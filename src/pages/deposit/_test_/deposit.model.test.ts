@@ -17,20 +17,33 @@ describe('newNewUserStoreService', () => {
 
     it('should return mapped DepositAssets', () => {
         const data = {
-            id: 'string',
-            name: 'string',
-            ticker: 'string',
-            category: 'string',
-            description: 'string',
-            image_url: 'string',
+            payload: [
+                {
+                    id: 'string',
+                    name: 'string',
+                    contract_address: 'string',
+                    address0: 'string',
+                    address1: 'string',
+                    decimals: 1,
+                    description: 'string',
+                    image_url: 'string',
+                    market_cap: 1,
+                    network_id: 'string',
+                    price: 1,
+                    ticker: 'string',
+                    volume_24h: 1,
+                    withdrawal_fee: 1,
+                },
+            ],
         };
-        expect(mapDepositAssets(data)).toStrictEqual({
-            id: 'string',
-            name: 'string',
-            ticker: 'string',
-            description: 'string',
-            category: 'string',
-            img: 'string',
-        });
+        expect(mapDepositAssets(data)).toStrictEqual([
+            {
+                id: 'string',
+                name: 'string',
+                ticker: 'string',
+                description: 'string',
+                img: 'string',
+            },
+        ]);
     });
 });

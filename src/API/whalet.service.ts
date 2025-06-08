@@ -2,11 +2,13 @@ import { Stream } from '@most/types';
 import { Either } from 'fp-ts/lib/Either';
 import { UserStoreService } from '@/store/user.store';
 import { injectable, token } from '@injectable-ts/core';
-import { getRequestGenerated } from './request.utils';
 import {
-    getWhaletFundsValidation,
+    authRequestOptions,
+    getRequestGenerated,
+    handleGetRequest,
+} from './request.utils';
+import {
     mapAssetsFromBalance,
-    assetsFromBalanceValidation,
     mapFunds,
     mapWhaletFunds,
     normolizeTransactionKey,
@@ -14,23 +16,35 @@ import {
     WaletResponce,
 } from '@/pages/whalet/wallet.model';
 import { DOMAIN_API_URL } from './API';
-import { StrategiesApi, WalletsApi } from './scheme/rest-genereted/api';
+import {
+    StrategiesApi,
+    WalletApi,
+    WalletsApi,
+} from './scheme/rest-genereted/api';
 
-import { walletBalanceCodec } from './contracts/walletBalance.contract';
+import {
+    walletBalanceCodec,
+    walletBalanceResponseCodec,
+} from './contracts/walletBalance.contract';
 import { Configuration } from './scheme/rest-genereted';
 import { walletFundsCodec } from './contracts/walletFunds.contract';
 import { transactionListCodec } from './contracts/walletTransaction.contract';
 import { allFundsCodec } from './contracts/funds.contract';
-import { Asset } from '@/instance/asset/asset.model';
+import { AssetBalance } from '@/instance/asset/asset.model';
 import { FundsData } from '@/instance/fund/fund.model';
+import { AxiosResponse } from 'axios';
 
 export interface WaletRestService {
     getBalance: () => Stream<Either<string, WaletResponce>>;
-    getAssets: () => Stream<Either<string, Array<Asset>>>;
+    getAssets: () => Stream<Either<string, Array<AssetBalance>>>;
     getFunds: () => Stream<Either<string, Array<FundsData>>>;
     getWhaletFunds: () => Stream<Either<string, Array<FundsData>>>;
     getTransactions: () => Stream<Either<string, Array<WalletTransactions>>>;
 }
+
+const walletApi = new WalletApi({
+    basePath: DOMAIN_API_URL,
+} as Configuration);
 
 const walletsApi = new WalletsApi({
     basePath: DOMAIN_API_URL,
@@ -50,27 +64,34 @@ export const newWaletRestService = injectable(
                 walletsApi.walletBalanceGet(telegram_id ?? 0),
                 walletBalanceCodec
             ),
-            getAssets: getRequestGenerated(
-                walletsApi.walletBalanceGet(telegram_id ?? 0),
-                walletBalanceCodec,
-                mapAssetsFromBalance,
-                assetsFromBalanceValidation
+            getAssets: handleGetRequest(
+                walletApi.apiWalletBalanceGet(authRequestOptions()),
+                walletBalanceResponseCodec,
+                mapAssetsFromBalance
             ),
             getFunds: getRequestGenerated(
                 strategiesApi.strategiesGet(),
                 allFundsCodec,
+                // TODO fix it with real api data if it's used in the app, or remove it
+                //@ts-ignore
                 mapFunds
             ),
             getWhaletFunds: getRequestGenerated(
                 walletsApi.walletStrategiesGet(telegram_id ?? 0),
                 walletFundsCodec,
+                // TODO fix it with real api data if it's used in the app, or remove it
+                //@ts-ignore
                 mapWhaletFunds
                 // getWhaletFundsValidation
             ),
             getTransactions: getRequestGenerated(
                 walletsApi.walletTransactionsGet(telegram_id ?? 0),
                 transactionListCodec,
-                normolizeTransactionKey
+                // TODO fix it with real api data if it's used in the app, or remove it
+                // TODO this endpoint returns data from the old transactions structure
+                //  we should replace it with the new structure where every transaction groups entries
+                //@ts-ignore
+                (transactions) => transactions.map(normolizeTransactionKey)
             ),
         };
     }

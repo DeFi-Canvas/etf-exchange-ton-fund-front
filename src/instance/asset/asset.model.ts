@@ -1,18 +1,24 @@
-export interface AssetResponce {
-    id: string;
-    name: string;
-    ticker: string;
-    category: string;
-    description: string;
-    image_url: string;
-    price: number;
-    withdrawal_fee: number;
-}
 export interface Asset {
     id: string;
     name: string;
+    contractAddress: string;
+    address0: string;
+    address1: string;
+    decimals: number;
+    description: string;
+    imageUrl: string;
+    marketCap: number;
+    networkId: string;
+    price: number;
     ticker: string;
-    // symbol: string;
+    volume24h: number;
+    withdrawalFee: number;
+}
+
+export interface AssetBalance {
+    id: string;
+    name: string;
+    ticker: string;
     balance: number;
     price: number;
     logo: string;

@@ -14,7 +14,7 @@ import { fromProperty } from '@/utils/property.utils';
 import { createAdapter } from '@most/adapter';
 import { PageType } from '../../what-to-buy.model';
 import { getKeyO } from '@/utils/object-utils';
-import { Asset } from '@/instance/asset/asset.model';
+import { AssetBalance } from '@/instance/asset/asset.model';
 import { FundsData } from '@/instance/fund/fund.model';
 
 export interface TotalAmount {
@@ -25,8 +25,8 @@ export interface TotalAmount {
 export interface PurchaseSellStore {
     funds: Property<E.Either<string, Array<FundsData>>>;
     fundData: Property<E.Either<string, FundsData>>;
-    assets: Property<E.Either<string, Array<Asset>>>;
-    selectedAssets: Property<E.Either<string, Asset>>;
+    assets: Property<E.Either<string, Array<AssetBalance>>>;
+    selectedAssets: Property<E.Either<string, AssetBalance>>;
     totalAmount: Property<O.Option<TotalAmount>>;
     quantity: Property<number>;
     setQuantity: (quantity: number) => void;
@@ -59,11 +59,11 @@ export const newPurchaseSellStore = injectable(
             const fundData = newLensedAtom<E.Either<string, FundsData>>(
                 E.left('pending')
             );
-            const assets = newLensedAtom<E.Either<string, Array<Asset>>>(
+            const assets = newLensedAtom<E.Either<string, Array<AssetBalance>>>(
                 E.left('pending')
             );
 
-            const selectedAssets = newLensedAtom<E.Either<string, Asset>>(
+            const selectedAssets = newLensedAtom<E.Either<string, AssetBalance>>(
                 E.left('pending')
             );
             const selectedAssetsId = newLensedAtom<string>('');
