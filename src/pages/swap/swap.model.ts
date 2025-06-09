@@ -5,6 +5,7 @@ import * as A from 'fp-ts/Array';
 import * as O from 'fp-ts/Option';
 import { AssetBalance, AssetBalanceEq } from '@/instance/asset/asset.model';
 import { log } from 'fp-ts/lib/Console';
+import { formatNumberExponent } from '@/utils/number';
 
 export type SwapResultStatus = 'SUCCESS' | 'ERROR' | 'PROGRESS';
 export type SwapBtnError = 'INSUFFICIENT_BALANCE' | 'EMPTY_FIELD';
@@ -148,7 +149,7 @@ export const prepareMapSwapAfterSwap = (
             balance:
                 action === 'plus'
                     ? `${waletAsset.balance + (asset.currentValue ?? 0)}`
-                    : `${waletAsset.balance - (asset.currentValue ?? 0)}`,
+                    : `${formatNumberExponent(waletAsset.balance - (asset.currentValue ?? 0))}`,
         }))
     );
 

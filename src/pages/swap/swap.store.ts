@@ -40,6 +40,7 @@ import {
 import { ResultOptions } from './components/swap-result/swap-result.component';
 import { AssetBalance } from '@/instance/asset/asset.model';
 import { I18NService } from '@/store/i18n/i18.store';
+import { formatNumberExponent } from '@/utils/number';
 
 export interface SwapStore {
     //#region state
@@ -378,7 +379,7 @@ export const newSwapStore = injectable(
                             O.map(
                                 A.map((tail) => {
                                     if (headAsset) {
-                                        return `1 ${headAsset.assetName} ≈ ${(headAsset.price / tail.price).toFixed(3)} ${tail.assetName}`;
+                                        return `1 ${headAsset.assetName} ≈ ${formatNumberExponent(headAsset.price / tail.price)} ${tail.assetName}`;
                                     }
                                     return '';
                                 })
@@ -410,8 +411,10 @@ export const newSwapStore = injectable(
                                             headAsset.price) /
                                             tail.price) *
                                         SHODOW_SWAP;
+                                    console.log(received);
+
                                     return [
-                                        `${Number.isNaN(received) ? 0 : received} ${tail.assetName}`,
+                                        `${Number.isNaN(received) ? 0 : formatNumberExponent(received)} ${tail.assetName}`,
                                     ];
                                 }
                                 return [''];
@@ -451,7 +454,7 @@ export const newSwapStore = injectable(
                                     prepareMapSwapAfterSwap(asset, 'plus'),
                                     E.mapLeft(() => ({
                                         ticker: asset.assetName,
-                                        balance: `${asset.currentValue ?? 0}`,
+                                        balance: `${formatNumberExponent(asset.currentValue)}`,
                                     }))
                                 )
                             )

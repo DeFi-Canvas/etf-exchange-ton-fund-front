@@ -15,7 +15,10 @@ import {
 import { assetsResponseCodec } from './contracts/assets.contract';
 import { swapInitiateCodec } from './contracts/swap.contract';
 import { AssetBalance } from '@/instance/asset/asset.model';
-import { assetResponseMapping, assetsResponseMapping } from '@pages/assets-single/asset-single.model.ts';
+import {
+    assetResponseMapping,
+    assetsResponseMapping,
+} from '@pages/assets-single/asset-single.model.ts';
 
 export interface SwapRestService {
     getConnection: () => { evs: Stream<unknown>; unsubscription: () => void };
@@ -51,6 +54,7 @@ export const newSwapRestService = injectable(
 
                 eventSource.onerror = (error) => {
                     messege.set('ERROR');
+                    console.error(error);
                 };
 
                 return {

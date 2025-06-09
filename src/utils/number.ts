@@ -7,9 +7,13 @@ export const formatNumberToUI = (val: number) =>
 export const formatNumberExponent = (x: number) => {
     const exp = x.toExponential();
     const bufferNumber = x.toFixed(2);
+
     const isMoreThrnThero =
-        !!Number(bufferNumber.split('.')[0]) &&
-        bufferNumber.split('.').length > 1;
+        (!!Number(bufferNumber.split('.')[0]) &&
+            bufferNumber.split('.').length > 1) ||
+        bufferNumber === '0.00';
+
+    console.log(x, bufferNumber);
 
     if (isMoreThrnThero) return bufferNumber;
 

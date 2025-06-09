@@ -10,6 +10,7 @@ import { SkeletonCardSection } from '@/components/skeletons/skeleton-card/skelet
 import { Link } from 'react-router-dom';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
+import { formatNumberExponent } from '@/utils/number';
 
 export interface AssetsProps {
     assets: E.Either<string, Array<CoinCardData>>;
@@ -26,9 +27,9 @@ const formattedData = (assets: CoinCardData) => {
     return {
         id: assets.id,
         img: assets.logo,
-        title: `${assets.coinAmount?.toFixed(2)} ${assets.name}`,
+        title: `${assets.coinAmount ? formatNumberExponent(assets.coinAmount) : 0.0} ${assets.name}`,
         subTitle: assets.ticker,
-        price: `${$currency} ${assets.cost?.toFixed(2)}`,
+        price: `${$currency} ${assets.cost ? formatNumberExponent(assets.cost) : 0.0}`,
         priceText: '',
     };
 };
