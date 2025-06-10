@@ -81,9 +81,7 @@ export const getAssetsEffectMapping = (
                 allAssets,
                 A.filter(
                     (x) =>
-                        x.ticker === INITIAL_ASSET_NAME ||
-                        x.ticker === 'USDT' ||
-                        x.name === 'Tether'
+                        x.ticker === INITIAL_ASSET_NAME || x.ticker === 'USDT'
                 ),
                 (arr) =>
                     arr.length < 2
