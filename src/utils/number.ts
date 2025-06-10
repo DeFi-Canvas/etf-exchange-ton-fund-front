@@ -4,18 +4,34 @@ export const formatNumberToUI = (val: number) =>
         maximumFractionDigits: 2,
     });
 
-export const formatNumberExponent = (x: number) => {
-    const exp = x.toExponential();
-    const bufferNumber = x.toFixed(2);
+export function formatNumberExponent(num: number): string {
+    const isExponentView = num.toString().includes('e');
+    if (isExponentView) {
+        const float = num.toString().split('e')[0].split('.').join('');
+        return `0.00...${float}`;
+    }
+    if (
+        num > 0 &&
+        num < 1 &&
+        num.toString().split('.')[1].split('').length > 5
+    ) {
+        const float = num
+            .toString()
+            .split('.')[1]
+            .split('')
+            .filter((num) => num !== '0')
+            .join('');
+        return `0.00...${float}`;
+    }
 
-    const isMoreThrnThero =
-        (!!Number(bufferNumber.split('.')[0]) &&
-            bufferNumber.split('.').length > 1) ||
-        bufferNumber === '0.00';
-
-    if (isMoreThrnThero) return bufferNumber;
-
-    const floatPart = exp.split('e')[0].split('.').join('');
-    const thero = new Array(9 - floatPart.split('').length).fill('0').join('');
-    return `0.${thero}...${floatPart}`;
-};
+    if (
+        num
+            .toString()
+            ?.split('.')[1]
+            ?.split('')
+            ?.filter((num) => num !== '0')?.length > 0
+    ) {
+        return num.toString();
+    }
+    return num.toFixed(2).toString();
+}

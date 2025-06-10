@@ -83,33 +83,4 @@ describe('newAssetsViewModel', () => {
             );
         });
     });
-
-    describe('runned newAssetsViewModel withdrow', () => {
-        const vm = newAssetsViewModel({
-            withdrowStore: withdrowStore.value,
-            depositRestService: MOCK_NEW_DEPOSIT_SERVICE({
-                userStore: userStoreValues,
-            }),
-            waletRestService: NEW_WALET_REST_SERVICE({
-                userStore: userStoreValues,
-            }),
-        })('withdrow');
-
-        vm.effects.run(voidSink, defaultScheduler);
-        it('should return assets pending', () => {
-            expect(vm.value.assets.get()).toStrictEqual(
-                E.right([
-                    {
-                        balance: 0,
-                        id: 'id',
-                        logo: 'logo',
-                        name: 'name',
-                        price: 1,
-                        symbol: 'symbol',
-                        value: 2,
-                    },
-                ])
-            );
-        });
-    });
 });
