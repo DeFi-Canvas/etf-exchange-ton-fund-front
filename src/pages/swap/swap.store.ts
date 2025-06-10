@@ -411,7 +411,6 @@ export const newSwapStore = injectable(
                                             headAsset.price) /
                                             tail.price) *
                                         SHODOW_SWAP;
-                                    console.log(received);
 
                                     return [
                                         `${Number.isNaN(received) ? 0 : formatNumberExponent(received)} ${tail.assetName}`,

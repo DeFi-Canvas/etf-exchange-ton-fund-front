@@ -13,8 +13,6 @@ export const formatNumberExponent = (x: number) => {
             bufferNumber.split('.').length > 1) ||
         bufferNumber === '0.00';
 
-    console.log(x, bufferNumber);
-
     if (isMoreThrnThero) return bufferNumber;
 
     const floatPart = exp.split('e')[0].split('.').join('');
