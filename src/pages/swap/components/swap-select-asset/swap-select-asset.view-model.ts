@@ -3,7 +3,6 @@ import { injectable, token } from '@injectable-ts/core';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { SwapStore } from '../../swap.store';
 import { Property } from '@frp-ts/core';
-import { AssetsUI } from '@/components/assets-card/assets-card.model';
 import { flow, pipe } from 'fp-ts/lib/function';
 import { AssetsUIFiltreble, mapAssetsWaletToCard } from '../../swap.model';
 import * as E from 'fp-ts/Either';

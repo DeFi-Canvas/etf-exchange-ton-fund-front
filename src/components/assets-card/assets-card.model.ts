@@ -15,7 +15,7 @@ export const assetsCodec = t.type({
     img: t.string,
     title: t.string,
     subTitle: t.string,
-    price: t.union([t.string, t.undefined]),
+    price: t.string,
     priceText: t.string,
 });
 

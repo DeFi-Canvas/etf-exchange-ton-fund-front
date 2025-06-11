@@ -32,10 +32,15 @@ export const AssetsCardDeposit = ({ name, ticker, img }: DepositAsset) => {
     );
 };
 
-export const AssetsCardWithdrow = ({ name, logo, value, ticker }: AssetBalance) => {
+export const AssetsCardWithdrow = ({
+    name,
+    imageUrl,
+    value,
+    ticker,
+}: AssetBalance) => {
     return (
         <div className={css.wrap}>
-            <img src={logo} className={css.img} />
+            <img src={imageUrl} className={css.img} />
             <div className={css.infoWrap}>
                 <span className={css.name}>
                     {value} {name}

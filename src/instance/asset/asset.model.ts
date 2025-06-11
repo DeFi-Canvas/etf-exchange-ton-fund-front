@@ -1,3 +1,5 @@
+import { Eq } from 'fp-ts/Eq';
+
 export interface Asset {
     id: string;
     name: string;
@@ -21,6 +23,10 @@ export interface AssetBalance {
     ticker: string;
     balance: number;
     price: number;
-    logo: string;
+    imageUrl: string;
     value: number;
 }
+
+export const AssetBalanceEq: Eq<AssetBalance> = {
+    equals: (p1, p2) => p1.id === p2.id && p1.ticker === p2.ticker,
+};

@@ -3,7 +3,9 @@ import { constant, flow, pipe } from 'fp-ts/lib/function';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
 import * as O from 'fp-ts/Option';
-import { AssetBalance } from '@/instance/asset/asset.model';
+import { AssetBalance, AssetBalanceEq } from '@/instance/asset/asset.model';
+import { log } from 'fp-ts/lib/Console';
+import { formatNumberExponent } from '@/utils/number';
 
 export type SwapResultStatus = 'SUCCESS' | 'ERROR' | 'PROGRESS';
 export type SwapBtnError = 'INSUFFICIENT_BALANCE' | 'EMPTY_FIELD';
@@ -27,7 +29,10 @@ export interface FiltrebleSwapAsset extends AssetBalance {
 
 export const mapAssetToFiltrebleSwapAsset = (
     asset: AssetBalance
-): FiltrebleSwapAsset => ({ ...asset, isVisible: true });
+): FiltrebleSwapAsset => ({
+    ...asset,
+    isVisible: true,
+});
 
 export type InitialAssetName = 'TON';
 export const INITIAL_ASSET_NAME: InitialAssetName = 'TON';
@@ -39,7 +44,7 @@ export const formatValueInStableCoin = (price: number) =>
 
 export const mapAssetToSwapAsset = (asset: AssetBalance): SwapAsset => ({
     id: asset.id,
-    imageSrc: asset.logo,
+    imageSrc: asset.imageUrl,
     assetName: asset.ticker,
     price: asset.price,
     balanceInWalet: asset.balance ?? 0,
@@ -56,7 +61,7 @@ export const mapAssetsWaletToCard = (
     asset: FiltrebleSwapAsset
 ): AssetsUIFiltreble => ({
     id: asset.id,
-    img: asset.logo,
+    img: asset.imageUrl,
     title: `${asset.ticker}`,
     subTitle: `${asset.name}`,
     price: `$ ${asset.price}`,
@@ -76,10 +81,16 @@ export const getAssetsEffectMapping = (
                 allAssets,
                 A.filter(
                     (x) =>
-                        x.ticker === INITIAL_ASSET_NAME ||
-                        x.ticker === 'USDT' ||
-                        x.name === 'Tether'
+                        x.ticker === INITIAL_ASSET_NAME || x.ticker === 'USDT'
                 ),
+                (arr) =>
+                    arr.length < 2
+                        ? [
+                              ...arr,
+                              A.difference(AssetBalanceEq)(allAssets, arr)[0],
+                          ]
+                        : arr,
+
                 A.map(mapAssetToSwapAsset),
                 (x) => {
                     const tonAsset =
@@ -116,7 +127,7 @@ export const getAssetsEffectMapping = (
                     return x;
                 }),
                 E.fromPredicate(
-                    (x) => x.length > 0,
+                    (x) => x.length > 1,
                     () => 'Error'
                 ),
                 swapAssetsSet
@@ -136,7 +147,7 @@ export const prepareMapSwapAfterSwap = (
             balance:
                 action === 'plus'
                     ? `${waletAsset.balance + (asset.currentValue ?? 0)}`
-                    : `${waletAsset.balance - (asset.currentValue ?? 0)}`,
+                    : `${formatNumberExponent(waletAsset.balance - (asset.currentValue ?? 0))}`,
         }))
     );
 

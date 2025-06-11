@@ -22,14 +22,21 @@ describe('newNewUserStoreService', () => {
         it('should return empty asset', () => {
             expect(vm.value.asset.get()).toStrictEqual(
                 E.right({
+                    address0: '',
+                    address1: '',
+                    contractAddress: '',
+                    decimals: 9,
+                    marketCap: 0,
+                    networkId: '',
                     category: '',
                     description: '',
                     id: '123',
-                    image_url: '',
+                    imageUrl: '',
                     name: '',
                     price: 1,
                     ticker: '',
-                    withdrawal_fee: 1,
+                    withdrawalFee: 1,
+                    volume24h: 0,
                 })
             );
         });

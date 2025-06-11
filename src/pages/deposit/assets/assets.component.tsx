@@ -17,7 +17,9 @@ interface AssetsProps {
     handleClick: (asset: DepositAsset | AssetBalance) => void;
 }
 
-const formattedData = (asset: DepositAsset | AssetBalance): AssetsCardBaseProps => {
+const formattedData = (
+    asset: DepositAsset | AssetBalance
+): AssetsCardBaseProps => {
     if (DepositAssetsCodec.is(asset)) {
         return {
             id: asset.id,
@@ -30,7 +32,7 @@ const formattedData = (asset: DepositAsset | AssetBalance): AssetsCardBaseProps 
     } else {
         return {
             id: asset.id,
-            img: asset.logo,
+            img: asset.imageUrl,
             title: asset.name,
             subTitle: asset.ticker,
             price: asset.value.toFixed(2),

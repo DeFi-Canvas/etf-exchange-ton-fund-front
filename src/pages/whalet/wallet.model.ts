@@ -55,7 +55,7 @@ export const AssetCodec = t.type({
     // symbol: t.string,
     balance: t.number,
     price: t.number,
-    logo: t.string,
+    imageUrl: t.string,
     value: t.number,
 });
 
@@ -97,7 +97,10 @@ export const normolizeTransactionKey = (
 export const mapAssetsFromBalance = (
     data: WalletBalanceResponse
 ): Array<AssetBalance> =>
-    data.payload.assets.map((asset) => ({ ...asset, logo: asset.image_url }));
+    data.payload.assets.map((asset) => ({
+        ...asset,
+        imageUrl: asset.image_url,
+    }));
 
 export const assetsFromBalanceValidation = (data: WaletResponce) => {
     if (data.total === 0) {
