@@ -21,16 +21,16 @@ import { ProfileContainer } from '@/pages/profile/profile.page';
 import { AssetsSingleContainer } from '@/pages/assets-single/assets-single.container';
 import { SwapPageContainer } from '@/pages/swap/swap.container';
 import { I18NService } from '@/store/i18n/i18.store';
+import { TransactionsRestService } from '@/API/transactions/transactions.service';
 
 export interface getContainersArgs {
     userStore: UserStoreService;
     i18n: I18NService;
+    transactionsRestService: TransactionsRestService;
 }
 
 type ReactComponent = () => JSX.Element;
-export type Component =
-    // | LazyExoticComponent<MemoExoticComponent<FC> | ReactComponent>
-    MemoExoticComponent<FC> | ReactComponent;
+export type Component = MemoExoticComponent<FC> | ReactComponent;
 
 export interface Containers {
     deposit: DepositContainers;
@@ -45,9 +45,10 @@ export interface Containers {
 export const getContainers = ({
     userStore,
     i18n,
+    transactionsRestService,
 }: getContainersArgs): Containers => ({
     deposit: getDepositContainers({ userStore, i18n }),
-    whalet: getWhaletContainers({ userStore, i18n }),
+    whalet: getWhaletContainers({ userStore, i18n, transactionsRestService }),
     withdrow: getWithdrowContainers({ userStore, i18n }),
     whatToBuy: getWhatToBuyContainers({ userStore, i18n }),
     Profile: ProfileContainer({

@@ -1,45 +1,38 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { TransactionGroup } from '../../components/transaction/transaction.component';
-import { ITransaction } from '../../components/transaction/types';
-import { WalletTransactions } from '../../wallet.model';
-import * as O from 'fp-ts/Option';
+import {
+    Transaction,
+    TransactionEntry,
+    Transactions,
+    TransactionType,
+} from '@/API/transactions/transactions.responce.contract';
 
-export function transformTransactions(
-    transactions: WalletTransactions[]
-): TransactionGroup[] {
-    const groupedByDate: Record<string, WalletTransactions[]> = {};
+export const mapTransactionTypeToUi = (type: TransactionType) => {
+    const [first, ...dictionary] = type.toLocaleLowerCase().split('_');
+    const [firstLetter, ...restFirstWorld] = first.split('');
+    const firstWorld = [
+        firstLetter.toLocaleUpperCase(),
+        restFirstWorld.join(''),
+    ].join('');
+    return [firstWorld, dictionary].join(' ');
+};
+
+export const formatSwapEntries = (entries: Array<TransactionEntry>) => {
+    const debit = entries.find((e) => e.type === 'DEBIT');
+    const credit = entries.find((e) => e.type === 'CREDIT');
+    return { debit, credit };
+};
+
+export function formatTransactions(transactions: Transactions) {
+    const groupedByDate: Record<string, Transactions> = {};
     for (const transaction of transactions) {
-        const dateKey = new Date(transaction.timestamp)
+        const dateKey = new Date(transaction.createdAt)
             .toISOString()
-            .split('T')[0]; // YYYY-MM-DD
+            .split('T')[0];
+        console.log(dateKey);
+
         if (!groupedByDate[dateKey]) {
             groupedByDate[dateKey] = [];
         }
         groupedByDate[dateKey].push(transaction);
     }
-
-    return Object.entries(groupedByDate).map(([date, transactions]) => ({
-        date: new Date(date),
-        transactions: transactions.map(transformTransaction),
-    }));
-}
-
-// TODO нужно переделать весь компонент и всратые типы
-function transformTransaction(transaction: WalletTransactions): ITransaction {
-    return {
-        //@ts-ignore
-        type: O.some(transaction.transactionType.toUpperCase() ?? 'BUY'),
-        //@ts-ignore
-        status: O.some(transaction.transactionType.toUpperCase()),
-        //@ts-ignore
-        modificator: O.some(
-            transaction.transactionStatus.toUpperCase() ?? 'DEPOSIT'
-        ),
-        description: O.some(transaction.asset.name),
-        fullDate: O.some(new Date(transaction.timestamp)),
-        amount: O.some(transaction.amount),
-        side: O.none,
-        currency: O.some(transaction.asset.ticker),
-        pnl: O.none,
-    };
+    return groupedByDate;
 }

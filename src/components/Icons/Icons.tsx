@@ -18,14 +18,8 @@ import DepositSwap from '@/assets/icons/depoit-swap.svg?react';
 import DepositAnalitics from '@/assets/icons/deposit-analitics.svg?react';
 import DepositFeatured from '@/assets/icons/deposit-featured.svg?react';
 import Serch from '@/assets/icons/serch.svg?react';
-import Buy from '@/assets/icons/transactions/buy.svg?react';
-import Deposit from '@/assets/icons/transactions/deposit.svg?react';
-import TransaactionError from '@/assets/icons/transactions/error.svg?react';
-import MultiSwap from '@/assets/icons/transactions/multi-svap.svg?react';
-import Processing from '@/assets/icons/transactions/processing.svg?react';
+import SwapSucces from '@/assets/icons/transactions/swapSuccess.svg?react';
 import Swap from '@/assets/icons/transactions/swap.svg?react';
-import Withdraw from '@/assets/icons/transactions/withdraw.svg?react';
-import Sell from '@/assets/icons/transactions/sell.svg?react';
 import Profile from '@/assets/icons/profile.svg?react';
 import ChevronRight from '@/assets/icons/chevron-right.svg?react';
 import Copy from '@/assets/icons/copy.svg?react';
@@ -42,13 +36,12 @@ import Wallet from '@/assets/icons/wallet.svg?react';
 import Reload from '@/assets/icons/reload.svg?react';
 import ArrowDown from '@/assets/icons/arrow-down.svg?react';
 import ArrowSwap from '@/assets/icons/arrow-swap.svg?react';
-import Gift from '@/assets/icons/gift.svg?react';
 import Trash from '@/assets/icons/trash.svg?react';
 import ErrorSolid from '@/assets/icons/error-solid.svg?react';
 import AddImage from '@/assets/icons/add-image.svg?react';
 import Earn from '@/assets/icons/earn.svg?react';
 
-import { TTransactionStatus } from '@/pages/whalet/components/transaction/types';
+import { TransactionType } from '@/API/transactions/transactions.responce.contract';
 
 export const HomeIcon = ({
     className = '',
@@ -172,35 +165,6 @@ export const SerchIcon = ({ className = '' }: { className?: string }) => (
     <Serch className={className} />
 );
 
-export const TransactionStatusIcon = ({
-    status,
-    className = '',
-}: {
-    className?: string;
-    status: TTransactionStatus;
-}) => {
-    switch (status) {
-        case 'BUY':
-            return <Buy className={className} />;
-        case 'DEPOSIT':
-            return <Deposit className={className} />;
-        case 'WITHDRAW':
-            return <Withdraw className={className} />;
-        case 'SWAP':
-            return <Swap className={className} />;
-        case 'MULTI-SWAP':
-            return <MultiSwap className={className} />;
-        case 'SELL':
-            return <Sell className={className} />;
-        case 'ERROR':
-            return <TransaactionError className={className} />;
-        case 'PROCESSING':
-            return <Processing className={className} />;
-        case 'GIFT':
-            return <Gift className={className} />;
-    }
-};
-
 export const AttentionIcon = ({ className = '' }: { className?: string }) => (
     <Attention className={className} />
 );
@@ -264,9 +228,24 @@ export const ErrorSolidIcon = ({ className = '' }: { className?: string }) => (
 );
 
 export const SwapSolidIcon = ({ className = '' }: { className?: string }) => (
-    <Swap className={className} />
+    <SwapSucces className={className} />
 );
 
 export const AddImageIcon = ({ className = '' }: { className?: string }) => (
     <AddImage className={className} />
 );
+
+export const TransactionTypeIcon = ({
+    className = '',
+    type,
+}: {
+    className?: string;
+    type: TransactionType;
+}) => {
+    switch (type) {
+        case 'SWAP':
+            return <Swap className={className} />;
+        default:
+            break;
+    }
+};

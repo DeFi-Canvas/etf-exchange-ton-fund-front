@@ -10,7 +10,7 @@ export interface DepositContainers {
 export const getDepositContainers = ({
     userStore,
     i18n,
-}: getContainersArgs): DepositContainers => ({
+}: Pick<getContainersArgs, 'i18n' | 'userStore'>): DepositContainers => ({
     DepositPage: Deposit({
         userStore,
         i18n,

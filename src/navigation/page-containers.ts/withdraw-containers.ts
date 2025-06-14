@@ -16,7 +16,7 @@ export interface WithdrowContainers {
 export const getWithdrowContainers = ({
     userStore,
     i18n,
-}: getContainersArgs): WithdrowContainers => ({
+}: Pick<getContainersArgs, 'i18n' | 'userStore'>): WithdrowContainers => ({
     Withdrow: Withdrow({
         userStore,
         i18n,

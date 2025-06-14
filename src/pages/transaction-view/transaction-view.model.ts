@@ -1,9 +1,11 @@
-import { TTransactionStatus } from '@whalet/components/transaction/types';
-
 type TransactionStatus = 'SUCCESS' | 'PROCESSING' | 'ERROR' | 'GIFT';
 
+/**
+ * @deprecated wrong type
+ */
 export interface TransactionResponse {
     status: TransactionStatus;
+    //@ts-ignore
     type: TTransactionStatus;
     amount: number;
     coinName: string;

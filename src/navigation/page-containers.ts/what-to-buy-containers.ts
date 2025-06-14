@@ -16,7 +16,7 @@ export interface WhatToBuyContainers {
 export const getWhatToBuyContainers = ({
     userStore,
     i18n,
-}: getContainersArgs): WhatToBuyContainers => ({
+}: Pick<getContainersArgs, 'i18n' | 'userStore'>): WhatToBuyContainers => ({
     WhatToBuyPage: WhatToBuyPageContainer({
         userStore,
         i18n,

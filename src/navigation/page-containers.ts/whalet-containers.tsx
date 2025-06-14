@@ -14,6 +14,7 @@ export interface WhaletContainers {
 export const getWhaletContainers = ({
     userStore,
     i18n,
+    transactionsRestService,
 }: getContainersArgs): WhaletContainers => ({
     WaletPage: WaletPageContainer({
         userStore,
@@ -23,27 +24,9 @@ export const getWhaletContainers = ({
         userStore,
     }),
     Transactions: TransactionsContainer({
-        userStore,
+        transactionsRestService,
     }),
     Funds: FundsContainer({
         userStore,
     }),
-
-    // Assets: AssetsContainer({
-    //     userStore,
-    // }),
-    // Transactions: lazy(() =>
-    //     import('@whalet/sub-pages/transactions/transactions.container').then(
-    //         (c) => {
-    //             const component = c.TransactionsContainer({ userStore });
-    //             return { default: component };
-    //         }
-    //     )
-    // ),
-    // Funds: lazy(() =>
-    //     import('@whalet/sub-pages/founds/funds.container').then((c) => {
-    //         const component = c.FundsContainer({ userStore });
-    //         return { default: component };
-    //     })
-    // ),
 });

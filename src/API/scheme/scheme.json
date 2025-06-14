@@ -21,15 +21,9 @@
                     }
                 ],
                 "description": "Returns the list of all assets in the system",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Asset"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Asset"],
                 "summary": "All assets",
                 "responses": {
                     "200": {
@@ -55,15 +49,9 @@
                     }
                 ],
                 "description": "Получить информацию об активе по его идентификатору или тикеру",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Asset"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Asset"],
                 "summary": "Get asset by address",
                 "parameters": [
                     {
@@ -99,15 +87,9 @@
         "/api/auth/token/{telegramId}": {
             "get": {
                 "description": "Creates unsigned token with specified Telegram Id. It is used to get access to the local/test servers.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Auth"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Auth"],
                 "summary": "Incognito auth token",
                 "parameters": [
                     {
@@ -134,18 +116,62 @@
                 }
             }
         },
+        "/api/transaction": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Returns user's transactions with transactions entries",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Transaction"],
+                "summary": "Get account transactions",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page index",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page size",
+                        "name": "count",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Transactions list",
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiPaginatedResponse-array_transactions_JournalTransaction"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
         "/api/twitter/accounts-to-process": {
             "post": {
                 "description": "Get Twitter accounts that need to be processed",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Twitter"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Twitter"],
                 "summary": "Get Twitter accounts to process",
                 "parameters": [
                     {
@@ -183,15 +209,9 @@
         "/api/twitter/subscription": {
             "post": {
                 "description": "User can specify the twitter account and the action that should be performed for the messages of that account.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Twitter"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Twitter"],
                 "summary": "Create subscribtion to the twitter account",
                 "parameters": [
                     {
@@ -229,15 +249,9 @@
         "/api/twitter/tweet": {
             "post": {
                 "description": "The tweet content with creation date will be stored in the system for future processing",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Twitter"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Twitter"],
                 "summary": "Store Twitter tweet",
                 "parameters": [
                     {
@@ -275,15 +289,9 @@
         "/api/twitter/tweets": {
             "get": {
                 "description": "Get tweets for a user that were created after the threshold time",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Twitter"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Twitter"],
                 "summary": "Get tweets for user",
                 "parameters": [
                     {
@@ -326,15 +334,9 @@
         "/api/twitter/unsubscribe": {
             "post": {
                 "description": "User will be unsubscribed, and won't get new messages for processing",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Twitter"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Twitter"],
                 "summary": "Unsubscribes user from particular subscription",
                 "parameters": [
                     {
@@ -369,6 +371,34 @@
                 }
             }
         },
+        "/api/user/current": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get the information about current user",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["users"],
+                "summary": "Get current user",
+                "responses": {
+                    "200": {
+                        "description": "Current user",
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiResponse-models_User"
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
         "/api/wallet/balance": {
             "get": {
                 "security": [
@@ -377,15 +407,9 @@
                     }
                 ],
                 "description": "Get the user's balance per asset",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Wallet"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Wallet"],
                 "summary": "Get wallet balance",
                 "responses": {
                     "200": {
@@ -406,15 +430,9 @@
         "/asset/{address}": {
             "get": {
                 "description": "Получить информацию об активе по его идентификатору или тикеру",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "assets"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["assets"],
                 "summary": "DEPRECATED. Get asset by address",
                 "parameters": [
                     {
@@ -450,15 +468,9 @@
         "/assets": {
             "get": {
                 "description": "Получить список всех активов",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "assets"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["assets"],
                 "summary": "DEPRECATED. Get all assets",
                 "responses": {
                     "200": {
@@ -482,15 +494,9 @@
         "/assets/user/{user_id}": {
             "get": {
                 "description": "Получить список активов, принадлежащих пользователю",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "assets"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["assets"],
                 "summary": "DEPRECATED. Get user assets",
                 "parameters": [
                     {
@@ -529,15 +535,9 @@
         "/dedust/liquidity/deposit": {
             "post": {
                 "description": "Deposit native and jetton tokens into DeDust liquidity pool",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "DeDust"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["DeDust"],
                 "summary": "Deposit liquidity on DeDust",
                 "parameters": [
                     {
@@ -578,15 +578,9 @@
         "/dedust/liquidity/withdraw": {
             "post": {
                 "description": "Withdraw liquidity from DeDust liquidity pool",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "DeDust"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["DeDust"],
                 "summary": "Withdraw liquidity from DeDust",
                 "parameters": [
                     {
@@ -627,15 +621,9 @@
         "/deposit": {
             "get": {
                 "description": "Получить адрес для депозита по Telegram ID пользователя",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "deposit"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["deposit"],
                 "summary": "Get deposit address",
                 "parameters": [
                     {
@@ -671,15 +659,9 @@
         "/fundinfo": {
             "get": {
                 "description": "Получить общую информацию о фонде",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "fund-stats"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["fund-stats"],
                 "summary": "Get fund information",
                 "responses": {
                     "200": {
@@ -700,12 +682,8 @@
         "/notifications/stream/{telegram_id}": {
             "get": {
                 "description": "Open a server-sent events (SSE) stream to send notifications for a user",
-                "produces": [
-                    "text/event-stream"
-                ],
-                "tags": [
-                    "Stream"
-                ],
+                "produces": ["text/event-stream"],
+                "tags": ["Stream"],
                 "summary": "Open a stream",
                 "parameters": [
                     {
@@ -729,12 +707,8 @@
         "/notifications/{telegram_id}": {
             "get": {
                 "description": "Get all notifications for a user in the last 5 days",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Notifications"
-                ],
+                "produces": ["application/json"],
+                "tags": ["Notifications"],
                 "summary": "Get notifications for a user",
                 "parameters": [
                     {
@@ -761,15 +735,9 @@
         "/storm/apr": {
             "get": {
                 "description": "Calculate APR based on deposited tokens and LP token supply",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Storm"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Storm"],
                 "summary": "Get current APR for Storm deposit",
                 "parameters": [
                     {
@@ -808,15 +776,9 @@
         "/storm/liquidity/deposit": {
             "post": {
                 "description": "Deposit native or jetton tokens into Storm liquidity pool",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Storm"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Storm"],
                 "summary": "Deposit liquidity on Storm",
                 "parameters": [
                     {
@@ -857,15 +819,9 @@
         "/storm/liquidity/withdraw": {
             "post": {
                 "description": "Withdraw LP tokens from Storm liquidity pool",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Storm"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Storm"],
                 "summary": "Withdraw liquidity from Storm",
                 "parameters": [
                     {
@@ -906,15 +862,9 @@
         "/strategies": {
             "get": {
                 "description": "Получить список всех стратегий",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "strategies"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["strategies"],
                 "summary": "Get all Strategies",
                 "responses": {
                     "200": {
@@ -938,15 +888,9 @@
         "/strategy/{strategyId}": {
             "get": {
                 "description": "Получить информацию о стратегии по ее идентификатору",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "strategies"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["strategies"],
                 "summary": "Get Strategy by ID",
                 "parameters": [
                     {
@@ -982,12 +926,8 @@
         "/stream/{telegram_id}": {
             "get": {
                 "description": "Open a server-sent events (SSE) stream for a user",
-                "produces": [
-                    "text/event-stream"
-                ],
-                "tags": [
-                    "Stream"
-                ],
+                "produces": ["text/event-stream"],
+                "tags": ["Stream"],
                 "summary": "Open a stream",
                 "parameters": [
                     {
@@ -1011,15 +951,9 @@
         "/swap/initiate": {
             "post": {
                 "description": "Perform a token swap for a user",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Swap"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Swap"],
                 "summary": "Initiate a swap",
                 "parameters": [
                     {
@@ -1050,17 +984,11 @@
         },
         "/tasks": {
             "get": {
-                "description": "Получить список задач для указанного пользователя",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "tasks"
-                ],
-                "summary": "Get tasks for a user",
+                "description": "Получить список задач для указанного пользователя. Constantly returns empty list. Let us know if you use this endpoint!",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["tasks"],
+                "summary": "DEPRECATED Get tasks for a user",
                 "parameters": [
                     {
                         "type": "integer",
@@ -1092,16 +1020,10 @@
         "/tasks/complete": {
             "post": {
                 "description": "Завершить задачу для пользователя",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "tasks"
-                ],
-                "summary": "Complete a task",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["tasks"],
+                "summary": "DEPRECATED Complete a task",
                 "parameters": [
                     {
                         "description": "Запрос на завершение задачи",
@@ -1131,17 +1053,11 @@
         },
         "/users": {
             "get": {
-                "description": "Получить список всех пользователей",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "users"
-                ],
-                "summary": "Get all users",
+                "description": "Получить список всех пользователей. Constantly returns empty list. Let us know if you use this endpoint!",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["users"],
+                "summary": "DEPRECATED Get all users",
                 "responses": {
                     "200": {
                         "description": "Список пользователей",
@@ -1164,15 +1080,9 @@
         "/wallet/balance": {
             "get": {
                 "description": "Получить баланс кошелька пользователя",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "wallets"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["wallets"],
                 "summary": "DEPRECATED Get wallet balance",
                 "parameters": [
                     {
@@ -1202,15 +1112,9 @@
         "/wallet/buyindex": {
             "post": {
                 "description": "Купить индекс для пользователя",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "wallets"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["wallets"],
                 "summary": "Buy index",
                 "parameters": [
                     {
@@ -1242,15 +1146,9 @@
         "/wallet/sellindex": {
             "post": {
                 "description": "Продать индекс для пользователя",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "wallets"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["wallets"],
                 "summary": "Sell index",
                 "parameters": [
                     {
@@ -1282,15 +1180,9 @@
         "/wallet/strategies": {
             "get": {
                 "description": "Получить средства пользователя из кошелька",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "wallets"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["wallets"],
                 "summary": "Get wallet strategies",
                 "parameters": [
                     {
@@ -1323,15 +1215,9 @@
         "/wallet/transactions": {
             "get": {
                 "description": "Получить транзакции пользователя",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "wallets"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["wallets"],
                 "summary": "Get wallet transactions",
                 "parameters": [
                     {
@@ -1376,15 +1262,9 @@
         "/wallets/{user_id}": {
             "get": {
                 "description": "Получить список кошельков пользователя",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "wallets"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["wallets"],
                 "summary": "Get user wallets",
                 "parameters": [
                     {
@@ -1422,15 +1302,9 @@
                     }
                 ],
                 "description": "Вывести средства с кошелька пользователя",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "wallets"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["wallets"],
                 "summary": "Withdraw funds",
                 "parameters": [
                     {
@@ -2035,6 +1909,48 @@
                 }
             }
         },
+        "routing.ApiPaginatedResponse-array_transactions_JournalTransaction": {
+            "type": "object",
+            "properties": {
+                "pagination": {
+                    "$ref": "#/definitions/routing.ApiPagination"
+                },
+                "payload": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/transactions.JournalTransaction"
+                    }
+                }
+            }
+        },
+        "routing.ApiPagination": {
+            "type": "object",
+            "properties": {
+                "currentEntries": {
+                    "type": "integer"
+                },
+                "pageIndex": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "totalEntries": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                }
+            }
+        },
+        "routing.ApiResponse-models_User": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/models.User"
+                }
+            }
+        },
         "routing.ApiResponse-models_WalletBalance": {
             "type": "object",
             "properties": {
@@ -2112,6 +2028,153 @@
                     "type": "string"
                 }
             }
+        },
+        "transactions.EntryType": {
+            "type": "string",
+            "enum": [
+                "DEBIT",
+                "CREDIT",
+                "RESERVE",
+                "RELEASE",
+                "FEE",
+                "APP_FEE",
+                "DEX_FEE",
+                "SLIPPAGE",
+                "NETWORK_FEE",
+                "SERVICE_FEE",
+                "REWARD"
+            ],
+            "x-enum-varnames": [
+                "ENTRY_TYPE_DEBIT",
+                "ENTRY_TYPE_CREDIT",
+                "ENTRY_TYPE_RESERVE",
+                "ENTRY_TYPE_RELEASE",
+                "ENTRY_TYPE_FEE",
+                "ENTRY_TYPE_APP_FEE",
+                "ENTRY_TYPE_DEX_FEE",
+                "ENTRY_TYPE_SLIPPAGE",
+                "ENTRY_TYPE_NETWORK_FEE",
+                "ENTRY_TYPE_SERVICE_FEE",
+                "ENTRY_TYPE_REWARD"
+            ]
+        },
+        "transactions.JournalEntry": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number"
+                },
+                "assetId": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "isReserve": {
+                    "type": "boolean"
+                },
+                "sign": {
+                    "type": "integer"
+                },
+                "transactionId": {
+                    "type": "string"
+                },
+                "type": {
+                    "$ref": "#/definitions/transactions.EntryType"
+                },
+                "userId": {
+                    "type": "string"
+                }
+            }
+        },
+        "transactions.JournalTransaction": {
+            "type": "object",
+            "properties": {
+                "blockchainHash": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "entries": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/transactions.JournalEntry"
+                    }
+                },
+                "id": {
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "#/definitions/transactions.TransactionStatus"
+                },
+                "type": {
+                    "$ref": "#/definitions/transactions.TransactionType"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "string"
+                }
+            }
+        },
+        "transactions.TransactionStatus": {
+            "type": "string",
+            "enum": ["AUTHORIZED", "CAPTURED", "CANCELED", "FAILED", "EXPIRED"],
+            "x-enum-varnames": [
+                "TRANSACTION_STATUS_AUTHORIZED",
+                "TRANSACTION_STATUS_CAPTURED",
+                "TRANSACTION_STATUS_CANCELED",
+                "TRANSACTION_STATUS_FAILED",
+                "TRANSACTION_STATUS_EXPIRED"
+            ]
+        },
+        "transactions.TransactionType": {
+            "type": "string",
+            "enum": [
+                "TRANSFER",
+                "SWAP",
+                "ADD_LIQUIDITY",
+                "REMOVE_LIQUIDITY",
+                "STAKE",
+                "UNSTAKE",
+                "BORROW",
+                "REPAY",
+                "DEPOSIT",
+                "DEPOSIT_STORM_USDT",
+                "WITHDRAW",
+                "WITHDRAW_STORM_USDT",
+                "LIQUIDATE",
+                "CLAIM_REWARDS",
+                "GOVERNANCE_VOTE",
+                "MARGIN_TRADE",
+                "SYNTHETIC_MINT",
+                "CROSS_CHAIN_SWAP"
+            ],
+            "x-enum-varnames": [
+                "TRANSACTION_TYPE_TRANSFER",
+                "TRANSACTION_TYPE_SWAP",
+                "TRANSACTION_TYPE_ADD_LIQUIDITY",
+                "TRANSACTION_TYPE_REMOVE_LIQUIDITY",
+                "TRANSACTION_TYPE_STAKE",
+                "TRANSACTION_TYPE_UNSTAKE",
+                "TRANSACTION_TYPE_BORROW",
+                "TRANSACTION_TYPE_REPAY",
+                "TRANSACTION_TYPE_DEPOSIT",
+                "TRANSACTION_TYPE_DEPOSIT_STORM_USDT",
+                "TRANSACTION_TYPE_WITHDRAW",
+                "TRANSACTION_TYPE_WITHDRAW_STORM_USDT",
+                "TRANSACTION_TYPE_LIQUIDATE",
+                "TRANSACTION_TYPE_CLAIM_REWARDS",
+                "TRANSACTION_TYPE_GOVERNANCE_VOTE",
+                "TRANSACTION_TYPE_MARGIN_TRADE",
+                "TRANSACTION_TYPE_SYNTHETIC_MINT",
+                "TRANSACTION_TYPE_CROSS_CHAIN_SWAP"
+            ]
         },
         "twitter.TwitterAccount": {
             "type": "object",
