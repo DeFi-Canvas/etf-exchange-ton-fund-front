@@ -22,6 +22,28 @@ export const TransactionSwapMonyInfo = ({
                     <span className={css.debit}>-{debit?.amount}</span>
                 </div>
             );
+        case 'TRANSFER':
+        case 'ADD_LIQUIDITY':
+        case 'REMOVE_LIQUIDITY':
+        case 'STAKE':
+        case 'UNSTAKE':
+        case 'BORROW':
+        case 'REPAY':
+        case 'DEPOSIT':
+        case 'DEPOSIT_STORM_USDT':
+        case 'WITHDRAW':
+        case 'WITHDRAW_STORM_USDT':
+        case 'LIQUIDATE':
+        case 'CLAIM_REWARDS':
+        case 'GOVERNANCE_VOTE':
+        case 'MARGIN_TRADE':
+        case 'SYNTHETIC_MINT':
+        case 'CROSS_CHAIN_SWAP':
+            return (
+                <div className={css.transactionMonyInfo}>
+                    <span className={css.credit}>+{credit?.amount}</span>
+                </div>
+            );
         default:
             return null;
     }

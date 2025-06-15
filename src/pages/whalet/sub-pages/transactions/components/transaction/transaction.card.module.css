@@ -1,6 +1,7 @@
 .transaction {
     width: 100%;
     display: flex;
+    align-items: center;
     gap: 8px;
     background: var(--color-background-light);
     padding-bottom: 12px;
@@ -8,6 +9,7 @@
 }
 .transaction:last-child {
     border-bottom: none;
+    padding-bottom: unset;
 }
 
 .transactionInfoContainer {
@@ -45,6 +47,8 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    height: 100%;
+    justify-content: center;
 }
 
 .credit {

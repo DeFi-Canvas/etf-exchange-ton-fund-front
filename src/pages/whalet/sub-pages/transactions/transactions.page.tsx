@@ -4,6 +4,7 @@ import * as E from 'fp-ts/Either';
 import { Transaction } from './components/transaction/transaction.component';
 import css from './transactions.module.css';
 import getFormattedDate from '@/libs/date-format';
+import { Loader } from '@/components/loader/loader.component';
 
 interface TransactionsProps {
     transactions: E.Either<string, Record<string, TransactionsDataType>>;
@@ -14,7 +15,7 @@ export const Transactions = ({ transactions }: TransactionsProps) => {
         <div>
             <RenderResult
                 data={transactions}
-                loading={() => <span>loading</span>}
+                loading={() => <Loader size="small" />}
                 success={(transactions) => {
                     return (
                         <div className={css.wrap}>

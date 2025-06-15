@@ -20,6 +20,7 @@ import DepositFeatured from '@/assets/icons/deposit-featured.svg?react';
 import Serch from '@/assets/icons/serch.svg?react';
 import SwapSucces from '@/assets/icons/transactions/swapSuccess.svg?react';
 import Swap from '@/assets/icons/transactions/swap.svg?react';
+import Deposit from '@/assets/icons/transactions/deposit.svg?react';
 import Profile from '@/assets/icons/profile.svg?react';
 import ChevronRight from '@/assets/icons/chevron-right.svg?react';
 import Copy from '@/assets/icons/copy.svg?react';
@@ -245,6 +246,31 @@ export const TransactionTypeIcon = ({
     switch (type) {
         case 'SWAP':
             return <Swap className={className} />;
+        case 'TRANSFER':
+            return <Deposit className={className} />;
+        case 'ADD_LIQUIDITY':
+        case 'REMOVE_LIQUIDITY':
+        case 'STAKE':
+        case 'UNSTAKE':
+        case 'BORROW':
+        case 'REPAY':
+        case 'DEPOSIT':
+        case 'DEPOSIT_STORM_USDT':
+        case 'WITHDRAW':
+            return (
+                <Deposit
+                    className={className}
+                    style={{ transform: 'rotate(180deg)' }}
+                />
+            );
+        case 'WITHDRAW_STORM_USDT':
+        case 'LIQUIDATE':
+        case 'CLAIM_REWARDS':
+        case 'GOVERNANCE_VOTE':
+        case 'MARGIN_TRADE':
+        case 'SYNTHETIC_MINT':
+        case 'CROSS_CHAIN_SWAP':
+            return null;
         default:
             break;
     }
