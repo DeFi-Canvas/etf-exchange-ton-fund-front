@@ -11,13 +11,14 @@ import {
     mapAssetToUICard,
     PageType,
 } from '@/pages/what-to-buy/what-to-buy.model';
+import { Errors } from '@/store/errors/erorr-systrm';
 
 export interface PurchaseSellContentCardViewModel {
     maxAvailable: Property<number>;
     assetCardData: Property<
-        E.Either<string, InterfacePurchaseSellAssetCardData>
+        E.Either<Errors, InterfacePurchaseSellAssetCardData>
     >;
-    assetName: Property<E.Either<string, string>>;
+    assetName: Property<E.Either<Errors, string>>;
 
     onClick: () => void;
     onMaxAvailableClick: () => void;

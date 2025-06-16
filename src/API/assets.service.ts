@@ -7,9 +7,10 @@ import { DOMAIN_API_URL } from '@/API/API.ts';
 import { assetResponseCodec } from '@/API/contracts/assets.contract.ts';
 import { assetResponseMapping } from '@/pages/assets-single/asset-single.model.ts';
 import { Asset } from '@/instance/asset/asset.model.ts';
+import { Errors } from '@/store/errors/erorr-systrm';
 
 export interface AssetsRestService {
-    getAssets: (assetId: string) => Stream<Either<string, Asset>>;
+    getAssets: (assetId: string) => Stream<Either<Errors, Asset>>;
 }
 
 const assetsApi = new AssetApi({

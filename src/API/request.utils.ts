@@ -9,6 +9,7 @@ import { PathReporter } from 'io-ts/lib/PathReporter';
 import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
 import { Any } from 'io-ts';
 import { DeepRequired } from '@/utils/typing.ts';
+import { ERROR, NETWORK_ERROR } from '@/store/errors/erorr-systrm';
 
 export const handleGetRequest =
     <ResultData, Codec extends Any, ResponseData>(
@@ -27,10 +28,10 @@ export const handleGetRequest =
                             (error) => {
                                 console.error(
                                     'Response was not decoded',
-                                    {error},
-                                    {data}
+                                    { error },
+                                    { data }
                                 );
-                                return either.left('error');
+                                return either.left(ERROR);
                             },
                             (decoded) => {
                                 return either.of(transform(decoded));
@@ -40,7 +41,7 @@ export const handleGetRequest =
                 })
                 .catch((error) => {
                     console.error('API Request failed:', { error });
-                    return either.left('network err');
+                    return either.left(NETWORK_ERROR);
                 })
         );
 
@@ -71,7 +72,7 @@ export const getRequestGenerated =
                                     { data },
                                     PathReporter.report(shema.decode(data as I))
                                 );
-                                return either.left('error');
+                                return either.left(ERROR);
                             },
                             (data) => {
                                 const validData =
@@ -93,7 +94,7 @@ export const getRequestGenerated =
                         { data },
                         PathReporter.report(shema.decode(data))
                     );
-                    return either.left('network err');
+                    return either.left(NETWORK_ERROR);
                 })
         );
         return stream;

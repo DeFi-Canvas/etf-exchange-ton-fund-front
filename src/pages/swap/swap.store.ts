@@ -41,11 +41,12 @@ import { ResultOptions } from './components/swap-result/swap-result.component';
 import { AssetBalance } from '@/instance/asset/asset.model';
 import { I18NService } from '@/store/i18n/i18.store';
 import { formatNumberExponent } from '@/utils/number';
+import { ERROR, Errors, PENDING } from '@/store/errors/erorr-systrm';
 
 export interface SwapStore {
     //#region state
-    swapAssets: Property<E.Either<string, Array<SwapAsset>>>;
-    allAssets: Property<E.Either<string, Array<FiltrebleSwapAsset>>>;
+    swapAssets: Property<E.Either<Errors, Array<SwapAsset>>>;
+    allAssets: Property<E.Either<Errors, Array<FiltrebleSwapAsset>>>;
     selectAssetBottomSheetIsOpen: Property<boolean>;
     addAssetBottomSheetIsOpen: Property<boolean>;
     resultBottomSheetIsOpen: Property<boolean>;
@@ -63,13 +64,13 @@ export interface SwapStore {
     swapTokenOrder: () => void;
 
     //#region get
-    getWaletAssets: () => E.Either<string, Array<AssetBalance>>;
-    getSwapAssets: () => E.Either<string, SwapAsset[]>;
+    getWaletAssets: () => E.Either<Errors, Array<AssetBalance>>;
+    getSwapAssets: () => E.Either<Errors, SwapAsset[]>;
 
     //#region set
-    setSwapAssets: (assets: E.Either<string, Array<SwapAsset>>) => void;
-    setAllAssets: (assets: E.Either<string, Array<FiltrebleSwapAsset>>) => void;
-    setWaletAssets: (asset: E.Either<string, Array<AssetBalance>>) => void;
+    setSwapAssets: (assets: E.Either<Errors, Array<SwapAsset>>) => void;
+    setAllAssets: (assets: E.Either<Errors, Array<FiltrebleSwapAsset>>) => void;
+    setWaletAssets: (asset: E.Either<Errors, Array<AssetBalance>>) => void;
     setCurrentVariableAsset: (id: string) => void;
     setAddCurrentVariableAsset: (id: string) => void;
     setCurrentVariableSwapAsset: (id: string) => void;
@@ -91,24 +92,24 @@ export const newSwapStore = injectable(
         const {
             state: allAssets,
             set: setAllAssets,
-            get: geyAllAssets,
-        } = newAtomState<E.Either<string, Array<FiltrebleSwapAsset>>>(
-            E.left('pending')
+            get: getAllAssets,
+        } = newAtomState<E.Either<Errors, Array<FiltrebleSwapAsset>>>(
+            E.left(PENDING)
         );
 
         const {
             state: waletAssets,
             set: setWaletAssets,
             get: getWaletAssets,
-        } = newAtomState<E.Either<string, Array<AssetBalance>>>(
-            E.left('pending')
+        } = newAtomState<E.Either<Errors, Array<AssetBalance>>>(
+            E.left(PENDING)
         );
 
         const {
             state: swapAssets,
             set: setSwapAssets,
             get: getSwapAssets,
-        } = newAtomState<E.Either<string, Array<SwapAsset>>>(E.left('pending'));
+        } = newAtomState<E.Either<Errors, Array<SwapAsset>>>(E.left(PENDING));
 
         const swapListInfo =
             newLensedAtom<DropdownOptions[]>(SWAP_LIST_INFO_INIT);
@@ -205,13 +206,13 @@ export const newSwapStore = injectable(
         const onAssetSelectEvent = pipe(
             currentVariableAsset,
             tap((id) => {
-                const currentAllAssets = geyAllAssets();
+                const currentAllAssets = getAllAssets();
                 const currentWaletAssets = getWaletAssets();
                 const currentSwapAssets = getSwapAssets();
 
                 const currentHeadSwapAsset = pipe(
                     currentSwapAssets,
-                    E.chain(flow(A.head, E.fromOption(constant('error')))),
+                    E.chain(flow(A.head, E.fromOption(constant(ERROR)))),
                     E.fold(constUndefined, identity)
                 );
 
@@ -240,7 +241,7 @@ export const newSwapStore = injectable(
                                         E.chain(
                                             flow(
                                                 A.findFirst((x) => x.id === id),
-                                                E.fromOption(constant('error')),
+                                                E.fromOption(constant(ERROR)),
                                                 E.map((asset) => {
                                                     if (currentWaletAsset) {
                                                         return {
@@ -293,7 +294,7 @@ export const newSwapStore = injectable(
         const onAssetAddEvent = pipe(
             addCurrentVariableAsset,
             tap((id) => {
-                const currentAllAssets = geyAllAssets();
+                const currentAllAssets = getAllAssets();
                 const currentWaletAssets = getWaletAssets();
                 const currentSwapAssets = getSwapAssets();
 
@@ -315,7 +316,7 @@ export const newSwapStore = injectable(
                                 asset.id === id ? O.some(asset) : O.none
                             ),
                             A.head,
-                            E.fromOption(constant('error')),
+                            E.fromOption(constant(ERROR)),
                             E.map(mapAssetToSwapAsset)
                         )
                     ),
@@ -384,7 +385,7 @@ export const newSwapStore = injectable(
                                     return '';
                                 })
                             ),
-                            E.fromOption(constant('error'))
+                            E.fromOption(constant(ERROR))
                         );
                     }),
                     E.getOrElseW(() => [])
@@ -418,7 +419,7 @@ export const newSwapStore = injectable(
                                 }
                                 return [''];
                             }),
-                            E.fromOption(constant('error'))
+                            E.fromOption(constant(ERROR))
                         );
                     }),
                     E.getOrElseW(() => [])
@@ -426,7 +427,7 @@ export const newSwapStore = injectable(
 
                 const baseAssetAfterSwap = pipe(
                     assets,
-                    E.chain(flow(A.head, E.fromOption(constant('error')))),
+                    E.chain(flow(A.head, E.fromOption(constant(ERROR)))),
                     E.chain((asset) =>
                         pipe(
                             currentWaletAsset,
@@ -444,7 +445,7 @@ export const newSwapStore = injectable(
 
                 const lastAssetAfterSwap = pipe(
                     assets,
-                    E.chain(flow(A.last, E.fromOption(constant('error')))),
+                    E.chain(flow(A.last, E.fromOption(constant(ERROR)))),
                     E.chain((asset) =>
                         pipe(
                             currentWaletAsset,
@@ -498,7 +499,7 @@ export const newSwapStore = injectable(
             onSearchAssetsEvent,
             tap((tickerName) => {
                 pipe(
-                    geyAllAssets(),
+                    getAllAssets(),
                     E.map(
                         A.map((asset) => ({
                             ...asset,

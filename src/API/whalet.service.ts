@@ -33,13 +33,14 @@ import { allFundsCodec } from './contracts/funds.contract';
 import { AssetBalance } from '@/instance/asset/asset.model';
 import { FundsData } from '@/instance/fund/fund.model';
 import { AxiosResponse } from 'axios';
+import { Errors } from '@/store/errors/erorr-systrm';
 
 export interface WaletRestService {
-    getBalance: () => Stream<Either<string, WaletResponce>>;
-    getAssets: () => Stream<Either<string, Array<AssetBalance>>>;
-    getFunds: () => Stream<Either<string, Array<FundsData>>>;
-    getWhaletFunds: () => Stream<Either<string, Array<FundsData>>>;
-    getTransactions: () => Stream<Either<string, Array<WalletTransactions>>>;
+    getBalance: () => Stream<Either<Errors, WaletResponce>>;
+    getAssets: () => Stream<Either<Errors, Array<AssetBalance>>>;
+    getFunds: () => Stream<Either<Errors, Array<FundsData>>>;
+    getWhaletFunds: () => Stream<Either<Errors, Array<FundsData>>>;
+    getTransactions: () => Stream<Either<Errors, Array<WalletTransactions>>>;
 }
 
 const walletApi = new WalletApi({

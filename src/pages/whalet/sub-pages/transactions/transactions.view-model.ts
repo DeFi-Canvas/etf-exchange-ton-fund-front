@@ -8,10 +8,11 @@ import { tap } from '@most/core';
 import { Transactions } from '@/API/transactions/transactions.responce.contract';
 import { TransactionsRestService } from '@/API/transactions/transactions.service';
 import { formatTransactions } from './transactions.model';
+import { Errors, PENDING } from '@/store/errors/erorr-systrm';
 
 export interface TransactionsViewModel {
     readonly transactions: Property<
-        E.Either<string, Record<string, Transactions>>
+        E.Either<Errors, Record<string, Transactions>>
     >;
 }
 
@@ -24,8 +25,8 @@ export const newTransactionsViewModel = injectable(
     (service): NewTransactionsViewModel =>
         () => {
             const transactions = newLensedAtom<
-                E.Either<string, Record<string, Transactions>>
-            >(E.left('pending'));
+                E.Either<Errors, Record<string, Transactions>>
+            >(E.left(PENDING));
 
             const getTransactionsEffect = pipe(
                 service.getTransactions(),

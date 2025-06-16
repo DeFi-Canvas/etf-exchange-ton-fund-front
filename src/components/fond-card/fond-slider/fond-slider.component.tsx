@@ -5,10 +5,11 @@ import { FondCard, FondCardProps } from '../fond-card.component';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import SkeletonCard from '@/components/skeletons/skeleton-card/skeleton-card.component';
 import 'swiper/css';
+import { Errors } from '@/store/errors/erorr-systrm';
 
 export interface FondsSliderProps {
     theme?: string;
-    slidesData: E.Either<string, Array<Omit<FondCardProps, 'onClick'>>>;
+    slidesData: E.Either<Errors, Array<Omit<FondCardProps, 'onClick'>>>;
     onClick: (id: string) => void;
 }
 

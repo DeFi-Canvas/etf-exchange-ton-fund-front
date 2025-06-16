@@ -1,8 +1,14 @@
 import { memo } from 'react';
 import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/lib/function';
+import {
+    Pending,
+    SimpleError,
+    PENDING,
+    ERROR,
+} from '@/store/errors/erorr-systrm';
 
-type RenderEitherErrors = 'pending' | 'error' | string;
+type RenderEitherErrors = Pending | SimpleError | string;
 
 export interface RenderResultProps<E extends RenderEitherErrors, A> {
     readonly data: E.Either<E, A>;
@@ -26,9 +32,9 @@ export const RenderResult: RenderResultComponent = memo((props) => {
         data,
         E.fold((err) => {
             switch (err) {
-                case 'pending':
+                case PENDING:
                     return loading && loading();
-                case 'error':
+                case ERROR:
                 default:
                     return failure && failure(err);
             }

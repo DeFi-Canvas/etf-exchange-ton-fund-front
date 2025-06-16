@@ -2,9 +2,10 @@ import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { token } from '@injectable-ts/core';
 import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/lib/function';
+import { Errors, PENDING } from '../errors/erorr-systrm';
 
 export interface CaheStore {
-    get: (key: string) => E.Either<string, unknown>;
+    get: (key: string) => E.Either<Errors, unknown>;
     set: (key: string, data: unknown) => void;
 }
 
@@ -17,7 +18,7 @@ export const newNewCahe = (): NewCaheStore => {
 
     const get = (key: string) => {
         return pipe(
-            E.fromNullable('pending')(localStorage.getItem(key)),
+            E.fromNullable(PENDING)(localStorage.getItem(key)),
             E.map((data) => {
                 console.log(JSON.parse(data));
                 return JSON.parse(data);

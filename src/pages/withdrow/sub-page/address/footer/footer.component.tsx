@@ -4,14 +4,15 @@ import AppButton from '@/components/app-button/app-button.component.tsx';
 import * as E from 'fp-ts/Either';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
+import { Errors } from '@/store/errors/erorr-systrm';
 
 interface FooterProps {
     balanceAfter: number;
     isGoToCheckAvailable: boolean;
     currency: string;
     symbolLogo: string;
-    address: E.Either<string, string>;
-    memo: E.Either<string, string>;
+    address: E.Either<Errors, string>;
+    memo: E.Either<Errors, string>;
     texts: {
         balance: string;
         button: string;

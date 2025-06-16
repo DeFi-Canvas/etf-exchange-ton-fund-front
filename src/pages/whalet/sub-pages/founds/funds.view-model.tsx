@@ -7,9 +7,10 @@ import { pipe } from 'fp-ts/lib/function';
 import { tap } from '@most/core';
 import { newWaletRestService } from '@/API/whalet.service';
 import { FundsData } from '@/instance/fund/fund.model';
+import { Errors, PENDING } from '@/store/errors/erorr-systrm';
 
 export interface FundsViewModel {
-    readonly funds: Property<E.Either<string, Array<FundsData>>>;
+    readonly funds: Property<E.Either<Errors, Array<FundsData>>>;
 }
 
 export interface NewFundsViewModel {
@@ -20,8 +21,8 @@ export const newFundsViewModel = injectable(
     newWaletRestService,
     (service): NewFundsViewModel =>
         () => {
-            const funds = newLensedAtom<E.Either<string, Array<FundsData>>>(
-                E.left('pending')
+            const funds = newLensedAtom<E.Either<Errors, Array<FundsData>>>(
+                E.left(PENDING)
             );
 
             const getFundsEffect = pipe(

@@ -11,6 +11,7 @@ import { injectable, token } from '@injectable-ts/core';
 import { pipe } from 'fp-ts/lib/function';
 import { tap } from '@most/core';
 import { Asset } from '@/instance/asset/asset.model.ts';
+import { PENDING } from '@/store/errors/erorr-systrm';
 
 export interface AssetsSingleViewModel {
     asset: Property<Either<string, Asset>>;
@@ -24,9 +25,7 @@ export const newAssetsSingleViewModel = injectable(
     token('assetRestService')<AssetsRestService>(),
     (assetService): NewAssetsSingleViewModel =>
         (assetId) => {
-            const asset = newLensedAtom<Either<string, Asset>>(
-                E.left('pending')
-            );
+            const asset = newLensedAtom<Either<string, Asset>>(E.left(PENDING));
 
             const assetGetEffect = pipe(
                 assetService.getAssets(assetId),

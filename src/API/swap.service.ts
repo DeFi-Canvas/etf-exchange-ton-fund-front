@@ -19,14 +19,15 @@ import {
     assetResponseMapping,
     assetsResponseMapping,
 } from '@pages/assets-single/asset-single.model.ts';
+import { Errors } from '@/store/errors/erorr-systrm';
 
 export interface SwapRestService {
     getConnection: () => { evs: Stream<unknown>; unsubscription: () => void };
     initiate: (args: {
         amount: number;
         tokens: Array<string>;
-    }) => Stream<Either<string, unknown>>;
-    getAssets: () => Stream<Either<string, Array<AssetBalance>>>;
+    }) => Stream<Either<Errors, unknown>>;
+    getAssets: () => Stream<Either<Errors, Array<AssetBalance>>>;
 }
 
 const assetsApi = new AssetApi({

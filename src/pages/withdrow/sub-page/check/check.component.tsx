@@ -6,13 +6,14 @@ import { FooterContainer } from './footer/footer.container';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import { I18NService } from '@/store/i18n/i18.store';
 import { useProperty } from '@frp-ts/react';
+import { Errors } from '@/store/errors/erorr-systrm';
 
 interface CheckProps {
-    ammount: E.Either<string, number>;
+    ammount: E.Either<Errors, number>;
     approximateCost: string;
     currency: string;
-    address: E.Either<string, string>;
-    memo: E.Either<string, string>;
+    address: E.Either<Errors, string>;
+    memo: E.Either<Errors, string>;
     symbolLogo: string;
 }
 

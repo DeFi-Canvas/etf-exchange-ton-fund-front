@@ -18,6 +18,7 @@ import { AssetApi, DepositApi } from './scheme/rest-genereted/api';
 import { Configuration } from './scheme/rest-genereted';
 import { assetsResponseCodec } from './contracts/assets.contract';
 import { depositResponseCodec } from './contracts/deposit.contract';
+import { Errors } from '@/store/errors/erorr-systrm';
 
 const assetsApi = new AssetApi({ basePath: DOMAIN_API_URL } as Configuration);
 const depositApi = new DepositApi({
@@ -25,8 +26,8 @@ const depositApi = new DepositApi({
 } as Configuration);
 
 export interface DepositRestService {
-    getDepositAssets: () => Stream<Either<string, Array<DepositAsset>>>;
-    getDepositDetails: () => Stream<Either<string, DepositDetails>>;
+    getDepositAssets: () => Stream<Either<Errors, Array<DepositAsset>>>;
+    getDepositDetails: () => Stream<Either<Errors, DepositDetails>>;
 }
 
 export const newDepositRestService = injectable(

@@ -13,13 +13,12 @@ import { DepositAsset } from '../deposit.model';
 import { AssetCodec } from '@/pages/whalet/wallet.model';
 import { WithdrowStore } from '@/pages/withdrow/withdrow.store';
 import { AssetBalance } from '@/instance/asset/asset.model';
+import { Errors, PENDING } from '@/store/errors/erorr-systrm';
 
 export type AssetsViewModelInit = 'deposit' | 'withdrow';
 
 export interface AssetsViewModel {
-    assets: Property<
-        E.Either<string | 'pending', Array<DepositAsset | AssetBalance>>
-    >;
+    assets: Property<E.Either<Errors, Array<DepositAsset | AssetBalance>>>;
     handleClick: (asset: DepositAsset | AssetBalance) => void;
 }
 
@@ -36,8 +35,8 @@ export const newAssetsViewModel = injectable(
     (waletRestService, newDepositRestService, store): NewAssetsViewModel =>
         (type) => {
             const assets = newLensedAtom<
-                E.Either<string | 'pending', Array<DepositAsset | AssetBalance>>
-            >(E.left('pending'));
+                E.Either<Errors, Array<DepositAsset | AssetBalance>>
+            >(E.left(PENDING));
 
             const currentAssets = (() => {
                 switch (type) {

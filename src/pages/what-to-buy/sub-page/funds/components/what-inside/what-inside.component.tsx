@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import SkeletonCard from '@/components/skeletons/skeleton-card/skeleton-card.component';
 import { FundsData } from '@/instance/fund/fund.model';
+import { Errors } from '@/store/errors/erorr-systrm';
 
 interface WhatInsideProps {
-    assets: E.Either<string, FundsData['assets']>;
+    assets: E.Either<Errors, FundsData['assets']>;
     texts: {
         whatsInside: string;
     };

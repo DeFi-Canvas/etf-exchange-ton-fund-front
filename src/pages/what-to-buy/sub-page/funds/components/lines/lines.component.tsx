@@ -4,9 +4,10 @@ import css from './lines.module.css';
 import { CardPrice } from '../price/price.components';
 import * as E from 'fp-ts/Either';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
+import { Errors } from '@/store/errors/erorr-systrm';
 
 interface ChartLinesProps {
-    tvlValue: E.Either<string, number>;
+    tvlValue: E.Either<Errors, number>;
     texts: {
         tvlTitle: string;
     };

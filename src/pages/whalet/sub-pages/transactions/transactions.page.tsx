@@ -5,9 +5,10 @@ import { Transaction } from './components/transaction/transaction.component';
 import css from './transactions.module.css';
 import getFormattedDate from '@/libs/date-format';
 import { Loader } from '@/components/loader/loader.component';
+import { Errors } from '@/store/errors/erorr-systrm';
 
 interface TransactionsProps {
-    transactions: E.Either<string, Record<string, TransactionsDataType>>;
+    transactions: E.Either<Errors, Record<string, TransactionsDataType>>;
 }
 
 export const Transactions = ({ transactions }: TransactionsProps) => {

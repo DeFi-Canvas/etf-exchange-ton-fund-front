@@ -11,6 +11,7 @@ import { API, DOMAIN_API_URL } from './API';
 import { TasksApi } from './scheme/rest-genereted/api';
 import { Configuration } from './scheme/rest-genereted';
 import { taskListCodec } from './contracts/task.contract';
+import { Errors } from '@/store/errors/erorr-systrm';
 
 const tasksApi = new TasksApi({
     basePath: DOMAIN_API_URL,
@@ -36,7 +37,7 @@ export interface TasksCheckResponce extends TasksCheck {
 }
 
 export interface ProfileRestService {
-    getTask: () => Stream<Either<string, Array<EranStep>>>;
+    getTask: () => Stream<Either<Errors, Array<EranStep>>>;
     checkTask: (id: string) => Stream<TasksCheckResponce>;
 }
 
