@@ -13,6 +13,7 @@ import { TransactionView } from '@pages/transaction-view/transaction-view.page.t
 import { Loader } from '@/components/loader/loader.component';
 import { newNewI18NService } from '@/store/i18n/i18.store';
 import { newTransactionsRestService } from '@/API/transactions/transactions.service';
+import { newNewCahe } from '@/store/cache/cahe.store';
 
 interface Route {
     path: string;
@@ -35,7 +36,8 @@ export const AppRoutes = () => {
     );
 
     const i18n = useValueWithEffect(() => newNewI18NService(), []);
-    const transactionsRestService = newTransactionsRestService({});
+    const caheStore = useValueWithEffect(() => newNewCahe(), []);
+    const transactionsRestService = newTransactionsRestService({ caheStore });
 
     //#region containers
     const containers = getContainers({
