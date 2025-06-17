@@ -18,8 +18,12 @@ export const TransactionSwapMonyInfo = ({
         case 'SWAP':
             return (
                 <div className={css.transactionMonyInfo}>
-                    <span className={css.credit}>+{credit?.amount}</span>
-                    <span className={css.debit}>-{debit?.amount}</span>
+                    <span className={css.credit}>
+                        +{credit?.amount} {credit?.asset.ticker}
+                    </span>
+                    <span className={css.debit}>
+                        -{debit?.amount} {debit?.asset.ticker}
+                    </span>
                 </div>
             );
         case 'TRANSFER':

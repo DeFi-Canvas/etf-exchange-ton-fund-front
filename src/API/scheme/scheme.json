@@ -2064,8 +2064,8 @@
                 "amount": {
                     "type": "number"
                 },
-                "assetId": {
-                    "type": "string"
+                "asset": {
+                    "$ref": "#/definitions/models.Asset"
                 },
                 "createdAt": {
                     "type": "string"

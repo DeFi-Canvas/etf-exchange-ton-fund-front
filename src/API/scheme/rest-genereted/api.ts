@@ -1250,10 +1250,10 @@ export interface TransactionsJournalEntry {
     'amount'?: number;
     /**
      * 
-     * @type {string}
+     * @type {ModelsAsset}
      * @memberof TransactionsJournalEntry
      */
-    'assetId'?: string;
+    'asset'?: ModelsAsset;
     /**
      * 
      * @type {string}

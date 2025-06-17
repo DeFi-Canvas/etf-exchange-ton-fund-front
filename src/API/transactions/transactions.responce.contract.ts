@@ -1,4 +1,5 @@
 import * as t from 'io-ts';
+import { assetCodec } from '../contracts/assets.contract';
 
 export const transactionStatusCodec = t.union([
     t.literal('AUTHORIZED'),
@@ -50,13 +51,14 @@ export const transactionEntry = t.type({
     id: t.string,
     transactionId: t.string,
     userId: t.string,
-    assetId: t.string,
+    asset: assetCodec,
     type: transactionEntryType,
     amount: t.number,
     createdAt: t.string,
     isReserve: t.boolean,
     sign: t.number,
 });
+
 export type TransactionEntry = t.TypeOf<typeof transactionEntry>;
 
 export const transactionCodec = t.type({
