@@ -8,6 +8,7 @@ import { flow, pipe } from 'fp-ts/lib/function';
 import { tap } from '@most/core';
 import { newDepositRestService } from '@/API/deposit.service';
 import { EMPTY, Errors, LOADING } from '@/store/errors/erorr-systrm';
+import { AssetsRestService } from '@/API/assets/assets.service';
 
 export interface DepositDetails {
     readonly address: string;
@@ -26,7 +27,8 @@ export interface NewDepositEndPointViewModel {
 
 export const newDepositEndPointViewModel = injectable(
     newDepositRestService,
-    (service): NewDepositEndPointViewModel =>
+    AssetsRestService,
+    (service, assetsRestService): NewDepositEndPointViewModel =>
         (ticker) => {
             const details = newLensedAtom<E.Either<Errors, DepositDetails>>(
                 E.left(LOADING)
@@ -39,7 +41,7 @@ export const newDepositEndPointViewModel = injectable(
             );
 
             const imgEffect = pipe(
-                service.getDepositAssets(),
+                assetsRestService.getAllAssets(),
                 tap(
                     flow(
                         E.chain((depositAssets) => {
@@ -47,7 +49,7 @@ export const newDepositEndPointViewModel = injectable(
                                 depositAssets,
                                 A.findFirst((x) => x.ticker === ticker),
                                 E.fromOption(() => EMPTY),
-                                E.map(({ img }) => img)
+                                E.map(({ imageUrl }) => imageUrl)
                             );
                         }),
                         img.set

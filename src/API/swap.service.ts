@@ -5,20 +5,10 @@ import { DOMAIN_API_URL } from './API';
 import { newLensedAtom } from '@frp-ts/lens';
 import { pipe } from 'fp-ts/lib/function';
 import { fromProperty } from '@/utils/property.utils';
-import { AssetApi, Configuration, SwapApi } from './scheme/rest-genereted';
+import { Configuration, SwapApi } from './scheme/rest-genereted';
 import { Either } from 'fp-ts/lib/Either';
-import {
-    authRequestOptions,
-    getRequestGenerated,
-    handleGetRequest,
-} from './request.utils';
-import { assetsResponseCodec } from './contracts/assets.contract';
+import { getRequestGenerated } from './request.utils';
 import { swapInitiateCodec } from './contracts/swap.contract';
-import { AssetBalance } from '@/instance/asset/asset.model';
-import {
-    assetResponseMapping,
-    assetsResponseMapping,
-} from '@pages/assets-single/asset-single.model.ts';
 import { Errors } from '@/store/errors/erorr-systrm';
 
 export interface SwapRestService {
@@ -27,12 +17,8 @@ export interface SwapRestService {
         amount: number;
         tokens: Array<string>;
     }) => Stream<Either<Errors, unknown>>;
-    getAssets: () => Stream<Either<Errors, Array<AssetBalance>>>;
 }
 
-const assetsApi = new AssetApi({
-    basePath: DOMAIN_API_URL,
-} as Configuration);
 const swapApi = new SwapApi({
     basePath: DOMAIN_API_URL,
 } as Configuration);
@@ -73,13 +59,6 @@ export const newSwapRestService = injectable(
                     }),
                     swapInitiateCodec
                 )(),
-
-            // TODO it looks like we often copy same endpoints into different services. Should we instead inject different services if the different endpoints are needed?
-            getAssets: handleGetRequest(
-                assetsApi.apiAssetGet(authRequestOptions()),
-                assetsResponseCodec,
-                assetsResponseMapping
-            ),
         };
     }
 );

@@ -13,7 +13,7 @@ import { newSwapRestService } from '@/API/swap.service';
 import { newWaletRestService } from '@/API/whalet.service';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
-import { newAssetsRestService } from '@/API/assets.service.ts';
+import { AssetsRestService } from '@/API/assets/assets.service';
 
 export interface SwapHeader {
     onClick: () => void;
@@ -26,8 +26,8 @@ export interface NewSwapHeader {
 export const newSwapHeader = injectable(
     token('store')<SwapStore>(),
     newWaletRestService,
-    newSwapRestService,
-    (store, walletService, swapRestService): NewSwapHeader =>
+    AssetsRestService,
+    (store, walletService, assetsRestService): NewSwapHeader =>
         () => {
             const [onReset, onResetEvent] = createAdapter<void>();
 
@@ -40,7 +40,7 @@ export const newSwapHeader = injectable(
                             assets,
                             walletAssets,
                         }),
-                        swapRestService.getAssets(),
+                        assetsRestService.getAllAssets(),
                         walletService.getAssets()
                     )
                 ),

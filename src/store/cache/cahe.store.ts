@@ -20,7 +20,6 @@ export const newNewCahe = (): NewCaheStore => {
         return pipe(
             E.fromNullable(PENDING)(localStorage.getItem(key)),
             E.map((data) => {
-                console.log(JSON.parse(data));
                 return JSON.parse(data);
             })
         );

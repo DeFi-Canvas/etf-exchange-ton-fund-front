@@ -12,19 +12,19 @@ export const MOCK_NEW_DEPOSIT_SERVICE = ({
     const { id: telegram_id } = userStore.user.get();
 
     return {
-        getDepositAssets: () =>
-            now(
-                E.right([
-                    {
-                        id: `${telegram_id ?? 0}`,
-                        name: 'name',
-                        ticker: 'ticker',
-                        description: 'description',
-                        category: 'category',
-                        img: 'img',
-                    },
-                ])
-            ),
+        // getDepositAssets: () =>
+        //     now(
+        //         E.right([
+        //             {
+        //                 id: `${telegram_id ?? 0}`,
+        //                 name: 'name',
+        //                 ticker: 'ticker',
+        //                 description: 'description',
+        //                 category: 'category',
+        //                 img: 'img',
+        //             },
+        //         ])
+        //     ),
         getDepositDetails: () =>
             now(
                 E.right({

@@ -26,7 +26,10 @@ const depositApi = new DepositApi({
 } as Configuration);
 
 export interface DepositRestService {
-    getDepositAssets: () => Stream<Either<Errors, Array<DepositAsset>>>;
+    // /**
+    //  * @deprecated wrong type
+    //  */
+    // getDepositAssets: () => Stream<Either<Errors, Array<DepositAsset>>>;
     getDepositDetails: () => Stream<Either<Errors, DepositDetails>>;
 }
 
@@ -36,11 +39,14 @@ export const newDepositRestService = injectable(
         const { id: telegram_id } = userStore.user.get();
 
         return {
-            getDepositAssets: handleGetRequest(
-                assetsApi.apiAssetGet(authRequestOptions()),
-                assetsResponseCodec,
-                mapDepositAssets
-            ),
+            // /**
+            //  * @deprecated wrong type
+            //  */
+            // getDepositAssets: handleGetRequest(
+            //     assetsApi.apiAssetGet(authRequestOptions()),
+            //     assetsResponseCodec,
+            //     mapDepositAssets
+            // ),
             getDepositDetails: getRequestGenerated(
                 depositApi.depositGet(telegram_id ?? 0),
                 depositResponseCodec,

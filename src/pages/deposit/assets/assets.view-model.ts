@@ -14,6 +14,7 @@ import { AssetCodec } from '@/pages/whalet/wallet.model';
 import { WithdrowStore } from '@/pages/withdrow/withdrow.store';
 import { AssetBalance } from '@/instance/asset/asset.model';
 import { Errors, PENDING } from '@/store/errors/erorr-systrm';
+import { AssetsRestService } from '@/API/assets/assets.service';
 
 export type AssetsViewModelInit = 'deposit' | 'withdrow';
 
@@ -32,7 +33,13 @@ export const newAssetsViewModel = injectable(
     token('waletRestService')<WaletRestService>(),
     token('depositRestService')<DepositRestService>(),
     token('withdrowStore')<WithdrowStore>(),
-    (waletRestService, newDepositRestService, store): NewAssetsViewModel =>
+    AssetsRestService,
+    (
+        waletRestService,
+        newDepositRestService,
+        store,
+        assetsRestService
+    ): NewAssetsViewModel =>
         (type) => {
             const assets = newLensedAtom<
                 E.Either<Errors, Array<DepositAsset | AssetBalance>>
@@ -55,7 +62,7 @@ export const newAssetsViewModel = injectable(
                             )
                         );
                     case 'deposit': {
-                        return newDepositRestService.getDepositAssets();
+                        return assetsRestService.getAllAssets();
                     }
                 }
             })();

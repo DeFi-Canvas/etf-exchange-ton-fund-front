@@ -34,6 +34,9 @@ import { AssetBalance } from '@/instance/asset/asset.model';
 import { FundsData } from '@/instance/fund/fund.model';
 import { AxiosResponse } from 'axios';
 import { Errors } from '@/store/errors/erorr-systrm';
+import { CaheStore } from '@/store/cache/cahe.store';
+import { pipe } from 'fp-ts/lib/function';
+import { waitWithCache } from '@/utils/stream';
 
 export interface WaletRestService {
     getBalance: () => Stream<Either<Errors, WaletResponce>>;
@@ -57,7 +60,8 @@ const strategiesApi = new StrategiesApi({
 
 export const newWaletRestService = injectable(
     token('userStore')<UserStoreService>(),
-    (userStore): WaletRestService => {
+    CaheStore,
+    (userStore, caheStore): WaletRestService => {
         const { id: telegram_id } = userStore.user.get();
 
         return {
@@ -65,11 +69,20 @@ export const newWaletRestService = injectable(
                 walletsApi.walletBalanceGet(telegram_id ?? 0),
                 walletBalanceCodec
             ),
-            getAssets: handleGetRequest(
-                walletApi.apiWalletBalanceGet(authRequestOptions()),
-                walletBalanceResponseCodec,
-                mapAssetsFromBalance
-            ),
+            // getAssets: handleGetRequest(
+            //     walletApi.apiWalletBalanceGet(authRequestOptions()),
+            //     walletBalanceResponseCodec,
+            //     mapAssetsFromBalance
+            // ),
+            getAssets: () =>
+                pipe(
+                    handleGetRequest(
+                        walletApi.apiWalletBalanceGet(authRequestOptions()),
+                        walletBalanceResponseCodec,
+                        mapAssetsFromBalance
+                    )(),
+                    waitWithCache(caheStore, 'WaletAssets')
+                ),
             getFunds: getRequestGenerated(
                 strategiesApi.strategiesGet(),
                 allFundsCodec,

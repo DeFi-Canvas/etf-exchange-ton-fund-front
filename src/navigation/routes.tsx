@@ -14,6 +14,7 @@ import { Loader } from '@/components/loader/loader.component';
 import { newNewI18NService } from '@/store/i18n/i18.store';
 import { newTransactionsRestService } from '@/API/transactions/transactions.service';
 import { newNewCahe } from '@/store/cache/cahe.store';
+import { newAssetsRestService } from '@/API/assets/assets.service';
 
 interface Route {
     path: string;
@@ -38,12 +39,15 @@ export const AppRoutes = () => {
     const i18n = useValueWithEffect(() => newNewI18NService(), []);
     const caheStore = useValueWithEffect(() => newNewCahe(), []);
     const transactionsRestService = newTransactionsRestService({ caheStore });
+    const assetsRestService = newAssetsRestService({ caheStore });
 
     //#region containers
     const containers = getContainers({
         userStore,
         i18n,
         transactionsRestService,
+        assetsRestService,
+        caheStore,
     });
 
     //#region routes

@@ -1,5 +1,4 @@
 import { Property } from '@frp-ts/core';
-import { AssetsRestService } from '@/API/assets.service.ts';
 import {
     valueWithEffect,
     ValueWithEffect,
@@ -12,6 +11,7 @@ import { pipe } from 'fp-ts/lib/function';
 import { tap } from '@most/core';
 import { Asset } from '@/instance/asset/asset.model.ts';
 import { PENDING } from '@/store/errors/erorr-systrm';
+import { AssetsRestService } from '@/API/assets/assets.service';
 
 export interface AssetsSingleViewModel {
     asset: Property<Either<string, Asset>>;
@@ -22,7 +22,7 @@ export interface NewAssetsSingleViewModel {
 }
 
 export const newAssetsSingleViewModel = injectable(
-    token('assetRestService')<AssetsRestService>(),
+    AssetsRestService,
     (assetService): NewAssetsSingleViewModel =>
         (assetId) => {
             const asset = newLensedAtom<Either<string, Asset>>(E.left(PENDING));

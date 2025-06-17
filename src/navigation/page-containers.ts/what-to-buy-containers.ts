@@ -16,22 +16,30 @@ export interface WhatToBuyContainers {
 export const getWhatToBuyContainers = ({
     userStore,
     i18n,
-}: Pick<getContainersArgs, 'i18n' | 'userStore'>): WhatToBuyContainers => ({
+    caheStore,
+}: Pick<
+    getContainersArgs,
+    'i18n' | 'userStore' | 'caheStore'
+>): WhatToBuyContainers => ({
     WhatToBuyPage: WhatToBuyPageContainer({
         userStore,
         i18n,
+        caheStore,
     }),
     PurchaseContainer: PurchaseContainer({
         userStore,
         i18n,
+        caheStore,
     }),
     SellContainer: SellContainer({
         userStore,
         i18n,
+        caheStore,
     }),
-    FundPage: FundPageContainer({ userStore, i18n }),
+    FundPage: FundPageContainer({ userStore, i18n, caheStore }),
     FundsPage: FundsPageContainer({
         userStore,
         i18n,
+        caheStore,
     }),
 });

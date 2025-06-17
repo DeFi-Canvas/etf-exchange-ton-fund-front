@@ -1,4 +1,4 @@
-import { newAssetsRestService } from '@/API/assets.service';
+// import { newAssetsRestService } from '@/API/assets.service';
 import { UserStoreService } from '@/store/user.store';
 import { MemoExoticComponent, FC, lazy, LazyExoticComponent } from 'react';
 import {
@@ -22,11 +22,15 @@ import { AssetsSingleContainer } from '@/pages/assets-single/assets-single.conta
 import { SwapPageContainer } from '@/pages/swap/swap.container';
 import { I18NService } from '@/store/i18n/i18.store';
 import { TransactionsRestService } from '@/API/transactions/transactions.service';
+import { AssetsRestService } from '@/API/assets/assets.service';
+import { CaheStore } from '@/store/cache/cahe.store';
 
 export interface getContainersArgs {
     userStore: UserStoreService;
     i18n: I18NService;
     transactionsRestService: TransactionsRestService;
+    assetsRestService: AssetsRestService;
+    caheStore: CaheStore;
 }
 
 type ReactComponent = () => JSX.Element;
@@ -46,21 +50,41 @@ export const getContainers = ({
     userStore,
     i18n,
     transactionsRestService,
+    assetsRestService,
+    caheStore,
 }: getContainersArgs): Containers => ({
-    deposit: getDepositContainers({ userStore, i18n }),
-    whalet: getWhaletContainers({ userStore, i18n, transactionsRestService }),
-    withdrow: getWithdrowContainers({ userStore, i18n }),
-    whatToBuy: getWhatToBuyContainers({ userStore, i18n }),
+    deposit: getDepositContainers({
+        userStore,
+        i18n,
+        assetsRestService,
+        caheStore,
+    }),
+    whalet: getWhaletContainers({
+        userStore,
+        i18n,
+        transactionsRestService,
+        assetsRestService,
+        caheStore,
+    }),
+    withdrow: getWithdrowContainers({
+        userStore,
+        i18n,
+        assetsRestService,
+        caheStore,
+    }),
+    whatToBuy: getWhatToBuyContainers({ userStore, i18n, caheStore }),
     Profile: ProfileContainer({
         userStore,
         i18n,
     }),
     AssetPage: AssetsSingleContainer({
-        assetRestService: newAssetsRestService(),
+        assetsRestService,
         i18n,
     }),
     SwapePage: SwapPageContainer({
         userStore,
         i18n,
+        assetsRestService,
+        caheStore,
     }),
 });

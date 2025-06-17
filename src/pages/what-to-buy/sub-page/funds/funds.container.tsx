@@ -5,13 +5,15 @@ import { UserStoreService } from '@/store/user.store';
 import { Funds } from './funds.component';
 import { newPurchaseSellStore } from '../purchase/purchase.store';
 import { I18NService } from '@/store/i18n/i18.store';
+import { CaheStore } from '@/store/cache/cahe.store';
 
 export const FundsPageContainer = injectable(
     provide(Funds)<'purchaseStore'>(),
     token('userStore')<UserStoreService>(),
-    (Funds, userStore) =>
+    CaheStore,
+    (Funds, userStore, caheStore) =>
         memo(() => {
-            const store = newPurchaseSellStore({ userStore });
+            const store = newPurchaseSellStore({ userStore, caheStore });
             const purchaseStore = useValueWithEffect(() => store(), []);
             return React.createElement(Funds({ purchaseStore }));
         })

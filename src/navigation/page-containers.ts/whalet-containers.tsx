@@ -15,18 +15,22 @@ export const getWhaletContainers = ({
     userStore,
     i18n,
     transactionsRestService,
+    caheStore,
 }: getContainersArgs): WhaletContainers => ({
     WaletPage: WaletPageContainer({
         userStore,
         i18n,
+        caheStore,
     }),
     Assets: AssetsContainer({
         userStore,
+        caheStore,
     }),
     Transactions: TransactionsContainer({
         transactionsRestService,
     }),
     Funds: FundsContainer({
         userStore,
+        caheStore,
     }),
 });

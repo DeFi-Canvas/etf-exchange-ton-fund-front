@@ -27,7 +27,6 @@ export function formatTransactions(transactions: Transactions) {
         const dateKey = new Date(transaction.createdAt)
             .toISOString()
             .split('T')[0];
-        console.log(dateKey);
 
         if (!groupedByDate[dateKey]) {
             groupedByDate[dateKey] = [];
