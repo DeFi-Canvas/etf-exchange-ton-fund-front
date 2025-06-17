@@ -21,6 +21,7 @@ export const getWhaletContainers = ({
         userStore,
         i18n,
         caheStore,
+        transactionsRestService,
     }),
     Assets: AssetsContainer({
         userStore,

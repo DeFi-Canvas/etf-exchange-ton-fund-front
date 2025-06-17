@@ -22,7 +22,7 @@ export const Transactions = ({ transactions }: TransactionsProps) => {
                         <div className={css.wrap}>
                             {Object.keys(transactions).map((group) => {
                                 return (
-                                    <div>
+                                    <div key={group}>
                                         <span className={css.date}>
                                             {getFormattedDate(new Date(group))}
                                         </span>

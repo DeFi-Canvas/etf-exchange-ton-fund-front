@@ -15,8 +15,8 @@ export const Transaction = ({
     entries,
     status,
 }: TransactionProps) => {
-    const isError =
-        status === 'FAILED' || status === 'AUTHORIZED' || status === 'EXPIRED';
+    const isError = status === 'FAILED' || status === 'EXPIRED';
+    const isPending = status === 'AUTHORIZED';
 
     return (
         <div className={css.transaction}>
@@ -33,6 +33,7 @@ export const Transaction = ({
                 <div
                     className={cn(css.transactionColumn, {
                         [css.error]: isError,
+                        [css.pending]: isPending,
                     })}
                 >
                     <TransactionSwapMonyInfo entries={entries} type={type} />

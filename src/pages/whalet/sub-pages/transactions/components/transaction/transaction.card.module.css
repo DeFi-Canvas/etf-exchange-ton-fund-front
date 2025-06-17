@@ -73,3 +73,10 @@
         color: var(--color-system-red,);
     }
 }
+
+.pending {
+    .credit,
+    .debit {
+        color: var(--color-system-yellow, #f7931a);
+    }
+}

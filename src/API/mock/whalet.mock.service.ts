@@ -104,28 +104,5 @@ export const NEW_WALET_REST_SERVICE = ({
                     },
                 ])
             ),
-        getTransactions: () =>
-            now(
-                E.right([
-                    {
-                        timestamp: new Date('2025-01-01').toISOString(), // ISO_DATETIME
-                        asset: {
-                            name: 'name',
-                            ticker: 'ticker',
-                            category: 'category',
-                            description: 'description',
-                            url: 'url',
-                            price: 0,
-                            withdrawalFee: 1,
-                        },
-                        address: 'address',
-                        amount: 2,
-                        value: 3,
-                        tx: 'tx',
-                        transactionType: 'transactionType',
-                        transactionStatus: 'transactionStatus',
-                    },
-                ])
-            ),
     };
 };

@@ -9,6 +9,7 @@ import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { newWaletRestService } from '@/API/whalet.service';
 import { newLensedAtom } from '@frp-ts/lens';
 import { WalletTransactions } from './wallet.model';
+import { TransactionsRestService } from '@/API/transactions/transactions.service';
 
 export interface Balance {
     int: string;
@@ -26,7 +27,8 @@ export interface NewWhatToBuyViewModel {
 
 export const newWhatToBuyViewModel = injectable(
     newWaletRestService,
-    (waletRestService): NewWhatToBuyViewModel =>
+    TransactionsRestService,
+    (waletRestService, transactionsRestService): NewWhatToBuyViewModel =>
         () => {
             const balance = newLensedAtom<O.Option<Balance>>(O.none);
             const isTransactionAvailible = newLensedAtom(true);
@@ -54,11 +56,11 @@ export const newWhatToBuyViewModel = injectable(
             );
 
             const isTransactionAvailibleEffect = pipe(
-                waletRestService.getTransactions(),
+                transactionsRestService.getTransactions(),
                 tap((x) => {
                     const transactions = pipe(
                         x,
-                        either.getOrElse(constant([] as WalletTransactions[]))
+                        either.getOrElseW(constant([] as const))
                     );
                     isTransactionAvailible.set(!!transactions.length);
                 })

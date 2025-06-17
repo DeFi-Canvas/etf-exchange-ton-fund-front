@@ -32,7 +32,6 @@ import { transactionListCodec } from './contracts/walletTransaction.contract';
 import { allFundsCodec } from './contracts/funds.contract';
 import { AssetBalance } from '@/instance/asset/asset.model';
 import { FundsData } from '@/instance/fund/fund.model';
-import { AxiosResponse } from 'axios';
 import { Errors } from '@/store/errors/erorr-systrm';
 import { CaheStore } from '@/store/cache/cahe.store';
 import { pipe } from 'fp-ts/lib/function';
@@ -43,7 +42,6 @@ export interface WaletRestService {
     getAssets: () => Stream<Either<Errors, Array<AssetBalance>>>;
     getFunds: () => Stream<Either<Errors, Array<FundsData>>>;
     getWhaletFunds: () => Stream<Either<Errors, Array<FundsData>>>;
-    getTransactions: () => Stream<Either<Errors, Array<WalletTransactions>>>;
 }
 
 const walletApi = new WalletApi({
@@ -69,11 +67,7 @@ export const newWaletRestService = injectable(
                 walletsApi.walletBalanceGet(telegram_id ?? 0),
                 walletBalanceCodec
             ),
-            // getAssets: handleGetRequest(
-            //     walletApi.apiWalletBalanceGet(authRequestOptions()),
-            //     walletBalanceResponseCodec,
-            //     mapAssetsFromBalance
-            // ),
+
             getAssets: () =>
                 pipe(
                     handleGetRequest(
@@ -97,15 +91,6 @@ export const newWaletRestService = injectable(
                 //@ts-ignore
                 mapWhaletFunds
                 // getWhaletFundsValidation
-            ),
-            getTransactions: getRequestGenerated(
-                walletsApi.walletTransactionsGet(telegram_id ?? 0),
-                transactionListCodec,
-                // TODO fix it with real api data if it's used in the app, or remove it
-                // TODO this endpoint returns data from the old transactions structure
-                //  we should replace it with the new structure where every transaction groups entries
-                //@ts-ignore
-                (transactions) => transactions.map(normolizeTransactionKey)
             ),
         };
     }
