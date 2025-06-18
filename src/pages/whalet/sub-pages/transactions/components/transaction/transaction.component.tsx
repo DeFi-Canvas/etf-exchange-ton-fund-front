@@ -6,6 +6,7 @@ import cn from 'classnames';
 import { TransactionSwapMonyInfo } from '../mony-info..swap.component';
 
 import css from './transaction.card.module.css';
+import { useMemo } from 'react';
 
 interface TransactionProps extends TransactionDataType {}
 
@@ -17,15 +18,17 @@ export const Transaction = ({
 }: TransactionProps) => {
     const isError = status === 'FAILED' || status === 'EXPIRED';
     const isPending = status === 'AUTHORIZED';
+    const transactionType = useMemo(
+        () => mapTransactionTypeToUi(type),
+        [mapTransactionTypeToUi, type]
+    );
 
     return (
         <div className={css.transaction}>
             <TransactionTypeIcon type={type} />
             <div className={css.transactionInfoContainer}>
                 <div className={css.transactionColumn}>
-                    <div className={css.title}>
-                        {mapTransactionTypeToUi(type)}
-                    </div>
+                    <div className={css.title}>{transactionType}</div>
                     <div className={css.date}>
                         {formatDateToStr(new Date(createdAt))}
                     </div>

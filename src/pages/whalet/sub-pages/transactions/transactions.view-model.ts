@@ -12,7 +12,7 @@ import { Error, PENDING } from '@/store/errors/error-system';
 
 export interface TransactionsViewModel {
     readonly transactions: Property<
-        E.Either<Error, Record<string, Transactions>>
+        E.Either<Error, Array<{ data: string; transactions: Transactions }>>
     >;
 }
 
@@ -25,7 +25,10 @@ export const newTransactionsViewModel = injectable(
     (service): NewTransactionsViewModel =>
         () => {
             const transactions = newLensedAtom<
-                E.Either<Error, Record<string, Transactions>>
+                E.Either<
+                    Error,
+                    Array<{ data: string; transactions: Transactions }>
+                >
             >(E.left(PENDING));
 
             const getTransactionsEffect = pipe(

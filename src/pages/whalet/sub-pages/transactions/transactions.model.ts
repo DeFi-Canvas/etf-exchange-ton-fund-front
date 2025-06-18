@@ -22,16 +22,24 @@ export const formatSwapEntries = (entries: Array<TransactionEntry>) => {
 };
 
 export function formatTransactions(transactions: Transactions) {
-    const groupedByDate: Record<string, Transactions> = {};
+    const groupedByDate: Array<{ data: string; transactions: Transactions }> =
+        [];
+
     for (const transaction of transactions) {
-        const dateKey = new Date(transaction.createdAt)
+        const data = new Date(transaction.createdAt)
             .toISOString()
             .split('T')[0];
 
-        if (!groupedByDate[dateKey]) {
-            groupedByDate[dateKey] = [];
+        const id = groupedByDate.findIndex((x) => x.data === data);
+
+        if (!groupedByDate[id]) {
+            groupedByDate.push({ data, transactions: [transaction] });
+        } else {
+            groupedByDate[id] = {
+                ...groupedByDate[id],
+                transactions: [...groupedByDate[id].transactions, transaction],
+            };
         }
-        groupedByDate[dateKey].push(transaction);
     }
     return groupedByDate;
 }

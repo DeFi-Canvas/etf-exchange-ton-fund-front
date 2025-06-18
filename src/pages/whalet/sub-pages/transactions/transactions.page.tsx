@@ -8,7 +8,10 @@ import { Loader } from '@/components/loader/loader.component';
 import { Error } from '@/store/errors/error-system';
 
 interface TransactionsProps {
-    transactions: E.Either<Error, Record<string, TransactionsDataType>>;
+    transactions: E.Either<
+        Error,
+        Array<{ data: string; transactions: TransactionsDataType }>
+    >;
 }
 
 export const Transactions = ({ transactions }: TransactionsProps) => {
@@ -20,21 +23,19 @@ export const Transactions = ({ transactions }: TransactionsProps) => {
                 success={(transactions) => {
                     return (
                         <div className={css.wrap}>
-                            {Object.keys(transactions).map((group) => {
+                            {transactions.map(({ data, transactions }) => {
                                 return (
-                                    <div key={group}>
+                                    <div key={data}>
                                         <span className={css.date}>
-                                            {getFormattedDate(new Date(group))}
+                                            {getFormattedDate(new Date(data))}
                                         </span>
                                         <div className={css.transactions}>
-                                            {transactions[group].map(
-                                                (transaction) => (
-                                                    <Transaction
-                                                        key={transaction.id}
-                                                        {...transaction}
-                                                    />
-                                                )
-                                            )}
+                                            {transactions.map((transaction) => (
+                                                <Transaction
+                                                    key={transaction.id}
+                                                    {...transaction}
+                                                />
+                                            ))}
                                         </div>
                                     </div>
                                 );
