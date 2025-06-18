@@ -11,16 +11,16 @@ export const getDepositContainers = ({
     userStore,
     i18n,
     assetsRestService,
-    caheStore,
+    cacheStore,
 }: Pick<
     getContainersArgs,
-    'i18n' | 'userStore' | 'assetsRestService' | 'caheStore'
+    'i18n' | 'userStore' | 'assetsRestService' | 'cacheStore'
 >): DepositContainers => ({
     DepositPage: Deposit({
         userStore,
         i18n,
         assetsRestService,
-        caheStore,
+        cacheStore,
     }),
     DepositEndPoint: DepositEndPointContainer({
         userStore,

@@ -10,10 +10,10 @@ import * as A from 'fp-ts/Array';
 import { fromProperty } from '@/utils/property.utils';
 import { newLensedAtom } from '@frp-ts/lens';
 import { combine, map, tap } from '@most/core';
-import { Errors, PENDING } from '@/store/errors/erorr-systrm';
+import { Error, PENDING } from '@/store/errors/error-system';
 
 export interface SwapSelectAsset {
-    avlailibleAssets: Property<E.Either<Errors, AssetsUIFiltreble[]>>;
+    avlailibleAssets: Property<E.Either<Error, AssetsUIFiltreble[]>>;
     isOpen: Property<boolean>;
     onSelectAsset: (assetId: string) => void;
     onSearchAssets: (ticker: string) => void;
@@ -29,7 +29,7 @@ export const newSwapSelectAsset = injectable(
     (store): NewSwapSelectAsset =>
         () => {
             const avlailibleAssets = newLensedAtom<
-                E.Either<Errors, AssetsUIFiltreble[]>
+                E.Either<Error, AssetsUIFiltreble[]>
             >(E.left(PENDING));
             const isOpen = newLensedAtom(false);
 

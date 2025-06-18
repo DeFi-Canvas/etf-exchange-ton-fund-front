@@ -9,7 +9,7 @@ import { PathReporter } from 'io-ts/lib/PathReporter';
 import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
 import { Any } from 'io-ts';
 import { DeepRequired } from '@/utils/typing.ts';
-import { ERROR, NETWORK_ERROR } from '@/store/errors/erorr-systrm';
+import { ERROR, NETWORK_ERROR } from '@/store/errors/error-system';
 
 export const handleGetRequest =
     <ResultData, Codec extends Any, ResponseData>(
@@ -47,6 +47,19 @@ export const handleGetRequest =
 
         return stream;
     };
+
+export const performGetRequest = <
+    T,
+    ResultData,
+    Codec extends Any,
+    ResponseData,
+>(
+    req: Promise<AxiosResponse<ResponseData, unknown>>,
+    codec: Codec & t.Type<DeepRequired<ResponseData>>,
+    transform: (data: t.TypeOf<typeof codec>) => ResultData
+): Stream<Either<string, T>> => {
+    return handleGetRequest(req, codec, transform)();
+};
 
 export const getRequestGenerated =
     <ReturnType, A, O = A, I = unknown>(

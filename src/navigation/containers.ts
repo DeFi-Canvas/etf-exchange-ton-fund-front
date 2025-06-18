@@ -23,14 +23,14 @@ import { SwapPageContainer } from '@/pages/swap/swap.container';
 import { I18NService } from '@/store/i18n/i18.store';
 import { TransactionsRestService } from '@/API/transactions/transactions.service';
 import { AssetsRestService } from '@/API/assets/assets.service';
-import { CaheStore } from '@/store/cache/cahe.store';
+import { CacheStore } from '@/store/cache/cahe.store';
 
 export interface getContainersArgs {
     userStore: UserStoreService;
     i18n: I18NService;
     transactionsRestService: TransactionsRestService;
     assetsRestService: AssetsRestService;
-    caheStore: CaheStore;
+    cacheStore: CacheStore;
 }
 
 type ReactComponent = () => JSX.Element;
@@ -51,28 +51,28 @@ export const getContainers = ({
     i18n,
     transactionsRestService,
     assetsRestService,
-    caheStore,
+    cacheStore,
 }: getContainersArgs): Containers => ({
     deposit: getDepositContainers({
         userStore,
         i18n,
         assetsRestService,
-        caheStore,
+        cacheStore,
     }),
     whalet: getWhaletContainers({
         userStore,
         i18n,
         transactionsRestService,
         assetsRestService,
-        caheStore,
+        cacheStore,
     }),
     withdrow: getWithdrowContainers({
         userStore,
         i18n,
         assetsRestService,
-        caheStore,
+        cacheStore,
     }),
-    whatToBuy: getWhatToBuyContainers({ userStore, i18n, caheStore }),
+    whatToBuy: getWhatToBuyContainers({ userStore, i18n, cacheStore }),
     Profile: ProfileContainer({
         userStore,
         i18n,
@@ -85,6 +85,6 @@ export const getContainers = ({
         userStore,
         i18n,
         assetsRestService,
-        caheStore,
+        cacheStore,
     }),
 });

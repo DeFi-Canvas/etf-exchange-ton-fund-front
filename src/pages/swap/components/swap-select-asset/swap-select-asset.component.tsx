@@ -6,14 +6,14 @@ import { useState } from 'react';
 import * as E from 'fp-ts/Either';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import { AssetsUIFiltreble } from '../../swap.model';
-import { Errors } from '@/store/errors/erorr-systrm';
+import { Error } from '@/store/errors/error-system';
 
 export interface SwapSelectAssetProps {
     isOpen: boolean;
     closeBottomSheet: () => void;
     onSelectAsset: (assetId: string) => void;
     onSearchAssets: (ticker: string) => void;
-    avlailibleAssets: E.Either<Errors, AssetsUIFiltreble[]>;
+    avlailibleAssets: E.Either<Error, AssetsUIFiltreble[]>;
     title: string;
 }
 

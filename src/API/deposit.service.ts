@@ -9,14 +9,14 @@ import { DOMAIN_API_URL } from './API';
 import { AssetApi, DepositApi } from './scheme/rest-genereted/api';
 import { Configuration } from './scheme/rest-genereted';
 import { depositResponseCodec } from './contracts/deposit.contract';
-import { Errors } from '@/store/errors/erorr-systrm';
+import { Error } from '@/store/errors/error-system';
 
 const depositApi = new DepositApi({
     basePath: DOMAIN_API_URL,
 } as Configuration);
 
 export interface DepositRestService {
-    getDepositDetails: () => Stream<Either<Errors, DepositDetails>>;
+    getDepositDetails: () => Stream<Either<Error, DepositDetails>>;
 }
 
 export const newDepositRestService = injectable(

@@ -14,7 +14,7 @@ import { SwapDropdownContainer } from './components/swap-dropdown/swap-dropdown.
 import { SwapResultContainer } from './components/swap-result/swap-result.container';
 import { SwapFooterContainer } from './components/footer/swap-footer.container';
 import { SkeletonCardSection } from '@/components/skeletons/skeleton-card/skeleton-card-section.component';
-import { Errors } from '@/store/errors/erorr-systrm';
+import { Error } from '@/store/errors/error-system';
 
 // const tabs: TabItemInterface[] = [
 //     {
@@ -28,7 +28,7 @@ import { Errors } from '@/store/errors/erorr-systrm';
 // ];
 
 interface SwapPageProps {
-    swapAssets: E.Either<Errors, Array<SwapAsset>>;
+    swapAssets: E.Either<Error, Array<SwapAsset>>;
 }
 
 export const SwapPage = injectable(

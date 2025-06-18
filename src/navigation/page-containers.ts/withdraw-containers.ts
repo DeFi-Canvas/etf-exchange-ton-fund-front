@@ -17,16 +17,16 @@ export const getWithdrowContainers = ({
     userStore,
     i18n,
     assetsRestService,
-    caheStore,
+    cacheStore,
 }: Pick<
     getContainersArgs,
-    'i18n' | 'userStore' | 'assetsRestService' | 'caheStore'
+    'i18n' | 'userStore' | 'assetsRestService' | 'cacheStore'
 >): WithdrowContainers => ({
     Withdrow: Withdrow({
         userStore,
         i18n,
         assetsRestService,
-        caheStore,
+        cacheStore,
     }),
     Amount: AmountContainer({
         userStore,

@@ -2,7 +2,7 @@ import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/e
 import css from './more-info.module.css';
 import * as E from 'fp-ts/Either';
 import { getUuid } from '@/utils/uuid';
-import { Errors } from '@/store/errors/erorr-systrm';
+import { Error } from '@/store/errors/error-system';
 
 export interface ChartMoreInfoCardInterface {
     id: number;
@@ -11,7 +11,7 @@ export interface ChartMoreInfoCardInterface {
 }
 
 interface MoreInfoProps {
-    cards: Array<E.Either<Errors, ChartMoreInfoCardInterface>>;
+    cards: Array<E.Either<Error, ChartMoreInfoCardInterface>>;
     title: string;
 }
 

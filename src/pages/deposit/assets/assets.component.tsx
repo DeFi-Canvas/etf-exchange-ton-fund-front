@@ -10,10 +10,10 @@ import cn from 'classnames';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import { SkeletonCardSection } from '@/components/skeletons/skeleton-card/skeleton-card-section.component';
 import { AssetBalance } from '@/instance/asset/asset.model';
-import { Errors } from '@/store/errors/erorr-systrm';
+import { Error } from '@/store/errors/error-system';
 
 interface AssetsProps {
-    assets: E.Either<Errors, Array<DepositAsset | AssetBalance>>;
+    assets: E.Either<Error, Array<DepositAsset | AssetBalance>>;
     type: AssetsViewModelInit;
     handleClick: (asset: DepositAsset | AssetBalance) => void;
 }

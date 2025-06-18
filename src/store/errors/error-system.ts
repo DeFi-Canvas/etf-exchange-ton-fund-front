@@ -4,7 +4,7 @@ export type Empty = 'EMPTY';
 export type SimpleError = 'ERROR';
 export type NetworkError = 'NETWORK_ERROR';
 
-export type Errors =
+export type Error =
     | Pending
     | SimpleError
     | NetworkError
@@ -12,8 +12,8 @@ export type Errors =
     | Empty
     | (string & {});
 
-export const PENDING: Errors = 'PENDING';
-export const LOADING: Errors = 'LOADING';
-export const EMPTY: Errors = 'EMPTY';
-export const ERROR: Errors = 'ERROR';
-export const NETWORK_ERROR: Errors = 'NETWORK_ERROR';
+export const PENDING: Error = 'PENDING';
+export const LOADING: Error = 'LOADING';
+export const EMPTY: Error = 'EMPTY';
+export const ERROR: Error = 'ERROR';
+export const NETWORK_ERROR: Error = 'NETWORK_ERROR';

@@ -41,13 +41,13 @@ import { ResultOptions } from './components/swap-result/swap-result.component';
 import { AssetBalance } from '@/instance/asset/asset.model';
 import { I18NService } from '@/store/i18n/i18.store';
 import { formatNumberExponent } from '@/utils/number';
-import { ERROR, Errors, PENDING } from '@/store/errors/erorr-systrm';
+import { ERROR, Error, PENDING } from '@/store/errors/error-system';
 import { AssetsRestService } from '@/API/assets/assets.service';
 
 export interface SwapStore {
     //#region state
-    swapAssets: Property<E.Either<Errors, Array<SwapAsset>>>;
-    allAssets: Property<E.Either<Errors, Array<FiltrebleSwapAsset>>>;
+    swapAssets: Property<E.Either<Error, Array<SwapAsset>>>;
+    allAssets: Property<E.Either<Error, Array<FiltrebleSwapAsset>>>;
     selectAssetBottomSheetIsOpen: Property<boolean>;
     addAssetBottomSheetIsOpen: Property<boolean>;
     resultBottomSheetIsOpen: Property<boolean>;
@@ -65,13 +65,13 @@ export interface SwapStore {
     swapTokenOrder: () => void;
 
     //#region get
-    getWaletAssets: () => E.Either<Errors, Array<AssetBalance>>;
-    getSwapAssets: () => E.Either<Errors, SwapAsset[]>;
+    getWaletAssets: () => E.Either<Error, Array<AssetBalance>>;
+    getSwapAssets: () => E.Either<Error, SwapAsset[]>;
 
     //#region set
-    setSwapAssets: (assets: E.Either<Errors, Array<SwapAsset>>) => void;
-    setAllAssets: (assets: E.Either<Errors, Array<FiltrebleSwapAsset>>) => void;
-    setWaletAssets: (asset: E.Either<Errors, Array<AssetBalance>>) => void;
+    setSwapAssets: (assets: E.Either<Error, Array<SwapAsset>>) => void;
+    setAllAssets: (assets: E.Either<Error, Array<FiltrebleSwapAsset>>) => void;
+    setWaletAssets: (asset: E.Either<Error, Array<AssetBalance>>) => void;
     setCurrentVariableAsset: (id: string) => void;
     setAddCurrentVariableAsset: (id: string) => void;
     setCurrentVariableSwapAsset: (id: string) => void;
@@ -97,7 +97,7 @@ export const newSwapStore = injectable(
                 state: allAssets,
                 set: setAllAssets,
                 get: getAllAssets,
-            } = newAtomState<E.Either<Errors, Array<FiltrebleSwapAsset>>>(
+            } = newAtomState<E.Either<Error, Array<FiltrebleSwapAsset>>>(
                 E.left(PENDING)
             );
 
@@ -105,7 +105,7 @@ export const newSwapStore = injectable(
                 state: waletAssets,
                 set: setWaletAssets,
                 get: getWaletAssets,
-            } = newAtomState<E.Either<Errors, Array<AssetBalance>>>(
+            } = newAtomState<E.Either<Error, Array<AssetBalance>>>(
                 E.left(PENDING)
             );
 
@@ -113,7 +113,7 @@ export const newSwapStore = injectable(
                 state: swapAssets,
                 set: setSwapAssets,
                 get: getSwapAssets,
-            } = newAtomState<E.Either<Errors, Array<SwapAsset>>>(
+            } = newAtomState<E.Either<Error, Array<SwapAsset>>>(
                 E.left(PENDING)
             );
 

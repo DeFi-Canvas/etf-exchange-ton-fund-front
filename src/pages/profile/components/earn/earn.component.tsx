@@ -8,10 +8,10 @@ import SkeletonSmallCard from '@/components/skeletons/components/skeleton-small-
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
 import { ProfileI18n } from '../../profile.i18n.model';
-import { Errors } from '@/store/errors/erorr-systrm';
+import { Error } from '@/store/errors/error-system';
 
 export interface EranProps {
-    readonly steps: E.Either<Errors, Array<EranStep>>;
+    readonly steps: E.Either<Error, Array<EranStep>>;
     readonly checkStep: (id: string) => void;
     readonly i18nText: Pick<ProfileI18n, 'earn'>;
 }

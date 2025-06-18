@@ -71,7 +71,6 @@ export const TransactionView = () => {
                 </div>
                 <div className={css.coinName}>{data.coinName}</div>
                 <div className={css.status}>
-                    {/* <TransactionStatusIcon status={data.type} /> */}
                     <span className={classNameByStatus[data.status]}>
                         Deposit successful
                     </span>

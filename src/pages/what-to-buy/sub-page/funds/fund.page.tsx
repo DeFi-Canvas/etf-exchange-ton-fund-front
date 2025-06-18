@@ -16,10 +16,10 @@ import SkeletonCard from '@/components/skeletons/skeleton-card/skeleton-card.com
 import { FundsData } from '@/instance/fund/fund.model';
 import { I18NService } from '@/store/i18n/i18.store';
 import { useProperty } from '@frp-ts/react';
-import { Errors } from '@/store/errors/erorr-systrm';
+import { Error } from '@/store/errors/error-system';
 
 interface FundPageProps {
-    fund: E.Either<Errors, FundsData>;
+    fund: E.Either<Error, FundsData>;
 }
 
 export const FundPage = injectable(

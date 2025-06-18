@@ -15,7 +15,7 @@ import { useTWAEvent } from '@tonsolutions/telemetree-react';
 import { I18NService } from '@/store/i18n/i18.store';
 import { useProperty } from '@frp-ts/react';
 import { AssetsRestService } from '@/API/assets/assets.service';
-import { CaheStore } from '@/store/cache/cahe.store';
+import { CacheStore } from '@/store/cache/cahe.store';
 
 const WithdrowPage = injectable(
     AssetsContainer,
@@ -59,9 +59,9 @@ const WithdrowPage = injectable(
 export const Withdrow = injectable(
     token('userStore')<UserStoreService>(),
     token('i18n')<I18NService>(),
-    CaheStore,
+    CacheStore,
     AssetsRestService,
-    (userStore, i18n, caheStore, assetsRestService) =>
+    (userStore, i18n, cacheStore, assetsRestService) =>
         memo(() => {
             const withdrowStore = useValueWithEffect(
                 () => newNewWithdrowStore({ userStore }),
@@ -71,7 +71,7 @@ export const Withdrow = injectable(
             const depositRestService = newDepositRestService({ userStore });
             const waletRestService = newWaletRestService({
                 userStore,
-                caheStore,
+                cacheStore,
             });
 
             return React.createElement(

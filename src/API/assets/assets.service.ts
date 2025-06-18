@@ -1,6 +1,10 @@
 import { Stream } from '@most/types';
 import { Either } from 'fp-ts/lib/Either';
-import { authRequestOptions, handleGetRequest } from '@/API/request.utils.ts';
+import {
+    authRequestOptions,
+    handleGetRequest,
+    performGetRequest,
+} from '@/API/request.utils.ts';
 import { AssetApi, Configuration } from '@/API/scheme/rest-genereted';
 
 import { DOMAIN_API_URL } from '@/API/API.ts';
@@ -13,15 +17,15 @@ import {
     assetsResponseMapping,
 } from '@/pages/assets-single/asset-single.model.ts';
 import { Asset, AssetBalance } from '@/instance/asset/asset.model.ts';
-import { Errors } from '@/store/errors/erorr-systrm';
+import { Error } from '@/store/errors/error-system';
 import { injectable, token } from '@injectable-ts/core';
-import { CaheStore } from '@/store/cache/cahe.store';
+import { CacheStore } from '@/store/cache/cahe.store';
 import { pipe } from 'fp-ts/lib/function';
 import { waitWithCache } from '@/utils/stream';
 
 export interface AssetsRestService {
-    getAssets: (assetId: string) => Stream<Either<Errors, Asset>>;
-    getAllAssets: () => Stream<Either<Errors, Array<AssetBalance>>>;
+    getAsset: (assetId: string) => Stream<Either<Error, Asset>>;
+    getAllAssets: () => Stream<Either<Error, Array<AssetBalance>>>;
 }
 
 const assetsApi = new AssetApi({
@@ -29,29 +33,29 @@ const assetsApi = new AssetApi({
 } as Configuration);
 
 export const newAssetsRestService = injectable(
-    CaheStore,
-    (caheStore): AssetsRestService => {
+    CacheStore,
+    (cacheStore): AssetsRestService => {
         return {
-            getAssets: (assetId) =>
+            getAsset: (assetId) =>
                 pipe(
-                    handleGetRequest(
+                    performGetRequest(
                         assetsApi.apiAssetAddressGet(
                             assetId,
                             authRequestOptions()
                         ),
                         assetResponseCodec,
                         assetResponseMapping
-                    )(),
-                    waitWithCache(caheStore, 'getAssets')
+                    ),
+                    waitWithCache(cacheStore, 'getAssets')
                 ),
             getAllAssets: () =>
                 pipe(
-                    handleGetRequest(
+                    performGetRequest(
                         assetsApi.apiAssetGet(authRequestOptions()),
                         assetsResponseCodec,
                         assetsResponseMapping
-                    )(),
-                    waitWithCache(caheStore, 'getAllAssets')
+                    ),
+                    waitWithCache(cacheStore, 'getAllAssets')
                 ),
         };
     }

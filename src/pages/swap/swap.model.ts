@@ -6,7 +6,7 @@ import * as O from 'fp-ts/Option';
 import { AssetBalance, AssetBalanceEq } from '@/instance/asset/asset.model';
 import { log } from 'fp-ts/lib/Console';
 import { formatNumberExponent } from '@/utils/number';
-import { ERROR, Errors } from '@/store/errors/erorr-systrm';
+import { ERROR, Error } from '@/store/errors/error-system';
 
 export type SwapResultStatus = 'SUCCESS' | 'ERROR' | 'PROGRESS';
 export type SwapBtnError = 'INSUFFICIENT_BALANCE' | 'EMPTY_FIELD';
@@ -71,9 +71,9 @@ export const mapAssetsWaletToCard = (
 });
 
 export const getAssetsEffectMapping = (
-    assets: E.Either<Errors, AssetBalance[]>,
-    waletAssets: E.Either<Errors, AssetBalance[]>,
-    swapAssetsSet: (a: E.Either<Errors, SwapAsset[]>) => void
+    assets: E.Either<Error, AssetBalance[]>,
+    waletAssets: E.Either<Error, AssetBalance[]>,
+    swapAssetsSet: (a: E.Either<Error, SwapAsset[]>) => void
 ) =>
     pipe(
         assets,

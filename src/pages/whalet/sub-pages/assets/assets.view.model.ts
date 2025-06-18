@@ -10,10 +10,10 @@ import { newWaletRestService } from '@/API/whalet.service';
 import { newLensedAtom } from '@frp-ts/lens';
 import { UserStoreService } from '@/store/user.store';
 import { CoinCardData } from '@/components/assets-card/assets-card.model';
-import { Errors } from '@/store/errors/erorr-systrm';
+import { Error } from '@/store/errors/error-system';
 
 export interface AssetsViewModel {
-    assets: Property<E.Either<Errors, Array<CoinCardData>>>;
+    assets: Property<E.Either<Error, Array<CoinCardData>>>;
 }
 
 export interface NewAssetsViewModel {
@@ -25,11 +25,11 @@ export const newAssetsViewModel = injectable(
     newWaletRestService,
     (userStore, waletRestService): NewAssetsViewModel =>
         () => {
-            const assets = newLensedAtom<E.Either<Errors, Array<CoinCardData>>>(
+            const assets = newLensedAtom<E.Either<Error, Array<CoinCardData>>>(
                 userStore.assets.get()
             );
 
-            const setAssets = (data: E.Either<Errors, Array<CoinCardData>>) => {
+            const setAssets = (data: E.Either<Error, Array<CoinCardData>>) => {
                 assets.set(data), userStore.setAssets(data);
             };
 

@@ -45,7 +45,9 @@ export const TransactionSwapMonyInfo = ({
         case 'CROSS_CHAIN_SWAP':
             return (
                 <div className={css.transactionMonyInfo}>
-                    <span className={css.credit}>+{credit?.amount}</span>
+                    <span className={css.credit}>
+                        +{credit?.amount} {credit?.asset.ticker}
+                    </span>
                 </div>
             );
         default:

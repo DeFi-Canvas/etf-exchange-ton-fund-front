@@ -9,14 +9,14 @@ import { Configuration, SwapApi } from './scheme/rest-genereted';
 import { Either } from 'fp-ts/lib/Either';
 import { getRequestGenerated } from './request.utils';
 import { swapInitiateCodec } from './contracts/swap.contract';
-import { Errors } from '@/store/errors/erorr-systrm';
+import { Error } from '@/store/errors/error-system';
 
 export interface SwapRestService {
     getConnection: () => { evs: Stream<unknown>; unsubscription: () => void };
     initiate: (args: {
         amount: number;
         tokens: Array<string>;
-    }) => Stream<Either<Errors, unknown>>;
+    }) => Stream<Either<Error, unknown>>;
 }
 
 const swapApi = new SwapApi({

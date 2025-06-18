@@ -7,7 +7,7 @@ import { newLensedAtom } from '@frp-ts/lens';
 import { flow, pipe } from 'fp-ts/lib/function';
 import { tap } from '@most/core';
 import { newDepositRestService } from '@/API/deposit.service';
-import { EMPTY, Errors, LOADING } from '@/store/errors/erorr-systrm';
+import { EMPTY, Error, LOADING } from '@/store/errors/error-system';
 import { AssetsRestService } from '@/API/assets/assets.service';
 
 export interface DepositDetails {
@@ -17,8 +17,8 @@ export interface DepositDetails {
 }
 
 export interface DepositEndPointViewModel {
-    readonly details: Property<E.Either<Errors, DepositDetails>>;
-    readonly img: Property<E.Either<Errors, string>>;
+    readonly details: Property<E.Either<Error, DepositDetails>>;
+    readonly img: Property<E.Either<Error, string>>;
 }
 
 export interface NewDepositEndPointViewModel {
@@ -30,10 +30,10 @@ export const newDepositEndPointViewModel = injectable(
     AssetsRestService,
     (service, assetsRestService): NewDepositEndPointViewModel =>
         (ticker) => {
-            const details = newLensedAtom<E.Either<Errors, DepositDetails>>(
+            const details = newLensedAtom<E.Either<Error, DepositDetails>>(
                 E.left(LOADING)
             );
-            const img = newLensedAtom<E.Either<Errors, string>>(E.left(EMPTY));
+            const img = newLensedAtom<E.Either<Error, string>>(E.left(EMPTY));
 
             const getDetails = pipe(
                 service.getDepositDetails(),

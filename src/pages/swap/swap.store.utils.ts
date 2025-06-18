@@ -4,10 +4,10 @@ import * as A from 'fp-ts/Array';
 import { constant, flow, identity, pipe } from 'fp-ts/lib/function';
 import { SwapAsset } from './swap.model';
 import { AssetBalance } from '@/instance/asset/asset.model';
-import { ERROR, Errors } from '@/store/errors/erorr-systrm';
+import { ERROR, Error } from '@/store/errors/error-system';
 
 export const getCurrentWaletAsset = (
-    currentWaletAssets: E.Either<Errors, AssetBalance[]>,
+    currentWaletAssets: E.Either<Error, AssetBalance[]>,
     id: string
 ) =>
     pipe(
@@ -22,7 +22,7 @@ export const getCurrentWaletAsset = (
     );
 
 export const getIsIdExistOnSwapAssets = (
-    currentSwapAssets: E.Either<Errors, SwapAsset[]>,
+    currentSwapAssets: E.Either<Error, SwapAsset[]>,
     id: string
 ) =>
     pipe(

@@ -37,9 +37,9 @@ export const AppRoutes = () => {
     );
 
     const i18n = useValueWithEffect(() => newNewI18NService(), []);
-    const caheStore = useValueWithEffect(() => newNewCahe(), []);
-    const transactionsRestService = newTransactionsRestService({ caheStore });
-    const assetsRestService = newAssetsRestService({ caheStore });
+    const cacheStore = useValueWithEffect(() => newNewCahe(), []);
+    const transactionsRestService = newTransactionsRestService({ cacheStore });
+    const assetsRestService = newAssetsRestService({ cacheStore });
 
     //#region containers
     const containers = getContainers({
@@ -47,7 +47,7 @@ export const AppRoutes = () => {
         i18n,
         transactionsRestService,
         assetsRestService,
-        caheStore,
+        cacheStore,
     });
 
     //#region routes

@@ -6,7 +6,7 @@ import {
     SimpleError,
     PENDING,
     ERROR,
-} from '@/store/errors/erorr-systrm';
+} from '@/store/errors/error-system';
 
 type RenderEitherErrors = Pending | SimpleError | string;
 

@@ -10,7 +10,7 @@ import * as S from 'fp-ts/string';
 import { injectable } from '@injectable-ts/core';
 import { newWithdrawRestService } from '@/API/withdraw.service';
 import { AmountErrors } from './sub-page/ammount/amount.component';
-import { EMPTY, Errors } from '@/store/errors/erorr-systrm';
+import { EMPTY, Error } from '@/store/errors/error-system';
 
 export interface WithdrowStore {
     currency: Property<string>;
@@ -21,8 +21,8 @@ export interface WithdrowStore {
     symbolLogo: Property<string>;
     isGoToCheckAvailable: Property<boolean>;
     balanceAfter: Property<number>;
-    address: Property<E.Either<Errors, string>>;
-    memo: Property<E.Either<Errors, string>>;
+    address: Property<E.Either<Error, string>>;
+    memo: Property<E.Either<Error, string>>;
     setCurrency: (d: string) => void;
     setAmount: (d: number) => void;
     setAvailableBalance: (d: number) => void;
@@ -49,8 +49,8 @@ export const newNewWithdrowStore = injectable(
         const approximateCost = newLensedAtom('');
         const availableBalance = newLensedAtom(0);
         const balanceAfter = newLensedAtom(0);
-        const address = newLensedAtom<E.Either<Errors, string>>(E.left(EMPTY));
-        const memo = newLensedAtom<E.Either<Errors, string>>(E.left(EMPTY));
+        const address = newLensedAtom<E.Either<Error, string>>(E.left(EMPTY));
+        const memo = newLensedAtom<E.Either<Error, string>>(E.left(EMPTY));
 
         const isGoToCheckAvailable = newLensedAtom(false);
         const isNextButtonAvailable = newLensedAtom(false);

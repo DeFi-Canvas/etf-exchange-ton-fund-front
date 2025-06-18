@@ -6,10 +6,10 @@ import css from './footer.module.css';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
 import { FundsData } from '@/instance/fund/fund.model';
-import { Errors } from '@/store/errors/erorr-systrm';
+import { Error } from '@/store/errors/error-system';
 
 interface FooterProps {
-    fundsAvailableSale: E.Either<Errors, Array<FundsData>>;
+    fundsAvailableSale: E.Either<Error, Array<FundsData>>;
     texts: {
         sell: string;
         buy: string;

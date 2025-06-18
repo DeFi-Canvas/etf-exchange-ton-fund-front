@@ -11,8 +11,6 @@ import {
     mapAssetsFromBalance,
     mapFunds,
     mapWhaletFunds,
-    normolizeTransactionKey,
-    WalletTransactions,
     WaletResponce,
 } from '@/pages/whalet/wallet.model';
 import { DOMAIN_API_URL } from './API';
@@ -28,20 +26,19 @@ import {
 } from './contracts/walletBalance.contract';
 import { Configuration } from './scheme/rest-genereted';
 import { walletFundsCodec } from './contracts/walletFunds.contract';
-import { transactionListCodec } from './contracts/walletTransaction.contract';
 import { allFundsCodec } from './contracts/funds.contract';
 import { AssetBalance } from '@/instance/asset/asset.model';
 import { FundsData } from '@/instance/fund/fund.model';
-import { Errors } from '@/store/errors/erorr-systrm';
-import { CaheStore } from '@/store/cache/cahe.store';
+import { Error } from '@/store/errors/error-system';
+import { CacheStore } from '@/store/cache/cahe.store';
 import { pipe } from 'fp-ts/lib/function';
 import { waitWithCache } from '@/utils/stream';
 
 export interface WaletRestService {
-    getBalance: () => Stream<Either<Errors, WaletResponce>>;
-    getAssets: () => Stream<Either<Errors, Array<AssetBalance>>>;
-    getFunds: () => Stream<Either<Errors, Array<FundsData>>>;
-    getWhaletFunds: () => Stream<Either<Errors, Array<FundsData>>>;
+    getBalance: () => Stream<Either<Error, WaletResponce>>;
+    getAssets: () => Stream<Either<Error, Array<AssetBalance>>>;
+    getFunds: () => Stream<Either<Error, Array<FundsData>>>;
+    getWhaletFunds: () => Stream<Either<Error, Array<FundsData>>>;
 }
 
 const walletApi = new WalletApi({
@@ -58,8 +55,8 @@ const strategiesApi = new StrategiesApi({
 
 export const newWaletRestService = injectable(
     token('userStore')<UserStoreService>(),
-    CaheStore,
-    (userStore, caheStore): WaletRestService => {
+    CacheStore,
+    (userStore, cacheStore): WaletRestService => {
         const { id: telegram_id } = userStore.user.get();
 
         return {
@@ -75,7 +72,7 @@ export const newWaletRestService = injectable(
                         walletBalanceResponseCodec,
                         mapAssetsFromBalance
                     )(),
-                    waitWithCache(caheStore, 'WaletAssets')
+                    waitWithCache(cacheStore, 'WaletAssets')
                 ),
             getFunds: getRequestGenerated(
                 strategiesApi.strategiesGet(),

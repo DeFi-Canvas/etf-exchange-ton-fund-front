@@ -5,7 +5,7 @@ import { either } from 'fp-ts';
 import * as t from 'io-ts';
 import { AssetDto } from '@/API/contracts/assets.contract.ts';
 import { WalletBalanceResponse } from '@/API/contracts/walletBalance.contract.ts';
-import { ERROR } from '@/store/errors/erorr-systrm';
+import { ERROR } from '@/store/errors/error-system';
 
 //#region RESPONCE
 export interface WalletAssetResponse {

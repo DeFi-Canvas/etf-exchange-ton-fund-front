@@ -43,6 +43,7 @@ import AddImage from '@/assets/icons/add-image.svg?react';
 import Earn from '@/assets/icons/earn.svg?react';
 
 import { TransactionType } from '@/API/transactions/transactions.responce.contract';
+import { ReactElement } from 'react';
 
 export const HomeIcon = ({
     className = '',
@@ -242,7 +243,7 @@ export const TransactionTypeIcon = ({
 }: {
     className?: string;
     type: TransactionType;
-}) => {
+}): ReactElement | null => {
     switch (type) {
         case 'SWAP':
             return <Swap className={className} />;
@@ -270,8 +271,7 @@ export const TransactionTypeIcon = ({
         case 'MARGIN_TRADE':
         case 'SYNTHETIC_MINT':
         case 'CROSS_CHAIN_SWAP':
-            return null;
         default:
-            break;
+            return null;
     }
 };
