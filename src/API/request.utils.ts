@@ -9,6 +9,7 @@ import { PathReporter } from 'io-ts/lib/PathReporter';
 import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
 import { Any } from 'io-ts';
 import { DeepRequired } from '@/utils/typing.ts';
+import { ERROR, NETWORK_ERROR } from '@/store/errors/error-system';
 
 export const handleGetRequest =
     <ResultData, Codec extends Any, ResponseData>(
@@ -16,8 +17,8 @@ export const handleGetRequest =
         codec: Codec & t.Type<DeepRequired<ResponseData>>,
         transform: (data: t.TypeOf<typeof codec>) => ResultData
     ) =>
-    <T>(): Stream<Either<string, T>> => {
-        const stream: Stream<Either<string, T>> = fromPromise(
+    (): Stream<Either<string, ResultData>> => {
+        const stream: Stream<Either<string, ResultData>> = fromPromise(
             req
                 .then(({ data }) => {
                     return pipe(
@@ -27,10 +28,10 @@ export const handleGetRequest =
                             (error) => {
                                 console.error(
                                     'Response was not decoded',
-                                    {error},
-                                    {data}
+                                    { error },
+                                    { data }
                                 );
-                                return either.left('error');
+                                return either.left(ERROR);
                             },
                             (decoded) => {
                                 return either.of(transform(decoded));
@@ -40,12 +41,25 @@ export const handleGetRequest =
                 })
                 .catch((error) => {
                     console.error('API Request failed:', { error });
-                    return either.left('network err');
+                    return either.left(NETWORK_ERROR);
                 })
         );
 
         return stream;
     };
+
+export const performGetRequest = <
+    T,
+    ResultData,
+    Codec extends Any,
+    ResponseData,
+>(
+    req: Promise<AxiosResponse<ResponseData, unknown>>,
+    codec: Codec & t.Type<DeepRequired<ResponseData>>,
+    transform: (data: t.TypeOf<typeof codec>) => ResultData
+): Stream<Either<string, ResultData>> => {
+    return handleGetRequest(req, codec, transform)();
+};
 
 export const getRequestGenerated =
     <ReturnType, A, O = A, I = unknown>(
@@ -71,7 +85,7 @@ export const getRequestGenerated =
                                     { data },
                                     PathReporter.report(shema.decode(data as I))
                                 );
-                                return either.left('error');
+                                return either.left(ERROR);
                             },
                             (data) => {
                                 const validData =
@@ -93,7 +107,7 @@ export const getRequestGenerated =
                         { data },
                         PathReporter.report(shema.decode(data))
                     );
-                    return either.left('network err');
+                    return either.left(NETWORK_ERROR);
                 })
         );
         return stream;

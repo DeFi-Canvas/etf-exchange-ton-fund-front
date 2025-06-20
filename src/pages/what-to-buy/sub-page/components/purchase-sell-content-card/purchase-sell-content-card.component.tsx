@@ -15,12 +15,13 @@ import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
 import { I18NService } from '@/store/i18n/i18.store';
 import { useProperty } from '@frp-ts/react';
+import { Error } from '@/store/errors/error-system';
 
 interface PurchaseSellContentCardProps {
-    assetCardData: E.Either<string, InterfacePurchaseSellAssetCardData>;
+    assetCardData: E.Either<Error, InterfacePurchaseSellAssetCardData>;
     totalAmount: O.Option<TotalAmount>;
     onClick: () => void;
-    assetName: E.Either<string, string>;
+    assetName: E.Either<Error, string>;
     maxAvailable: number;
     onMaxAvailableClick: () => void;
 }

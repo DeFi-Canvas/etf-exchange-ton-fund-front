@@ -7,6 +7,7 @@ import * as E from 'fp-ts/Either';
 import { flow, pipe } from 'fp-ts/lib/function';
 import { chain, tap } from '@most/core';
 import { createAdapter } from '@most/adapter';
+import { Error, PENDING } from '@/store/errors/error-system';
 
 export interface EranStep {
     readonly id: string;
@@ -18,7 +19,7 @@ export interface EranStep {
 }
 
 export interface EranViewModel {
-    readonly steps: Property<E.Either<string, Array<EranStep>>>;
+    readonly steps: Property<E.Either<Error, Array<EranStep>>>;
     readonly checkStep: (id: string) => void;
 }
 
@@ -30,8 +31,8 @@ export const newEranViewModel = injectable(
     newProfileRestService,
     (service): NewEranViewModel =>
         () => {
-            const steps = newLensedAtom<E.Either<string, Array<EranStep>>>(
-                E.left('pending')
+            const steps = newLensedAtom<E.Either<Error, Array<EranStep>>>(
+                E.left(PENDING)
             );
 
             const [checkStep, checkStepEvent] = createAdapter<string>();

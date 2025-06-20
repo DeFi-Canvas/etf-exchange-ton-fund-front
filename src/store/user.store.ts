@@ -3,6 +3,7 @@ import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { Property } from '@frp-ts/core';
 import { newLensedAtom } from '@frp-ts/lens';
 import * as E from 'fp-ts/Either';
+import { Error, PENDING } from './errors/error-system';
 
 export interface UserData {
     allowsWriteToPm?: boolean;
@@ -17,8 +18,8 @@ export interface UserData {
 export interface UserStoreService {
     user: Property<UserData>;
     setUser: (data: Partial<UserData> | undefined) => void;
-    assets: Property<E.Either<string, Array<CoinCardData>>>;
-    setAssets: (data: E.Either<string, Array<CoinCardData>>) => void;
+    assets: Property<E.Either<Error, Array<CoinCardData>>>;
+    setAssets: (data: E.Either<Error, Array<CoinCardData>>) => void;
 }
 
 export type NewUserStoreService = ValueWithEffect<UserStoreService>;
@@ -27,8 +28,8 @@ export const newNewUserStoreService = (
     init: UserData | undefined
 ): NewUserStoreService => {
     const user = newLensedAtom<UserData>(init ?? {});
-    const assets = newLensedAtom<E.Either<string, Array<CoinCardData>>>(
-        E.left('pending')
+    const assets = newLensedAtom<E.Either<Error, Array<CoinCardData>>>(
+        E.left(PENDING)
     );
 
     return valueWithEffect.new({

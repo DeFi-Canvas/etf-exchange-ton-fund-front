@@ -6,6 +6,7 @@ import * as O from 'fp-ts/Option';
 import { AssetBalance, AssetBalanceEq } from '@/instance/asset/asset.model';
 import { log } from 'fp-ts/lib/Console';
 import { formatNumberExponent } from '@/utils/number';
+import { ERROR, Error } from '@/store/errors/error-system';
 
 export type SwapResultStatus = 'SUCCESS' | 'ERROR' | 'PROGRESS';
 export type SwapBtnError = 'INSUFFICIENT_BALANCE' | 'EMPTY_FIELD';
@@ -70,9 +71,9 @@ export const mapAssetsWaletToCard = (
 });
 
 export const getAssetsEffectMapping = (
-    assets: E.Either<string, AssetBalance[]>,
-    waletAssets: E.Either<string, AssetBalance[]>,
-    swapAssetsSet: (a: E.Either<string, SwapAsset[]>) => void
+    assets: E.Either<Error, AssetBalance[]>,
+    waletAssets: E.Either<Error, AssetBalance[]>,
+    swapAssetsSet: (a: E.Either<Error, SwapAsset[]>) => void
 ) =>
     pipe(
         assets,
@@ -128,7 +129,7 @@ export const getAssetsEffectMapping = (
                 }),
                 E.fromPredicate(
                     (x) => x.length > 1,
-                    () => 'Error'
+                    () => ERROR
                 ),
                 swapAssetsSet
             )
@@ -141,7 +142,7 @@ export const prepareMapSwapAfterSwap = (
 ) =>
     flow(
         A.findFirst((waletAsset: AssetBalance) => waletAsset.id === asset.id),
-        E.fromOption(constant('error')),
+        E.fromOption(constant(ERROR)),
         E.map((waletAsset) => ({
             ticker: asset.assetName,
             balance:

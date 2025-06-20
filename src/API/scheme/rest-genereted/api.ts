@@ -1021,6 +1021,75 @@ export interface ModelsWalletFunds {
 /**
  * 
  * @export
+ * @interface RoutingApiPaginatedResponseArrayTransactionsJournalTransaction
+ */
+export interface RoutingApiPaginatedResponseArrayTransactionsJournalTransaction {
+    /**
+     * 
+     * @type {RoutingApiPagination}
+     * @memberof RoutingApiPaginatedResponseArrayTransactionsJournalTransaction
+     */
+    'pagination'?: RoutingApiPagination;
+    /**
+     * 
+     * @type {Array<TransactionsJournalTransaction>}
+     * @memberof RoutingApiPaginatedResponseArrayTransactionsJournalTransaction
+     */
+    'payload'?: Array<TransactionsJournalTransaction>;
+}
+/**
+ * 
+ * @export
+ * @interface RoutingApiPagination
+ */
+export interface RoutingApiPagination {
+    /**
+     * 
+     * @type {number}
+     * @memberof RoutingApiPagination
+     */
+    'currentEntries'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RoutingApiPagination
+     */
+    'pageIndex'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RoutingApiPagination
+     */
+    'pageSize'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RoutingApiPagination
+     */
+    'totalEntries'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RoutingApiPagination
+     */
+    'totalPages'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface RoutingApiResponseModelsUser
+ */
+export interface RoutingApiResponseModelsUser {
+    /**
+     * 
+     * @type {ModelsUser}
+     * @memberof RoutingApiResponseModelsUser
+     */
+    'payload'?: ModelsUser;
+}
+/**
+ * 
+ * @export
  * @interface RoutingApiResponseModelsWalletBalance
  */
 export interface RoutingApiResponseModelsWalletBalance {
@@ -1144,6 +1213,196 @@ export interface ServerStormDepositRequest {
      */
     'ticker'?: string;
 }
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const TransactionsEntryType = {
+    ENTRY_TYPE_DEBIT: 'DEBIT',
+    ENTRY_TYPE_CREDIT: 'CREDIT',
+    ENTRY_TYPE_RESERVE: 'RESERVE',
+    ENTRY_TYPE_RELEASE: 'RELEASE',
+    ENTRY_TYPE_FEE: 'FEE',
+    ENTRY_TYPE_APP_FEE: 'APP_FEE',
+    ENTRY_TYPE_DEX_FEE: 'DEX_FEE',
+    ENTRY_TYPE_SLIPPAGE: 'SLIPPAGE',
+    ENTRY_TYPE_NETWORK_FEE: 'NETWORK_FEE',
+    ENTRY_TYPE_SERVICE_FEE: 'SERVICE_FEE',
+    ENTRY_TYPE_REWARD: 'REWARD'
+} as const;
+
+export type TransactionsEntryType = typeof TransactionsEntryType[keyof typeof TransactionsEntryType];
+
+
+/**
+ * 
+ * @export
+ * @interface TransactionsJournalEntry
+ */
+export interface TransactionsJournalEntry {
+    /**
+     * 
+     * @type {number}
+     * @memberof TransactionsJournalEntry
+     */
+    'amount'?: number;
+    /**
+     * 
+     * @type {ModelsAsset}
+     * @memberof TransactionsJournalEntry
+     */
+    'asset'?: ModelsAsset;
+    /**
+     * 
+     * @type {string}
+     * @memberof TransactionsJournalEntry
+     */
+    'createdAt'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TransactionsJournalEntry
+     */
+    'id'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TransactionsJournalEntry
+     */
+    'isReserve'?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof TransactionsJournalEntry
+     */
+    'sign'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof TransactionsJournalEntry
+     */
+    'transactionId'?: string;
+    /**
+     * 
+     * @type {TransactionsEntryType}
+     * @memberof TransactionsJournalEntry
+     */
+    'type'?: TransactionsEntryType;
+    /**
+     * 
+     * @type {string}
+     * @memberof TransactionsJournalEntry
+     */
+    'userId'?: string;
+}
+
+
+/**
+ * 
+ * @export
+ * @interface TransactionsJournalTransaction
+ */
+export interface TransactionsJournalTransaction {
+    /**
+     * 
+     * @type {string}
+     * @memberof TransactionsJournalTransaction
+     */
+    'blockchainHash'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TransactionsJournalTransaction
+     */
+    'createdAt'?: string;
+    /**
+     * 
+     * @type {Array<TransactionsJournalEntry>}
+     * @memberof TransactionsJournalTransaction
+     */
+    'entries'?: Array<TransactionsJournalEntry>;
+    /**
+     * 
+     * @type {string}
+     * @memberof TransactionsJournalTransaction
+     */
+    'id'?: string;
+    /**
+     * 
+     * @type {TransactionsTransactionStatus}
+     * @memberof TransactionsJournalTransaction
+     */
+    'status'?: TransactionsTransactionStatus;
+    /**
+     * 
+     * @type {TransactionsTransactionType}
+     * @memberof TransactionsJournalTransaction
+     */
+    'type'?: TransactionsTransactionType;
+    /**
+     * 
+     * @type {string}
+     * @memberof TransactionsJournalTransaction
+     */
+    'updatedAt'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TransactionsJournalTransaction
+     */
+    'userId'?: string;
+}
+
+
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const TransactionsTransactionStatus = {
+    TRANSACTION_STATUS_AUTHORIZED: 'AUTHORIZED',
+    TRANSACTION_STATUS_CAPTURED: 'CAPTURED',
+    TRANSACTION_STATUS_CANCELED: 'CANCELED',
+    TRANSACTION_STATUS_FAILED: 'FAILED',
+    TRANSACTION_STATUS_EXPIRED: 'EXPIRED'
+} as const;
+
+export type TransactionsTransactionStatus = typeof TransactionsTransactionStatus[keyof typeof TransactionsTransactionStatus];
+
+
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const TransactionsTransactionType = {
+    TRANSACTION_TYPE_TRANSFER: 'TRANSFER',
+    TRANSACTION_TYPE_SWAP: 'SWAP',
+    TRANSACTION_TYPE_ADD_LIQUIDITY: 'ADD_LIQUIDITY',
+    TRANSACTION_TYPE_REMOVE_LIQUIDITY: 'REMOVE_LIQUIDITY',
+    TRANSACTION_TYPE_STAKE: 'STAKE',
+    TRANSACTION_TYPE_UNSTAKE: 'UNSTAKE',
+    TRANSACTION_TYPE_BORROW: 'BORROW',
+    TRANSACTION_TYPE_REPAY: 'REPAY',
+    TRANSACTION_TYPE_DEPOSIT: 'DEPOSIT',
+    TRANSACTION_TYPE_DEPOSIT_STORM_USDT: 'DEPOSIT_STORM_USDT',
+    TRANSACTION_TYPE_WITHDRAW: 'WITHDRAW',
+    TRANSACTION_TYPE_WITHDRAW_STORM_USDT: 'WITHDRAW_STORM_USDT',
+    TRANSACTION_TYPE_LIQUIDATE: 'LIQUIDATE',
+    TRANSACTION_TYPE_CLAIM_REWARDS: 'CLAIM_REWARDS',
+    TRANSACTION_TYPE_GOVERNANCE_VOTE: 'GOVERNANCE_VOTE',
+    TRANSACTION_TYPE_MARGIN_TRADE: 'MARGIN_TRADE',
+    TRANSACTION_TYPE_SYNTHETIC_MINT: 'SYNTHETIC_MINT',
+    TRANSACTION_TYPE_CROSS_CHAIN_SWAP: 'CROSS_CHAIN_SWAP'
+} as const;
+
+export type TransactionsTransactionType = typeof TransactionsTransactionType[keyof typeof TransactionsTransactionType];
+
+
 /**
  * 
  * @export
@@ -3029,7 +3288,7 @@ export const TasksApiAxiosParamCreator = function (configuration?: Configuration
     return {
         /**
          * Завершить задачу для пользователя
-         * @summary Complete a task
+         * @summary DEPRECATED Complete a task
          * @param {ControllersCompleteTaskRequest} body Запрос на завершение задачи
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3064,8 +3323,8 @@ export const TasksApiAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * Получить список задач для указанного пользователя
-         * @summary Get tasks for a user
+         * Получить список задач для указанного пользователя. Constantly returns empty list. Let us know if you use this endpoint!
+         * @summary DEPRECATED Get tasks for a user
          * @param {number} telegramId Telegram ID пользователя
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3112,7 +3371,7 @@ export const TasksApiFp = function(configuration?: Configuration) {
     return {
         /**
          * Завершить задачу для пользователя
-         * @summary Complete a task
+         * @summary DEPRECATED Complete a task
          * @param {ControllersCompleteTaskRequest} body Запрос на завершение задачи
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3124,8 +3383,8 @@ export const TasksApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Получить список задач для указанного пользователя
-         * @summary Get tasks for a user
+         * Получить список задач для указанного пользователя. Constantly returns empty list. Let us know if you use this endpoint!
+         * @summary DEPRECATED Get tasks for a user
          * @param {number} telegramId Telegram ID пользователя
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3148,7 +3407,7 @@ export const TasksApiFactory = function (configuration?: Configuration, basePath
     return {
         /**
          * Завершить задачу для пользователя
-         * @summary Complete a task
+         * @summary DEPRECATED Complete a task
          * @param {ControllersCompleteTaskRequest} body Запрос на завершение задачи
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3157,8 +3416,8 @@ export const TasksApiFactory = function (configuration?: Configuration, basePath
             return localVarFp.tasksCompletePost(body, options).then((request) => request(axios, basePath));
         },
         /**
-         * Получить список задач для указанного пользователя
-         * @summary Get tasks for a user
+         * Получить список задач для указанного пользователя. Constantly returns empty list. Let us know if you use this endpoint!
+         * @summary DEPRECATED Get tasks for a user
          * @param {number} telegramId Telegram ID пользователя
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3178,7 +3437,7 @@ export const TasksApiFactory = function (configuration?: Configuration, basePath
 export class TasksApi extends BaseAPI {
     /**
      * Завершить задачу для пользователя
-     * @summary Complete a task
+     * @summary DEPRECATED Complete a task
      * @param {ControllersCompleteTaskRequest} body Запрос на завершение задачи
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -3189,8 +3448,8 @@ export class TasksApi extends BaseAPI {
     }
 
     /**
-     * Получить список задач для указанного пользователя
-     * @summary Get tasks for a user
+     * Получить список задач для указанного пользователя. Constantly returns empty list. Let us know if you use this endpoint!
+     * @summary DEPRECATED Get tasks for a user
      * @param {number} telegramId Telegram ID пользователя
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -3198,6 +3457,130 @@ export class TasksApi extends BaseAPI {
      */
     public tasksGet(telegramId: number, options?: RawAxiosRequestConfig) {
         return TasksApiFp(this.configuration).tasksGet(telegramId, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * TransactionApi - axios parameter creator
+ * @export
+ */
+export const TransactionApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Returns user\'s transactions with transactions entries
+         * @summary Get account transactions
+         * @param {number} page Page index
+         * @param {number} count Page size
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiTransactionPost: async (page: number, count: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'page' is not null or undefined
+            assertParamExists('apiTransactionPost', 'page', page)
+            // verify required parameter 'count' is not null or undefined
+            assertParamExists('apiTransactionPost', 'count', count)
+            const localVarPath = `/api/transaction`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (count !== undefined) {
+                localVarQueryParameter['count'] = count;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * TransactionApi - functional programming interface
+ * @export
+ */
+export const TransactionApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = TransactionApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Returns user\'s transactions with transactions entries
+         * @summary Get account transactions
+         * @param {number} page Page index
+         * @param {number} count Page size
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiTransactionPost(page: number, count: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoutingApiPaginatedResponseArrayTransactionsJournalTransaction>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiTransactionPost(page, count, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TransactionApi.apiTransactionPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * TransactionApi - factory interface
+ * @export
+ */
+export const TransactionApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = TransactionApiFp(configuration)
+    return {
+        /**
+         * Returns user\'s transactions with transactions entries
+         * @summary Get account transactions
+         * @param {number} page Page index
+         * @param {number} count Page size
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiTransactionPost(page: number, count: number, options?: RawAxiosRequestConfig): AxiosPromise<RoutingApiPaginatedResponseArrayTransactionsJournalTransaction> {
+            return localVarFp.apiTransactionPost(page, count, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * TransactionApi - object-oriented interface
+ * @export
+ * @class TransactionApi
+ * @extends {BaseAPI}
+ */
+export class TransactionApi extends BaseAPI {
+    /**
+     * Returns user\'s transactions with transactions entries
+     * @summary Get account transactions
+     * @param {number} page Page index
+     * @param {number} count Page size
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TransactionApi
+     */
+    public apiTransactionPost(page: number, count: number, options?: RawAxiosRequestConfig) {
+        return TransactionApiFp(this.configuration).apiTransactionPost(page, count, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -3615,8 +3998,41 @@ export class TwitterApi extends BaseAPI {
 export const UsersApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Получить список всех пользователей
-         * @summary Get all users
+         * Get the information about current user
+         * @summary Get current user
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiUserCurrentGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/user/current`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Получить список всех пользователей. Constantly returns empty list. Let us know if you use this endpoint!
+         * @summary DEPRECATED Get all users
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3655,8 +4071,20 @@ export const UsersApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = UsersApiAxiosParamCreator(configuration)
     return {
         /**
-         * Получить список всех пользователей
-         * @summary Get all users
+         * Get the information about current user
+         * @summary Get current user
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiUserCurrentGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoutingApiResponseModelsUser>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiUserCurrentGet(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['UsersApi.apiUserCurrentGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Получить список всех пользователей. Constantly returns empty list. Let us know if you use this endpoint!
+         * @summary DEPRECATED Get all users
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3677,8 +4105,17 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
     const localVarFp = UsersApiFp(configuration)
     return {
         /**
-         * Получить список всех пользователей
-         * @summary Get all users
+         * Get the information about current user
+         * @summary Get current user
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiUserCurrentGet(options?: RawAxiosRequestConfig): AxiosPromise<RoutingApiResponseModelsUser> {
+            return localVarFp.apiUserCurrentGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Получить список всех пользователей. Constantly returns empty list. Let us know if you use this endpoint!
+         * @summary DEPRECATED Get all users
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3696,8 +4133,19 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
  */
 export class UsersApi extends BaseAPI {
     /**
-     * Получить список всех пользователей
-     * @summary Get all users
+     * Get the information about current user
+     * @summary Get current user
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersApi
+     */
+    public apiUserCurrentGet(options?: RawAxiosRequestConfig) {
+        return UsersApiFp(this.configuration).apiUserCurrentGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Получить список всех пользователей. Constantly returns empty list. Let us know if you use this endpoint!
+     * @summary DEPRECATED Get all users
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UsersApi

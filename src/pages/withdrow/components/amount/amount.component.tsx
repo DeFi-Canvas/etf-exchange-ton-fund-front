@@ -1,9 +1,10 @@
 import css from './amount.module.css';
 import * as E from 'fp-ts/Either';
 import cn from 'classnames';
+import { Error } from '@/store/errors/error-system';
 
 interface AmountProps {
-    ammount: E.Either<string, number>;
+    ammount: E.Either<Error, number>;
     approximateCost: string;
     currency: string;
     symbolLogo: string;

@@ -3,9 +3,10 @@ import cn from 'classnames';
 import * as E from 'fp-ts/Either';
 import { useState } from 'react';
 import { Amount } from '../../../components/amount/amount.component';
+import { Error } from '@/store/errors/error-system';
 
 interface AddressFormProps {
-    ammount: E.Either<string, number>;
+    ammount: E.Either<Error, number>;
     approximateCost: string;
     currency: string;
     symbolLogo: string;

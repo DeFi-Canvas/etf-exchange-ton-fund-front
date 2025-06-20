@@ -1,6 +1,25 @@
-.transactionsWrapper {
-    min-height: 350px;
+.wrap {
     display: flex;
     flex-direction: column;
     gap: 16px;
+}
+
+.transactions {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background: var(--color-background-light);
+    border-radius: 12px;
+    gap: 12px;
+}
+
+.date {
+    color: var(--color-text-dark);
+    font-family: var(--font-family-default, 'SF Pro');
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 510;
+    line-height: 150%;
+    margin-bottom: 12px;
+    display: block;
 }

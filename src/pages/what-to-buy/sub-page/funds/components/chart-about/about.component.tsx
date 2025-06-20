@@ -6,9 +6,10 @@ import SkeletonLine from '@/components/skeletons/components/skeleton-line/skelet
 import SkeletonCard from '@/components/skeletons/skeleton-card/skeleton-card.component';
 import { getUuid } from '@/utils/uuid';
 import { FundsData } from '@/instance/fund/fund.model';
+import { Error } from '@/store/errors/error-system';
 
 interface ChartAboutProps {
-    fund: E.Either<string, FundsData>;
+    fund: E.Either<Error, FundsData>;
     texts: {
         about: string;
         toMemeCoins: string;

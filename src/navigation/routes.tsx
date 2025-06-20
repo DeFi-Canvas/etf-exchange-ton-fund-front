@@ -12,6 +12,9 @@ import { whatToBuyRouter } from './page-routes/what-to-buy-router';
 import { TransactionView } from '@pages/transaction-view/transaction-view.page.tsx';
 import { Loader } from '@/components/loader/loader.component';
 import { newNewI18NService } from '@/store/i18n/i18.store';
+import { newTransactionsRestService } from '@/API/transactions/transactions.service';
+import { newNewCahe } from '@/store/cache/cahe.store';
+import { newAssetsRestService } from '@/API/assets/assets.service';
 
 interface Route {
     path: string;
@@ -34,8 +37,18 @@ export const AppRoutes = () => {
     );
 
     const i18n = useValueWithEffect(() => newNewI18NService(), []);
+    const cacheStore = useValueWithEffect(() => newNewCahe(), []);
+    const transactionsRestService = newTransactionsRestService({ cacheStore });
+    const assetsRestService = newAssetsRestService({ cacheStore });
+
     //#region containers
-    const containers = getContainers({ userStore, i18n });
+    const containers = getContainers({
+        userStore,
+        i18n,
+        transactionsRestService,
+        assetsRestService,
+        cacheStore,
+    });
 
     //#region routes
     const routes: Route[] = [

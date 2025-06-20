@@ -5,6 +5,7 @@ import { either } from 'fp-ts';
 import * as t from 'io-ts';
 import { AssetDto } from '@/API/contracts/assets.contract.ts';
 import { WalletBalanceResponse } from '@/API/contracts/walletBalance.contract.ts';
+import { ERROR } from '@/store/errors/error-system';
 
 //#region RESPONCE
 export interface WalletAssetResponse {
@@ -105,7 +106,7 @@ export const mapAssetsFromBalance = (
 export const assetsFromBalanceValidation = (data: WaletResponce) => {
     if (data.total === 0) {
         //TODO переименовать в пустое состояние
-        return either.left('error');
+        return either.left(ERROR);
     }
 };
 
@@ -128,7 +129,7 @@ export const mapWhaletFunds = (data: WhaletFundsResponce): Array<FundsData> => {
 
 export const getWhaletFundsValidation = (data: WhaletFundsResponce) => {
     if (data.total === 0) {
-        return either.left('error');
+        return either.left(ERROR);
     }
 };
 

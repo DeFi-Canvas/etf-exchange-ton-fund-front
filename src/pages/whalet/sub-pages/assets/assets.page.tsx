@@ -11,9 +11,10 @@ import { Link } from 'react-router-dom';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
 import { formatNumberExponent } from '@/utils/number';
+import { Error } from '@/store/errors/error-system';
 
 export interface AssetsProps {
-    assets: E.Either<string, Array<CoinCardData>>;
+    assets: E.Either<Error, Array<CoinCardData>>;
 }
 
 const emptyText =

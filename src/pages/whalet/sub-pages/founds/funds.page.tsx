@@ -11,12 +11,13 @@ import { Link } from 'react-router-dom';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
 import { FundsData } from '@/instance/fund/fund.model';
+import { Error } from '@/store/errors/error-system';
 
 // const emptyText = `A fund is a passive investment tool composed of multiple assets. Review the presented funds`;
 const emptyText = `You have no triggers history`;
 
 interface FundsProps {
-    funds: E.Either<string, Array<FundsData>>;
+    funds: E.Either<Error, Array<FundsData>>;
 }
 
 //TODO: вынести в модель

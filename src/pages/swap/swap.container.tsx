@@ -6,14 +6,24 @@ import { newSwapStore } from './swap.store';
 import { SwapPage } from './swap.page';
 import { UserStoreService } from '@/store/user.store';
 import { I18NService } from '@/store/i18n/i18.store';
+import { AssetsRestService } from '@/API/assets/assets.service';
+import { CacheStore } from '@/store/cache/cahe.store';
 
 export const SwapPageContainer = injectable(
     token('userStore')<UserStoreService>(),
     token('i18n')<I18NService>(),
-    (userStore, i18n) =>
+    AssetsRestService,
+    CacheStore,
+    (userStore, i18n, assetsRestService, cacheStore) =>
         memo(() => {
             const store = useValueWithEffect(
-                () => newSwapStore({ userStore, i18n })(),
+                () =>
+                    newSwapStore({
+                        userStore,
+                        i18n,
+                        assetsRestService,
+                        cacheStore,
+                    })(),
                 []
             );
 
@@ -24,6 +34,8 @@ export const SwapPageContainer = injectable(
                     store,
                     userStore,
                     i18n,
+                    assetsRestService,
+                    cacheStore,
                 }),
                 {
                     ...store,

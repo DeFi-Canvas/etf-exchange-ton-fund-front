@@ -13,6 +13,8 @@ import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
 import { I18NService } from '@/store/i18n/i18.store';
 import { useProperty } from '@frp-ts/react';
+import { AssetsRestService } from '@/API/assets/assets.service';
+import { CacheStore } from '@/store/cache/cahe.store';
 
 export const DepositPageContainer = injectable(
     AssetsContainer,
@@ -54,14 +56,19 @@ export const DepositPageContainer = injectable(
 export const Deposit = injectable(
     token('userStore')<UserStoreService>(),
     token('i18n')<I18NService>(),
-    (userStore, i18n) =>
+    AssetsRestService,
+    CacheStore,
+    (userStore, i18n, assetsRestService, cacheStore) =>
         memo(() => {
             const withdrowStore = useValueWithEffect(
                 () => newNewWithdrowStore({ userStore }),
                 [userStore]
             );
             const depositRestService = newDepositRestService({ userStore });
-            const waletRestService = newWaletRestService({ userStore });
+            const waletRestService = newWaletRestService({
+                userStore,
+                cacheStore,
+            });
 
             return React.createElement(
                 DepositPageContainer({
@@ -69,6 +76,7 @@ export const Deposit = injectable(
                     depositRestService,
                     waletRestService,
                     i18n,
+                    assetsRestService,
                 })
             );
         })

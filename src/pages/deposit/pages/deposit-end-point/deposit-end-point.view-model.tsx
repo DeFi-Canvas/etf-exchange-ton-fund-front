@@ -7,6 +7,8 @@ import { newLensedAtom } from '@frp-ts/lens';
 import { flow, pipe } from 'fp-ts/lib/function';
 import { tap } from '@most/core';
 import { newDepositRestService } from '@/API/deposit.service';
+import { EMPTY, Error, LOADING } from '@/store/errors/error-system';
+import { AssetsRestService } from '@/API/assets/assets.service';
 
 export interface DepositDetails {
     readonly address: string;
@@ -15,8 +17,8 @@ export interface DepositDetails {
 }
 
 export interface DepositEndPointViewModel {
-    readonly details: Property<E.Either<string, DepositDetails>>;
-    readonly img: Property<E.Either<string, string>>;
+    readonly details: Property<E.Either<Error, DepositDetails>>;
+    readonly img: Property<E.Either<Error, string>>;
 }
 
 export interface NewDepositEndPointViewModel {
@@ -25,14 +27,13 @@ export interface NewDepositEndPointViewModel {
 
 export const newDepositEndPointViewModel = injectable(
     newDepositRestService,
-    (service): NewDepositEndPointViewModel =>
+    AssetsRestService,
+    (service, assetsRestService): NewDepositEndPointViewModel =>
         (ticker) => {
-            const details = newLensedAtom<E.Either<string, DepositDetails>>(
-                E.left('Loading')
+            const details = newLensedAtom<E.Either<Error, DepositDetails>>(
+                E.left(LOADING)
             );
-            const img = newLensedAtom<E.Either<string, string>>(
-                E.left('empty')
-            );
+            const img = newLensedAtom<E.Either<Error, string>>(E.left(EMPTY));
 
             const getDetails = pipe(
                 service.getDepositDetails(),
@@ -40,15 +41,15 @@ export const newDepositEndPointViewModel = injectable(
             );
 
             const imgEffect = pipe(
-                service.getDepositAssets(),
+                assetsRestService.getAllAssets(),
                 tap(
                     flow(
                         E.chain((depositAssets) => {
                             return pipe(
                                 depositAssets,
                                 A.findFirst((x) => x.ticker === ticker),
-                                E.fromOption(() => 'empty'),
-                                E.map(({ img }) => img)
+                                E.fromOption(() => EMPTY),
+                                E.map(({ imageUrl }) => imageUrl)
                             );
                         }),
                         img.set

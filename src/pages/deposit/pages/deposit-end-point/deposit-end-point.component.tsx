@@ -11,10 +11,11 @@ import AppButton from '@/components/app-button/app-button.component.tsx';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
+import { Error } from '@/store/errors/error-system';
 
 interface DepositEndPointProps {
-    readonly details: E.Either<string, DepositDetails>;
-    readonly coinLogo: E.Either<string, string>;
+    readonly details: E.Either<Error, DepositDetails>;
+    readonly coinLogo: E.Either<Error, string>;
     readonly texts: {
         title: (
             ticker: string | undefined,

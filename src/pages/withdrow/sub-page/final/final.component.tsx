@@ -6,11 +6,12 @@ import cn from 'classnames';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
+import { Error } from '@/store/errors/error-system';
 
 interface FinalProps {
-    amount: E.Either<string, number>;
+    amount: E.Either<Error, number>;
     currency: string;
-    address: E.Either<string, string>;
+    address: E.Either<Error, string>;
     onClick: () => void;
     texts: {
         title: string;
