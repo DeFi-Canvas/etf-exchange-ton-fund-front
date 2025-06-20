@@ -27,13 +27,13 @@ import {
 import { Configuration } from './scheme/rest-genereted';
 import { walletFundsCodec } from './contracts/walletFunds.contract';
 import { allFundsCodec } from './contracts/funds.contract';
-import { AssetBalance } from '@/instance/asset/asset.model';
+import { AssetBalance, AssetBalanceCodec } from '@/instance/asset/asset.model';
 import { FundsData } from '@/instance/fund/fund.model';
 import { Error } from '@/store/errors/error-system';
 import { CacheStore } from '@/store/cache/cahe.store';
 import { pipe } from 'fp-ts/lib/function';
 import { waitWithCache } from '@/utils/stream';
-
+import * as t from 'io-ts';
 export interface WaletRestService {
     getBalance: () => Stream<Either<Error, WaletResponce>>;
     getAssets: () => Stream<Either<Error, Array<AssetBalance>>>;
@@ -72,7 +72,11 @@ export const newWaletRestService = injectable(
                         walletBalanceResponseCodec,
                         mapAssetsFromBalance
                     )(),
-                    waitWithCache(cacheStore, 'WaletAssets')
+                    waitWithCache(
+                        cacheStore,
+                        'WaletAssets',
+                        t.array(AssetBalanceCodec)
+                    )
                 ),
             getFunds: getRequestGenerated(
                 strategiesApi.strategiesGet(),

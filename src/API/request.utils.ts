@@ -17,8 +17,8 @@ export const handleGetRequest =
         codec: Codec & t.Type<DeepRequired<ResponseData>>,
         transform: (data: t.TypeOf<typeof codec>) => ResultData
     ) =>
-    <T>(): Stream<Either<string, T>> => {
-        const stream: Stream<Either<string, T>> = fromPromise(
+    (): Stream<Either<string, ResultData>> => {
+        const stream: Stream<Either<string, ResultData>> = fromPromise(
             req
                 .then(({ data }) => {
                     return pipe(
@@ -57,7 +57,7 @@ export const performGetRequest = <
     req: Promise<AxiosResponse<ResponseData, unknown>>,
     codec: Codec & t.Type<DeepRequired<ResponseData>>,
     transform: (data: t.TypeOf<typeof codec>) => ResultData
-): Stream<Either<string, T>> => {
+): Stream<Either<string, ResultData>> => {
     return handleGetRequest(req, codec, transform)();
 };
 

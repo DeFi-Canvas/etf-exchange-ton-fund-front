@@ -11,6 +11,7 @@ import {
 } from '../request.utils';
 import {
     Transactions,
+    transactionsCodec,
     transactionsResponseCodec,
 } from './transactions.responce.contract';
 import { CacheStore } from '@/store/cache/cahe.store';
@@ -31,7 +32,7 @@ export const newTransactionsRestService = injectable(
         return {
             getTransactions: () =>
                 pipe(
-                    performGetRequest(
+                    handleGetRequest(
                         transactionApi.apiTransactionPost(
                             0,
                             20,
@@ -39,8 +40,8 @@ export const newTransactionsRestService = injectable(
                         ),
                         transactionsResponseCodec,
                         (x) => x.payload
-                    ),
-                    waitWithCache(cacheStore, 'transactions')
+                    )(),
+                    waitWithCache(cacheStore, 'transactions', transactionsCodec)
                 ),
         };
     }

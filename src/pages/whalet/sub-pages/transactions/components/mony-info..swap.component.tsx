@@ -12,7 +12,7 @@ interface TransactionSwapMonyInfoProps {
 export const TransactionSwapMonyInfo = ({
     entries,
     type,
-}: TransactionSwapMonyInfoProps) => {
+}: TransactionSwapMonyInfoProps): JSX.Element => {
     const { debit, credit } = formatSwapEntries(entries);
     switch (type) {
         case 'SWAP':
@@ -50,7 +50,5 @@ export const TransactionSwapMonyInfo = ({
                     </span>
                 </div>
             );
-        default:
-            return null;
     }
 };

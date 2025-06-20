@@ -16,13 +16,17 @@ import {
     assetResponseMapping,
     assetsResponseMapping,
 } from '@/pages/assets-single/asset-single.model.ts';
-import { Asset, AssetBalance } from '@/instance/asset/asset.model.ts';
+import {
+    Asset,
+    AssetBalance,
+    AssetCodec,
+} from '@/instance/asset/asset.model.ts';
 import { Error } from '@/store/errors/error-system';
 import { injectable, token } from '@injectable-ts/core';
 import { CacheStore } from '@/store/cache/cahe.store';
 import { pipe } from 'fp-ts/lib/function';
 import { waitWithCache } from '@/utils/stream';
-
+import * as t from 'io-ts';
 export interface AssetsRestService {
     getAsset: (assetId: string) => Stream<Either<Error, Asset>>;
     getAllAssets: () => Stream<Either<Error, Array<AssetBalance>>>;
@@ -45,8 +49,7 @@ export const newAssetsRestService = injectable(
                         ),
                         assetResponseCodec,
                         assetResponseMapping
-                    ),
-                    waitWithCache(cacheStore, 'getAssets')
+                    )
                 ),
             getAllAssets: () =>
                 pipe(
@@ -55,7 +58,11 @@ export const newAssetsRestService = injectable(
                         assetsResponseCodec,
                         assetsResponseMapping
                     ),
-                    waitWithCache(cacheStore, 'getAllAssets')
+                    waitWithCache(
+                        cacheStore,
+                        'getAllAssets',
+                        t.array(AssetCodec)
+                    )
                 ),
         };
     }
