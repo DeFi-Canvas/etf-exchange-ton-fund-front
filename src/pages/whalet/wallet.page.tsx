@@ -14,7 +14,6 @@ import { Onboarding } from '@/components/onboarding/onboarding.component.tsx';
 import { I18NService } from '@/store/i18n/i18.store';
 import { useProperty } from '@frp-ts/react';
 import { AiAgent } from './components/news/ai-agent.component';
-import { formatNumberExponent } from '@/utils/number';
 
 export interface WhatToBuyPageProps {
     balance: O.Option<number>;

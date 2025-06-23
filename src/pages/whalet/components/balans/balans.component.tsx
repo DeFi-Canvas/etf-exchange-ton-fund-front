@@ -8,6 +8,7 @@ import cn from 'classnames';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
 import { WalletI18n } from '../../wallet.i18n.model';
+import { TonConnectButton } from '@tonconnect/ui-react';
 
 export interface BalansProps {
     balance: O.Option<Balance>;
@@ -21,7 +22,7 @@ export const Balans = ({ balance, texts }: BalansProps) => {
         <div className={cn('app-container', css.wrap)}>
             <div className={css.labelWrap}>
                 <span className={css.label}>{texts.balance.title}</span>
-                <div
+                {/* <div
                     className={css.alert}
                     onClick={() => {
                         trackTelemetree(
@@ -30,9 +31,9 @@ export const Balans = ({ balance, texts }: BalansProps) => {
                         );
                     }}
                 >
-                    {/* TODO: по какому принципу появляется оранжевый кружок */}
                     <AlertIcon />
-                </div>
+                </div> */}
+                <TonConnectButton />
             </div>
             <div className={css.balans}>
                 <OptionSpan
