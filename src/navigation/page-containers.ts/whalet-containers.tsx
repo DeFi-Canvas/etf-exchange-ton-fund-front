@@ -14,24 +14,16 @@ export interface WhaletContainers {
 export const getWhaletContainers = ({
     userStore,
     i18n,
-    transactionsRestService,
-    cacheStore,
 }: getContainersArgs): WhaletContainers => ({
     WaletPage: WaletPageContainer({
         userStore,
         i18n,
-        cacheStore,
-        transactionsRestService,
     }),
     Assets: AssetsContainer({
         userStore,
-        cacheStore,
     }),
-    Transactions: TransactionsContainer({
-        transactionsRestService,
-    }),
+    Transactions: TransactionsContainer({}),
     Funds: FundsContainer({
         userStore,
-        cacheStore,
     }),
 });

@@ -1,4 +1,3 @@
-// import { newAssetsRestService } from '@/API/assets.service';
 import { UserStoreService } from '@/store/user.store';
 import { MemoExoticComponent, FC, lazy, LazyExoticComponent } from 'react';
 import {
@@ -21,16 +20,10 @@ import { ProfileContainer } from '@/pages/profile/profile.page';
 import { AssetsSingleContainer } from '@/pages/assets-single/assets-single.container';
 import { SwapPageContainer } from '@/pages/swap/swap.container';
 import { I18NService } from '@/store/i18n/i18.store';
-import { TransactionsRestService } from '@/API/transactions/transactions.service';
-import { AssetsRestService } from '@/API/assets/assets.service';
-import { CacheStore } from '@/store/cache/cahe.store';
 
 export interface getContainersArgs {
     userStore: UserStoreService;
     i18n: I18NService;
-    transactionsRestService: TransactionsRestService;
-    assetsRestService: AssetsRestService;
-    cacheStore: CacheStore;
 }
 
 type ReactComponent = () => JSX.Element;
@@ -49,42 +42,29 @@ export interface Containers {
 export const getContainers = ({
     userStore,
     i18n,
-    transactionsRestService,
-    assetsRestService,
-    cacheStore,
 }: getContainersArgs): Containers => ({
     deposit: getDepositContainers({
         userStore,
         i18n,
-        assetsRestService,
-        cacheStore,
     }),
     whalet: getWhaletContainers({
         userStore,
         i18n,
-        transactionsRestService,
-        assetsRestService,
-        cacheStore,
     }),
     withdrow: getWithdrowContainers({
         userStore,
         i18n,
-        assetsRestService,
-        cacheStore,
     }),
-    whatToBuy: getWhatToBuyContainers({ userStore, i18n, cacheStore }),
+    whatToBuy: getWhatToBuyContainers({ userStore, i18n }),
     Profile: ProfileContainer({
         userStore,
         i18n,
     }),
     AssetPage: AssetsSingleContainer({
-        assetsRestService,
         i18n,
     }),
     SwapePage: SwapPageContainer({
         userStore,
         i18n,
-        assetsRestService,
-        cacheStore,
     }),
 });

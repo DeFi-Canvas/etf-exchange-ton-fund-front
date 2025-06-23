@@ -31,15 +31,9 @@ export interface NewAssetsViewModel {
 // или норм?
 export const newAssetsViewModel = injectable(
     token('waletRestService')<WaletRestService>(),
-    token('depositRestService')<DepositRestService>(),
     token('withdrowStore')<WithdrowStore>(),
     AssetsRestService,
-    (
-        waletRestService,
-        newDepositRestService,
-        store,
-        assetsRestService
-    ): NewAssetsViewModel =>
+    (waletRestService, store, assetsRestService): NewAssetsViewModel =>
         (type) => {
             const assets = newLensedAtom<
                 E.Either<Error, Array<DepositAsset | AssetBalance>>

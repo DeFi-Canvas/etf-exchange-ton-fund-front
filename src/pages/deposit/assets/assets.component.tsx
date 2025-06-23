@@ -36,7 +36,7 @@ const formattedData = (
             img: asset.imageUrl,
             title: asset.name,
             subTitle: asset.ticker,
-            price: asset.value.toFixed(2),
+            price: '',
             priceText: '',
         };
     }
