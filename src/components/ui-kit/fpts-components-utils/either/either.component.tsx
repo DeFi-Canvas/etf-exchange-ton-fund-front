@@ -1,14 +1,9 @@
 import { memo } from 'react';
 import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/lib/function';
-import {
-    Pending,
-    SimpleError,
-    PENDING,
-    ERROR,
-} from '@/store/errors/error-system';
+import { PENDING, ERROR, Error } from '@/store/errors/error-system';
 
-type RenderEitherErrors = Pending | SimpleError | string;
+type RenderEitherErrors = Error;
 
 export interface RenderResultProps<E extends RenderEitherErrors, A> {
     readonly data: E.Either<E, A>;

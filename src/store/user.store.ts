@@ -4,6 +4,7 @@ import { Property } from '@frp-ts/core';
 import { newLensedAtom } from '@frp-ts/lens';
 import * as E from 'fp-ts/Either';
 import { Error, PENDING } from './errors/error-system';
+import { injectable } from '@injectable-ts/core';
 
 export interface UserData {
     allowsWriteToPm?: boolean;
@@ -22,7 +23,7 @@ export interface UserStoreService {
     setAssets: (data: E.Either<Error, Array<CoinCardData>>) => void;
 }
 
-export type NewUserStoreService = ValueWithEffect<UserStoreService>;
+export type NewUserStoreService = UserStoreService;
 
 export const newNewUserStoreService = (
     init: UserData | undefined
@@ -32,10 +33,14 @@ export const newNewUserStoreService = (
         E.left(PENDING)
     );
 
-    return valueWithEffect.new({
+    return {
         user,
         setUser: (data) => user.modify((user) => ({ ...user, ...data })),
         assets,
         setAssets: (data) => assets.set(data),
-    });
+    };
 };
+
+export const UserStore = injectable('userStore', () =>
+    newNewUserStoreService({})
+);

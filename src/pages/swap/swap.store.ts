@@ -16,7 +16,6 @@ import {
 import * as A from 'fp-ts/Array';
 import { injectable, token } from '@injectable-ts/core';
 import { newWaletRestService } from '@/API/whalet.service';
-import { newSwapRestService } from '@/API/swap.service';
 import {
     FiltrebleSwapAsset,
     getAssetsEffectMapping,

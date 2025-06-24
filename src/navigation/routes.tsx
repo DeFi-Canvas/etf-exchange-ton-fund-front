@@ -30,11 +30,7 @@ interface Route {
 export const AppRoutes = () => {
     const initData = useInitData();
 
-    const userStore = useValueWithEffect(
-        () => newNewUserStoreService(initData?.user),
-        []
-    );
-
+    const userStore = newNewUserStoreService(initData?.user);
     const i18n = useValueWithEffect(() => newNewI18NService(), []);
 
     //#region containers
