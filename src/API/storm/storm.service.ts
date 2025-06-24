@@ -39,7 +39,7 @@ export const newStormRestService = (): StormRestService => {
             ),
         withdrow: (payload) =>
             performGetRequest(
-                stormApi.apiStormLiquidityDepositPost(
+                stormApi.apiStormLiquidityWithdrawPost(
                     { payload },
                     authRequestOptions()
                 ),

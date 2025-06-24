@@ -7,7 +7,6 @@ import * as E from 'fp-ts/Either';
 import { Error } from '@/store/errors/error-system';
 import css from './storm.module.css';
 import cn from 'classnames';
-import { useState } from 'react';
 import AppButton from '@/components/app-button/app-button.component';
 import AppFooter from '@/components/app-footer/app-footer.components';
 import { constVoid } from 'fp-ts/lib/function';
@@ -16,12 +15,20 @@ interface StormProps {
     asset: E.Either<Error, AssetBalance>;
     activeAction: 'DEPOSIT' | 'WITHDROW';
     setActiveAction: (a: 'DEPOSIT' | 'WITHDROW') => void;
+    setAmount: (a: number) => void;
+    action: () => void;
 }
 
-export const Storm = ({ asset, activeAction, setActiveAction }: StormProps) => {
+export const Storm = ({
+    asset,
+    activeAction,
+    setActiveAction,
+    setAmount,
+    action,
+}: StormProps) => {
     const attentionText = {
         title: 'Attention',
-        text: 'Investments in the funds are in the beta testing phase. Please consider the risks.',
+        text: 'Investments in the beta testing phase. Please consider the risks.',
     };
 
     return (
@@ -46,7 +53,7 @@ export const Storm = ({ asset, activeAction, setActiveAction }: StormProps) => {
                         />
                     )}
                 />
-                <AmountField maxAvailable={0} />
+                <AmountField maxAvailable={0} handleChange={setAmount} />
 
                 <div>
                     <h3>description</h3>
@@ -59,7 +66,7 @@ export const Storm = ({ asset, activeAction, setActiveAction }: StormProps) => {
             <AppFooter>
                 <AppButton
                     label={activeAction === 'DEPOSIT' ? 'Deposit' : 'Withdrow'}
-                    onClick={constVoid}
+                    onClick={action}
                     isLoading={false}
                     isDisabled={false}
                 />
@@ -87,9 +94,10 @@ const AssetCard = ({ imageUrl, balance, ticker }: AssetCardProps) => {
 
 interface AmountFieldProps {
     maxAvailable: number;
+    handleChange: (a: number) => void;
 }
 
-const AmountField = ({ maxAvailable }: AmountFieldProps) => {
+const AmountField = ({ maxAvailable, handleChange }: AmountFieldProps) => {
     return (
         <div className={css.amountField}>
             <div className={css.titleWrap}>
@@ -104,6 +112,7 @@ const AmountField = ({ maxAvailable }: AmountFieldProps) => {
                 type="number"
                 className={css.input}
                 placeholder="Enter amount"
+                onChange={(e) => handleChange(Number(e.currentTarget.value))}
             />
         </div>
     );
