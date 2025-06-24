@@ -1,8 +1,6 @@
 import {
     DepositAnaliticsIcon,
     DepositDepositIcon,
-    AIBubbleIcon,
-    ArrowSwapIcon,
     DepositSwapIcon,
     EarnIcon,
 } from '@/components/Icons/Icons';
@@ -44,13 +42,11 @@ export const NavBar = ({ texts }: NavBarProps) => {
             isExternal: false,
         },
         {
-            href: 'https://t.me/deficanvastest_bot',
-            isDisabled: true,
-            // title: texts.navbar.asistent,
+            href: 'earn',
+            isDisabled: false,
             title: 'Earn',
-            // icon: <AIBubbleIcon />,
             icon: <EarnIcon />,
-            isExternal: true,
+            isExternal: false,
         },
         {
             href: '',

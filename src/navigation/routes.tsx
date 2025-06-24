@@ -12,6 +12,8 @@ import { whatToBuyRouter } from './page-routes/what-to-buy-router';
 import { TransactionView } from '@pages/transaction-view/transaction-view.page.tsx';
 import { Loader } from '@/components/loader/loader.component';
 import { newNewI18NService } from '@/store/i18n/i18.store';
+import { StormContainer } from '@/pages/earn/deposit-protocol/storm/storm.container';
+import { newStormStore } from '@/pages/earn/deposit-protocol/storm/storm.store';
 
 interface Route {
     path: string;
@@ -63,6 +65,10 @@ export const AppRoutes = () => {
         {
             path: '/transaction-view',
             page: TransactionView,
+        },
+        {
+            path: '/earn',
+            page: StormContainer({}),
         },
     ];
 
