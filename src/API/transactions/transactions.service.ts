@@ -4,11 +4,7 @@ import { injectable, token } from '@injectable-ts/core';
 import { DOMAIN_API_URL } from '../API';
 import { TransactionApi } from '../scheme/rest-genereted/api';
 import { Configuration } from '../scheme/rest-genereted';
-import {
-    authRequestOptions,
-    handleGetRequest,
-    performGetRequest,
-} from '../request.utils';
+import { authRequestOptions, performGetRequest } from '../request.utils';
 import {
     Transactions,
     transactionsCodec,
@@ -32,7 +28,7 @@ export const newTransactionsRestService = injectable(
         return {
             getTransactions: () =>
                 pipe(
-                    handleGetRequest(
+                    performGetRequest(
                         transactionApi.apiTransactionPost(
                             0,
                             20,
@@ -40,13 +36,13 @@ export const newTransactionsRestService = injectable(
                         ),
                         transactionsResponseCodec,
                         (x) => x.payload
-                    )(),
+                    ),
                     waitWithCache(cacheStore, 'transactions', transactionsCodec)
                 ),
         };
     }
 );
 
-export const TransactionsRestService = token(
-    'transactionsRestService'
-)<TransactionsRestService>();
+export const TransactionsRestService = injectable('TRANSACTIONS_SERVICE', () =>
+    newTransactionsRestService({})
+);

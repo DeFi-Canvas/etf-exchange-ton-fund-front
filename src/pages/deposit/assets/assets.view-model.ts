@@ -1,14 +1,13 @@
 import { injectable, token } from '@injectable-ts/core';
 
-import { flow, pipe } from 'fp-ts/lib/function';
+import { pipe } from 'fp-ts/lib/function';
 import { tap, map } from '@most/core';
 import { Property } from '@frp-ts/core';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
-import { WaletRestService } from '@/API/whalet.service';
+import { WaletRestService } from '@/API/wallet.service';
 import { newLensedAtom } from '@frp-ts/lens';
-import { DepositRestService } from '@/API/deposit.service';
 import { DepositAsset } from '../deposit.model';
 import { AssetCodec } from '@/pages/whalet/wallet.model';
 import { WithdrowStore } from '@/pages/withdrow/withdrow.store';
@@ -31,15 +30,9 @@ export interface NewAssetsViewModel {
 // или норм?
 export const newAssetsViewModel = injectable(
     token('waletRestService')<WaletRestService>(),
-    token('depositRestService')<DepositRestService>(),
     token('withdrowStore')<WithdrowStore>(),
     AssetsRestService,
-    (
-        waletRestService,
-        newDepositRestService,
-        store,
-        assetsRestService
-    ): NewAssetsViewModel =>
+    (waletRestService, store, assetsRestService): NewAssetsViewModel =>
         (type) => {
             const assets = newLensedAtom<
                 E.Either<Error, Array<DepositAsset | AssetBalance>>

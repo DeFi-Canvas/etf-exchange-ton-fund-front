@@ -6,7 +6,7 @@ import { Property } from '@frp-ts/core';
 import * as O from 'fp-ts/Option';
 import { either } from 'fp-ts';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
-import { newWaletRestService } from '@/API/whalet.service';
+import { newWalletRestService } from '@/API/wallet.service';
 import { newLensedAtom } from '@frp-ts/lens';
 import { WalletTransactions } from './wallet.model';
 import { TransactionsRestService } from '@/API/transactions/transactions.service';
@@ -26,7 +26,7 @@ export interface NewWhatToBuyViewModel {
 }
 
 export const newWhatToBuyViewModel = injectable(
-    newWaletRestService,
+    newWalletRestService,
     TransactionsRestService,
     (waletRestService, transactionsRestService): NewWhatToBuyViewModel =>
         () => {

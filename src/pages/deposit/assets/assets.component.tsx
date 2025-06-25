@@ -1,7 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import css from './assets.module.css';
 import { AssetsCard } from '@/components/assets-card/assets-card.component.tsx';
-import { AssetsUI as AssetsCardBaseProps } from '@/components/assets-card/assets-card.model';
+import {
+    AssetsUI as AssetsCardBaseProps,
+    assetsCodec,
+} from '@/components/assets-card/assets-card.model';
 import * as E from 'fp-ts/Either';
 import { AssetsViewModelInit } from './assets.view-model';
 import { DepositAsset, DepositAssetsCodec } from '../deposit.model';
@@ -36,7 +39,7 @@ const formattedData = (
             img: asset.imageUrl,
             title: asset.name,
             subTitle: asset.ticker,
-            price: asset.value.toFixed(2),
+            price: '',
             priceText: '',
         };
     }
@@ -48,11 +51,9 @@ export const Assets = ({ assets, type, handleClick }: AssetsProps) => {
     const mapLink = (asset: DepositAsset | AssetBalance) => {
         switch (type) {
             case 'deposit':
-                return DepositAssetsCodec.is(asset)
-                    ? `/deposit/${asset.ticker}/deposit-end-point`
-                    : '';
+                return `/deposit/${asset.ticker}/deposit-end-point`;
             case 'withdrow':
-                return AssetCodec.is(asset) ? `/withdraw/${asset.ticker}` : '';
+                return `/withdraw/${asset.ticker}`;
         }
     };
 

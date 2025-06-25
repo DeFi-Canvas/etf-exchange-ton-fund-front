@@ -7,14 +7,11 @@ import { UserStoreService } from '@/store/user.store';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import React, { memo } from 'react';
 import { newNewWithdrowStore } from '../withdrow/withdrow.store';
-import { newDepositRestService } from '@/API/deposit.service';
-import { newWaletRestService } from '@/API/whalet.service';
+import { newWalletRestService } from '@/API/wallet.service';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
 import { I18NService } from '@/store/i18n/i18.store';
 import { useProperty } from '@frp-ts/react';
-import { AssetsRestService } from '@/API/assets/assets.service';
-import { CacheStore } from '@/store/cache/cahe.store';
 
 export const DepositPageContainer = injectable(
     AssetsContainer,
@@ -56,27 +53,21 @@ export const DepositPageContainer = injectable(
 export const Deposit = injectable(
     token('userStore')<UserStoreService>(),
     token('i18n')<I18NService>(),
-    AssetsRestService,
-    CacheStore,
-    (userStore, i18n, assetsRestService, cacheStore) =>
+    (userStore, i18n) =>
         memo(() => {
             const withdrowStore = useValueWithEffect(
                 () => newNewWithdrowStore({ userStore }),
                 [userStore]
             );
-            const depositRestService = newDepositRestService({ userStore });
-            const waletRestService = newWaletRestService({
+            const waletRestService = newWalletRestService({
                 userStore,
-                cacheStore,
             });
 
             return React.createElement(
                 DepositPageContainer({
                     withdrowStore,
-                    depositRestService,
                     waletRestService,
                     i18n,
-                    assetsRestService,
                 })
             );
         })

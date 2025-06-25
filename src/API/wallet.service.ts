@@ -1,6 +1,6 @@
 import { Stream } from '@most/types';
 import { Either } from 'fp-ts/lib/Either';
-import { UserStoreService } from '@/store/user.store';
+import { UserStore, UserStoreService } from '@/store/user.store';
 import { injectable, token } from '@injectable-ts/core';
 import {
     authRequestOptions,
@@ -53,8 +53,8 @@ const strategiesApi = new StrategiesApi({
     basePath: DOMAIN_API_URL,
 } as Configuration);
 
-export const newWaletRestService = injectable(
-    token('userStore')<UserStoreService>(),
+export const newWalletRestService = injectable(
+    UserStore,
     CacheStore,
     (userStore, cacheStore): WaletRestService => {
         const { id: telegram_id } = userStore.user.get();

@@ -1,5 +1,4 @@
-import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
-import { token } from '@injectable-ts/core';
+import { injectable, token } from '@injectable-ts/core';
 import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/lib/function';
 import { Error, PENDING } from '../errors/error-system';
@@ -10,7 +9,7 @@ export interface CacheStore {
     set: (key: string, data: unknown) => void;
 }
 
-export type NewCaheStore = ValueWithEffect<CacheStore>;
+export type NewCaheStore = CacheStore;
 
 export const newNewCahe = (): NewCaheStore => {
     const set = (key: string, data: unknown) => {
@@ -32,7 +31,7 @@ export const newNewCahe = (): NewCaheStore => {
         }
     };
 
-    return valueWithEffect.new({ set, get });
+    return { set, get };
 };
 
-export const CacheStore = token('cacheStore')<CacheStore>();
+export const CacheStore = injectable('CACHE_STORE', newNewCahe);
