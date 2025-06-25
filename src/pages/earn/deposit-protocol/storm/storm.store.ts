@@ -18,6 +18,10 @@ interface StormStore {
     activeAction: Property<'DEPOSIT' | 'WITHDROW'>;
     setActiveAction: (a: 'DEPOSIT' | 'WITHDROW') => void;
     amount: Property<number | null>;
+    requestFinish: Property<boolean>;
+    isBottomSheetOpen: Property<boolean>;
+    maxAvailable: Property<number | null>;
+    handleMaxClick: () => void;
     setAmount: (a: number) => void;
     deposit: () => void;
     withdraw: () => void;
@@ -42,9 +46,19 @@ export const Store = injectable(
                 'DEPOSIT'
             );
             const amount = newLensedAtom<number | null>(null);
+            const requestFinish = newLensedAtom(false);
+            const isBottomSheetOpen = newLensedAtom(false);
+            const maxAvailable = newLensedAtom<number | null>(null);
 
             const [deposit, depositEvent] = createAdapter<void>();
             const [withdraw, withdrawEvent] = createAdapter<void>();
+
+            const handleMaxClick = () => {
+                const currentAsset = asset.get();
+                if (E.isRight(currentAsset)) {
+                    amount.set(currentAsset.right.balance);
+                }
+            };
 
             const getAssetEffect = pipe(
                 waletService.getAssets(),
@@ -66,6 +80,7 @@ export const Store = injectable(
             const depositEffect = pipe(
                 depositEvent,
                 chain(() => {
+                    isBottomSheetOpen.set(true);
                     const amountToSend = amount.get();
                     if (amountToSend) {
                         return stormService.deposit({
@@ -74,12 +89,14 @@ export const Store = injectable(
                         });
                     }
                     return now(E.left(EMPTY));
-                })
+                }),
+                tap(() => requestFinish.set(true))
             );
 
             const withdrawEffect = pipe(
                 withdrawEvent,
                 chain(() => {
+                    isBottomSheetOpen.set(true);
                     const amountToSend = amount.get();
                     if (amountToSend) {
                         return stormService.withdrow({
@@ -88,13 +105,15 @@ export const Store = injectable(
                         });
                     }
                     return now(E.left(EMPTY));
-                })
+                }),
+                tap(() => requestFinish.set(true))
             );
 
             const activeActionChangeEffect = pipe(
                 activeAction,
                 fromProperty,
                 tap((activeAction) => {
+                    amount.set(null);
                     const ticker =
                         activeAction === 'DEPOSIT' ? 'USDT' : 'USDT-LP';
                     const newAssets = pipe(
@@ -107,6 +126,10 @@ export const Store = injectable(
                         )
                     );
                     asset.set(newAssets);
+
+                    if (E.isRight(newAssets)) {
+                        maxAvailable.set(newAssets.right.balance);
+                    }
                 })
             );
             return valueWithEffect.new(
@@ -118,6 +141,10 @@ export const Store = injectable(
                     withdraw,
                     setAmount: amount.set,
                     setActiveAction: activeAction.set,
+                    requestFinish,
+                    isBottomSheetOpen,
+                    handleMaxClick,
+                    maxAvailable,
                 },
                 getAssetEffect,
                 depositEffect,

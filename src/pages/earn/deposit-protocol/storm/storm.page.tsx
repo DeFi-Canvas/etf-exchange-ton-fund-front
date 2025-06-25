@@ -1,4 +1,4 @@
-import { WalletIcon } from '@/components/Icons/Icons';
+import { SpinIcon, WalletIcon } from '@/components/Icons/Icons';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import { AssetBalance } from '@/instance/asset/asset.model';
 import PurchaseSellAttention from '@/pages/what-to-buy/sub-page/components/purchase-sell-attention/purchase-sell-attention.component';
@@ -10,6 +10,8 @@ import cn from 'classnames';
 import AppButton from '@/components/app-button/app-button.component';
 import AppFooter from '@/components/app-footer/app-footer.components';
 import { constVoid } from 'fp-ts/lib/function';
+import BottomSheet from '@/components/ui-kit/bottom-sheet/bottom-sheet.component';
+import { useNavigate } from 'react-router-dom';
 
 interface StormProps {
     asset: E.Either<Error, AssetBalance>;
@@ -17,6 +19,11 @@ interface StormProps {
     setActiveAction: (a: 'DEPOSIT' | 'WITHDROW') => void;
     setAmount: (a: number) => void;
     action: () => void;
+    requestFinish: boolean;
+    isBottomSheetOpen: boolean;
+    handleMaxClick: () => void;
+    amount: number | null;
+    maxAvailable: number | null;
 }
 
 export const Storm = ({
@@ -25,7 +32,14 @@ export const Storm = ({
     setActiveAction,
     setAmount,
     action,
+    requestFinish,
+    isBottomSheetOpen,
+    handleMaxClick,
+    amount,
+    maxAvailable,
 }: StormProps) => {
+    const navigate = useNavigate();
+
     const attentionText = {
         title: 'Attention',
         text: 'Investments in the beta testing phase. Please consider the risks.',
@@ -53,14 +67,20 @@ export const Storm = ({
                         />
                     )}
                 />
-                <AmountField maxAvailable={0} handleChange={setAmount} />
+                <AmountField
+                    maxAvailable={maxAvailable}
+                    handleChange={setAmount}
+                    amount={amount}
+                    handleMaxClick={handleMaxClick}
+                />
 
                 <div>
-                    <h3>description</h3>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Nam, qui expedita esse nulla fugit voluptatibus ea
-                    cupiditate. Laborum illum consectetur eius optio, ab et nemo
-                    necessitatibus eaque quidem, quibusdam asperiores.
+                    <h3>Description</h3>
+                    You provide USDT to traders, in return you get 70% of
+                    commissions (trading fees, penalties, funding fees). At the
+                    same time, the same pool serves as a reserve for payments on
+                    profitable trades of traders, in case of large payments, the
+                    return on deposit may become negative.
                 </div>
             </div>
             <AppFooter>
@@ -71,6 +91,27 @@ export const Storm = ({
                     isDisabled={false}
                 />
             </AppFooter>
+
+            <BottomSheet
+                open={isBottomSheetOpen}
+                hasButtonClose={true}
+                onClose={() => navigate('/')}
+            >
+                <div className={css.info}>
+                    <div className={css.bottomSheetTitle}>Deposit in Storm</div>
+                    {!requestFinish && (
+                        <div className={css.loading}>
+                            <SpinIcon />
+                        </div>
+                    )}
+                    {requestFinish && (
+                        <>
+                            <span>Your transaction is in transit</span>
+                            <span>check your balance</span>
+                        </>
+                    )}
+                </div>
+            </BottomSheet>
         </div>
     );
 };
@@ -93,22 +134,30 @@ const AssetCard = ({ imageUrl, balance, ticker }: AssetCardProps) => {
 };
 
 interface AmountFieldProps {
-    maxAvailable: number;
+    maxAvailable: number | null;
     handleChange: (a: number) => void;
+    amount: number | null;
+    handleMaxClick: () => void;
 }
 
-const AmountField = ({ maxAvailable, handleChange }: AmountFieldProps) => {
+const AmountField = ({
+    maxAvailable,
+    handleChange,
+    amount,
+    handleMaxClick,
+}: AmountFieldProps) => {
     return (
         <div className={css.amountField}>
             <div className={css.titleWrap}>
                 <span>Amount ($)</span>
                 <div className={css.wallet}>
                     <WalletIcon />
-                    {`$ ${maxAvailable.toFixed(2)}`}
-                    <span>MAX</span>
+                    {`$ ${maxAvailable ? maxAvailable.toFixed(2) : '0,00'}`}
+                    <span onClick={handleMaxClick}>MAX</span>
                 </div>
             </div>
             <input
+                value={amount ?? ''}
                 type="number"
                 className={css.input}
                 placeholder="Enter amount"

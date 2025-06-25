@@ -9,10 +9,20 @@ import { useValueWithEffect } from '@/utils/run-view-model.utils';
 export const StormContainer = injectable(newStormStore, (newStormStore) =>
     memo(() => {
         const store = useValueWithEffect(() => newStormStore(), []);
-        const [asset, activeAction, amount] = useProperties(
+        const [
+            asset,
+            activeAction,
+            amount,
+            requestFinish,
+            isBottomSheetOpen,
+            maxAvailable,
+        ] = useProperties(
             store.asset,
             store.activeAction,
-            store.amount
+            store.amount,
+            store.requestFinish,
+            store.isBottomSheetOpen,
+            store.maxAvailable
         );
         const action =
             activeAction === 'DEPOSIT' ? store.deposit : store.withdraw;
@@ -22,6 +32,10 @@ export const StormContainer = injectable(newStormStore, (newStormStore) =>
             asset,
             activeAction,
             action,
+            requestFinish,
+            isBottomSheetOpen,
+            amount,
+            maxAvailable,
         });
     })
 );
