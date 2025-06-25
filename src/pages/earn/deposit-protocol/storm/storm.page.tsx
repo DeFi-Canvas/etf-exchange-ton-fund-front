@@ -12,11 +12,12 @@ import AppFooter from '@/components/app-footer/app-footer.components';
 import { constVoid } from 'fp-ts/lib/function';
 import BottomSheet from '@/components/ui-kit/bottom-sheet/bottom-sheet.component';
 import { useNavigate } from 'react-router-dom';
+import { Action } from './storm.store';
 
 interface StormProps {
     asset: E.Either<Error, AssetBalance>;
-    activeAction: 'DEPOSIT' | 'WITHDROW';
-    setActiveAction: (a: 'DEPOSIT' | 'WITHDROW') => void;
+    activeAction: Action;
+    setActiveAction: (a: Action) => void;
     setAmount: (a: number) => void;
     action: () => void;
     requestFinish: boolean;
@@ -167,8 +168,8 @@ const AmountField = ({
     );
 };
 interface SwitcherProps {
-    activeAction: 'DEPOSIT' | 'WITHDROW';
-    setActiveAction: (a: 'DEPOSIT' | 'WITHDROW') => void;
+    activeAction: Action;
+    setActiveAction: (a: Action) => void;
 }
 export const Switcher = ({ activeAction, setActiveAction }: SwitcherProps) => {
     return (

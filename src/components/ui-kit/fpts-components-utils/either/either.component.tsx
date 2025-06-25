@@ -3,9 +3,7 @@ import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/lib/function';
 import { PENDING, ERROR, Error } from '@/store/errors/error-system';
 
-type RenderEitherErrors = Error;
-
-export interface RenderResultProps<E extends RenderEitherErrors, A> {
+export interface RenderResultProps<E extends Error, A> {
     readonly data: E.Either<E, A>;
     readonly success: (value: A) => JSX.Element | null;
     readonly loading?: () => JSX.Element | null;
@@ -13,9 +11,7 @@ export interface RenderResultProps<E extends RenderEitherErrors, A> {
 }
 
 export interface RenderResultComponent {
-    <E extends RenderEitherErrors, A>(
-        props: RenderResultProps<E, A>
-    ): JSX.Element | null;
+    <E extends Error, A>(props: RenderResultProps<E, A>): JSX.Element | null;
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

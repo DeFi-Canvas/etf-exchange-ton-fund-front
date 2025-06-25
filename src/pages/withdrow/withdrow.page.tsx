@@ -9,7 +9,7 @@ import { newNewWithdrowStore } from './withdrow.store';
 import { memo } from 'react';
 import React from 'react';
 import { newDepositRestService } from '@/API/deposit.service';
-import { newWaletRestService } from '@/API/whalet.service';
+import { newWalletRestService } from '@/API/wallet.service';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
 import { I18NService } from '@/store/i18n/i18.store';
@@ -65,7 +65,7 @@ export const Withdrow = injectable(
             );
 
             const depositRestService = newDepositRestService({ userStore });
-            const waletRestService = newWaletRestService({
+            const waletRestService = newWalletRestService({
                 userStore,
             });
 

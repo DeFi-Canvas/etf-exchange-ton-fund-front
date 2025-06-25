@@ -6,7 +6,7 @@ import { Property } from '@frp-ts/core';
 import * as E from 'fp-ts/Either';
 import { either } from 'fp-ts';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
-import { newWaletRestService } from '@/API/whalet.service';
+import { newWalletRestService } from '@/API/wallet.service';
 import { newLensedAtom } from '@frp-ts/lens';
 import { UserStoreService } from '@/store/user.store';
 import { CoinCardData } from '@/components/assets-card/assets-card.model';
@@ -22,7 +22,7 @@ export interface NewAssetsViewModel {
 
 export const newAssetsViewModel = injectable(
     token('userStore')<UserStoreService>(),
-    newWaletRestService,
+    newWalletRestService,
     (userStore, waletRestService): NewAssetsViewModel =>
         () => {
             const assets = newLensedAtom<E.Either<Error, Array<CoinCardData>>>(

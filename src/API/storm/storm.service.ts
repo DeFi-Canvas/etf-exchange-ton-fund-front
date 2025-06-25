@@ -1,20 +1,21 @@
 import { Stream } from '@most/types';
 import { Either } from 'fp-ts/lib/Either';
-import { injectable, token } from '@injectable-ts/core';
+import { injectable } from '@injectable-ts/core';
 
-import { pipe } from 'fp-ts/lib/function';
 import { Configuration, StormApi } from '@/API/scheme/rest-genereted';
 import { DOMAIN_API_URL } from '@/API/API';
 import { Error } from '@/store/errors/error-system';
-import { authRequestOptions, performGetRequest } from '@/API/request.utils';
+import {
+    authRequestOptions,
+    payloadTransform,
+    performGetRequest,
+} from '@/API/request.utils';
 import {
     StormAnswer,
     stormAnswerResponseCodec,
 } from './storm.responce.contract';
 
-const stormApi = new StormApi({
-    basePath: DOMAIN_API_URL,
-} as Configuration);
+const stormApi = new StormApi(new Configuration({ basePath: DOMAIN_API_URL }));
 
 interface RequestData {
     amount: number;
@@ -23,7 +24,7 @@ interface RequestData {
 
 export interface StormRestService {
     deposit: (data: RequestData) => Stream<Either<Error, StormAnswer>>;
-    withdrow: (data: RequestData) => Stream<Either<Error, StormAnswer>>;
+    withdraw: (data: RequestData) => Stream<Either<Error, StormAnswer>>;
 }
 
 export const newStormRestService = (): StormRestService => {
@@ -35,16 +36,16 @@ export const newStormRestService = (): StormRestService => {
                     authRequestOptions()
                 ),
                 stormAnswerResponseCodec,
-                (x) => x.payload
+                payloadTransform
             ),
-        withdrow: (payload) =>
+        withdraw: (payload) =>
             performGetRequest(
                 stormApi.apiStormLiquidityWithdrawPost(
                     { payload },
                     authRequestOptions()
                 ),
                 stormAnswerResponseCodec,
-                (x) => x.payload
+                payloadTransform
             ),
     };
 };

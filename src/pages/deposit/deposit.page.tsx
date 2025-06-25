@@ -7,7 +7,7 @@ import { UserStoreService } from '@/store/user.store';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import React, { memo } from 'react';
 import { newNewWithdrowStore } from '../withdrow/withdrow.store';
-import { newWaletRestService } from '@/API/whalet.service';
+import { newWalletRestService } from '@/API/wallet.service';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
 import { I18NService } from '@/store/i18n/i18.store';
@@ -59,7 +59,7 @@ export const Deposit = injectable(
                 () => newNewWithdrowStore({ userStore }),
                 [userStore]
             );
-            const waletRestService = newWaletRestService({
+            const waletRestService = newWalletRestService({
                 userStore,
             });
 

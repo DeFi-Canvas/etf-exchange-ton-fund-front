@@ -53,7 +53,7 @@ const strategiesApi = new StrategiesApi({
     basePath: DOMAIN_API_URL,
 } as Configuration);
 
-export const newWaletRestService = injectable(
+export const newWalletRestService = injectable(
     UserStore,
     CacheStore,
     (userStore, cacheStore): WaletRestService => {

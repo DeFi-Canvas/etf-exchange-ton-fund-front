@@ -1,4 +1,4 @@
-import { newWaletRestService } from '@/API/whalet.service';
+import { newWalletRestService } from '@/API/wallet.service';
 import { AssetBalance } from '@/instance/asset/asset.model';
 import { PENDING, Error, EMPTY } from '@/store/errors/error-system';
 import { ValueWithEffect, valueWithEffect } from '@/utils/run-view-model.utils';
@@ -13,16 +13,18 @@ import { StormRestService } from '@/API/storm/storm.service';
 import { createAdapter } from '@most/adapter';
 import { fromProperty } from '@/utils/property.utils';
 
+export type Action = 'DEPOSIT' | 'WITHDROW';
+
 interface StormStore {
     asset: Property<E.Either<Error, AssetBalance>>;
-    activeAction: Property<'DEPOSIT' | 'WITHDROW'>;
-    setActiveAction: (a: 'DEPOSIT' | 'WITHDROW') => void;
+    activeAction: Property<Action>;
+    setActiveAction: (acrion: Action) => void;
     amount: Property<number | null>;
     requestFinish: Property<boolean>;
     isBottomSheetOpen: Property<boolean>;
     maxAvailable: Property<number | null>;
     handleMaxClick: () => void;
-    setAmount: (a: number) => void;
+    setAmount: (amount: number) => void;
     deposit: () => void;
     withdraw: () => void;
 }
@@ -32,7 +34,7 @@ export interface NewStormStore {
 }
 
 export const Store = injectable(
-    newWaletRestService,
+    newWalletRestService,
     StormRestService,
     (waletService, stormService): NewStormStore =>
         () => {
@@ -42,9 +44,7 @@ export const Store = injectable(
             const asset = newLensedAtom<E.Either<Error, AssetBalance>>(
                 E.left(PENDING)
             );
-            const activeAction = newLensedAtom<'DEPOSIT' | 'WITHDROW'>(
-                'DEPOSIT'
-            );
+            const activeAction = newLensedAtom<Action>('DEPOSIT');
             const amount = newLensedAtom<number | null>(null);
             const requestFinish = newLensedAtom(false);
             const isBottomSheetOpen = newLensedAtom(false);
@@ -62,10 +62,10 @@ export const Store = injectable(
 
             const getAssetEffect = pipe(
                 waletService.getAssets(),
-                tap((assetsResponce) => {
-                    assets.set(assetsResponce);
+                tap((assetsResponse) => {
+                    assets.set(assetsResponse);
                     const newAssets = pipe(
-                        assetsResponce,
+                        assetsResponse,
                         E.chain(
                             flow(
                                 A.findFirst((asset) => asset.ticker === 'USDT'),
@@ -99,7 +99,7 @@ export const Store = injectable(
                     isBottomSheetOpen.set(true);
                     const amountToSend = amount.get();
                     if (amountToSend) {
-                        return stormService.withdrow({
+                        return stormService.withdraw({
                             amount: amountToSend,
                             ticker: 'USDT-LP',
                         });
@@ -154,9 +154,7 @@ export const Store = injectable(
         }
 );
 export const newStormStore = injectable(
-    newWaletRestService,
+    newWalletRestService,
     StormRestService,
     () => Store({})
 );
-
-export const StormStore = token('stormStore')<NewStormStore>();
