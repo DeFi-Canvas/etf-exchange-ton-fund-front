@@ -86,7 +86,7 @@ export const Storm = ({
             </div>
             <AppFooter>
                 <AppButton
-                    label={activeAction === 'DEPOSIT' ? 'Deposit' : 'Withdrow'}
+                    label={activeAction === 'DEPOSIT' ? 'Deposit' : 'Withdraw'}
                     onClick={action}
                     isLoading={false}
                     isDisabled={false}
@@ -188,7 +188,7 @@ export const Switcher = ({ activeAction, setActiveAction }: SwitcherProps) => {
                 })}
                 onClick={() => setActiveAction('WITHDROW')}
             >
-                Withdrow
+                Withdraw
             </span>
         </div>
     );
