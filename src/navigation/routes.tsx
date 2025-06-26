@@ -14,6 +14,9 @@ import { Loader } from '@/components/loader/loader.component';
 import { newNewI18NService } from '@/store/i18n/i18.store';
 import { StormContainer } from '@/pages/earn/deposit-protocol/storm/storm.container';
 import { newStormStore } from '@/pages/earn/deposit-protocol/storm/storm.store';
+import { newNewCahe } from '@/store/cache/cahe.store';
+import { newAssetsRestService } from '@/API/assets/assets.service';
+import { newTransactionsRestService } from '@/API/transactions/transactions.service';
 
 interface Route {
     path: string;
@@ -32,11 +35,27 @@ export const AppRoutes = () => {
 
     const userStore = newNewUserStoreService(initData?.user);
     const i18n = useValueWithEffect(() => newNewI18NService(), []);
+    const cacheStore = newNewCahe();
+    const transactionsService = newTransactionsRestService({
+        cacheStore,
+    });
+    const assetService = newAssetsRestService({ cacheStore });
+    const stormStore = useValueWithEffect(
+        () =>
+            newStormStore({
+                assetService,
+                cacheStore,
+            })(),
+        []
+    );
 
     //#region containers
     const containers = getContainers({
         userStore,
         i18n,
+        assetService,
+        cacheStore,
+        transactionsService,
     });
 
     //#region routes
@@ -64,7 +83,9 @@ export const AppRoutes = () => {
         },
         {
             path: '/earn',
-            page: StormContainer({}),
+            page: StormContainer({
+                stormStore,
+            }),
         },
     ];
 

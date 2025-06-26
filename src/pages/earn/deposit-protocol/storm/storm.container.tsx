@@ -1,14 +1,12 @@
 import { injectable } from '@injectable-ts/core';
-import { newStormStore } from './storm.store';
+import { NewStormStore } from './storm.store';
 import { memo } from 'react';
 import { Storm } from './storm.page';
 import React from 'react';
 import { useProperties } from '@frp-ts/react';
-import { useValueWithEffect } from '@/utils/run-view-model.utils';
 
-export const StormContainer = injectable(newStormStore, (newStormStore) =>
+export const StormContainer = injectable(NewStormStore, (store) =>
     memo(() => {
-        const store = useValueWithEffect(() => newStormStore(), []);
         const [
             asset,
             activeAction,

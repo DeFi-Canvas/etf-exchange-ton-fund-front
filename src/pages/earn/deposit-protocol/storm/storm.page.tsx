@@ -9,7 +9,6 @@ import css from './storm.module.css';
 import cn from 'classnames';
 import AppButton from '@/components/app-button/app-button.component';
 import AppFooter from '@/components/app-footer/app-footer.components';
-import { constVoid } from 'fp-ts/lib/function';
 import BottomSheet from '@/components/ui-kit/bottom-sheet/bottom-sheet.component';
 import { useNavigate } from 'react-router-dom';
 import { Action } from './storm.store';
@@ -86,7 +85,7 @@ export const Storm = ({
             </div>
             <AppFooter>
                 <AppButton
-                    label={activeAction === 'DEPOSIT' ? 'Deposit' : 'Withdraw'}
+                    label={activeAction === 'DEPOSIT' ? 'Deposit' : 'Withdrow'}
                     onClick={action}
                     isLoading={false}
                     isDisabled={false}
@@ -188,7 +187,7 @@ export const Switcher = ({ activeAction, setActiveAction }: SwitcherProps) => {
                 })}
                 onClick={() => setActiveAction('WITHDROW')}
             >
-                Withdraw
+                Withdrow
             </span>
         </div>
     );

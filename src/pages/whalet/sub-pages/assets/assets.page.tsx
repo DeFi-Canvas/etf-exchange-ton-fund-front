@@ -69,7 +69,7 @@ export const Assets = ({ assets }: AssetsProps) => {
                                 text={emptyText}
                             />
                         )}
-                        {assets.length &&
+                        {!!assets.length &&
                             assets.map((assets) => (
                                 <div key={assets.id}>
                                     <Link

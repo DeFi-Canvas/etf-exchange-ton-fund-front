@@ -12,6 +12,7 @@ import * as A from 'fp-ts/Array';
 import { StormRestService } from '@/API/storm/storm.service';
 import { createAdapter } from '@most/adapter';
 import { fromProperty } from '@/utils/property.utils';
+import { AssetsRestService } from '@/API/assets/assets.service';
 
 export type Action = 'DEPOSIT' | 'WITHDROW';
 
@@ -33,10 +34,11 @@ export interface NewStormStore {
     (): ValueWithEffect<StormStore>;
 }
 
-export const Store = injectable(
+export const newStormStore = injectable(
     newWalletRestService,
     StormRestService,
-    (waletService, stormService): NewStormStore =>
+    AssetsRestService,
+    (waletService, stormService, assetsRestService): NewStormStore =>
         () => {
             const assets = newLensedAtom<E.Either<Error, AssetBalance[]>>(
                 E.left(PENDING)
@@ -153,8 +155,4 @@ export const Store = injectable(
             );
         }
 );
-export const newStormStore = injectable(
-    newWalletRestService,
-    StormRestService,
-    () => Store({})
-);
+export const NewStormStore = token('stormStore')<StormStore>();
