@@ -6,14 +6,14 @@ import { DepositDetails } from '@/pages/deposit/pages/deposit-end-point/deposit-
 import { getRequestGenerated } from './request.utils';
 import { mapDepositDetails } from '@/pages/deposit/deposit.model';
 import { DOMAIN_API_URL } from './API';
-import { AssetApi, DepositApi } from './scheme/rest-genereted/api';
+import { DepositApi } from './scheme/rest-genereted/api';
 import { Configuration } from './scheme/rest-genereted';
 import { depositResponseCodec } from './contracts/deposit.contract';
 import { Error } from '@/store/errors/error-system';
 
-const depositApi = new DepositApi({
-    basePath: DOMAIN_API_URL,
-} as Configuration);
+const depositApi = new DepositApi(
+    new Configuration({ basePath: DOMAIN_API_URL })
+);
 
 export interface DepositRestService {
     getDepositDetails: () => Stream<Either<Error, DepositDetails>>;

@@ -1,5 +1,4 @@
 import { CoinCardData } from '@/components/assets-card/assets-card.model';
-import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { Property } from '@frp-ts/core';
 import { newLensedAtom } from '@frp-ts/lens';
 import * as E from 'fp-ts/Either';
