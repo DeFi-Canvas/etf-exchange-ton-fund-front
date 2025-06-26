@@ -15,8 +15,7 @@ import {
 } from 'fp-ts/lib/function';
 import * as A from 'fp-ts/Array';
 import { injectable, token } from '@injectable-ts/core';
-import { newWaletRestService } from '@/API/whalet.service';
-import { newSwapRestService } from '@/API/swap.service';
+import { newWalletRestService } from '@/API/wallet.service';
 import {
     FiltrebleSwapAsset,
     getAssetsEffectMapping,
@@ -38,13 +37,16 @@ import {
     getIsIdExistOnSwapAssets,
 } from './swap.store.utils';
 import { ResultOptions } from './components/swap-result/swap-result.component';
-import { Asset } from '@/instance/asset/asset.model';
+import { AssetBalance } from '@/instance/asset/asset.model';
 import { I18NService } from '@/store/i18n/i18.store';
+import { formatNumberExponent } from '@/utils/number';
+import { ERROR, Error, PENDING } from '@/store/errors/error-system';
+import { AssetsRestService } from '@/API/assets/assets.service';
 
 export interface SwapStore {
     //#region state
-    swapAssets: Property<E.Either<string, Array<SwapAsset>>>;
-    allAssets: Property<E.Either<string, Array<FiltrebleSwapAsset>>>;
+    swapAssets: Property<E.Either<Error, Array<SwapAsset>>>;
+    allAssets: Property<E.Either<Error, Array<FiltrebleSwapAsset>>>;
     selectAssetBottomSheetIsOpen: Property<boolean>;
     addAssetBottomSheetIsOpen: Property<boolean>;
     resultBottomSheetIsOpen: Property<boolean>;
@@ -62,13 +64,13 @@ export interface SwapStore {
     swapTokenOrder: () => void;
 
     //#region get
-    getWaletAssets: () => E.Either<string, Array<Asset>>;
-    getSwapAssets: () => E.Either<string, SwapAsset[]>;
+    getWaletAssets: () => E.Either<Error, Array<AssetBalance>>;
+    getSwapAssets: () => E.Either<Error, SwapAsset[]>;
 
     //#region set
-    setSwapAssets: (assets: E.Either<string, Array<SwapAsset>>) => void;
-    setAllAssets: (assets: E.Either<string, Array<FiltrebleSwapAsset>>) => void;
-    setWaletAssets: (asset: E.Either<string, Array<Asset>>) => void;
+    setSwapAssets: (assets: E.Either<Error, Array<SwapAsset>>) => void;
+    setAllAssets: (assets: E.Either<Error, Array<FiltrebleSwapAsset>>) => void;
+    setWaletAssets: (asset: E.Either<Error, Array<AssetBalance>>) => void;
     setCurrentVariableAsset: (id: string) => void;
     setAddCurrentVariableAsset: (id: string) => void;
     setCurrentVariableSwapAsset: (id: string) => void;
@@ -81,31 +83,31 @@ export interface SwapStore {
 export type NewSwapStore = ValueWithEffect<SwapStore>;
 
 export const newSwapStore = injectable(
-    newWaletRestService,
-    newSwapRestService,
+    newWalletRestService,
     token('i18n')<I18NService>(),
-    (walletService, swapRestService, i18n) => (): NewSwapStore => {
+    AssetsRestService,
+    (walletService, i18n, assetsRestService) => (): NewSwapStore => {
         const { details: i18nDetails, result: i18nResult } = i18n.Swap.get();
         //#region Atoms
         const {
             state: allAssets,
             set: setAllAssets,
-            get: geyAllAssets,
-        } = newAtomState<E.Either<string, Array<FiltrebleSwapAsset>>>(
-            E.left('pending')
+            get: getAllAssets,
+        } = newAtomState<E.Either<Error, Array<FiltrebleSwapAsset>>>(
+            E.left(PENDING)
         );
 
         const {
             state: waletAssets,
             set: setWaletAssets,
             get: getWaletAssets,
-        } = newAtomState<E.Either<string, Array<Asset>>>(E.left('pending'));
+        } = newAtomState<E.Either<Error, Array<AssetBalance>>>(E.left(PENDING));
 
         const {
             state: swapAssets,
             set: setSwapAssets,
             get: getSwapAssets,
-        } = newAtomState<E.Either<string, Array<SwapAsset>>>(E.left('pending'));
+        } = newAtomState<E.Either<Error, Array<SwapAsset>>>(E.left(PENDING));
 
         const swapListInfo =
             newLensedAtom<DropdownOptions[]>(SWAP_LIST_INFO_INIT);
@@ -159,7 +161,7 @@ export const newSwapStore = injectable(
                     assets,
                     walletAssets,
                 }),
-                swapRestService.getAssets(),
+                assetsRestService.getAllAssets(),
                 walletService.getAssets()
             ),
             tap(({ assets, walletAssets: waletAssetsResp }) => {
@@ -202,13 +204,13 @@ export const newSwapStore = injectable(
         const onAssetSelectEvent = pipe(
             currentVariableAsset,
             tap((id) => {
-                const currentAllAssets = geyAllAssets();
+                const currentAllAssets = getAllAssets();
                 const currentWaletAssets = getWaletAssets();
                 const currentSwapAssets = getSwapAssets();
 
                 const currentHeadSwapAsset = pipe(
                     currentSwapAssets,
-                    E.chain(flow(A.head, E.fromOption(constant('error')))),
+                    E.chain(flow(A.head, E.fromOption(constant(ERROR)))),
                     E.fold(constUndefined, identity)
                 );
 
@@ -237,7 +239,7 @@ export const newSwapStore = injectable(
                                         E.chain(
                                             flow(
                                                 A.findFirst((x) => x.id === id),
-                                                E.fromOption(constant('error')),
+                                                E.fromOption(constant(ERROR)),
                                                 E.map((asset) => {
                                                     if (currentWaletAsset) {
                                                         return {
@@ -290,7 +292,7 @@ export const newSwapStore = injectable(
         const onAssetAddEvent = pipe(
             addCurrentVariableAsset,
             tap((id) => {
-                const currentAllAssets = geyAllAssets();
+                const currentAllAssets = getAllAssets();
                 const currentWaletAssets = getWaletAssets();
                 const currentSwapAssets = getSwapAssets();
 
@@ -312,7 +314,7 @@ export const newSwapStore = injectable(
                                 asset.id === id ? O.some(asset) : O.none
                             ),
                             A.head,
-                            E.fromOption(constant('error')),
+                            E.fromOption(constant(ERROR)),
                             E.map(mapAssetToSwapAsset)
                         )
                     ),
@@ -376,12 +378,12 @@ export const newSwapStore = injectable(
                             O.map(
                                 A.map((tail) => {
                                     if (headAsset) {
-                                        return `1 ${headAsset.assetName} ≈ ${(headAsset.price / tail.price).toFixed(3)} ${tail.assetName}`;
+                                        return `1 ${headAsset.assetName} ≈ ${formatNumberExponent(headAsset.price / tail.price)} ${tail.assetName}`;
                                     }
                                     return '';
                                 })
                             ),
-                            E.fromOption(constant('error'))
+                            E.fromOption(constant(ERROR))
                         );
                     }),
                     E.getOrElseW(() => [])
@@ -408,13 +410,14 @@ export const newSwapStore = injectable(
                                             headAsset.price) /
                                             tail.price) *
                                         SHODOW_SWAP;
+
                                     return [
-                                        `${Number.isNaN(received) ? 0 : received} ${tail.assetName}`,
+                                        `${Number.isNaN(received) ? 0 : formatNumberExponent(received)} ${tail.assetName}`,
                                     ];
                                 }
                                 return [''];
                             }),
-                            E.fromOption(constant('error'))
+                            E.fromOption(constant(ERROR))
                         );
                     }),
                     E.getOrElseW(() => [])
@@ -422,7 +425,7 @@ export const newSwapStore = injectable(
 
                 const baseAssetAfterSwap = pipe(
                     assets,
-                    E.chain(flow(A.head, E.fromOption(constant('error')))),
+                    E.chain(flow(A.head, E.fromOption(constant(ERROR)))),
                     E.chain((asset) =>
                         pipe(
                             currentWaletAsset,
@@ -440,7 +443,7 @@ export const newSwapStore = injectable(
 
                 const lastAssetAfterSwap = pipe(
                     assets,
-                    E.chain(flow(A.last, E.fromOption(constant('error')))),
+                    E.chain(flow(A.last, E.fromOption(constant(ERROR)))),
                     E.chain((asset) =>
                         pipe(
                             currentWaletAsset,
@@ -449,7 +452,7 @@ export const newSwapStore = injectable(
                                     prepareMapSwapAfterSwap(asset, 'plus'),
                                     E.mapLeft(() => ({
                                         ticker: asset.assetName,
-                                        balance: `${asset.currentValue ?? 0}`,
+                                        balance: `${formatNumberExponent(asset.currentValue)}`,
                                     }))
                                 )
                             )
@@ -494,7 +497,7 @@ export const newSwapStore = injectable(
             onSearchAssetsEvent,
             tap((tickerName) => {
                 pipe(
-                    geyAllAssets(),
+                    getAllAssets(),
                     E.map(
                         A.map((asset) => ({
                             ...asset,

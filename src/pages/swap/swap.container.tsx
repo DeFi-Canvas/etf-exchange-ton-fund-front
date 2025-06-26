@@ -1,4 +1,4 @@
-import { injectable, provide, token } from '@injectable-ts/core';
+import { injectable, token } from '@injectable-ts/core';
 import React, { memo } from 'react';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useProperties } from '@frp-ts/react';
@@ -13,7 +13,11 @@ export const SwapPageContainer = injectable(
     (userStore, i18n) =>
         memo(() => {
             const store = useValueWithEffect(
-                () => newSwapStore({ userStore, i18n })(),
+                () =>
+                    newSwapStore({
+                        userStore,
+                        i18n,
+                    })(),
                 []
             );
 

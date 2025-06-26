@@ -22,28 +22,8 @@ export const getWhaletContainers = ({
     Assets: AssetsContainer({
         userStore,
     }),
-    Transactions: TransactionsContainer({
-        userStore,
-    }),
+    Transactions: TransactionsContainer({}),
     Funds: FundsContainer({
         userStore,
     }),
-
-    // Assets: AssetsContainer({
-    //     userStore,
-    // }),
-    // Transactions: lazy(() =>
-    //     import('@whalet/sub-pages/transactions/transactions.container').then(
-    //         (c) => {
-    //             const component = c.TransactionsContainer({ userStore });
-    //             return { default: component };
-    //         }
-    //     )
-    // ),
-    // Funds: lazy(() =>
-    //     import('@whalet/sub-pages/founds/funds.container').then((c) => {
-    //         const component = c.FundsContainer({ userStore });
-    //         return { default: component };
-    //     })
-    // ),
 });

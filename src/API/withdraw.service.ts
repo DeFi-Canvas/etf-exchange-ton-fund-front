@@ -43,20 +43,6 @@ export const newWithdrawRestService = injectable(
                     }),
                     withdrawResponseCodec
                 )(),
-            // withdraw: (data) =>
-            //     fromPromise(
-            //         axios.post(
-            //             API.withdraw,
-            //             {
-            //                 ...data,
-            //             },
-            //             {
-            //                 headers: {
-            //                     Authorization: `tma ${initDataRaw}`,
-            //                 },
-            //             }
-            //         )
-            //     ),
         };
     }
 );

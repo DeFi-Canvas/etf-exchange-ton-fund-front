@@ -12,6 +12,8 @@ import { whatToBuyRouter } from './page-routes/what-to-buy-router';
 import { TransactionView } from '@pages/transaction-view/transaction-view.page.tsx';
 import { Loader } from '@/components/loader/loader.component';
 import { newNewI18NService } from '@/store/i18n/i18.store';
+import { StormContainer } from '@/pages/earn/deposit-protocol/storm/storm.container';
+import { newStormStore } from '@/pages/earn/deposit-protocol/storm/storm.store';
 
 interface Route {
     path: string;
@@ -28,14 +30,14 @@ interface Route {
 export const AppRoutes = () => {
     const initData = useInitData();
 
-    const userStore = useValueWithEffect(
-        () => newNewUserStoreService(initData?.user),
-        []
-    );
-
+    const userStore = newNewUserStoreService(initData?.user);
     const i18n = useValueWithEffect(() => newNewI18NService(), []);
+
     //#region containers
-    const containers = getContainers({ userStore, i18n });
+    const containers = getContainers({
+        userStore,
+        i18n,
+    });
 
     //#region routes
     const routes: Route[] = [
@@ -59,6 +61,10 @@ export const AppRoutes = () => {
         {
             path: '/transaction-view',
             page: TransactionView,
+        },
+        {
+            path: '/earn',
+            page: StormContainer({}),
         },
     ];
 

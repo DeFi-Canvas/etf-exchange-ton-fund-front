@@ -6,6 +6,7 @@ import { PurchaseSellStore } from '../../../purchase/purchase.store';
 import { pipe } from 'fp-ts/lib/function';
 import MoreInfo, { ChartMoreInfoCardInterface } from './more-info.component';
 import { I18NService } from '@/store/i18n/i18.store';
+import { Error } from '@/store/errors/error-system';
 
 export const MoreInfoContainer = injectable(
     token('purchaseStore')<PurchaseSellStore>(),
@@ -14,7 +15,7 @@ export const MoreInfoContainer = injectable(
     (store, i18n) => () => {
         const fund = useProperty(store.fundData);
         const { Fund } = useProperty(i18n.WhatToBuy);
-        const cards: Array<E.Either<string, ChartMoreInfoCardInterface>> = [
+        const cards: Array<E.Either<Error, ChartMoreInfoCardInterface>> = [
             E.right({
                 id: 3,
                 title: Fund.moreInfo.flow,

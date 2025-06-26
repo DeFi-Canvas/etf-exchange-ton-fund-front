@@ -7,9 +7,10 @@ import {
     FondCard,
 } from '@/components/fond-card/fond-card.component';
 import css from './funds.module.css';
+import { Error } from '@/store/errors/error-system';
 
 export interface FondsSliderProps {
-    funds: E.Either<string, Array<Omit<FondCardProps, 'onClick'>>>;
+    funds: E.Either<Error, Array<Omit<FondCardProps, 'onClick'>>>;
     onClick: (id: string) => void;
 }
 

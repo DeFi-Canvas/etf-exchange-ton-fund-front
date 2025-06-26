@@ -1,7 +1,7 @@
 import { UserStoreService } from '@/store/user.store';
 import { now } from '@most/core';
 import * as E from 'fp-ts/lib/Either';
-import { WaletRestService } from '../whalet.service';
+import { WaletRestService } from '../wallet.service';
 
 interface MockWaletArgs {
     userStore: UserStoreService;
@@ -37,7 +37,7 @@ export const NEW_WALET_REST_SERVICE = ({
                         name: 'name',
                         balance: 0,
                         price: 1,
-                        logo: 'logo',
+                        imageUrl: 'logo',
                         value: 2,
                     },
                 ])
@@ -62,7 +62,7 @@ export const NEW_WALET_REST_SERVICE = ({
                                 symbol: 'symbol',
                                 balance: 0,
                                 price: 1,
-                                logo: 'logo',
+                                imageUrl: 'logo',
                                 value: 2,
                                 allocationPercentage: 10,
                                 ticker: 'TON',
@@ -93,7 +93,7 @@ export const NEW_WALET_REST_SERVICE = ({
                                 symbol: 'symbol',
                                 balance: 0,
                                 price: 1,
-                                logo: 'logo',
+                                imageUrl: 'logo',
                                 value: 2,
                                 allocationPercentage: 10,
                                 ticker: 'TON',
@@ -101,29 +101,6 @@ export const NEW_WALET_REST_SERVICE = ({
                         ],
                         tvlValue: 2,
                         createdAt: 'createdAt',
-                    },
-                ])
-            ),
-        getTransactions: () =>
-            now(
-                E.right([
-                    {
-                        timestamp: new Date('2025-01-01').toISOString(), // ISO_DATETIME
-                        asset: {
-                            name: 'name',
-                            ticker: 'ticker',
-                            category: 'category',
-                            description: 'description',
-                            url: 'url',
-                            price: 0,
-                            withdrawalFee: 1,
-                        },
-                        address: 'address',
-                        amount: 2,
-                        value: 3,
-                        tx: 'tx',
-                        transactionType: 'transactionType',
-                        transactionStatus: 'transactionStatus',
                     },
                 ])
             ),

@@ -1,23 +1,29 @@
 import { useNavigate } from 'react-router-dom';
 import css from './assets.module.css';
 import { AssetsCard } from '@/components/assets-card/assets-card.component.tsx';
-import { AssetsUI as AssetsCardBaseProps } from '@/components/assets-card/assets-card.model';
+import {
+    AssetsUI as AssetsCardBaseProps,
+    assetsCodec,
+} from '@/components/assets-card/assets-card.model';
 import * as E from 'fp-ts/Either';
 import { AssetsViewModelInit } from './assets.view-model';
-import { DepositAssets, DepositAssetsCodec } from '../deposit.model';
+import { DepositAsset, DepositAssetsCodec } from '../deposit.model';
 import { AssetCodec } from '@/pages/whalet/wallet.model';
 import cn from 'classnames';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import { SkeletonCardSection } from '@/components/skeletons/skeleton-card/skeleton-card-section.component';
-import { Asset } from '@/instance/asset/asset.model';
+import { AssetBalance } from '@/instance/asset/asset.model';
+import { Error } from '@/store/errors/error-system';
 
 interface AssetsProps {
-    assets: E.Either<string, Array<DepositAssets | Asset>>;
+    assets: E.Either<Error, Array<DepositAsset | AssetBalance>>;
     type: AssetsViewModelInit;
-    handleClick: (asset: DepositAssets | Asset) => void;
+    handleClick: (asset: DepositAsset | AssetBalance) => void;
 }
 
-const formattedData = (asset: DepositAssets | Asset): AssetsCardBaseProps => {
+const formattedData = (
+    asset: DepositAsset | AssetBalance
+): AssetsCardBaseProps => {
     if (DepositAssetsCodec.is(asset)) {
         return {
             id: asset.id,
@@ -30,10 +36,10 @@ const formattedData = (asset: DepositAssets | Asset): AssetsCardBaseProps => {
     } else {
         return {
             id: asset.id,
-            img: asset.logo,
+            img: asset.imageUrl,
             title: asset.name,
             subTitle: asset.ticker,
-            price: asset.value.toFixed(2),
+            price: '',
             priceText: '',
         };
     }
@@ -42,18 +48,16 @@ const formattedData = (asset: DepositAssets | Asset): AssetsCardBaseProps => {
 export const Assets = ({ assets, type, handleClick }: AssetsProps) => {
     const navigate = useNavigate();
 
-    const mapLink = (asset: DepositAssets | Asset) => {
+    const mapLink = (asset: DepositAsset | AssetBalance) => {
         switch (type) {
             case 'deposit':
-                return DepositAssetsCodec.is(asset)
-                    ? `/deposit/${asset.ticker}/deposit-end-point`
-                    : '';
+                return `/deposit/${asset.ticker}/deposit-end-point`;
             case 'withdrow':
-                return AssetCodec.is(asset) ? `/withdraw/${asset.ticker}` : '';
+                return `/withdraw/${asset.ticker}`;
         }
     };
 
-    const onClick = (asset: DepositAssets | Asset) => {
+    const onClick = (asset: DepositAsset | AssetBalance) => {
         handleClick(asset);
         navigate(mapLink(asset));
     };

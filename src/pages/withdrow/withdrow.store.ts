@@ -10,6 +10,7 @@ import * as S from 'fp-ts/string';
 import { injectable } from '@injectable-ts/core';
 import { newWithdrawRestService } from '@/API/withdraw.service';
 import { AmountErrors } from './sub-page/ammount/amount.component';
+import { EMPTY, Error } from '@/store/errors/error-system';
 
 export interface WithdrowStore {
     currency: Property<string>;
@@ -20,8 +21,8 @@ export interface WithdrowStore {
     symbolLogo: Property<string>;
     isGoToCheckAvailable: Property<boolean>;
     balanceAfter: Property<number>;
-    address: Property<E.Either<string, string>>;
-    memo: Property<E.Either<string, string>>;
+    address: Property<E.Either<Error, string>>;
+    memo: Property<E.Either<Error, string>>;
     setCurrency: (d: string) => void;
     setAmount: (d: number) => void;
     setAvailableBalance: (d: number) => void;
@@ -48,10 +49,8 @@ export const newNewWithdrowStore = injectable(
         const approximateCost = newLensedAtom('');
         const availableBalance = newLensedAtom(0);
         const balanceAfter = newLensedAtom(0);
-        const address = newLensedAtom<E.Either<string, string>>(
-            E.left('empty')
-        );
-        const memo = newLensedAtom<E.Either<string, string>>(E.left('empty'));
+        const address = newLensedAtom<E.Either<Error, string>>(E.left(EMPTY));
+        const memo = newLensedAtom<E.Either<Error, string>>(E.left(EMPTY));
 
         const isGoToCheckAvailable = newLensedAtom(false);
         const isNextButtonAvailable = newLensedAtom(false);
@@ -83,13 +82,13 @@ export const newNewWithdrowStore = injectable(
         const setAddress = (d: string) => {
             address.set(E.of(d));
             if (S.isEmpty(d)) {
-                address.set(E.left('empty'));
+                address.set(E.left(EMPTY));
             }
         };
         const setMemo = (d: string) => {
             memo.set(E.of(d));
             if (S.isEmpty(d)) {
-                memo.set(E.left('empty'));
+                memo.set(E.left(EMPTY));
             }
         };
 
@@ -141,8 +140,8 @@ export const newNewWithdrowStore = injectable(
             availableBalance.set(0);
             isGoToCheckAvailable.set(false);
             balanceAfter.set(0);
-            address.set(E.left('empty'));
-            memo.set(E.left('empty'));
+            address.set(E.left(EMPTY));
+            memo.set(E.left(EMPTY));
         };
 
         //#region Effects

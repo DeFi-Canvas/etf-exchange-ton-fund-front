@@ -1,4 +1,4 @@
-import { Asset } from '../asset/asset.model';
+import { AssetBalance } from '../asset/asset.model';
 
 export interface FundRespnce {
     id: string;
@@ -21,7 +21,7 @@ export interface FundsData {
     riskScore: string;
     isAvaiable: boolean;
     cost: number;
-    assets: Array<Asset & { allocationPercentage: number }>;
+    assets: Array<AssetBalance & { allocationPercentage: number }>;
     tvlValue: number;
     createdAt: string;
 }

@@ -74,7 +74,8 @@ describe('getRequestGenerated', () => {
             //@ts-ignore
             request,
             t.array(User),
-            (data) => ({ userId: data.id, userName: data.name })
+            (data) =>
+                data.map((user) => ({ userId: user.id, userName: user.name }))
         )<unknown>();
 
         const events = await collectEvents(stream);

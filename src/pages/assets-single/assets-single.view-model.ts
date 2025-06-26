@@ -1,5 +1,4 @@
 import { Property } from '@frp-ts/core';
-import { AssetsRestService } from '@/API/assets.service.ts';
 import {
     valueWithEffect,
     ValueWithEffect,
@@ -10,10 +9,12 @@ import * as E from 'fp-ts/Either';
 import { injectable, token } from '@injectable-ts/core';
 import { pipe } from 'fp-ts/lib/function';
 import { tap } from '@most/core';
-import { AssetResponseMapping } from '@/pages/assets-single/asset-single.model.ts';
+import { Asset } from '@/instance/asset/asset.model.ts';
+import { PENDING, Error } from '@/store/errors/error-system';
+import { AssetsRestService } from '@/API/assets/assets.service';
 
 export interface AssetsSingleViewModel {
-    asset: Property<Either<string, AssetResponseMapping>>;
+    asset: Property<Either<string, Asset>>;
 }
 
 export interface NewAssetsSingleViewModel {
@@ -21,15 +22,13 @@ export interface NewAssetsSingleViewModel {
 }
 
 export const newAssetsSingleViewModel = injectable(
-    token('assetRestService')<AssetsRestService>(),
+    AssetsRestService,
     (assetService): NewAssetsSingleViewModel =>
         (assetId) => {
-            const asset = newLensedAtom<Either<string, AssetResponseMapping>>(
-                E.left('pending')
-            );
+            const asset = newLensedAtom<Either<Error, Asset>>(E.left(PENDING));
 
             const assetGetEffect = pipe(
-                assetService.getAssets(assetId),
+                assetService.getAsset(assetId),
                 tap(asset.set)
             );
 

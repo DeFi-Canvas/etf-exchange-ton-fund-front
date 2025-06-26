@@ -1,25 +1,25 @@
 import { injectable, token } from '@injectable-ts/core';
 
-import { flow, pipe } from 'fp-ts/lib/function';
+import { pipe } from 'fp-ts/lib/function';
 import { tap, map } from '@most/core';
 import { Property } from '@frp-ts/core';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
-import { WaletRestService } from '@/API/whalet.service';
+import { WaletRestService } from '@/API/wallet.service';
 import { newLensedAtom } from '@frp-ts/lens';
-import { DepositRestService } from '@/API/deposit.service';
-import { DepositAssets } from '../deposit.model';
+import { DepositAsset } from '../deposit.model';
 import { AssetCodec } from '@/pages/whalet/wallet.model';
 import { WithdrowStore } from '@/pages/withdrow/withdrow.store';
-import { Asset } from '@/instance/asset/asset.model';
+import { AssetBalance } from '@/instance/asset/asset.model';
+import { Error, PENDING } from '@/store/errors/error-system';
+import { AssetsRestService } from '@/API/assets/assets.service';
 
 export type AssetsViewModelInit = 'deposit' | 'withdrow';
+
 export interface AssetsViewModel {
-    assets: Property<
-        E.Either<string | 'pending', Array<DepositAssets | Asset>>
-    >;
-    handleClick: (asset: DepositAssets | Asset) => void;
+    assets: Property<E.Either<Error, Array<DepositAsset | AssetBalance>>>;
+    handleClick: (asset: DepositAsset | AssetBalance) => void;
 }
 
 export interface NewAssetsViewModel {
@@ -30,13 +30,13 @@ export interface NewAssetsViewModel {
 // или норм?
 export const newAssetsViewModel = injectable(
     token('waletRestService')<WaletRestService>(),
-    token('depositRestService')<DepositRestService>(),
     token('withdrowStore')<WithdrowStore>(),
-    (waletRestService, newDepositRestService, store): NewAssetsViewModel =>
+    AssetsRestService,
+    (waletRestService, store, assetsRestService): NewAssetsViewModel =>
         (type) => {
             const assets = newLensedAtom<
-                E.Either<string | 'pending', Array<DepositAssets | Asset>>
-            >(E.left('pending'));
+                E.Either<Error, Array<DepositAsset | AssetBalance>>
+            >(E.left(PENDING));
 
             const currentAssets = (() => {
                 switch (type) {
@@ -47,23 +47,20 @@ export const newAssetsViewModel = injectable(
                                 pipe(
                                     x,
                                     E.map(
-                                        flow(
-                                            A.filter(
-                                                (asset) =>
-                                                    asset.ticker === 'TON'
-                                            )
+                                        A.filter(
+                                            (asset) => asset.ticker === 'TON'
                                         )
                                     )
                                 )
                             )
                         );
                     case 'deposit': {
-                        return newDepositRestService.getDepositAssets();
+                        return assetsRestService.getAllAssets();
                     }
                 }
             })();
 
-            const handleClick = (asset: DepositAssets | Asset) => {
+            const handleClick = (asset: DepositAsset | AssetBalance) => {
                 const currentAssets = assets.get();
                 if (AssetCodec.is(asset) && E.isRight(currentAssets)) {
                     const currentAsset = currentAssets.right.find(
@@ -72,7 +69,7 @@ export const newAssetsViewModel = injectable(
                     if (AssetCodec.is(currentAsset)) {
                         store.setAvailableBalance(currentAsset.balance);
                         store.setTickerPrice(currentAsset.price);
-                        store.setSymbolLogo(currentAsset.logo);
+                        store.setSymbolLogo(currentAsset.imageUrl);
                     }
                 }
             };

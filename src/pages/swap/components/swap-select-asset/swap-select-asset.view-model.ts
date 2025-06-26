@@ -3,7 +3,6 @@ import { injectable, token } from '@injectable-ts/core';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { SwapStore } from '../../swap.store';
 import { Property } from '@frp-ts/core';
-import { AssetsUI } from '@/components/assets-card/assets-card.model';
 import { flow, pipe } from 'fp-ts/lib/function';
 import { AssetsUIFiltreble, mapAssetsWaletToCard } from '../../swap.model';
 import * as E from 'fp-ts/Either';
@@ -11,9 +10,10 @@ import * as A from 'fp-ts/Array';
 import { fromProperty } from '@/utils/property.utils';
 import { newLensedAtom } from '@frp-ts/lens';
 import { combine, map, tap } from '@most/core';
+import { Error, PENDING } from '@/store/errors/error-system';
 
 export interface SwapSelectAsset {
-    avlailibleAssets: Property<E.Either<string, AssetsUIFiltreble[]>>;
+    avlailibleAssets: Property<E.Either<Error, AssetsUIFiltreble[]>>;
     isOpen: Property<boolean>;
     onSelectAsset: (assetId: string) => void;
     onSearchAssets: (ticker: string) => void;
@@ -29,8 +29,8 @@ export const newSwapSelectAsset = injectable(
     (store): NewSwapSelectAsset =>
         () => {
             const avlailibleAssets = newLensedAtom<
-                E.Either<string, AssetsUIFiltreble[]>
-            >(E.left('pending'));
+                E.Either<Error, AssetsUIFiltreble[]>
+            >(E.left(PENDING));
             const isOpen = newLensedAtom(false);
 
             const avlailibleAssetsEffect = pipe(

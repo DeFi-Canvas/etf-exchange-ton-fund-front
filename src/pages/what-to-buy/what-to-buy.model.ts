@@ -1,12 +1,12 @@
-import { Asset } from '@/instance/asset/asset.model';
-import { WalletFundsRespnce } from '../whalet/wallet.model';
+import { AssetBalance } from '@/instance/asset/asset.model';
+import { WalletFundsResponse } from '../whalet/wallet.model';
 import { InterfacePurchaseSellAssetCardData } from './sub-page/types';
 import { FundsData } from '@/instance/fund/fund.model';
 
 export type PageType = 'BUY' | 'SELL';
 export const isAssetAvailible = (type: PageType) => type === 'BUY';
 
-export const mapFunds = (data: WalletFundsRespnce): FundsData => ({
+export const mapFunds = (data: WalletFundsResponse): FundsData => ({
     id: data.id,
     name: data.name,
     description: data.description,
@@ -20,7 +20,7 @@ export const mapFunds = (data: WalletFundsRespnce): FundsData => ({
         name: asset.name,
         balance: asset.price,
         price: asset.price,
-        logo: asset.image_url,
+        imageUrl: asset.image_url,
         value: 0,
         allocationPercentage: allocation_percentage,
         ticker: asset.ticker,
@@ -30,11 +30,11 @@ export const mapFunds = (data: WalletFundsRespnce): FundsData => ({
 });
 
 export const mapAssetToUICard = (
-    asset: Asset,
+    asset: AssetBalance,
     allowedOpen?: boolean,
     isBackgroundWhite?: boolean
 ): InterfacePurchaseSellAssetCardData => ({
-    imageSrc: asset.logo,
+    imageSrc: asset.imageUrl,
     title: `$ ${(asset.price * asset.balance).toFixed(2)}`,
     subTitle: `${(asset.balance ?? 0).toFixed(2)} ${asset.ticker}`,
     price: `${asset.price}`,

@@ -6,13 +6,14 @@ import { Property } from '@frp-ts/core';
 import * as E from 'fp-ts/Either';
 import { either } from 'fp-ts';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
-import { newWaletRestService } from '@/API/whalet.service';
+import { newWalletRestService } from '@/API/wallet.service';
 import { newLensedAtom } from '@frp-ts/lens';
 import { UserStoreService } from '@/store/user.store';
 import { CoinCardData } from '@/components/assets-card/assets-card.model';
+import { Error } from '@/store/errors/error-system';
 
 export interface AssetsViewModel {
-    assets: Property<E.Either<string, Array<CoinCardData>>>;
+    assets: Property<E.Either<Error, Array<CoinCardData>>>;
 }
 
 export interface NewAssetsViewModel {
@@ -21,14 +22,14 @@ export interface NewAssetsViewModel {
 
 export const newAssetsViewModel = injectable(
     token('userStore')<UserStoreService>(),
-    newWaletRestService,
+    newWalletRestService,
     (userStore, waletRestService): NewAssetsViewModel =>
         () => {
-            const assets = newLensedAtom<E.Either<string, Array<CoinCardData>>>(
+            const assets = newLensedAtom<E.Either<Error, Array<CoinCardData>>>(
                 userStore.assets.get()
             );
 
-            const setAssets = (data: E.Either<string, Array<CoinCardData>>) => {
+            const setAssets = (data: E.Either<Error, Array<CoinCardData>>) => {
                 assets.set(data), userStore.setAssets(data);
             };
 
@@ -39,6 +40,7 @@ export const newAssetsViewModel = injectable(
                         either.map((assets) =>
                             assets.map((asset) => ({
                                 ...asset,
+                                logo: asset.imageUrl,
                                 ticker: asset.ticker,
                                 coinAmount: asset.balance,
                                 cost: asset.price,

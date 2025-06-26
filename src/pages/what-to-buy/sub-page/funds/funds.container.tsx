@@ -4,7 +4,6 @@ import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { UserStoreService } from '@/store/user.store';
 import { Funds } from './funds.component';
 import { newPurchaseSellStore } from '../purchase/purchase.store';
-import { I18NService } from '@/store/i18n/i18.store';
 
 export const FundsPageContainer = injectable(
     provide(Funds)<'purchaseStore'>(),

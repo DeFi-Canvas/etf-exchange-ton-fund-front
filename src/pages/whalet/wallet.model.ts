@@ -1,22 +1,29 @@
-import { Asset, AssetResponce } from '@/instance/asset/asset.model';
+import { AssetBalance } from '@/instance/asset/asset.model';
 import { FundRespnce, FundsData } from '@/instance/fund/fund.model';
 import { TransactionsResponce } from '@/instance/transactions/transactions.model';
 import { either } from 'fp-ts';
 import * as t from 'io-ts';
+import { AssetDto } from '@/API/contracts/assets.contract.ts';
+import { WalletBalanceResponse } from '@/API/contracts/walletBalance.contract.ts';
+import { ERROR } from '@/store/errors/error-system';
 
 //#region RESPONCE
-export interface WalletAssetResponce extends AssetResponce {
-    // symbol: string;
+export interface WalletAssetResponse {
+    id: string;
+    name: string;
+    ticker: string;
     balance: number;
+    price: number;
+    image_url: string;
     value: number;
 }
 
 export interface WaletResponce {
     total: number;
-    assets: Array<WalletAssetResponce>;
+    assets: Array<WalletAssetResponse>;
 }
 
-export interface WalletFundsRespnce {
+export interface WalletFundsResponse {
     id: string;
     name: string;
     description: string;
@@ -27,7 +34,7 @@ export interface WalletFundsRespnce {
     is_avaiable: boolean;
     value: number;
     assets: Array<{
-        asset: AssetResponce;
+        asset: AssetDto;
         allocation_percentage: number;
     }>;
     created_at: string;
@@ -49,7 +56,7 @@ export const AssetCodec = t.type({
     // symbol: t.string,
     balance: t.number,
     price: t.number,
-    logo: t.string,
+    imageUrl: t.string,
     value: t.number,
 });
 
@@ -79,7 +86,6 @@ export const normolizeTransactionKey = (
     asset: {
         name: data.asset.name,
         ticker: data.asset.ticker,
-        // category: data.asset.category,
         description: data.asset.description,
         price: data.asset.price,
         url: data.asset.image_url,
@@ -89,13 +95,18 @@ export const normolizeTransactionKey = (
     transactionStatus: data.transaction_status,
 });
 
-export const mapAssetsFromBalance = (data: WaletResponce): Array<Asset> =>
-    data.assets.map((asset) => ({ ...asset, logo: asset.image_url }));
+export const mapAssetsFromBalance = (
+    data: WalletBalanceResponse
+): Array<AssetBalance> =>
+    data.payload.assets.map((asset) => ({
+        ...asset,
+        imageUrl: asset.image_url,
+    }));
 
 export const assetsFromBalanceValidation = (data: WaletResponce) => {
     if (data.total === 0) {
         //TODO переименовать в пустое состояние
-        return either.left('error');
+        return either.left(ERROR);
     }
 };
 
@@ -118,11 +129,11 @@ export const mapWhaletFunds = (data: WhaletFundsResponce): Array<FundsData> => {
 
 export const getWhaletFundsValidation = (data: WhaletFundsResponce) => {
     if (data.total === 0) {
-        return either.left('error');
+        return either.left(ERROR);
     }
 };
 
-export const mapFunds = (data: WalletFundsRespnce): FundsData => ({
+export const mapFunds = (data: WalletFundsResponse): FundsData => ({
     id: data.id,
     name: data.name,
     description: data.description,

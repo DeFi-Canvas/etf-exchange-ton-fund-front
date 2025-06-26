@@ -13,6 +13,77 @@
     "host": "",
     "basePath": "/",
     "paths": {
+        "/api/asset": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Returns the list of all assets in the system",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Asset"],
+                "summary": "All assets",
+                "responses": {
+                    "200": {
+                        "description": "Assets",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.GetAssetsResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/asset/{address}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Получить информацию об активе по его идентификатору или тикеру",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Asset"],
+                "summary": "Get asset by address",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Адрес актива или тикер",
+                        "name": "address",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Информация об активе",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.GetAssetResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Актив не найден",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
         "/api/auth/token/{telegramId}": {
             "get": {
                 "description": "Creates unsigned token with specified Telegram Id. It is used to get access to the local/test servers.",
@@ -33,11 +104,155 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/authentication.GetIncognitoAuthTokenResponse"
+                            "$ref": "#/definitions/routing.GetIncognitoAuthTokenResponse"
                         }
                     },
                     "500": {
                         "description": "Server error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/storm/liquidity/deposit": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Deposit native or jetton tokens into Storm liquidity pool",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Storm"],
+                "summary": "Deposit liquidity on Storm",
+                "parameters": [
+                    {
+                        "description": "Deposit request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiRequest-controller_StormLiquidityDepositRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deposit initiated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiResponse-controller_StormLiquidityDepositResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/api/storm/liquidity/withdraw": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Withdraw native or jetton tokens from Storm liquidity pool",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Storm"],
+                "summary": "Withdraw liquidity from Storm",
+                "parameters": [
+                    {
+                        "description": "Withdraw request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiRequest-controller_StormLiquidityWithdrawRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Withdraw initiated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiResponse-controller_StormLiquidityWithdrawResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/api/transaction": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Returns user's transactions with transactions entries",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Transaction"],
+                "summary": "Get account transactions",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page index",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page size",
+                        "name": "count",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Transactions list",
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiPaginatedResponse-array_transactions_JournalTransaction"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
                         "schema": {
                             "$ref": "#/definitions/models.ResponseError"
                         }
@@ -250,29 +465,51 @@
                 }
             }
         },
-        "/appopened": {
-            "post": {
-                "description": "Регистрирует или обновляет пользователя при открытии приложения",
+        "/api/user/current": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get the information about current user",
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "tags": ["users"],
-                "summary": "App opened",
-                "parameters": [
-                    {
-                        "description": "Данные пользователя",
-                        "name": "body",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.User"
-                        }
-                    }
-                ],
+                "summary": "Get current user",
                 "responses": {
                     "200": {
-                        "description": "Успешный ответ с идентификатором пользователя",
+                        "description": "Current user",
                         "schema": {
-                            "$ref": "#/definitions/controllers.AppOpenedResponse"
+                            "$ref": "#/definitions/routing.ApiResponse-models_User"
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/wallet/balance": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get the user's balance per asset",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Wallet"],
+                "summary": "Get wallet balance",
+                "responses": {
+                    "200": {
+                        "description": "Wallet balance",
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiResponse-models_WalletBalance"
                         }
                     },
                     "500": {
@@ -290,7 +527,7 @@
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "tags": ["assets"],
-                "summary": "Get asset by address",
+                "summary": "DEPRECATED. Get asset by address",
                 "parameters": [
                     {
                         "type": "string",
@@ -328,7 +565,7 @@
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "tags": ["assets"],
-                "summary": "Get all assets",
+                "summary": "DEPRECATED. Get all assets",
                 "responses": {
                     "200": {
                         "description": "Список активов",
@@ -354,7 +591,7 @@
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "tags": ["assets"],
-                "summary": "Get user assets",
+                "summary": "DEPRECATED. Get user assets",
                 "parameters": [
                     {
                         "type": "string",
@@ -376,47 +613,6 @@
                     },
                     "404": {
                         "description": "Активы не найдены",
-                        "schema": {
-                            "$ref": "#/definitions/models.ResponseError"
-                        }
-                    },
-                    "500": {
-                        "description": "Ошибка сервера",
-                        "schema": {
-                            "$ref": "#/definitions/models.ResponseError"
-                        }
-                    }
-                }
-            }
-        },
-        "/assets/{assetName}/networks": {
-            "get": {
-                "description": "Получить список сетей для указанного актива",
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "tags": ["assets"],
-                "summary": "Get networks for an asset",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Название актива",
-                        "name": "assetName",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Список сетей",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.Network"
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Актив не найден",
                         "schema": {
                             "$ref": "#/definitions/models.ResponseError"
                         }
@@ -630,133 +826,6 @@
                 }
             }
         },
-        "/storm/apr": {
-            "get": {
-                "description": "Calculate APR based on deposited tokens and LP token supply",
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "tags": ["Storm"],
-                "summary": "Get current APR for Storm deposit",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Token symbol (e.g., 'USDT', 'TON', etc.)",
-                        "name": "ticker",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "APR retrieved successfully",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid request",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    }
-                }
-            }
-        },
-        "/storm/liquidity/deposit": {
-            "post": {
-                "description": "Deposit native or jetton tokens into Storm liquidity pool",
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "tags": ["Storm"],
-                "summary": "Deposit liquidity on Storm",
-                "parameters": [
-                    {
-                        "description": "Deposit request body",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/server.StormDepositRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Deposit initiated successfully",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid request",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    }
-                }
-            }
-        },
-        "/storm/liquidity/withdraw": {
-            "post": {
-                "description": "Withdraw LP tokens from Storm liquidity pool",
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "tags": ["Storm"],
-                "summary": "Withdraw liquidity from Storm",
-                "parameters": [
-                    {
-                        "description": "Deposit request body",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/server.StormDepositRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Withdrawal initiated successfully",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid request",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    }
-                }
-            }
-        },
         "/strategies": {
             "get": {
                 "description": "Получить список всех стратегий",
@@ -882,11 +951,11 @@
         },
         "/tasks": {
             "get": {
-                "description": "Получить список задач для указанного пользователя",
+                "description": "Получить список задач для указанного пользователя. Constantly returns empty list. Let us know if you use this endpoint!",
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "tags": ["tasks"],
-                "summary": "Get tasks for a user",
+                "summary": "DEPRECATED Get tasks for a user",
                 "parameters": [
                     {
                         "type": "integer",
@@ -921,7 +990,7 @@
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "tags": ["tasks"],
-                "summary": "Complete a task",
+                "summary": "DEPRECATED Complete a task",
                 "parameters": [
                     {
                         "description": "Запрос на завершение задачи",
@@ -951,11 +1020,11 @@
         },
         "/users": {
             "get": {
-                "description": "Получить список всех пользователей",
+                "description": "Получить список всех пользователей. Constantly returns empty list. Let us know if you use this endpoint!",
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "tags": ["users"],
-                "summary": "Get all users",
+                "summary": "DEPRECATED Get all users",
                 "responses": {
                     "200": {
                         "description": "Список пользователей",
@@ -981,7 +1050,7 @@
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "tags": ["wallets"],
-                "summary": "Get wallet balance",
+                "summary": "DEPRECATED Get wallet balance",
                 "parameters": [
                     {
                         "type": "integer",
@@ -1097,7 +1166,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/models.Strategy"
+                                "$ref": "#/definitions/models.WalletFunds"
                             }
                         }
                     },
@@ -1233,10 +1302,40 @@
         }
     },
     "definitions": {
-        "authentication.GetIncognitoAuthTokenResponse": {
+        "controller.StormLiquidityDepositRequest": {
             "type": "object",
             "properties": {
-                "token": {
+                "amount": {
+                    "type": "number"
+                },
+                "ticker": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.StormLiquidityDepositResponse": {
+            "type": "object",
+            "properties": {
+                "transaction": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.StormLiquidityWithdrawRequest": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number"
+                },
+                "ticker": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.StormLiquidityWithdrawResponse": {
+            "type": "object",
+            "properties": {
+                "transaction": {
                     "type": "string"
                 }
             }
@@ -1354,14 +1453,6 @@
         "controller.TwitterUnsubscribeResponse": {
             "type": "object"
         },
-        "controllers.AppOpenedResponse": {
-            "type": "object",
-            "properties": {
-                "user_id": {
-                    "type": "string"
-                }
-            }
-        },
         "controllers.BuyIndexData": {
             "type": "object",
             "properties": {
@@ -1439,6 +1530,25 @@
                 }
             }
         },
+        "controllers.GetAssetResponse": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/models.Asset"
+                }
+            }
+        },
+        "controllers.GetAssetsResponse": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Asset"
+                    }
+                }
+            }
+        },
         "controllers.SellIndexRequest": {
             "type": "object",
             "properties": {
@@ -1479,7 +1589,8 @@
                 "amount": {
                     "type": "number"
                 },
-                "ticker": {
+                "asset": {
+                    "description": "TODO now it's changed to `asset` to match UI",
                     "type": "string"
                 }
             }
@@ -1563,7 +1674,7 @@
                 "price": {
                     "type": "number"
                 },
-                "symbol": {
+                "ticker": {
                     "type": "string"
                 },
                 "value": {
@@ -1579,26 +1690,6 @@
                 },
                 "tvl": {
                     "type": "number"
-                }
-            }
-        },
-        "models.Network": {
-            "type": "object",
-            "properties": {
-                "base_currency_id": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "valid_from": {
-                    "type": "string"
-                },
-                "valid_to": {
-                    "type": "string"
                 }
             }
         },
@@ -1798,6 +1889,121 @@
                 }
             }
         },
+        "models.WalletFund": {
+            "type": "object",
+            "properties": {
+                "fund": {
+                    "$ref": "#/definitions/models.Strategy"
+                },
+                "value": {
+                    "type": "number"
+                }
+            }
+        },
+        "models.WalletFunds": {
+            "type": "object",
+            "properties": {
+                "funds": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.WalletFund"
+                    }
+                },
+                "total": {
+                    "type": "number"
+                }
+            }
+        },
+        "routing.ApiPaginatedResponse-array_transactions_JournalTransaction": {
+            "type": "object",
+            "properties": {
+                "pagination": {
+                    "$ref": "#/definitions/routing.ApiPagination"
+                },
+                "payload": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/transactions.JournalTransaction"
+                    }
+                }
+            }
+        },
+        "routing.ApiPagination": {
+            "type": "object",
+            "properties": {
+                "currentEntries": {
+                    "type": "integer"
+                },
+                "pageIndex": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "totalEntries": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                }
+            }
+        },
+        "routing.ApiRequest-controller_StormLiquidityDepositRequest": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/controller.StormLiquidityDepositRequest"
+                }
+            }
+        },
+        "routing.ApiRequest-controller_StormLiquidityWithdrawRequest": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/controller.StormLiquidityWithdrawRequest"
+                }
+            }
+        },
+        "routing.ApiResponse-controller_StormLiquidityDepositResponse": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/controller.StormLiquidityDepositResponse"
+                }
+            }
+        },
+        "routing.ApiResponse-controller_StormLiquidityWithdrawResponse": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/controller.StormLiquidityWithdrawResponse"
+                }
+            }
+        },
+        "routing.ApiResponse-models_User": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/models.User"
+                }
+            }
+        },
+        "routing.ApiResponse-models_WalletBalance": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/models.WalletBalance"
+                }
+            }
+        },
+        "routing.GetIncognitoAuthTokenResponse": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
         "server.DedustDepositRequest": {
             "type": "object",
             "properties": {
@@ -1846,19 +2052,152 @@
                 }
             }
         },
-        "server.StormDepositRequest": {
+        "transactions.EntryType": {
+            "type": "string",
+            "enum": [
+                "DEBIT",
+                "CREDIT",
+                "RESERVE",
+                "RELEASE",
+                "FEE",
+                "APP_FEE",
+                "DEX_FEE",
+                "SLIPPAGE",
+                "NETWORK_FEE",
+                "SERVICE_FEE",
+                "REWARD"
+            ],
+            "x-enum-varnames": [
+                "ENTRY_TYPE_DEBIT",
+                "ENTRY_TYPE_CREDIT",
+                "ENTRY_TYPE_RESERVE",
+                "ENTRY_TYPE_RELEASE",
+                "ENTRY_TYPE_FEE",
+                "ENTRY_TYPE_APP_FEE",
+                "ENTRY_TYPE_DEX_FEE",
+                "ENTRY_TYPE_SLIPPAGE",
+                "ENTRY_TYPE_NETWORK_FEE",
+                "ENTRY_TYPE_SERVICE_FEE",
+                "ENTRY_TYPE_REWARD"
+            ]
+        },
+        "transactions.JournalEntry": {
             "type": "object",
             "properties": {
                 "amount": {
+                    "type": "number"
+                },
+                "asset": {
+                    "$ref": "#/definitions/models.Asset"
+                },
+                "createdAt": {
                     "type": "string"
                 },
-                "telegramId": {
+                "id": {
                     "type": "string"
                 },
-                "ticker": {
+                "isReserve": {
+                    "type": "boolean"
+                },
+                "sign": {
+                    "type": "integer"
+                },
+                "transactionId": {
+                    "type": "string"
+                },
+                "type": {
+                    "$ref": "#/definitions/transactions.EntryType"
+                },
+                "userId": {
                     "type": "string"
                 }
             }
+        },
+        "transactions.JournalTransaction": {
+            "type": "object",
+            "properties": {
+                "blockchainHash": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "entries": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/transactions.JournalEntry"
+                    }
+                },
+                "id": {
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "#/definitions/transactions.TransactionStatus"
+                },
+                "type": {
+                    "$ref": "#/definitions/transactions.TransactionType"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "string"
+                }
+            }
+        },
+        "transactions.TransactionStatus": {
+            "type": "string",
+            "enum": ["AUTHORIZED", "CAPTURED", "CANCELED", "FAILED", "EXPIRED"],
+            "x-enum-varnames": [
+                "TRANSACTION_STATUS_AUTHORIZED",
+                "TRANSACTION_STATUS_CAPTURED",
+                "TRANSACTION_STATUS_CANCELED",
+                "TRANSACTION_STATUS_FAILED",
+                "TRANSACTION_STATUS_EXPIRED"
+            ]
+        },
+        "transactions.TransactionType": {
+            "type": "string",
+            "enum": [
+                "TRANSFER",
+                "SWAP",
+                "ADD_LIQUIDITY",
+                "REMOVE_LIQUIDITY",
+                "STAKE",
+                "UNSTAKE",
+                "BORROW",
+                "REPAY",
+                "DEPOSIT",
+                "DEPOSIT_STORM_USDT",
+                "WITHDRAW",
+                "WITHDRAW_STORM_USDT",
+                "LIQUIDATE",
+                "CLAIM_REWARDS",
+                "GOVERNANCE_VOTE",
+                "MARGIN_TRADE",
+                "SYNTHETIC_MINT",
+                "CROSS_CHAIN_SWAP"
+            ],
+            "x-enum-varnames": [
+                "TRANSACTION_TYPE_TRANSFER",
+                "TRANSACTION_TYPE_SWAP",
+                "TRANSACTION_TYPE_ADD_LIQUIDITY",
+                "TRANSACTION_TYPE_REMOVE_LIQUIDITY",
+                "TRANSACTION_TYPE_STAKE",
+                "TRANSACTION_TYPE_UNSTAKE",
+                "TRANSACTION_TYPE_BORROW",
+                "TRANSACTION_TYPE_REPAY",
+                "TRANSACTION_TYPE_DEPOSIT",
+                "TRANSACTION_TYPE_DEPOSIT_STORM_USDT",
+                "TRANSACTION_TYPE_WITHDRAW",
+                "TRANSACTION_TYPE_WITHDRAW_STORM_USDT",
+                "TRANSACTION_TYPE_LIQUIDATE",
+                "TRANSACTION_TYPE_CLAIM_REWARDS",
+                "TRANSACTION_TYPE_GOVERNANCE_VOTE",
+                "TRANSACTION_TYPE_MARGIN_TRADE",
+                "TRANSACTION_TYPE_SYNTHETIC_MINT",
+                "TRANSACTION_TYPE_CROSS_CHAIN_SWAP"
+            ]
         },
         "twitter.TwitterAccount": {
             "type": "object",

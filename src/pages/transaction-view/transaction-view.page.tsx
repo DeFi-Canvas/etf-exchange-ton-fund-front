@@ -1,5 +1,4 @@
 import css from './transaction-view.module.css';
-import { TransactionStatusIcon } from '@/components/Icons/Icons.tsx';
 import AppFooter from '@/components/app-footer/app-footer.components.tsx';
 import AppButton from '@/components/app-button/app-button.component.tsx';
 import cn from 'classnames';
@@ -72,7 +71,6 @@ export const TransactionView = () => {
                 </div>
                 <div className={css.coinName}>{data.coinName}</div>
                 <div className={css.status}>
-                    <TransactionStatusIcon status={data.type} />
                     <span className={classNameByStatus[data.status]}>
                         Deposit successful
                     </span>

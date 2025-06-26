@@ -9,13 +9,14 @@ import * as A from 'fp-ts/Array';
 import { constant, constVoid, flow, pipe } from 'fp-ts/lib/function';
 import { chain, combine, take, tap } from '@most/core';
 import { newWTBRestService } from '@/API/wtb.service';
-import { newWaletRestService } from '@/API/whalet.service';
+import { newWalletRestService } from '@/API/wallet.service';
 import { fromProperty } from '@/utils/property.utils';
 import { createAdapter } from '@most/adapter';
 import { PageType } from '../../what-to-buy.model';
 import { getKeyO } from '@/utils/object-utils';
-import { Asset } from '@/instance/asset/asset.model';
+import { AssetBalance } from '@/instance/asset/asset.model';
 import { FundsData } from '@/instance/fund/fund.model';
+import { ERROR, Error, PENDING } from '@/store/errors/error-system';
 
 export interface TotalAmount {
     currency: number;
@@ -23,17 +24,17 @@ export interface TotalAmount {
 }
 
 export interface PurchaseSellStore {
-    funds: Property<E.Either<string, Array<FundsData>>>;
-    fundData: Property<E.Either<string, FundsData>>;
-    assets: Property<E.Either<string, Array<Asset>>>;
-    selectedAssets: Property<E.Either<string, Asset>>;
+    funds: Property<E.Either<Error, Array<FundsData>>>;
+    fundData: Property<E.Either<Error, FundsData>>;
+    assets: Property<E.Either<Error, Array<AssetBalance>>>;
+    selectedAssets: Property<E.Either<Error, AssetBalance>>;
     totalAmount: Property<O.Option<TotalAmount>>;
     quantity: Property<number>;
     setQuantity: (quantity: number) => void;
     isBottomPanel: Property<boolean>;
     isShowBottomSheetFinishBoody: Property<boolean>;
     isLoading: Property<boolean>;
-    fundsAvailableSale: Property<E.Either<string, Array<FundsData>>>;
+    fundsAvailableSale: Property<E.Either<Error, Array<FundsData>>>;
     onBuy: () => void;
     onSell: () => void;
     setIsBottomPanel: (x: boolean) => void;
@@ -47,24 +48,24 @@ export interface NewPurchaseSellStore {
 }
 export const newPurchaseSellStore = injectable(
     newWTBRestService,
-    newWaletRestService,
+    newWalletRestService,
     (service, walletService): NewPurchaseSellStore =>
         (id) => {
-            const funds = newLensedAtom<E.Either<string, Array<FundsData>>>(
-                E.left('pending')
+            const funds = newLensedAtom<E.Either<Error, Array<FundsData>>>(
+                E.left(PENDING)
             );
             const fundsAvailableSale = newLensedAtom<
-                E.Either<string, Array<FundsData>>
+                E.Either<Error, Array<FundsData>>
             >(E.left('none'));
-            const fundData = newLensedAtom<E.Either<string, FundsData>>(
-                E.left('pending')
+            const fundData = newLensedAtom<E.Either<Error, FundsData>>(
+                E.left(PENDING)
             );
-            const assets = newLensedAtom<E.Either<string, Array<Asset>>>(
-                E.left('pending')
+            const assets = newLensedAtom<E.Either<Error, Array<AssetBalance>>>(
+                E.left(PENDING)
             );
 
-            const selectedAssets = newLensedAtom<E.Either<string, Asset>>(
-                E.left('pending')
+            const selectedAssets = newLensedAtom<E.Either<Error, AssetBalance>>(
+                E.left(PENDING)
             );
             const selectedAssetsId = newLensedAtom<string>('');
 
@@ -139,7 +140,7 @@ export const newPurchaseSellStore = injectable(
                             if (fundDataFiltred) {
                                 return E.right([fundDataFiltred]);
                             } else {
-                                return E.left('err');
+                                return E.left(ERROR);
                             }
                         })
                     );
@@ -160,7 +161,7 @@ export const newPurchaseSellStore = injectable(
                             if (asset) {
                                 return E.right(asset);
                             } else {
-                                return E.left('pending');
+                                return E.left(PENDING);
                             }
                         }),
                         selectedAssets.set

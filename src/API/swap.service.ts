@@ -5,25 +5,20 @@ import { DOMAIN_API_URL } from './API';
 import { newLensedAtom } from '@frp-ts/lens';
 import { pipe } from 'fp-ts/lib/function';
 import { fromProperty } from '@/utils/property.utils';
-import { AssetsApi, Configuration, SwapApi } from './scheme/rest-genereted';
+import { Configuration, SwapApi } from './scheme/rest-genereted';
 import { Either } from 'fp-ts/lib/Either';
 import { getRequestGenerated } from './request.utils';
-import { assetsCodec } from './contracts/assets.contract';
 import { swapInitiateCodec } from './contracts/swap.contract';
-import { Asset } from '@/instance/asset/asset.model';
+import { Error } from '@/store/errors/error-system';
 
 export interface SwapRestService {
     getConnection: () => { evs: Stream<unknown>; unsubscription: () => void };
     initiate: (args: {
         amount: number;
         tokens: Array<string>;
-    }) => Stream<Either<string, unknown>>;
-    getAssets: () => Stream<Either<string, Array<Asset>>>;
+    }) => Stream<Either<Error, unknown>>;
 }
 
-const assetsApi = new AssetsApi({
-    basePath: DOMAIN_API_URL,
-} as Configuration);
 const swapApi = new SwapApi({
     basePath: DOMAIN_API_URL,
 } as Configuration);
@@ -46,6 +41,7 @@ export const newSwapRestService = injectable(
 
                 eventSource.onerror = (error) => {
                     messege.set('ERROR');
+                    console.error(error);
                 };
 
                 return {
@@ -63,12 +59,6 @@ export const newSwapRestService = injectable(
                     }),
                     swapInitiateCodec
                 )(),
-
-            getAssets: getRequestGenerated(
-                assetsApi.assetsGet(),
-                assetsCodec,
-                (x) => ({ ...x, logo: x.image_url })
-            ),
         };
     }
 );
