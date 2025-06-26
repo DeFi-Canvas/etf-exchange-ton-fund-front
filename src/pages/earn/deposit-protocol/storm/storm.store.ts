@@ -5,7 +5,7 @@ import { ValueWithEffect, valueWithEffect } from '@/utils/run-view-model.utils';
 import { Property } from '@frp-ts/core';
 import { newLensedAtom } from '@frp-ts/lens';
 import { injectable, token } from '@injectable-ts/core';
-import { chain, now, tap } from '@most/core';
+import { chain, map, now, tap } from '@most/core';
 import { constant, flow, pipe } from 'fp-ts/lib/function';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
@@ -23,6 +23,7 @@ interface StormStore {
     amount: Property<number | null>;
     requestFinish: Property<boolean>;
     isBottomSheetOpen: Property<boolean>;
+    isActionButtonEnabled: Property<boolean>;
     maxAvailable: Property<number | null>;
     handleMaxClick: () => void;
     setAmount: (amount: number) => void;
@@ -38,7 +39,7 @@ export const newStormStore = injectable(
     newWalletRestService,
     StormRestService,
     AssetsRestService,
-    (waletService, stormService, assetsRestService): NewStormStore =>
+    (waletService, stormService, assetsService): NewStormStore =>
         () => {
             const assets = newLensedAtom<E.Either<Error, AssetBalance[]>>(
                 E.left(PENDING)
@@ -50,6 +51,8 @@ export const newStormStore = injectable(
             const amount = newLensedAtom<number | null>(null);
             const requestFinish = newLensedAtom(false);
             const isBottomSheetOpen = newLensedAtom(false);
+            const isActionButtonEnabled = newLensedAtom(true);
+
             const maxAvailable = newLensedAtom<number | null>(null);
 
             const [deposit, depositEvent] = createAdapter<void>();
@@ -62,22 +65,26 @@ export const newStormStore = injectable(
                 }
             };
 
-            const getAssetEffect = pipe(
-                waletService.getAssets(),
-                tap((assetsResponse) => {
-                    assets.set(assetsResponse);
-                    const newAssets = pipe(
-                        assetsResponse,
-                        E.chain(
-                            flow(
-                                A.findFirst((asset) => asset.ticker === 'USDT'),
-                                E.fromOption(constant(EMPTY))
-                            )
+            const getSinglAsset = (ticker: string) =>
+                flow(
+                    E.chain(
+                        flow(
+                            A.findFirst(
+                                (asset: AssetBalance) => asset.ticker === ticker
+                            ),
+                            E.fromOption(constant(EMPTY))
                         )
-                    );
-                    asset.set(newAssets);
-                })
+                    )
+                );
+            const getUSDT = getSinglAsset('USDT');
+
+            const setAssetUSDT = flow(
+                tap(assets.set),
+                map(getUSDT),
+                tap(asset.set)
             );
+
+            const getAssetEffect = pipe(waletService.getAssets(), setAssetUSDT);
 
             const depositEffect = pipe(
                 depositEvent,
@@ -134,6 +141,30 @@ export const newStormStore = injectable(
                     }
                 })
             );
+            const getUsdtFromAllAssets = () =>
+                pipe(
+                    assetsService.getAllAssets(),
+                    setAssetUSDT,
+                    tap(() => isActionButtonEnabled.set(false))
+                );
+
+            const setDefaultDataEffect = pipe(
+                asset,
+                fromProperty,
+                chain((asset) => {
+                    return pipe(
+                        asset,
+                        E.fold(
+                            (err) =>
+                                err === EMPTY
+                                    ? getUsdtFromAllAssets()
+                                    : now(E.left(PENDING)),
+                            (a) => now(E.right(a))
+                        )
+                    );
+                })
+            );
+
             return valueWithEffect.new(
                 {
                     asset,
@@ -147,11 +178,13 @@ export const newStormStore = injectable(
                     isBottomSheetOpen,
                     handleMaxClick,
                     maxAvailable,
+                    isActionButtonEnabled,
                 },
                 getAssetEffect,
                 depositEffect,
                 withdrawEffect,
-                activeActionChangeEffect
+                activeActionChangeEffect,
+                setDefaultDataEffect
             );
         }
 );

@@ -12,6 +12,7 @@ import AppFooter from '@/components/app-footer/app-footer.components';
 import BottomSheet from '@/components/ui-kit/bottom-sheet/bottom-sheet.component';
 import { useNavigate } from 'react-router-dom';
 import { Action } from './storm.store';
+import SkeletonLine from '@/components/skeletons/components/skeleton-line/skeleton-line.component';
 
 interface StormProps {
     asset: E.Either<Error, AssetBalance>;
@@ -24,6 +25,7 @@ interface StormProps {
     handleMaxClick: () => void;
     amount: number | null;
     maxAvailable: number | null;
+    isActionButtonEnabled: boolean;
 }
 
 export const Storm = ({
@@ -37,6 +39,7 @@ export const Storm = ({
     handleMaxClick,
     amount,
     maxAvailable,
+    isActionButtonEnabled,
 }: StormProps) => {
     const navigate = useNavigate();
 
@@ -59,6 +62,7 @@ export const Storm = ({
 
                 <RenderResult
                     data={asset}
+                    loading={() => <SkeletonLine />}
                     success={({ imageUrl, balance, ticker }: AssetBalance) => (
                         <AssetCard
                             imageUrl={imageUrl}
@@ -85,10 +89,10 @@ export const Storm = ({
             </div>
             <AppFooter>
                 <AppButton
-                    label={activeAction === 'DEPOSIT' ? 'Deposit' : 'Withdrow'}
+                    label={activeAction === 'DEPOSIT' ? 'Deposit' : 'Withdraw'}
                     onClick={action}
                     isLoading={false}
-                    isDisabled={false}
+                    isDisabled={!isActionButtonEnabled}
                 />
             </AppFooter>
 
@@ -187,7 +191,7 @@ export const Switcher = ({ activeAction, setActiveAction }: SwitcherProps) => {
                 })}
                 onClick={() => setActiveAction('WITHDROW')}
             >
-                Withdrow
+                Withdraw
             </span>
         </div>
     );

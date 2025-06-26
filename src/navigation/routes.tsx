@@ -84,7 +84,8 @@ export const AppRoutes = () => {
         {
             path: '/earn',
             page: StormContainer({
-                stormStore,
+                assetService,
+                cacheStore,
             }),
         },
     ];
