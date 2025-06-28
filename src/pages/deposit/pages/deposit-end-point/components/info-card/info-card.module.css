@@ -35,6 +35,6 @@
 
 .node {
     word-break: break-all;
-    font-size: 14px;
+    font-size: 11px;
     color: var(--color-text-dark-50);
 }

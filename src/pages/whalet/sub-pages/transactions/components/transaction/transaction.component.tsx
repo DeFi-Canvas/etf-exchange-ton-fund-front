@@ -23,6 +23,8 @@ export const Transaction = ({
         [mapTransactionTypeToUi, type]
     );
 
+    console.log(entries, type);
+
     return (
         <div className={css.transaction}>
             <TransactionTypeIcon type={type} />
@@ -39,7 +41,13 @@ export const Transaction = ({
                         [css.pending]: isPending,
                     })}
                 >
-                    <TransactionSwapMonyInfo entries={entries} type={type} />
+                    {!isPending && (
+                        <TransactionSwapMonyInfo
+                            entries={entries}
+                            type={type}
+                        />
+                    )}
+                    {isPending && <span>in progress</span>}
                 </div>
             </div>
         </div>
