@@ -35,6 +35,12 @@
 
 .node {
     word-break: break-all;
-    font-size: 11px;
+    font-size: 14px;
     color: var(--color-text-dark-50);
+}
+
+@media only screen and (max-width: 420px) {
+    .node {
+        font-size: 11px;
+    }
 }
