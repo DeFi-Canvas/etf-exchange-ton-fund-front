@@ -10,21 +10,13 @@ export interface DepositContainers {
 export const getDepositContainers = ({
     userStore,
     i18n,
-    assetsRestService,
-    cacheStore,
-}: Pick<
-    getContainersArgs,
-    'i18n' | 'userStore' | 'assetsRestService' | 'cacheStore'
->): DepositContainers => ({
+}: Pick<getContainersArgs, 'i18n' | 'userStore'>): DepositContainers => ({
     DepositPage: Deposit({
         userStore,
         i18n,
-        assetsRestService,
-        cacheStore,
     }),
     DepositEndPoint: DepositEndPointContainer({
         userStore,
         i18n,
-        assetsRestService,
     }),
 });

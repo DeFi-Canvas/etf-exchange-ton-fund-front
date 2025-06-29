@@ -26,6 +26,70 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
+ * @interface ControllerStormLiquidityDepositRequest
+ */
+export interface ControllerStormLiquidityDepositRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof ControllerStormLiquidityDepositRequest
+     */
+    'amount'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerStormLiquidityDepositRequest
+     */
+    'ticker'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ControllerStormLiquidityDepositResponse
+ */
+export interface ControllerStormLiquidityDepositResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerStormLiquidityDepositResponse
+     */
+    'transaction'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ControllerStormLiquidityWithdrawRequest
+ */
+export interface ControllerStormLiquidityWithdrawRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof ControllerStormLiquidityWithdrawRequest
+     */
+    'amount'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerStormLiquidityWithdrawRequest
+     */
+    'ticker'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ControllerStormLiquidityWithdrawResponse
+ */
+export interface ControllerStormLiquidityWithdrawResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerStormLiquidityWithdrawResponse
+     */
+    'transaction'?: string;
+}
+/**
+ * 
+ * @export
  * @interface ControllerSwapInitiateRequest
  */
 export interface ControllerSwapInitiateRequest {
@@ -1077,6 +1141,58 @@ export interface RoutingApiPagination {
 /**
  * 
  * @export
+ * @interface RoutingApiRequestControllerStormLiquidityDepositRequest
+ */
+export interface RoutingApiRequestControllerStormLiquidityDepositRequest {
+    /**
+     * 
+     * @type {ControllerStormLiquidityDepositRequest}
+     * @memberof RoutingApiRequestControllerStormLiquidityDepositRequest
+     */
+    'payload'?: ControllerStormLiquidityDepositRequest;
+}
+/**
+ * 
+ * @export
+ * @interface RoutingApiRequestControllerStormLiquidityWithdrawRequest
+ */
+export interface RoutingApiRequestControllerStormLiquidityWithdrawRequest {
+    /**
+     * 
+     * @type {ControllerStormLiquidityWithdrawRequest}
+     * @memberof RoutingApiRequestControllerStormLiquidityWithdrawRequest
+     */
+    'payload'?: ControllerStormLiquidityWithdrawRequest;
+}
+/**
+ * 
+ * @export
+ * @interface RoutingApiResponseControllerStormLiquidityDepositResponse
+ */
+export interface RoutingApiResponseControllerStormLiquidityDepositResponse {
+    /**
+     * 
+     * @type {ControllerStormLiquidityDepositResponse}
+     * @memberof RoutingApiResponseControllerStormLiquidityDepositResponse
+     */
+    'payload'?: ControllerStormLiquidityDepositResponse;
+}
+/**
+ * 
+ * @export
+ * @interface RoutingApiResponseControllerStormLiquidityWithdrawResponse
+ */
+export interface RoutingApiResponseControllerStormLiquidityWithdrawResponse {
+    /**
+     * 
+     * @type {ControllerStormLiquidityWithdrawResponse}
+     * @memberof RoutingApiResponseControllerStormLiquidityWithdrawResponse
+     */
+    'payload'?: ControllerStormLiquidityWithdrawResponse;
+}
+/**
+ * 
+ * @export
  * @interface RoutingApiResponseModelsUser
  */
 export interface RoutingApiResponseModelsUser {
@@ -1187,31 +1303,6 @@ export interface ServerNotification {
      * @memberof ServerNotification
      */
     'timestamp'?: number;
-}
-/**
- * 
- * @export
- * @interface ServerStormDepositRequest
- */
-export interface ServerStormDepositRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof ServerStormDepositRequest
-     */
-    'amount'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ServerStormDepositRequest
-     */
-    'telegramId'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ServerStormDepositRequest
-     */
-    'ticker'?: string;
 }
 /**
  * 
@@ -2577,53 +2668,16 @@ export class NotificationsApi extends BaseAPI {
 export const StormApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Calculate APR based on deposited tokens and LP token supply
-         * @summary Get current APR for Storm deposit
-         * @param {string} ticker Token symbol (e.g., \&#39;USDT\&#39;, \&#39;TON\&#39;, etc.)
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        stormAprGet: async (ticker: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'ticker' is not null or undefined
-            assertParamExists('stormAprGet', 'ticker', ticker)
-            const localVarPath = `/storm/apr`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (ticker !== undefined) {
-                localVarQueryParameter['ticker'] = ticker;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * Deposit native or jetton tokens into Storm liquidity pool
          * @summary Deposit liquidity on Storm
-         * @param {ServerStormDepositRequest} request Deposit request body
+         * @param {RoutingApiRequestControllerStormLiquidityDepositRequest} request Deposit request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        stormLiquidityDepositPost: async (request: ServerStormDepositRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiStormLiquidityDepositPost: async (request: RoutingApiRequestControllerStormLiquidityDepositRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'request' is not null or undefined
-            assertParamExists('stormLiquidityDepositPost', 'request', request)
-            const localVarPath = `/storm/liquidity/deposit`;
+            assertParamExists('apiStormLiquidityDepositPost', 'request', request)
+            const localVarPath = `/api/storm/liquidity/deposit`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -2634,6 +2688,9 @@ export const StormApiAxiosParamCreator = function (configuration?: Configuration
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
 
     
@@ -2650,16 +2707,16 @@ export const StormApiAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * Withdraw LP tokens from Storm liquidity pool
+         * Withdraw native or jetton tokens from Storm liquidity pool
          * @summary Withdraw liquidity from Storm
-         * @param {ServerStormDepositRequest} request Deposit request body
+         * @param {RoutingApiRequestControllerStormLiquidityWithdrawRequest} request Withdraw request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        stormLiquidityWithdrawPost: async (request: ServerStormDepositRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiStormLiquidityWithdrawPost: async (request: RoutingApiRequestControllerStormLiquidityWithdrawRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'request' is not null or undefined
-            assertParamExists('stormLiquidityWithdrawPost', 'request', request)
-            const localVarPath = `/storm/liquidity/withdraw`;
+            assertParamExists('apiStormLiquidityWithdrawPost', 'request', request)
+            const localVarPath = `/api/storm/liquidity/withdraw`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -2670,6 +2727,9 @@ export const StormApiAxiosParamCreator = function (configuration?: Configuration
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
 
     
@@ -2696,42 +2756,29 @@ export const StormApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = StormApiAxiosParamCreator(configuration)
     return {
         /**
-         * Calculate APR based on deposited tokens and LP token supply
-         * @summary Get current APR for Storm deposit
-         * @param {string} ticker Token symbol (e.g., \&#39;USDT\&#39;, \&#39;TON\&#39;, etc.)
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async stormAprGet(ticker: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.stormAprGet(ticker, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['StormApi.stormAprGet']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
          * Deposit native or jetton tokens into Storm liquidity pool
          * @summary Deposit liquidity on Storm
-         * @param {ServerStormDepositRequest} request Deposit request body
+         * @param {RoutingApiRequestControllerStormLiquidityDepositRequest} request Deposit request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async stormLiquidityDepositPost(request: ServerStormDepositRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.stormLiquidityDepositPost(request, options);
+        async apiStormLiquidityDepositPost(request: RoutingApiRequestControllerStormLiquidityDepositRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoutingApiResponseControllerStormLiquidityDepositResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiStormLiquidityDepositPost(request, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['StormApi.stormLiquidityDepositPost']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['StormApi.apiStormLiquidityDepositPost']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Withdraw LP tokens from Storm liquidity pool
+         * Withdraw native or jetton tokens from Storm liquidity pool
          * @summary Withdraw liquidity from Storm
-         * @param {ServerStormDepositRequest} request Deposit request body
+         * @param {RoutingApiRequestControllerStormLiquidityWithdrawRequest} request Withdraw request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async stormLiquidityWithdrawPost(request: ServerStormDepositRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.stormLiquidityWithdrawPost(request, options);
+        async apiStormLiquidityWithdrawPost(request: RoutingApiRequestControllerStormLiquidityWithdrawRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoutingApiResponseControllerStormLiquidityWithdrawResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiStormLiquidityWithdrawPost(request, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['StormApi.stormLiquidityWithdrawPost']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['StormApi.apiStormLiquidityWithdrawPost']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -2745,34 +2792,24 @@ export const StormApiFactory = function (configuration?: Configuration, basePath
     const localVarFp = StormApiFp(configuration)
     return {
         /**
-         * Calculate APR based on deposited tokens and LP token supply
-         * @summary Get current APR for Storm deposit
-         * @param {string} ticker Token symbol (e.g., \&#39;USDT\&#39;, \&#39;TON\&#39;, etc.)
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        stormAprGet(ticker: string, options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any; }> {
-            return localVarFp.stormAprGet(ticker, options).then((request) => request(axios, basePath));
-        },
-        /**
          * Deposit native or jetton tokens into Storm liquidity pool
          * @summary Deposit liquidity on Storm
-         * @param {ServerStormDepositRequest} request Deposit request body
+         * @param {RoutingApiRequestControllerStormLiquidityDepositRequest} request Deposit request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        stormLiquidityDepositPost(request: ServerStormDepositRequest, options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any; }> {
-            return localVarFp.stormLiquidityDepositPost(request, options).then((request) => request(axios, basePath));
+        apiStormLiquidityDepositPost(request: RoutingApiRequestControllerStormLiquidityDepositRequest, options?: RawAxiosRequestConfig): AxiosPromise<RoutingApiResponseControllerStormLiquidityDepositResponse> {
+            return localVarFp.apiStormLiquidityDepositPost(request, options).then((request) => request(axios, basePath));
         },
         /**
-         * Withdraw LP tokens from Storm liquidity pool
+         * Withdraw native or jetton tokens from Storm liquidity pool
          * @summary Withdraw liquidity from Storm
-         * @param {ServerStormDepositRequest} request Deposit request body
+         * @param {RoutingApiRequestControllerStormLiquidityWithdrawRequest} request Withdraw request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        stormLiquidityWithdrawPost(request: ServerStormDepositRequest, options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any; }> {
-            return localVarFp.stormLiquidityWithdrawPost(request, options).then((request) => request(axios, basePath));
+        apiStormLiquidityWithdrawPost(request: RoutingApiRequestControllerStormLiquidityWithdrawRequest, options?: RawAxiosRequestConfig): AxiosPromise<RoutingApiResponseControllerStormLiquidityWithdrawResponse> {
+            return localVarFp.apiStormLiquidityWithdrawPost(request, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -2785,39 +2822,27 @@ export const StormApiFactory = function (configuration?: Configuration, basePath
  */
 export class StormApi extends BaseAPI {
     /**
-     * Calculate APR based on deposited tokens and LP token supply
-     * @summary Get current APR for Storm deposit
-     * @param {string} ticker Token symbol (e.g., \&#39;USDT\&#39;, \&#39;TON\&#39;, etc.)
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof StormApi
-     */
-    public stormAprGet(ticker: string, options?: RawAxiosRequestConfig) {
-        return StormApiFp(this.configuration).stormAprGet(ticker, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
      * Deposit native or jetton tokens into Storm liquidity pool
      * @summary Deposit liquidity on Storm
-     * @param {ServerStormDepositRequest} request Deposit request body
+     * @param {RoutingApiRequestControllerStormLiquidityDepositRequest} request Deposit request body
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StormApi
      */
-    public stormLiquidityDepositPost(request: ServerStormDepositRequest, options?: RawAxiosRequestConfig) {
-        return StormApiFp(this.configuration).stormLiquidityDepositPost(request, options).then((request) => request(this.axios, this.basePath));
+    public apiStormLiquidityDepositPost(request: RoutingApiRequestControllerStormLiquidityDepositRequest, options?: RawAxiosRequestConfig) {
+        return StormApiFp(this.configuration).apiStormLiquidityDepositPost(request, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Withdraw LP tokens from Storm liquidity pool
+     * Withdraw native or jetton tokens from Storm liquidity pool
      * @summary Withdraw liquidity from Storm
-     * @param {ServerStormDepositRequest} request Deposit request body
+     * @param {RoutingApiRequestControllerStormLiquidityWithdrawRequest} request Withdraw request body
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StormApi
      */
-    public stormLiquidityWithdrawPost(request: ServerStormDepositRequest, options?: RawAxiosRequestConfig) {
-        return StormApiFp(this.configuration).stormLiquidityWithdrawPost(request, options).then((request) => request(this.axios, this.basePath));
+    public apiStormLiquidityWithdrawPost(request: RoutingApiRequestControllerStormLiquidityWithdrawRequest, options?: RawAxiosRequestConfig) {
+        return StormApiFp(this.configuration).apiStormLiquidityWithdrawPost(request, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

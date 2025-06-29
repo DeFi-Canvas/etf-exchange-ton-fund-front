@@ -16,17 +16,10 @@ export interface WithdrowContainers {
 export const getWithdrowContainers = ({
     userStore,
     i18n,
-    assetsRestService,
-    cacheStore,
-}: Pick<
-    getContainersArgs,
-    'i18n' | 'userStore' | 'assetsRestService' | 'cacheStore'
->): WithdrowContainers => ({
+}: Pick<getContainersArgs, 'i18n' | 'userStore'>): WithdrowContainers => ({
     Withdrow: Withdrow({
         userStore,
         i18n,
-        assetsRestService,
-        cacheStore,
     }),
     Amount: AmountContainer({
         userStore,

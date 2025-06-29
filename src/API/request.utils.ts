@@ -122,3 +122,5 @@ export const authRequestOptions = (): RawAxiosRequestConfig => {
         },
     };
 };
+
+export const payloadTransform = <T>(value: { payload: T }) => value.payload;

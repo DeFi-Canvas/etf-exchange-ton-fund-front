@@ -28,7 +28,6 @@ interface PurchaseSellContentCardProps {
 const PurchaseSellContentCard = injectable(
     PurchaseSellFieldCounterContainer,
     token('i18n')<I18NService>(),
-
     (PurchaseSellFieldCounterContainer, i18n) =>
         ({
             assetCardData,

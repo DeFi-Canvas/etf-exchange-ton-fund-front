@@ -1,7 +1,7 @@
 import { UserStoreService } from '@/store/user.store';
 import { now } from '@most/core';
 import * as E from 'fp-ts/lib/Either';
-import { WaletRestService } from '../whalet.service';
+import { WaletRestService } from '../wallet.service';
 
 interface MockWaletArgs {
     userStore: UserStoreService;
