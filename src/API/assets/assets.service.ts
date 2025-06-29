@@ -27,6 +27,7 @@ import { CacheStore } from '@/store/cache/cahe.store';
 import { pipe } from 'fp-ts/lib/function';
 import { waitWithCache } from '@/utils/stream';
 import * as t from 'io-ts';
+
 export interface AssetsRestService {
     getAsset: (assetId: string) => Stream<Either<Error, Asset>>;
     getAllAssets: () => Stream<Either<Error, Array<AssetBalance>>>;
@@ -68,6 +69,4 @@ export const newAssetsRestService = injectable(
     }
 );
 
-export const AssetsRestService = injectable('ASSETS_SERVICE', () =>
-    newAssetsRestService({})
-);
+export const AssetsRestService = token('assetService')<AssetsRestService>();

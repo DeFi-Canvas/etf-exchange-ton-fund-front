@@ -11,7 +11,7 @@ export const Deposit: DepositI18n = {
                 <span className={css.bold}>{ticker}</span>
                 &nbsp;через&nbsp;
                 <span className={css.bold}>TON</span>&nbsp;по этому адресу.
-                Другие монеты, токены и NFTs будут безвозвратно утеряны.
+                Другие монеты, утеряны. <br />
                 <span className={css.bold}>
                     Memo обязателен для внесения депозита!
                 </span>

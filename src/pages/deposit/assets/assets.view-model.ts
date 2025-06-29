@@ -55,7 +55,21 @@ export const newAssetsViewModel = injectable(
                             )
                         );
                     case 'deposit': {
-                        return assetsRestService.getAllAssets();
+                        return pipe(
+                            assetsRestService.getAllAssets(),
+                            map((x) =>
+                                pipe(
+                                    x,
+                                    E.map(
+                                        A.filter(
+                                            (asset) =>
+                                                asset.ticker === 'TON' ||
+                                                asset.ticker === 'USDT'
+                                        )
+                                    )
+                                )
+                            )
+                        );
                     }
                 }
             })();

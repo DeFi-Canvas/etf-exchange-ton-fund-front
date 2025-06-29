@@ -11,7 +11,7 @@ export const Deposit: DepositI18n = {
                 <span className={css.bold}>{ticker}</span>
                 &nbsp;via&nbsp;
                 <span className={css.bold}>TON</span>&nbsp;to this address.
-                Other coins, jettons and NFTs will be permanently lost.
+                Other assets will be lost. <br />
                 <span className={css.bold}>
                     Memo is mandatory to make a deposit!
                 </span>
