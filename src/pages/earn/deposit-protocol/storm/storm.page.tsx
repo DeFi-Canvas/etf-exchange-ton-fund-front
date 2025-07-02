@@ -162,7 +162,7 @@ const AmountField = ({
             </div>
             <input
                 value={amount ?? ''}
-                type="numeric"
+                type="number"
                 className={css.input}
                 placeholder="Enter amount"
                 onChange={(e) => handleChange(Number(e.currentTarget.value))}
