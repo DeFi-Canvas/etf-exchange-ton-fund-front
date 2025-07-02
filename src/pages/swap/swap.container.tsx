@@ -14,9 +14,7 @@ export const SwapPageContainer = injectable(
     token('i18n')<I18NService>(),
     CacheStore,
     AssetsRestService,
-    useValueWithEffect,
-    SwapPage,
-    (userStore, i18n, cacheStore, assetService, useValueWithEffect, SwapPage) =>
+    (userStore, i18n, cacheStore, assetService) =>
         memo(() => {
             const store = useValueWithEffect(
                 () =>
@@ -31,9 +29,18 @@ export const SwapPageContainer = injectable(
 
             const [swapAssets] = useProperties(store.swapAssets);
 
-            return React.createElement(SwapPage, {
-                ...store,
-                swapAssets,
-            });
+            return React.createElement(
+                SwapPage({
+                    store,
+                    userStore,
+                    i18n,
+                    assetService,
+                    cacheStore,
+                }),
+                {
+                    ...store,
+                    swapAssets,
+                }
+            );
         })
 );

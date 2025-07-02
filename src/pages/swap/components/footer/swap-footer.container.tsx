@@ -7,8 +7,7 @@ import { useProperties } from '@frp-ts/react';
 
 export const SwapFooterContainer = injectable(
     newSwapFooter,
-    useValueWithEffect,
-    (newSwapFooter, useValueWithEffect) => () => {
+    (newSwapFooter) => () => {
         const vm = useValueWithEffect(() => newSwapFooter(), []);
 
         const [isDisabled, btnText] = useProperties(vm.isDisabled, vm.btnText);

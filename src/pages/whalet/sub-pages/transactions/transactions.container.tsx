@@ -7,8 +7,7 @@ import { Transactions } from './transactions.page';
 
 export const TransactionsContainer = injectable(
     newTransactionsViewModel,
-    useValueWithEffect,
-    (newTransactionsViewModel, useValueWithEffect) =>
+    (newTransactionsViewModel) =>
         memo(() => {
             const vm = useValueWithEffect(() => newTransactionsViewModel(), []);
             const transactions = useProperty(vm.transactions);

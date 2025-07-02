@@ -9,8 +9,7 @@ import { I18NService } from '@/store/i18n/i18.store';
 export const AddressContainer = injectable(
     token('userStore')<UserStoreService>(),
     token('i18n')<I18NService>(),
-    useValueWithEffect,
-    (userStore, i18n, useValueWithEffect) =>
+    (userStore, i18n) =>
         memo(() => {
             const withdrowStore = useValueWithEffect(
                 () => newNewWithdrowStore({ userStore }),

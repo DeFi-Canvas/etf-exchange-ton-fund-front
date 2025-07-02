@@ -9,8 +9,7 @@ import { useProperty } from '@frp-ts/react';
 export const SwapHeaderContainer = injectable(
     newSwapHeader,
     token('i18n')<I18NService>(),
-    useValueWithEffect,
-    (newSwapHeader, i18n, useValueWithEffect) => () => {
+    (newSwapHeader, i18n) => () => {
         const vm = useValueWithEffect(() => newSwapHeader(), []);
         const { header: texts } = useProperty(i18n.Swap);
         return React.createElement(SwapHeader, { ...vm, texts });

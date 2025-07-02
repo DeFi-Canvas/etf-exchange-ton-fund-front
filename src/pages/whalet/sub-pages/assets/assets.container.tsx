@@ -7,8 +7,7 @@ import { Assets } from './assets.page';
 
 export const AssetsContainer = injectable(
     newAssetsViewModel,
-    useValueWithEffect,
-    (newAssetsViewModel, useValueWithEffect) =>
+    (newAssetsViewModel) =>
         memo(() => {
             const vm = useValueWithEffect(() => newAssetsViewModel(), []);
             const assets = useProperty(vm.assets);

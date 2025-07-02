@@ -13,10 +13,8 @@ interface SwapCardListContainer
 export const SwapCardListContainer = injectable(
     newSwapCardList,
     SwapCardList,
-    useValueWithEffect,
-    (newSwapCardList, SwapCardList, useValueWithEffect) =>
-        (props: SwapCardListContainer) => {
-            const vm = useValueWithEffect(() => newSwapCardList(), []);
-            return React.createElement(SwapCardList, { ...props, ...vm });
-        }
+    (newSwapCardList, SwapCardList) => (props: SwapCardListContainer) => {
+        const vm = useValueWithEffect(() => newSwapCardList(), []);
+        return React.createElement(SwapCardList, { ...props, ...vm });
+    }
 );

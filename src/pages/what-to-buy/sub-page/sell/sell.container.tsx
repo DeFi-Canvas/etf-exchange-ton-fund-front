@@ -13,9 +13,7 @@ export const SellContainer = injectable(
     token('userStore')<UserStoreService>(),
     token('i18n')<I18NService>(),
     CacheStore,
-    useValueWithEffect,
-    SellPage,
-    (userStore, i18n, cacheStore, useValueWithEffect, SellPage) =>
+    (userStore, i18n, cacheStore) =>
         memo(() => {
             const { id } = useParams();
             const store = newPurchaseSellStore({
@@ -28,8 +26,9 @@ export const SellContainer = injectable(
                 purchaseStore.isShowBottomSheetFinishBoody
             );
             const isLoading = useProperty(purchaseStore.isLoading);
+            const SellPageResolve = SellPage({ purchaseStore, i18n });
 
-            return React.createElement(SellPage, {
+            return React.createElement(SellPageResolve, {
                 ...purchaseStore,
                 showBottomSheet,
                 isLoading,

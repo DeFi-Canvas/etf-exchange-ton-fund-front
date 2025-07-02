@@ -10,8 +10,8 @@ import { I18NService } from '@/store/i18n/i18.store';
 export const DepositEndPointContainer = injectable(
     newDepositEndPointViewModel,
     token('i18n')<I18NService>(),
-    useValueWithEffect,
-    (newDepositEndPointViewModel, i18n, useValueWithEffect) =>
+
+    (newDepositEndPointViewModel, i18n) =>
         memo(() => {
             const { ticker } = useParams();
 

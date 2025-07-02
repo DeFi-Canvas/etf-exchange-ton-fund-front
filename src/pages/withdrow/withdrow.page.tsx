@@ -57,31 +57,30 @@ const WithdrowPage = injectable(
 );
 
 export const Withdrow = injectable(
-    useValueWithEffect,
     token('userStore')<UserStoreService>(),
     token('i18n')<I18NService>(),
     CacheStore,
     AssetsRestService,
-    WithdrowPage,
-    (
-        useValueWithEffect,
-        userStore,
-        i18n,
-        cacheStore,
-        assetService,
-        WithdrowPage
-    ) =>
+    (userStore, i18n, cacheStore, assetService) =>
         memo(() => {
             const withdrowStore = useValueWithEffect(
                 () => newNewWithdrowStore({ userStore }),
                 [userStore]
             );
 
+            const depositRestService = newDepositRestService({ userStore });
             const waletRestService = newWalletRestService({
                 userStore,
                 cacheStore,
             });
 
-            return React.createElement(WithdrowPage);
+            return React.createElement(
+                WithdrowPage({
+                    withdrowStore,
+                    waletRestService,
+                    i18n,
+                    assetService,
+                })
+            );
         })
 );

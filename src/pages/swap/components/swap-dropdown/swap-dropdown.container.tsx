@@ -9,8 +9,7 @@ import { I18NService } from '@/store/i18n/i18.store';
 export const SwapDropdownContainer = injectable(
     newSwapDropdown,
     token('i18n')<I18NService>(),
-    useValueWithEffect,
-    (newSwapDropdown, i18n, useValueWithEffect) => () => {
+    (newSwapDropdown, i18n) => () => {
         const vm = useValueWithEffect(() => newSwapDropdown(), []);
         const [options] = useProperties(vm.options);
         const { details: texts } = useProperty(i18n.Swap);

@@ -135,8 +135,8 @@ export const OperationsNav = memo(
 export const OperationsNavContainer = injectable(
     newWhatToBuyViewModel,
     token('i18n')<I18NService>(),
-    useValueWithEffect,
-    (newWhatToBuyViewModel, i18n, useValueWithEffect) => () => {
+
+    (newWhatToBuyViewModel, i18n) => () => {
         const vm = useValueWithEffect(() => newWhatToBuyViewModel(), []);
         const isTransactionAvailible = useProperty(vm.isTransactionAvailible);
         const texts = useProperty(i18n.Wallet);

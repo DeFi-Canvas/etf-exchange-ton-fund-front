@@ -7,8 +7,7 @@ import { useProperties } from '@frp-ts/react';
 
 export const SwapResultContainer = injectable(
     newSwapResult,
-    useValueWithEffect,
-    (newSwapResult, useValueWithEffect) => () => {
+    (newSwapResult) => () => {
         const vm = useValueWithEffect(() => newSwapResult(), []);
         const [isOpen, status, subTitle, logos, resultOptions] = useProperties(
             vm.isOpen,

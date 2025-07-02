@@ -7,8 +7,7 @@ import { newFundsViewModel } from './funds.view-model';
 
 export const FundsContainer = injectable(
     newFundsViewModel,
-    useValueWithEffect,
-    (newFundsViewModel, useValueWithEffect) =>
+    (newFundsViewModel) =>
         memo(() => {
             const vm = useValueWithEffect(() => newFundsViewModel(), []);
             const funds = useProperty(vm.funds);
