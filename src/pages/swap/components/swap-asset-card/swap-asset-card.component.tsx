@@ -2,7 +2,7 @@ import css from './swap-asset-card.module.css';
 import { SwapAsset } from '@pages/swap/swap.model.ts';
 import cn from 'classnames';
 import { ChevronRightIcon, WalletIcon } from '@/components/Icons/Icons.tsx';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { formatNumberToUI } from '@/utils/number';
 
 export interface SwapAssetCardProps {
@@ -48,7 +48,20 @@ export const SwapAssetCard = ({
             setInputValue('');
         }
     }, [card.currentValue]);
-
+    const input = useMemo(
+        () => (
+            <input
+                type="number"
+                className={cn(css.field, {
+                    [css.fieldWrapperError]: card.hasError,
+                })}
+                placeholder="0"
+                onChange={onChangeFieldEvent}
+                value={inputValue}
+            />
+        ),
+        [inputValue, onChangeFieldEvent]
+    );
     return (
         <div className={cn(css.swapAssetCard, className)}>
             <header className={css.header}>
@@ -85,17 +98,7 @@ export const SwapAssetCard = ({
                         </div>
                     </div>
                 </div>
-                <div className={css.fieldWrapper}>
-                    <input
-                        type="number"
-                        className={cn(css.field, {
-                            [css.fieldWrapperError]: card.hasError,
-                        })}
-                        placeholder="0"
-                        onChange={onChangeFieldEvent}
-                        value={inputValue}
-                    />
-                </div>
+                <div className={css.fieldWrapper}>{input}</div>
             </div>
             <div className={css.approximateCurrency}>
                 {card.valueInStableCoin}
