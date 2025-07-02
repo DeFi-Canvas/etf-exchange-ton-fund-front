@@ -1,15 +1,19 @@
 import { injectable } from '@injectable-ts/core';
 
 import { constant, flow, pipe } from 'fp-ts/lib/function';
-import { tap } from '@most/core';
+import { chain, map, tap } from '@most/core';
 import { Property } from '@frp-ts/core';
 import * as O from 'fp-ts/Option';
+import * as E from 'fp-ts/Either';
 import { either } from 'fp-ts';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { newWalletRestService } from '@/API/wallet.service';
 import { newLensedAtom } from '@frp-ts/lens';
-import { WalletTransactions } from './wallet.model';
 import { TransactionsRestService } from '@/API/transactions/transactions.service';
+import { SendTransactionRequest } from '@tonconnect/ui-react';
+import { fromProperty } from '@/utils/property.utils';
+import { newDepositRestService } from '@/API/deposit.service';
+import { beginCell } from '@ton/core';
 
 export interface Balance {
     int: string;
@@ -19,19 +23,36 @@ export interface Balance {
 export interface WhatToBuyViewModel {
     balance: Property<O.Option<Balance>>;
     isTransactionAvailible: Property<boolean>;
+    isBottomSheetOpen: Property<boolean>;
+    chainTransaction: Property<SendTransactionRequest>;
+    setBottomSheetOpen: (o: boolean) => void;
+    setDepositAmmount: (a: number) => void;
 }
 
 export interface NewWhatToBuyViewModel {
     (): ValueWithEffect<WhatToBuyViewModel>;
 }
 
+const WAITING_TIME = 600;
+
 export const newWhatToBuyViewModel = injectable(
     newWalletRestService,
     TransactionsRestService,
-    (waletRestService, transactionsRestService): NewWhatToBuyViewModel =>
+    newDepositRestService,
+    (
+        waletRestService,
+        transactionsRestService,
+        newDepositRestService
+    ): NewWhatToBuyViewModel =>
         () => {
             const balance = newLensedAtom<O.Option<Balance>>(O.none);
             const isTransactionAvailible = newLensedAtom(true);
+            const isBottomSheetOpen = newLensedAtom(false);
+            const depositAmmount = newLensedAtom(0);
+            const chainTransaction = newLensedAtom<SendTransactionRequest>({
+                validUntil: Math.floor(Date.now() / 1000) + WAITING_TIME,
+                messages: [],
+            });
 
             const getBalanceEffect = pipe(
                 waletRestService.getBalance(),
@@ -65,13 +86,45 @@ export const newWhatToBuyViewModel = injectable(
                     isTransactionAvailible.set(!!transactions.length);
                 })
             );
+
+            const depositAmmountEffect = pipe(
+                depositAmmount,
+                fromProperty,
+                chain(() => newDepositRestService.getDepositDetails()),
+                map((details) =>
+                    pipe(
+                        details,
+                        E.getOrElseW(constant({ address: '', memo: '' }))
+                    )
+                ),
+                tap(({ address, memo }) => {
+                    const payload = beginCell()
+                        .storeUint(0, 32)
+                        .storeStringTail(memo)
+                        .endCell()
+                        .toBoc()
+                        .toString('base64');
+                    const msg = {
+                        address,
+                        amount: depositAmmount.get().toString(),
+                        payload,
+                    };
+                    chainTransaction.modify((t) => ({ ...t, messages: [msg] }));
+                    console.log(chainTransaction.get());
+                })
+            );
             return valueWithEffect.new(
                 {
                     balance,
                     isTransactionAvailible,
+                    isBottomSheetOpen,
+                    chainTransaction,
+                    setBottomSheetOpen: isBottomSheetOpen.set,
+                    setDepositAmmount: depositAmmount.set,
                 },
                 getBalanceEffect,
-                isTransactionAvailibleEffect
+                isTransactionAvailibleEffect,
+                depositAmmountEffect
             );
         }
 );

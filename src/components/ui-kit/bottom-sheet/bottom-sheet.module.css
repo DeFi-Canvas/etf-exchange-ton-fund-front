@@ -2,7 +2,8 @@
     position: fixed;
     inset: 0;
     background: rgba(15, 8, 46, 0.4);
-    z-index: var(--z-index-max);
+    z-index: var(--z-index-max) !important;
+
     will-change: transform;
     touch-action: manipulation;
     display: flex;

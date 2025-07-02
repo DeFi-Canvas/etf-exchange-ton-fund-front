@@ -13,6 +13,15 @@ export const BalanceContainer = injectable(
         const vm = useValueWithEffect(() => newWhatToBuyViewModel(), []);
         const balance = useProperty(vm.balance);
         const texts = useProperty(i18n.Wallet);
-        return React.createElement(Balans, { balance, texts });
+        const isBottomSheetOpen = useProperty(vm.isBottomSheetOpen);
+        const chainTransaction = useProperty(vm.chainTransaction);
+
+        return React.createElement(Balans, {
+            ...vm,
+            balance,
+            texts,
+            isBottomSheetOpen,
+            chainTransaction,
+        });
     }
 );
