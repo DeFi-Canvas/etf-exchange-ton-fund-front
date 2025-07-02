@@ -87,7 +87,7 @@ export const SwapAssetCard = ({
                 </div>
                 <div className={css.fieldWrapper}>
                     <input
-                        type="number"
+                        type="numeric"
                         className={cn(css.field, {
                             [css.fieldWrapperError]: card.hasError,
                         })}
