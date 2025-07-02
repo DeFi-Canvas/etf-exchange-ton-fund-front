@@ -49,7 +49,7 @@ export const newWalletRestService = injectable(
     CacheStore,
     (userStore, cacheStore): WaletRestService => {
         const { id: telegram_id } = userStore.user.get();
-
+        console.log(telegram_id);
         return {
             getBalance: getRequestGenerated(
                 walletsApi.walletBalanceGet(telegram_id ?? 0),

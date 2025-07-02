@@ -86,15 +86,18 @@ export const SwapAssetCard = ({
                     </div>
                 </div>
                 <div className={css.fieldWrapper}>
-                    <input
-                        type="numeric"
-                        className={cn(css.field, {
-                            [css.fieldWrapperError]: card.hasError,
-                        })}
-                        placeholder="0"
-                        onChange={onChangeFieldEvent}
-                        value={inputValue}
-                    />
+                    <form onSubmit={(e) => e.preventDefault()}>
+                        <input
+                            type="numeric"
+                            className={cn(css.field, {
+                                [css.fieldWrapperError]: card.hasError,
+                            })}
+                            placeholder="0"
+                            onChange={onChangeFieldEvent}
+                            value={inputValue}
+                        />
+                        <button type="submit" style={{ display: 'none' }} />
+                    </form>
                 </div>
             </div>
             <div className={css.approximateCurrency}>

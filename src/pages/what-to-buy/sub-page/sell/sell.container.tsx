@@ -6,16 +6,14 @@ import { newPurchaseSellStore } from '../purchase/purchase.store';
 import SellPage from './sell.page';
 import { useParams } from 'react-router-dom';
 import { UserStoreService } from '@/store/user.store';
-import { I18NService } from '@/store/i18n/i18.store';
 import { CacheStore } from '@/store/cache/cahe.store';
 
 export const SellContainer = injectable(
     token('userStore')<UserStoreService>(),
-    token('i18n')<I18NService>(),
     CacheStore,
     useValueWithEffect,
     SellPage,
-    (userStore, i18n, cacheStore, useValueWithEffect, SellPage) =>
+    (userStore, cacheStore, useValueWithEffect, SellPage) =>
         memo(() => {
             const { id } = useParams();
             const store = newPurchaseSellStore({

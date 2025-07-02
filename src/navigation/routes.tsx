@@ -36,10 +36,10 @@ interface Route {
 
 export const AppRoutes = () => {
     const initData = useInitData();
-
-    const userStore = newNewUserStoreService(initData?.user);
     const scheduler = newDefaultScheduler();
     const run = useValueWithEffect({ scheduler });
+
+    const userStore = newNewUserStoreService(initData?.user);
     const withdrowStore = run(
         () => newNewWithdrowStore({ userStore }),
         [userStore]
@@ -51,13 +51,12 @@ export const AppRoutes = () => {
     });
     const assetService = newAssetsRestService({ cacheStore });
     const swapStore = run(
-        () =>
-            newSwapStore({
-                userStore,
-                i18n,
-                cacheStore,
-                assetService,
-            })(),
+        newSwapStore({
+            userStore,
+            i18n,
+            cacheStore,
+            assetService,
+        }),
         []
     );
 
