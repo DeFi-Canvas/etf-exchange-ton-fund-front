@@ -10,7 +10,8 @@ export const FundsPageContainer = injectable(
     provide(Funds)<'purchaseStore'>(),
     token('userStore')<UserStoreService>(),
     CacheStore,
-    (Funds, userStore, cacheStore) =>
+    useValueWithEffect,
+    (Funds, userStore, cacheStore, useValueWithEffect) =>
         memo(() => {
             const store = newPurchaseSellStore({
                 userStore,

@@ -15,11 +15,16 @@ interface SwarCardListContainer
 export const SwapAssetCardContainer = injectable(
     newSwarCard,
     token('i18n')<I18NService>(),
+    useValueWithEffect,
+    (newSwarCard, i18n, useValueWithEffect) =>
+        (props: SwarCardListContainer) => {
+            const vm = useValueWithEffect(() => newSwarCard(), []);
+            const { cards: texts } = useProperty(i18n.Swap);
 
-    (newSwarCard, i18n) => (props: SwarCardListContainer) => {
-        const vm = useValueWithEffect(() => newSwarCard(), []);
-        const { cards: texts } = useProperty(i18n.Swap);
-
-        return React.createElement(SwapAssetCard, { ...props, ...vm, texts });
-    }
+            return React.createElement(SwapAssetCard, {
+                ...props,
+                ...vm,
+                texts,
+            });
+        }
 );

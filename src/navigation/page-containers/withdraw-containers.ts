@@ -18,30 +18,46 @@ export const getWithdrowContainers = ({
     i18n,
     cacheStore,
     assetService,
+    scheduler,
+    withdrowStore,
+    waletRestService,
 }: Pick<
     getContainersArgs,
-    'i18n' | 'userStore' | 'cacheStore' | 'assetService'
+    | 'i18n'
+    | 'userStore'
+    | 'cacheStore'
+    | 'assetService'
+    | 'scheduler'
+    | 'withdrowStore'
+    | 'waletRestService'
 >): WithdrowContainers => ({
     Withdrow: Withdrow({
         userStore,
         i18n,
         assetService,
         cacheStore,
+        scheduler,
+        withdrowStore,
+        waletRestService,
     }),
     Amount: AmountContainer({
         userStore,
         i18n,
+        scheduler,
     }),
     Address: AddressContainer({
         userStore,
         i18n,
+        scheduler,
     }),
     Check: CheckContainer({
         userStore,
         i18n,
+        scheduler,
     }),
     Final: FinalContainer({
         userStore,
         i18n,
+        scheduler,
     }),
 });

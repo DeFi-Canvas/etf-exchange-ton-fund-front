@@ -12,19 +12,32 @@ export const getDepositContainers = ({
     i18n,
     cacheStore,
     assetService,
+    scheduler,
+    withdrowStore,
+    waletRestService,
 }: Pick<
     getContainersArgs,
-    'i18n' | 'userStore' | 'cacheStore' | 'assetService'
+    | 'i18n'
+    | 'userStore'
+    | 'cacheStore'
+    | 'assetService'
+    | 'scheduler'
+    | 'withdrowStore'
+    | 'waletRestService'
 >): DepositContainers => ({
     DepositPage: Deposit({
         userStore,
         i18n,
         cacheStore,
         assetService,
+        scheduler,
+        withdrowStore,
+        waletRestService,
     }),
     DepositEndPoint: DepositEndPointContainer({
         userStore,
         i18n,
         assetService,
+        scheduler,
     }),
 });

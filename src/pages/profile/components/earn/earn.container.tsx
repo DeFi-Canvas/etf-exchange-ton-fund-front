@@ -9,8 +9,8 @@ import { I18NService } from '@/store/i18n/i18.store';
 export const EarnContainer = injectable(
     newEranViewModel,
     token('i18n')<I18NService>(),
-
-    (newEranViewModel, i18n) => () => {
+    useValueWithEffect,
+    (newEranViewModel, i18n, useValueWithEffect) => () => {
         const vm = useValueWithEffect(() => newEranViewModel(), []);
         const steps = useProperty(vm.steps);
         const i18nText = useProperty(i18n.Profile);

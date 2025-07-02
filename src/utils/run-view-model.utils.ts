@@ -1,3 +1,4 @@
+import { injectable, token } from '@injectable-ts/core';
 import { mergeArray, multicast } from '@most/core';
 import { newDefaultScheduler } from '@most/scheduler';
 import { Stream, Time, Disposable, Scheduler } from '@most/types';
@@ -35,17 +36,18 @@ export const voidSink = {
 
 export const defaultScheduler = newDefaultScheduler();
 
-export const useValueWithEffect = (
-    (scheduler: Scheduler): UseValueWithEffect =>
-    (factory, dependencies) => {
-        const fa = useMemo(factory, dependencies);
-        const disposableRef = useRef<Disposable>();
-        useMemo(() => {
-            disposableRef.current?.dispose();
-            disposableRef.current = fa.effects.run(voidSink, scheduler);
-        }, [fa]);
+export const useValueWithEffect = injectable(
+    token('scheduler')<Scheduler>(),
+    (scheduler): UseValueWithEffect =>
+        (factory, dependencies) => {
+            const fa = useMemo(factory, dependencies);
+            const disposableRef = useRef<Disposable>();
+            useMemo(() => {
+                disposableRef.current?.dispose();
+                disposableRef.current = fa.effects.run(voidSink, scheduler);
+            }, [fa]);
 
-        useLayoutEffect(() => () => disposableRef.current?.dispose(), []);
-        return fa.value;
-    }
-)(defaultScheduler);
+            useLayoutEffect(() => () => disposableRef.current?.dispose(), []);
+            return fa.value;
+        }
+);

@@ -1,6 +1,6 @@
 import { Suspense, type ComponentType, type JSX } from 'react';
 
-import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { newNewUserStoreService } from '@/store/user.store';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useInitData } from '@telegram-apps/sdk-react';
@@ -13,10 +13,14 @@ import { TransactionView } from '@pages/transaction-view/transaction-view.page.t
 import { Loader } from '@/components/loader/loader.component';
 import { newNewI18NService } from '@/store/i18n/i18.store';
 import { StormContainer } from '@/pages/earn/deposit-protocol/storm/storm.container';
-import { newStormStore } from '@/pages/earn/deposit-protocol/storm/storm.store';
 import { newNewCahe } from '@/store/cache/cahe.store';
 import { newAssetsRestService } from '@/API/assets/assets.service';
 import { newTransactionsRestService } from '@/API/transactions/transactions.service';
+import { newDefaultScheduler } from '@most/scheduler';
+import { newNewWithdrowStore } from '@/pages/withdrow/withdrow.store';
+import { newSwapStore } from '@/pages/swap/swap.store';
+import { newWalletRestService } from '@/API/wallet.service';
+import { newPurchaseSellStore } from '@/pages/what-to-buy/sub-page/purchase/purchase.store';
 
 interface Route {
     path: string;
@@ -34,18 +38,39 @@ export const AppRoutes = () => {
     const initData = useInitData();
 
     const userStore = newNewUserStoreService(initData?.user);
-    const i18n = useValueWithEffect(() => newNewI18NService(), []);
+    const scheduler = newDefaultScheduler();
+    const run = useValueWithEffect({ scheduler });
+    const withdrowStore = run(
+        () => newNewWithdrowStore({ userStore }),
+        [userStore]
+    );
+    const i18n = run(() => newNewI18NService(), []);
     const cacheStore = newNewCahe();
     const transactionsService = newTransactionsRestService({
         cacheStore,
     });
     const assetService = newAssetsRestService({ cacheStore });
-    const stormStore = useValueWithEffect(
+    const swapStore = run(
         () =>
-            newStormStore({
-                assetService,
+            newSwapStore({
+                userStore,
+                i18n,
                 cacheStore,
+                assetService,
             })(),
+        []
+    );
+
+    const waletRestService = newWalletRestService({
+        userStore,
+        cacheStore,
+    });
+
+    const purchaseStore = run(
+        newPurchaseSellStore({
+            userStore,
+            cacheStore,
+        }),
         []
     );
 
@@ -56,6 +81,11 @@ export const AppRoutes = () => {
         assetService,
         cacheStore,
         transactionsService,
+        scheduler,
+        withdrowStore,
+        swapStore,
+        waletRestService,
+        purchaseStore,
     });
 
     //#region routes
@@ -86,6 +116,7 @@ export const AppRoutes = () => {
             page: StormContainer({
                 assetService,
                 cacheStore,
+                scheduler,
             }),
         },
     ];

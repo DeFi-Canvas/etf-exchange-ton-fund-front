@@ -12,7 +12,8 @@ interface PurchaseSellFooterContainerProps
 
 export const PurchaseSellFooterContainer = injectable(
     newPurchaseSellFooterViewModel,
-    (newPurchaseSellFooterViewModel) =>
+    useValueWithEffect,
+    (newPurchaseSellFooterViewModel, useValueWithEffect) =>
         (props: PurchaseSellFooterContainerProps) => {
             const viewModel = useValueWithEffect(
                 () => newPurchaseSellFooterViewModel(),

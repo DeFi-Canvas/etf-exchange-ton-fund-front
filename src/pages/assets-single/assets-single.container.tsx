@@ -10,8 +10,8 @@ import { I18NService } from '@/store/i18n/i18.store';
 export const AssetsSingleContainer = injectable(
     newAssetsSingleViewModel,
     token('i18n')<I18NService>(),
-
-    (newAssetsSingleViewModel, i18n) =>
+    useValueWithEffect,
+    (newAssetsSingleViewModel, i18n, useValueWithEffect) =>
         memo(() => {
             const { assetId } = useParams();
 

@@ -13,7 +13,9 @@ export const PurchaseContainer = injectable(
     token('userStore')<UserStoreService>(),
     token('i18n')<I18NService>(),
     CacheStore,
-    (userStore, i18n, cacheStore) =>
+    useValueWithEffect,
+    PurchasePage,
+    (userStore, i18n, cacheStore, useValueWithEffect, PurchasePage) =>
         memo(() => {
             const { id } = useParams();
 
@@ -32,12 +34,13 @@ export const PurchaseContainer = injectable(
             );
             const isLoading = useProperty(purchaseStore.isLoading);
 
-            const PurchasePageResolve = PurchasePage({
-                purchaseStore,
-                i18n,
-            });
+            // const PurchasePageResolve = PurchasePage({
+            //     purchaseStore,
+            //     i18n,
+            //     scheduler: undefined,
+            // });
 
-            return React.createElement(PurchasePageResolve, {
+            return React.createElement(PurchasePage, {
                 ...purchaseStore,
                 showBottomSheet,
                 setShowBottomSheet: purchaseStore.setIsBottomPanel,

@@ -10,8 +10,8 @@ import { I18NService } from '@/store/i18n/i18.store';
 export const CheckContainer = injectable(
     token('userStore')<UserStoreService>(),
     provide(Check)<'withdrowStore'>(),
-    token('i18n')<I18NService>(),
-    (userStore, Check) =>
+    useValueWithEffect,
+    (userStore, Check, useValueWithEffect) =>
         memo(() => {
             const store = useValueWithEffect(
                 () => newNewWithdrowStore({ userStore }),

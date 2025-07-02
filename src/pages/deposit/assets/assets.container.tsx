@@ -12,7 +12,9 @@ interface AssetsContainerProps {
 
 export const AssetsContainer = injectable(
     newAssetsViewModel,
-    (newAssetsViewModel) =>
+    useValueWithEffect,
+
+    (newAssetsViewModel, useValueWithEffect) =>
         ({ type, onClick }: AssetsContainerProps) => {
             const vm = useValueWithEffect(
                 () => newAssetsViewModel(type),

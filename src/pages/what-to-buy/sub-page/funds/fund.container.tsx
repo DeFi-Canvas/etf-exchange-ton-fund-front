@@ -10,8 +10,8 @@ import { I18NService } from '@/store/i18n/i18.store';
 export const FundPageContainer = injectable(
     provide(FundPage)<'purchaseStore'>(),
     newPurchaseSellStore,
-    token('i18n')<I18NService>(),
-    (FundPage, newPurchaseViewModel) =>
+    useValueWithEffect,
+    (FundPage, newPurchaseViewModel, useValueWithEffect) =>
         memo(() => {
             const { id } = useParams();
 

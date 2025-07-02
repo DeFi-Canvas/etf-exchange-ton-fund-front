@@ -57,7 +57,16 @@ export const Deposit = injectable(
     token('i18n')<I18NService>(),
     CacheStore,
     AssetsRestService,
-    (userStore, i18n, cacheStore, assetService) =>
+    useValueWithEffect,
+    DepositPageContainer,
+    (
+        userStore,
+        i18n,
+        cacheStore,
+        assetService,
+        useValueWithEffect,
+        DepositPageContainer
+    ) =>
         memo(() => {
             const withdrowStore = useValueWithEffect(
                 () => newNewWithdrowStore({ userStore }),
@@ -68,13 +77,6 @@ export const Deposit = injectable(
                 cacheStore,
             });
 
-            return React.createElement(
-                DepositPageContainer({
-                    withdrowStore,
-                    waletRestService,
-                    i18n,
-                    assetService,
-                })
-            );
+            return React.createElement(DepositPageContainer);
         })
 );

@@ -23,6 +23,11 @@ import { I18NService } from '@/store/i18n/i18.store';
 import { CacheStore } from '@/store/cache/cahe.store';
 import { AssetsRestService } from '@/API/assets/assets.service';
 import { TransactionsRestService } from '@/API/transactions/transactions.service';
+import { Scheduler } from '@most/types';
+import { WithdrowStore } from '@/pages/withdrow/withdrow.store';
+import { SwapStore } from '@/pages/swap/swap.store';
+import { WaletRestService } from '@/API/wallet.service';
+import { PurchaseSellStore } from '@/pages/what-to-buy/sub-page/purchase/purchase.store';
 
 export interface getContainersArgs {
     userStore: UserStoreService;
@@ -30,6 +35,11 @@ export interface getContainersArgs {
     cacheStore: CacheStore;
     assetService: AssetsRestService;
     transactionsService: TransactionsRestService;
+    scheduler: Scheduler;
+    withdrowStore: WithdrowStore;
+    swapStore: SwapStore;
+    waletRestService: WaletRestService;
+    purchaseStore: PurchaseSellStore;
 }
 
 type ReactComponent = () => JSX.Element;
@@ -51,39 +61,67 @@ export const getContainers = ({
     cacheStore,
     assetService,
     transactionsService,
-}: getContainersArgs): Containers => ({
-    deposit: getDepositContainers({
-        userStore,
-        i18n,
-        cacheStore,
-        assetService,
-    }),
-    whalet: getWhaletContainers({
-        userStore,
-        i18n,
-        cacheStore,
-        assetService,
-        transactionsService,
-    }),
-    withdrow: getWithdrowContainers({
-        userStore,
-        i18n,
-        cacheStore,
-        assetService,
-    }),
-    whatToBuy: getWhatToBuyContainers({ userStore, i18n, cacheStore }),
-    Profile: ProfileContainer({
-        userStore,
-        i18n,
-    }),
-    AssetPage: AssetsSingleContainer({
-        i18n,
-        assetService,
-    }),
-    SwapePage: SwapPageContainer({
-        userStore,
-        i18n,
-        cacheStore,
-        assetService,
-    }),
-});
+    scheduler,
+    withdrowStore,
+    swapStore,
+    waletRestService,
+    purchaseStore,
+}: getContainersArgs): Containers => {
+    return {
+        deposit: getDepositContainers({
+            userStore,
+            i18n,
+            cacheStore,
+            assetService,
+            scheduler,
+            withdrowStore,
+            waletRestService,
+        }),
+        whalet: getWhaletContainers({
+            userStore,
+            i18n,
+            cacheStore,
+            assetService,
+            transactionsService,
+            scheduler,
+            withdrowStore,
+            swapStore,
+            waletRestService,
+            purchaseStore,
+        }),
+        withdrow: getWithdrowContainers({
+            userStore,
+            i18n,
+            cacheStore,
+            assetService,
+            scheduler,
+            waletRestService,
+            withdrowStore,
+        }),
+        whatToBuy: getWhatToBuyContainers({
+            userStore,
+            i18n,
+            cacheStore,
+            scheduler,
+            purchaseStore,
+        }),
+        Profile: ProfileContainer({
+            userStore,
+            i18n,
+            scheduler,
+        }),
+        AssetPage: AssetsSingleContainer({
+            i18n,
+            assetService,
+            scheduler,
+        }),
+        SwapePage: SwapPageContainer({
+            userStore,
+            i18n,
+            cacheStore,
+            assetService,
+            scheduler,
+            store: swapStore,
+        }),
+    };
+};

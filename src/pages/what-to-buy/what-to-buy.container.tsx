@@ -10,7 +10,8 @@ export const WhatToBuyPageContainer = injectable(
     provide(WhatToBuyPage)<'purchaseStore'>(),
     token('userStore')<UserStoreService>(),
     CacheStore,
-    (WhatToBuyPage, userStore, cacheStore) =>
+    useValueWithEffect,
+    (WhatToBuyPage, userStore, cacheStore, useValueWithEffect) =>
         memo(() => {
             const store = newPurchaseSellStore({
                 userStore,

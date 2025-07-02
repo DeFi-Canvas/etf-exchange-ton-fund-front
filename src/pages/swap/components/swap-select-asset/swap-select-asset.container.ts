@@ -23,21 +23,23 @@ interface SwarCardListContainer
 export const SwapSelectAssetContainer = injectable(
     newSwapSelectAsset,
     token('i18n')<I18NService>(),
-    (newSwapSelectAsset, i18n) => (props: SwarCardListContainer) => {
-        const vm = useValueWithEffect(() => newSwapSelectAsset(), []);
-        const [avlailibleAssets, isOpen] = useProperties(
-            vm.avlailibleAssets,
-            vm.isOpen
-        );
+    useValueWithEffect,
+    (newSwapSelectAsset, i18n, useValueWithEffect) =>
+        (props: SwarCardListContainer) => {
+            const vm = useValueWithEffect(() => newSwapSelectAsset(), []);
+            const [avlailibleAssets, isOpen] = useProperties(
+                vm.avlailibleAssets,
+                vm.isOpen
+            );
 
-        const { select: title } = useProperty(i18n.Swap);
+            const { select: title } = useProperty(i18n.Swap);
 
-        return React.createElement(SwapSelectAsset, {
-            ...props,
-            ...vm,
-            avlailibleAssets,
-            isOpen,
-            title,
-        });
-    }
+            return React.createElement(SwapSelectAsset, {
+                ...props,
+                ...vm,
+                avlailibleAssets,
+                isOpen,
+                title,
+            });
+        }
 );

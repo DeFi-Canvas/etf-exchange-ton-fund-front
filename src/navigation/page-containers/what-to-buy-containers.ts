@@ -17,33 +17,42 @@ export const getWhatToBuyContainers = ({
     userStore,
     i18n,
     cacheStore,
+    scheduler,
+    purchaseStore,
 }: Pick<
     getContainersArgs,
-    'i18n' | 'userStore' | 'cacheStore'
+    'i18n' | 'userStore' | 'cacheStore' | 'scheduler' | 'purchaseStore'
 >): WhatToBuyContainers => ({
     WhatToBuyPage: WhatToBuyPageContainer({
         userStore,
         i18n,
         cacheStore,
+        scheduler,
     }),
     PurchaseContainer: PurchaseContainer({
         userStore,
         i18n,
         cacheStore,
+        scheduler,
+        purchaseStore,
     }),
     SellContainer: SellContainer({
         userStore,
         i18n,
         cacheStore,
+        scheduler,
+        purchaseStore,
     }),
     FundPage: FundPageContainer({
         userStore,
         i18n,
         cacheStore,
+        scheduler,
     }),
     FundsPage: FundsPageContainer({
         userStore,
         i18n,
         cacheStore,
+        scheduler,
     }),
 });

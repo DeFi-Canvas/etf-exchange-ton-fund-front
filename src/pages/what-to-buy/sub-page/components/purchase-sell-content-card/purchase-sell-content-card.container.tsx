@@ -15,7 +15,13 @@ export const PurchaseSellContentCardContainer = injectable(
     token('purchaseStore')<PurchaseSellStore>(),
     PurchaseSellContentCard,
     newPurchaseSellContentCardViewModel,
-    (store, PurchaseSellContentCard, newPurchaseSellContentCardViewModel) =>
+    useValueWithEffect,
+    (
+        store,
+        PurchaseSellContentCard,
+        newPurchaseSellContentCardViewModel,
+        useValueWithEffect
+    ) =>
         ({ type }: PurchaseSellContentCardContainerProps) => {
             const vm = useValueWithEffect(
                 () => newPurchaseSellContentCardViewModel(type),

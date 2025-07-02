@@ -12,11 +12,7 @@ import {
     WaletResponce,
 } from '@/pages/whalet/wallet.model';
 import { DOMAIN_API_URL } from './API';
-import {
-    StrategiesApi,
-    WalletApi,
-    WalletsApi,
-} from './scheme/rest-genereted/api';
+import { WalletApi, WalletsApi } from './scheme/rest-genereted/api';
 import * as E from 'fp-ts/Either';
 
 import {
