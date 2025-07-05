@@ -24,7 +24,7 @@ export interface NewSwapHeader {
 }
 
 export const newSwapHeader = injectable(
-    token('store')<SwapStore>(),
+    token('newSwapStore')<SwapStore>(),
     newWalletRestService,
     AssetsRestService,
     (store, walletService, assetsRestService): NewSwapHeader =>

@@ -18,7 +18,7 @@ export interface NewSwarCard {
 }
 
 export const newSwarCard = injectable(
-    token('store')<SwapStore>(),
+    token('newSwapStore')<SwapStore>(),
     (store): NewSwarCard =>
         () => {
             const onArrowClick = (id: string) => {

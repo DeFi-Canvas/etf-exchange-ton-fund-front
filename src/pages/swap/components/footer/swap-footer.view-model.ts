@@ -26,7 +26,7 @@ export interface NewSwapFooter {
 }
 
 export const newSwapFooter = injectable(
-    token('store')<SwapStore>(),
+    token('newSwapStore')<SwapStore>(),
     newSwapRestService,
     token('i18n')<I18NService>(),
     (store, swapRestService, i18n): NewSwapFooter =>

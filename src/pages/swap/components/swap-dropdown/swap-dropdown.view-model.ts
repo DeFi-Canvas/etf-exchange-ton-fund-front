@@ -14,7 +14,7 @@ export interface NewSwapDropdown {
 }
 
 export const newSwapDropdown = injectable(
-    token('store')<SwapStore>(),
+    token('newSwapStore')<SwapStore>(),
     (store): NewSwapDropdown =>
         () => {
             return valueWithEffect.new({

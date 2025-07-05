@@ -23,6 +23,8 @@ import { I18NService } from '@/store/i18n/i18.store';
 import { CacheStore } from '@/store/cache/cahe.store';
 import { AssetsRestService } from '@/API/assets/assets.service';
 import { TransactionsRestService } from '@/API/transactions/transactions.service';
+import { newSwapStore } from '@/pages/swap/swap.store';
+import { useValueWithEffect } from '@/utils/run-view-model.utils';
 
 export interface getContainersArgs {
     userStore: UserStoreService;
@@ -83,7 +85,16 @@ export const getContainers = ({
     SwapePage: SwapPageContainer({
         userStore,
         i18n,
-        cacheStore,
         assetService,
+        cacheStore,
+        newSwapStore: useValueWithEffect(
+            () =>
+                newSwapStore({
+                    i18n,
+                    assetService,
+                    cacheStore,
+                })(),
+            []
+        ),
     }),
 });
