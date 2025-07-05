@@ -6,8 +6,17 @@ import {
     initMiniApp,
     useBackButton,
     useInitData,
+    initViewport,
+    Viewport,
 } from '@telegram-apps/sdk-react';
-import { type FC, Suspense, useCallback, useEffect, useMemo } from 'react';
+import {
+    type FC,
+    Suspense,
+    useCallback,
+    useEffect,
+    useMemo,
+    useState,
+} from 'react';
 import { Router } from 'react-router-dom';
 import { AppRoutes } from '@/navigation/routes.tsx';
 import TabBar from '@/components/TabBar/TabBar.tsx';
@@ -34,6 +43,7 @@ const PAGE_URLS = [
 export const App: FC = () => {
     const [miniApp] = initMiniApp();
     const backButton = useBackButton();
+    const [viewport, setViewport] = useState<Viewport | undefined>(undefined);
 
     // Красим фон шапки приложения. TODO По хорошему бы сформировать константы js на основе css переменных
     miniApp.setHeaderColor('#F9F8FF');
@@ -41,7 +51,14 @@ export const App: FC = () => {
     // const viewport = useViewport();
     // useEffect(() => {
     //     return viewport && bindViewportCSSVars(viewport) && viewport.expand();
-    // }, [viewport]);
+    // }, [viewport, bindViewportCSSVars]);
+    useEffect(() => {
+        initViewport()[0].then((x) => setViewport(x));
+    }, []);
+
+    useEffect(() => {
+        return viewport && bindViewportCSSVars(viewport) && viewport.expand();
+    }, [viewport, bindViewportCSSVars]);
 
     // Create a new application navigator and attach it to the browser history, so it could modify
     // it and listen to its changes.
