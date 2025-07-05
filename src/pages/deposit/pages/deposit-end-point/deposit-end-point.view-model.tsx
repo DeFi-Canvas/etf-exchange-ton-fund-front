@@ -8,7 +8,7 @@ import { flow, pipe } from 'fp-ts/lib/function';
 import { tap } from '@most/core';
 import { newDepositRestService } from '@/API/deposit.service';
 import { EMPTY, Error, LOADING } from '@/store/errors/error-system';
-import { AssetsRestService } from '@/API/assets/assets.service';
+import { assetsRestService } from '@/API/assets/assets.service';
 
 export interface DepositDetails {
     readonly address: string;
@@ -27,7 +27,7 @@ export interface NewDepositEndPointViewModel {
 
 export const newDepositEndPointViewModel = injectable(
     newDepositRestService,
-    AssetsRestService,
+    assetsRestService,
     (service, assetsRestService): NewDepositEndPointViewModel =>
         (ticker) => {
             const details = newLensedAtom<E.Either<Error, DepositDetails>>(

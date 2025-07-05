@@ -5,8 +5,9 @@ import {
     useViewport,
     initMiniApp,
     useBackButton,
+    useInitData,
 } from '@telegram-apps/sdk-react';
-import { type FC, Suspense, useEffect, useMemo } from 'react';
+import { type FC, Suspense, useCallback, useEffect, useMemo } from 'react';
 import { Router } from 'react-router-dom';
 import { AppRoutes } from '@/navigation/routes.tsx';
 import TabBar from '@/components/TabBar/TabBar.tsx';
@@ -14,6 +15,13 @@ import {
     TwaAnalyticsProvider,
     TrackGroups,
 } from '@tonsolutions/telemetree-react';
+import { getContainers } from '@/navigation/containers';
+import { newTransactionsRestService } from '@/API/transactions/transactions.service';
+import { newNewCahe } from '@/store/cache/cahe.store';
+import { newNewI18NService } from '@/store/i18n/i18.store';
+import { newNewUserStoreService } from '@/store/user.store';
+import { useValueWithEffect } from '@/utils/run-view-model.utils';
+import { newAssetsRestService } from '@/API/assets/assets.service';
 
 const PAGE_URLS = [
     '/',
@@ -30,10 +38,10 @@ export const App: FC = () => {
     // Красим фон шапки приложения. TODO По хорошему бы сформировать константы js на основе css переменных
     miniApp.setHeaderColor('#F9F8FF');
 
-    const viewport = useViewport();
-    useEffect(() => {
-        return viewport && bindViewportCSSVars(viewport) && viewport.expand();
-    }, [viewport]);
+    // const viewport = useViewport();
+    // useEffect(() => {
+    //     return viewport && bindViewportCSSVars(viewport) && viewport.expand();
+    // }, [viewport]);
 
     // Create a new application navigator and attach it to the browser history, so it could modify
     // it and listen to its changes.
@@ -56,15 +64,59 @@ export const App: FC = () => {
             backButton.show();
         }
     });
+    const initData = useInitData();
+
+    const userStore = newNewUserStoreService(initData?.user);
+    const i18n = useValueWithEffect(
+        () => newNewI18NService(),
+        [newNewI18NService]
+    );
+    const cacheStore = newNewCahe();
+    const transactionsService = useMemo(
+        () =>
+            newTransactionsRestService({
+                cacheStore,
+            }),
+        [newTransactionsRestService, cacheStore]
+    );
+    const assetService = useMemo(
+        () => newAssetsRestService({ cacheStore }),
+        [newAssetsRestService, cacheStore]
+    );
+
+    const containers = useMemo(
+        () =>
+            getContainers({
+                userStore,
+                i18n,
+                assetService,
+                cacheStore,
+                transactionsService,
+            }),
+        [userStore, i18n, assetService, cacheStore, transactionsService]
+    );
+    const services = useMemo(
+        () => ({
+            userStore,
+            i18n,
+            assetService,
+            cacheStore,
+            transactionsService,
+        }),
+        [userStore, i18n, assetService, cacheStore, transactionsService]
+    );
+    console.log('qwe');
+
     return (
         <TwaAnalyticsProvider
             projectId="97b7f373-97d9-44b1-b1fc-2f36aa620e81"
             apiKey="393a9e38-9be5-4dfe-ad36-77286e6388c9"
             trackGroup={TrackGroups.MEDIUM}
         >
+            {/* <main>123</main> */}
             <Router location={location} navigator={reactNavigator}>
                 <main>
-                    <AppRoutes />
+                    <AppRoutes containers={containers} services={services} />
                 </main>
                 {isVisibleTabBar ? <TabBar /> : null}
             </Router>

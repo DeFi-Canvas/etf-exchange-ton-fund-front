@@ -69,4 +69,4 @@ export const newAssetsRestService = injectable(
     }
 );
 
-export const AssetsRestService = token('assetService')<AssetsRestService>();
+export const assetsRestService = token('assetService')<AssetsRestService>();

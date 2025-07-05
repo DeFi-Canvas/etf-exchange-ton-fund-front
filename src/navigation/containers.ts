@@ -23,6 +23,7 @@ import { I18NService } from '@/store/i18n/i18.store';
 import { CacheStore } from '@/store/cache/cahe.store';
 import { AssetsRestService } from '@/API/assets/assets.service';
 import { TransactionsRestService } from '@/API/transactions/transactions.service';
+import { defaultScheduler } from '@/utils/run-view-model.utils';
 
 export interface getContainersArgs {
     userStore: UserStoreService;
@@ -85,5 +86,6 @@ export const getContainers = ({
         i18n,
         cacheStore,
         assetService,
+        scheduler: defaultScheduler,
     }),
 });

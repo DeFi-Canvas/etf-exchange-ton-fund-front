@@ -2,7 +2,7 @@ import cn from 'classnames';
 import css from './swap.module.css';
 // import { Tabs } from '@/components/ui-kit/tabs/tabs.component.tsx';
 // import { TabItemInterface } from '@/components/ui-kit/tabs/tabs.model.ts';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { SwapAsset } from '@pages/swap/swap.model.ts';
 import * as E from 'fp-ts/Either';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
@@ -46,9 +46,10 @@ export const SwapPage = injectable(
         SwapResultContainer,
         SwapFooterContainer
     ) =>
-        ({ swapAssets }: SwapPageProps) => {
+        memo(({ swapAssets }: SwapPageProps) => {
             // const [currentTab, setCurrentTab] = useState('singleSwap');
             const [isSingle, setIsSingle] = useState(true);
+            console.log(swapAssets);
 
             // const onChangeTab = (selectedTab: TabItemInterface) => {
             //     setCurrentTab(selectedTab.name);
@@ -94,5 +95,5 @@ export const SwapPage = injectable(
                     <SwapSelectAssetContainer />
                 </div>
             );
-        }
+        })
 );

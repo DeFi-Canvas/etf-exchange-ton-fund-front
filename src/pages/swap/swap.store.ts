@@ -41,7 +41,7 @@ import { AssetBalance } from '@/instance/asset/asset.model';
 import { I18NService } from '@/store/i18n/i18.store';
 import { formatNumberExponent } from '@/utils/number';
 import { ERROR, Error, PENDING } from '@/store/errors/error-system';
-import { AssetsRestService } from '@/API/assets/assets.service';
+import { assetsRestService } from '@/API/assets/assets.service';
 
 export interface SwapStore {
     //#region state
@@ -85,7 +85,7 @@ export type NewSwapStore = ValueWithEffect<SwapStore>;
 export const newSwapStore = injectable(
     newWalletRestService,
     token('i18n')<I18NService>(),
-    AssetsRestService,
+    assetsRestService,
     (walletService, i18n, assetsRestService) => (): NewSwapStore => {
         const { details: i18nDetails, result: i18nResult } = i18n.Swap.get();
         //#region Atoms
