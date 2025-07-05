@@ -54,7 +54,7 @@ export const App: FC = () => {
     // }, [viewport, bindViewportCSSVars]);
     useEffect(() => {
         initViewport()[0].then((x) => setViewport(x));
-    }, []);
+    }, [window.innerHeight]);
 
     useEffect(() => {
         return viewport && bindViewportCSSVars(viewport) && viewport.expand();
