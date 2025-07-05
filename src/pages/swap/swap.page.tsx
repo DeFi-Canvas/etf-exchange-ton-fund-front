@@ -2,7 +2,7 @@ import cn from 'classnames';
 import css from './swap.module.css';
 // import { Tabs } from '@/components/ui-kit/tabs/tabs.component.tsx';
 // import { TabItemInterface } from '@/components/ui-kit/tabs/tabs.model.ts';
-import { memo, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SwapAsset } from '@pages/swap/swap.model.ts';
 import * as E from 'fp-ts/Either';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
@@ -46,64 +46,53 @@ export const SwapPage = injectable(
         SwapResultContainer,
         SwapFooterContainer
     ) =>
-        // ({ swapAssets }: SwapPageProps) => {
-        memo(
-            ({ swapAssets }: SwapPageProps) => {
-                // const [currentTab, setCurrentTab] = useState('singleSwap');
-                const [isSingle, setIsSingle] = useState(true);
-                useEffect(() => {
-                    console.log(123);
-                });
-                // const onChangeTab = (selectedTab: TabItemInterface) => {
-                //     setCurrentTab(selectedTab.name);
-                // };
+        ({ swapAssets }: SwapPageProps) => {
+            // const [currentTab, setCurrentTab] = useState('singleSwap');
+            const [isSingle, setIsSingle] = useState(true);
 
-                // const SwapTabsMemo = useMemo(
-                //     () => (
-                //         <Tabs
-                //             tabs={tabs}
-                //             className={css.tabs}
-                //             onChangeTab={onChangeTab}
-                //         />
-                //     ),
-                //     []
-                // );
+            // const onChangeTab = (selectedTab: TabItemInterface) => {
+            //     setCurrentTab(selectedTab.name);
+            // };
 
-                // useEffect(() => {
-                //     setIsSingle(currentTab === 'singleSwap');
-                // }, [currentTab]);
+            // const SwapTabsMemo = useMemo(
+            //     () => (
+            //         <Tabs
+            //             tabs={tabs}
+            //             className={css.tabs}
+            //             onChangeTab={onChangeTab}
+            //         />
+            //     ),
+            //     []
+            // );
 
-                return (
-                    <div className={cn('app-container', css.page)}>
-                        <SwapHeaderContainer />
-                        {/* TODO: соленье на будующее */}
-                        {/* {SwapTabsMemo} */}
-                        <RenderResult
-                            data={swapAssets}
-                            loading={() => (
-                                // TODO: сделать подходящий скелетон
-                                <SkeletonCardSection
-                                    count={2}
-                                    type={'medium'}
-                                />
-                            )}
-                            success={(swapAssets) => (
-                                <SwapCardListContainer
-                                    cards={swapAssets}
-                                    isSingle={isSingle}
-                                    className={css.swapCard}
-                                />
-                            )}
-                        />
-                        <SwapFooterContainer />
-                        <SwapDropdownContainer />
-                        <SwapResultContainer />
-                        <SwapSelectAssetContainer />
-                    </div>
-                );
-            },
-            () => {
-                return false;
-            }
-        )
+            // useEffect(() => {
+            //     setIsSingle(currentTab === 'singleSwap');
+            // }, [currentTab]);
+
+            return (
+                <div className={cn('app-container', css.page)}>
+                    <SwapHeaderContainer />
+                    {/* TODO: соленье на будующее */}
+                    {/* {SwapTabsMemo} */}
+                    <RenderResult
+                        data={swapAssets}
+                        loading={() => (
+                            // TODO: сделать подходящий скелетон
+                            <SkeletonCardSection count={2} type={'medium'} />
+                        )}
+                        success={(swapAssets) => (
+                            <SwapCardListContainer
+                                cards={swapAssets}
+                                isSingle={isSingle}
+                                className={css.swapCard}
+                            />
+                        )}
+                    />
+                    <SwapFooterContainer />
+                    <SwapDropdownContainer />
+                    <SwapResultContainer />
+                    <SwapSelectAssetContainer />
+                </div>
+            );
+        }
 );

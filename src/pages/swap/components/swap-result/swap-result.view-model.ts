@@ -25,7 +25,7 @@ export interface NewSwapResult {
 }
 
 export const newSwapResult = injectable(
-    token('newSwapStore')<SwapStore>(),
+    token('store')<SwapStore>(),
     // token('swapService')<SwapRestService>(),
     (
         store

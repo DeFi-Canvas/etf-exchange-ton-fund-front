@@ -25,7 +25,7 @@ export interface NewSwapSelectAsset {
 }
 
 export const newSwapSelectAsset = injectable(
-    token('newSwapStore')<SwapStore>(),
+    token('store')<SwapStore>(),
     (store): NewSwapSelectAsset =>
         () => {
             const avlailibleAssets = newLensedAtom<

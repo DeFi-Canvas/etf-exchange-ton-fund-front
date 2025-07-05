@@ -14,7 +14,7 @@ export interface NewSwarCardList {
 }
 
 export const newSwapCardList = injectable(
-    token('newSwapStore')<SwapStore>(),
+    token('store')<SwapStore>(),
     (store): NewSwarCardList =>
         () => {
             return valueWithEffect.new({
