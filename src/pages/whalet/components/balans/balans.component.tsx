@@ -1,10 +1,9 @@
 import * as O from 'fp-ts/Option';
 import css from './balans.module.css';
 import { OptionSpan } from '@/components/ui-kit/fpts-components-utils/options.component';
-import { constVoid, pipe } from 'fp-ts/lib/function';
+import { pipe } from 'fp-ts/lib/function';
 import { Balance } from '../../wallet.view-model';
 import cn from 'classnames';
-import { useTWAEvent } from '@tonsolutions/telemetree-react';
 import { WalletI18n } from '../../wallet.i18n.model';
 import {
     SendTransactionRequest,
@@ -12,7 +11,6 @@ import {
     useTonAddress,
     useTonConnectUI,
 } from '@tonconnect/ui-react';
-import { beginCell } from '@ton/core';
 import BottomSheet from '@/components/ui-kit/bottom-sheet/bottom-sheet.component';
 import { WalletIcon } from '@/components/Icons/Icons';
 import AppButton from '@/components/app-button/app-button.component';
@@ -22,9 +20,8 @@ export interface BalansProps {
     texts: WalletI18n;
     isBottomSheetOpen: boolean;
     chainTransaction: SendTransactionRequest;
-
-    setBottomSheetOpen: (o: boolean) => void;
-    setDepositAmmount: (a: number) => void;
+    setBottomSheetOpen: (isOpen: boolean) => void;
+    setDepositAmount: (amount: number) => void;
 }
 
 export const Balans = ({
@@ -33,12 +30,12 @@ export const Balans = ({
     isBottomSheetOpen,
     chainTransaction,
     setBottomSheetOpen,
-    setDepositAmmount,
+    setDepositAmount,
 }: BalansProps) => {
-    const eventBuilder = useTWAEvent();
     const [tonConnectUI, setOptions] = useTonConnectUI();
     const userFriendlyAddress = useTonAddress(true);
     const userFriendlyAddressSplited = userFriendlyAddress.split('');
+    const shortWallet = `${userFriendlyAddressSplited.slice(0, 3).join('')}..${userFriendlyAddressSplited.slice(userFriendlyAddressSplited.length - 3, userFriendlyAddressSplited.length).join('')}`;
 
     return (
         <div className={cn('app-container', css.wrap)}>
@@ -84,13 +81,13 @@ export const Balans = ({
                         <span>Your connected wallet</span>
                         <span className={css.address}>
                             <WalletIcon />
-                            {`${userFriendlyAddressSplited.slice(0, 3).join('')}..${userFriendlyAddressSplited.slice(userFriendlyAddressSplited.length - 3, userFriendlyAddressSplited.length).join('')}`}
+                            {shortWallet}
                         </span>
                         <div className={css.control}>
                             <input
                                 type="number"
                                 onChange={(e) =>
-                                    setDepositAmmount(Number(e.target.value))
+                                    setDepositAmount(Number(e.target.value))
                                 }
                             />
                             <span>TON</span>

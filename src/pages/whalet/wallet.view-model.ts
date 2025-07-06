@@ -25,8 +25,8 @@ export interface WhatToBuyViewModel {
     isTransactionAvailible: Property<boolean>;
     isBottomSheetOpen: Property<boolean>;
     chainTransaction: Property<SendTransactionRequest>;
-    setBottomSheetOpen: (o: boolean) => void;
-    setDepositAmmount: (a: number) => void;
+    setBottomSheetOpen: (isOpen: boolean) => void;
+    setDepositAmount: (amount: number) => void;
 }
 
 export interface NewWhatToBuyViewModel {
@@ -48,7 +48,7 @@ export const newWhatToBuyViewModel = injectable(
             const balance = newLensedAtom<O.Option<Balance>>(O.none);
             const isTransactionAvailible = newLensedAtom(true);
             const isBottomSheetOpen = newLensedAtom(false);
-            const depositAmmount = newLensedAtom(0);
+            const depositAmount = newLensedAtom(0);
             const chainTransaction = newLensedAtom<SendTransactionRequest>({
                 validUntil: Math.floor(Date.now() / 1000) + WAITING_TIME,
                 messages: [],
@@ -88,7 +88,7 @@ export const newWhatToBuyViewModel = injectable(
             );
 
             const depositAmmountEffect = pipe(
-                depositAmmount,
+                depositAmount,
                 fromProperty,
                 chain(() => newDepositRestService.getDepositDetails()),
                 map((details) =>
@@ -106,7 +106,7 @@ export const newWhatToBuyViewModel = injectable(
                         .toString('base64');
                     const msg = {
                         address,
-                        amount: depositAmmount.get().toString(),
+                        amount: depositAmount.get().toString(),
                         payload,
                     };
                     chainTransaction.modify((t) => ({ ...t, messages: [msg] }));
@@ -120,7 +120,7 @@ export const newWhatToBuyViewModel = injectable(
                     isBottomSheetOpen,
                     chainTransaction,
                     setBottomSheetOpen: isBottomSheetOpen.set,
-                    setDepositAmmount: depositAmmount.set,
+                    setDepositAmount: depositAmount.set,
                 },
                 getBalanceEffect,
                 isTransactionAvailibleEffect,
