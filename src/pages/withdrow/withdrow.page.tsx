@@ -68,7 +68,6 @@ export const Withdrow = injectable(
                 [userStore]
             );
 
-            const depositRestService = newDepositRestService({ userStore });
             const waletRestService = newWalletRestService({
                 userStore,
                 cacheStore,
