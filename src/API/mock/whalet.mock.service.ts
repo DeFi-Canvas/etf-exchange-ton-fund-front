@@ -1,13 +1,8 @@
-import { UserStoreService } from '@/store/user.store';
 import { now } from '@most/core';
 import * as E from 'fp-ts/lib/Either';
 import { WaletRestService } from '../wallet.service';
 
-interface MockWaletArgs {
-    userStore: UserStoreService;
-}
-
-export const NEW_WALET_REST_SERVICE = ({}: MockWaletArgs): WaletRestService => {
+export const NEW_WALET_REST_SERVICE = (): WaletRestService => {
     return {
         getBalance: () =>
             now(

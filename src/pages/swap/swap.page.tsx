@@ -49,7 +49,6 @@ export const SwapPage = injectable(
         memo(({ swapAssets }: SwapPageProps) => {
             // const [currentTab, setCurrentTab] = useState('singleSwap');
             const [isSingle] = useState(true);
-            console.log(swapAssets);
 
             // const onChangeTab = (selectedTab: TabItemInterface) => {
             //     setCurrentTab(selectedTab.name);

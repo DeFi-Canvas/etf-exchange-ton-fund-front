@@ -46,7 +46,7 @@ export const newWTBRestService = injectable(
                     strategiesApi.strategyStrategyIdGet(id),
                     fundByIdResponseCodec,
                     // TODO fix it with real api data if it's used in the app, or remove it
-                    //@ts-ignore
+                    //@ts-expect-error
                     mapFunds
                 )(),
             buyFund: (args) =>

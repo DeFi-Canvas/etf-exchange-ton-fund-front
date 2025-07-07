@@ -113,7 +113,7 @@ export const OperationsNav = memo(
                                 }}
                             >
                                 {
-                                    // @ts-ignore
+                                    // @ts-expect-error
                                     mapTittle(route.to)
                                 }
                             </NavLink>

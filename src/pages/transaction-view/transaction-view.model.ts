@@ -5,7 +5,7 @@ type TransactionStatus = 'SUCCESS' | 'PROCESSING' | 'ERROR' | 'GIFT';
  */
 export interface TransactionResponse {
     status: TransactionStatus;
-    //@ts-ignore
+    //@ts-expect-error
     type: TTransactionStatus;
     amount: number;
     coinName: string;

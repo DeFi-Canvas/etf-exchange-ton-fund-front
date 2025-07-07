@@ -104,7 +104,7 @@ export const newSwapFooter = injectable(
                 }),
                 chain(constant(evs)),
                 tap((x) => {
-                    //@ts-ignore
+                    //@ts-expect-error
                     switch (x.Status) {
                         case 'success':
                             store.setResultStatus('SUCCESS');

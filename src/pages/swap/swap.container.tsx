@@ -18,8 +18,6 @@ export const SwapPageContainer = injectable(
     provide(SwapPage)<'store'>(),
     (useValueWithEffect, userStore, i18n, cacheStore, assetService, SwapPage) =>
         memo(() => {
-            console.log(123);
-
             const store = useValueWithEffect(
                 () =>
                     newSwapStore({

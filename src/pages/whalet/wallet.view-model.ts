@@ -110,7 +110,6 @@ export const newWhatToBuyViewModel = injectable(
                         payload,
                     };
                     chainTransaction.modify((t) => ({ ...t, messages: [msg] }));
-                    console.log(chainTransaction.get());
                 })
             );
             return valueWithEffect.new(
