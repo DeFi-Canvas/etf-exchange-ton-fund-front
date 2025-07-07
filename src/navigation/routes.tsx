@@ -1,22 +1,14 @@
 import { memo, Suspense, useMemo, type ComponentType, type JSX } from 'react';
 
-import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
-import { newNewUserStoreService } from '@/store/user.store';
-import { useValueWithEffect } from '@/utils/run-view-model.utils';
-import { useInitData } from '@telegram-apps/sdk-react';
-import { Containers, getContainers, getContainersArgs } from './containers';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { Containers, getContainersArgs } from './containers';
 import { indexRouter } from './page-routes/index-router';
 import { depositRouter } from './page-routes/deposit-router';
 import { withdrawRouter } from './page-routes/withdraw-router';
 import { whatToBuyRouter } from './page-routes/what-to-buy-router';
 import { TransactionView } from '@pages/transaction-view/transaction-view.page.tsx';
 import { Loader } from '@/components/loader/loader.component';
-import { newNewI18NService } from '@/store/i18n/i18.store';
 import { StormContainer } from '@/pages/earn/deposit-protocol/storm/storm.container';
-import { newStormStore } from '@/pages/earn/deposit-protocol/storm/storm.store';
-import { newNewCahe } from '@/store/cache/cahe.store';
-import { newAssetsRestService } from '@/API/assets/assets.service';
-import { newTransactionsRestService } from '@/API/transactions/transactions.service';
 
 interface Route {
     path: string;

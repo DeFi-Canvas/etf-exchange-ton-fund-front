@@ -1,4 +1,4 @@
-import { injectable, provide, token } from '@injectable-ts/core';
+import { injectable, token } from '@injectable-ts/core';
 import React, { memo } from 'react';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useProperty } from '@frp-ts/react';

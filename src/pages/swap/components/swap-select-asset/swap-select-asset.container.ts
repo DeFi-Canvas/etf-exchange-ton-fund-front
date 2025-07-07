@@ -1,9 +1,6 @@
 import { injectable, token } from '@injectable-ts/core';
 import React from 'react';
-import {
-    useValueWithEffect,
-    useValueWithEffectT,
-} from '@/utils/run-view-model.utils';
+import { useValueWithEffectT } from '@/utils/run-view-model.utils';
 import {
     SwapSelectAsset,
     SwapSelectAssetProps,

@@ -7,11 +7,7 @@ interface MockWaletArgs {
     userStore: UserStoreService;
 }
 
-export const NEW_WALET_REST_SERVICE = ({
-    userStore,
-}: MockWaletArgs): WaletRestService => {
-    const { id: telegram_id } = userStore.user.get();
-
+export const NEW_WALET_REST_SERVICE = ({}: MockWaletArgs): WaletRestService => {
     return {
         getBalance: () =>
             now(

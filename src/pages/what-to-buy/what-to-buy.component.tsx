@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { SerchInput } from '@/components/ui-kit/serch-input/serch-input.component';
 import css from './what-to-buy.module.css';
 import cn from 'classnames';

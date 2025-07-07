@@ -2,21 +2,13 @@ import { useIntegration } from '@telegram-apps/react-router-integration';
 import {
     bindViewportCSSVars,
     initNavigator,
-    useViewport,
     initMiniApp,
     useBackButton,
     useInitData,
     initViewport,
     Viewport,
 } from '@telegram-apps/sdk-react';
-import {
-    type FC,
-    Suspense,
-    useCallback,
-    useEffect,
-    useMemo,
-    useState,
-} from 'react';
+import { type FC, useEffect, useMemo, useState } from 'react';
 import { Router } from 'react-router-dom';
 import { AppRoutes } from '@/navigation/routes.tsx';
 import TabBar from '@/components/TabBar/TabBar.tsx';
@@ -48,10 +40,6 @@ export const App: FC = () => {
     // Красим фон шапки приложения. TODO По хорошему бы сформировать константы js на основе css переменных
     miniApp.setHeaderColor('#F9F8FF');
 
-    // const viewport = useViewport();
-    // useEffect(() => {
-    //     return viewport && bindViewportCSSVars(viewport) && viewport.expand();
-    // }, [viewport, bindViewportCSSVars]);
     useEffect(() => {
         initViewport()[0].then((x) => setViewport(x));
     }, [window.innerHeight]);
@@ -122,7 +110,6 @@ export const App: FC = () => {
         }),
         [userStore, i18n, assetService, cacheStore, transactionsService]
     );
-    console.log('qwe');
 
     return (
         <TwaAnalyticsProvider

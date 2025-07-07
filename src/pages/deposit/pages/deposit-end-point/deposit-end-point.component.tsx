@@ -2,7 +2,6 @@ import css from './deposit-end-point.module.css';
 import cn from 'classnames';
 import * as E from 'fp-ts/Either';
 import { DepositDetails } from './deposit-end-point.view-model';
-import { pipe } from 'fp-ts/lib/function';
 import { useParams } from 'react-router-dom';
 import { ErrorResult } from '@/components/error-result/error-result.component';
 import InfoCard from './components/info-card/info-card.component';

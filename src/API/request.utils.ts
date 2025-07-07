@@ -48,12 +48,7 @@ export const handleGetRequest =
         return stream;
     };
 
-export const performGetRequest = <
-    T,
-    ResultData,
-    Codec extends Any,
-    ResponseData,
->(
+export const performGetRequest = <ResultData, Codec extends Any, ResponseData>(
     req: Promise<AxiosResponse<ResponseData, unknown>>,
     codec: Codec & t.Type<DeepRequired<ResponseData>>,
     transform: (data: t.TypeOf<typeof codec>) => ResultData

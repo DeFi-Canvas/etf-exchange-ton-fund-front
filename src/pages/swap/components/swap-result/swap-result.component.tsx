@@ -1,6 +1,5 @@
 import BottomSheet from '@/components/ui-kit/bottom-sheet/bottom-sheet.component.tsx';
 import css from './swap-result.module.css';
-import { constVoid } from 'fp-ts/lib/function';
 import { SwapResultStatus } from '../../swap.model';
 import AppButton from '@/components/app-button/app-button.component';
 import {

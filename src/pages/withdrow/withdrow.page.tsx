@@ -1,14 +1,13 @@
 import { SerchInput } from '@/components/ui-kit/serch-input/serch-input.component';
 import css from './withdrow.module.css';
 import { AssetsContainer } from '../deposit/assets/assets.container';
-import { injectable, provide, token } from '@injectable-ts/core';
+import { injectable, token } from '@injectable-ts/core';
 import cn from 'classnames';
 import { UserStoreService } from '@/store/user.store';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { newNewWithdrowStore } from './withdrow.store';
 import { memo } from 'react';
 import React from 'react';
-import { newDepositRestService } from '@/API/deposit.service';
 import { newWalletRestService } from '@/API/wallet.service';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';

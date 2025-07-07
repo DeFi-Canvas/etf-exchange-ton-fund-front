@@ -4,7 +4,6 @@ import { UserStoreService } from '@/store/user.store';
 import { injectable, token } from '@injectable-ts/core';
 import { EranStep } from '@/pages/profile/components/earn/earn.view-model';
 import { getRequestGenerated } from './request.utils';
-import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
 import { DOMAIN_API_URL } from './API';
 import { TasksApi } from './scheme/rest-genereted/api';
 import { Configuration } from './scheme/rest-genereted';
@@ -44,7 +43,6 @@ export const newProfileRestService = injectable(
     token('userStore')<UserStoreService>(),
     (userStore): ProfileRestService => {
         const { id: telegram_id } = userStore.user.get();
-        const { initDataRaw } = retrieveLaunchParams();
 
         //TODO вынести в модель
         const mapGetTask = (d: Tasks): EranStep => ({
@@ -65,24 +63,6 @@ export const newProfileRestService = injectable(
                 mapGetTasks
             ),
             checkTask: (id) => now({ success: true, message: '', id }),
-            // checkTask: (id) => {
-            //     return fromPromise(
-            //         axios
-            //             .post<TasksCheck>(API.checkTask, {
-            //                 telegram_id,
-            //                 task_id: id,
-            //                 init_data: initDataRaw,
-            //             })
-            //             .then(({ data }) => ({
-            //                 ...data,
-            //                 success: data.success,
-            //                 id,
-            //             }))
-            //             .catch((error) => {
-            //                 throw new Error(error);
-            //             })
-            //     );
-            // },
         };
     }
 );

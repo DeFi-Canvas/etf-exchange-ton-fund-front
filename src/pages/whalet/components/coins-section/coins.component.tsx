@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import cn from 'classnames';
 import css from './coins.module.css';
 import { memo, Suspense, useEffect, useState } from 'react';
@@ -20,12 +20,7 @@ interface OperationsNavProps {
 }
 
 export const OperationsNav = memo(
-    ({
-        isTransactionAvailible,
-        assets,
-        funds,
-        transactions,
-    }: OperationsNavProps) => {
+    ({ isTransactionAvailible, assets, transactions }: OperationsNavProps) => {
         const routesInit = [
             {
                 id: 0,
