@@ -1,6 +1,6 @@
 import { injectable, token } from '@injectable-ts/core';
 import React from 'react';
-import { useValueWithEffectT } from '@/utils/run-view-model.utils';
+import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import {
     SwapSelectAsset,
     SwapSelectAssetProps,
@@ -21,7 +21,7 @@ interface SwarCardListContainer
     > {}
 
 export const SwapSelectAssetContainer = injectable(
-    useValueWithEffectT,
+    useValueWithEffect,
     newSwapSelectAsset,
     token('i18n')<I18NService>(),
     (useValueWithEffect, newSwapSelectAsset, i18n) =>

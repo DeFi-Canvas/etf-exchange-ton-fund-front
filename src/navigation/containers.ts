@@ -23,7 +23,10 @@ import { I18NService } from '@/store/i18n/i18.store';
 import { CacheStore } from '@/store/cache/cahe.store';
 import { AssetsRestService } from '@/API/assets/assets.service';
 import { TransactionsRestService } from '@/API/transactions/transactions.service';
-import { defaultScheduler } from '@/utils/run-view-model.utils';
+import { scheduler } from '@/utils/run-view-model.utils';
+import { Scheduler } from '@most/types';
+import { WithdrowStore } from '@/pages/withdrow/withdrow.store';
+import { WaletRestService } from '@/API/wallet.service';
 
 export interface getContainersArgs {
     userStore: UserStoreService;
@@ -31,6 +34,9 @@ export interface getContainersArgs {
     cacheStore: CacheStore;
     assetService: AssetsRestService;
     transactionsService: TransactionsRestService;
+    withdrowStore: WithdrowStore;
+    waletRestService: WaletRestService;
+    scheduler: Scheduler;
 }
 
 type ReactComponent = () => JSX.Element;
@@ -46,46 +52,25 @@ export interface Containers {
     SwapePage: Component;
 }
 
-export const getContainers = ({
-    userStore,
-    i18n,
-    cacheStore,
-    assetService,
-    transactionsService,
-}: getContainersArgs): Containers => ({
+export const getContainers = (services: getContainersArgs): Containers => ({
     deposit: getDepositContainers({
-        userStore,
-        i18n,
-        cacheStore,
-        assetService,
+        ...services,
     }),
     whalet: getWhaletContainers({
-        userStore,
-        i18n,
-        cacheStore,
-        assetService,
-        transactionsService,
+        ...services,
     }),
     withdrow: getWithdrowContainers({
-        userStore,
-        i18n,
-        cacheStore,
-        assetService,
+        ...services,
     }),
-    whatToBuy: getWhatToBuyContainers({ userStore, i18n, cacheStore }),
+    whatToBuy: getWhatToBuyContainers({ ...services }),
     Profile: ProfileContainer({
-        userStore,
-        i18n,
+        ...services,
     }),
     AssetPage: AssetsSingleContainer({
-        i18n,
-        assetService,
+        ...services,
     }),
     SwapePage: SwapPageContainer({
-        userStore,
-        i18n,
-        cacheStore,
-        assetService,
-        scheduler: defaultScheduler,
+        ...services,
+        scheduler,
     }),
 });

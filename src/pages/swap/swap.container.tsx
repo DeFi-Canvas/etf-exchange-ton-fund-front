@@ -1,6 +1,6 @@
 import { injectable, provide, token } from '@injectable-ts/core';
 import React, { memo } from 'react';
-import { useValueWithEffectT } from '@/utils/run-view-model.utils';
+import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useProperties } from '@frp-ts/react';
 import { newSwapStore } from './swap.store';
 import { SwapPage } from './swap.page';
@@ -10,7 +10,7 @@ import { assetsRestService } from '@/API/assets/assets.service';
 import { CacheStore } from '@/store/cache/cahe.store';
 
 export const SwapPageContainer = injectable(
-    useValueWithEffectT,
+    useValueWithEffect,
     token('userStore')<UserStoreService>(),
     token('i18n')<I18NService>(),
     CacheStore,

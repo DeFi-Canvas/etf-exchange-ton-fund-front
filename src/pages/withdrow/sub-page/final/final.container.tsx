@@ -8,10 +8,10 @@ import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { I18NService } from '@/store/i18n/i18.store';
 
 export const FinalContainer = injectable(
+    useValueWithEffect,
     token('userStore')<UserStoreService>(),
     token('i18n')<I18NService>(),
-
-    (userStore, i18n) =>
+    (useValueWithEffect, userStore, i18n) =>
         memo(() => {
             const store = useValueWithEffect(
                 () => newNewWithdrowStore({ userStore }),

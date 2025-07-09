@@ -1,4 +1,4 @@
-import { injectable, token } from '@injectable-ts/core';
+import { injectable, provide, token } from '@injectable-ts/core';
 import React, { memo } from 'react';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useProperty } from '@frp-ts/react';
@@ -10,10 +10,12 @@ import { I18NService } from '@/store/i18n/i18.store';
 import { CacheStore } from '@/store/cache/cahe.store';
 
 export const PurchaseContainer = injectable(
+    useValueWithEffect,
     token('userStore')<UserStoreService>(),
     token('i18n')<I18NService>(),
     CacheStore,
-    (userStore, i18n, cacheStore) =>
+    provide(PurchasePage)<'purchaseStore' | 'i18n'>(),
+    (useValueWithEffect, userStore, i18n, cacheStore, PurchasePage) =>
         memo(() => {
             const { id } = useParams();
 

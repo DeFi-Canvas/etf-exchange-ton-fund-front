@@ -13,37 +13,22 @@ export interface WhatToBuyContainers {
     SellContainer: Component;
 }
 
-export const getWhatToBuyContainers = ({
-    userStore,
-    i18n,
-    cacheStore,
-}: Pick<
-    getContainersArgs,
-    'i18n' | 'userStore' | 'cacheStore'
->): WhatToBuyContainers => ({
+export const getWhatToBuyContainers = (
+    services: getContainersArgs
+): WhatToBuyContainers => ({
     WhatToBuyPage: WhatToBuyPageContainer({
-        userStore,
-        i18n,
-        cacheStore,
+        ...services,
     }),
     PurchaseContainer: PurchaseContainer({
-        userStore,
-        i18n,
-        cacheStore,
+        ...services,
     }),
     SellContainer: SellContainer({
-        userStore,
-        i18n,
-        cacheStore,
+        ...services,
     }),
     FundPage: FundPageContainer({
-        userStore,
-        i18n,
-        cacheStore,
+        ...services,
     }),
     FundsPage: FundsPageContainer({
-        userStore,
-        i18n,
-        cacheStore,
+        ...services,
     }),
 });

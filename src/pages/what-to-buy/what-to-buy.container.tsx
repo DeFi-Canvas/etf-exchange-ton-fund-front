@@ -7,10 +7,11 @@ import { UserStoreService } from '@/store/user.store';
 import { CacheStore } from '@/store/cache/cahe.store';
 
 export const WhatToBuyPageContainer = injectable(
+    useValueWithEffect,
     provide(WhatToBuyPage)<'purchaseStore'>(),
     token('userStore')<UserStoreService>(),
     CacheStore,
-    (WhatToBuyPage, userStore, cacheStore) =>
+    (useValueWithEffect, WhatToBuyPage, userStore, cacheStore) =>
         memo(() => {
             const store = newPurchaseSellStore({
                 userStore,

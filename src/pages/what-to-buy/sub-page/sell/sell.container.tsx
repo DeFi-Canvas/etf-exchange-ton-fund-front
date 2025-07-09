@@ -1,4 +1,4 @@
-import { injectable, token } from '@injectable-ts/core';
+import { injectable, provide, token } from '@injectable-ts/core';
 import React, { memo } from 'react';
 import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useProperty } from '@frp-ts/react';
@@ -6,14 +6,14 @@ import { newPurchaseSellStore } from '../purchase/purchase.store';
 import SellPage from './sell.page';
 import { useParams } from 'react-router-dom';
 import { UserStoreService } from '@/store/user.store';
-import { I18NService } from '@/store/i18n/i18.store';
 import { CacheStore } from '@/store/cache/cahe.store';
 
 export const SellContainer = injectable(
+    useValueWithEffect,
     token('userStore')<UserStoreService>(),
-    token('i18n')<I18NService>(),
     CacheStore,
-    (userStore, i18n, cacheStore) =>
+    provide(SellPage)<'purchaseStore'>(),
+    (useValueWithEffect, userStore, cacheStore, SellPage) =>
         memo(() => {
             const { id } = useParams();
             const store = newPurchaseSellStore({
@@ -26,7 +26,9 @@ export const SellContainer = injectable(
                 purchaseStore.isShowBottomSheetFinishBoody
             );
             const isLoading = useProperty(purchaseStore.isLoading);
-            const SellPageResolve = SellPage({ purchaseStore, i18n });
+            const SellPageResolve = SellPage({
+                purchaseStore,
+            });
 
             return React.createElement(SellPageResolve, {
                 ...purchaseStore,

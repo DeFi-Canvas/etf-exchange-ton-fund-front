@@ -13,35 +13,22 @@ export interface WithdrowContainers {
     Final: Component;
 }
 
-export const getWithdrowContainers = ({
-    userStore,
-    i18n,
-    cacheStore,
-    assetService,
-}: Pick<
-    getContainersArgs,
-    'i18n' | 'userStore' | 'cacheStore' | 'assetService'
->): WithdrowContainers => ({
+export const getWithdrowContainers = (
+    services: getContainersArgs
+): WithdrowContainers => ({
     Withdrow: Withdrow({
-        userStore,
-        i18n,
-        assetService,
-        cacheStore,
+        ...services,
     }),
     Amount: AmountContainer({
-        userStore,
-        i18n,
+        ...services,
     }),
     Address: AddressContainer({
-        userStore,
-        i18n,
+        ...services,
     }),
     Check: CheckContainer({
-        userStore,
-        i18n,
+        ...services,
     }),
     Final: FinalContainer({
-        userStore,
-        i18n,
+        ...services,
     }),
 });
