@@ -8,7 +8,6 @@ import { I18NService } from '@/store/i18n/i18.store';
 export const AddressFormContainer = injectable(
     token('withdrowStore')<WithdrowStore>(),
     token('i18n')<I18NService>(),
-
     (store, i18n) =>
         memo(() => {
             const ammount = useProperty(store.amount);
@@ -24,7 +23,6 @@ export const AddressFormContainer = injectable(
                 currency,
                 symbolLogo,
                 setAddress: store.setAddress,
-                setMemo: store.setMemo,
                 texts,
             });
         })

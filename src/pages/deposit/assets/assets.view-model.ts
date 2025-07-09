@@ -78,7 +78,7 @@ export const newAssetsViewModel = injectable(
                 const currentAssets = assets.get();
                 if (AssetCodec.is(asset) && E.isRight(currentAssets)) {
                     const currentAsset = currentAssets.right.find(
-                        (el) => el.name === asset.name
+                        (el) => el.ticker === asset.ticker
                     );
                     if (AssetCodec.is(currentAsset)) {
                         store.setAvailableBalance(currentAsset.balance);

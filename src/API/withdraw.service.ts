@@ -19,7 +19,6 @@ interface WithdrawArgs {
     asset: string;
     amount: number;
     address: string;
-    memo: string;
 }
 
 const walletsApi = new WalletsApi({

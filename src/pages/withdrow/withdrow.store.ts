@@ -22,14 +22,12 @@ export interface WithdrowStore {
     isGoToCheckAvailable: Property<boolean>;
     balanceAfter: Property<number>;
     address: Property<E.Either<Error, string>>;
-    memo: Property<E.Either<Error, string>>;
     setCurrency: (d: string) => void;
     setAmount: (d: number) => void;
     setAvailableBalance: (d: number) => void;
     setTickerPrice: (d: number) => void;
     setSymbolLogo: (d: string) => void;
     setAddress: (d: string) => void;
-    setMemo: (d: string) => void;
     onWithdrow: () => void;
     clearData: () => void;
 }
@@ -50,7 +48,6 @@ export const newNewWithdrowStore = injectable(
         const availableBalance = newLensedAtom(0);
         const balanceAfter = newLensedAtom(0);
         const address = newLensedAtom<E.Either<Error, string>>(E.left(EMPTY));
-        const memo = newLensedAtom<E.Either<Error, string>>(E.left(EMPTY));
 
         const isGoToCheckAvailable = newLensedAtom(false);
         const isNextButtonAvailable = newLensedAtom(false);
@@ -85,12 +82,6 @@ export const newNewWithdrowStore = injectable(
                 address.set(E.left(EMPTY));
             }
         };
-        const setMemo = (d: string) => {
-            memo.set(E.of(d));
-            if (S.isEmpty(d)) {
-                memo.set(E.left(EMPTY));
-            }
-        };
 
         const isNextButtonAvailableEffect = pipe(
             amount,
@@ -118,15 +109,10 @@ export const newNewWithdrowStore = injectable(
                 return E.isRight(currentAddress) ? currentAddress.right : '';
             })();
 
-            const currentMemo = (() => {
-                const currentMemo = memo.get();
-                return E.isRight(currentMemo) ? currentMemo.right : '';
-            })();
             service.withdraw({
                 asset: currency.get(),
                 amount: currentAmount,
                 address: currentAddress,
-                memo: currentMemo,
             });
         };
 
@@ -141,7 +127,6 @@ export const newNewWithdrowStore = injectable(
             isGoToCheckAvailable.set(false);
             balanceAfter.set(0);
             address.set(E.left(EMPTY));
-            memo.set(E.left(EMPTY));
         };
 
         //#region Effects
@@ -183,9 +168,7 @@ export const newNewWithdrowStore = injectable(
                 isGoToCheckAvailable,
                 balanceAfter,
                 address,
-                memo,
                 setAddress,
-                setMemo,
                 setTickerPrice,
                 symbolLogo,
                 setSymbolLogo,

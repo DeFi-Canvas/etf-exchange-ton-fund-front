@@ -13,7 +13,6 @@ interface CheckProps {
     approximateCost: string;
     currency: string;
     address: E.Either<Error, string>;
-    memo: E.Either<Error, string>;
     symbolLogo: string;
 }
 
@@ -26,7 +25,6 @@ export const Check = injectable(
             approximateCost,
             currency,
             address,
-            memo,
             symbolLogo,
         }: CheckProps) => {
             const { Check: checkI18nTexts } = useProperty(i18n.Withdraw);
@@ -50,17 +48,6 @@ export const Check = injectable(
                                 data={address}
                                 success={(address) => (
                                     <span className={css.row}>{address}</span>
-                                )}
-                            />
-                        </div>
-                        <div className={css.column}>
-                            <span className={css.title}>
-                                {checkI18nTexts.tag}
-                            </span>
-                            <RenderResult
-                                data={memo}
-                                success={(memo) => (
-                                    <span className={css.row}>{memo}</span>
                                 )}
                             />
                         </div>

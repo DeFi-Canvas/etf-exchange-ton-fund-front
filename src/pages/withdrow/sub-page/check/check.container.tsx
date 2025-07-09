@@ -11,7 +11,6 @@ export const CheckContainer = injectable(
     useValueWithEffect,
     token('userStore')<UserStoreService>(),
     provide(Check)<'withdrowStore'>(),
-    token('i18n')<I18NService>(),
     (useValueWithEffect, userStore, Check) =>
         memo(() => {
             const store = useValueWithEffect(
@@ -24,7 +23,6 @@ export const CheckContainer = injectable(
             const approximateCost = useProperty(store.approximateCost);
             const currency = useProperty(store.currency);
             const address = useProperty(store.address);
-            const memo = useProperty(store.memo);
             const symbolLogo = useProperty(store.symbolLogo);
 
             return React.createElement(CheckResolved, {
@@ -32,7 +30,6 @@ export const CheckContainer = injectable(
                 approximateCost,
                 currency,
                 address,
-                memo,
                 symbolLogo,
             });
         })
