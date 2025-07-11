@@ -34,4 +34,4 @@ export const newNewCahe = (): NewCaheStore => {
     return { set, get };
 };
 
-export const CacheStore = injectable('CACHE_STORE', newNewCahe);
+export const CacheStore = token('cacheStore')<CacheStore>();

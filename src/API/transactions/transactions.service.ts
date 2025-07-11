@@ -43,6 +43,6 @@ export const newTransactionsRestService = injectable(
     }
 );
 
-export const TransactionsRestService = injectable('TRANSACTIONS_SERVICE', () =>
-    newTransactionsRestService({})
-);
+export const TransactionsRestService = token(
+    'transactionsService'
+)<TransactionsRestService>();

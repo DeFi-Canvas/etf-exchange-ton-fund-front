@@ -35,11 +35,11 @@ export const DepositEndPoint = ({
     const { ticker } = useParams();
     const eventBuilder = useTWAEvent();
 
-    const renderDepositEndPoint = pipe(
-        details,
-        E.fold(
-            (e) => <ErrorResult error={e} />,
-            (details) => {
+    return (
+        <RenderResult
+            data={details}
+            failure={(e) => <ErrorResult error={e} />}
+            success={(details) => {
                 return (
                     <>
                         <div className={cn('app-container', css.content)}>
@@ -100,9 +100,7 @@ export const DepositEndPoint = ({
                         </AppFooter>
                     </>
                 );
-            }
-        )
+            }}
+        />
     );
-
-    return <div>{renderDepositEndPoint}</div>;
 };

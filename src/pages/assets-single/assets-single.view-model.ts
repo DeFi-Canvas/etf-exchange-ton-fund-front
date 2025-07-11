@@ -11,7 +11,7 @@ import { pipe } from 'fp-ts/lib/function';
 import { tap } from '@most/core';
 import { Asset } from '@/instance/asset/asset.model.ts';
 import { PENDING, Error } from '@/store/errors/error-system';
-import { AssetsRestService } from '@/API/assets/assets.service';
+import { assetsRestService } from '@/API/assets/assets.service';
 
 export interface AssetsSingleViewModel {
     asset: Property<Either<string, Asset>>;
@@ -22,7 +22,7 @@ export interface NewAssetsSingleViewModel {
 }
 
 export const newAssetsSingleViewModel = injectable(
-    AssetsRestService,
+    assetsRestService,
     (assetService): NewAssetsSingleViewModel =>
         (assetId) => {
             const asset = newLensedAtom<Either<Error, Asset>>(E.left(PENDING));

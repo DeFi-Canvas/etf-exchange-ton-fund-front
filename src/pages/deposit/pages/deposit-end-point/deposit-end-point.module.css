@@ -18,7 +18,7 @@
 
 .qrCode {
     --padding: 16px;
-    --size: calc(250px + (var(--padding) * 2));
+    --size: calc(200px + (var(--padding) * 2));
     width: var(--size);
     height: var(--size);
     padding: var(--padding);

@@ -16,13 +16,15 @@ export const StormContainer = injectable(newStormStore, (newStormStore) =>
             requestFinish,
             isBottomSheetOpen,
             maxAvailable,
+            isActionButtonEnabled,
         ] = useProperties(
             store.asset,
             store.activeAction,
             store.amount,
             store.requestFinish,
             store.isBottomSheetOpen,
-            store.maxAvailable
+            store.maxAvailable,
+            store.isActionButtonEnabled
         );
         const action =
             activeAction === 'DEPOSIT' ? store.deposit : store.withdraw;
@@ -36,6 +38,7 @@ export const StormContainer = injectable(newStormStore, (newStormStore) =>
             isBottomSheetOpen,
             amount,
             maxAvailable,
+            isActionButtonEnabled,
         });
     })
 );

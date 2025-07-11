@@ -20,10 +20,17 @@ import { ProfileContainer } from '@/pages/profile/profile.page';
 import { AssetsSingleContainer } from '@/pages/assets-single/assets-single.container';
 import { SwapPageContainer } from '@/pages/swap/swap.container';
 import { I18NService } from '@/store/i18n/i18.store';
+import { CacheStore } from '@/store/cache/cahe.store';
+import { AssetsRestService } from '@/API/assets/assets.service';
+import { TransactionsRestService } from '@/API/transactions/transactions.service';
+import { defaultScheduler } from '@/utils/run-view-model.utils';
 
 export interface getContainersArgs {
     userStore: UserStoreService;
     i18n: I18NService;
+    cacheStore: CacheStore;
+    assetService: AssetsRestService;
+    transactionsService: TransactionsRestService;
 }
 
 type ReactComponent = () => JSX.Element;
@@ -42,29 +49,43 @@ export interface Containers {
 export const getContainers = ({
     userStore,
     i18n,
+    cacheStore,
+    assetService,
+    transactionsService,
 }: getContainersArgs): Containers => ({
     deposit: getDepositContainers({
         userStore,
         i18n,
+        cacheStore,
+        assetService,
     }),
     whalet: getWhaletContainers({
         userStore,
         i18n,
+        cacheStore,
+        assetService,
+        transactionsService,
     }),
     withdrow: getWithdrowContainers({
         userStore,
         i18n,
+        cacheStore,
+        assetService,
     }),
-    whatToBuy: getWhatToBuyContainers({ userStore, i18n }),
+    whatToBuy: getWhatToBuyContainers({ userStore, i18n, cacheStore }),
     Profile: ProfileContainer({
         userStore,
         i18n,
     }),
     AssetPage: AssetsSingleContainer({
         i18n,
+        assetService,
     }),
     SwapePage: SwapPageContainer({
         userStore,
         i18n,
+        cacheStore,
+        assetService,
+        scheduler: defaultScheduler,
     }),
 });

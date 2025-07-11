@@ -35,6 +35,16 @@ export const TransactionSwapMonyInfo = ({
         case 'REPAY':
         case 'DEPOSIT':
         case 'DEPOSIT_STORM_USDT':
+            return (
+                <div className={css.transactionMonyInfo}>
+                    <span className={css.credit}>
+                        +{credit?.amount} {credit?.asset.ticker}
+                    </span>
+                    <span className={css.debit}>
+                        -{debit?.amount} {debit?.asset.ticker}
+                    </span>
+                </div>
+            );
         case 'WITHDRAW':
         case 'WITHDRAW_STORM_USDT':
         case 'LIQUIDATE':

@@ -31,14 +31,14 @@ const Inner: FC = () => {
     globalLoading?.remove();
 
     return (
-        // <TonConnectUIProvider
-        //     uiPreferences={{ theme: THEME.LIGHT }}
-        //     manifestUrl={manifestUrl}
-        // >
-        <SDKProvider acceptCustomStyles>
-            <App />
-        </SDKProvider>
-        // </TonConnectUIProvider>
+        <TonConnectUIProvider
+            uiPreferences={{ theme: THEME.LIGHT }}
+            manifestUrl={manifestUrl}
+        >
+            <SDKProvider acceptCustomStyles>
+                <App />
+            </SDKProvider>
+        </TonConnectUIProvider>
     );
 };
 
