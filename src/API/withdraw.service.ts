@@ -1,7 +1,6 @@
 import { Stream } from '@most/types';
 import { Either } from 'fp-ts/lib/Either';
-import { UserStoreService } from '@/store/user.store';
-import { injectable, token } from '@injectable-ts/core';
+import { token } from '@injectable-ts/core';
 import { DOMAIN_API_URL } from './API';
 import { WalletsApi } from './scheme/rest-genereted/api';
 import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
@@ -29,19 +28,17 @@ export interface WithdrawRestService {
     withdraw: (data: WithdrawArgs) => Stream<Either<string, WithdrawResponce>>;
 }
 
-export const newWithdrawRestService = injectable(
-    token('userStore')<UserStoreService>(),
-    (userStore): WithdrawRestService => {
-        const { initDataRaw } = retrieveLaunchParams();
+export const newWithdrawRestService = (): WithdrawRestService => {
+    const { initDataRaw } = retrieveLaunchParams();
 
-        return {
-            withdraw: (data) =>
-                getRequestGenerated(
-                    walletsApi.withdrawPost(data, {
-                        headers: { Authorization: `tma ${initDataRaw}` },
-                    }),
-                    withdrawResponseCodec
-                )(),
-        };
-    }
-);
+    return {
+        withdraw: (data) =>
+            getRequestGenerated(
+                walletsApi.withdrawPost(data, {
+                    headers: { Authorization: `tma ${initDataRaw}` },
+                }),
+                withdrawResponseCodec
+            )(),
+    };
+};
+export const WithdrawService = token('withdrawService')<WithdrawRestService>();

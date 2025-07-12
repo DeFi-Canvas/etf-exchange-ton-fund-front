@@ -2,8 +2,8 @@ import { Stream } from '@most/types';
 import { Either } from 'fp-ts/lib/Either';
 import { injectable } from '@injectable-ts/core';
 
-import { Configuration, StormApi } from '@/API/scheme/rest-genereted';
-import { DOMAIN_API_URL } from '@/API/API';
+import { StormApi } from '@/API/scheme/rest-genereted';
+import { BASE_API_CONFIG } from '@/API/API';
 import { Error } from '@/store/errors/error-system';
 import {
     authRequestOptions,
@@ -15,7 +15,7 @@ import {
     stormAnswerResponseCodec,
 } from './storm.responce.contract';
 
-const stormApi = new StormApi(new Configuration({ basePath: DOMAIN_API_URL }));
+const stormApi = new StormApi(BASE_API_CONFIG);
 
 interface RequestData {
     amount: number;

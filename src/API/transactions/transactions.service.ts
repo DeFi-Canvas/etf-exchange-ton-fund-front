@@ -1,11 +1,16 @@
 import { Stream } from '@most/types';
 import { Either } from 'fp-ts/lib/Either';
 import { injectable, token } from '@injectable-ts/core';
-import { DOMAIN_API_URL } from '../API';
+import { BASE_API_CONFIG } from '../API';
 import { TransactionApi } from '../scheme/rest-genereted/api';
-import { Configuration } from '../scheme/rest-genereted';
-import { authRequestOptions, performGetRequest } from '../request.utils';
 import {
+    authRequestOptions,
+    handleGetRequest,
+    performGetRequest,
+} from '../request.utils';
+import {
+    Deposit,
+    depositResponseCodec,
     Transactions,
     transactionsCodec,
     transactionsResponseCodec,
@@ -13,13 +18,13 @@ import {
 import { CacheStore } from '@/store/cache/cahe.store';
 import { pipe } from 'fp-ts/lib/function';
 import { waitWithCache } from '@/utils/stream';
+import { Error } from '@/store/errors/error-system';
 
-const transactionApi = new TransactionApi({
-    basePath: DOMAIN_API_URL,
-} as Configuration);
+const transactionApi = new TransactionApi(BASE_API_CONFIG);
 
 export interface TransactionsRestService {
     getTransactions: () => Stream<Either<string, Transactions>>;
+    getDepositDetails: () => Stream<Either<Error, Deposit>>;
 }
 
 export const newTransactionsRestService = injectable(
@@ -39,6 +44,13 @@ export const newTransactionsRestService = injectable(
                     ),
                     waitWithCache(cacheStore, 'transactions', transactionsCodec)
                 ),
+            getDepositDetails: handleGetRequest(
+                transactionApi.apiTransactionDepositInfoGet(
+                    authRequestOptions()
+                ),
+                depositResponseCodec,
+                (x) => x.payload
+            ),
         };
     }
 );

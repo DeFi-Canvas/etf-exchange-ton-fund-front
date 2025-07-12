@@ -44,6 +44,8 @@ export const transactionEntryType = t.union([
     t.literal('NETWORK_FEE'),
     t.literal('SERVICE_FEE'),
     t.literal('REWARD'),
+    t.literal('TON_FEE_RESERVE'),
+    t.literal('TON_FEE'),
 ]);
 export type TransactionEntryType = t.TypeOf<typeof transactionEntryType>;
 
@@ -88,3 +90,17 @@ export const transactionsResponseCodec = t.type({
 });
 
 export type TransactionResponse = t.TypeOf<typeof transactionsResponseCodec>;
+
+//#region Deposit
+const depositCodec = t.type({
+    address: t.string,
+    memo: t.string,
+    qrimgsrc: t.string,
+});
+export type Deposit = t.TypeOf<typeof depositCodec>;
+
+export const depositResponseCodec = t.type({
+    payload: depositCodec,
+});
+
+export type DepositResponse = t.TypeOf<typeof depositResponseCodec>;

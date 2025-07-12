@@ -8,7 +8,7 @@ import * as E from 'fp-ts/Either';
 import { flow, pipe } from 'fp-ts/lib/function';
 import * as S from 'fp-ts/string';
 import { injectable } from '@injectable-ts/core';
-import { newWithdrawRestService } from '@/API/withdraw.service';
+import { WithdrawService } from '@/API/withdraw.service';
 import { AmountErrors } from './sub-page/ammount/amount.component';
 import { EMPTY, Error } from '@/store/errors/error-system';
 
@@ -32,153 +32,162 @@ export interface WithdrowStore {
     clearData: () => void;
 }
 
-export type NewWithdrowStore = ValueWithEffect<WithdrowStore>;
+export type NewWithdrowStore = () => ValueWithEffect<WithdrowStore>;
 
 export const newNewWithdrowStore = injectable(
-    newWithdrawRestService,
-    (service): NewWithdrowStore => {
-        //#region init Property
-        const currency = newLensedAtom<string>('');
-        const amount = newLensedAtom<E.Either<AmountErrors, number>>(
-            E.right(0)
-        );
-        const tickerPrice = newLensedAtom(0);
-        const symbolLogo = newLensedAtom<string>('');
-        const approximateCost = newLensedAtom('');
-        const availableBalance = newLensedAtom(0);
-        const balanceAfter = newLensedAtom(0);
-        const address = newLensedAtom<E.Either<Error, string>>(E.left(EMPTY));
+    WithdrawService,
+    (service): NewWithdrowStore =>
+        () => {
+            //#region init Property
+            const currency = newLensedAtom<string>('');
+            const amount = newLensedAtom<E.Either<AmountErrors, number>>(
+                E.right(0)
+            );
+            const tickerPrice = newLensedAtom(0);
+            const symbolLogo = newLensedAtom<string>('');
+            const approximateCost = newLensedAtom('');
+            const availableBalance = newLensedAtom(0);
+            const balanceAfter = newLensedAtom(0);
+            const address = newLensedAtom<E.Either<Error, string>>(
+                E.left(EMPTY)
+            );
 
-        const isGoToCheckAvailable = newLensedAtom(false);
-        const isNextButtonAvailable = newLensedAtom(false);
+            const isGoToCheckAvailable = newLensedAtom(false);
+            const isNextButtonAvailable = newLensedAtom(false);
 
-        //#region seters Property
-        const setAvailableBalance = availableBalance.set;
-        const setSymbolLogo = symbolLogo.set;
-        const setCurrency = currency.set;
-        const setTickerPrice = tickerPrice.set;
+            //#region seters Property
+            const setAvailableBalance = availableBalance.set;
+            const setSymbolLogo = symbolLogo.set;
+            const setCurrency = currency.set;
+            const setTickerPrice = tickerPrice.set;
 
-        const setAmount = (d: number) => {
-            if (d > 0 && d < 1) {
-                amount.set(E.left('too small'));
-            } else if (d > availableBalance.get()) {
-                amount.set(E.left('too big'));
-            } else {
-                amount.set(E.of(d));
-                approximateCost.set(
-                    `≈ ${formatNumberToUI(tickerPrice.get() * d)} USD`
-                );
-            }
-            if (d === 0) {
-                approximateCost.set(
-                    `1 ${currency.get()} ≈ ${tickerPrice.get()} USD`
-                );
-            }
-        };
-
-        const setAddress = (d: string) => {
-            address.set(E.of(d));
-            if (S.isEmpty(d)) {
-                address.set(E.left(EMPTY));
-            }
-        };
-
-        const isNextButtonAvailableEffect = pipe(
-            amount,
-            fromProperty,
-            tap(
-                flow(
-                    E.map((d) => d >= 1),
-                    E.fold(
-                        () => isNextButtonAvailable.set(false),
-                        (d) => isNextButtonAvailable.set(d)
-                    )
-                )
-            )
-        );
-
-        //TODO: скорее всего прийдется переделывать на адаптер
-        const onWithdrow = () => {
-            const currentAmount = (() => {
-                const currentAmount = amount.get();
-                return E.isRight(currentAmount) ? currentAmount.right : 0;
-            })();
-
-            const currentAddress = (() => {
-                const currentAddress = address.get();
-                return E.isRight(currentAddress) ? currentAddress.right : '';
-            })();
-
-            service.withdraw({
-                asset: currency.get(),
-                amount: currentAmount,
-                address: currentAddress,
-            });
-        };
-
-        const clearData = () => {
-            currency.set('');
-            amount.set(E.right(0));
-            isNextButtonAvailable.set(false);
-            tickerPrice.set(0);
-            symbolLogo.set('');
-            approximateCost.set('');
-            availableBalance.set(0);
-            isGoToCheckAvailable.set(false);
-            balanceAfter.set(0);
-            address.set(E.left(EMPTY));
-        };
-
-        //#region Effects
-        const approximateCostInitEffect = pipe(
-            currency,
-            fromProperty,
-            tap((currency) =>
-                approximateCost.set(`1 ${currency} ≈ ${tickerPrice.get()} USD`)
-            )
-        );
-
-        const addressFormValidationEffect = pipe(
-            address,
-            fromProperty,
-            tap(flow(E.isRight, isGoToCheckAvailable.set))
-        );
-        const balanceAfterEffect = pipe(
-            amount,
-            fromProperty,
-            tap((x) => {
-                if (E.isRight(x)) {
-                    balanceAfter.set(
-                        Number((availableBalance.get() - x.right).toFixed(2))
+            const setAmount = (d: number) => {
+                if (d > 0 && d < 1) {
+                    amount.set(E.left('too small'));
+                } else if (d > availableBalance.get()) {
+                    amount.set(E.left('too big'));
+                } else {
+                    amount.set(E.of(d));
+                    approximateCost.set(
+                        `≈ ${formatNumberToUI(tickerPrice.get() * d)} USD`
                     );
                 }
-            })
-        );
+                if (d === 0) {
+                    approximateCost.set(
+                        `1 ${currency.get()} ≈ ${tickerPrice.get()} USD`
+                    );
+                }
+            };
 
-        return valueWithEffect.new(
-            {
-                currency,
+            const setAddress = (d: string) => {
+                address.set(E.of(d));
+                if (S.isEmpty(d)) {
+                    address.set(E.left(EMPTY));
+                }
+            };
+
+            const isNextButtonAvailableEffect = pipe(
                 amount,
-                setCurrency,
-                setAmount,
-                isNextButtonAvailable,
-                approximateCost,
-                availableBalance,
-                setAvailableBalance,
-                isGoToCheckAvailable,
-                balanceAfter,
+                fromProperty,
+                tap(
+                    flow(
+                        E.map((d) => d >= 1),
+                        E.fold(
+                            () => isNextButtonAvailable.set(false),
+                            (d) => isNextButtonAvailable.set(d)
+                        )
+                    )
+                )
+            );
+
+            //TODO: скорее всего прийдется переделывать на адаптер
+            const onWithdrow = () => {
+                const currentAmount = (() => {
+                    const currentAmount = amount.get();
+                    return E.isRight(currentAmount) ? currentAmount.right : 0;
+                })();
+
+                const currentAddress = (() => {
+                    const currentAddress = address.get();
+                    return E.isRight(currentAddress)
+                        ? currentAddress.right
+                        : '';
+                })();
+
+                service.withdraw({
+                    asset: currency.get(),
+                    amount: currentAmount,
+                    address: currentAddress,
+                });
+            };
+
+            const clearData = () => {
+                currency.set('');
+                amount.set(E.right(0));
+                isNextButtonAvailable.set(false);
+                tickerPrice.set(0);
+                symbolLogo.set('');
+                approximateCost.set('');
+                availableBalance.set(0);
+                isGoToCheckAvailable.set(false);
+                balanceAfter.set(0);
+                address.set(E.left(EMPTY));
+            };
+
+            //#region Effects
+            const approximateCostInitEffect = pipe(
+                currency,
+                fromProperty,
+                tap((currency) =>
+                    approximateCost.set(
+                        `1 ${currency} ≈ ${tickerPrice.get()} USD`
+                    )
+                )
+            );
+
+            const addressFormValidationEffect = pipe(
                 address,
-                setAddress,
-                setTickerPrice,
-                symbolLogo,
-                setSymbolLogo,
-                onWithdrow,
-                clearData,
-            },
-            isNextButtonAvailableEffect,
-            approximateCostInitEffect,
-            addressFormValidationEffect,
-            balanceAfterEffect
-        );
-    }
+                fromProperty,
+                tap(flow(E.isRight, isGoToCheckAvailable.set))
+            );
+            const balanceAfterEffect = pipe(
+                amount,
+                fromProperty,
+                tap((x) => {
+                    if (E.isRight(x)) {
+                        balanceAfter.set(
+                            Number(
+                                (availableBalance.get() - x.right).toFixed(2)
+                            )
+                        );
+                    }
+                })
+            );
+
+            return valueWithEffect.new(
+                {
+                    currency,
+                    amount,
+                    setCurrency,
+                    setAmount,
+                    isNextButtonAvailable,
+                    approximateCost,
+                    availableBalance,
+                    setAvailableBalance,
+                    isGoToCheckAvailable,
+                    balanceAfter,
+                    address,
+                    setAddress,
+                    setTickerPrice,
+                    symbolLogo,
+                    setSymbolLogo,
+                    onWithdrow,
+                    clearData,
+                },
+                isNextButtonAvailableEffect,
+                approximateCostInitEffect,
+                addressFormValidationEffect,
+                balanceAfterEffect
+            );
+        }
 );

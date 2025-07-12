@@ -116,6 +116,92 @@
                 }
             }
         },
+        "/api/bidask/liquidity/deposit": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Deposit native or jetton tokens into Bidask liquidity pool",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Bidask"],
+                "summary": "Deposit liquidity on Bidask",
+                "parameters": [
+                    {
+                        "description": "Deposit request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiRequest-controller_BidaskLiquidityDepositRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deposit initiated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiResponse-controller_BidaskLiquidityDepositResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/api/dedust/swap": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Performs a token swap for the current user",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["DeDust"],
+                "summary": "Perform DeDust swap",
+                "parameters": [
+                    {
+                        "description": "SwapRoute request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiRequest-controller_DedustSwapRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "initiated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiResponse-controller_DedustSwapResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
         "/api/storm/liquidity/deposit": {
             "post": {
                 "security": [
@@ -210,6 +296,27 @@
                 }
             }
         },
+        "/api/stream": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Open a server-sent events (SSE) stream for a user",
+                "produces": ["text/event-stream"],
+                "tags": ["Stream"],
+                "summary": "SSE Stream with notifications",
+                "responses": {
+                    "200": {
+                        "description": "Stream opened successfully",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/api/transaction": {
             "post": {
                 "security": [
@@ -253,6 +360,34 @@
                     },
                     "500": {
                         "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/transaction/deposit-info": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Provides data required to top up the balance from external wallet.",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Transaction"],
+                "summary": "Wallet deposit info",
+                "responses": {
+                    "200": {
+                        "description": "Deposit info",
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiResponse-controller_DepositInfoResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
                         "schema": {
                             "$ref": "#/definitions/models.ResponseError"
                         }
@@ -306,7 +441,7 @@
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "tags": ["Twitter"],
-                "summary": "Create subscribtion to the twitter account",
+                "summary": "DEPRECATED Create subscribtion to the twitter account",
                 "parameters": [
                     {
                         "description": "Request body",
@@ -386,7 +521,7 @@
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "tags": ["Twitter"],
-                "summary": "Get tweets for user",
+                "summary": "DEPRECATED Get tweets for user",
                 "parameters": [
                     {
                         "type": "string",
@@ -431,7 +566,7 @@
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "tags": ["Twitter"],
-                "summary": "Unsubscribes user from particular subscription",
+                "summary": "DEPRECATED Unsubscribes user from particular subscription",
                 "parameters": [
                     {
                         "description": "Request body",
@@ -493,6 +628,139 @@
                 }
             }
         },
+        "/api/v2/twitter/subscribe": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "User can specify the twitter account and the action that should be performed for the messages of that account.",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Twitter"],
+                "summary": "Create subscribtion to the twitter account",
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiRequest-controller_TwitterSubscribeV2Request"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The subscribtion created successfully",
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiResponse-controller_TwitterSubscribeResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server errror",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/twitter/tweet": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get tweets for a user that were created after the threshold time",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Twitter"],
+                "summary": "Get tweets for user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Threshold time in RFC3339 format",
+                        "name": "threshold",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Tweets retrieved successfully",
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiResponse-controller_TwitterGetTweetsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/twitter/unsubscribe": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "User will be unsubscribed, and won't get new messages for processing",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Twitter"],
+                "summary": "Unsubscribes user from particular subscription",
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiRequest-controller_TwitterUnsubscribeV2Request"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Unsubscribed",
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiResponse-controller_TwitterUnsubscribeResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server errror",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
         "/api/wallet/balance": {
             "get": {
                 "security": [
@@ -514,6 +782,45 @@
                     },
                     "500": {
                         "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/wallet/withdraw": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Sends the asset amount from the applications's wallet to the external one",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Wallet"],
+                "summary": "Withdraw from the wallet",
+                "parameters": [
+                    {
+                        "description": "Withdraw from the wallet request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiRequest-controllers_WithdrawFromWalletRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Withdraw from the wallet response",
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiResponse-controllers_WithdrawFromWalletResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
                         "schema": {
                             "$ref": "#/definitions/models.ResponseError"
                         }
@@ -626,99 +933,13 @@
                 }
             }
         },
-        "/dedust/liquidity/deposit": {
-            "post": {
-                "description": "Deposit native and jetton tokens into DeDust liquidity pool",
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "tags": ["DeDust"],
-                "summary": "Deposit liquidity on DeDust",
-                "parameters": [
-                    {
-                        "description": "Deposit request body",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/server.DedustDepositRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Deposit initiated successfully",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid request",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    }
-                }
-            }
-        },
-        "/dedust/liquidity/withdraw": {
-            "post": {
-                "description": "Withdraw liquidity from DeDust liquidity pool",
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "tags": ["DeDust"],
-                "summary": "Withdraw liquidity from DeDust",
-                "parameters": [
-                    {
-                        "description": "Withdraw Request body",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/server.DedustWithdrawRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Withdraw initiated successfully",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid request",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    }
-                }
-            }
-        },
         "/deposit": {
             "get": {
                 "description": "Получить адрес для депозита по Telegram ID пользователя",
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "tags": ["deposit"],
-                "summary": "Get deposit address",
+                "summary": "DEPRECATED Get deposit address",
                 "parameters": [
                     {
                         "type": "integer",
@@ -732,7 +953,7 @@
                     "200": {
                         "description": "Успешный ответ с адресом депозита",
                         "schema": {
-                            "$ref": "#/definitions/controllers.DepositResponse"
+                            "$ref": "#/definitions/controller.DepositResponse"
                         }
                     },
                     "400": {
@@ -750,89 +971,13 @@
                 }
             }
         },
-        "/fundinfo": {
-            "get": {
-                "description": "Получить общую информацию о фонде",
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "tags": ["fund-stats"],
-                "summary": "Get fund information",
-                "responses": {
-                    "200": {
-                        "description": "Информация о фонде",
-                        "schema": {
-                            "$ref": "#/definitions/models.FundStats"
-                        }
-                    },
-                    "500": {
-                        "description": "Ошибка сервера",
-                        "schema": {
-                            "$ref": "#/definitions/models.ResponseError"
-                        }
-                    }
-                }
-            }
-        },
-        "/notifications/stream/{telegram_id}": {
-            "get": {
-                "description": "Open a server-sent events (SSE) stream to send notifications for a user",
-                "produces": ["text/event-stream"],
-                "tags": ["Stream"],
-                "summary": "Open a stream",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "User ID",
-                        "name": "telegram_id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Transaction Stream opened successfully",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/notifications/{telegram_id}": {
-            "get": {
-                "description": "Get all notifications for a user in the last 5 days",
-                "produces": ["application/json"],
-                "tags": ["Notifications"],
-                "summary": "Get notifications for a user",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "User ID",
-                        "name": "telegram_id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "List of notifications",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/server.Notification"
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/strategies": {
             "get": {
                 "description": "Получить список всех стратегий",
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "tags": ["strategies"],
-                "summary": "Get all Strategies",
+                "summary": "DEPRECATED Get all Strategies",
                 "responses": {
                     "200": {
                         "description": "Список стратегий",
@@ -858,7 +1003,7 @@
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "tags": ["strategies"],
-                "summary": "Get Strategy by ID",
+                "summary": "DEPRECATED Get Strategy by ID",
                 "parameters": [
                     {
                         "type": "string",
@@ -895,7 +1040,7 @@
                 "description": "Open a server-sent events (SSE) stream for a user",
                 "produces": ["text/event-stream"],
                 "tags": ["Stream"],
-                "summary": "Open a stream",
+                "summary": "DEPRECATED Open a stream",
                 "parameters": [
                     {
                         "type": "string",
@@ -921,7 +1066,7 @@
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "tags": ["Swap"],
-                "summary": "Initiate a swap",
+                "summary": "DEPRECATED Initiate a swap",
                 "parameters": [
                     {
                         "description": "SwapRoute request body",
@@ -1082,7 +1227,7 @@
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "tags": ["wallets"],
-                "summary": "Buy index",
+                "summary": "DEPRECATED Buy index",
                 "parameters": [
                     {
                         "description": "Запрос на покупку индекса",
@@ -1116,7 +1261,7 @@
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "tags": ["wallets"],
-                "summary": "Sell index",
+                "summary": "DEPRECATED Sell index",
                 "parameters": [
                     {
                         "description": "Запрос на продажу индекса",
@@ -1150,7 +1295,7 @@
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "tags": ["wallets"],
-                "summary": "Get wallet strategies",
+                "summary": "DEPRECATED Get wallet strategies",
                 "parameters": [
                     {
                         "type": "integer",
@@ -1167,88 +1312,6 @@
                             "type": "array",
                             "items": {
                                 "$ref": "#/definitions/models.WalletFunds"
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Ошибка сервера",
-                        "schema": {
-                            "$ref": "#/definitions/models.ResponseError"
-                        }
-                    }
-                }
-            }
-        },
-        "/wallet/transactions": {
-            "get": {
-                "description": "Получить транзакции пользователя",
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "tags": ["wallets"],
-                "summary": "Get wallet transactions",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Telegram ID пользователя",
-                        "name": "telegram_id",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "Максимальное количество транзакций (по умолчанию 20)",
-                        "name": "limit",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "Смещение для пагинации",
-                        "name": "offset",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Список транзакций",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.Transaction"
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Ошибка сервера",
-                        "schema": {
-                            "$ref": "#/definitions/models.ResponseError"
-                        }
-                    }
-                }
-            }
-        },
-        "/wallets/{user_id}": {
-            "get": {
-                "description": "Получить список кошельков пользователя",
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "tags": ["wallets"],
-                "summary": "Get user wallets",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Идентификатор пользователя",
-                        "name": "user_id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Список кошельков",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.Wallet"
                             }
                         }
                     },
@@ -1302,6 +1365,85 @@
         }
     },
     "definitions": {
+        "controller.BidaskLiquidityDepositRequest": {
+            "type": "object",
+            "properties": {
+                "poolAddress": {
+                    "type": "string"
+                },
+                "token0Amount": {
+                    "type": "number"
+                },
+                "token0Ticker": {
+                    "type": "string"
+                },
+                "token1Amount": {
+                    "type": "number"
+                },
+                "token1Ticker": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.BidaskLiquidityDepositResponse": {
+            "type": "object",
+            "properties": {
+                "transaction": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.DedustSwapRequest": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number"
+                },
+                "tickerFrom": {
+                    "type": "string"
+                },
+                "tickerTo": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.DedustSwapResponse": {
+            "type": "object",
+            "properties": {
+                "transactionId": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.DepositInfoResponse": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "memo": {
+                    "type": "string"
+                },
+                "qrimgsrc": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.DepositResponse": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "memo": {
+                    "description": "It's serialized to `memo` for API back compatability",
+                    "type": "string"
+                },
+                "qrimgsrc": {
+                    "type": "string"
+                }
+            }
+        },
         "controller.StormLiquidityDepositRequest": {
             "type": "object",
             "properties": {
@@ -1439,6 +1581,17 @@
                 }
             }
         },
+        "controller.TwitterSubscribeV2Request": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "twitterId": {
+                    "type": "string"
+                }
+            }
+        },
         "controller.TwitterUnsubscribeRequest": {
             "type": "object",
             "properties": {
@@ -1452,6 +1605,14 @@
         },
         "controller.TwitterUnsubscribeResponse": {
             "type": "object"
+        },
+        "controller.TwitterUnsubscribeV2Request": {
+            "type": "object",
+            "properties": {
+                "subscriptionId": {
+                    "type": "string"
+                }
+            }
         },
         "controllers.BuyIndexData": {
             "type": "object",
@@ -1512,21 +1673,6 @@
                 },
                 "success": {
                     "type": "boolean"
-                }
-            }
-        },
-        "controllers.DepositResponse": {
-            "type": "object",
-            "properties": {
-                "address": {
-                    "type": "string"
-                },
-                "memo": {
-                    "description": "It's serialized to `memo` for API back compatability",
-                    "type": "string"
-                },
-                "qrimgsrc": {
-                    "type": "string"
                 }
             }
         },
@@ -1591,6 +1737,28 @@
                 },
                 "asset": {
                     "description": "TODO now it's changed to `asset` to match UI",
+                    "type": "string"
+                }
+            }
+        },
+        "controllers.WithdrawFromWalletRequest": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "amount": {
+                    "type": "number"
+                },
+                "ticker": {
+                    "type": "string"
+                }
+            }
+        },
+        "controllers.WithdrawFromWalletResponse": {
+            "type": "object",
+            "properties": {
+                "transaction": {
                     "type": "string"
                 }
             }
@@ -1678,17 +1846,6 @@
                     "type": "string"
                 },
                 "value": {
-                    "type": "number"
-                }
-            }
-        },
-        "models.FundStats": {
-            "type": "object",
-            "properties": {
-                "holders": {
-                    "type": "integer"
-                },
-                "tvl": {
                     "type": "number"
                 }
             }
@@ -1791,35 +1948,6 @@
                 }
             }
         },
-        "models.Transaction": {
-            "type": "object",
-            "properties": {
-                "address": {
-                    "type": "string"
-                },
-                "amount": {
-                    "type": "number"
-                },
-                "asset": {
-                    "$ref": "#/definitions/models.Asset"
-                },
-                "timestamp": {
-                    "type": "string"
-                },
-                "transaction_status": {
-                    "type": "string"
-                },
-                "transaction_type": {
-                    "type": "string"
-                },
-                "tx": {
-                    "type": "string"
-                },
-                "value": {
-                    "type": "number"
-                }
-            }
-        },
         "models.User": {
             "type": "object",
             "properties": {
@@ -1852,26 +1980,6 @@
                 },
                 "value": {
                     "type": "number"
-                }
-            }
-        },
-        "models.Wallet": {
-            "type": "object",
-            "properties": {
-                "address": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "network_id": {
-                    "type": "string"
-                },
-                "secretKey": {
-                    "type": "string"
-                },
-                "userID": {
-                    "type": "string"
                 }
             }
         },
@@ -1948,6 +2056,22 @@
                 }
             }
         },
+        "routing.ApiRequest-controller_BidaskLiquidityDepositRequest": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/controller.BidaskLiquidityDepositRequest"
+                }
+            }
+        },
+        "routing.ApiRequest-controller_DedustSwapRequest": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/controller.DedustSwapRequest"
+                }
+            }
+        },
         "routing.ApiRequest-controller_StormLiquidityDepositRequest": {
             "type": "object",
             "properties": {
@@ -1964,6 +2088,54 @@
                 }
             }
         },
+        "routing.ApiRequest-controller_TwitterSubscribeV2Request": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/controller.TwitterSubscribeV2Request"
+                }
+            }
+        },
+        "routing.ApiRequest-controller_TwitterUnsubscribeV2Request": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/controller.TwitterUnsubscribeV2Request"
+                }
+            }
+        },
+        "routing.ApiRequest-controllers_WithdrawFromWalletRequest": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/controllers.WithdrawFromWalletRequest"
+                }
+            }
+        },
+        "routing.ApiResponse-controller_BidaskLiquidityDepositResponse": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/controller.BidaskLiquidityDepositResponse"
+                }
+            }
+        },
+        "routing.ApiResponse-controller_DedustSwapResponse": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/controller.DedustSwapResponse"
+                }
+            }
+        },
+        "routing.ApiResponse-controller_DepositInfoResponse": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/controller.DepositInfoResponse"
+                }
+            }
+        },
         "routing.ApiResponse-controller_StormLiquidityDepositResponse": {
             "type": "object",
             "properties": {
@@ -1977,6 +2149,38 @@
             "properties": {
                 "payload": {
                     "$ref": "#/definitions/controller.StormLiquidityWithdrawResponse"
+                }
+            }
+        },
+        "routing.ApiResponse-controller_TwitterGetTweetsResponse": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/controller.TwitterGetTweetsResponse"
+                }
+            }
+        },
+        "routing.ApiResponse-controller_TwitterSubscribeResponse": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/controller.TwitterSubscribeResponse"
+                }
+            }
+        },
+        "routing.ApiResponse-controller_TwitterUnsubscribeResponse": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/controller.TwitterUnsubscribeResponse"
+                }
+            }
+        },
+        "routing.ApiResponse-controllers_WithdrawFromWalletResponse": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/controllers.WithdrawFromWalletResponse"
                 }
             }
         },
@@ -2004,60 +2208,13 @@
                 }
             }
         },
-        "server.DedustDepositRequest": {
-            "type": "object",
-            "properties": {
-                "amount0": {
-                    "type": "string"
-                },
-                "amount1": {
-                    "type": "string"
-                },
-                "tokens": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                }
-            }
-        },
-        "server.DedustWithdrawRequest": {
-            "type": "object",
-            "properties": {
-                "amount": {
-                    "type": "string"
-                },
-                "tokens": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                }
-            }
-        },
-        "server.Notification": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string"
-                },
-                "status": {
-                    "type": "string"
-                },
-                "telegram_id": {
-                    "type": "integer"
-                },
-                "timestamp": {
-                    "type": "integer"
-                }
-            }
-        },
         "transactions.EntryType": {
             "type": "string",
             "enum": [
                 "DEBIT",
                 "CREDIT",
                 "RESERVE",
+                "TON_FEE_RESERVE",
                 "RELEASE",
                 "FEE",
                 "APP_FEE",
@@ -2065,12 +2222,14 @@
                 "SLIPPAGE",
                 "NETWORK_FEE",
                 "SERVICE_FEE",
+                "TON_FEE",
                 "REWARD"
             ],
             "x-enum-varnames": [
                 "ENTRY_TYPE_DEBIT",
                 "ENTRY_TYPE_CREDIT",
                 "ENTRY_TYPE_RESERVE",
+                "ENTRY_TYPE_TON_FEE_RESERVE",
                 "ENTRY_TYPE_RELEASE",
                 "ENTRY_TYPE_FEE",
                 "ENTRY_TYPE_APP_FEE",
@@ -2078,6 +2237,7 @@
                 "ENTRY_TYPE_SLIPPAGE",
                 "ENTRY_TYPE_NETWORK_FEE",
                 "ENTRY_TYPE_SERVICE_FEE",
+                "ENTRY_TYPE_TON_FEE",
                 "ENTRY_TYPE_REWARD"
             ]
         },

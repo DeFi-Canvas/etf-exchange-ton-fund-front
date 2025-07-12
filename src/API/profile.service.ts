@@ -1,13 +1,9 @@
 import { Stream } from '@most/types';
-import { Either } from 'fp-ts/lib/Either';
-import { UserStoreService } from '@/store/user.store';
-import { injectable, token } from '@injectable-ts/core';
+import * as E from 'fp-ts/lib/Either';
 import { EranStep } from '@/pages/profile/components/earn/earn.view-model';
-import { getRequestGenerated } from './request.utils';
 import { DOMAIN_API_URL } from './API';
 import { TasksApi } from './scheme/rest-genereted/api';
 import { Configuration } from './scheme/rest-genereted';
-import { taskListCodec } from './contracts/task.contract';
 import { Error } from '@/store/errors/error-system';
 import { now } from '@most/core';
 
@@ -35,34 +31,13 @@ export interface TasksCheckResponce extends TasksCheck {
 }
 
 export interface ProfileRestService {
-    getTask: () => Stream<Either<Error, Array<EranStep>>>;
+    getTask: () => Stream<E.Either<Error, Array<EranStep>>>;
     checkTask: (id: string) => Stream<TasksCheckResponce>;
 }
 
-export const newProfileRestService = injectable(
-    token('userStore')<UserStoreService>(),
-    (userStore): ProfileRestService => {
-        const { id: telegram_id } = userStore.user.get();
-
-        //TODO вынести в модель
-        const mapGetTask = (d: Tasks): EranStep => ({
-            id: d.ID,
-            title: d.Title,
-            reward: d.Reward,
-            isActive: d.Completed,
-            externalLink: d.Url,
-            isLoading: false,
-        });
-
-        const mapGetTasks = (d: Tasks[]): EranStep[] => d.map(mapGetTask);
-
-        return {
-            getTask: getRequestGenerated(
-                tasksApi.tasksGet(telegram_id ?? 0),
-                taskListCodec,
-                mapGetTasks
-            ),
-            checkTask: (id) => now({ success: true, message: '', id }),
-        };
-    }
-);
+export const newProfileRestService = (): ProfileRestService => {
+    return {
+        getTask: () => now(E.left('EMPTY')),
+        checkTask: (id) => now({ success: true, message: '', id }),
+    };
+};

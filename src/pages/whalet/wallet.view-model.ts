@@ -12,7 +12,6 @@ import { newLensedAtom } from '@frp-ts/lens';
 import { TransactionsRestService } from '@/API/transactions/transactions.service';
 import { SendTransactionRequest } from '@tonconnect/ui-react';
 import { fromProperty } from '@/utils/property.utils';
-import { newDepositRestService } from '@/API/deposit.service';
 import { beginCell } from '@ton/core';
 
 export interface Balance {
@@ -38,12 +37,7 @@ const WAITING_TIME = 600;
 export const newWhatToBuyViewModel = injectable(
     newWalletRestService,
     TransactionsRestService,
-    newDepositRestService,
-    (
-        waletRestService,
-        transactionsRestService,
-        newDepositRestService
-    ): NewWhatToBuyViewModel =>
+    (waletRestService, transactionsRestService): NewWhatToBuyViewModel =>
         () => {
             const balance = newLensedAtom<O.Option<Balance>>(O.none);
             const isTransactionAvailible = newLensedAtom(true);
@@ -90,7 +84,7 @@ export const newWhatToBuyViewModel = injectable(
             const depositAmmountEffect = pipe(
                 depositAmount,
                 fromProperty,
-                chain(() => newDepositRestService.getDepositDetails()),
+                chain(() => transactionsRestService.getDepositDetails()),
                 map((details) =>
                     pipe(
                         details,

@@ -3,7 +3,6 @@ import { FundRespnce, FundsData } from '@/instance/fund/fund.model';
 import { TransactionsResponce } from '@/instance/transactions/transactions.model';
 import { either } from 'fp-ts';
 import * as t from 'io-ts';
-import { AssetDto } from '@/API/contracts/assets.contract.ts';
 import { WalletBalanceResponse } from '@/API/contracts/walletBalance.contract.ts';
 import { ERROR } from '@/store/errors/error-system';
 
@@ -21,23 +20,6 @@ export interface WalletAssetResponse {
 export interface WaletResponce {
     total: number;
     assets: Array<WalletAssetResponse>;
-}
-
-export interface WalletFundsResponse {
-    id: string;
-    name: string;
-    description: string;
-    management_fee: number;
-    image_url: string;
-    risk_score: string;
-    updated_event: string;
-    is_avaiable: boolean;
-    value: number;
-    assets: Array<{
-        asset: AssetDto;
-        allocation_percentage: number;
-    }>;
-    created_at: string;
 }
 
 interface WhaletFundsResponce {
@@ -132,17 +114,3 @@ export const getWhaletFundsValidation = (data: WhaletFundsResponce) => {
         return either.left(ERROR);
     }
 };
-
-export const mapFunds = (data: WalletFundsResponse): FundsData => ({
-    id: data.id,
-    name: data.name,
-    description: data.description,
-    managementFee: data.management_fee,
-    logo: data.image_url,
-    riskScore: data.risk_score,
-    isAvaiable: data.is_avaiable,
-    cost: data.value,
-    assets: [],
-    tvlValue: data.value,
-    createdAt: data.created_at,
-});

@@ -9,18 +9,6 @@ export interface DepositAssetPayload {
     image_url: string;
 }
 
-export interface DepositDetails {
-    address: string;
-    memo: string;
-    qrimgsrc: string;
-}
-
-export const mapDepositDetails = (data: DepositDetails) => ({
-    address: data.address,
-    memo: data.memo,
-    qrCode: data.qrimgsrc,
-});
-
 export const mapDepositAssets = ({ payload }: AssetsResponse): DepositAsset[] =>
     payload.map((assets) => ({
         id: assets.id,

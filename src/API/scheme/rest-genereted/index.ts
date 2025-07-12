@@ -1,5 +1,5 @@
 /* tslint:disable */
- 
+/* eslint-disable */
 /**
  * ETF Exchange TON Fund API
  * API для взаимодействия с ETF Exchange TON Fund

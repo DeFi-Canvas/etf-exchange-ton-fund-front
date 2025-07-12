@@ -26,6 +26,144 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
+ * @interface ControllerBidaskLiquidityDepositRequest
+ */
+export interface ControllerBidaskLiquidityDepositRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerBidaskLiquidityDepositRequest
+     */
+    'poolAddress'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ControllerBidaskLiquidityDepositRequest
+     */
+    'token0Amount'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerBidaskLiquidityDepositRequest
+     */
+    'token0Ticker'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ControllerBidaskLiquidityDepositRequest
+     */
+    'token1Amount'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerBidaskLiquidityDepositRequest
+     */
+    'token1Ticker'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ControllerBidaskLiquidityDepositResponse
+ */
+export interface ControllerBidaskLiquidityDepositResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerBidaskLiquidityDepositResponse
+     */
+    'transaction'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ControllerDedustSwapRequest
+ */
+export interface ControllerDedustSwapRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof ControllerDedustSwapRequest
+     */
+    'amount'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerDedustSwapRequest
+     */
+    'tickerFrom'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerDedustSwapRequest
+     */
+    'tickerTo'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ControllerDedustSwapResponse
+ */
+export interface ControllerDedustSwapResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerDedustSwapResponse
+     */
+    'transactionId'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ControllerDepositInfoResponse
+ */
+export interface ControllerDepositInfoResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerDepositInfoResponse
+     */
+    'address'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerDepositInfoResponse
+     */
+    'memo'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerDepositInfoResponse
+     */
+    'qrimgsrc'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ControllerDepositResponse
+ */
+export interface ControllerDepositResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerDepositResponse
+     */
+    'address'?: string;
+    /**
+     * It\'s serialized to `memo` for API back compatability
+     * @type {string}
+     * @memberof ControllerDepositResponse
+     */
+    'memo'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerDepositResponse
+     */
+    'qrimgsrc'?: string;
+}
+/**
+ * 
+ * @export
  * @interface ControllerStormLiquidityDepositRequest
  */
 export interface ControllerStormLiquidityDepositRequest {
@@ -249,6 +387,25 @@ export interface ControllerTwitterSubscribeResponse {
 /**
  * 
  * @export
+ * @interface ControllerTwitterSubscribeV2Request
+ */
+export interface ControllerTwitterSubscribeV2Request {
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerTwitterSubscribeV2Request
+     */
+    'action'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerTwitterSubscribeV2Request
+     */
+    'twitterId'?: string;
+}
+/**
+ * 
+ * @export
  * @interface ControllerTwitterUnsubscribeRequest
  */
 export interface ControllerTwitterUnsubscribeRequest {
@@ -264,6 +421,19 @@ export interface ControllerTwitterUnsubscribeRequest {
      * @memberof ControllerTwitterUnsubscribeRequest
      */
     'telegramId'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ControllerTwitterUnsubscribeV2Request
+ */
+export interface ControllerTwitterUnsubscribeV2Request {
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllerTwitterUnsubscribeV2Request
+     */
+    'subscriptionId'?: string;
 }
 /**
  * 
@@ -380,31 +550,6 @@ export interface ControllersCompleteTaskResponse {
 /**
  * 
  * @export
- * @interface ControllersDepositResponse
- */
-export interface ControllersDepositResponse {
-    /**
-     * 
-     * @type {string}
-     * @memberof ControllersDepositResponse
-     */
-    'address'?: string;
-    /**
-     * It\'s serialized to `memo` for API back compatability
-     * @type {string}
-     * @memberof ControllersDepositResponse
-     */
-    'memo'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ControllersDepositResponse
-     */
-    'qrimgsrc'?: string;
-}
-/**
- * 
- * @export
  * @interface ControllersGetAssetResponse
  */
 export interface ControllersGetAssetResponse {
@@ -508,6 +653,44 @@ export interface ControllersWithdrawData {
      * @memberof ControllersWithdrawData
      */
     'asset'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ControllersWithdrawFromWalletRequest
+ */
+export interface ControllersWithdrawFromWalletRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllersWithdrawFromWalletRequest
+     */
+    'address'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ControllersWithdrawFromWalletRequest
+     */
+    'amount'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllersWithdrawFromWalletRequest
+     */
+    'ticker'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ControllersWithdrawFromWalletResponse
+ */
+export interface ControllersWithdrawFromWalletResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllersWithdrawFromWalletResponse
+     */
+    'transaction'?: string;
 }
 /**
  * 
@@ -673,25 +856,6 @@ export interface ModelsAssetBalance {
      * @memberof ModelsAssetBalance
      */
     'value'?: number;
-}
-/**
- * 
- * @export
- * @interface ModelsFundStats
- */
-export interface ModelsFundStats {
-    /**
-     * 
-     * @type {number}
-     * @memberof ModelsFundStats
-     */
-    'holders'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof ModelsFundStats
-     */
-    'tvl'?: number;
 }
 /**
  * 
@@ -874,61 +1038,6 @@ export interface ModelsTask {
 /**
  * 
  * @export
- * @interface ModelsTransaction
- */
-export interface ModelsTransaction {
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsTransaction
-     */
-    'address'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ModelsTransaction
-     */
-    'amount'?: number;
-    /**
-     * 
-     * @type {ModelsAsset}
-     * @memberof ModelsTransaction
-     */
-    'asset'?: ModelsAsset;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsTransaction
-     */
-    'timestamp'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsTransaction
-     */
-    'transaction_status'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsTransaction
-     */
-    'transaction_type'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsTransaction
-     */
-    'tx'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ModelsTransaction
-     */
-    'value'?: number;
-}
-/**
- * 
- * @export
  * @interface ModelsUser
  */
 export interface ModelsUser {
@@ -987,43 +1096,6 @@ export interface ModelsUserAsset {
      * @memberof ModelsUserAsset
      */
     'value'?: number;
-}
-/**
- * 
- * @export
- * @interface ModelsWallet
- */
-export interface ModelsWallet {
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsWallet
-     */
-    'address'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsWallet
-     */
-    'id'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsWallet
-     */
-    'network_id'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsWallet
-     */
-    'secretKey'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsWallet
-     */
-    'userID'?: string;
 }
 /**
  * 
@@ -1141,6 +1213,32 @@ export interface RoutingApiPagination {
 /**
  * 
  * @export
+ * @interface RoutingApiRequestControllerBidaskLiquidityDepositRequest
+ */
+export interface RoutingApiRequestControllerBidaskLiquidityDepositRequest {
+    /**
+     * 
+     * @type {ControllerBidaskLiquidityDepositRequest}
+     * @memberof RoutingApiRequestControllerBidaskLiquidityDepositRequest
+     */
+    'payload'?: ControllerBidaskLiquidityDepositRequest;
+}
+/**
+ * 
+ * @export
+ * @interface RoutingApiRequestControllerDedustSwapRequest
+ */
+export interface RoutingApiRequestControllerDedustSwapRequest {
+    /**
+     * 
+     * @type {ControllerDedustSwapRequest}
+     * @memberof RoutingApiRequestControllerDedustSwapRequest
+     */
+    'payload'?: ControllerDedustSwapRequest;
+}
+/**
+ * 
+ * @export
  * @interface RoutingApiRequestControllerStormLiquidityDepositRequest
  */
 export interface RoutingApiRequestControllerStormLiquidityDepositRequest {
@@ -1167,6 +1265,84 @@ export interface RoutingApiRequestControllerStormLiquidityWithdrawRequest {
 /**
  * 
  * @export
+ * @interface RoutingApiRequestControllerTwitterSubscribeV2Request
+ */
+export interface RoutingApiRequestControllerTwitterSubscribeV2Request {
+    /**
+     * 
+     * @type {ControllerTwitterSubscribeV2Request}
+     * @memberof RoutingApiRequestControllerTwitterSubscribeV2Request
+     */
+    'payload'?: ControllerTwitterSubscribeV2Request;
+}
+/**
+ * 
+ * @export
+ * @interface RoutingApiRequestControllerTwitterUnsubscribeV2Request
+ */
+export interface RoutingApiRequestControllerTwitterUnsubscribeV2Request {
+    /**
+     * 
+     * @type {ControllerTwitterUnsubscribeV2Request}
+     * @memberof RoutingApiRequestControllerTwitterUnsubscribeV2Request
+     */
+    'payload'?: ControllerTwitterUnsubscribeV2Request;
+}
+/**
+ * 
+ * @export
+ * @interface RoutingApiRequestControllersWithdrawFromWalletRequest
+ */
+export interface RoutingApiRequestControllersWithdrawFromWalletRequest {
+    /**
+     * 
+     * @type {ControllersWithdrawFromWalletRequest}
+     * @memberof RoutingApiRequestControllersWithdrawFromWalletRequest
+     */
+    'payload'?: ControllersWithdrawFromWalletRequest;
+}
+/**
+ * 
+ * @export
+ * @interface RoutingApiResponseControllerBidaskLiquidityDepositResponse
+ */
+export interface RoutingApiResponseControllerBidaskLiquidityDepositResponse {
+    /**
+     * 
+     * @type {ControllerBidaskLiquidityDepositResponse}
+     * @memberof RoutingApiResponseControllerBidaskLiquidityDepositResponse
+     */
+    'payload'?: ControllerBidaskLiquidityDepositResponse;
+}
+/**
+ * 
+ * @export
+ * @interface RoutingApiResponseControllerDedustSwapResponse
+ */
+export interface RoutingApiResponseControllerDedustSwapResponse {
+    /**
+     * 
+     * @type {ControllerDedustSwapResponse}
+     * @memberof RoutingApiResponseControllerDedustSwapResponse
+     */
+    'payload'?: ControllerDedustSwapResponse;
+}
+/**
+ * 
+ * @export
+ * @interface RoutingApiResponseControllerDepositInfoResponse
+ */
+export interface RoutingApiResponseControllerDepositInfoResponse {
+    /**
+     * 
+     * @type {ControllerDepositInfoResponse}
+     * @memberof RoutingApiResponseControllerDepositInfoResponse
+     */
+    'payload'?: ControllerDepositInfoResponse;
+}
+/**
+ * 
+ * @export
  * @interface RoutingApiResponseControllerStormLiquidityDepositResponse
  */
 export interface RoutingApiResponseControllerStormLiquidityDepositResponse {
@@ -1189,6 +1365,58 @@ export interface RoutingApiResponseControllerStormLiquidityWithdrawResponse {
      * @memberof RoutingApiResponseControllerStormLiquidityWithdrawResponse
      */
     'payload'?: ControllerStormLiquidityWithdrawResponse;
+}
+/**
+ * 
+ * @export
+ * @interface RoutingApiResponseControllerTwitterGetTweetsResponse
+ */
+export interface RoutingApiResponseControllerTwitterGetTweetsResponse {
+    /**
+     * 
+     * @type {ControllerTwitterGetTweetsResponse}
+     * @memberof RoutingApiResponseControllerTwitterGetTweetsResponse
+     */
+    'payload'?: ControllerTwitterGetTweetsResponse;
+}
+/**
+ * 
+ * @export
+ * @interface RoutingApiResponseControllerTwitterSubscribeResponse
+ */
+export interface RoutingApiResponseControllerTwitterSubscribeResponse {
+    /**
+     * 
+     * @type {ControllerTwitterSubscribeResponse}
+     * @memberof RoutingApiResponseControllerTwitterSubscribeResponse
+     */
+    'payload'?: ControllerTwitterSubscribeResponse;
+}
+/**
+ * 
+ * @export
+ * @interface RoutingApiResponseControllerTwitterUnsubscribeResponse
+ */
+export interface RoutingApiResponseControllerTwitterUnsubscribeResponse {
+    /**
+     * 
+     * @type {object}
+     * @memberof RoutingApiResponseControllerTwitterUnsubscribeResponse
+     */
+    'payload'?: object;
+}
+/**
+ * 
+ * @export
+ * @interface RoutingApiResponseControllersWithdrawFromWalletResponse
+ */
+export interface RoutingApiResponseControllersWithdrawFromWalletResponse {
+    /**
+     * 
+     * @type {ControllersWithdrawFromWalletResponse}
+     * @memberof RoutingApiResponseControllersWithdrawFromWalletResponse
+     */
+    'payload'?: ControllersWithdrawFromWalletResponse;
 }
 /**
  * 
@@ -1232,81 +1460,6 @@ export interface RoutingGetIncognitoAuthTokenResponse {
 /**
  * 
  * @export
- * @interface ServerDedustDepositRequest
- */
-export interface ServerDedustDepositRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof ServerDedustDepositRequest
-     */
-    'amount0'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ServerDedustDepositRequest
-     */
-    'amount1'?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof ServerDedustDepositRequest
-     */
-    'tokens'?: Array<string>;
-}
-/**
- * 
- * @export
- * @interface ServerDedustWithdrawRequest
- */
-export interface ServerDedustWithdrawRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof ServerDedustWithdrawRequest
-     */
-    'amount'?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof ServerDedustWithdrawRequest
-     */
-    'tokens'?: Array<string>;
-}
-/**
- * 
- * @export
- * @interface ServerNotification
- */
-export interface ServerNotification {
-    /**
-     * 
-     * @type {string}
-     * @memberof ServerNotification
-     */
-    'message'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ServerNotification
-     */
-    'status'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ServerNotification
-     */
-    'telegram_id'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof ServerNotification
-     */
-    'timestamp'?: number;
-}
-/**
- * 
- * @export
  * @enum {string}
  */
 
@@ -1314,6 +1467,7 @@ export const TransactionsEntryType = {
     ENTRY_TYPE_DEBIT: 'DEBIT',
     ENTRY_TYPE_CREDIT: 'CREDIT',
     ENTRY_TYPE_RESERVE: 'RESERVE',
+    ENTRY_TYPE_TON_FEE_RESERVE: 'TON_FEE_RESERVE',
     ENTRY_TYPE_RELEASE: 'RELEASE',
     ENTRY_TYPE_FEE: 'FEE',
     ENTRY_TYPE_APP_FEE: 'APP_FEE',
@@ -1321,6 +1475,7 @@ export const TransactionsEntryType = {
     ENTRY_TYPE_SLIPPAGE: 'SLIPPAGE',
     ENTRY_TYPE_NETWORK_FEE: 'NETWORK_FEE',
     ENTRY_TYPE_SERVICE_FEE: 'SERVICE_FEE',
+    ENTRY_TYPE_TON_FEE: 'TON_FEE',
     ENTRY_TYPE_REWARD: 'REWARD'
 } as const;
 
@@ -2161,22 +2316,22 @@ export class AuthApi extends BaseAPI {
 
 
 /**
- * DeDustApi - axios parameter creator
+ * BidaskApi - axios parameter creator
  * @export
  */
-export const DeDustApiAxiosParamCreator = function (configuration?: Configuration) {
+export const BidaskApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Deposit native and jetton tokens into DeDust liquidity pool
-         * @summary Deposit liquidity on DeDust
-         * @param {ServerDedustDepositRequest} request Deposit request body
+         * Deposit native or jetton tokens into Bidask liquidity pool
+         * @summary Deposit liquidity on Bidask
+         * @param {RoutingApiRequestControllerBidaskLiquidityDepositRequest} request Deposit request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        dedustLiquidityDepositPost: async (request: ServerDedustDepositRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiBidaskLiquidityDepositPost: async (request: RoutingApiRequestControllerBidaskLiquidityDepositRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'request' is not null or undefined
-            assertParamExists('dedustLiquidityDepositPost', 'request', request)
-            const localVarPath = `/dedust/liquidity/deposit`;
+            assertParamExists('apiBidaskLiquidityDepositPost', 'request', request)
+            const localVarPath = `/api/bidask/liquidity/deposit`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -2187,6 +2342,9 @@ export const DeDustApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
 
     
@@ -2202,17 +2360,91 @@ export const DeDustApiAxiosParamCreator = function (configuration?: Configuratio
                 options: localVarRequestOptions,
             };
         },
+    }
+};
+
+/**
+ * BidaskApi - functional programming interface
+ * @export
+ */
+export const BidaskApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = BidaskApiAxiosParamCreator(configuration)
+    return {
         /**
-         * Withdraw liquidity from DeDust liquidity pool
-         * @summary Withdraw liquidity from DeDust
-         * @param {ServerDedustWithdrawRequest} request Withdraw Request body
+         * Deposit native or jetton tokens into Bidask liquidity pool
+         * @summary Deposit liquidity on Bidask
+         * @param {RoutingApiRequestControllerBidaskLiquidityDepositRequest} request Deposit request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        dedustLiquidityWithdrawPost: async (request: ServerDedustWithdrawRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        async apiBidaskLiquidityDepositPost(request: RoutingApiRequestControllerBidaskLiquidityDepositRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoutingApiResponseControllerBidaskLiquidityDepositResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiBidaskLiquidityDepositPost(request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['BidaskApi.apiBidaskLiquidityDepositPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * BidaskApi - factory interface
+ * @export
+ */
+export const BidaskApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = BidaskApiFp(configuration)
+    return {
+        /**
+         * Deposit native or jetton tokens into Bidask liquidity pool
+         * @summary Deposit liquidity on Bidask
+         * @param {RoutingApiRequestControllerBidaskLiquidityDepositRequest} request Deposit request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiBidaskLiquidityDepositPost(request: RoutingApiRequestControllerBidaskLiquidityDepositRequest, options?: RawAxiosRequestConfig): AxiosPromise<RoutingApiResponseControllerBidaskLiquidityDepositResponse> {
+            return localVarFp.apiBidaskLiquidityDepositPost(request, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * BidaskApi - object-oriented interface
+ * @export
+ * @class BidaskApi
+ * @extends {BaseAPI}
+ */
+export class BidaskApi extends BaseAPI {
+    /**
+     * Deposit native or jetton tokens into Bidask liquidity pool
+     * @summary Deposit liquidity on Bidask
+     * @param {RoutingApiRequestControllerBidaskLiquidityDepositRequest} request Deposit request body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BidaskApi
+     */
+    public apiBidaskLiquidityDepositPost(request: RoutingApiRequestControllerBidaskLiquidityDepositRequest, options?: RawAxiosRequestConfig) {
+        return BidaskApiFp(this.configuration).apiBidaskLiquidityDepositPost(request, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * DeDustApi - axios parameter creator
+ * @export
+ */
+export const DeDustApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Performs a token swap for the current user
+         * @summary Perform DeDust swap
+         * @param {RoutingApiRequestControllerDedustSwapRequest} request SwapRoute request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiDedustSwapPost: async (request: RoutingApiRequestControllerDedustSwapRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'request' is not null or undefined
-            assertParamExists('dedustLiquidityWithdrawPost', 'request', request)
-            const localVarPath = `/dedust/liquidity/withdraw`;
+            assertParamExists('apiDedustSwapPost', 'request', request)
+            const localVarPath = `/api/dedust/swap`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -2223,6 +2455,9 @@ export const DeDustApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
 
     
@@ -2249,29 +2484,16 @@ export const DeDustApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = DeDustApiAxiosParamCreator(configuration)
     return {
         /**
-         * Deposit native and jetton tokens into DeDust liquidity pool
-         * @summary Deposit liquidity on DeDust
-         * @param {ServerDedustDepositRequest} request Deposit request body
+         * Performs a token swap for the current user
+         * @summary Perform DeDust swap
+         * @param {RoutingApiRequestControllerDedustSwapRequest} request SwapRoute request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async dedustLiquidityDepositPost(request: ServerDedustDepositRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.dedustLiquidityDepositPost(request, options);
+        async apiDedustSwapPost(request: RoutingApiRequestControllerDedustSwapRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoutingApiResponseControllerDedustSwapResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiDedustSwapPost(request, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['DeDustApi.dedustLiquidityDepositPost']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * Withdraw liquidity from DeDust liquidity pool
-         * @summary Withdraw liquidity from DeDust
-         * @param {ServerDedustWithdrawRequest} request Withdraw Request body
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async dedustLiquidityWithdrawPost(request: ServerDedustWithdrawRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.dedustLiquidityWithdrawPost(request, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['DeDustApi.dedustLiquidityWithdrawPost']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['DeDustApi.apiDedustSwapPost']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -2285,24 +2507,14 @@ export const DeDustApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = DeDustApiFp(configuration)
     return {
         /**
-         * Deposit native and jetton tokens into DeDust liquidity pool
-         * @summary Deposit liquidity on DeDust
-         * @param {ServerDedustDepositRequest} request Deposit request body
+         * Performs a token swap for the current user
+         * @summary Perform DeDust swap
+         * @param {RoutingApiRequestControllerDedustSwapRequest} request SwapRoute request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        dedustLiquidityDepositPost(request: ServerDedustDepositRequest, options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any; }> {
-            return localVarFp.dedustLiquidityDepositPost(request, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Withdraw liquidity from DeDust liquidity pool
-         * @summary Withdraw liquidity from DeDust
-         * @param {ServerDedustWithdrawRequest} request Withdraw Request body
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        dedustLiquidityWithdrawPost(request: ServerDedustWithdrawRequest, options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any; }> {
-            return localVarFp.dedustLiquidityWithdrawPost(request, options).then((request) => request(axios, basePath));
+        apiDedustSwapPost(request: RoutingApiRequestControllerDedustSwapRequest, options?: RawAxiosRequestConfig): AxiosPromise<RoutingApiResponseControllerDedustSwapResponse> {
+            return localVarFp.apiDedustSwapPost(request, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -2315,27 +2527,15 @@ export const DeDustApiFactory = function (configuration?: Configuration, basePat
  */
 export class DeDustApi extends BaseAPI {
     /**
-     * Deposit native and jetton tokens into DeDust liquidity pool
-     * @summary Deposit liquidity on DeDust
-     * @param {ServerDedustDepositRequest} request Deposit request body
+     * Performs a token swap for the current user
+     * @summary Perform DeDust swap
+     * @param {RoutingApiRequestControllerDedustSwapRequest} request SwapRoute request body
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DeDustApi
      */
-    public dedustLiquidityDepositPost(request: ServerDedustDepositRequest, options?: RawAxiosRequestConfig) {
-        return DeDustApiFp(this.configuration).dedustLiquidityDepositPost(request, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Withdraw liquidity from DeDust liquidity pool
-     * @summary Withdraw liquidity from DeDust
-     * @param {ServerDedustWithdrawRequest} request Withdraw Request body
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DeDustApi
-     */
-    public dedustLiquidityWithdrawPost(request: ServerDedustWithdrawRequest, options?: RawAxiosRequestConfig) {
-        return DeDustApiFp(this.configuration).dedustLiquidityWithdrawPost(request, options).then((request) => request(this.axios, this.basePath));
+    public apiDedustSwapPost(request: RoutingApiRequestControllerDedustSwapRequest, options?: RawAxiosRequestConfig) {
+        return DeDustApiFp(this.configuration).apiDedustSwapPost(request, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -2349,7 +2549,7 @@ export const DepositApiAxiosParamCreator = function (configuration?: Configurati
     return {
         /**
          * Получить адрес для депозита по Telegram ID пользователя
-         * @summary Get deposit address
+         * @summary DEPRECATED Get deposit address
          * @param {number} telegramId Telegram ID пользователя
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2396,12 +2596,12 @@ export const DepositApiFp = function(configuration?: Configuration) {
     return {
         /**
          * Получить адрес для депозита по Telegram ID пользователя
-         * @summary Get deposit address
+         * @summary DEPRECATED Get deposit address
          * @param {number} telegramId Telegram ID пользователя
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async depositGet(telegramId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ControllersDepositResponse>> {
+        async depositGet(telegramId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ControllerDepositResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.depositGet(telegramId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DepositApi.depositGet']?.[localVarOperationServerIndex]?.url;
@@ -2419,12 +2619,12 @@ export const DepositApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * Получить адрес для депозита по Telegram ID пользователя
-         * @summary Get deposit address
+         * @summary DEPRECATED Get deposit address
          * @param {number} telegramId Telegram ID пользователя
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        depositGet(telegramId: number, options?: RawAxiosRequestConfig): AxiosPromise<ControllersDepositResponse> {
+        depositGet(telegramId: number, options?: RawAxiosRequestConfig): AxiosPromise<ControllerDepositResponse> {
             return localVarFp.depositGet(telegramId, options).then((request) => request(axios, basePath));
         },
     };
@@ -2439,7 +2639,7 @@ export const DepositApiFactory = function (configuration?: Configuration, basePa
 export class DepositApi extends BaseAPI {
     /**
      * Получить адрес для депозита по Telegram ID пользователя
-     * @summary Get deposit address
+     * @summary DEPRECATED Get deposit address
      * @param {number} telegramId Telegram ID пользователя
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2447,215 +2647,6 @@ export class DepositApi extends BaseAPI {
      */
     public depositGet(telegramId: number, options?: RawAxiosRequestConfig) {
         return DepositApiFp(this.configuration).depositGet(telegramId, options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-
-
-/**
- * FundStatsApi - axios parameter creator
- * @export
- */
-export const FundStatsApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * Получить общую информацию о фонде
-         * @summary Get fund information
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        fundinfoGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/fundinfo`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * FundStatsApi - functional programming interface
- * @export
- */
-export const FundStatsApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = FundStatsApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * Получить общую информацию о фонде
-         * @summary Get fund information
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async fundinfoGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ModelsFundStats>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.fundinfoGet(options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['FundStatsApi.fundinfoGet']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-    }
-};
-
-/**
- * FundStatsApi - factory interface
- * @export
- */
-export const FundStatsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = FundStatsApiFp(configuration)
-    return {
-        /**
-         * Получить общую информацию о фонде
-         * @summary Get fund information
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        fundinfoGet(options?: RawAxiosRequestConfig): AxiosPromise<ModelsFundStats> {
-            return localVarFp.fundinfoGet(options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * FundStatsApi - object-oriented interface
- * @export
- * @class FundStatsApi
- * @extends {BaseAPI}
- */
-export class FundStatsApi extends BaseAPI {
-    /**
-     * Получить общую информацию о фонде
-     * @summary Get fund information
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof FundStatsApi
-     */
-    public fundinfoGet(options?: RawAxiosRequestConfig) {
-        return FundStatsApiFp(this.configuration).fundinfoGet(options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-
-
-/**
- * NotificationsApi - axios parameter creator
- * @export
- */
-export const NotificationsApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * Get all notifications for a user in the last 5 days
-         * @summary Get notifications for a user
-         * @param {string} telegramId User ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        notificationsTelegramIdGet: async (telegramId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'telegramId' is not null or undefined
-            assertParamExists('notificationsTelegramIdGet', 'telegramId', telegramId)
-            const localVarPath = `/notifications/{telegram_id}`
-                .replace(`{${"telegram_id"}}`, encodeURIComponent(String(telegramId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * NotificationsApi - functional programming interface
- * @export
- */
-export const NotificationsApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = NotificationsApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * Get all notifications for a user in the last 5 days
-         * @summary Get notifications for a user
-         * @param {string} telegramId User ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async notificationsTelegramIdGet(telegramId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ServerNotification>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.notificationsTelegramIdGet(telegramId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['NotificationsApi.notificationsTelegramIdGet']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-    }
-};
-
-/**
- * NotificationsApi - factory interface
- * @export
- */
-export const NotificationsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = NotificationsApiFp(configuration)
-    return {
-        /**
-         * Get all notifications for a user in the last 5 days
-         * @summary Get notifications for a user
-         * @param {string} telegramId User ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        notificationsTelegramIdGet(telegramId: string, options?: RawAxiosRequestConfig): AxiosPromise<Array<ServerNotification>> {
-            return localVarFp.notificationsTelegramIdGet(telegramId, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * NotificationsApi - object-oriented interface
- * @export
- * @class NotificationsApi
- * @extends {BaseAPI}
- */
-export class NotificationsApi extends BaseAPI {
-    /**
-     * Get all notifications for a user in the last 5 days
-     * @summary Get notifications for a user
-     * @param {string} telegramId User ID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof NotificationsApi
-     */
-    public notificationsTelegramIdGet(telegramId: string, options?: RawAxiosRequestConfig) {
-        return NotificationsApiFp(this.configuration).notificationsTelegramIdGet(telegramId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -2856,7 +2847,7 @@ export const StrategiesApiAxiosParamCreator = function (configuration?: Configur
     return {
         /**
          * Получить список всех стратегий
-         * @summary Get all Strategies
+         * @summary DEPRECATED Get all Strategies
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2886,7 +2877,7 @@ export const StrategiesApiAxiosParamCreator = function (configuration?: Configur
         },
         /**
          * Получить информацию о стратегии по ее идентификатору
-         * @summary Get Strategy by ID
+         * @summary DEPRECATED Get Strategy by ID
          * @param {string} strategyId Идентификатор стратегии
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2930,7 +2921,7 @@ export const StrategiesApiFp = function(configuration?: Configuration) {
     return {
         /**
          * Получить список всех стратегий
-         * @summary Get all Strategies
+         * @summary DEPRECATED Get all Strategies
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2942,7 +2933,7 @@ export const StrategiesApiFp = function(configuration?: Configuration) {
         },
         /**
          * Получить информацию о стратегии по ее идентификатору
-         * @summary Get Strategy by ID
+         * @summary DEPRECATED Get Strategy by ID
          * @param {string} strategyId Идентификатор стратегии
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2965,7 +2956,7 @@ export const StrategiesApiFactory = function (configuration?: Configuration, bas
     return {
         /**
          * Получить список всех стратегий
-         * @summary Get all Strategies
+         * @summary DEPRECATED Get all Strategies
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2974,7 +2965,7 @@ export const StrategiesApiFactory = function (configuration?: Configuration, bas
         },
         /**
          * Получить информацию о стратегии по ее идентификатору
-         * @summary Get Strategy by ID
+         * @summary DEPRECATED Get Strategy by ID
          * @param {string} strategyId Идентификатор стратегии
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2994,7 +2985,7 @@ export const StrategiesApiFactory = function (configuration?: Configuration, bas
 export class StrategiesApi extends BaseAPI {
     /**
      * Получить список всех стратегий
-     * @summary Get all Strategies
+     * @summary DEPRECATED Get all Strategies
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StrategiesApi
@@ -3005,7 +2996,7 @@ export class StrategiesApi extends BaseAPI {
 
     /**
      * Получить информацию о стратегии по ее идентификатору
-     * @summary Get Strategy by ID
+     * @summary DEPRECATED Get Strategy by ID
      * @param {string} strategyId Идентификатор стратегии
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -3025,17 +3016,13 @@ export class StrategiesApi extends BaseAPI {
 export const StreamApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Open a server-sent events (SSE) stream to send notifications for a user
-         * @summary Open a stream
-         * @param {string} telegramId User ID
+         * Open a server-sent events (SSE) stream for a user
+         * @summary SSE Stream with notifications
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        notificationsStreamTelegramIdGet: async (telegramId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'telegramId' is not null or undefined
-            assertParamExists('notificationsStreamTelegramIdGet', 'telegramId', telegramId)
-            const localVarPath = `/notifications/stream/{telegram_id}`
-                .replace(`{${"telegram_id"}}`, encodeURIComponent(String(telegramId)));
+        apiStreamGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/stream`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -3046,6 +3033,9 @@ export const StreamApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
 
     
@@ -3060,7 +3050,7 @@ export const StreamApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * Open a server-sent events (SSE) stream for a user
-         * @summary Open a stream
+         * @summary DEPRECATED Open a stream
          * @param {string} telegramId User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3103,21 +3093,20 @@ export const StreamApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = StreamApiAxiosParamCreator(configuration)
     return {
         /**
-         * Open a server-sent events (SSE) stream to send notifications for a user
-         * @summary Open a stream
-         * @param {string} telegramId User ID
+         * Open a server-sent events (SSE) stream for a user
+         * @summary SSE Stream with notifications
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async notificationsStreamTelegramIdGet(telegramId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.notificationsStreamTelegramIdGet(telegramId, options);
+        async apiStreamGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiStreamGet(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['StreamApi.notificationsStreamTelegramIdGet']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['StreamApi.apiStreamGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * Open a server-sent events (SSE) stream for a user
-         * @summary Open a stream
+         * @summary DEPRECATED Open a stream
          * @param {string} telegramId User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3139,18 +3128,17 @@ export const StreamApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = StreamApiFp(configuration)
     return {
         /**
-         * Open a server-sent events (SSE) stream to send notifications for a user
-         * @summary Open a stream
-         * @param {string} telegramId User ID
+         * Open a server-sent events (SSE) stream for a user
+         * @summary SSE Stream with notifications
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        notificationsStreamTelegramIdGet(telegramId: string, options?: RawAxiosRequestConfig): AxiosPromise<string> {
-            return localVarFp.notificationsStreamTelegramIdGet(telegramId, options).then((request) => request(axios, basePath));
+        apiStreamGet(options?: RawAxiosRequestConfig): AxiosPromise<string> {
+            return localVarFp.apiStreamGet(options).then((request) => request(axios, basePath));
         },
         /**
          * Open a server-sent events (SSE) stream for a user
-         * @summary Open a stream
+         * @summary DEPRECATED Open a stream
          * @param {string} telegramId User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3169,20 +3157,19 @@ export const StreamApiFactory = function (configuration?: Configuration, basePat
  */
 export class StreamApi extends BaseAPI {
     /**
-     * Open a server-sent events (SSE) stream to send notifications for a user
-     * @summary Open a stream
-     * @param {string} telegramId User ID
+     * Open a server-sent events (SSE) stream for a user
+     * @summary SSE Stream with notifications
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StreamApi
      */
-    public notificationsStreamTelegramIdGet(telegramId: string, options?: RawAxiosRequestConfig) {
-        return StreamApiFp(this.configuration).notificationsStreamTelegramIdGet(telegramId, options).then((request) => request(this.axios, this.basePath));
+    public apiStreamGet(options?: RawAxiosRequestConfig) {
+        return StreamApiFp(this.configuration).apiStreamGet(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Open a server-sent events (SSE) stream for a user
-     * @summary Open a stream
+     * @summary DEPRECATED Open a stream
      * @param {string} telegramId User ID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -3203,7 +3190,7 @@ export const SwapApiAxiosParamCreator = function (configuration?: Configuration)
     return {
         /**
          * Perform a token swap for a user
-         * @summary Initiate a swap
+         * @summary DEPRECATED Initiate a swap
          * @param {ControllerSwapInitiateRequest} request SwapRoute request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3249,7 +3236,7 @@ export const SwapApiFp = function(configuration?: Configuration) {
     return {
         /**
          * Perform a token swap for a user
-         * @summary Initiate a swap
+         * @summary DEPRECATED Initiate a swap
          * @param {ControllerSwapInitiateRequest} request SwapRoute request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3272,7 +3259,7 @@ export const SwapApiFactory = function (configuration?: Configuration, basePath?
     return {
         /**
          * Perform a token swap for a user
-         * @summary Initiate a swap
+         * @summary DEPRECATED Initiate a swap
          * @param {ControllerSwapInitiateRequest} request SwapRoute request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3292,7 +3279,7 @@ export const SwapApiFactory = function (configuration?: Configuration, basePath?
 export class SwapApi extends BaseAPI {
     /**
      * Perform a token swap for a user
-     * @summary Initiate a swap
+     * @summary DEPRECATED Initiate a swap
      * @param {ControllerSwapInitiateRequest} request SwapRoute request body
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -3494,6 +3481,39 @@ export class TasksApi extends BaseAPI {
 export const TransactionApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
+         * Provides data required to top up the balance from external wallet.
+         * @summary Wallet deposit info
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiTransactionDepositInfoGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/transaction/deposit-info`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Returns user\'s transactions with transactions entries
          * @summary Get account transactions
          * @param {number} page Page index
@@ -3551,6 +3571,18 @@ export const TransactionApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = TransactionApiAxiosParamCreator(configuration)
     return {
         /**
+         * Provides data required to top up the balance from external wallet.
+         * @summary Wallet deposit info
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiTransactionDepositInfoGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoutingApiResponseControllerDepositInfoResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiTransactionDepositInfoGet(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TransactionApi.apiTransactionDepositInfoGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Returns user\'s transactions with transactions entries
          * @summary Get account transactions
          * @param {number} page Page index
@@ -3575,6 +3607,15 @@ export const TransactionApiFactory = function (configuration?: Configuration, ba
     const localVarFp = TransactionApiFp(configuration)
     return {
         /**
+         * Provides data required to top up the balance from external wallet.
+         * @summary Wallet deposit info
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiTransactionDepositInfoGet(options?: RawAxiosRequestConfig): AxiosPromise<RoutingApiResponseControllerDepositInfoResponse> {
+            return localVarFp.apiTransactionDepositInfoGet(options).then((request) => request(axios, basePath));
+        },
+        /**
          * Returns user\'s transactions with transactions entries
          * @summary Get account transactions
          * @param {number} page Page index
@@ -3595,6 +3636,17 @@ export const TransactionApiFactory = function (configuration?: Configuration, ba
  * @extends {BaseAPI}
  */
 export class TransactionApi extends BaseAPI {
+    /**
+     * Provides data required to top up the balance from external wallet.
+     * @summary Wallet deposit info
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TransactionApi
+     */
+    public apiTransactionDepositInfoGet(options?: RawAxiosRequestConfig) {
+        return TransactionApiFp(this.configuration).apiTransactionDepositInfoGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * Returns user\'s transactions with transactions entries
      * @summary Get account transactions
@@ -3655,7 +3707,7 @@ export const TwitterApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * User can specify the twitter account and the action that should be performed for the messages of that account.
-         * @summary Create subscribtion to the twitter account
+         * @summary DEPRECATED Create subscribtion to the twitter account
          * @param {ControllerTwitterSubscribeRequest} request Request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3727,7 +3779,7 @@ export const TwitterApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * Get tweets for a user that were created after the threshold time
-         * @summary Get tweets for user
+         * @summary DEPRECATED Get tweets for user
          * @param {string} telegramId Telegram Id
          * @param {string} threshold Threshold time in RFC3339 format
          * @param {*} [options] Override http request option.
@@ -3771,7 +3823,7 @@ export const TwitterApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * User will be unsubscribed, and won\'t get new messages for processing
-         * @summary Unsubscribes user from particular subscription
+         * @summary DEPRECATED Unsubscribes user from particular subscription
          * @param {ControllerTwitterUnsubscribeRequest} request Request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3790,6 +3842,124 @@ export const TwitterApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * User can specify the twitter account and the action that should be performed for the messages of that account.
+         * @summary Create subscribtion to the twitter account
+         * @param {RoutingApiRequestControllerTwitterSubscribeV2Request} request Request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV2TwitterSubscribePost: async (request: RoutingApiRequestControllerTwitterSubscribeV2Request, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('apiV2TwitterSubscribePost', 'request', request)
+            const localVarPath = `/api/v2/twitter/subscribe`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get tweets for a user that were created after the threshold time
+         * @summary Get tweets for user
+         * @param {string} threshold Threshold time in RFC3339 format
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV2TwitterTweetGet: async (threshold: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'threshold' is not null or undefined
+            assertParamExists('apiV2TwitterTweetGet', 'threshold', threshold)
+            const localVarPath = `/api/v2/twitter/tweet`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (threshold !== undefined) {
+                localVarQueryParameter['threshold'] = threshold;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * User will be unsubscribed, and won\'t get new messages for processing
+         * @summary Unsubscribes user from particular subscription
+         * @param {RoutingApiRequestControllerTwitterUnsubscribeV2Request} request Request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV2TwitterUnsubscribePost: async (request: RoutingApiRequestControllerTwitterUnsubscribeV2Request, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('apiV2TwitterUnsubscribePost', 'request', request)
+            const localVarPath = `/api/v2/twitter/unsubscribe`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
 
     
@@ -3830,7 +4000,7 @@ export const TwitterApiFp = function(configuration?: Configuration) {
         },
         /**
          * User can specify the twitter account and the action that should be performed for the messages of that account.
-         * @summary Create subscribtion to the twitter account
+         * @summary DEPRECATED Create subscribtion to the twitter account
          * @param {ControllerTwitterSubscribeRequest} request Request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3856,7 +4026,7 @@ export const TwitterApiFp = function(configuration?: Configuration) {
         },
         /**
          * Get tweets for a user that were created after the threshold time
-         * @summary Get tweets for user
+         * @summary DEPRECATED Get tweets for user
          * @param {string} telegramId Telegram Id
          * @param {string} threshold Threshold time in RFC3339 format
          * @param {*} [options] Override http request option.
@@ -3870,7 +4040,7 @@ export const TwitterApiFp = function(configuration?: Configuration) {
         },
         /**
          * User will be unsubscribed, and won\'t get new messages for processing
-         * @summary Unsubscribes user from particular subscription
+         * @summary DEPRECATED Unsubscribes user from particular subscription
          * @param {ControllerTwitterUnsubscribeRequest} request Request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3879,6 +4049,45 @@ export const TwitterApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiTwitterUnsubscribePost(request, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['TwitterApi.apiTwitterUnsubscribePost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * User can specify the twitter account and the action that should be performed for the messages of that account.
+         * @summary Create subscribtion to the twitter account
+         * @param {RoutingApiRequestControllerTwitterSubscribeV2Request} request Request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiV2TwitterSubscribePost(request: RoutingApiRequestControllerTwitterSubscribeV2Request, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoutingApiResponseControllerTwitterSubscribeResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV2TwitterSubscribePost(request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TwitterApi.apiV2TwitterSubscribePost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Get tweets for a user that were created after the threshold time
+         * @summary Get tweets for user
+         * @param {string} threshold Threshold time in RFC3339 format
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiV2TwitterTweetGet(threshold: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoutingApiResponseControllerTwitterGetTweetsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV2TwitterTweetGet(threshold, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TwitterApi.apiV2TwitterTweetGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * User will be unsubscribed, and won\'t get new messages for processing
+         * @summary Unsubscribes user from particular subscription
+         * @param {RoutingApiRequestControllerTwitterUnsubscribeV2Request} request Request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiV2TwitterUnsubscribePost(request: RoutingApiRequestControllerTwitterUnsubscribeV2Request, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoutingApiResponseControllerTwitterUnsubscribeResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV2TwitterUnsubscribePost(request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TwitterApi.apiV2TwitterUnsubscribePost']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -3903,7 +4112,7 @@ export const TwitterApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * User can specify the twitter account and the action that should be performed for the messages of that account.
-         * @summary Create subscribtion to the twitter account
+         * @summary DEPRECATED Create subscribtion to the twitter account
          * @param {ControllerTwitterSubscribeRequest} request Request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3923,7 +4132,7 @@ export const TwitterApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * Get tweets for a user that were created after the threshold time
-         * @summary Get tweets for user
+         * @summary DEPRECATED Get tweets for user
          * @param {string} telegramId Telegram Id
          * @param {string} threshold Threshold time in RFC3339 format
          * @param {*} [options] Override http request option.
@@ -3934,13 +4143,43 @@ export const TwitterApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * User will be unsubscribed, and won\'t get new messages for processing
-         * @summary Unsubscribes user from particular subscription
+         * @summary DEPRECATED Unsubscribes user from particular subscription
          * @param {ControllerTwitterUnsubscribeRequest} request Request body
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         apiTwitterUnsubscribePost(request: ControllerTwitterUnsubscribeRequest, options?: RawAxiosRequestConfig): AxiosPromise<object> {
             return localVarFp.apiTwitterUnsubscribePost(request, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * User can specify the twitter account and the action that should be performed for the messages of that account.
+         * @summary Create subscribtion to the twitter account
+         * @param {RoutingApiRequestControllerTwitterSubscribeV2Request} request Request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV2TwitterSubscribePost(request: RoutingApiRequestControllerTwitterSubscribeV2Request, options?: RawAxiosRequestConfig): AxiosPromise<RoutingApiResponseControllerTwitterSubscribeResponse> {
+            return localVarFp.apiV2TwitterSubscribePost(request, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get tweets for a user that were created after the threshold time
+         * @summary Get tweets for user
+         * @param {string} threshold Threshold time in RFC3339 format
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV2TwitterTweetGet(threshold: string, options?: RawAxiosRequestConfig): AxiosPromise<RoutingApiResponseControllerTwitterGetTweetsResponse> {
+            return localVarFp.apiV2TwitterTweetGet(threshold, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * User will be unsubscribed, and won\'t get new messages for processing
+         * @summary Unsubscribes user from particular subscription
+         * @param {RoutingApiRequestControllerTwitterUnsubscribeV2Request} request Request body
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV2TwitterUnsubscribePost(request: RoutingApiRequestControllerTwitterUnsubscribeV2Request, options?: RawAxiosRequestConfig): AxiosPromise<RoutingApiResponseControllerTwitterUnsubscribeResponse> {
+            return localVarFp.apiV2TwitterUnsubscribePost(request, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -3966,7 +4205,7 @@ export class TwitterApi extends BaseAPI {
 
     /**
      * User can specify the twitter account and the action that should be performed for the messages of that account.
-     * @summary Create subscribtion to the twitter account
+     * @summary DEPRECATED Create subscribtion to the twitter account
      * @param {ControllerTwitterSubscribeRequest} request Request body
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -3990,7 +4229,7 @@ export class TwitterApi extends BaseAPI {
 
     /**
      * Get tweets for a user that were created after the threshold time
-     * @summary Get tweets for user
+     * @summary DEPRECATED Get tweets for user
      * @param {string} telegramId Telegram Id
      * @param {string} threshold Threshold time in RFC3339 format
      * @param {*} [options] Override http request option.
@@ -4003,7 +4242,7 @@ export class TwitterApi extends BaseAPI {
 
     /**
      * User will be unsubscribed, and won\'t get new messages for processing
-     * @summary Unsubscribes user from particular subscription
+     * @summary DEPRECATED Unsubscribes user from particular subscription
      * @param {ControllerTwitterUnsubscribeRequest} request Request body
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -4011,6 +4250,42 @@ export class TwitterApi extends BaseAPI {
      */
     public apiTwitterUnsubscribePost(request: ControllerTwitterUnsubscribeRequest, options?: RawAxiosRequestConfig) {
         return TwitterApiFp(this.configuration).apiTwitterUnsubscribePost(request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * User can specify the twitter account and the action that should be performed for the messages of that account.
+     * @summary Create subscribtion to the twitter account
+     * @param {RoutingApiRequestControllerTwitterSubscribeV2Request} request Request body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TwitterApi
+     */
+    public apiV2TwitterSubscribePost(request: RoutingApiRequestControllerTwitterSubscribeV2Request, options?: RawAxiosRequestConfig) {
+        return TwitterApiFp(this.configuration).apiV2TwitterSubscribePost(request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Get tweets for a user that were created after the threshold time
+     * @summary Get tweets for user
+     * @param {string} threshold Threshold time in RFC3339 format
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TwitterApi
+     */
+    public apiV2TwitterTweetGet(threshold: string, options?: RawAxiosRequestConfig) {
+        return TwitterApiFp(this.configuration).apiV2TwitterTweetGet(threshold, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * User will be unsubscribed, and won\'t get new messages for processing
+     * @summary Unsubscribes user from particular subscription
+     * @param {RoutingApiRequestControllerTwitterUnsubscribeV2Request} request Request body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TwitterApi
+     */
+    public apiV2TwitterUnsubscribePost(request: RoutingApiRequestControllerTwitterUnsubscribeV2Request, options?: RawAxiosRequestConfig) {
+        return TwitterApiFp(this.configuration).apiV2TwitterUnsubscribePost(request, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -4221,6 +4496,45 @@ export const WalletApiAxiosParamCreator = function (configuration?: Configuratio
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Sends the asset amount from the applications\'s wallet to the external one
+         * @summary Withdraw from the wallet
+         * @param {RoutingApiRequestControllersWithdrawFromWalletRequest} request Withdraw from the wallet request
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiWalletWithdrawPost: async (request: RoutingApiRequestControllersWithdrawFromWalletRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'request' is not null or undefined
+            assertParamExists('apiWalletWithdrawPost', 'request', request)
+            const localVarPath = `/api/wallet/withdraw`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(request, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -4243,6 +4557,19 @@ export const WalletApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['WalletApi.apiWalletBalanceGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * Sends the asset amount from the applications\'s wallet to the external one
+         * @summary Withdraw from the wallet
+         * @param {RoutingApiRequestControllersWithdrawFromWalletRequest} request Withdraw from the wallet request
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiWalletWithdrawPost(request: RoutingApiRequestControllersWithdrawFromWalletRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoutingApiResponseControllersWithdrawFromWalletResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiWalletWithdrawPost(request, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['WalletApi.apiWalletWithdrawPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -4261,6 +4588,16 @@ export const WalletApiFactory = function (configuration?: Configuration, basePat
          */
         apiWalletBalanceGet(options?: RawAxiosRequestConfig): AxiosPromise<RoutingApiResponseModelsWalletBalance> {
             return localVarFp.apiWalletBalanceGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Sends the asset amount from the applications\'s wallet to the external one
+         * @summary Withdraw from the wallet
+         * @param {RoutingApiRequestControllersWithdrawFromWalletRequest} request Withdraw from the wallet request
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiWalletWithdrawPost(request: RoutingApiRequestControllersWithdrawFromWalletRequest, options?: RawAxiosRequestConfig): AxiosPromise<RoutingApiResponseControllersWithdrawFromWalletResponse> {
+            return localVarFp.apiWalletWithdrawPost(request, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -4281,6 +4618,18 @@ export class WalletApi extends BaseAPI {
      */
     public apiWalletBalanceGet(options?: RawAxiosRequestConfig) {
         return WalletApiFp(this.configuration).apiWalletBalanceGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Sends the asset amount from the applications\'s wallet to the external one
+     * @summary Withdraw from the wallet
+     * @param {RoutingApiRequestControllersWithdrawFromWalletRequest} request Withdraw from the wallet request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WalletApi
+     */
+    public apiWalletWithdrawPost(request: RoutingApiRequestControllersWithdrawFromWalletRequest, options?: RawAxiosRequestConfig) {
+        return WalletApiFp(this.configuration).apiWalletWithdrawPost(request, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -4331,7 +4680,7 @@ export const WalletsApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * Купить индекс для пользователя
-         * @summary Buy index
+         * @summary DEPRECATED Buy index
          * @param {ControllersBuyIndexData} body Запрос на покупку индекса
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4367,7 +4716,7 @@ export const WalletsApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * Продать индекс для пользователя
-         * @summary Sell index
+         * @summary DEPRECATED Sell index
          * @param {ControllersSellIndexRequest} body Запрос на продажу индекса
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4403,7 +4752,7 @@ export const WalletsApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * Получить средства пользователя из кошелька
-         * @summary Get wallet strategies
+         * @summary DEPRECATED Get wallet strategies
          * @param {number} telegramId Telegram ID пользователя
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4426,87 +4775,6 @@ export const WalletsApiAxiosParamCreator = function (configuration?: Configurati
             if (telegramId !== undefined) {
                 localVarQueryParameter['telegram_id'] = telegramId;
             }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Получить транзакции пользователя
-         * @summary Get wallet transactions
-         * @param {number} telegramId Telegram ID пользователя
-         * @param {number} [limit] Максимальное количество транзакций (по умолчанию 20)
-         * @param {number} [offset] Смещение для пагинации
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        walletTransactionsGet: async (telegramId: number, limit?: number, offset?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'telegramId' is not null or undefined
-            assertParamExists('walletTransactionsGet', 'telegramId', telegramId)
-            const localVarPath = `/wallet/transactions`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (telegramId !== undefined) {
-                localVarQueryParameter['telegram_id'] = telegramId;
-            }
-
-            if (limit !== undefined) {
-                localVarQueryParameter['limit'] = limit;
-            }
-
-            if (offset !== undefined) {
-                localVarQueryParameter['offset'] = offset;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Получить список кошельков пользователя
-         * @summary Get user wallets
-         * @param {string} userId Идентификатор пользователя
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        walletsUserIdGet: async (userId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'userId' is not null or undefined
-            assertParamExists('walletsUserIdGet', 'userId', userId)
-            const localVarPath = `/wallets/{user_id}`
-                .replace(`{${"user_id"}}`, encodeURIComponent(String(userId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
 
 
     
@@ -4583,7 +4851,7 @@ export const WalletsApiFp = function(configuration?: Configuration) {
         },
         /**
          * Купить индекс для пользователя
-         * @summary Buy index
+         * @summary DEPRECATED Buy index
          * @param {ControllersBuyIndexData} body Запрос на покупку индекса
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4596,7 +4864,7 @@ export const WalletsApiFp = function(configuration?: Configuration) {
         },
         /**
          * Продать индекс для пользователя
-         * @summary Sell index
+         * @summary DEPRECATED Sell index
          * @param {ControllersSellIndexRequest} body Запрос на продажу индекса
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4609,7 +4877,7 @@ export const WalletsApiFp = function(configuration?: Configuration) {
         },
         /**
          * Получить средства пользователя из кошелька
-         * @summary Get wallet strategies
+         * @summary DEPRECATED Get wallet strategies
          * @param {number} telegramId Telegram ID пользователя
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4618,34 +4886,6 @@ export const WalletsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.walletStrategiesGet(telegramId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['WalletsApi.walletStrategiesGet']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * Получить транзакции пользователя
-         * @summary Get wallet transactions
-         * @param {number} telegramId Telegram ID пользователя
-         * @param {number} [limit] Максимальное количество транзакций (по умолчанию 20)
-         * @param {number} [offset] Смещение для пагинации
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async walletTransactionsGet(telegramId: number, limit?: number, offset?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ModelsTransaction>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.walletTransactionsGet(telegramId, limit, offset, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['WalletsApi.walletTransactionsGet']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * Получить список кошельков пользователя
-         * @summary Get user wallets
-         * @param {string} userId Идентификатор пользователя
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async walletsUserIdGet(userId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ModelsWallet>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.walletsUserIdGet(userId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['WalletsApi.walletsUserIdGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -4683,7 +4923,7 @@ export const WalletsApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * Купить индекс для пользователя
-         * @summary Buy index
+         * @summary DEPRECATED Buy index
          * @param {ControllersBuyIndexData} body Запрос на покупку индекса
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4693,7 +4933,7 @@ export const WalletsApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * Продать индекс для пользователя
-         * @summary Sell index
+         * @summary DEPRECATED Sell index
          * @param {ControllersSellIndexRequest} body Запрос на продажу индекса
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4703,35 +4943,13 @@ export const WalletsApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * Получить средства пользователя из кошелька
-         * @summary Get wallet strategies
+         * @summary DEPRECATED Get wallet strategies
          * @param {number} telegramId Telegram ID пользователя
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         walletStrategiesGet(telegramId: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<ModelsWalletFunds>> {
             return localVarFp.walletStrategiesGet(telegramId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Получить транзакции пользователя
-         * @summary Get wallet transactions
-         * @param {number} telegramId Telegram ID пользователя
-         * @param {number} [limit] Максимальное количество транзакций (по умолчанию 20)
-         * @param {number} [offset] Смещение для пагинации
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        walletTransactionsGet(telegramId: number, limit?: number, offset?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<ModelsTransaction>> {
-            return localVarFp.walletTransactionsGet(telegramId, limit, offset, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Получить список кошельков пользователя
-         * @summary Get user wallets
-         * @param {string} userId Идентификатор пользователя
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        walletsUserIdGet(userId: string, options?: RawAxiosRequestConfig): AxiosPromise<Array<ModelsWallet>> {
-            return localVarFp.walletsUserIdGet(userId, options).then((request) => request(axios, basePath));
         },
         /**
          * Вывести средства с кошелька пользователя
@@ -4767,7 +4985,7 @@ export class WalletsApi extends BaseAPI {
 
     /**
      * Купить индекс для пользователя
-     * @summary Buy index
+     * @summary DEPRECATED Buy index
      * @param {ControllersBuyIndexData} body Запрос на покупку индекса
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -4779,7 +4997,7 @@ export class WalletsApi extends BaseAPI {
 
     /**
      * Продать индекс для пользователя
-     * @summary Sell index
+     * @summary DEPRECATED Sell index
      * @param {ControllersSellIndexRequest} body Запрос на продажу индекса
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -4791,7 +5009,7 @@ export class WalletsApi extends BaseAPI {
 
     /**
      * Получить средства пользователя из кошелька
-     * @summary Get wallet strategies
+     * @summary DEPRECATED Get wallet strategies
      * @param {number} telegramId Telegram ID пользователя
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -4799,32 +5017,6 @@ export class WalletsApi extends BaseAPI {
      */
     public walletStrategiesGet(telegramId: number, options?: RawAxiosRequestConfig) {
         return WalletsApiFp(this.configuration).walletStrategiesGet(telegramId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Получить транзакции пользователя
-     * @summary Get wallet transactions
-     * @param {number} telegramId Telegram ID пользователя
-     * @param {number} [limit] Максимальное количество транзакций (по умолчанию 20)
-     * @param {number} [offset] Смещение для пагинации
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof WalletsApi
-     */
-    public walletTransactionsGet(telegramId: number, limit?: number, offset?: number, options?: RawAxiosRequestConfig) {
-        return WalletsApiFp(this.configuration).walletTransactionsGet(telegramId, limit, offset, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Получить список кошельков пользователя
-     * @summary Get user wallets
-     * @param {string} userId Идентификатор пользователя
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof WalletsApi
-     */
-    public walletsUserIdGet(userId: string, options?: RawAxiosRequestConfig) {
-        return WalletsApiFp(this.configuration).walletsUserIdGet(userId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

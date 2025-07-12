@@ -6,18 +6,13 @@ import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
 import { newLensedAtom } from '@frp-ts/lens';
 import { flow, pipe } from 'fp-ts/lib/function';
 import { tap } from '@most/core';
-import { newDepositRestService } from '@/API/deposit.service';
 import { EMPTY, Error, LOADING } from '@/store/errors/error-system';
 import { assetsRestService } from '@/API/assets/assets.service';
-
-export interface DepositDetails {
-    readonly address: string;
-    readonly memo: string;
-    readonly qrCode: string;
-}
+import { TransactionsRestService } from '@/API/transactions/transactions.service';
+import { Deposit } from '@/API/transactions/transactions.responce.contract';
 
 export interface DepositEndPointViewModel {
-    readonly details: Property<E.Either<Error, DepositDetails>>;
+    readonly details: Property<E.Either<Error, Deposit>>;
     readonly img: Property<E.Either<Error, string>>;
 }
 
@@ -26,11 +21,11 @@ export interface NewDepositEndPointViewModel {
 }
 
 export const newDepositEndPointViewModel = injectable(
-    newDepositRestService,
+    TransactionsRestService,
     assetsRestService,
     (service, assetsRestService): NewDepositEndPointViewModel =>
         (ticker) => {
-            const details = newLensedAtom<E.Either<Error, DepositDetails>>(
+            const details = newLensedAtom<E.Either<Error, Deposit>>(
                 E.left(LOADING)
             );
             const img = newLensedAtom<E.Either<Error, string>>(E.left(EMPTY));

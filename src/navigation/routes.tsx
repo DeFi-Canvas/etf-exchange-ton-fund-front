@@ -12,11 +12,14 @@ import { newAssetsRestService } from '@/API/assets/assets.service';
 import { newTransactionsRestService } from '@/API/transactions/transactions.service';
 import { newNewCahe } from '@/store/cache/cahe.store';
 import { newNewI18NService } from '@/store/i18n/i18.store';
-import { newNewUserStoreService } from '@/store/user.store';
+import { UserData } from '@/store/user.store';
 import { scheduler, useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useInitData } from '@telegram-apps/sdk-react';
 import { newWalletRestService } from '@/API/wallet.service';
 import { newNewWithdrowStore } from '@/pages/withdrow/withdrow.store';
+import { newWithdrawRestService } from '@/API/withdraw.service';
+import { newSwapRestService } from '@/API/swap.service';
+import { newDeDustRestService } from '@/API/de-dust/de-dust.service';
 
 interface Route {
     path: string;
@@ -34,13 +37,15 @@ export const AppRoutes = memo(() => {
     const initData = useInitData();
 
     //#region services
-    const userStore = newNewUserStoreService(initData?.user);
+    const userData = initData?.user ?? ({} as UserData);
     const run = useValueWithEffect({
         scheduler,
     });
 
     const i18n = run(() => newNewI18NService(), [newNewI18NService]);
     const cacheStore = newNewCahe();
+    const deDustRestService = newDeDustRestService();
+
     const transactionsService = useMemo(
         () =>
             newTransactionsRestService({
@@ -53,17 +58,23 @@ export const AppRoutes = memo(() => {
         [newAssetsRestService, cacheStore]
     );
 
+    const withdrawService = useMemo(() => newWithdrawRestService(), []);
+
     const withdrowStore = run(
-        () => newNewWithdrowStore({ userStore }),
-        [userStore]
+        newNewWithdrowStore({
+            withdrawService,
+        }),
+        [withdrawService]
     );
     const waletRestService = newWalletRestService({
-        userStore,
         cacheStore,
     });
+    const swapService = newSwapRestService({ deDustRestService })(
+        initData?.user?.id ?? 0
+    );
+
     const services: getContainersArgs = useMemo(
         () => ({
-            userStore,
             i18n,
             assetService,
             cacheStore,
@@ -71,8 +82,12 @@ export const AppRoutes = memo(() => {
             scheduler,
             withdrowStore,
             waletRestService,
+            withdrawService,
+            swapService,
+            userData,
+            deDustRestService,
         }),
-        [userStore, i18n, assetService, cacheStore, transactionsService]
+        [i18n, assetService, cacheStore, transactionsService]
     );
 
     const containers = useMemo(
@@ -80,7 +95,7 @@ export const AppRoutes = memo(() => {
             getContainers({
                 ...services,
             }),
-        [userStore, i18n, assetService, cacheStore, transactionsService]
+        [i18n, assetService, cacheStore, transactionsService]
     );
     //#region routes
     const routes: Route[] = useMemo(

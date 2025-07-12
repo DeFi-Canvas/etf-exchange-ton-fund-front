@@ -1,9 +1,9 @@
 import { Stream } from '@most/types';
 import { Either } from 'fp-ts/lib/Either';
 import { authRequestOptions, performGetRequest } from '@/API/request.utils.ts';
-import { AssetApi, Configuration } from '@/API/scheme/rest-genereted';
+import { AssetApi } from '@/API/scheme/rest-genereted';
 
-import { DOMAIN_API_URL } from '@/API/API.ts';
+import { BASE_API_CONFIG } from '@/API/API.ts';
 import {
     assetResponseCodec,
     assetsResponseCodec,
@@ -29,9 +29,7 @@ export interface AssetsRestService {
     getAllAssets: () => Stream<Either<Error, Array<AssetBalance>>>;
 }
 
-const assetsApi = new AssetApi({
-    basePath: DOMAIN_API_URL,
-} as Configuration);
+const assetsApi = new AssetApi(BASE_API_CONFIG);
 
 export const newAssetsRestService = injectable(
     CacheStore,
