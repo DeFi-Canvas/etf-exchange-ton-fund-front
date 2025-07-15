@@ -36,21 +36,6 @@ export const voidSink = {
 
 export const scheduler = newDefaultScheduler();
 
-// export const useValueWithEffect = (
-//     (scheduler: Scheduler): UseValueWithEffect =>
-//     (factory, dependencies) => {
-//         const fa = useMemo(factory, dependencies);
-//         const disposableRef = useRef<Disposable>();
-//         useMemo(() => {
-//             disposableRef.current?.dispose();
-//             disposableRef.current = fa.effects.run(voidSink, scheduler);
-//         }, [fa]);
-
-//         useLayoutEffect(() => () => disposableRef.current?.dispose(), []);
-//         return fa.value;
-//     }
-// )(defaultScheduler);
-
 export const useValueWithEffect = injectable(
     token('scheduler')<Scheduler>(),
     (scheduler): UseValueWithEffect =>
