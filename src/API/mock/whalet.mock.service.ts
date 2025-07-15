@@ -95,5 +95,13 @@ export const NEW_WALET_REST_SERVICE = (): WaletRestService => {
                     },
                 ])
             ),
+        withdraw: () =>
+            now(
+                E.right({
+                    payload: {
+                        transaction: '123',
+                    },
+                })
+            ),
     };
 };

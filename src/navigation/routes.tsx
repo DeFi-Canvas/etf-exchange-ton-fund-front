@@ -17,7 +17,6 @@ import { scheduler, useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useInitData } from '@telegram-apps/sdk-react';
 import { newWalletRestService } from '@/API/wallet/wallet.service';
 import { newNewWithdrowStore } from '@/pages/withdrow/withdrow.store';
-import { newWithdrawRestService } from '@/API/withdraw.service';
 import { newSwapRestService } from '@/API/swap.service';
 import { newDeDustRestService } from '@/API/de-dust/de-dust.service';
 
@@ -58,17 +57,15 @@ export const AppRoutes = memo(() => {
         [newAssetsRestService, cacheStore]
     );
 
-    const withdrawService = useMemo(() => newWithdrawRestService(), []);
-
-    const withdrowStore = run(
-        newNewWithdrowStore({
-            withdrawService,
-        }),
-        [withdrawService]
-    );
     const waletRestService = newWalletRestService({
         cacheStore,
     });
+    const withdrowStore = run(
+        newNewWithdrowStore({
+            waletRestService,
+        }),
+        []
+    );
     const swapService = newSwapRestService({ deDustRestService })(
         initData?.user?.id ?? 0
     );
@@ -82,7 +79,6 @@ export const AppRoutes = memo(() => {
             scheduler,
             withdrowStore,
             waletRestService,
-            withdrawService,
             swapService,
             userData,
             deDustRestService,
@@ -125,8 +121,8 @@ export const AppRoutes = memo(() => {
                 path: '/earn',
                 page: StormContainer({
                     assetService: services.assetService,
-                    cacheStore: services.cacheStore,
                     scheduler: services.scheduler,
+                    waletRestService: services.waletRestService,
                 }),
             },
         ],

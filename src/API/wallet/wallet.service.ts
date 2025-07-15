@@ -1,10 +1,11 @@
 import { Stream } from '@most/types';
 import { Either } from 'fp-ts/lib/Either';
-import { injectable } from '@injectable-ts/core';
+import { injectable, token } from '@injectable-ts/core';
 import {
     authRequestOptions,
     getRequestGenerated,
     handleGetRequest,
+    performGetRequest,
 } from '../request.utils';
 import {
     mapAssetsFromBalance,
@@ -14,12 +15,16 @@ import { BASE_API_CONFIG } from '../API';
 import { WalletApi } from '../scheme/rest-genereted/api';
 import * as E from 'fp-ts/Either';
 
-import { walletBalanceResponseCodec, WithdrawArgs } from './wallet.contract';
+import {
+    walletBalanceResponseCodec,
+    WithdrawArgs,
+    withdrawResponceCodec,
+} from './wallet.contract';
 import { AssetBalance, AssetBalanceCodec } from '@/instance/asset/asset.model';
 import { FundsData } from '@/instance/fund/fund.model';
 import { Error, ERROR } from '@/store/errors/error-system';
 import { CacheStore } from '@/store/cache/cahe.store';
-import { pipe } from 'fp-ts/lib/function';
+import { identity, pipe } from 'fp-ts/lib/function';
 import { waitWithCache } from '@/utils/stream';
 import * as t from 'io-ts';
 import { now } from '@most/core';
@@ -29,7 +34,7 @@ export interface WaletRestService {
     getAssets: () => Stream<Either<Error, Array<AssetBalance>>>;
     getFunds: () => Stream<Either<Error, Array<FundsData>>>;
     getWhaletFunds: () => Stream<Either<Error, Array<FundsData>>>;
-    // withdraw: (args: WithdrawArgs) => Stream<Either<Error, Array<FundsData>>>;
+    withdraw: (args: WithdrawArgs) => Stream<Either<Error, unknown>>;
 }
 
 const walletApi = new WalletApi(BASE_API_CONFIG);
@@ -59,6 +64,17 @@ export const newWalletRestService = injectable(
                 ),
             getFunds: () => now(E.left(ERROR)),
             getWhaletFunds: () => now(E.left(ERROR)),
+            withdraw: (args) =>
+                performGetRequest(
+                    walletApi.apiWalletWithdrawPost(
+                        { payload: args },
+                        authRequestOptions()
+                    ),
+                    withdrawResponceCodec,
+                    identity
+                ),
         };
     }
 );
+
+export const WaletService = token('waletRestService')<WaletRestService>();

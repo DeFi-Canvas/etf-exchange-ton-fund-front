@@ -7,10 +7,10 @@ import { tap } from '@most/core';
 import * as E from 'fp-ts/Either';
 import { flow, pipe } from 'fp-ts/lib/function';
 import * as S from 'fp-ts/string';
-import { injectable } from '@injectable-ts/core';
-import { WithdrawService } from '@/API/withdraw.service';
+import { injectable, token } from '@injectable-ts/core';
 import { AmountErrors } from './sub-page/ammount/amount.component';
 import { EMPTY, Error } from '@/store/errors/error-system';
+import { WaletService } from '@/API/wallet/wallet.service';
 
 export interface WithdrowStore {
     currency: Property<string>;
@@ -35,7 +35,7 @@ export interface WithdrowStore {
 export type NewWithdrowStore = () => ValueWithEffect<WithdrowStore>;
 
 export const newNewWithdrowStore = injectable(
-    WithdrawService,
+    WaletService,
     (service): NewWithdrowStore =>
         () => {
             //#region init Property
@@ -115,7 +115,7 @@ export const newNewWithdrowStore = injectable(
                 })();
 
                 service.withdraw({
-                    asset: currency.get(),
+                    ticker: currency.get(),
                     amount: currentAmount,
                     address: currentAddress,
                 });
@@ -194,3 +194,5 @@ export const newNewWithdrowStore = injectable(
             );
         }
 );
+
+export const WithdrowStore = token('withdrowStore')<WithdrowStore>();

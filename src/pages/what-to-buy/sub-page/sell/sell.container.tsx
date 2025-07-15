@@ -5,20 +5,19 @@ import { useProperty } from '@frp-ts/react';
 import { newPurchaseSellStore } from '../purchase/purchase.store';
 import SellPage from './sell.page';
 import { useParams } from 'react-router-dom';
-import { CacheStore } from '@/store/cache/cahe.store';
 
 export const SellContainer = injectable(
     useValueWithEffect,
-    CacheStore,
     provide(SellPage)<'purchaseStore'>(),
-    (useValueWithEffect, cacheStore, SellPage) =>
+    newPurchaseSellStore,
+    (useValueWithEffect, SellPage, newPurchaseSellStore) =>
         memo(() => {
             const { id } = useParams();
-            const store = newPurchaseSellStore({
-                cacheStore,
-            });
 
-            const purchaseStore = useValueWithEffect(() => store(id), []);
+            const purchaseStore = useValueWithEffect(
+                () => newPurchaseSellStore(id),
+                []
+            );
             const showBottomSheet = useProperty(
                 purchaseStore.isShowBottomSheetFinishBoody
             );

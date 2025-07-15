@@ -6,7 +6,7 @@ import { injectable, token } from '@injectable-ts/core';
 import { I18NService } from '@/store/i18n/i18.store';
 
 export const FooterContainer = injectable(
-    token('withdrowStore')<WithdrowStore>(),
+    WithdrowStore,
     token('i18n')<I18NService>(),
     (store, i18n) =>
         memo(() => {

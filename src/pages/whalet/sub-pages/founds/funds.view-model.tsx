@@ -5,7 +5,7 @@ import { newLensedAtom } from '@frp-ts/lens';
 import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/lib/function';
 import { tap } from '@most/core';
-import { newWalletRestService } from '@/API/wallet/wallet.service';
+import { WaletService } from '@/API/wallet/wallet.service';
 import { FundsData } from '@/instance/fund/fund.model';
 import { Error, PENDING } from '@/store/errors/error-system';
 
@@ -18,7 +18,7 @@ export interface NewFundsViewModel {
 }
 
 export const newFundsViewModel = injectable(
-    newWalletRestService,
+    WaletService,
     (service): NewFundsViewModel =>
         () => {
             const funds = newLensedAtom<E.Either<Error, Array<FundsData>>>(

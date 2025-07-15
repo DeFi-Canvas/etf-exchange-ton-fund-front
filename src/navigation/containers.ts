@@ -27,7 +27,6 @@ import { scheduler } from '@/utils/run-view-model.utils';
 import { Scheduler } from '@most/types';
 import { WithdrowStore } from '@/pages/withdrow/withdrow.store';
 import { WaletRestService } from '@/API/wallet/wallet.service';
-import { WithdrawRestService } from '@/API/withdraw.service';
 import { SwapRestService } from '@/API/swap.service';
 import { DeDustRestService } from '@/API/de-dust/de-dust.service';
 
@@ -37,7 +36,6 @@ export interface getContainersArgs {
     assetService: AssetsRestService;
     transactionsService: TransactionsRestService;
     withdrowStore: WithdrowStore;
-    withdrawService: WithdrawRestService;
     waletRestService: WaletRestService;
     scheduler: Scheduler;
     swapService: SwapRestService;

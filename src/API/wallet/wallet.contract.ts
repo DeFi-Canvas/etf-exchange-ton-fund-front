@@ -35,3 +35,11 @@ export const withdrawPayloadCodec = t.type({
 });
 
 export type WithdrawPayload = t.TypeOf<typeof withdrawPayloadCodec>;
+
+export const withdrawResponceCodec = t.type({
+    payload: t.type({
+        transaction: t.string,
+    }),
+});
+
+export type withdrawResponce = t.TypeOf<typeof withdrawResponceCodec>;

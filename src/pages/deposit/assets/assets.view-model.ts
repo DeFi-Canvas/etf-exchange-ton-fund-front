@@ -30,7 +30,7 @@ export interface NewAssetsViewModel {
 // или норм?
 export const newAssetsViewModel = injectable(
     token('waletRestService')<WaletRestService>(),
-    token('withdrowStore')<WithdrowStore>(),
+    WithdrowStore,
     assetsRestService,
     (waletRestService, store, assetsRestService): NewAssetsViewModel =>
         (type) => {

@@ -15,7 +15,7 @@ import {
 } from 'fp-ts/lib/function';
 import * as A from 'fp-ts/Array';
 import { injectable, token } from '@injectable-ts/core';
-import { newWalletRestService } from '@/API/wallet/wallet.service';
+import { WaletService } from '@/API/wallet/wallet.service';
 import {
     FiltrebleSwapAsset,
     getAssetsEffectMapping,
@@ -83,7 +83,7 @@ export interface SwapStore {
 export type NewSwapStore = ValueWithEffect<SwapStore>;
 
 export const newSwapStore = injectable(
-    newWalletRestService,
+    WaletService,
     token('i18n')<I18NService>(),
     assetsRestService,
     (walletService, i18n, assetsRestService) => (): NewSwapStore => {

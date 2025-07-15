@@ -1,18 +1,16 @@
 import { useProperty } from '@frp-ts/react';
 import { injectable, token } from '@injectable-ts/core';
 import React, { memo } from 'react';
-import { newNewWithdrowStore } from '../../withdrow.store';
+import { WithdrowStore } from '../../withdrow.store';
 import { Final } from './final.component';
-import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { I18NService } from '@/store/i18n/i18.store';
 
 export const FinalContainer = injectable(
-    useValueWithEffect,
     token('i18n')<I18NService>(),
-    newNewWithdrowStore,
-    (useValueWithEffect, i18n, newNewWithdrowStore) =>
+    WithdrowStore,
+
+    (i18n, store) =>
         memo(() => {
-            const store = useValueWithEffect(() => newNewWithdrowStore(), []);
             const currency = useProperty(store.currency);
             const amount = useProperty(store.amount);
             const address = useProperty(store.address);
