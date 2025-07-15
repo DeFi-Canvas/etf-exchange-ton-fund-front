@@ -6,7 +6,7 @@ import { Property } from '@frp-ts/core';
 import * as E from 'fp-ts/Either';
 import { either } from 'fp-ts';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
-import { newWalletRestService } from '@/API/wallet.service';
+import { newWalletRestService } from '@/API/wallet/wallet.service';
 import { newLensedAtom } from '@frp-ts/lens';
 import { CoinCardData } from '@/components/assets-card/assets-card.model';
 import { Error } from '@/store/errors/error-system';

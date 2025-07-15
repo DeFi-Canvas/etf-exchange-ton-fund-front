@@ -5,16 +5,16 @@ import {
     authRequestOptions,
     getRequestGenerated,
     handleGetRequest,
-} from './request.utils';
+} from '../request.utils';
 import {
     mapAssetsFromBalance,
     WaletResponce,
 } from '@/pages/whalet/wallet.model';
-import { BASE_API_CONFIG } from './API';
-import { WalletApi } from './scheme/rest-genereted/api';
+import { BASE_API_CONFIG } from '../API';
+import { WalletApi } from '../scheme/rest-genereted/api';
 import * as E from 'fp-ts/Either';
 
-import { walletBalanceResponseCodec } from './contracts/walletBalance.contract';
+import { walletBalanceResponseCodec, WithdrawArgs } from './wallet.contract';
 import { AssetBalance, AssetBalanceCodec } from '@/instance/asset/asset.model';
 import { FundsData } from '@/instance/fund/fund.model';
 import { Error, ERROR } from '@/store/errors/error-system';
@@ -29,6 +29,7 @@ export interface WaletRestService {
     getAssets: () => Stream<Either<Error, Array<AssetBalance>>>;
     getFunds: () => Stream<Either<Error, Array<FundsData>>>;
     getWhaletFunds: () => Stream<Either<Error, Array<FundsData>>>;
+    // withdraw: (args: WithdrawArgs) => Stream<Either<Error, Array<FundsData>>>;
 }
 
 const walletApi = new WalletApi(BASE_API_CONFIG);

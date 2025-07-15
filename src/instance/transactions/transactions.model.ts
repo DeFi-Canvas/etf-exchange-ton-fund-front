@@ -1,4 +1,4 @@
-import { AssetDto } from '@/API/contracts/assets.contract.ts';
+import { AssetDto } from '@/API/assets/assets.contract';
 
 export interface TransactionsResponce {
     timestamp: string; // ISO_DATETIME

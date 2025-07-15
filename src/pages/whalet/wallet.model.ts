@@ -1,10 +1,7 @@
 import { AssetBalance } from '@/instance/asset/asset.model';
 import { FundRespnce, FundsData } from '@/instance/fund/fund.model';
-import { TransactionsResponce } from '@/instance/transactions/transactions.model';
-import { either } from 'fp-ts';
 import * as t from 'io-ts';
-import { WalletBalanceResponse } from '@/API/contracts/walletBalance.contract.ts';
-import { ERROR } from '@/store/errors/error-system';
+import { WalletBalanceResponse } from '@/API/wallet/wallet.contract';
 
 //#region RESPONCE
 export interface WalletAssetResponse {
@@ -22,59 +19,14 @@ export interface WaletResponce {
     assets: Array<WalletAssetResponse>;
 }
 
-interface WhaletFundsResponce {
-    total: number;
-    funds: [
-        {
-            fund: FundRespnce;
-            value: number;
-        },
-    ];
-}
-
 //#region UI
 export const AssetCodec = t.type({
     name: t.string,
-    // symbol: t.string,
     balance: t.number,
     price: t.number,
     imageUrl: t.string,
     value: t.number,
-});
-
-export interface WalletTransactions {
-    timestamp: string; // ISO_DATETIME
-    asset: {
-        name: string;
-        ticker: string;
-        // category: string;
-        description: string;
-        url: string;
-        price: number;
-        withdrawalFee: number;
-    };
-    address: string;
-    amount: number;
-    value: number;
-    tx: string;
-    transactionType: string;
-    transactionStatus: string;
-}
-
-export const normolizeTransactionKey = (
-    data: TransactionsResponce
-): WalletTransactions => ({
-    ...data,
-    asset: {
-        name: data.asset.name,
-        ticker: data.asset.ticker,
-        description: data.asset.description,
-        price: data.asset.price,
-        url: data.asset.image_url,
-        withdrawalFee: data.asset.withdrawal_fee,
-    },
-    transactionType: data.transaction_type,
-    transactionStatus: data.transaction_status,
+    ticker: t.string,
 });
 
 export const mapAssetsFromBalance = (
@@ -84,33 +36,3 @@ export const mapAssetsFromBalance = (
         ...asset,
         imageUrl: asset.image_url,
     }));
-
-export const assetsFromBalanceValidation = (data: WaletResponce) => {
-    if (data.total === 0) {
-        //TODO переименовать в пустое состояние
-        return either.left(ERROR);
-    }
-};
-
-export const mapWhaletFunds = (data: WhaletFundsResponce): Array<FundsData> => {
-    if (!data.funds.length) return [];
-    return data.funds.map(({ fund: fundData }) => ({
-        id: fundData.id,
-        name: fundData.name,
-        description: fundData.description,
-        managementFee: fundData.management_fee,
-        logo: fundData.image_url,
-        riskScore: fundData.risk_score,
-        isAvaiable: fundData.is_avaiable,
-        cost: data.total,
-        assets: [],
-        tvlValue: fundData.value,
-        createdAt: fundData.created_at,
-    }));
-};
-
-export const getWhaletFundsValidation = (data: WhaletFundsResponce) => {
-    if (data.total === 0) {
-        return either.left(ERROR);
-    }
-};

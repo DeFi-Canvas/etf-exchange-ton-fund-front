@@ -1,4 +1,4 @@
-import { newWalletRestService } from '@/API/wallet.service';
+import { newWalletRestService } from '@/API/wallet/wallet.service';
 import { AssetBalance } from '@/instance/asset/asset.model';
 import { PENDING, Error, EMPTY } from '@/store/errors/error-system';
 import { ValueWithEffect, valueWithEffect } from '@/utils/run-view-model.utils';

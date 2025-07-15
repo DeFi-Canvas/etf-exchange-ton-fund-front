@@ -1,6 +1,6 @@
 import { now } from '@most/core';
 import * as E from 'fp-ts/lib/Either';
-import { WaletRestService } from '../wallet.service';
+import { WaletRestService } from '../wallet/wallet.service';
 
 export const NEW_WALET_REST_SERVICE = (): WaletRestService => {
     return {

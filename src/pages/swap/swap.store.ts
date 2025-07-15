@@ -15,7 +15,7 @@ import {
 } from 'fp-ts/lib/function';
 import * as A from 'fp-ts/Array';
 import { injectable, token } from '@injectable-ts/core';
-import { newWalletRestService } from '@/API/wallet.service';
+import { newWalletRestService } from '@/API/wallet/wallet.service';
 import {
     FiltrebleSwapAsset,
     getAssetsEffectMapping,

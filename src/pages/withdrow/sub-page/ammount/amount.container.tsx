@@ -1,5 +1,5 @@
 import { injectable, token } from '@injectable-ts/core';
-import { newNewWithdrowStore } from '../../withdrow.store';
+import { newNewWithdrowStore, WithdrowStore } from '../../withdrow.store';
 import { useProperty } from '@frp-ts/react';
 import { Amount } from './amount.component';
 import React, { memo } from 'react';
@@ -11,11 +11,12 @@ export const AmountContainer = injectable(
     useValueWithEffect,
     token('i18n')<I18NService>(),
     newNewWithdrowStore,
+    // token('WithdrowStore')<WithdrowStore>(),
     (useValueWithEffect, i18n, newNewWithdrowStore) =>
         memo(() => {
             const { ticker } = useParams();
             const store = useValueWithEffect(() => newNewWithdrowStore(), []);
-            store.setCurrency(ticker ?? '');
+            store.setCurrency(ticker ?? 'TON');
 
             const { Amount: texts } = useProperty(i18n.Withdraw);
 
@@ -28,6 +29,7 @@ export const AmountContainer = injectable(
             const updateAmmount = store.setAmount;
             const availableBalance = useProperty(store.availableBalance);
             const symbolLogo = useProperty(store.symbolLogo);
+            console.log(currency);
 
             return React.createElement(Amount, {
                 currency,

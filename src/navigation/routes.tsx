@@ -15,7 +15,7 @@ import { newNewI18NService } from '@/store/i18n/i18.store';
 import { UserData } from '@/store/user.store';
 import { scheduler, useValueWithEffect } from '@/utils/run-view-model.utils';
 import { useInitData } from '@telegram-apps/sdk-react';
-import { newWalletRestService } from '@/API/wallet.service';
+import { newWalletRestService } from '@/API/wallet/wallet.service';
 import { newNewWithdrowStore } from '@/pages/withdrow/withdrow.store';
 import { newWithdrawRestService } from '@/API/withdraw.service';
 import { newSwapRestService } from '@/API/swap.service';

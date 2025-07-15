@@ -9,7 +9,7 @@ import {
     mapAssetToFiltrebleSwapAsset,
     getAssetsEffectMapping,
 } from '../../swap.model';
-import { newWalletRestService } from '@/API/wallet.service';
+import { newWalletRestService } from '@/API/wallet/wallet.service';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
 import { assetsRestService } from '@/API/assets/assets.service';

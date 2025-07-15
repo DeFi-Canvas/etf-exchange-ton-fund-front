@@ -61,18 +61,18 @@ export const newNewWithdrowStore = injectable(
             const setCurrency = currency.set;
             const setTickerPrice = tickerPrice.set;
 
-            const setAmount = (d: number) => {
-                if (d > 0 && d < 1) {
+            const setAmount = (newAmount: number) => {
+                if (newAmount > 0 && newAmount < 1) {
                     amount.set(E.left('too small'));
-                } else if (d > availableBalance.get()) {
+                } else if (newAmount > availableBalance.get()) {
                     amount.set(E.left('too big'));
                 } else {
-                    amount.set(E.of(d));
+                    amount.set(E.of(newAmount));
                     approximateCost.set(
-                        `≈ ${formatNumberToUI(tickerPrice.get() * d)} USD`
+                        `≈ ${formatNumberToUI(tickerPrice.get() * newAmount)} USD`
                     );
                 }
-                if (d === 0) {
+                if (newAmount === 0) {
                     approximateCost.set(
                         `1 ${currency.get()} ≈ ${tickerPrice.get()} USD`
                     );
@@ -142,7 +142,10 @@ export const newNewWithdrowStore = injectable(
                     approximateCost.set(
                         `1 ${currency} ≈ ${tickerPrice.get()} USD`
                     )
-                )
+                ),
+                tap((c) => {
+                    console.log(c, 'c');
+                })
             );
 
             const addressFormValidationEffect = pipe(

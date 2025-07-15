@@ -9,7 +9,7 @@ import * as A from 'fp-ts/Array';
 import { constant, constVoid, flow, pipe } from 'fp-ts/lib/function';
 import { chain, combine, take, tap } from '@most/core';
 import { newWTBRestService } from '@/API/wtb.service';
-import { newWalletRestService } from '@/API/wallet.service';
+import { newWalletRestService } from '@/API/wallet/wallet.service';
 import { fromProperty } from '@/utils/property.utils';
 import { createAdapter } from '@most/adapter';
 import { PageType } from '../../what-to-buy.model';

@@ -7,7 +7,7 @@ import { BASE_API_CONFIG } from '@/API/API.ts';
 import {
     assetResponseCodec,
     assetsResponseCodec,
-} from '@/API/contracts/assets.contract.ts';
+} from '@/API/assets/assets.contract';
 import {
     assetResponseMapping,
     assetsResponseMapping,

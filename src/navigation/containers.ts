@@ -26,7 +26,7 @@ import { TransactionsRestService } from '@/API/transactions/transactions.service
 import { scheduler } from '@/utils/run-view-model.utils';
 import { Scheduler } from '@most/types';
 import { WithdrowStore } from '@/pages/withdrow/withdrow.store';
-import { WaletRestService } from '@/API/wallet.service';
+import { WaletRestService } from '@/API/wallet/wallet.service';
 import { WithdrawRestService } from '@/API/withdraw.service';
 import { SwapRestService } from '@/API/swap.service';
 import { DeDustRestService } from '@/API/de-dust/de-dust.service';

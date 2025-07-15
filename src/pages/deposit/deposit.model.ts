@@ -1,5 +1,5 @@
 import * as t from 'io-ts';
-import { AssetsResponse } from '@/API/contracts/assets.contract.ts';
+import { AssetsResponse } from '@/API/assets/assets.contract';
 
 export interface DepositAssetPayload {
     id: string;

@@ -1,5 +1,5 @@
 import * as t from 'io-ts';
-import { assetCodec } from '../contracts/assets.contract';
+import { assetCodec } from '../assets/assets.contract';
 
 export const transactionStatusCodec = t.union([
     t.literal('AUTHORIZED'),

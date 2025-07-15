@@ -7,7 +7,7 @@ import * as O from 'fp-ts/Option';
 import * as E from 'fp-ts/Either';
 import { either } from 'fp-ts';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
-import { newWalletRestService } from '@/API/wallet.service';
+import { newWalletRestService } from '@/API/wallet/wallet.service';
 import { newLensedAtom } from '@frp-ts/lens';
 import { TransactionsRestService } from '@/API/transactions/transactions.service';
 import { SendTransactionRequest } from '@tonconnect/ui-react';
