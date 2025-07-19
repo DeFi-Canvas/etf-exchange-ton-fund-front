@@ -6,7 +6,7 @@ import { injectable, token } from '@injectable-ts/core';
 import { I18NService } from '@/store/i18n/i18.store';
 
 export const FooterContainer = injectable(
-    token('withdrowStore')<WithdrowStore>(),
+    WithdrowStore,
     token('i18n')<I18NService>(),
     (store, i18n) =>
         memo(() => {
@@ -17,7 +17,6 @@ export const FooterContainer = injectable(
             const balanceAfter = useProperty(store.balanceAfter);
             const symbolLogo = useProperty(store.symbolLogo);
             const address = useProperty(store.address);
-            const memo = useProperty(store.memo);
             const { Address: texts } = useProperty(i18n.Withdraw);
 
             return React.createElement(Footer, {
@@ -26,7 +25,6 @@ export const FooterContainer = injectable(
                 currency,
                 symbolLogo,
                 address,
-                memo,
                 texts: texts.footer,
             });
         })

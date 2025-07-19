@@ -9,7 +9,7 @@ import {
     mapAssetToFiltrebleSwapAsset,
     getAssetsEffectMapping,
 } from '../../swap.model';
-import { newWalletRestService } from '@/API/wallet.service';
+import { WaletService } from '@/API/wallet/wallet.service';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
 import { assetsRestService } from '@/API/assets/assets.service';
@@ -24,7 +24,7 @@ export interface NewSwapHeader {
 
 export const newSwapHeader = injectable(
     token('store')<SwapStore>(),
-    newWalletRestService,
+    WaletService,
     assetsRestService,
     (store, walletService, assetsRestService): NewSwapHeader =>
         () => {

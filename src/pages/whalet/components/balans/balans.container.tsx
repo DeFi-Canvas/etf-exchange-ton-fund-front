@@ -7,9 +7,10 @@ import { Balans } from './balans.component';
 import { I18NService } from '@/store/i18n/i18.store';
 
 export const BalanceContainer = injectable(
+    useValueWithEffect,
     newWhatToBuyViewModel,
     token('i18n')<I18NService>(),
-    (newWhatToBuyViewModel, i18n) => () => {
+    (useValueWithEffect, newWhatToBuyViewModel, i18n) => () => {
         const vm = useValueWithEffect(() => newWhatToBuyViewModel(), []);
         const balance = useProperty(vm.balance);
         const texts = useProperty(i18n.Wallet);

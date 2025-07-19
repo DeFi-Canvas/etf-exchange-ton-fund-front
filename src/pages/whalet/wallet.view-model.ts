@@ -7,12 +7,11 @@ import * as O from 'fp-ts/Option';
 import * as E from 'fp-ts/Either';
 import { either } from 'fp-ts';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
-import { newWalletRestService } from '@/API/wallet.service';
+import { WaletService } from '@/API/wallet/wallet.service';
 import { newLensedAtom } from '@frp-ts/lens';
 import { TransactionsRestService } from '@/API/transactions/transactions.service';
 import { SendTransactionRequest } from '@tonconnect/ui-react';
 import { fromProperty } from '@/utils/property.utils';
-import { newDepositRestService } from '@/API/deposit.service';
 import { beginCell } from '@ton/core';
 
 export interface Balance {
@@ -36,14 +35,9 @@ export interface NewWhatToBuyViewModel {
 const WAITING_TIME = 600;
 
 export const newWhatToBuyViewModel = injectable(
-    newWalletRestService,
+    WaletService,
     TransactionsRestService,
-    newDepositRestService,
-    (
-        waletRestService,
-        transactionsRestService,
-        newDepositRestService
-    ): NewWhatToBuyViewModel =>
+    (waletRestService, transactionsRestService): NewWhatToBuyViewModel =>
         () => {
             const balance = newLensedAtom<O.Option<Balance>>(O.none);
             const isTransactionAvailible = newLensedAtom(true);
@@ -90,7 +84,7 @@ export const newWhatToBuyViewModel = injectable(
             const depositAmmountEffect = pipe(
                 depositAmount,
                 fromProperty,
-                chain(() => newDepositRestService.getDepositDetails()),
+                chain(() => transactionsRestService.getDepositDetails()),
                 map((details) =>
                     pipe(
                         details,
@@ -110,7 +104,6 @@ export const newWhatToBuyViewModel = injectable(
                         payload,
                     };
                     chainTransaction.modify((t) => ({ ...t, messages: [msg] }));
-                    console.log(chainTransaction.get());
                 })
             );
             return valueWithEffect.new(

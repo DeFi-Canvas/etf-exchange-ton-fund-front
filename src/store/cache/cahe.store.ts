@@ -1,4 +1,4 @@
-import { injectable, token } from '@injectable-ts/core';
+import { token } from '@injectable-ts/core';
 import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/lib/function';
 import { Error, PENDING } from '../errors/error-system';

@@ -1,14 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import css from './assets.module.css';
 import { AssetsCard } from '@/components/assets-card/assets-card.component.tsx';
-import {
-    AssetsUI as AssetsCardBaseProps,
-    assetsCodec,
-} from '@/components/assets-card/assets-card.model';
+import { AssetsUI as AssetsCardBaseProps } from '@/components/assets-card/assets-card.model';
 import * as E from 'fp-ts/Either';
 import { AssetsViewModelInit } from './assets.view-model';
 import { DepositAsset, DepositAssetsCodec } from '../deposit.model';
-import { AssetCodec } from '@/pages/whalet/wallet.model';
 import cn from 'classnames';
 import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/either.component';
 import { SkeletonCardSection } from '@/components/skeletons/skeleton-card/skeleton-card-section.component';

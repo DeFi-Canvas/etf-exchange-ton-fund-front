@@ -2,7 +2,7 @@ import {
     AssetDto,
     AssetResponse,
     AssetsResponse,
-} from '@/API/contracts/assets.contract.ts';
+} from '@/API/assets/assets.contract';
 import { Asset } from '@/instance/asset/asset.model.ts';
 
 const assetMapping = (asset: AssetDto): Asset => ({

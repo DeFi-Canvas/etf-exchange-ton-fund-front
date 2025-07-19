@@ -12,7 +12,6 @@ interface FooterProps {
     currency: string;
     symbolLogo: string;
     address: E.Either<Error, string>;
-    memo: E.Either<Error, string>;
     texts: {
         balance: string;
         button: string;
@@ -25,7 +24,6 @@ export const Footer = ({
     currency,
     symbolLogo,
     address,
-    memo,
     texts,
 }: FooterProps) => {
     const eventBuilder = useTWAEvent();
@@ -57,7 +55,6 @@ export const Footer = ({
                             'WITHDRAW_PAGE_ENTER_ADDRESS: continue click',
                             {
                                 address,
-                                memo,
                             }
                         );
                     }}

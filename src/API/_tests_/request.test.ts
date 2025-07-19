@@ -31,7 +31,7 @@ describe('getRequestGenerated', () => {
             .mockResolvedValueOnce({ data: mockData })('/user');
 
         const stream = getRequestGenerated(
-            //@ts-ignore
+            //@ts-expect-error
             request,
             User,
             (data) => ({ userId: data.id, userName: data.name })
@@ -51,7 +51,7 @@ describe('getRequestGenerated', () => {
             .mockResolvedValueOnce({ data: mockData })('/user');
 
         const stream = getRequestGenerated(
-            //@ts-ignore
+            //@ts-expect-error
             request,
             User
         )<unknown>();
@@ -71,7 +71,7 @@ describe('getRequestGenerated', () => {
             .mockResolvedValueOnce({ data: mockData })('/user');
 
         const stream = getRequestGenerated(
-            //@ts-ignore
+            //@ts-expect-error
             request,
             t.array(User),
             (data) =>
@@ -95,7 +95,7 @@ describe('getRequestGenerated', () => {
             .mockResolvedValueOnce({ data: mockData })('/user');
 
         const stream = getRequestGenerated(
-            //@ts-ignore
+            //@ts-expect-error
             request,
             User
         )<unknown>();
@@ -115,7 +115,7 @@ describe('getRequestGenerated', () => {
             data.id > 0 ? right(data) : left('Invalid ID');
 
         const stream = getRequestGenerated(
-            //@ts-ignore
+            //@ts-expect-error
             request,
             User,
             undefined,
@@ -133,7 +133,7 @@ describe('getRequestGenerated', () => {
             .mockResolvedValueOnce(new Error('Network Error'))('/user');
 
         const stream = getRequestGenerated(
-            //@ts-ignore
+            //@ts-expect-error
             request,
             User
         )<unknown>();

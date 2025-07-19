@@ -1,8 +1,6 @@
 import css from './deposit-end-point.module.css';
 import cn from 'classnames';
 import * as E from 'fp-ts/Either';
-import { DepositDetails } from './deposit-end-point.view-model';
-import { pipe } from 'fp-ts/lib/function';
 import { useParams } from 'react-router-dom';
 import { ErrorResult } from '@/components/error-result/error-result.component';
 import InfoCard from './components/info-card/info-card.component';
@@ -12,9 +10,10 @@ import { RenderResult } from '@/components/ui-kit/fpts-components-utils/either/e
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
 import { Error } from '@/store/errors/error-system';
+import { Deposit } from '@/API/transactions/transactions.responce.contract';
 
 interface DepositEndPointProps {
-    readonly details: E.Either<Error, DepositDetails>;
+    readonly details: E.Either<Error, Deposit>;
     readonly coinLogo: E.Either<Error, string>;
     readonly texts: {
         title: (
@@ -46,7 +45,10 @@ export const DepositEndPoint = ({
                             <div className={css.titleWrap}>
                                 {texts.title(ticker, css)}
                             </div>
-                            <img src={details.qrCode} className={css.qrCode} />
+                            <img
+                                src={details.qrimgsrc}
+                                className={css.qrCode}
+                            />
                             <div className={css.infoWrapper}>
                                 <InfoCard
                                     title={texts.address}

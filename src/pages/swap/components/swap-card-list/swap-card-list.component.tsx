@@ -5,10 +5,8 @@ import cn from 'classnames';
 import { ArrowDownIcon, ArrowSwapIcon } from '@/components/Icons/Icons.tsx';
 import AppButton from '@/components/app-button/app-button.component.tsx';
 import { SwipeDelete } from '@/components/swipe-delete/swipe-delete.component.tsx';
-import { injectable, token } from '@injectable-ts/core';
+import { injectable } from '@injectable-ts/core';
 import { SwapAssetCardContainer } from '../swap-asset-card/swap-card.container';
-import { I18NService } from '@/store/i18n/i18.store';
-import { useProperty } from '@frp-ts/react';
 
 export interface SwapCardListProps {
     cards: SwapAsset[];

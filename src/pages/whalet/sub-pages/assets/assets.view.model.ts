@@ -1,4 +1,4 @@
-import { injectable, token } from '@injectable-ts/core';
+import { injectable } from '@injectable-ts/core';
 
 import { flow, pipe } from 'fp-ts/lib/function';
 import { tap } from '@most/core';
@@ -6,9 +6,8 @@ import { Property } from '@frp-ts/core';
 import * as E from 'fp-ts/Either';
 import { either } from 'fp-ts';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
-import { newWalletRestService } from '@/API/wallet.service';
+import { WaletService } from '@/API/wallet/wallet.service';
 import { newLensedAtom } from '@frp-ts/lens';
-import { UserStoreService } from '@/store/user.store';
 import { CoinCardData } from '@/components/assets-card/assets-card.model';
 import { Error } from '@/store/errors/error-system';
 
@@ -21,16 +20,15 @@ export interface NewAssetsViewModel {
 }
 
 export const newAssetsViewModel = injectable(
-    token('userStore')<UserStoreService>(),
-    newWalletRestService,
-    (userStore, waletRestService): NewAssetsViewModel =>
+    WaletService,
+    (waletRestService): NewAssetsViewModel =>
         () => {
             const assets = newLensedAtom<E.Either<Error, Array<CoinCardData>>>(
-                userStore.assets.get()
+                E.left('PENDING')
             );
 
             const setAssets = (data: E.Either<Error, Array<CoinCardData>>) => {
-                assets.set(data), userStore.setAssets(data);
+                assets.set(data);
             };
 
             const getAssetsEffect = pipe(

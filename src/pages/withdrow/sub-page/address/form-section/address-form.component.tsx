@@ -12,7 +12,6 @@ interface AddressFormProps {
     symbolLogo: string;
 
     setAddress: (d: string) => void;
-    setMemo: (d: string) => void;
 
     texts: {
         address: string;
@@ -28,7 +27,6 @@ export const AddressForm = ({
     approximateCost,
     currency,
     setAddress,
-    setMemo,
     symbolLogo,
     texts,
 }: AddressFormProps) => {
@@ -37,13 +35,6 @@ export const AddressForm = ({
         const val = e.currentTarget.value;
         setCurrentAddress(val);
         setAddress(val);
-    };
-
-    const [currentMemo, setCurrentMemo] = useState('');
-    const memoOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const val = e.currentTarget.value;
-        setCurrentMemo(val);
-        setMemo(val);
     };
 
     return (
@@ -66,19 +57,8 @@ export const AddressForm = ({
                     />
                 </section>
                 <section className={cn(css.section)}>
-                    <div className={css.sectionTitle}>{texts.tag}</div>
-                    <input
-                        className={css.textField}
-                        placeholder={texts.placeholderTag}
-                        value={currentMemo}
-                        onChange={memoOnChange}
-                    />
-                </section>
-                <section className={cn(css.section)}>
                     <div className={css.sectionTitle}>{texts.commission}</div>
-                    <span className={css.cardCommission}>
-                        0,5 TON ≈ 2,06 USD{' '}
-                    </span>
+                    <span className={css.cardCommission}>0,5 TON</span>
                 </section>
             </div>
         </div>

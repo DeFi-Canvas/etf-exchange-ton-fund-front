@@ -11,8 +11,9 @@ interface PurchaseSellFooterContainerProps
     extends Omit<PurchaseSellFooterProps, 'isDisabled'> {}
 
 export const PurchaseSellFooterContainer = injectable(
+    useValueWithEffect,
     newPurchaseSellFooterViewModel,
-    (newPurchaseSellFooterViewModel) =>
+    (useValueWithEffect, newPurchaseSellFooterViewModel) =>
         (props: PurchaseSellFooterContainerProps) => {
             const viewModel = useValueWithEffect(
                 () => newPurchaseSellFooterViewModel(),

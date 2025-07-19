@@ -39,8 +39,6 @@ export interface I18NService {
     Asset: Property<AssetI18n>;
 }
 
-// TODO:  AssetPage
-
 export type NewI18NService = ValueWithEffect<I18NService>;
 
 export const newNewI18NService = (): NewI18NService => {

@@ -23,8 +23,6 @@ export const Transaction = ({
         [mapTransactionTypeToUi, type]
     );
 
-    console.log(entries, type);
-
     return (
         <div className={css.transaction}>
             <TransactionTypeIcon type={type} />

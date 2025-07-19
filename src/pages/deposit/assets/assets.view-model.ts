@@ -6,7 +6,7 @@ import { Property } from '@frp-ts/core';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
 import { valueWithEffect, ValueWithEffect } from '@/utils/run-view-model.utils';
-import { WaletRestService } from '@/API/wallet.service';
+import { WaletRestService } from '@/API/wallet/wallet.service';
 import { newLensedAtom } from '@frp-ts/lens';
 import { DepositAsset } from '../deposit.model';
 import { AssetCodec } from '@/pages/whalet/wallet.model';
@@ -30,7 +30,7 @@ export interface NewAssetsViewModel {
 // или норм?
 export const newAssetsViewModel = injectable(
     token('waletRestService')<WaletRestService>(),
-    token('withdrowStore')<WithdrowStore>(),
+    WithdrowStore,
     assetsRestService,
     (waletRestService, store, assetsRestService): NewAssetsViewModel =>
         (type) => {
@@ -76,9 +76,11 @@ export const newAssetsViewModel = injectable(
 
             const handleClick = (asset: DepositAsset | AssetBalance) => {
                 const currentAssets = assets.get();
+                console.log(123);
+
                 if (AssetCodec.is(asset) && E.isRight(currentAssets)) {
                     const currentAsset = currentAssets.right.find(
-                        (el) => el.name === asset.name
+                        (el) => el.ticker === asset.ticker
                     );
                     if (AssetCodec.is(currentAsset)) {
                         store.setAvailableBalance(currentAsset.balance);

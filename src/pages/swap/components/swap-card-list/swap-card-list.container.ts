@@ -1,9 +1,6 @@
 import { injectable } from '@injectable-ts/core';
 import React from 'react';
-import {
-    useValueWithEffect,
-    useValueWithEffectT,
-} from '@/utils/run-view-model.utils';
+import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { newSwapCardList } from './swap-card-list.view-model';
 import { SwapCardList, SwapCardListProps } from './swap-card-list.component';
 
@@ -14,7 +11,7 @@ interface SwapCardListContainer
     > {}
 
 export const SwapCardListContainer = injectable(
-    useValueWithEffectT,
+    useValueWithEffect,
     newSwapCardList,
     SwapCardList,
     (useValueWithEffect, newSwapCardList, SwapCardList) =>

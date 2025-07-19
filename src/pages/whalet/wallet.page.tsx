@@ -5,8 +5,8 @@ import { NavBar } from './components/nav-bar/nav-bar.component';
 import * as O from 'fp-ts/Option';
 
 import css from './wallet.module.css';
-import { NewsEarn } from './components/news/news-earn.component';
-import { LernMore } from './components/news/lern-more.component';
+// import { NewsEarn } from './components/news/news-earn.component';
+// import { LernMore } from './components/news/lern-more.component';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';

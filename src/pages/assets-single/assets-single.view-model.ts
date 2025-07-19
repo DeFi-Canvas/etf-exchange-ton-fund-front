@@ -6,7 +6,7 @@ import {
 import { newLensedAtom } from '@frp-ts/lens';
 import { Either } from 'fp-ts/lib/Either';
 import * as E from 'fp-ts/Either';
-import { injectable, token } from '@injectable-ts/core';
+import { injectable } from '@injectable-ts/core';
 import { pipe } from 'fp-ts/lib/function';
 import { tap } from '@most/core';
 import { Asset } from '@/instance/asset/asset.model.ts';

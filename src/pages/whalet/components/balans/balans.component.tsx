@@ -32,7 +32,7 @@ export const Balans = ({
     setBottomSheetOpen,
     setDepositAmount,
 }: BalansProps) => {
-    const [tonConnectUI, setOptions] = useTonConnectUI();
+    const [tonConnectUI] = useTonConnectUI();
     const userFriendlyAddress = useTonAddress(true);
     const userFriendlyAddressSplited = userFriendlyAddress.split('');
     const shortWallet = `${userFriendlyAddressSplited.slice(0, 3).join('')}..${userFriendlyAddressSplited.slice(userFriendlyAddressSplited.length - 3, userFriendlyAddressSplited.length).join('')}`;

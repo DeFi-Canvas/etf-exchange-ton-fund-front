@@ -12,10 +12,16 @@ interface PurchaseSellContentCardContainerProps {
 }
 
 export const PurchaseSellContentCardContainer = injectable(
+    useValueWithEffect,
     token('purchaseStore')<PurchaseSellStore>(),
     PurchaseSellContentCard,
     newPurchaseSellContentCardViewModel,
-    (store, PurchaseSellContentCard, newPurchaseSellContentCardViewModel) =>
+    (
+        useValueWithEffect,
+        store,
+        PurchaseSellContentCard,
+        newPurchaseSellContentCardViewModel
+    ) =>
         ({ type }: PurchaseSellContentCardContainerProps) => {
             const vm = useValueWithEffect(
                 () => newPurchaseSellContentCardViewModel(type),

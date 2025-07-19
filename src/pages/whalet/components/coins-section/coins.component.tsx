@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import cn from 'classnames';
 import css from './coins.module.css';
 import { memo, Suspense, useEffect, useState } from 'react';
@@ -20,12 +20,7 @@ interface OperationsNavProps {
 }
 
 export const OperationsNav = memo(
-    ({
-        isTransactionAvailible,
-        assets,
-        funds,
-        transactions,
-    }: OperationsNavProps) => {
+    ({ isTransactionAvailible, assets, transactions }: OperationsNavProps) => {
         const routesInit = [
             {
                 id: 0,
@@ -118,7 +113,7 @@ export const OperationsNav = memo(
                                 }}
                             >
                                 {
-                                    // @ts-ignore
+                                    // @ts-expect-error
                                     mapTittle(route.to)
                                 }
                             </NavLink>
@@ -133,10 +128,10 @@ export const OperationsNav = memo(
 );
 
 export const OperationsNavContainer = injectable(
+    useValueWithEffect,
     newWhatToBuyViewModel,
     token('i18n')<I18NService>(),
-
-    (newWhatToBuyViewModel, i18n) => () => {
+    (useValueWithEffect, newWhatToBuyViewModel, i18n) => () => {
         const vm = useValueWithEffect(() => newWhatToBuyViewModel(), []);
         const isTransactionAvailible = useProperty(vm.isTransactionAvailible);
         const texts = useProperty(i18n.Wallet);

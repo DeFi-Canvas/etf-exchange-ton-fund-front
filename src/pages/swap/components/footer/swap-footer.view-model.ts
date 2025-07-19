@@ -11,7 +11,7 @@ import * as O from 'fp-ts/Option';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
 import { SwapBtnError } from '../../swap.model';
-import { newSwapRestService } from '@/API/swap.service';
+import { SwapService } from '@/API/swap.service';
 import { createAdapter } from '@most/adapter';
 import { I18NService } from '@/store/i18n/i18.store';
 
@@ -27,7 +27,7 @@ export interface NewSwapFooter {
 
 export const newSwapFooter = injectable(
     token('store')<SwapStore>(),
-    newSwapRestService,
+    SwapService,
     token('i18n')<I18NService>(),
     (store, swapRestService, i18n): NewSwapFooter =>
         () => {
@@ -104,7 +104,7 @@ export const newSwapFooter = injectable(
                 }),
                 chain(constant(evs)),
                 tap((x) => {
-                    //@ts-ignore
+                    //@ts-expect-error
                     switch (x.Status) {
                         case 'success':
                             store.setResultStatus('SUCCESS');

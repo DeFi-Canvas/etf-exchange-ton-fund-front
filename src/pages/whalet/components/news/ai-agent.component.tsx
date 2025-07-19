@@ -10,7 +10,7 @@ interface LernMore {
     subTitle: string;
 }
 
-export const AiAgent = ({ title, subTitle }: LernMore) => {
+export const AiAgent = ({ subTitle }: LernMore) => {
     const eventBuilder = useTWAEvent();
 
     return (

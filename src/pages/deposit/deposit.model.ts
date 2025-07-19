@@ -1,5 +1,5 @@
 import * as t from 'io-ts';
-import { AssetsResponse } from '@/API/contracts/assets.contract.ts';
+import { AssetsResponse } from '@/API/assets/assets.contract';
 
 export interface DepositAssetPayload {
     id: string;
@@ -8,18 +8,6 @@ export interface DepositAssetPayload {
     description: string;
     image_url: string;
 }
-
-export interface DepositDetails {
-    address: string;
-    memo: string;
-    qrimgsrc: string;
-}
-
-export const mapDepositDetails = (data: DepositDetails) => ({
-    address: data.address,
-    memo: data.memo,
-    qrCode: data.qrimgsrc,
-});
 
 export const mapDepositAssets = ({ payload }: AssetsResponse): DepositAsset[] =>
     payload.map((assets) => ({

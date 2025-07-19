@@ -8,10 +8,11 @@ import { useParams } from 'react-router-dom';
 import { I18NService } from '@/store/i18n/i18.store';
 
 export const FundPageContainer = injectable(
+    useValueWithEffect,
     provide(FundPage)<'purchaseStore'>(),
     newPurchaseSellStore,
     token('i18n')<I18NService>(),
-    (FundPage, newPurchaseViewModel) =>
+    (useValueWithEffect, FundPage, newPurchaseViewModel) =>
         memo(() => {
             const { id } = useParams();
 

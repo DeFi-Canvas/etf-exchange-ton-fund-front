@@ -1,24 +1,18 @@
 import { injectable, token } from '@injectable-ts/core';
-import { newNewWithdrowStore } from '../../withdrow.store';
+import { WithdrowStore } from '../../withdrow.store';
 import { useProperty } from '@frp-ts/react';
 import { Amount } from './amount.component';
 import React, { memo } from 'react';
 import { useParams } from 'react-router-dom';
-import { UserStoreService } from '@/store/user.store';
-import { useValueWithEffect } from '@/utils/run-view-model.utils';
 import { I18NService } from '@/store/i18n/i18.store';
 
 export const AmountContainer = injectable(
-    token('userStore')<UserStoreService>(),
     token('i18n')<I18NService>(),
-    (userStore, i18n) =>
+    WithdrowStore,
+    (i18n, store) =>
         memo(() => {
             const { ticker } = useParams();
-            const store = useValueWithEffect(
-                () => newNewWithdrowStore({ userStore }),
-                []
-            );
-            store.setCurrency(ticker ?? '');
+            store.setCurrency(ticker ?? 'TON');
 
             const { Amount: texts } = useProperty(i18n.Withdraw);
 
@@ -31,6 +25,7 @@ export const AmountContainer = injectable(
             const updateAmmount = store.setAmount;
             const availableBalance = useProperty(store.availableBalance);
             const symbolLogo = useProperty(store.symbolLogo);
+            console.log(currency);
 
             return React.createElement(Amount, {
                 currency,

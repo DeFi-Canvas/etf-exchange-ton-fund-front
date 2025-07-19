@@ -1,17 +1,8 @@
-import { UserStoreService } from '@/store/user.store';
 import { now } from '@most/core';
 import * as E from 'fp-ts/lib/Either';
-import { WaletRestService } from '../wallet.service';
+import { WaletRestService } from '../wallet/wallet.service';
 
-interface MockWaletArgs {
-    userStore: UserStoreService;
-}
-
-export const NEW_WALET_REST_SERVICE = ({
-    userStore,
-}: MockWaletArgs): WaletRestService => {
-    const { id: telegram_id } = userStore.user.get();
-
+export const NEW_WALET_REST_SERVICE = (): WaletRestService => {
     return {
         getBalance: () =>
             now(
@@ -103,6 +94,14 @@ export const NEW_WALET_REST_SERVICE = ({
                         createdAt: 'createdAt',
                     },
                 ])
+            ),
+        withdraw: () =>
+            now(
+                E.right({
+                    payload: {
+                        transaction: '123',
+                    },
+                })
             ),
     };
 };
