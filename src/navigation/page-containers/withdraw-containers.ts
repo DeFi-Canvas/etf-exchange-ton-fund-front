@@ -1,9 +1,9 @@
-import { AddressContainer } from '@/pages/withdrow/sub-page/address/address.container';
 import { AmountContainer } from '@/pages/withdrow/sub-page/ammount/amount.container';
 import { CheckContainer } from '@/pages/withdrow/sub-page/check/check.container';
 import { FinalContainer } from '@/pages/withdrow/sub-page/final/final.container';
 import { Withdrow } from '@/pages/withdrow/withdrow.page';
 import { Component, getContainersArgs } from '../containers';
+import { Address } from '@/pages/withdrow/sub-page/address/address.component';
 
 export interface WithdrowContainers {
     Withdrow: Component;
@@ -22,7 +22,7 @@ export const getWithdrowContainers = (
     Amount: AmountContainer({
         ...services,
     }),
-    Address: AddressContainer({
+    Address: Address({
         ...services,
     }),
     Check: CheckContainer({

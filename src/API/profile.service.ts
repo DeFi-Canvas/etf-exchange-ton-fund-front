@@ -1,15 +1,8 @@
 import { Stream } from '@most/types';
 import * as E from 'fp-ts/lib/Either';
 import { EranStep } from '@/pages/profile/components/earn/earn.view-model';
-import { DOMAIN_API_URL } from './API';
-import { TasksApi } from './scheme/rest-genereted/api';
-import { Configuration } from './scheme/rest-genereted';
 import { Error } from '@/store/errors/error-system';
 import { now } from '@most/core';
-
-const tasksApi = new TasksApi({
-    basePath: DOMAIN_API_URL,
-} as Configuration);
 
 export interface Tasks {
     TelegramID: number;

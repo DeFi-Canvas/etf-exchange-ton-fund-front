@@ -1,6 +1,5 @@
 import * as t from 'io-ts';
 
-//swap/initiate
 export const swapInitiateSuccessCodec = t.type({
     transactionId: t.string,
 });

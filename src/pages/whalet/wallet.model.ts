@@ -1,5 +1,4 @@
 import { AssetBalance } from '@/instance/asset/asset.model';
-import { FundRespnce, FundsData } from '@/instance/fund/fund.model';
 import * as t from 'io-ts';
 import { WalletBalanceResponse } from '@/API/wallet/wallet.contract';
 

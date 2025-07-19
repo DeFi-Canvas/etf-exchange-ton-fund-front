@@ -9,7 +9,7 @@ import { useTWAEvent } from '@tonsolutions/telemetree-react';
 import { I18NService } from '@/store/i18n/i18.store';
 import { useProperty } from '@frp-ts/react';
 
-export const DepositPageContainer = injectable(
+export const Deposit = injectable(
     AssetsContainer,
     token('i18n')<I18NService>(),
     (AssetsContainer, i18n) => () => {
@@ -44,12 +44,4 @@ export const DepositPageContainer = injectable(
             </div>
         );
     }
-);
-
-export const Deposit = injectable(
-    DepositPageContainer,
-    (DepositPageContainer) =>
-        memo(() => {
-            return React.createElement(DepositPageContainer);
-        })
 );

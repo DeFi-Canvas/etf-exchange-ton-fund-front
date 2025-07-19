@@ -4,13 +4,12 @@ import { AssetsContainer } from '../deposit/assets/assets.container';
 import { injectable, token } from '@injectable-ts/core';
 import cn from 'classnames';
 import { memo } from 'react';
-import React from 'react';
 import { trackTelemetree } from '@/telemetree/telemetree-entry';
 import { useTWAEvent } from '@tonsolutions/telemetree-react';
 import { I18NService } from '@/store/i18n/i18.store';
 import { useProperty } from '@frp-ts/react';
 
-const WithdrowPage = injectable(
+export const Withdrow = injectable(
     AssetsContainer,
     token('i18n')<I18NService>(),
     (AssetsContainer, i18n) =>
@@ -47,10 +46,4 @@ const WithdrowPage = injectable(
                 </div>
             );
         })
-);
-
-export const Withdrow = injectable(WithdrowPage, (WithdrowPage) =>
-    memo(() => {
-        return React.createElement(WithdrowPage);
-    })
 );
