@@ -9,7 +9,7 @@ import { chain, map, now, tap } from '@most/core';
 import { constant, flow, pipe } from 'fp-ts/lib/function';
 import * as E from 'fp-ts/Either';
 import * as A from 'fp-ts/Array';
-import { StormRestService } from '@/API/storm/storm.service';
+import { StormService } from '@/API/storm/storm.service';
 import { createAdapter } from '@most/adapter';
 import { fromProperty } from '@/utils/property.utils';
 import { assetsRestService } from '@/API/assets/assets.service';
@@ -37,7 +37,7 @@ export interface NewStormStore {
 
 export const newStormStore = injectable(
     WaletService,
-    StormRestService,
+    StormService,
     assetsRestService,
     (waletService, stormService, assetsService): NewStormStore =>
         () => {

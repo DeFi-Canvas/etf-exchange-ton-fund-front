@@ -19,6 +19,7 @@ import { newWalletRestService } from '@/API/wallet/wallet.service';
 import { newNewWithdrowStore } from '@/pages/withdrow/withdrow.store';
 import { newSwapRestService } from '@/API/swap.service';
 import { newDeDustRestService } from '@/API/de-dust/de-dust.service';
+import { earnRouter } from './page-routes/earn-router';
 
 interface Route {
     path: string;
@@ -100,6 +101,7 @@ export const AppRoutes = memo(() => {
             ...depositRouter(containers),
             ...withdrawRouter(containers),
             ...whatToBuyRouter(containers),
+            ...earnRouter(containers),
             {
                 path: 'profile',
                 page: containers.Profile,
@@ -116,14 +118,6 @@ export const AppRoutes = memo(() => {
             {
                 path: '/transaction-view',
                 page: TransactionView,
-            },
-            {
-                path: '/earn',
-                page: StormContainer({
-                    assetService: services.assetService,
-                    scheduler: services.scheduler,
-                    waletRestService: services.waletRestService,
-                }),
             },
         ],
         []

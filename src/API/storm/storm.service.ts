@@ -50,7 +50,4 @@ export const newStormRestService = (): StormRestService => {
     };
 };
 
-export const StormRestService = injectable(
-    'STORM_SERVICE',
-    newStormRestService
-);
+export const StormService = injectable('STORM_SERVICE', newStormRestService);

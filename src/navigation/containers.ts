@@ -23,12 +23,15 @@ import { I18NService } from '@/store/i18n/i18.store';
 import { CacheStore } from '@/store/cache/cahe.store';
 import { AssetsRestService } from '@/API/assets/assets.service';
 import { TransactionsRestService } from '@/API/transactions/transactions.service';
-import { scheduler } from '@/utils/run-view-model.utils';
 import { Scheduler } from '@most/types';
 import { WithdrowStore } from '@/pages/withdrow/withdrow.store';
 import { WaletRestService } from '@/API/wallet/wallet.service';
 import { SwapRestService } from '@/API/swap.service';
 import { DeDustRestService } from '@/API/de-dust/de-dust.service';
+import {
+    EarnContainers,
+    getEarnContainers,
+} from './page-containers/earn-containers';
 
 export interface getContainersArgs {
     i18n: I18NService;
@@ -54,27 +57,18 @@ export interface Containers {
     Profile: Component;
     AssetPage: Component;
     SwapePage: Component;
+    earn: EarnContainers;
 }
 
 export const getContainers = (services: getContainersArgs): Containers => ({
-    deposit: getDepositContainers({
-        ...services,
-    }),
-    whalet: getWhaletContainers({
-        ...services,
-    }),
-    withdrow: getWithdrowContainers({
-        ...services,
-    }),
-    whatToBuy: getWhatToBuyContainers({ ...services }),
+    deposit: getDepositContainers(services),
+    whalet: getWhaletContainers(services),
+    withdrow: getWithdrowContainers(services),
+    whatToBuy: getWhatToBuyContainers(services),
     Profile: ProfileContainer({
         ...services,
     }),
-    AssetPage: AssetsSingleContainer({
-        ...services,
-    }),
-    SwapePage: SwapPageContainer({
-        ...services,
-        scheduler,
-    }),
+    AssetPage: AssetsSingleContainer(services),
+    SwapePage: SwapPageContainer(services),
+    earn: getEarnContainers(services),
 });

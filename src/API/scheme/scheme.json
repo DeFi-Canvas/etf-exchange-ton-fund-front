@@ -163,6 +163,81 @@
                 }
             }
         },
+        "/api/bidask/liquidity/withdraw": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Withdraw native or jetton tokens from Bidask liquidity pool",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Bidask"],
+                "summary": "Withdraw liquidity on Bidask",
+                "parameters": [
+                    {
+                        "description": "Withdraw request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiRequest-controller_BidaskLiquidityWithdrawRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Withdraw initiated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiResponse-controller_BidaskLiquidityWithdrawResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/api/bidask/pool": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get all Bidask pools",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Bidask"],
+                "summary": "Get Bidask pools",
+                "responses": {
+                    "200": {
+                        "description": "Get Bidask pools response",
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiResponse-array_models_BidaskPool"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
         "/api/dedust/swap": {
             "post": {
                 "security": [
@@ -328,7 +403,7 @@
                 "consumes": ["application/json"],
                 "produces": ["application/json"],
                 "tags": ["Transaction"],
-                "summary": "Get account transactions",
+                "summary": "DEPRECATED Get account transactions",
                 "parameters": [
                     {
                         "type": "integer",
@@ -617,6 +692,56 @@
                         "description": "Current user",
                         "schema": {
                             "$ref": "#/definitions/routing.ApiResponse-models_User"
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/transaction": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Returns user's transactions with transactions entries",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["Transaction"],
+                "summary": "Get account transactions",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page index",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page size",
+                        "name": "count",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Transactions list",
+                        "schema": {
+                            "$ref": "#/definitions/routing.ApiPaginatedResponse-array_controller_JournalTransactionDto"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseError"
                         }
                     },
                     "500": {
@@ -1393,6 +1518,22 @@
                 }
             }
         },
+        "controller.BidaskLiquidityWithdrawRequest": {
+            "type": "object",
+            "properties": {
+                "poolAddress": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.BidaskLiquidityWithdrawResponse": {
+            "type": "object",
+            "properties": {
+                "transaction": {
+                    "type": "string"
+                }
+            }
+        },
         "controller.DedustSwapRequest": {
             "type": "object",
             "properties": {
@@ -1440,6 +1581,67 @@
                     "type": "string"
                 },
                 "qrimgsrc": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.JournalEntryDto": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number"
+                },
+                "asset": {
+                    "$ref": "#/definitions/models.Asset"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "isReserve": {
+                    "type": "boolean"
+                },
+                "sign": {
+                    "type": "integer"
+                },
+                "transactionId": {
+                    "type": "string"
+                },
+                "type": {
+                    "$ref": "#/definitions/transactions.EntryType"
+                },
+                "userId": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.JournalTransactionDto": {
+            "type": "object",
+            "properties": {
+                "blockchainHash": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "entries": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/controller.JournalEntryDto"
+                    }
+                },
+                "id": {
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "#/definitions/transactions.TransactionStatus"
+                },
+                "type": {
+                    "$ref": "#/definitions/transactions.TransactionType"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "userId": {
                     "type": "string"
                 }
             }
@@ -1810,6 +2012,9 @@
                 "network_id": {
                     "type": "string"
                 },
+                "parent_asset_id": {
+                    "type": "string"
+                },
                 "price": {
                     "type": "number"
                 },
@@ -1847,6 +2052,23 @@
                 },
                 "value": {
                     "type": "number"
+                }
+            }
+        },
+        "models.BidaskPool": {
+            "type": "object",
+            "properties": {
+                "baseAssetId": {
+                    "type": "string"
+                },
+                "poolAddress": {
+                    "type": "string"
+                },
+                "poolId": {
+                    "type": "integer"
+                },
+                "quoteAssetId": {
+                    "type": "string"
                 }
             }
         },
@@ -2022,6 +2244,20 @@
                 }
             }
         },
+        "routing.ApiPaginatedResponse-array_controller_JournalTransactionDto": {
+            "type": "object",
+            "properties": {
+                "pagination": {
+                    "$ref": "#/definitions/routing.ApiPagination"
+                },
+                "payload": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/controller.JournalTransactionDto"
+                    }
+                }
+            }
+        },
         "routing.ApiPaginatedResponse-array_transactions_JournalTransaction": {
             "type": "object",
             "properties": {
@@ -2061,6 +2297,14 @@
             "properties": {
                 "payload": {
                     "$ref": "#/definitions/controller.BidaskLiquidityDepositRequest"
+                }
+            }
+        },
+        "routing.ApiRequest-controller_BidaskLiquidityWithdrawRequest": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/controller.BidaskLiquidityWithdrawRequest"
                 }
             }
         },
@@ -2112,11 +2356,30 @@
                 }
             }
         },
+        "routing.ApiResponse-array_models_BidaskPool": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.BidaskPool"
+                    }
+                }
+            }
+        },
         "routing.ApiResponse-controller_BidaskLiquidityDepositResponse": {
             "type": "object",
             "properties": {
                 "payload": {
                     "$ref": "#/definitions/controller.BidaskLiquidityDepositResponse"
+                }
+            }
+        },
+        "routing.ApiResponse-controller_BidaskLiquidityWithdrawResponse": {
+            "type": "object",
+            "properties": {
+                "payload": {
+                    "$ref": "#/definitions/controller.BidaskLiquidityWithdrawResponse"
                 }
             }
         },
@@ -2331,6 +2594,7 @@
                 "DEPOSIT_STORM_USDT",
                 "WITHDRAW",
                 "WITHDRAW_STORM_USDT",
+                "DEPOSIT_BIDASK",
                 "LIQUIDATE",
                 "CLAIM_REWARDS",
                 "GOVERNANCE_VOTE",
@@ -2351,6 +2615,7 @@
                 "TRANSACTION_TYPE_DEPOSIT_STORM_USDT",
                 "TRANSACTION_TYPE_WITHDRAW",
                 "TRANSACTION_TYPE_WITHDRAW_STORM_USDT",
+                "TRANSACTION_TYPE_DEPOSIT_BIDASK",
                 "TRANSACTION_TYPE_LIQUIDATE",
                 "TRANSACTION_TYPE_CLAIM_REWARDS",
                 "TRANSACTION_TYPE_GOVERNANCE_VOTE",
